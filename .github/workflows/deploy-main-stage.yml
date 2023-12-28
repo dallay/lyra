@@ -124,6 +124,12 @@ jobs:
     runs-on: ubuntu-22.04
     permissions: write-all
     steps:
+      - name: 🔍 CI_GITHUB_TOKEN
+        if: env.CI_GITHUB_TOKEN == ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "CI_GITHUB_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
+
       - name: Checkout source code
         uses: actions/checkout@v4
 

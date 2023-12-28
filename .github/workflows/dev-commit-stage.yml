@@ -21,7 +21,7 @@ permissions:
 jobs:
   build:
     name: Build and Test 🧪
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     permissions:
       actions: read
       contents: read
@@ -59,7 +59,7 @@ jobs:
   package:
     name: Package and Publish 📦
     needs: [ build ]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     permissions: write-all
     steps:
       - name: Checkout source code

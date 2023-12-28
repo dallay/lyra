@@ -19,7 +19,7 @@ permissions:
 jobs:
   build:
     name: Build and Test 🧪
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     permissions:
       actions: read
       contents: read
@@ -57,19 +57,19 @@ jobs:
   functional:
     name: Functional Acceptance Tests 🧪
     needs: [ build ]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - run: echo "Running functional acceptance tests"
   performance:
     name: Performance Tests 🚀
     needs: [ functional ]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - run: echo "Running performance tests"
   security:
     name: Security Tests 🤖
     needs: [ performance ]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - run: echo "Running security tests"
 

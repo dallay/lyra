@@ -153,7 +153,7 @@ jobs:
       - name: Execute Gradle build
         run: |
           chmod +x gradlew
-          ./gradlew bootBuildImage --imageName ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          ./gradlew assemble bootBuildImage --imageName ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
       - name: OCI image vulnerability scanning
         uses: aquasecurity/trivy-action@master

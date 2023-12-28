@@ -10,6 +10,8 @@ env:
   CI: CI
   NATIVE_IMAGE_ENABLED: enabled
   CI_GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+  OWNER: ${{ github.repository_owner }}
+  DEPLOY_REPO: ${{ github.event.repository.name }}
 
 permissions:
   packages: write
@@ -116,7 +118,7 @@ jobs:
         run: |
           npx semantic-release
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ env.CI_GITHUB_TOKEN }}
 
   package:
     name: Package and Publish 📦
@@ -162,7 +164,7 @@ jobs:
       - name: Deliver application to production
         uses: peter-evans/repository-dispatch@v2
         with:
-          token: ${{ secrets.DISPATCH_TOKEN }}
+          token: ${{ env.CI_GITHUB_TOKEN }}
           repository: ${{ env.OWNER }}/${{ env.DEPLOY_REPO }}
           event-type: app_delivery
           client-payload: '{

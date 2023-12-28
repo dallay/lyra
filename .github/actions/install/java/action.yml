@@ -1,0 +1,50 @@
+name: Install Java Tools & Dependencies
+description: Installs java, gradle & package dependencies
+
+inputs:
+  java-version:
+    description: 'The JDK version to install'
+    required: false
+    default: '21'
+  gradle-arguments:
+    description: 'The arguments to pass to the gradle command'
+    required: false
+    default: 'projects'
+  github_token:
+    description: 'GITHUB_TOKEN'
+    default: '${{ github.token }}'
+
+runs:
+  using: composite
+  steps:
+    - name: ⚙️ Setup Java ☕
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: ${{ inputs.java-version }}
+        cache: gradle
+
+    - name: Gradle Wrapper Permissions
+      run: |
+        chmod +x gradlew
+      shell: bash
+
+    - name: ⚙️ Setup Gradle 🐘
+      uses: gradle/gradle-build-action@v2.9.0
+      id: gradle
+      with:
+        arguments: ${{ inputs.gradle-arguments }}
+        dependency-graph: generate-and-submit
+
+    - name: Add Build Scan URL as PR comment
+      uses: actions/github-script@v5
+      if: github.event_name == 'pull_request' && failure()
+      with:
+        github-token: ${{ inputs.github_token }}
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '❌ ${{ github.workflow }} failed: ${{ steps.gradle.outputs.build-scan-url }}'
+          })

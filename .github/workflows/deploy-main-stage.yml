@@ -114,7 +114,6 @@ jobs:
 
       - name: Run Semantic Release
         run: |
-          pnpm ci
           npx semantic-release
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

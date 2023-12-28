@@ -10,6 +10,9 @@ inputs:
     description: 'The arguments to pass to the gradle command'
     required: false
     default: 'projects'
+  github_token:
+    description: 'GITHUB_TOKEN'
+    default: '${{ github.token }}'
 
 runs:
   using: composite
@@ -28,6 +31,20 @@ runs:
 
     - name: ⚙️ Setup Gradle 🐘
       uses: gradle/gradle-build-action@v2.9.0
+      id: gradle
       with:
         arguments: ${{ inputs.gradle-arguments }}
         dependency-graph: generate-and-submit
+
+    - name: Add Build Scan URL as PR comment
+      uses: actions/github-script@v5
+      if: github.event_name == 'pull_request' && failure()
+      with:
+        github-token: ${{ inputs.github_token }}
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '❌ ${{ github.workflow }} failed: ${{ steps.gradle.outputs.build-scan-url }}'
+          })

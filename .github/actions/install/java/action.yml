@@ -1,0 +1,33 @@
+name: Install Java Tools & Dependencies
+description: Installs java, gradle & package dependencies
+
+inputs:
+  java-version:
+    description: 'The JDK version to install'
+    required: false
+    default: '21'
+  gradle-arguments:
+    description: 'The arguments to pass to the gradle command'
+    required: false
+    default: 'projects'
+
+runs:
+  using: composite
+  steps:
+    - name: ⚙️ Setup Java ☕
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: ${{ inputs.java-version }}
+        cache: gradle
+
+    - name: Gradle Wrapper Permissions
+      run: |
+        chmod +x gradlew
+      shell: bash
+
+    - name: ⚙️ Setup Gradle 🐘
+      uses: gradle/gradle-build-action@v2.9.0
+      with:
+        arguments: ${{ inputs.gradle-arguments }}
+        dependency-graph: generate-and-submit

@@ -34,20 +34,11 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
+      - name: Install Java Tools & Dependencies
+        uses: ./.github/actions/install/java
         with:
-          distribution: temurin
           java-version: 21
-          cache: gradle
-
-      - name: Execute Gradle build
-        run: chmod +x gradlew
-
-      - name: Setup and execute Gradle 'build' task
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build --scan
+          gradle-arguments: build --scan
 
       - name: Source code vulnerability scanning
         uses: aquasecurity/trivy-action@master
@@ -92,21 +83,12 @@ jobs:
         with:
           token: ${{ env.CI_GITHUB_TOKEN }}
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 21
-          cache: gradle
+      - name: Install Java Tools & Dependencies
+        uses: ./.github/actions/install/java
 
-      - name: Execute Gradle build
-        run: chmod +x gradlew
+      - name: Install Tools & Dependencies
+        uses: ./.github/actions/install/node
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: pnpm
       - name: Run Semantic Release
         run: |
           pnpm ci

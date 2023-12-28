@@ -11,6 +11,7 @@ env:
   VERSION: ${{ github.sha }}
   CI: CI
   NATIVE_IMAGE_ENABLED: enabled
+  CI_GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
 
 permissions:
   packages: write
@@ -26,6 +27,12 @@ jobs:
       contents: read
       security-events: write
     steps:
+      - name: 🔍 CI_GITHUB_TOKEN
+        if: env.CI_GITHUB_TOKEN == ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "CI_GITHUB_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
+
       - name: Checkout source code
         uses: actions/checkout@v4
 
@@ -97,7 +104,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ env.CI_GITHUB_TOKEN }}
       - name: Publish container image
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
       - name: Publish container image (latest)

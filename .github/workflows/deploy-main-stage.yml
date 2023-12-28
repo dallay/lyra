@@ -10,7 +10,8 @@ env:
   CI: CI
   NATIVE_IMAGE_ENABLED: enabled
   CI_GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
-  DEPLOY_REPO: ${{ github.repository }}
+  OWNER: ${{ github.repository_owner }}
+  DEPLOY_REPO: ${{ github.event.client_payload.deploy_repo }}
 
 permissions:
   packages: write

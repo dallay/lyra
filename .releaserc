@@ -1,9 +1,9 @@
 {
   branches: [
-    { name: "alpha", prerelease: true },
-    { name: "beta", prerelease: true },
-    { name: "main" }
-  ],
+      { name: "alpha", prerelease: true },
+      { name: "beta", prerelease: true },
+      { name: "main" }
+    ],
   debug: true,
   ci: true,
   dryRun: false,

@@ -9,6 +9,9 @@ env:
   VERSION: ${{ github.sha }}
   CI: CI
   NATIVE_IMAGE_ENABLED: enabled
+  CI_GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+  OWNER: ${{ github.repository_owner }}
+  DEPLOY_REPO: ${{ github.event.repository.name }}
 
 permissions:
   packages: write
@@ -24,23 +27,20 @@ jobs:
       contents: read
       security-events: write
     steps:
+      - name: 🔍 CI_GITHUB_TOKEN
+        if: env.CI_GITHUB_TOKEN == ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "CI_GITHUB_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
+
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
+      - name: Install Java Tools & Dependencies
+        uses: ./.github/actions/install/java
         with:
-          distribution: temurin
           java-version: 21
-          cache: gradle
-
-      - name: Execute Gradle build
-        run: chmod +x gradlew
-
-      - name: Setup and execute Gradle 'build' task
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build --scan
+          gradle-arguments: build --scan
 
       - name: Source code vulnerability scanning
         uses: aquasecurity/trivy-action@master
@@ -89,7 +89,7 @@ jobs:
         uses: trstringer/manual-approval@v1
         timeout-minutes: 60
         with:
-          secret: ${{ secrets.GITHUB_TOKEN }}
+          secret: ${{ env.CI_GITHUB_TOKEN }}
           minimum-approvals: 1
           approvers: ${{ github.repository_owner }}
           issue-title: '🚀 Deploying ${{ steps.get_data.outputs.version }} to production'
@@ -106,29 +106,19 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.CI_GITHUB_TOKEN }}
+          token: ${{ env.CI_GITHUB_TOKEN }}
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 17
-          cache: gradle
+      - name: Install Java Tools & Dependencies
+        uses: ./.github/actions/install/java
 
-      - name: Execute Gradle build
-        run: chmod +x gradlew
+      - name: Install Tools & Dependencies
+        uses: ./.github/actions/install/node
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts
-          cache: npm
       - name: Run Semantic Release
         run: |
-          npm ci
           npx semantic-release
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ env.CI_GITHUB_TOKEN }}
 
   package:
     name: Package and Publish 📦
@@ -138,15 +128,9 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 21
-          cache: gradle
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+      - name: Install Java Tools & Dependencies
+        uses: ./.github/actions/install/java
 
       - name: Execute Gradle build
         run: |
@@ -169,7 +153,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ env.CI_GITHUB_TOKEN }}
       - name: Publish container image
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
       - name: Publish container image (latest)
@@ -180,7 +164,7 @@ jobs:
       - name: Deliver application to production
         uses: peter-evans/repository-dispatch@v2
         with:
-          token: ${{ secrets.DISPATCH_TOKEN }}
+          token: ${{ env.CI_GITHUB_TOKEN }}
           repository: ${{ env.OWNER }}/${{ env.DEPLOY_REPO }}
           event-type: app_delivery
           client-payload: '{

@@ -1,0 +1,48 @@
+{
+  branches: [
+    { name: "alpha", prerelease: true },
+    { name: "beta", prerelease: true },
+    { name: "main" }
+  ],
+  debug: true,
+  ci: true,
+  dryRun: false,
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogFile": "CHANGELOG.md"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["CHANGELOG.md"]
+      }
+    ],
+    [
+      "@saithodev/semantic-release-backmerge",
+      {
+        "backmergeBranches": [
+          {
+            "from": "main",
+            "to": "develop"
+          }
+        ],
+        "clearWorkspace": true
+      }
+    ],
+    "gradle-semantic-release-plugin",
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "gradle.properties",
+          "CHANGELOG.md"
+        ]
+      }
+    ]
+  ]
+}

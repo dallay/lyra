@@ -1,0 +1,108 @@
+name: Pre Release Stage 🚀
+on:
+  push:
+    branches: [ alpha, beta ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  VERSION: ${{ github.sha }}
+  CI: CI
+  NATIVE_IMAGE_ENABLED: enabled
+
+permissions:
+  packages: write
+  contents: write
+  issues: write
+
+jobs:
+  build:
+    name: Build and Test 🧪
+    runs-on: ubuntu-22.04
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Execute Gradle build
+        run: chmod +x gradlew
+
+      - name: Setup and execute Gradle 'build' task
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build --scan
+
+      - name: Source code vulnerability scanning
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          format: 'sarif'
+          output: 'trivy-results-source-code.sarif'
+
+      - name: Upload vulnerability report
+        uses: github/codeql-action/upload-sarif@v3
+        if: success() || failure()
+        with:
+          sarif_file: 'trivy-results-source-code.sarif'
+          category: source-code
+
+  functional:
+    name: Functional Acceptance Tests 🧪
+    needs: [ build ]
+    runs-on: ubuntu-22.04
+    steps:
+      - run: echo "Running functional acceptance tests"
+  performance:
+    name: Performance Tests 🚀
+    needs: [ functional ]
+    runs-on: ubuntu-22.04
+    steps:
+      - run: echo "Running performance tests"
+  security:
+    name: Security Tests 🤖
+    needs: [ performance ]
+    runs-on: ubuntu-22.04
+    steps:
+      - run: echo "Running security tests"
+
+  semantic-release:
+    name: Semantic Release 🧭
+    needs: [ security ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.CI_GITHUB_TOKEN }}
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Execute Gradle build
+        run: chmod +x gradlew
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts
+          cache: npm
+      - name: Run Semantic Release
+        run: |
+          npm ci
+          npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

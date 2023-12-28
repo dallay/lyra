@@ -17,9 +17,26 @@ permissions:
   issues: write
 
 jobs:
+  validation:
+    name: 👀 Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1.1.0
+
+      - name: Install Tools & Dependencies
+        uses: ./.github/actions/install/node
+
+      - name: Run Check
+        run: pnpm run check
   build:
     name: Build and Test 🧪
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     permissions:
       actions: read
       contents: read
@@ -57,19 +74,19 @@ jobs:
   functional:
     name: Functional Acceptance Tests 🧪
     needs: [ build ]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - run: echo "Running functional acceptance tests"
   performance:
     name: Performance Tests 🚀
     needs: [ functional ]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - run: echo "Running performance tests"
   security:
     name: Security Tests 🤖
     needs: [ performance ]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - run: echo "Running security tests"
 

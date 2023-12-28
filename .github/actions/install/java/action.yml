@@ -37,7 +37,7 @@ runs:
         dependency-graph: generate-and-submit
 
     - name: Add Build Scan URL as PR comment
-      uses: actions/github-script@v5
+      uses: actions/github-script@v7
       if: github.event_name == 'pull_request' && failure()
       with:
         github-token: ${{ inputs.github_token }}

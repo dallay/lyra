@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.nio.file.Files
 import kotlin.io.path.Path
 import org.siouan.frontendgradleplugin.infrastructure.gradle.InstallFrontendTask
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
 	id("org.springframework.boot") version "3.2.1"
@@ -70,6 +71,23 @@ tasks.named<InstallFrontendTask>("installFrontend") {
 	inputs.files(retainedMetadataFileNames).withPropertyName("metadataFiles")
 	outputs.dir("${projectDir}/node_modules").withPropertyName("nodeModulesDirectory")
 }
+
+tasks.register<Copy>("processFrontendResources") {
+	val frontendBuildDir = "${layout.buildDirectory.get()}/www"
+	val frontendResourcesDir = "${layout.buildDirectory.get()}/resources/main/static"
+
+	group = "Frontend"
+	description = "Process frontend resources"
+	dependsOn(":assembleFrontend")
+
+	from(frontendBuildDir)
+	into(frontendResourcesDir)
+}
+
+tasks.named<Task>("processResources") {
+	dependsOn("processFrontendResources")
+}
+
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {

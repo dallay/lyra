@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
-    "clean": "echo Cleaning frontend",
+    "clean": "rm -rf dist && rm -rf .astro && rm -rf ./build/www",
     "lint": "echo Linting frontend",
     "test": "echo Testing frontend"
   },

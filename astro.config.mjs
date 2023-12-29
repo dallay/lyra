@@ -7,6 +7,6 @@ export default defineConfig({
   srcDir: './src/main/webapp/src',
   publicDir: './src/main/webapp/public',
   root: './src/main/webapp',
-  outDir: './build/resources/main/static',
+  outDir: './build/www',
   integrations: [tailwind()]
 });

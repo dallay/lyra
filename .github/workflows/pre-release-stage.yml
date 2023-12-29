@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   validation:
-    name: 👀 Validation
+    name: Validation 👀
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -36,6 +36,7 @@ jobs:
         run: pnpm run check
   build:
     name: Build and Test 🧪
+    needs: [ validation ]
     runs-on: ubuntu-latest
     permissions:
       actions: read

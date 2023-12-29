@@ -17,18 +17,66 @@ npm create astro@latest -- --template basics
 Inside of your Astro project, you'll see the following folders and files:
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+.
+├── CHANGELOG.md
+├── HELP.md
+├── README.md
+├── astro.config.mjs
+├── build.gradle.kts
+├── compose.yaml
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+├── package.json
+├── pnpm-lock.yaml
+├── renovate.json
+├── settings.gradle.kts
+├── src
+│   ├── main
+│   │   ├── kotlin
+│   │   │   └── com
+│   │   │       └── lyra
+│   │   │           └── app
+│   │   │               ├── LyraApplication.kt
+│   │   │               └── config
+│   │   │                   └── WebConfig.kt
+│   │   ├── resources
+│   │   │   └── application.properties
+│   │   └── webapp
+│   │       ├── node_modules
+│   │       ├── public
+│   │       │   └── favicon.svg
+│   │       └── src
+│   │           ├── components
+│   │           │   └── Card.astro
+│   │           ├── env.d.ts
+│   │           ├── layouts
+│   │           │   └── Layout.astro
+│   │           └── pages
+│   │               └── index.astro
+│   └── test
+│       └── kotlin
+│           └── com
+│               └── lyra
+│                   └── app
+│                       └── LyraApplicationTests.kt
+├── tailwind.config.mjs
+└── tsconfig.json
 ```
+
+## Developer Guide
+
+Make sure you have setup your local Git Hooks:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+This will make sure your commit messages follow the [Conventional Commits Specification](https://www.conventionalcommits.org/en/v1.0.0/).
+
 
 Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 

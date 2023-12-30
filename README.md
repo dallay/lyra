@@ -1,8 +1,62 @@
-# Astro Starter Kit: Basics
+<div align="center">
+<img src="src/main/webapp/public/favicon.svg" height="50px"/> 
+<h1>
+ Lyra
+</h1>
+<p>Created for didactic and educational purposes.</p>
+</div>
 
-```sh
-npm create astro@latest -- --template basics
-```
+<div align="center">
+    <a href="#" target="_blank">
+        Preview
+    </a>
+    <span>&nbsp;✦&nbsp;</span>
+    <a href="#-getting-started">
+        Getting Started
+    </a>
+    <span>&nbsp;✦&nbsp;</span>
+    <a href="#-commands">
+        Commands
+    </a>
+    <span>&nbsp;✦&nbsp;</span>
+    <a href="#-license">
+        License
+    </a>
+    <span>&nbsp;✦&nbsp;</span>
+    <a href="https://twitter.com/yacosta738">
+        Twitter
+    </a>
+</div>
+
+<p></p>
+
+<div align="center">
+
+![Astro Badge](https://img.shields.io/badge/Astro-BC52EE?logo=astro&logoColor=fff&style=flat)
+![Typescript Badge](https://img.shields.io/badge/Typescript-007ACC?logo=typescript&logoColor=fff&style=flat)
+![GitHub stars](https://img.shields.io/github/stars/yacosta738/lyra)
+![GitHub issues](https://img.shields.io/github/issues/yacosta738/lyra)
+![GitHub forks](https://img.shields.io/github/forks/yacosta738/lyra)
+![GitHub PRs](https://img.shields.io/github/issues-pr/yacosta738/lyra)
+![Tailwind CSS Badge](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=fff&style=flat)
+![Spring Boot Badge](https://img.shields.io/badge/Spring%20Boot-6DB33F?logo=springboot&logoColor=fff&style=flat)
+![Kotlin Badge](https://img.shields.io/badge/Kotlin-0095D5?logo=kotlin&logoColor=fff&style=flat)
+![Gradle Badge](https://img.shields.io/badge/Gradle-02303A?logo=gradle&logoColor=fff&style=flat)
+
+</div>
+
+> [!WARNING]
+> This page is not official. The official page is [**premiosesland.com**](https://premiosesland.com/).
+
+## 🛠️ Stack
+
+- [**Astro**](https://astro.build/) - The web framework for content-driven websites.
+- [**Typescript**](https://www.typescriptlang.org/) - JavaScript with syntax for types.
+- [**Tailwindcss**](https://tailwindcss.com/) - A utility-first CSS framework for rapidly building custom designs.
+- [**tailwindcss-animated**](https://github.com/new-data-services/tailwindcss-animated) - Extended animation utilities for Tailwind CSS.
+- [**fontsource**](https://fontsource.org/) - Self-host Open Source fonts in neatly bundled NPM packages.
+
+# Astro Starter Kit: Basics
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
 [![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)

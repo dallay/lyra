@@ -1,31 +1,31 @@
 {
-  "name": "lyra",
+  "name": "lyra-monorepo",
   "type": "module",
   "version": "0.0.1",
+  "description": "A simple, fast, and modern static site generator for building faster websites with Astro and Tailwind CSS.",
+  "author": "Yuniel Acosta <yunielacosta738@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yacosta738/lyra.git",
+    "directory": "packages/lyra",
+    "branch": "main"
+  },
+  "homepage": "lyra-nwhm.onrender.com",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "check": "astro check",
-    "clean": "rm -rf dist && rm -rf .astro && rm -rf ./build/www",
+    "dev": "pnpm --recursive --parallel --stream run dev",
+    "start": "pnpm --recursive --parallel --stream run start",
+    "build": "echo 🚧 Building && pnpm --stream -r run build",
+    "clean": "echo 🧹 Cleaning repo && pnpm --recursive --parallel --stream run clean",
+    "check": "echo ✔︎ Checking frontend && pnpm --recursive --parallel --stream run lint && pnpm --recursive --parallel --stream run check",
     "lint": "echo Linting frontend",
     "test": "echo Testing frontend"
   },
-  "dependencies": {
-    "@astrojs/check": "^0.3.4",
-    "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.0.8",
-    "tailwindcss": "^3.4.0",
-    "typescript": "^5.3.3"
-  },
   "devDependencies": {
+    "@saithodev/semantic-release-backmerge": "^4.0.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "gradle-semantic-release-plugin": "1.8.0",
-    "semantic-release": "^22.0.12",
-    "@saithodev/semantic-release-backmerge": "^4.0.1"
+    "gradle-semantic-release-plugin": "1.8.0"
   },
   "packageManager": "pnpm@8.13.1"
 }

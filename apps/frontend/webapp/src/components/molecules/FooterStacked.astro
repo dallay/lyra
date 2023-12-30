@@ -1,0 +1,33 @@
+---
+import { Icon } from 'astro-icon/components'
+import CopyrightNotice from '@/components/atoms/CopyrightNotice.astro'
+import Logo from '@/components/atoms/Logo.astro';
+// import GitHubButton from "atoms:GitHubButton";
+---
+
+<footer
+	class="flex flex-col md:flex-row items-center justify-between px-4 2xl:px-0 py-6 md:py-10 border-t border-tertiary-300 dark:border-tertiary-800"
+>
+    <!-- <GitHubButton repository="yacosta738/lyra"/> -->
+    <Logo />
+    <ul class="flex flex-wrap items-center justify-center my-4 md:my-0">
+    	<li class="mx-1 w-12 h-12 bg-tertiary-200 dark:bg-tertiary-900 rounded border border-tertiary-300 dark:border-tertiary-800 justify-center items-center inline-flex">
+    		<a href="/" class="text-tertiary-800 hover:text-tertiary-900 dark:text-tertiary-400 dark:hover:text-tertiary-300">
+    			<Icon name="simple-icons:instagram" class="w-8 h-8" />
+    		</a>
+    	</li>
+    	<li class="mx-1 w-12 h-12 bg-tertiary-200 dark:bg-tertiary-900 rounded border border-tertiary-300 dark:border-tertiary-800 justify-center items-center inline-flex">
+    		<a href="https://discord.gg/zEEVgxAh" class="text-tertiary-800 hover:text-tertiary-900 dark:text-tertiary-400 dark:hover:text-tertiary-300">
+    			<Icon name="ph:discord-logo" class="w-8 h-8" />
+    		</a>
+    	</li>
+    	<li class="mx-1 w-12 h-12 bg-tertiary-200 dark:bg-tertiary-900 rounded border border-tertiary-300 dark:border-tertiary-800 justify-center items-center inline-flex">
+    		<a href="https://github.com/yacosta738/mindsync" target="_blank"
+    			class="text-tertiary-800 hover:text-tertiary-900 dark:text-tertiary-400 dark:hover:text-tertiary-300">
+    			<Icon name="ph:github-logo" class="w-8 h-8" />
+    		</a>
+    	</li>
+    </ul>
+
+    <CopyrightNotice />
+</footer>

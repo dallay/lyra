@@ -1,0 +1,25 @@
+---
+import Card from './Card.astro'
+import { CollectionEntry, getCollection } from 'astro:content'
+
+const highlights: CollectionEntry<string>[] = await getCollection('highlights');
+---
+
+<section class="flex flex-col justify-center items-center mt-20 text-tertiary-900 dark:text-tertiary-50">
+  <h4 class="text-center text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-sans font-medium leading-none tracking-wide  md:leading-tight md:tracking-wider max-w-4xl">
+    How MindSync helps you on a daily basis
+  </h4>
+  <!-- Card grid for the different features -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
+    {
+      highlights.map((item) => (
+          <Card
+              title={item.data.title}
+              description={item.data.description}
+              icon={item.data.icon}
+          />
+      ))
+    }
+  </div>
+
+</section>

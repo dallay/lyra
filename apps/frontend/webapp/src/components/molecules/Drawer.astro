@@ -1,0 +1,84 @@
+---
+import HamMenu from '@/components/atoms/HamMenu.astro'
+
+interface Props {
+    id: string
+    // tabindex: number | string
+    ariaLabelledby: string
+}
+
+const { id = 'drawer-top-example', ariaLabelledby = 'drawer-top-label', ...attributes } = Astro.props
+const triggerId = `ham-menu-drawer-${id}`
+const navMenuDrawer = `nav-menu-drawer-${id}`
+---
+
+<!-- drawer init and toggle -->
+<slot name="drawer-toggle">
+	<HamMenu
+		id={navMenuDrawer}
+		data-drawer-target={id}
+		data-drawer-show={id}
+		data-drawer-placement="top"
+		aria-controls={id}
+		class="sm:hidden"
+	/>
+</slot>
+
+
+<!-- drawer component -->
+<div id={id} class="fixed top-0 left-0 right-0 z-40 w-full p-4 transition-transform -translate-y-full bg-tertiary-100 border-tertiary-50 dark:bg-tertiary-950 dark:border-tertiary-900" aria-labelledby={ariaLabelledby} {...attributes}>
+	<div class="flex justify-between items-center">
+		<slot name="nav-title">
+			<h5 id={ariaLabelledby} class="text-2xl font-bold text-tertiary-900 dark:text-tertiary-100">
+                Drawer Title
+			</h5>
+		</slot>
+		<HamMenu id={triggerId} data-drawer-hide={id} aria-controls={id} />
+	</div>
+	<slot></slot>
+</div>
+
+<script define:vars={{ id }}>
+
+// Function to observe changes in visibility
+const observeDrawerVisibility = (targetNodeId) => {
+	const targetNode = document.getElementById(targetNodeId)
+	if (!targetNode) {
+		// eslint-disable-next-line no-console
+		console.error('The element with the specified ID does not exist.')
+		return
+	}
+
+	// Configuration for the observer
+	const observerConfig = {
+		attributes: true, // Observe changes in element attributes
+		attributeFilter: ['aria-hidden'] // Observe only changes in the 'aria-hidden' attribute
+	}
+
+	// Create an instance of MutationObserver
+	const observer = new MutationObserver((mutationsList) => {
+		// When a mutation occurs
+		mutationsList.forEach((mutation) => {
+			if (mutation?.type === 'attributes' && mutation?.attributeName === 'aria-hidden') {
+				const ariaHidden = mutation?.target?.getAttribute('aria-hidden') || 'false'
+				const isVisible = ariaHidden === 'false'
+				if (isVisible) {
+					document.dispatchEvent(new CustomEvent('drawer:show', { detail: { id: targetNodeId } }))
+				} else {
+					document.dispatchEvent(new CustomEvent('drawer:hide', { detail: { id: targetNodeId } }))
+				}
+			}
+		})
+	})
+
+
+	// Start observing the targetNode element
+	observer.observe(targetNode, observerConfig)
+
+	// If you want to stop the observation at some point:
+	// observer.disconnect();
+}
+
+observeDrawerVisibility(id)
+
+</script>

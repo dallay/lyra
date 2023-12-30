@@ -1,0 +1,16 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "moduleResolution": "Node",
+    "target": "esnext",
+    "module": "esnext",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/main/webapp/src/*"],
+      "~/*": ["src/main/webapp/src/*"],
+      "atoms:*": ["components/atoms/*.astro"],
+      "molecules:*": ["components/molecules/*.astro"],
+      "organisms:*": ["components/organisms/*.astro"]
+    }
+  }
+}

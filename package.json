@@ -13,6 +13,9 @@
   },
   "homepage": "lyra-nwhm.onrender.com",
   "scripts": {
+    "update-deps": "pnpm update -i -r --latest",
+    "preinstall": "npx only-allow pnpm",
+    "setup": "pnpm install && pnpm exec playwright install",
     "dev": "pnpm --recursive --parallel --stream run dev",
     "start": "pnpm --recursive --parallel --stream run start",
     "build": "echo 🚧 Building && pnpm --stream -r run build",
@@ -21,11 +24,19 @@
     "lint": "echo Linting frontend",
     "test": "echo Testing frontend"
   },
+  "workspaces": [
+    "apps/frontend/*",
+    "apps/frontend/package/*"
+  ],
   "devDependencies": {
     "@saithodev/semantic-release-backmerge": "^4.0.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "gradle-semantic-release-plugin": "1.8.0"
+  },
+  "engines": {
+    "node": ">=18.14.1",
+    "pnpm": ">=8.6.12"
   },
   "packageManager": "pnpm@8.13.1"
 }

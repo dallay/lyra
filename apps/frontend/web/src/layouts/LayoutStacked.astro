@@ -1,0 +1,31 @@
+---
+import FooterStacked from '@/components/molecules/FooterStacked.astro'
+import GlobeGraphCard from '@/components/molecules/GlobeGraphCard.astro'
+import NavBarStacked from '@/components/molecules/NavBarStacked.astro'
+import LayoutCommon from './LayoutCommon.astro';
+
+import pkg from '../../package.json' assert { type: 'json' }
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title='Lyra', description = pkg.description } = Astro.props;
+---
+
+<LayoutCommon title={title} description={description}>
+  <NavBarStacked />
+  <GlobeGraphCard />
+  <div class="flex pt-16 overflow-hidden bg-tertiary-100 dark:bg-tertiary-950">
+    <div
+        id="main-content"
+        class="relative w-full max-w-screen-2xl mx-auto h-full overflow-y-auto bg-tertiary-100 dark:bg-tertiary-950 min-h-screen"
+    >
+      <div class="px-4 pt-6 2xl:px-0">
+        <slot />
+      </div>
+
+      <FooterStacked />
+    </div>
+  </div>
+</LayoutCommon>

@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import LinkButton from '../atoms/LinkButton.astro';
+import WorldGraph from '../atoms/WorldGraph.astro';
+
+import appInterface from '../../assets/images/app-interface.png';
+---
+
+<header
+    class="p-6 sm:p-8 flex justify-start items-start flex-wrap flex-col w-full mt-0 sm:mt-1 md:mt-8 lg:mt-16"
+>
+  <div class="flex flex-col justify-start items-start gap-6">
+    <h1
+        class="text-center sm:text-left font-sans dark:text-tertiary-50 mb-4 font-medium leading-none tracking-normal md:leading-tight md:tracking-wider text-3xl md:text-4xl lg:text-[64px] sm:max-w-4xl"
+    >
+      Second Brain, notes, and knowledge management for power users.
+    </h1>
+    <div
+        class="self-stretch flex flex-col sm:flex-row justify-between items-center gap-6 font-sans sm:max-w-xl"
+    >
+      <h3
+          class="text-base sm:text-lg font-normal leading-tight tracking-tight text-tertiary-900 dark:text-tertiary-50"
+      >
+        With Lyra, you'll be able to bring your ideas to life in record time.
+      </h3>
+      <LinkButton href="/" class="download-button">
+        <Icon name="mdi:download" class="mr-2 h-5 w-5" />
+        Download
+      </LinkButton>
+    </div>
+  </div>
+  <div class="flex items-center justify-center mt-28 sm:mt-5 relative w-full">
+    <div
+        class="absolute z-30 shrink-0 sm:hidden flex items-center justify-center"
+    >
+      <WorldGraph />
+    </div>
+    <div
+        id="hero-mask-shape"
+        class="absolute bottom-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-tertiary-50 dark:to-tertiary-950 opacity-90"
+    ></div>
+    <Image
+        src={appInterface}
+        alt="Lyra app interface"
+        class="w-full h-full"
+    />
+  </div>
+</header>
+
+<style>
+  .download-button {
+    @apply hover:from-primary-500 hover:to-secondary-500 w-full transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 sm:w-auto;
+  }
+</style>

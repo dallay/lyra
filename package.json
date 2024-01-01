@@ -8,8 +8,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yacosta738/lyra.git",
-    "directory": "packages/lyra",
     "branch": "main"
+  },
+  "bugs": {
+    "url": "https://github.com/yacosta738/lyra/issues"
   },
   "homepage": "lyra-nwhm.onrender.com",
   "scripts": {
@@ -21,18 +23,22 @@
     "build": "echo 🚧 Building && pnpm --stream -r run build",
     "clean": "echo 🧹 Cleaning repo && pnpm --recursive --parallel --stream run clean",
     "check": "echo ✔︎ Checking frontend && pnpm --recursive --parallel --stream run lint && pnpm --recursive --parallel --stream run check",
-    "lint": "echo Linting frontend",
+    "lint": "pnpm --recursive --parallel --stream run lint",
     "test": "echo Testing frontend"
   },
   "workspaces": [
     "apps/frontend/*",
-    "apps/frontend/package/*"
+    "apps/frontend/packages/*"
   ],
   "devDependencies": {
     "@saithodev/semantic-release-backmerge": "^4.0.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "gradle-semantic-release-plugin": "1.8.0"
+    "@types/eslint": "^8.44.2",
+    "@types/node": "^20.6.1",
+    "gradle-semantic-release-plugin": "1.9.0",
+    "ts-node": "^10.9.2",
+    "tsconfig": "workspace:*"
   },
   "engines": {
     "node": ">=18.14.1",

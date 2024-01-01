@@ -117,7 +117,7 @@ Inside of your Astro project, you'll see the following folders and files:
 │               └── lyra
 │                   └── app
 │                       └── LyraApplicationTests.kt
-├── tailwind.config.mjs
+├── tailwind.config.mts
 └── tsconfig.json
 ```
 

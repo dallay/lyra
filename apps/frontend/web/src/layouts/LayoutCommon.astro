@@ -1,6 +1,6 @@
 ---
 import "@fontsource-variable/onest";
-import pkg from "../../../../../package.json" assert { type: "json" };
+import pkg from "../../package.json" assert { type: "json" };
 interface Props {
   title: string;
   description?: string;
@@ -44,7 +44,7 @@ const { title, description = pkg.description } = Astro.props;
     <slot />
   </body>
 </html>
-<style is:global>  
+<style is:global>
 :root {
   --header-background-light: rgba(255, 255, 255, 0.4);
   --header-background-dark: rgba(0, 0, 0, 0.4);

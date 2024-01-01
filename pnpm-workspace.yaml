@@ -2,6 +2,6 @@ packages:
   # all packages in direct subdirs of apps/frontend/apps/
   - 'apps/frontend/*'
   # all packages in subdirs of apps/frontend/package/
-  - 'apps/frontend/package/*'
+  - 'apps/frontend/packages/*'
   # exclude packages that are inside test directories
   - '!**/test/**'

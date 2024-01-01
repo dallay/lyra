@@ -8,8 +8,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yacosta738/lyra.git",
-    "directory": "packages/lyra",
+    "directory": "apps/frontend/web",
     "branch": "main"
+  },
+  "bugs": {
+    "url": "https://github.com/yacosta738/lyra/issues"
   },
   "homepage": "lyra-nwhm.onrender.com",
   "scripts": {
@@ -19,8 +22,11 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
-    "clean": "rm -rf dist && rm -rf .astro && rm -rf ./build/www",
-    "lint": "echo Linting frontend",
+    "clean": "rm -rf dist && rm -rf .astro && rm -rf ../build/www",
+    "format": "echo Formatting...",
+    "lint": "pnpm run lint:eslint && pnpm run lint:stylelint",
+    "lint:eslint": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
+    "lint:stylelint": "stylelint --fix **/*.scss --allow-empty-input",
     "test": "echo Testing frontend"
   },
   "dependencies": {
@@ -38,9 +44,9 @@
     "@iconify-json/simple-icons": "^1.1.86",
     "astro-icon": "^1.0.1",
     "semantic-release": "^22.0.12",
-    "tailwind-scrollbar": "^3.0.5",
-    "tailwindcss": "^3.4.0",
-    "tailwindcss-animated": "1.0.1"
+    "@lyra/css-config": "workspace:*",
+    "@lyra/ui": "workspace:*",
+    "tailwindcss": "^3.4.0"
   },
   "packageManager": "pnpm@8.13.1"
 }

@@ -1,0 +1,17 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "incremental": true,
+    "declaration": true,
+    "composite": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noEmit": true
+  },
+  "include": ["./**/*.astro", "./**/*.ts", "./**/*.tsx"],
+  "exclude": ["node_modules"]
+}

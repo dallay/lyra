@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+echo "Running pre-commit hook 🪝"
+
+# This script is used to run the formatter, linter, and tests before a commit.
+
+# Determine the package manager being used
+if command -v pnpm >/dev/null 2>&1; then
+	PACKAGE_MANAGER="pnpm"
+elif command -v yarn >/dev/null 2>&1; then
+	PACKAGE_MANAGER="yarn"
+elif command -v npm >/dev/null 2>&1; then
+	PACKAGE_MANAGER="npm"
+else
+	echo "No package manager found installed."
+	exit 1
+fi
+
+echo "Using package manager: $PACKAGE_MANAGER"
+
+# Run the formatter.
+echo -e "\e[32mRunning the formatter...\e[0m"
+$PACKAGE_MANAGER run format
+
+# Run the linter.
+echo -e "\e[32mRunning the linter...\e[0m"
+$PACKAGE_MANAGER run lint
+
+# Run the tests.
+echo -e "\e[32mRunning the tests...\e[0m"
+$PACKAGE_MANAGER run test

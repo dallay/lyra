@@ -66,60 +66,7 @@
 
 ![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
 
-## 🚀 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-.
-├── CHANGELOG.md
-├── HELP.md
-├── README.md
-├── astro.config.mjs
-├── build.gradle.kts
-├── compose.yaml
-├── gradle
-│   └── wrapper
-│       ├── gradle-wrapper.jar
-│       └── gradle-wrapper.properties
-├── gradlew
-├── gradlew.bat
-├── package.json
-├── pnpm-lock.yaml
-├── renovate.json
-├── settings.gradle.kts
-├── src
-│   ├── main
-│   │   ├── kotlin
-│   │   │   └── com
-│   │   │       └── lyra
-│   │   │           └── app
-│   │   │               ├── LyraApplication.kt
-│   │   │               └── config
-│   │   │                   └── WebConfig.kt
-│   │   ├── resources
-│   │   │   └── application.properties
-│   │   └── webapp
-│   │       ├── node_modules
-│   │       ├── public
-│   │       │   └── favicon.svg
-│   │       └── src
-│   │           ├── components
-│   │           │   └── Card.astro
-│   │           ├── env.d.ts
-│   │           ├── layouts
-│   │           │   └── Layout.astro
-│   │           └── pages
-│   │               └── index.astro
-│   └── test
-│       └── kotlin
-│           └── com
-│               └── lyra
-│                   └── app
-│                       └── LyraApplicationTests.kt
-├── tailwind.config.mts
-└── tsconfig.json
-```
 
 ## Developer Guide
 

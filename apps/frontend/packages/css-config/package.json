@@ -39,5 +39,6 @@
   "devDependencies": {},
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "packageManager": "pnpm@8.13.1"
 }

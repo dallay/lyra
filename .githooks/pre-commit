@@ -16,16 +16,11 @@ else
 	exit 1
 fi
 
-echo "Using package manager: $PACKAGE_MANAGER"
+echo "🟢 Using package manager: $PACKAGE_MANAGER"
 
-# Run the formatter.
-echo -e "\e[32mRunning the formatter...\e[0m"
-$PACKAGE_MANAGER run format
-
-# Run the linter.
-echo -e "\e[32mRunning the linter...\e[0m"
-$PACKAGE_MANAGER run lint
-
-# Run the tests.
-echo -e "\e[32mRunning the tests...\e[0m"
-$PACKAGE_MANAGER run test
+if $PACKAGE_MANAGER install && $PACKAGE_MANAGER run format && $PACKAGE_MANAGER run lint && $PACKAGE_MANAGER run test; then
+	exit 0
+else
+	echo "Error: ❌ failed to run pre-commit hook"
+	exit 1
+fi

@@ -4,6 +4,13 @@ import { Icon } from 'astro-icon/components';
 import LinkButton from '../atoms/LinkButton.astro';
 import WorldGraph from '../atoms/WorldGraph.astro';
 
+interface ImageMetadata {
+	src: string;
+	width: number;
+	height: number;
+	format: string;
+}
+
 interface Props {
 	image: ImageMetadata;
 }

@@ -1,0 +1,53 @@
+{
+  "name": "lyra",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "A simple, fast, and modern static site generator for building faster websites with Astro and Tailwind CSS.",
+  "author": "Yuniel Acosta <yunielacosta738@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yacosta738/lyra.git",
+    "directory": "apps/frontend/web",
+    "branch": "main"
+  },
+  "bugs": {
+    "url": "https://github.com/yacosta738/lyra/issues"
+  },
+  "homepage": "lyra-nwhm.onrender.com",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check",
+    "clean": "rm -rf dist && rm -rf .astro && rm -rf ../build/www",
+    "format": "prettier --write .",
+    "lint": "pnpm run lint:eslint && pnpm run lint:stylelint",
+    "lint:eslint": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
+    "lint:stylelint": "stylelint --fix \"**/*.{css,scss,sass}\" --allow-empty-input",
+    "test": "echo Testing frontend"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.3.4",
+    "@astrojs/tailwind": "^5.1.0",
+    "@fontsource-variable/onest": "^5.0.2",
+    "@justinribeiro/lite-youtube": "1.5.0",
+    "astro": "^4.0.8",
+    "sharp": "^0.33.1",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@iconify-json/mdi": "^1.1.64",
+    "@iconify-json/ph": "^1.1.9",
+    "@iconify-json/simple-icons": "^1.1.86",
+    "astro-icon": "^1.0.1",
+    "semantic-release": "^22.0.12",
+    "@lyra/css-config": "workspace:*",
+    "@lyra/ui": "workspace:*",
+    "tailwindcss": "^3.4.0",
+    "stylelint": "^16.1.0"
+  },
+  "packageManager": "pnpm@8.13.1"
+}

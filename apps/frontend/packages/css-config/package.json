@@ -1,0 +1,44 @@
+{
+  "name": "@lyra/css-config",
+  "description": "Lyra CSS config",
+  "version": "0.0.1",
+  "private": true,
+  "main": "index.ts",
+  "types": "index.ts",
+  "type": "module",
+  "author": "Yuniel Acosta <yunielacosta738@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yacosta738/lyra.git",
+    "directory": "apps/frontend/packages/css-config",
+    "branch": "main"
+  },
+  "bugs": {
+    "url": "https://github.com/yacosta738/lyra/issues"
+  },
+  "scripts": {
+    "lint": "pnpm run lint:eslint && pnpm run lint:stylelint",
+    "lint:eslint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "lint:stylelint": "stylelint --fix \"**/*.{css,scss,sass}\" --allow-empty-input",
+    "format": "prettier --write .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "lyra-nwhm.onrender.com",
+  "dependencies": {
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "tailwind-scrollbar": "^3.0.5",
+    "tailwindcss": "^3.4.0",
+    "tailwindcss-animated": "1.0.1",
+    "stylelint": "^16.1.0",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-standard-scss": "^12.0.0",
+    "stylelint-order": "^6.0.4"
+  },
+  "devDependencies": {},
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "pnpm@8.13.1"
+}

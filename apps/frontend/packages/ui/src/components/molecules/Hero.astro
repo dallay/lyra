@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import LinkButton from '../atoms/LinkButton.astro';
+import WorldGraph from '../atoms/WorldGraph.astro';
+
+interface ImageMetadata {
+	src: string;
+	width: number;
+	height: number;
+	format: string;
+}
+
+interface Props {
+	image: ImageMetadata;
+}
+
+const { image } = Astro.props;
+---
+
+<header
+	class="mt-0 flex w-full flex-col flex-wrap items-start justify-start p-6 sm:mt-1 sm:p-8 md:mt-8 lg:mt-16"
+>
+	<div class="flex flex-col items-start justify-start gap-6">
+		<h1
+			class="dark:text-tertiary-50 mb-4 text-center font-sans text-3xl font-medium leading-none tracking-normal sm:max-w-4xl sm:text-left md:text-4xl md:leading-tight md:tracking-wider lg:text-[64px]"
+		>
+			Second Brain, notes, and knowledge management for power users.
+		</h1>
+		<div
+			class="flex flex-col items-center justify-between gap-6 self-stretch font-sans sm:max-w-xl sm:flex-row"
+		>
+			<h3
+				class="text-tertiary-900 dark:text-tertiary-50 text-base font-normal leading-tight tracking-tight sm:text-lg"
+			>
+				With Lyra, you'll be able to bring your ideas to life in record time.
+			</h3>
+			<LinkButton href="/" class="download-button">
+				<Icon name="mdi:download" class="mr-2 h-5 w-5" />
+				Download
+			</LinkButton>
+		</div>
+	</div>
+	<div class="relative mt-28 flex w-full items-center justify-center sm:mt-5">
+		<div class="absolute z-30 flex shrink-0 items-center justify-center sm:hidden">
+			<WorldGraph />
+		</div>
+		<div
+			id="hero-mask-shape"
+			class="to-tertiary-50 dark:to-tertiary-950 absolute bottom-0 left-0 h-full w-full bg-gradient-to-b from-transparent opacity-90"
+		>
+		</div>
+		<Image src={image} alt="Lyra app interface" class="h-full w-full" />
+	</div>
+</header>
+
+<style>
+	.download-button {
+		@apply hover:from-primary-500 hover:to-secondary-500 w-full transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 sm:w-auto;
+	}
+</style>

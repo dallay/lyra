@@ -1,45 +1,28 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.nio.file.Files
 import kotlin.io.path.Path
 import org.siouan.frontendgradleplugin.infrastructure.gradle.InstallFrontendTask
-import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-	id("org.springframework.boot") version "3.2.1"
-	id("io.spring.dependency-management") version "1.1.4"
-	kotlin("jvm") version "1.9.22"
-	kotlin("plugin.spring") version "1.9.22"
-	id("org.siouan.frontend-jdk17")
+	idea
+	alias(libs.plugins.spring.boot).apply(false)
+	alias(libs.plugins.spring.dependency.management).apply(false)
+	kotlin("jvm").version(libs.versions.kotlin).apply(false)
+	kotlin("plugin.spring").version(libs.versions.kotlin).apply(false)
+	alias(libs.plugins.frontend.gradle.plugin)
 }
 
 group = "com.lyra"
 version = "0.0.1-SNAPSHOT"
 
-java {
-	sourceCompatibility = JavaVersion.VERSION_21
-}
-
-configurations {
-	compileOnly {
-		extendsFrom(configurations.annotationProcessor.get())
-	}
-}
-
 repositories {
 	mavenCentral()
 }
 
-dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-webflux")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
-	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("io.projectreactor:reactor-test")
+idea {
+	module.isDownloadJavadoc = true
+	module.isDownloadSources = true
+	// exclude node_modules from indexing
+	module.excludeDirs.add(file("**/node_modules"))
 }
 
 frontend {
@@ -50,6 +33,9 @@ frontend {
 	verboseModeEnabled.set(true)
 }
 
+dependencies {
+
+}
 
 tasks.named<InstallFrontendTask>("installFrontend") {
 	val ciPlatformPresent = providers.environmentVariable("CI").isPresent
@@ -70,32 +56,4 @@ tasks.named<InstallFrontendTask>("installFrontend") {
 	}
 	inputs.files(retainedMetadataFileNames).withPropertyName("metadataFiles")
 	outputs.dir("${projectDir}/node_modules").withPropertyName("nodeModulesDirectory")
-}
-
-tasks.register<Copy>("processFrontendResources") {
-	val frontendBuildDir = "${layout.buildDirectory.get()}/www"
-	val frontendResourcesDir = "${layout.buildDirectory.get()}/resources/main/static"
-
-	group = "Frontend"
-	description = "Process frontend resources"
-	dependsOn(":assembleFrontend")
-
-	from(frontendBuildDir)
-	into(frontendResourcesDir)
-}
-
-tasks.named<Task>("processResources") {
-	dependsOn("processFrontendResources")
-}
-
-
-tasks.withType<KotlinCompile> {
-	kotlinOptions {
-		freeCompilerArgs += "-Xjsr305=strict"
-		jvmTarget = "21"
-	}
-}
-
-tasks.withType<Test> {
-	useJUnitPlatform()
 }

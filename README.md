@@ -1,5 +1,5 @@
 <div align="center">
-<img src="src/main/webapp/public/favicon.svg" height="50px"/> 
+<img src="apps/frontend/web/public/favicon.svg" height="50px"/> 
 <h1>
  Lyra
 </h1>

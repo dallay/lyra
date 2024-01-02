@@ -45,9 +45,6 @@
 
 </div>
 
-> [!WARNING]
-> This page is not official. The official page is [**premiosesland.com**](https://premiosesland.com/).
-
 ## 🛠️ Stack
 
 - [**Astro**](https://astro.build/) - The web framework for content-driven websites.

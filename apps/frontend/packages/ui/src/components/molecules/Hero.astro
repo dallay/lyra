@@ -1,9 +1,14 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import {LinkButton, WorldGraph} from '@lyra/ui';
+import LinkButton from '../atoms/LinkButton.astro';
+import WorldGraph from '../atoms/WorldGraph.astro';
 
-import appInterface from '../../assets/images/app-interface.png';
+interface Props{
+  image: string;
+}
+
+const { image } = Astro.props;
 ---
 
 <header
@@ -40,7 +45,7 @@ import appInterface from '../../assets/images/app-interface.png';
         class="absolute bottom-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-tertiary-50 dark:to-tertiary-950 opacity-90"
     ></div>
     <Image
-        src={appInterface}
+        src={image}
         alt="Lyra app interface"
         class="w-full h-full"
     />

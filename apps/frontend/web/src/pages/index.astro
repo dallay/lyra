@@ -1,10 +1,15 @@
 ---
 import Layout from '../layouts/LayoutStacked.astro';
-import LandingPage from '../components/organisms/LandingPage.astro';
+import appInterface from "../assets/images/app-interface.png";
+import {BannerSection, Hero, ItemsSection} from "@lyra/ui";
 ---
 
 <Layout title="Welcome to Astro.">
 	<main>
-		<LandingPage />
+		<div class="flex flex-col min-h-screen">
+			<Hero image={appInterface}/>
+			<ItemsSection />
+			<BannerSection />
+		</div>
 	</main>
 </Layout>

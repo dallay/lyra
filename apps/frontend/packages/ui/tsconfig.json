@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/base.json",
+  "extends": "tsconfig/astro.json",
   "compilerOptions": {
     "jsx": "preserve",
     "experimentalDecorators": true,
@@ -10,7 +10,16 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "~/*": ["src/*"],
+      "atoms:*": ["components/atoms/*.astro"],
+      "molecules:*": ["components/molecules/*.astro"],
+      "organisms:*": ["components/organisms/*.astro"],
+      "layouts:*": ["layouts/*.astro"]
+    }
   },
   "include": ["./**/*.astro", "./**/*.ts", "./**/*.tsx"],
   "exclude": ["node_modules"]

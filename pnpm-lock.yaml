@@ -18,10 +18,10 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(semantic-release@22.0.12)
       '@types/eslint':
-        specifier: ^8.44.2
+        specifier: ^8.56.0
         version: 8.56.0
       '@types/node':
-        specifier: ^20.6.1
+        specifier: ^20.10.6
         version: 20.10.6
       gradle-semantic-release-plugin:
         specifier: 1.9.0
@@ -117,8 +117,8 @@ importers:
         version: 5.3.3
     devDependencies:
       '@iconify-json/mdi':
-        specifier: ^1.1.63
-        version: 1.1.63
+        specifier: ^1.1.64
+        version: 1.1.64
       '@iconify-json/ph':
         specifier: ^1.1.9
         version: 1.1.9
@@ -732,8 +732,8 @@ packages:
     resolution: {integrity: sha512-XsH6q+/OyO0Oba4OB/NkiQu3ON93U2Kx+1YxKpNZMuS+a+WvxipwhO8Und2CC0mLI33xOZzTWUk4wtnsUJzjCQ==}
     dev: false
 
-  /@iconify-json/mdi@1.1.63:
-    resolution: {integrity: sha512-b07dRM5LYdwJqd/lm+1+JDNDNSWHvpZ7ujb73oJxx3lmK1J0giDS0BSc4yia0hixNV0Z2q/4GyxAu/A8XqDnbg==}
+  /@iconify-json/mdi@1.1.64:
+    resolution: {integrity: sha512-zGeo5TjhNFAY6FmSDBLAzDO811t77r6v/mDi7CAL9w5eXqKez6bIjk8R9AL/RHIeq44ALP4Ozr4lMqFTkHr7ug==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true

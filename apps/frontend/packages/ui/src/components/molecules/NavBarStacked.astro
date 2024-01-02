@@ -1,0 +1,41 @@
+---
+import LinkButton from '../atoms/LinkButton.astro';
+import Logo from '../atoms/Logo.astro';
+import ThemeSwitcher from '../atoms/ThemeSwitcher.astro';
+import Drawer from './Drawer.astro';
+
+import { navMenus } from '@/models/Menu.ts';
+import Menu from './Menu.astro';
+
+const drawerMenuId = 'mobile-menu';
+const ariaLabelledby = 'mobile-menu-top-label';
+---
+
+<header id="header-nav" class="fixed top-0 z-50 w-screen lg:px-0">
+	<div class="inline-flex w-full flex-col items-center justify-start px-2 sm:py-2">
+		<div class="container mx-auto py-3">
+			<div class="mx-1 flex items-center justify-between">
+				<div class="flex items-center justify-start">
+					<Logo />
+					<nav class="hidden sm:ml-6 sm:flex">
+						<Menu menus={navMenus} />
+					</nav>
+				</div>
+
+				<div class="flex justify-center justify-items-center">
+					<ThemeSwitcher class="hidden sm:flex" />
+					<LinkButton secondary href="/login" class="mx-2 hidden sm:flex">Login</LinkButton>
+					<Drawer id={drawerMenuId} ariaLabelledby={ariaLabelledby}>
+						<Logo slot="nav-title" />
+						<Menu menus={navMenus}>
+							<div slot="last-menu" class="flex flex-col">
+								<hr class="bg-tertiary-700 dark:bg-tertiary-100 my-2 h-px border-0" />
+								<LinkButton secondary href="/login" class="my-2">Login</LinkButton>
+							</div>
+						</Menu>
+					</Drawer>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

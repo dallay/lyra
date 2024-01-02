@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "types": ["@types/node"],
+    "noEmit": true,
+    "allowJs": true
+  },
+  "extends": "./base.json",
+  "include": [
+    "./**/*.ts",
+    "./**/*.js",
+    "./.*.js",
+    "./**/*.jsx",
+    "./**/*.tsx",
+    "./**/*.cjs",
+    "./**/*.mjs",
+    "./.*.vue",
+    "./**/*.vue",
+    "./.*.astro",
+    "./**/*.astro"
+  ]
+}

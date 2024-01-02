@@ -23,10 +23,10 @@
     "astro": "astro",
     "check": "astro check",
     "clean": "rm -rf dist && rm -rf .astro && rm -rf ../build/www",
-    "format": "echo Formatting...",
+    "format": "prettier --write .",
     "lint": "pnpm run lint:eslint && pnpm run lint:stylelint",
     "lint:eslint": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
-    "lint:stylelint": "stylelint --fix **/*.scss --allow-empty-input",
+    "lint:stylelint": "stylelint --fix \"**/*.{css,scss,sass}\" --allow-empty-input",
     "test": "echo Testing frontend"
   },
   "dependencies": {
@@ -46,7 +46,8 @@
     "semantic-release": "^22.0.12",
     "@lyra/css-config": "workspace:*",
     "@lyra/ui": "workspace:*",
-    "tailwindcss": "^3.4.0"
+    "tailwindcss": "^3.4.0",
+    "stylelint": "^16.1.0"
   },
   "packageManager": "pnpm@8.13.1"
 }

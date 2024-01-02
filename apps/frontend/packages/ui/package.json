@@ -28,10 +28,10 @@
   },
   "homepage": "lyra-nwhm.onrender.com",
   "scripts": {
-    "format": "echo Formatting...",
+    "format": "prettier --write .",
     "lint": "pnpm run lint:eslint && pnpm run lint:stylelint",
-    "lint:eslint": "echo Linting...",
-    "lint:stylelint": "stylelint --fix **/*.scss --allow-empty-input",
+    "lint:eslint": "eslint . --ext .astro,.vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint:stylelint": "stylelint --fix \"**/*.{css,scss,sass}\" --allow-empty-input",
     "test": "echo Testing..."
   },
   "peerDependencies": {

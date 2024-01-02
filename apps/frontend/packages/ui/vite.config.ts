@@ -5,10 +5,10 @@ import dts from 'vite-plugin-dts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  build: {
-    rollupOptions: {
-      input: path.resolve(__dirname, 'src/index.ts'), // specify the entry point
-    },
-  },
-  plugins: [ dts()],
+	build: {
+		rollupOptions: {
+			input: path.resolve(__dirname, 'src/index.ts'), // specify the entry point
+		},
+	},
+	plugins: [dts()],
 });

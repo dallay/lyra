@@ -1,25 +1,24 @@
 ---
-import Card from './Card.astro'
-import { getCollection } from 'astro:content'
+import Card from './Card.astro';
+import { getCollection } from 'astro:content';
 
 const highlights = await getCollection('highlights');
 ---
 
-<section class="flex flex-col justify-center items-center mt-20 text-tertiary-900 dark:text-tertiary-50">
-  <h4 class="text-center text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-sans font-medium leading-none tracking-wide  md:leading-tight md:tracking-wider max-w-4xl">
-    How MindSync helps you on a daily basis
-  </h4>
-  <!-- Card grid for the different features -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
-    {
-      highlights.map((item) => (
-          <Card
-              title={item.data.title}
-              description={item.data.description}
-              icon={item.data.icon}
-          />
-      ))
-    }
-  </div>
-
+<section
+	class="text-tertiary-900 dark:text-tertiary-50 mt-20 flex flex-col items-center justify-center"
+>
+	<h4
+		class="max-w-4xl text-center font-sans text-3xl font-medium leading-none tracking-wide sm:text-4xl md:text-5xl md:leading-tight md:tracking-wider lg:text-7xl"
+	>
+		How MindSync helps you on a daily basis
+	</h4>
+	<!-- Card grid for the different features -->
+	<div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+		{
+			highlights.map((item) => (
+				<Card title={item.data.title} description={item.data.description} icon={item.data.icon} />
+			))
+		}
+	</div>
 </section>

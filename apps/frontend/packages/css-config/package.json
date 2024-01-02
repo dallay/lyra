@@ -17,6 +17,13 @@
   "bugs": {
     "url": "https://github.com/yacosta738/lyra/issues"
   },
+  "scripts": {
+    "lint": "pnpm run lint:eslint && pnpm run lint:stylelint",
+    "lint:eslint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "lint:stylelint": "stylelint --fix \"**/*.{css,scss,sass}\" --allow-empty-input",
+    "format": "prettier --write .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "homepage": "lyra-nwhm.onrender.com",
   "dependencies": {
     "autoprefixer": "^10.4.16",
@@ -29,9 +36,7 @@
     "stylelint-config-standard-scss": "^12.0.0",
     "stylelint-order": "^6.0.4"
   },
-  "devDependencies": {
-    
-  },
+  "devDependencies": {},
   "publishConfig": {
     "access": "public"
   }

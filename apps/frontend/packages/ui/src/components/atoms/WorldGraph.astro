@@ -1,17 +1,23 @@
 ---
-import { Icon } from 'astro-icon/components'
+import { Icon } from 'astro-icon/components';
 ---
 
-<div class="rounded-xl w-64 sm:w-80 h-80 sm:h-96 mx-auto p-0.5 bg-gradient-to-r from-primary-500 to-secondary-500">
-	<div class="flex flex-col justify-between h-full bg-tertiary-50 dark:bg-tertiary-950 text-white rounded-xl p-10">
-		<div class="self-stretch justify-between items-center inline-flex dark:bg-tertiary-950">
-			<div class="text-sm sm:text-base text-tertiary-700 dark:text-tertiary-300 font-medium leading-normal tracking-tight">
+<div
+	class="from-primary-500 to-secondary-500 mx-auto h-80 w-64 rounded-xl bg-gradient-to-r p-0.5 sm:h-96 sm:w-80"
+>
+	<div
+		class="bg-tertiary-50 dark:bg-tertiary-950 flex h-full flex-col justify-between rounded-xl p-10 text-white"
+	>
+		<div class="dark:bg-tertiary-950 inline-flex items-center justify-between self-stretch">
+			<div
+				class="text-tertiary-700 dark:text-tertiary-300 text-sm font-medium leading-normal tracking-tight sm:text-base"
+			>
 				Unleash your mind's potential with our digital second brain.
 			</div>
 		</div>
-		<div class="justify-center items-center gap-2.5 inline-flex">
-			<div class="w-52 sm:w-64 h-52 sm:h-64 relative">
-				 <Icon name="globe" class="w-full h-full text-tertiary-950 dark:text-primary-300" />
+		<div class="inline-flex items-center justify-center gap-2.5">
+			<div class="relative h-52 w-52 sm:h-64 sm:w-64">
+				<Icon name="globe" class="text-tertiary-950 dark:text-primary-300 h-full w-full" />
 			</div>
 		</div>
 	</div>

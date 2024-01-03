@@ -34,6 +34,7 @@
 
 ![Astro Badge](https://img.shields.io/badge/Astro-BC52EE?logo=astro&logoColor=fff&style=flat)
 ![Typescript Badge](https://img.shields.io/badge/Typescript-007ACC?logo=typescript&logoColor=fff&style=flat)
+[![Deploy to Main Stage 💫](https://github.com/yacosta738/lyra/actions/workflows/deploy-main-stage.yml/badge.svg)](https://github.com/yacosta738/lyra/actions/workflows/deploy-main-stage.yml)
 ![GitHub stars](https://img.shields.io/github/stars/yacosta738/lyra)
 ![GitHub issues](https://img.shields.io/github/issues/yacosta738/lyra)
 ![GitHub forks](https://img.shields.io/github/forks/yacosta738/lyra)
@@ -44,6 +45,7 @@
 ![Gradle Badge](https://img.shields.io/badge/Gradle-02303A?logo=gradle&logoColor=fff&style=flat)
 
 </div>
+
 
 ## 🛠️ Stack
 

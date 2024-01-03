@@ -10,9 +10,8 @@ plugins {
 	kotlin("plugin.spring").version(libs.versions.kotlin).apply(false)
 	alias(libs.plugins.frontend.gradle.plugin)
 }
-
-group = "com.lyra"
-version = "0.0.1-SNAPSHOT"
+group = rootProject.findProperty("group")?.toString() ?: "com.lyra"
+version = rootProject.findProperty("version")?.toString() ?: "0.0.1-SNAPSHOT"
 
 repositories {
 	mavenCentral()

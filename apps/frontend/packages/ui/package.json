@@ -28,6 +28,8 @@
   },
   "homepage": "lyra-nwhm.onrender.com",
   "scripts": {
+    "dev": "astro build",
+    "build": "astro build",
     "format": "prettier --write .",
     "lint": "pnpm run lint:eslint && pnpm run lint:stylelint",
     "lint:eslint": "eslint . --ext .astro,.vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",

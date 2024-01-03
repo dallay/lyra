@@ -54,6 +54,8 @@ jobs:
 
       - name: Checkout source code
         uses: actions/checkout@v4
+        with:
+          token: ${{ env.CI_GITHUB_TOKEN }}
 
       - name: Install Java Tools & Dependencies
         uses: ./.github/actions/install/java
@@ -83,13 +85,13 @@ jobs:
       - run: echo "Running functional acceptance tests"
   performance:
     name: Performance Tests 🚀
-    needs: [ functional ]
+    needs: [ build ]
     runs-on: ubuntu-latest
     steps:
       - run: echo "Running performance tests"
   security:
     name: Security Tests 🤖
-    needs: [ performance ]
+    needs: [ build ]
     runs-on: ubuntu-latest
     steps:
       - run: echo "Running security tests"

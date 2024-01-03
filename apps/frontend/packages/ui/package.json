@@ -35,7 +35,7 @@
     "test": "echo Testing..."
   },
   "peerDependencies": {
-    "astro": "^3.0.0"
+    "astro": "^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
     "@lyra/css-config": "workspace:*",
@@ -47,5 +47,5 @@
     "vite-plugin-dts": "^3.7.0",
     "typescript": "^5.3.3"
   },
-  "packageManager": "pnpm@8.13.1"
+  "packageManager": "pnpm@8.14.0"
 }

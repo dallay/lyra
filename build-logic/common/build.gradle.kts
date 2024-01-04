@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.lyra.app.buildlogic.common"
+group = "com.lyra.buildlogic.common"
 version = extra["app.plugins.version"].toString()
 
 

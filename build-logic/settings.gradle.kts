@@ -22,7 +22,7 @@ buildCache {
 
 
 include(":common")
-//include(":android-convention")
+include(":spring-boot-convention")
 //include(":multiplatform-convention")
 //include("analysis-convention")
 //include("documentation-convention")

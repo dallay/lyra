@@ -36,6 +36,7 @@ spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter",
 spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux", version.ref = "springBoot" }
 springdoc-openapi-starter-webflux-ui = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version.ref = "springdoc" }
 springdoc-openapi-starter-webflux-api = { module = "org.springdoc:springdoc-openapi-starter-webflux-api", version.ref = "springdoc" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "springBoot" }
 
 spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "springBoot" }
 spring-boot-docker-compose = { module = "org.springframework.boot:spring-boot-docker-compose", version.ref = "springBoot" }
@@ -49,7 +50,7 @@ kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 # Testing
 junit = { module = "junit:junit", version.ref = "junit" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
-reactor-test = { module = "io.projectreactor:reactor-test", version= "3.6.1" }
+reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.1" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -57,8 +58,11 @@ kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotl
 frontend-gradle-plugin = { id = "org.siouan.frontend-jdk17", version.ref = "frontend-gradle-plugin" }
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springManagement" }
+gradle-git-properties = { id = "com.gorylenko.gradle-git-properties", version = "2.4.1" }
 [bundles]
-spring-boot = ["spring-boot-starter", "spring-boot-starter-webflux", "springdoc-openapi-starter-webflux-ui", "springdoc-openapi-starter-webflux-api"]
+spring-boot = ["spring-boot-starter", "spring-boot-starter-webflux",
+  "springdoc-openapi-starter-webflux-ui", "springdoc-openapi-starter-webflux-api",
+  "spring-boot-starter-actuator"]
 spring-boot-dev = ["spring-boot-devtools", "spring-boot-docker-compose"]
 spring-boot-test = ["spring-boot-starter-test", "reactor-test"]
 kotlin-jvm = ["kotlin-reflect", "kotlinx-coroutines-reactor", "jackson-module-kotlin", "reactor-kotlin-extensions"]

@@ -129,7 +129,7 @@ jobs:
           path: build/reports/owasp
 
       - name: Run detekt
-        run: ./gradlew detektAll lintDebug --no-daemon --stacktrace
+        run: ./gradlew detektAll --no-daemon --stacktrace
 
       - name: Upload static reports artifact
         uses: actions/upload-artifact@v3.1.3

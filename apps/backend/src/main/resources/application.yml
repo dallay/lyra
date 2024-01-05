@@ -1,0 +1,29 @@
+# Configuration file for the application
+server:
+  port: 8080
+spring:
+  application:
+    name: ${application.name}
+  main:
+    allow-bean-definition-overriding: true
+
+application:
+  name: lyra
+  description: Lyra is the take note of the future. It's a note taking app that uses AI to help you take notes.
+  version: 0.0.1-SNAPSHOT
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, beans, openapi, swagger-ui
+
+springdoc:
+  show-actuator: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /api-docs
+    csrf:
+      enabled: true

@@ -4,6 +4,7 @@ plugins {
     id("app.spring.boot.convention")
     kotlin("jvm").version(libs.versions.kotlin)
     kotlin("plugin.spring").version(libs.versions.kotlin)
+    alias(libs.plugins.gradle.git.properties)
 }
 
 java {
@@ -21,6 +22,8 @@ repositories {
 }
 
 dependencies {
+    // L O C A L   D E P E N D E N C I E S
+    implementation(project(":shared:common"))
 }
 
 tasks.register<Copy>("processFrontendResources") {

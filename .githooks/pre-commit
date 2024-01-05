@@ -16,18 +16,15 @@ else
 	exit 1
 fi
 
+echo "*****Running Detekt and Linter Tasks******"
 echo "🟢 Using package manager: $PACKAGE_MANAGER"
 
-if $PACKAGE_MANAGER install && $PACKAGE_MANAGER run format && $PACKAGE_MANAGER run lint && $PACKAGE_MANAGER run test; then
-	exit 0
-else
-	echo "Error: ❌ failed to run pre-commit hook"
-	exit 1
-fi
-
-echo "*****Running Detekt and Linter Tasks******"
-
 git stash -q --keep-index
+
+$PACKAGE_MANAGER install
+$PACKAGE_MANAGER run format
+$PACKAGE_MANAGER run lint
+$PACKAGE_MANAGER run test
 
 ./gradlew detektAll --no-daemon --stacktrace
 

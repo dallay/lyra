@@ -26,5 +26,10 @@ else
 fi
 
 
-# Gradle pre-commit hook
-./gradlew detektAll
+# Gradle pre-commit hook ./gradlew detektAll Fail if detekt fails
+
+if ! ./gradlew detektAll; then
+    echo "Error: ❌ failed to run pre-commit hook"
+    exit 1
+fi
+

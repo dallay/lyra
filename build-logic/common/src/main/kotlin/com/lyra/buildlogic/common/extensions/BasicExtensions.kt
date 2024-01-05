@@ -25,6 +25,7 @@ val Project.fullPackageName get() = AppConfiguration.packageName + path.replace(
 fun Project.catalogVersion(alias: String) = libs.findVersion(alias).get().toString()
 fun Project.catalogLib(alias: String) = libs.findLibrary(alias).get()
 fun Project.catalogBundle(alias: String) = libs.findBundle(alias).get()
+fun Project.catalogPlugin(alias: String) = libs.findPlugin(alias).get()
 
 fun KotlinDependencyHandler.catalogVersion(alias: String) = project.catalogVersion(alias)
 fun KotlinDependencyHandler.catalogLib(alias: String) = project.catalogLib(alias)

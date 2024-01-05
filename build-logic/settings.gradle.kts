@@ -23,6 +23,6 @@ buildCache {
 
 include(":common")
 include(":spring-boot-convention")
-//include(":multiplatform-convention")
+include(":gradle-convention")
 //include("analysis-convention")
 //include("documentation-convention")

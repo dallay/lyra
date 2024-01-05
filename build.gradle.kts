@@ -8,6 +8,7 @@ plugins {
 	alias(libs.plugins.spring.dependency.management).apply(false)
 	kotlin("jvm").version(libs.versions.kotlin).apply(false)
 	kotlin("plugin.spring").version(libs.versions.kotlin).apply(false)
+  id("app.dependency-versions")
 	alias(libs.plugins.frontend.gradle.plugin)
 }
 group = rootProject.findProperty("group")?.toString() ?: "com.lyra"

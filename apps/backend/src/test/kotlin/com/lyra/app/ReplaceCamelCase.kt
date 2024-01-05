@@ -5,15 +5,11 @@ import java.util.*
 import org.junit.jupiter.api.DisplayNameGenerator
 
 class ReplaceCamelCase : DisplayNameGenerator.Standard() {
-    override fun generateDisplayNameForMethod(testClass: Class<*>?, testMethod: Method): String {
-        return replaceCapitals(testMethod.name)
-    }
+    override fun generateDisplayNameForMethod(testClass: Class<*>?, testMethod: Method): String =
+        replaceCapitals(testMethod.name)
 
-    private fun replaceCapitals(originalName: String): String {
-        var name = originalName
-        name = name.replace("([A-Z])".toRegex(), " $1")
-        name = name.replace("([0-9]+)".toRegex(), " $1")
-        name = name.lowercase(Locale.getDefault())
-        return name
-    }
+    private fun replaceCapitals(originalName: String): String =
+        originalName.replace("([A-Z])".toRegex(), " $1")
+            .replace("([0-9]+)".toRegex(), " $1")
+            .lowercase(Locale.getDefault())
 }

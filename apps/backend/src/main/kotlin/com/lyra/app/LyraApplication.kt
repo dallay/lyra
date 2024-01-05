@@ -7,5 +7,6 @@ import org.springframework.boot.runApplication
 class LyraApplication
 
 fun main(args: Array<String>) {
+    @Suppress("SpreadOperator")
     runApplication<LyraApplication>(*args)
 }

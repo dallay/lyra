@@ -19,16 +19,16 @@ import reactor.core.publisher.Mono
 @RequestMapping("/api")
 class HealthcheckController {
 
-  /**
-   * Checks the health status of the application.
-   *
-   * @return a Mono emitting a string "OK" indicating that the application is healthy.
-   */
-  @Operation(summary = "Health check endpoint")
-  @ApiResponses(
-    ApiResponse(responseCode = "200", description = "OK"),
-    ApiResponse(responseCode = "500", description = "Internal server error")
-  )
-  @GetMapping("/health-check")
-  fun healthcheck(): Mono<String> = Mono.just("OK")
+    /**
+     * Checks the health status of the application.
+     *
+     * @return a Mono emitting a string "OK" indicating that the application is healthy.
+     */
+    @Operation(summary = "Health check endpoint")
+    @ApiResponses(
+        ApiResponse(responseCode = "200", description = "OK"),
+        ApiResponse(responseCode = "500", description = "Internal server error"),
+    )
+    @GetMapping("/health-check")
+    fun healthcheck(): Mono<String> = Mono.just("OK")
 }

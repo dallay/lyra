@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class LyraApplication
 
 fun main(args: Array<String>) {
-	runApplication<LyraApplication>(*args)
+    runApplication<LyraApplication>(*args)
 }

@@ -41,11 +41,11 @@ val defaultBuildGradleKts = "backend.gradle.kts.kts"
 
 fun isGradleKtsProjectDirectory(directory: File) =
     directory.isDirectory &&
-            (
-                    directory.resolve(defaultBuildGradleKts).exists() ||
-                            directory.resolve("${directory.name}.gradle.kts").exists()
-                    ) &&
-            directory.name !in excludedProjects
+        (
+            directory.resolve(defaultBuildGradleKts).exists() ||
+                directory.resolve("${directory.name}.gradle.kts").exists()
+            ) &&
+        directory.name !in excludedProjects
 
 fun includeGradleProjectsRecursively(directoryPath: String) {
     val baseDirectory = rootDir.resolve(directoryPath)
@@ -94,8 +94,8 @@ val excludedProjects = listOf<String>()
 val projects = listOf("apps")
 projects.forEach { includeGradleProjectsRecursively(it) }
 
-//includeProject(file("shared"))
-//includeProject(file("documentation"))
+// includeProject(file("shared"))
+// includeProject(file("documentation"))
 
 if (!System.getenv("CI").isNullOrEmpty() && !System.getenv("BUILD_SCAN_TOS_ACCEPTED")
         .isNullOrEmpty()

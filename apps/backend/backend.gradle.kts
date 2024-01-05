@@ -21,7 +21,6 @@ repositories {
 }
 
 dependencies {
-
 }
 
 tasks.register<Copy>("processFrontendResources") {

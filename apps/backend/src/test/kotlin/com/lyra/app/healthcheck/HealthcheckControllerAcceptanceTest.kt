@@ -11,17 +11,17 @@ import org.springframework.test.web.reactive.server.WebTestClient
 @AutoConfigureWebTestClient
 class HealthcheckControllerAcceptanceTest {
 
-  @Autowired
-  private lateinit var webTestClient: WebTestClient
+    @Autowired
+    private lateinit var webTestClient: WebTestClient
 
-  @Test
-  fun `should successfully access healthcheck`() {
-    webTestClient.get().uri("/api/health-check")
-      .exchange()
-      .expectStatus().isOk
-      .expectBody(String::class.java)
-      .consumeWith { response ->
-        Assertions.assertEquals("OK", response.responseBody)
-      }
-  }
+    @Test
+    fun `should successfully access healthcheck`() {
+        webTestClient.get().uri("/api/health-check")
+            .exchange()
+            .expectStatus().isOk
+            .expectBody(String::class.java)
+            .consumeWith { response ->
+                Assertions.assertEquals("OK", response.responseBody)
+            }
+    }
 }

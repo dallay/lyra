@@ -10,7 +10,6 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.compile.JavaCompile
-import org.gradle.api.tasks.testing.Test
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.jvm.toolchain.JvmVendorSpec
 import org.gradle.kotlin.dsl.*
@@ -32,57 +31,61 @@ fun KotlinDependencyHandler.catalogLib(alias: String) = project.catalogLib(alias
 fun KotlinDependencyHandler.catalogBundle(alias: String) = project.catalogBundle(alias)
 
 fun KotlinDependencyHandler.implementation(
-  dependencyNotation: Provider<*>,
-  configure: ExternalModuleDependency.() -> Unit
+    dependencyNotation: Provider<*>,
+    configure: ExternalModuleDependency.() -> Unit
 ) {
-  implementation(dependencyNotation.get().toString(), configure)
+    implementation(dependencyNotation.get().toString(), configure)
 }
 
 fun DependencyHandlerScope.implementation(
-  provider: Provider<*>,
-  dependencyConfiguration: ExternalModuleDependency.() -> Unit = {},
+    provider: Provider<*>,
+    dependencyConfiguration: ExternalModuleDependency.() -> Unit = {},
 ) {
-  "implementation"(provider, dependencyConfiguration)
+    "implementation"(provider, dependencyConfiguration)
+}
+
+fun DependencyHandlerScope.detekt(provider: Provider<*>) {
+    "detektPlugins"(provider)
 }
 
 fun ExtensionContainer.commonExtensions() {
-  configure<JavaPluginExtension> {
-    toolchain {
-      languageVersion.set(JavaLanguageVersion.of(AppConfiguration.jvmTargetStr))
-      vendor.set(JvmVendorSpec.AZUL)
+    configure<JavaPluginExtension> {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(AppConfiguration.jvmTargetStr))
+            vendor.set(JvmVendorSpec.AZUL)
+        }
     }
-  }
 
-  configure<KotlinProjectExtension> {
-    jvmToolchain {
-      languageVersion.set(JavaLanguageVersion.of(AppConfiguration.jvmTargetStr))
-      vendor.set(JvmVendorSpec.AZUL)
+    configure<KotlinProjectExtension> {
+        jvmToolchain {
+            languageVersion.set(JavaLanguageVersion.of(AppConfiguration.jvmTargetStr))
+            vendor.set(JvmVendorSpec.AZUL)
+        }
     }
-  }
 }
 
 fun TaskContainer.commonTasks() {
-  withType<JavaCompile>().configureEach {
-    sourceCompatibility = AppConfiguration.jvmTargetStr
-    targetCompatibility = AppConfiguration.jvmTargetStr
-  }
-  withType<KotlinCompile>().configureEach {
-    compilerOptions.configureKotlin()
-  }
+    withType<JavaCompile>().configureEach {
+        sourceCompatibility = AppConfiguration.jvmTargetStr
+        targetCompatibility = AppConfiguration.jvmTargetStr
+    }
+    withType<KotlinCompile>().configureEach {
+        compilerOptions.configureKotlin()
+    }
 }
 
 fun Properties.getValue(key: String, env: String) =
-  getOrElse(key) { System.getenv(env) } as? String
+    getOrElse(key) { System.getenv(env) } as? String
 
 private fun KotlinJvmCompilerOptions.configureKotlin() {
-  jvmTarget.set(AppConfiguration.jvmTarget)
-  apiVersion.set(AppConfiguration.kotlinVersion)
-  languageVersion.set(AppConfiguration.kotlinVersion)
-  freeCompilerArgs.set(
-    freeCompilerArgs.get() + listOf(
-      "-opt-in=kotlin.RequiresOptIn",
-      "-Xcontext-receivers",
-      "-Xlambdas=indy",
-    ),
-  )
+    jvmTarget.set(AppConfiguration.jvmTarget)
+    apiVersion.set(AppConfiguration.kotlinVersion)
+    languageVersion.set(AppConfiguration.kotlinVersion)
+    freeCompilerArgs.set(
+        freeCompilerArgs.get() + listOf(
+            "-opt-in=kotlin.RequiresOptIn",
+            "-Xcontext-receivers",
+            "-Xlambdas=indy",
+        ),
+    )
 }

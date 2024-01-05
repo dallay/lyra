@@ -10,29 +10,28 @@ import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 
 class SpringBootConventionPlugin : ConventionPlugin {
-  override fun Project.configure() {
-    apply(plugin = catalogPlugin("kotlin-jvm").get().pluginId)
-    apply(plugin = catalogPlugin("kotlin-spring").get().pluginId)
-    apply(plugin = catalogPlugin("spring-boot").get().pluginId)
-    apply(plugin = catalogPlugin("spring-dependency-management").get().pluginId)
+    override fun Project.configure() {
+        apply(plugin = catalogPlugin("kotlin-jvm").get().pluginId)
+        apply(plugin = catalogPlugin("kotlin-spring").get().pluginId)
+        apply(plugin = catalogPlugin("spring-boot").get().pluginId)
+        apply(plugin = catalogPlugin("spring-dependency-management").get().pluginId)
 
+        with(extensions) {
+            commonExtensions()
+        }
 
-    with(extensions) {
-      commonExtensions()
+        tasks.commonTasks()
+
+        dependencies {
+            add("implementation", catalogBundle("spring-boot"))
+
+            add("implementation", catalogBundle("kotlin-jvm"))
+
+            add("developmentOnly", catalogBundle("spring-boot-dev"))
+
+            add("annotationProcessor", "org.springframework.boot:spring-boot-configuration-processor")
+
+            add("testImplementation", catalogBundle("spring-boot-test"))
+        }
     }
-
-    tasks.commonTasks()
-
-    dependencies {
-      add("implementation", catalogBundle("spring-boot"))
-
-      add("implementation", catalogBundle("kotlin-jvm"))
-
-      add("developmentOnly", catalogBundle("spring-boot-dev"))
-
-      add("annotationProcessor", "org.springframework.boot:spring-boot-configuration-processor")
-
-      add("testImplementation", catalogBundle("spring-boot-test"))
-    }
-  }
 }

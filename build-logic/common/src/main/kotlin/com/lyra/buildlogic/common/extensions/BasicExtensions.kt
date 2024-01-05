@@ -21,7 +21,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 private val Project.libs get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
 val Test.isRelease get() = name.contains("""beta|release""".toRegex(RegexOption.IGNORE_CASE))
 
-
 val Project.fullPackageName get() = AppConfiguration.packageName + path.replace(':', '.')
 
 fun Project.catalogVersion(alias: String) = libs.findVersion(alias).get().toString()
@@ -52,7 +51,7 @@ fun DependencyHandlerScope.detekt(provider: Provider<*>) {
 }
 
 fun DependencyHandlerScope.kover(path: String) {
-  "kover"(project(path))
+    "kover"(project(path))
 }
 
 fun ExtensionContainer.commonExtensions() {

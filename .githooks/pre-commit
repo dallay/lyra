@@ -25,11 +25,15 @@ else
 	exit 1
 fi
 
+echo "*****Running Detekt and Linter Tasks******"
 
-# Gradle pre-commit hook ./gradlew detektAll Fail if detekt fails
+git stash -q --keep-index
 
-if ! ./gradlew detektAll; then
-    echo "Error: ❌ failed to run pre-commit hook"
-    exit 1
-fi
+./gradlew detektAll --no-daemon --stacktrace
+
+status=$?
+
+git stash pop -q
+
+exit $status
 

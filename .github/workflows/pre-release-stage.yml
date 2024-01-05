@@ -135,6 +135,47 @@ jobs:
     steps:
       - run: echo "Running security tests"
 
+  code-coverage:
+    name: Code Coverage 📊
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ env.CI_GITHUB_TOKEN }}
+
+      - name: Install Java Tools & Dependencies
+        uses: ./.github/actions/install/java
+
+      - name: Install Tools & Dependencies
+        uses: ./.github/actions/install/node
+
+      - name: Run Code Coverage
+        run: |
+          ./gradlew koverXmlReport --no-daemon --stacktrace
+
+      - name: Add coverage report to PR
+        id: kover
+        uses: mi-kas/kover-report@v1
+        with:
+          path: |
+            ${{ github.workspace }}/build/reports/kover/report.xml
+            ${{ github.workspace }}/apps/backend/build/reports/kover/report.xml
+          title: Code Coverage
+          update-comment: true
+          min-coverage-overall: 80
+          min-coverage-changed-files: 80
+          coverage-counter-type: LINE
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: build/reports/kover/report.xml
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
+
   semantic-release:
     name: Semantic Release 🧭
     needs: [ security ]

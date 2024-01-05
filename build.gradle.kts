@@ -10,6 +10,7 @@ plugins {
     kotlin("plugin.spring").version(libs.versions.kotlin).apply(false)
     id("app.dependency-versions")
     id("app.detekt")
+    id("app.kover")
     id("app.owasp.dependency.check")
     alias(libs.plugins.frontend.gradle.plugin)
 }

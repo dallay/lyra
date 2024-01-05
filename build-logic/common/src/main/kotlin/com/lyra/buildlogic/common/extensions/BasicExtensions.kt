@@ -10,6 +10,7 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.compile.JavaCompile
+import org.gradle.api.tasks.testing.Test
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.jvm.toolchain.JvmVendorSpec
 import org.gradle.kotlin.dsl.*
@@ -18,6 +19,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 private val Project.libs get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
+val Test.isRelease get() = name.contains("""beta|release""".toRegex(RegexOption.IGNORE_CASE))
+
 
 val Project.fullPackageName get() = AppConfiguration.packageName + path.replace(':', '.')
 
@@ -46,6 +49,10 @@ fun DependencyHandlerScope.implementation(
 
 fun DependencyHandlerScope.detekt(provider: Provider<*>) {
     "detektPlugins"(provider)
+}
+
+fun DependencyHandlerScope.kover(path: String) {
+  "kover"(project(path))
 }
 
 fun ExtensionContainer.commonExtensions() {

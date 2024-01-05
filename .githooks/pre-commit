@@ -24,3 +24,7 @@ else
 	echo "Error: ❌ failed to run pre-commit hook"
 	exit 1
 fi
+
+
+# Gradle pre-commit hook
+./gradlew detektAll

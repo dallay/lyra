@@ -1,6 +1,7 @@
 package com.lyra.buildlogic.springboot
 
 import com.lyra.buildlogic.common.ConventionPlugin
+import com.lyra.buildlogic.common.extensions.catalogBundle
 import com.lyra.buildlogic.common.extensions.catalogPlugin
 import com.lyra.buildlogic.common.extensions.commonExtensions
 import com.lyra.buildlogic.common.extensions.commonTasks
@@ -23,16 +24,15 @@ class SpringBootConventionPlugin : ConventionPlugin {
     tasks.commonTasks()
 
     dependencies {
-      add("implementation", "org.springframework.boot:spring-boot-starter-webflux")
-      add("implementation", "com.fasterxml.jackson.module:jackson-module-kotlin")
-      add("implementation", "io.projectreactor.kotlin:reactor-kotlin-extensions")
-      add("implementation", "org.jetbrains.kotlin:kotlin-reflect")
-      add("implementation", "org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-      add("developmentOnly", "org.springframework.boot:spring-boot-devtools")
-      add("developmentOnly", "org.springframework.boot:spring-boot-docker-compose")
+      add("implementation", catalogBundle("spring-boot"))
+
+      add("implementation", catalogBundle("kotlin-jvm"))
+
+      add("developmentOnly", catalogBundle("spring-boot-dev"))
+
       add("annotationProcessor", "org.springframework.boot:spring-boot-configuration-processor")
-      add("testImplementation", "org.springframework.boot:spring-boot-starter-test")
-      add("testImplementation", "io.projectreactor:reactor-test")
+
+      add("testImplementation", catalogBundle("spring-boot-test"))
     }
   }
 }

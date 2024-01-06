@@ -1,6 +1,7 @@
 [versions]
 kotlin = "1.9.22"
 springBoot = "3.2.1"
+springdoc = "2.3.0"
 junit = "4.13.2"
 klint-plugin = "12.0.3"
 detekt = "1.23.4"
@@ -9,6 +10,7 @@ asciidoctor = "4.0.0-alpha.1"
 dokka = "1.9.10"
 frontend-gradle-plugin = "8.0.0"
 springManagement = "1.1.4"
+reflections = "0.10.2"
 
 
 [libraries]
@@ -17,22 +19,52 @@ gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 gradle-ktlint = { module = "org.jlleitschuh.gradle.ktlint:org.jlleitschuh.gradle.ktlint.gradle.plugin", version.ref = "klint-plugin" }
 gradle-ktlint-idea = { module = "org.jlleitschuh.gradle.ktlint-idea:org.jlleitschuh.gradle.ktlint-idea.gradle.plugin", version.ref = "klint-plugin" }
 gradle-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
+
 # Utils
+gradle-updates = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.48.0" }
 gradle-owasp-depcheck = { module = "org.owasp:dependency-check-gradle", version.ref = "owasp" }
+gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.4" }
 gradle-asciidoctor = { module = "org.asciidoctor:asciidoctor-gradle-jvm", version.ref = "asciidoctor" }
+
 # Detekt
 gradle-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.3.8" }
 detekt-compose2 = { module = "ru.kode:detekt-rules-compose", version = "1.3.0" }
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 
+# Spring Boot
+spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "springBoot" }
+spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux", version.ref = "springBoot" }
+springdoc-openapi-starter-webflux-ui = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version.ref = "springdoc" }
+springdoc-openapi-starter-webflux-api = { module = "org.springdoc:springdoc-openapi-starter-webflux-api", version.ref = "springdoc" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "springBoot" }
+
+spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "springBoot" }
+spring-boot-docker-compose = { module = "org.springframework.boot:spring-boot-docker-compose", version.ref = "springBoot" }
+
+# Kotlin Libraries
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version = "2.16.1" }
+reactor-kotlin-extensions = { module = "io.projectreactor.kotlin:reactor-kotlin-extensions", version = "1.2.2" }
+reflections = { module = "org.reflections:reflections", version.ref = "reflections" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version = "1.7.3" }
+
 # Testing
 junit = { module = "junit:junit", version.ref = "junit" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
+reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.1" }
 
 [plugins]
-
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 frontend-gradle-plugin = { id = "org.siouan.frontend-jdk17", version.ref = "frontend-gradle-plugin" }
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springManagement" }
+gradle-git-properties = { id = "com.gorylenko.gradle-git-properties", version = "2.4.1" }
 [bundles]
-
+spring-boot = ["spring-boot-starter", "spring-boot-starter-webflux",
+  "springdoc-openapi-starter-webflux-ui", "springdoc-openapi-starter-webflux-api",
+  "spring-boot-starter-actuator"]
+spring-boot-dev = ["spring-boot-devtools", "spring-boot-docker-compose"]
+spring-boot-test = ["spring-boot-starter-test", "reactor-test"]
+kotlin-jvm = ["kotlin-reflect", "kotlinx-coroutines-reactor", "jackson-module-kotlin", "reactor-kotlin-extensions", "reflections"]

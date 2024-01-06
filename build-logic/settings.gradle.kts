@@ -20,9 +20,9 @@ buildCache {
     }
 }
 
-
 include(":common")
-//include(":android-convention")
-//include(":multiplatform-convention")
-//include("analysis-convention")
-//include("documentation-convention")
+include(":spring-boot-convention")
+include(":gradle-convention")
+include("analysis-convention")
+include("library-convention")
+// include("documentation-convention")

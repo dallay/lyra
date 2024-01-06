@@ -6,7 +6,7 @@ junit = "4.13.2"
 klint-plugin = "12.0.3"
 detekt = "1.23.4"
 owasp = "9.0.7"
-asciidoctor = "4.0.0-alpha.1"
+asciidoctor = "4.0.0"
 dokka = "1.9.10"
 frontend-gradle-plugin = "8.0.0"
 springManagement = "1.1.4"
@@ -21,9 +21,9 @@ gradle-ktlint-idea = { module = "org.jlleitschuh.gradle.ktlint-idea:org.jlleitsc
 gradle-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 
 # Utils
-gradle-updates = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.48.0" }
+gradle-updates = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.50.0" }
 gradle-owasp-depcheck = { module = "org.owasp:dependency-check-gradle", version.ref = "owasp" }
-gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.4" }
+gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.5" }
 gradle-asciidoctor = { module = "org.asciidoctor:asciidoctor-gradle-jvm", version.ref = "asciidoctor" }
 
 # Detekt

@@ -93,7 +93,7 @@ jobs:
         run: ./gradlew dependencyCheckAnalyze --no-daemon --stacktrace
 
       - name:  Upload owasp-report results 🛡️⬆️
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: owasp-reports
           path: build/reports/owasp
@@ -102,7 +102,7 @@ jobs:
         run: ./gradlew detektAll --no-daemon --stacktrace
 
       - name: Upload static reports artifact
-        uses: actions/upload-artifact@v3.1.3
+        uses: actions/upload-artifact@v4.0.0
         with:
           name: static-report
           path: |
@@ -111,7 +111,7 @@ jobs:
           retention-days: 1
 
       - name: Analyze detekt report
-        uses: github/codeql-action/upload-sarif@v2.22.5
+        uses: github/codeql-action/upload-sarif@v3.22.12
         with:
           sarif_file: build/reports/detekt/detekt.sarif
           checkout_path: ${{ github.workspace }}

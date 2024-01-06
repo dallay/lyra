@@ -10,6 +10,7 @@ asciidoctor = "4.0.0-alpha.1"
 dokka = "1.9.10"
 frontend-gradle-plugin = "8.0.0"
 springManagement = "1.1.4"
+reflections = "0.10.2"
 
 
 [libraries]
@@ -44,6 +45,7 @@ spring-boot-docker-compose = { module = "org.springframework.boot:spring-boot-do
 # Kotlin Libraries
 jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version = "2.16.1" }
 reactor-kotlin-extensions = { module = "io.projectreactor.kotlin:reactor-kotlin-extensions", version = "1.2.2" }
+reflections = { module = "org.reflections:reflections", version.ref = "reflections" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version = "1.7.3" }
 
@@ -65,4 +67,4 @@ spring-boot = ["spring-boot-starter", "spring-boot-starter-webflux",
   "spring-boot-starter-actuator"]
 spring-boot-dev = ["spring-boot-devtools", "spring-boot-docker-compose"]
 spring-boot-test = ["spring-boot-starter-test", "reactor-test"]
-kotlin-jvm = ["kotlin-reflect", "kotlinx-coroutines-reactor", "jackson-module-kotlin", "reactor-kotlin-extensions"]
+kotlin-jvm = ["kotlin-reflect", "kotlinx-coroutines-reactor", "jackson-module-kotlin", "reactor-kotlin-extensions", "reflections"]

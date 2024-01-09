@@ -30,7 +30,7 @@
     "test": "echo Testing frontend"
   },
   "dependencies": {
-    "@astrojs/check": "^0.3.4",
+    "@astrojs/check": "^0.4.0",
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource-variable/onest": "^5.0.2",
     "@justinribeiro/lite-youtube": "1.5.0",

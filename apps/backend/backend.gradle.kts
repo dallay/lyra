@@ -24,6 +24,17 @@ repositories {
 dependencies {
     // L O C A L   D E P E N D E N C I E S
     implementation(project(":shared:common"))
+    implementation(project(":shared:spring-boot-common"))
+
+    implementation(libs.spring.boot.starter.data.r2dbc)
+    implementation("org.springframework:spring-r2dbc")
+    implementation("org.springframework.data:spring-data-r2dbc")
+    implementation("org.postgresql:r2dbc-postgresql")
+
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.testcontainers:postgresql")
+    testImplementation("org.testcontainers:r2dbc")
 }
 
 tasks.register<Copy>("processFrontendResources") {

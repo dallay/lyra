@@ -76,7 +76,7 @@ fun includeProject(dir: File) {
 
 fun calculateProjectName(dir: File): String {
     val projectName = dir.relativeTo(rootDir).path.replace("/", ":")
-    println("\uD83D\uDFE2 >>>>> Project name: $projectName")
+    println("\uD83D\uDFE2 Project name: $projectName")
     return if (projectName.startsWith(":")) projectName.substring(1) else projectName
 }
 

@@ -1,11 +1,23 @@
 # Configuration file for the application
 server:
   port: 8080
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG
+    com.lyra: DEBUG
 spring:
   application:
     name: ${application.name}
   main:
     allow-bean-definition-overriding: true
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    pool:
+      enabled: true
+      initial-size: 10
+      max-size: 20
 
 application:
   name: lyra

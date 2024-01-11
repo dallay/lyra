@@ -3,10 +3,10 @@ kotlin = "1.9.22"
 springBoot = "3.2.1"
 springdoc = "2.3.0"
 junit = "4.13.2"
-klint-plugin = "12.0.3"
+klint-plugin = "12.1.0"
 detekt = "1.23.4"
 owasp = "9.0.8"
-asciidoctor = "4.0.0"
+asciidoctor = "4.0.1"
 dokka = "1.9.10"
 frontend-gradle-plugin = "8.0.0"
 springManagement = "1.1.4"
@@ -28,7 +28,7 @@ gradle-asciidoctor = { module = "org.asciidoctor:asciidoctor-gradle-jvm", versio
 
 # Detekt
 gradle-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
-detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.3.8" }
+detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.3.9" }
 detekt-compose2 = { module = "ru.kode:detekt-rules-compose", version = "1.3.0" }
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 
@@ -52,7 +52,7 @@ kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 # Testing
 junit = { module = "junit:junit", version.ref = "junit" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
-reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.1" }
+reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.2" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

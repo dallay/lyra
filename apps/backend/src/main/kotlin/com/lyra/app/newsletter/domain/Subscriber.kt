@@ -9,7 +9,7 @@ class Subscriber(
     override val id: SubscriberId,
     val email: Email,
     var name: Name,
-    var status: SubscriberStatus = SubscriberStatus.DISABLED
+    var status: SubscriberStatus = SubscriberStatus.ENABLED
 ) : BaseEntity<SubscriberId>() {
     fun updateName(name: Name) {
         this.name = name
@@ -24,7 +24,7 @@ class Subscriber(
             id: SubscriberId,
             email: Email,
             name: Name,
-            status: SubscriberStatus = SubscriberStatus.DISABLED
+            status: SubscriberStatus = SubscriberStatus.ENABLED
         ): Subscriber {
             val subscriber = Subscriber(
                 id = id,
@@ -46,7 +46,7 @@ class Subscriber(
             email: String,
             firstname: String,
             lastname: String,
-            status: SubscriberStatus = SubscriberStatus.DISABLED
+            status: SubscriberStatus = SubscriberStatus.ENABLED
         ): Subscriber = create(
             id = SubscriberId(UUID.randomUUID().toString()),
             email = Email(email),

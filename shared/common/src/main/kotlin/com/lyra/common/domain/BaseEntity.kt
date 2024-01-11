@@ -11,16 +11,6 @@ import com.lyra.common.domain.bus.event.DomainEvent
 abstract class BaseEntity<ID> {
     abstract val id: ID
     private val domainEvents: MutableList<DomainEvent> = mutableListOf()
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as BaseEntity<*>
-
-        return id == other.id
-    }
-
-    override fun hashCode(): Int = id?.hashCode() ?: 0
 
     fun record(event: DomainEvent) = domainEvents.add(event)
     fun pullDomainEvents(): List<DomainEvent> {
@@ -30,4 +20,19 @@ abstract class BaseEntity<ID> {
     }
 
     private fun clearDomainEvents() = domainEvents.clear()
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is BaseEntity<*>) return false
+
+        if (id != other.id) return false
+        if (domainEvents != other.domainEvents) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + domainEvents.hashCode()
+        return result
+    }
 }

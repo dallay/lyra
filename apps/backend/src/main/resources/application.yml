@@ -29,7 +29,9 @@ management:
     web:
       exposure:
         include: info, health, beans, openapi, swagger-ui
-
+notification:
+  email:
+    sendgrid-api-key: ${SENDGRID_API_KEY:WILL_BE_REPLACED}
 springdoc:
   show-actuator: true
   api-docs:

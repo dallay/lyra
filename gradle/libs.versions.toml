@@ -25,6 +25,8 @@ gradle-updates = { module = "com.github.ben-manes:gradle-versions-plugin", versi
 gradle-owasp-depcheck = { module = "org.owasp:dependency-check-gradle", version.ref = "owasp" }
 gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.4" }
 gradle-asciidoctor = { module = "org.asciidoctor:asciidoctor-gradle-jvm", version.ref = "asciidoctor" }
+spring-dotenv =  'me.paulschwarz:spring-dotenv:4.0.0'
+sendgrid = 'com.sendgrid:sendgrid-java:4.10.1'
 
 # Detekt
 gradle-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }

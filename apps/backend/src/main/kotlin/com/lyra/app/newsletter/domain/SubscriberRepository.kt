@@ -9,4 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface SubscriberRepository {
     suspend fun create(subscriber: Subscriber)
     suspend fun searchAll(): Flow<Subscriber>
+    suspend fun searchActive(): Flow<Subscriber>
 }

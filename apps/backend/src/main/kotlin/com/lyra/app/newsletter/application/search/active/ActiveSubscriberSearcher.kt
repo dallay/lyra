@@ -1,4 +1,4 @@
-package com.lyra.app.newsletter.application.search
+package com.lyra.app.newsletter.application.search.active
 
 import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.app.newsletter.application.SubscribersResponse
@@ -10,11 +10,16 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import org.slf4j.LoggerFactory
 
+/**
+ *
+ * @created 10/1/24
+ */
 @Service
-class AllSubscriberSearcher(private val repository: SubscriberRepository) {
+class ActiveSubscriberSearcher(private val repository: SubscriberRepository) {
+
     suspend fun search(): SubscribersResponse {
-        log.info("Searching all subscribers")
-        val subscribers: Flow<Subscriber> = repository.searchAll()
+        log.info("Searching active subscribers")
+        val subscribers: Flow<Subscriber> = repository.searchActive()
         return SubscribersResponse(
             subscribers.map {
                 SubscriberResponse(
@@ -26,8 +31,7 @@ class AllSubscriberSearcher(private val repository: SubscriberRepository) {
             }.toList(),
         )
     }
-
     companion object {
-        private val log = LoggerFactory.getLogger(AllSubscriberSearcher::class.java)
+        private val log = LoggerFactory.getLogger(ActiveSubscriberSearcher::class.java)
     }
 }

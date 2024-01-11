@@ -1,4 +1,4 @@
-package com.lyra.app.newsletter.application.search
+package com.lyra.app.newsletter.application.search.all
 
 import com.lyra.app.newsletter.application.SubscribersResponse
 import com.lyra.common.domain.bus.query.Query

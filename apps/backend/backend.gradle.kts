@@ -1,3 +1,4 @@
+import com.lyra.buildlogic.common.extensions.implementation
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -30,6 +31,9 @@ dependencies {
     implementation("org.springframework:spring-r2dbc")
     implementation("org.springframework.data:spring-data-r2dbc")
     implementation("org.postgresql:r2dbc-postgresql")
+
+    implementation(libs.spring.dotenv)
+    implementation(libs.sendgrid)
 
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")

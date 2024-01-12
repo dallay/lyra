@@ -33,12 +33,12 @@
     "tailwindcss-animated": "1.0.1",
     "stylelint": "^16.1.0",
     "stylelint-config-rational-order": "^0.1.2",
-    "stylelint-config-standard-scss": "^12.0.0",
+    "stylelint-config-standard-scss": "^13.0.0",
     "stylelint-order": "^6.0.4"
   },
   "devDependencies": {},
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "pnpm@8.14.0"
+  "packageManager": "pnpm@8.14.1"
 }

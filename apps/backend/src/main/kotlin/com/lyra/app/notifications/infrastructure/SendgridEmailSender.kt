@@ -13,10 +13,6 @@ import java.io.IOException
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 
-/**
- *
- * @created 9/1/24
- */
 @Service
 class SendgridEmailSender(
     @Value("\${notification.email.sendgrid-api-key}")

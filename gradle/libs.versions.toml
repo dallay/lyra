@@ -5,8 +5,8 @@ springdoc = "2.3.0"
 junit = "5.10.1"
 klint-plugin = "12.0.3"
 detekt = "1.23.4"
-owasp = "9.0.7"
-asciidoctor = "4.0.0-alpha.1"
+owasp = "9.0.8"
+asciidoctor = "4.0.1"
 dokka = "1.9.10"
 frontend-gradle-plugin = "8.0.0"
 springManagement = "1.1.4"
@@ -21,16 +21,16 @@ gradle-ktlint-idea = { module = "org.jlleitschuh.gradle.ktlint-idea:org.jlleitsc
 gradle-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 
 # Utils
-gradle-updates = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.48.0" }
+gradle-updates = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.50.0" }
 gradle-owasp-depcheck = { module = "org.owasp:dependency-check-gradle", version.ref = "owasp" }
-gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.4" }
+gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.5" }
 gradle-asciidoctor = { module = "org.asciidoctor:asciidoctor-gradle-jvm", version.ref = "asciidoctor" }
 spring-dotenv = 'me.paulschwarz:spring-dotenv:4.0.0'
 sendgrid = 'com.sendgrid:sendgrid-java:4.10.1'
 
 # Detekt
 gradle-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
-detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.3.8" }
+detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.3.9" }
 detekt-compose2 = { module = "ru.kode:detekt-rules-compose", version = "1.3.0" }
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 
@@ -56,7 +56,7 @@ kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 # Testing
 junit = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
-reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.1" }
+reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.2" }
 mockk = { module = "io.mockk:mockk", version = "1.13.9" }
 faker = { module = "net.datafaker:datafaker", version = "2.0.2" }
 

@@ -16,5 +16,9 @@ gradlePlugin {
             id = "app.spring.boot.convention"
             implementationClass = "com.lyra.buildlogic.springboot.SpringBootConventionPlugin"
         }
+        register("spring-boot-library-convention") {
+            id = "app.spring.boot.library.convention"
+            implementationClass = "com.lyra.buildlogic.springboot.SpringBootLibraryConventionPlugin"
+        }
     }
 }

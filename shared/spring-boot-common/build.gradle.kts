@@ -1,7 +1,7 @@
 import com.lyra.buildlogic.common.extensions.implementation
 
 plugins {
-    id("app.spring.boot.convention")
+    id("app.spring.boot.library.convention")
 }
 
 dependencies {

@@ -25,4 +25,10 @@ internal class SubscriberTest {
         subscriber.updateStatus(newStatus)
         assertEquals(newStatus, subscriber.status)
     }
+
+    @Test
+    fun `should create a subscriber disabled`() {
+        val subscriber = Subscriber.create(email, firstname, lastname, SubscriberStatus.DISABLED)
+        assertEquals(SubscriberStatus.DISABLED, subscriber.status)
+    }
 }

@@ -1,4 +1,3 @@
-import com.lyra.buildlogic.common.extensions.implementation
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -34,6 +33,9 @@ dependencies {
 
     implementation(libs.spring.dotenv)
     implementation(libs.sendgrid)
+
+    testImplementation(libs.faker)
+    testImplementation(libs.mockk)
 
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")

@@ -6,7 +6,7 @@ import com.lyra.common.domain.bus.event.BaseDomainEvent
  *
  * @created 9/1/24
  */
-data class VerifySubscriberEmailSent(
+data class NewContentNewsletterEmailSent(
     val id: String,
     val subscriberId: String,
     val email: String,

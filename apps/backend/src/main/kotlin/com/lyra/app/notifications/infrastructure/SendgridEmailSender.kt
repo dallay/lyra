@@ -18,16 +18,17 @@ import org.springframework.beans.factory.annotation.Value
  * @created 9/1/24
  */
 @Service
-class SendgridEmailSender : EmailSender {
+class SendgridEmailSender(
     @Value("\${notification.email.sendgrid-api-key}")
-    private lateinit var apiKey: String
+    private val apiKey: String,
+    private val sg: SendGrid = SendGrid(apiKey)
+) : EmailSender {
     override suspend fun send(emailMessage: EmailMessage) {
         log.info("Sending email to ${emailMessage.to.value}")
         val from = Email(emailMessage.from.value)
         val to = Email(emailMessage.to.value)
         val content = Content("text/plain", emailMessage.body)
         val mail = Mail(from, emailMessage.subject, to, content)
-        val sg = SendGrid(apiKey)
         val request = Request()
         try {
             request.method = Method.POST

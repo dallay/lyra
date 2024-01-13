@@ -73,14 +73,13 @@ sealed class Criteria {
 
     data class In(val key: String, val value: List<Any?>) : Criteria() {
         override fun toString(): String =
-            "$key IN (${value.map { it.toString() }.joinToString { ", " }})"
+            "$key IN [${value.joinToString { it?.toString() ?: "null" }}]"
     }
 
     data class NotIn(val key: String, val value: List<Any?>) : Criteria() {
         override fun toString(): String =
-            "$key NOT IN (${value.map { it.toString() }.joinToString { ", " }})"
+            "$key NOT IN [${value.joinToString { it?.toString() ?: "null" }}]"
     }
-
     data class IsTrue(val key: String) : Criteria() {
         override fun toString(): String = "$key IS TRUE"
     }

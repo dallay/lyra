@@ -102,7 +102,7 @@ jobs:
         run: ./gradlew detektAll --no-daemon --stacktrace
 
       - name: Upload static reports artifact
-        uses: actions/upload-artifact@v4.0.0
+        uses: actions/upload-artifact@v4.1.0
         with:
           name: static-report
           path: |

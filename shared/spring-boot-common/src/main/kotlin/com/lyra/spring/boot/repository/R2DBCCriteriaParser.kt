@@ -72,19 +72,9 @@ class R2DBCCriteriaParser<T : Any>(
             .reduce { acc, cur -> acc.or(cur) }
     }
 
-    private fun parse(criteria: Criteria.Equals): R2DBCCriteria {
-        if (criteria.value == null) {
-            return where(criteria.key).isNull
-        }
-        return where(criteria.key).`is`(criteria.value)
-    }
+    private fun parse(criteria: Criteria.Equals): R2DBCCriteria = where(criteria.key).`is`(criteria.value)
 
-    private fun parse(criteria: Criteria.NotEquals): R2DBCCriteria {
-        if (criteria.value == null) {
-            return where(criteria.key).isNotNull
-        }
-        return where(criteria.key).not(criteria.value)
-    }
+    private fun parse(criteria: Criteria.NotEquals): R2DBCCriteria = where(criteria.key).not(criteria.value)
 
     private fun parse(criteria: Criteria.Between): R2DBCCriteria =
         where(criteria.key).between(criteria.value.start, criteria.value.endInclusive)

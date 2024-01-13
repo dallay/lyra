@@ -2,6 +2,7 @@ package com.lyra.app.notifications.domain
 
 import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.app.notifications.domain.event.NewContentNewsletterEmailSent
+import com.lyra.common.domain.Generated
 import com.lyra.common.domain.email.Email
 
 class NewContentNewsletter(
@@ -14,6 +15,7 @@ class NewContentNewsletter(
     "Welcome to Lyra",
     subscriber.name.plus(" welcome to Lyra!"),
 ) {
+    @Generated
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is NewContentNewsletter) return false
@@ -24,6 +26,7 @@ class NewContentNewsletter(
         return true
     }
 
+    @Generated
     override fun hashCode(): Int {
         var result = super.hashCode()
         result = 31 * result + id.hashCode()

@@ -13,6 +13,7 @@ abstract class BaseId<T> protected constructor(val value: T) {
         require(value != null) { "The id cannot be null" }
     }
 
+    @Generated
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is BaseId<*>) return false
@@ -20,7 +21,8 @@ abstract class BaseId<T> protected constructor(val value: T) {
         return value == other.value
     }
 
+    @Generated
     override fun hashCode(): Int = value?.hashCode() ?: 0
-
+    @Generated
     override fun toString(): String = value.toString()
 }

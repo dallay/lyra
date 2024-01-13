@@ -2,6 +2,7 @@ package com.lyra.common.domain.bus
 
 import com.lyra.common.domain.bus.command.Command
 import com.lyra.common.domain.bus.command.CommandHandler
+import com.lyra.common.domain.bus.pipeline.PipelineBehavior
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlinx.coroutines.delay

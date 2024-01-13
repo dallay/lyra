@@ -6,6 +6,7 @@ import com.lyra.common.domain.bus.command.CommandWithResult
 import com.lyra.common.domain.bus.command.CommandWithResultHandler
 import com.lyra.common.domain.bus.notification.Notification
 import com.lyra.common.domain.bus.notification.NotificationHandler
+import com.lyra.common.domain.bus.pipeline.PipelineBehavior
 import com.lyra.common.domain.bus.query.Query
 import com.lyra.common.domain.bus.query.QueryHandler
 

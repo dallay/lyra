@@ -1,4 +1,6 @@
-package com.lyra.common.domain.bus
+package com.lyra.common.domain.bus.pipeline
+
+import com.lyra.common.domain.bus.DependencyProvider
 
 /**
  * PipelineProvider creates a pipeline behavior with enabled spring injection.

@@ -13,6 +13,7 @@ abstract class BaseValueObject<T> protected constructor(val value: T) : Serializ
     /**
      * Compares two value objects by their value
      */
+    @Generated
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is BaseValueObject<*>) return false
@@ -25,11 +26,13 @@ abstract class BaseValueObject<T> protected constructor(val value: T) : Serializ
     /**
      * Returns the hash code of the value object
      */
+    @Generated
     override fun hashCode(): Int = value?.hashCode() ?: 0
 
     /**
      * Returns the string representation of the value object
      */
+    @Generated
     override fun toString(): String = value.toString()
 
     @Suppress("serialVersionUID")

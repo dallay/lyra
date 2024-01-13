@@ -1,10 +1,5 @@
 package com.lyra.common.domain.regexp
 
-/**
- *
- * @created 10/1/24
- */
-
 import java.util.regex.Pattern
 
 abstract class Token(val value: String) {

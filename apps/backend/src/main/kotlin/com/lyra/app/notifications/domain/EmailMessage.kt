@@ -1,6 +1,7 @@
 package com.lyra.app.notifications.domain
 
 import com.lyra.common.domain.AggregateRoot
+import com.lyra.common.domain.Generated
 import com.lyra.common.domain.email.Email
 
 /**
@@ -14,6 +15,7 @@ abstract class EmailMessage(
     val subject: String,
     val body: String
 ) : AggregateRoot<EmailMessageId>() {
+    @Generated
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is EmailMessage) return false
@@ -28,6 +30,7 @@ abstract class EmailMessage(
         return true
     }
 
+    @Generated
     override fun hashCode(): Int {
         var result = super.hashCode()
         result = 31 * result + id.hashCode()

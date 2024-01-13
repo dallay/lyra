@@ -5,6 +5,8 @@ plugins {
 dependencies {
     testImplementation(kotlin("test"))
     testImplementation(libs.junit)
+    testImplementation(libs.faker)
+    testImplementation(libs.mockk)
 }
 
 testing {

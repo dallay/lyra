@@ -1,4 +1,6 @@
-package com.lyra.common.domain.bus
+package com.lyra.common.domain.bus.pipeline
+
+import com.lyra.common.domain.bus.RequestHandlerDelegate
 
 /**
  * Interface to be implemented for a non-blocking pipeline behavior

@@ -13,8 +13,8 @@ data class CriteriaStep(
     val key: String
 ) {
     @Suppress("FunctionNaming")
-    fun `is`(value: Any?) = Criteria.Equals(key, value)
-    fun not(value: Any?) = Criteria.NotEquals(key, value)
+    fun `is`(value: Any) = Criteria.Equals(key, value)
+    fun not(value: Any) = Criteria.NotEquals(key, value)
 
     fun between(value: ClosedRange<*>) = Criteria.Between(key, value)
     fun notBetween(value: ClosedRange<*>) = Criteria.NotBetween(key, value)

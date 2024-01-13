@@ -20,6 +20,7 @@ abstract class BaseEntity<ID> {
     }
 
     private fun clearDomainEvents() = domainEvents.clear()
+    @Generated
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is BaseEntity<*>) return false
@@ -30,6 +31,7 @@ abstract class BaseEntity<ID> {
         return true
     }
 
+    @Generated
     override fun hashCode(): Int {
         var result = id?.hashCode() ?: 0
         result = 31 * result + domainEvents.hashCode()

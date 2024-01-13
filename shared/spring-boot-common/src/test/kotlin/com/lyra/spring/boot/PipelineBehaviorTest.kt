@@ -1,10 +1,10 @@
 package com.lyra.spring.boot
 
 import com.lyra.common.domain.bus.Mediator
-import com.lyra.common.domain.bus.PipelineBehavior
 import com.lyra.common.domain.bus.RequestHandlerDelegate
 import com.lyra.common.domain.bus.command.Command
 import com.lyra.common.domain.bus.command.CommandHandler
+import com.lyra.common.domain.bus.pipeline.PipelineBehavior
 import kotlin.test.assertTrue
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking

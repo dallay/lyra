@@ -1,5 +1,6 @@
 package com.lyra.common.domain.bus.event
 
+import com.lyra.common.domain.Generated
 import java.time.LocalDateTime
 
 /**
@@ -19,6 +20,7 @@ open class BaseDomainEvent(private val occuredOn: LocalDateTime = LocalDateTime.
      *
      * @return The version of the event.
      */
+    @Generated
     override fun eventVersion(): Int = eventVersion
 
     /**
@@ -26,5 +28,6 @@ open class BaseDomainEvent(private val occuredOn: LocalDateTime = LocalDateTime.
      *
      * @return the LocalDateTime when this event occurred
      */
+    @Generated
     override fun occurredOn(): LocalDateTime = occuredOn
 }

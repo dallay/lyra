@@ -15,11 +15,11 @@ sealed class Criteria {
         override fun toString(): String = "(${value.joinToString(" OR ") { it.toString() }})"
     }
 
-    data class Equals(val key: String, val value: Any?) : Criteria() {
+    data class Equals(val key: String, val value: Any) : Criteria() {
         override fun toString(): String = "$key = $value"
     }
 
-    data class NotEquals(val key: String, val value: Any?) : Criteria() {
+    data class NotEquals(val key: String, val value: Any) : Criteria() {
         override fun toString(): String = "$key != $value"
     }
 

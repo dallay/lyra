@@ -3,6 +3,7 @@ package com.lyra.common.domain.bus
 import com.lyra.common.domain.bus.command.Command
 import com.lyra.common.domain.bus.command.CommandWithResult
 import com.lyra.common.domain.bus.notification.Notification
+import com.lyra.common.domain.bus.pipeline.PipelineBehavior
 import com.lyra.common.domain.bus.query.Query
 
 class MediatorImpl(

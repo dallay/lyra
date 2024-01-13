@@ -23,5 +23,15 @@ class LibraryConventionPlugin : ConventionPlugin {
 
             add("implementation", catalogBundle("kotlin-jvm"))
         }
+
+//      testing {
+//        suites {
+//          // Configure the built-in test suite
+//          val test by getting(JvmTestSuite::class) {
+//            // Use JUnit Jupiter test framework
+//            useJUnitJupiter("5.9.1")
+//          }
+//        }
+//      }
     }
 }

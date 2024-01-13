@@ -36,9 +36,6 @@ frontend {
     verboseModeEnabled.set(true)
 }
 
-dependencies {
-}
-
 tasks.named<InstallFrontendTask>("installFrontend") {
     val ciPlatformPresent = providers.environmentVariable("CI").isPresent
     val lockFilePath = "$projectDir/pnpm-lock.yaml"

@@ -32,13 +32,14 @@
 
 <div align="center">
 
-![Astro Badge](https://img.shields.io/badge/Astro-BC52EE?logo=astro&logoColor=fff&style=flat)
-![Typescript Badge](https://img.shields.io/badge/Typescript-007ACC?logo=typescript&logoColor=fff&style=flat)
 [![Deploy to Main Stage 💫](https://github.com/yacosta738/lyra/actions/workflows/deploy-main-stage.yml/badge.svg)](https://github.com/yacosta738/lyra/actions/workflows/deploy-main-stage.yml)
+[![codecov](https://codecov.io/gh/yacosta738/lyra/graph/badge.svg?token=4MN8TEOGD9)](https://codecov.io/gh/yacosta738/lyra)
 ![GitHub stars](https://img.shields.io/github/stars/yacosta738/lyra)
 ![GitHub issues](https://img.shields.io/github/issues/yacosta738/lyra)
 ![GitHub forks](https://img.shields.io/github/forks/yacosta738/lyra)
 ![GitHub PRs](https://img.shields.io/github/issues-pr/yacosta738/lyra)
+![Astro Badge](https://img.shields.io/badge/Astro-BC52EE?logo=astro&logoColor=fff&style=flat)
+![Typescript Badge](https://img.shields.io/badge/Typescript-007ACC?logo=typescript&logoColor=fff&style=flat)
 ![Tailwind CSS Badge](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=fff&style=flat)
 ![Spring Boot Badge](https://img.shields.io/badge/Spring%20Boot-6DB33F?logo=springboot&logoColor=fff&style=flat)
 ![Kotlin Badge](https://img.shields.io/badge/Kotlin-0095D5?logo=kotlin&logoColor=fff&style=flat)

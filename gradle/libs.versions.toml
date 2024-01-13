@@ -2,8 +2,8 @@
 kotlin = "1.9.22"
 springBoot = "3.2.1"
 springdoc = "2.3.0"
-junit = "4.13.2"
-klint-plugin = "12.1.0"
+junit = "5.10.1"
+klint-plugin = "12.0.3"
 detekt = "1.23.4"
 owasp = "9.0.8"
 asciidoctor = "4.0.1"
@@ -25,6 +25,8 @@ gradle-updates = { module = "com.github.ben-manes:gradle-versions-plugin", versi
 gradle-owasp-depcheck = { module = "org.owasp:dependency-check-gradle", version.ref = "owasp" }
 gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.5" }
 gradle-asciidoctor = { module = "org.asciidoctor:asciidoctor-gradle-jvm", version.ref = "asciidoctor" }
+spring-dotenv = 'me.paulschwarz:spring-dotenv:4.0.0'
+sendgrid = 'com.sendgrid:sendgrid-java:4.10.1'
 
 # Detekt
 gradle-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
@@ -38,9 +40,11 @@ spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-s
 springdoc-openapi-starter-webflux-ui = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version.ref = "springdoc" }
 springdoc-openapi-starter-webflux-api = { module = "org.springdoc:springdoc-openapi-starter-webflux-api", version.ref = "springdoc" }
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "springBoot" }
-
+# Spring Boot Dev
 spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "springBoot" }
 spring-boot-docker-compose = { module = "org.springframework.boot:spring-boot-docker-compose", version.ref = "springBoot" }
+# Spring Boot Database
+spring-boot-starter-data-r2dbc = { module = "org.springframework.boot:spring-boot-starter-data-r2dbc", version.ref = "springBoot" }
 
 # Kotlin Libraries
 jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version = "2.16.1" }
@@ -50,9 +54,11 @@ kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref =
 kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version = "1.7.3" }
 
 # Testing
-junit = { module = "junit:junit", version.ref = "junit" }
+junit = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
 reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.2" }
+mockk = { module = "io.mockk:mockk", version = "1.13.9" }
+faker = { module = "net.datafaker:datafaker", version = "2.0.2" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -67,4 +73,5 @@ spring-boot = ["spring-boot-starter", "spring-boot-starter-webflux",
   "spring-boot-starter-actuator"]
 spring-boot-dev = ["spring-boot-devtools", "spring-boot-docker-compose"]
 spring-boot-test = ["spring-boot-starter-test", "reactor-test"]
-kotlin-jvm = ["kotlin-reflect", "kotlinx-coroutines-reactor", "jackson-module-kotlin", "reactor-kotlin-extensions", "reflections"]
+kotlin-jvm = ["kotlin-reflect", "kotlinx-coroutines-reactor", "jackson-module-kotlin",
+  "reactor-kotlin-extensions", "reflections"]

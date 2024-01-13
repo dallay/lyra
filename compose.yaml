@@ -1,11 +1,15 @@
 services:
   db:
-    image: postgres:16.1
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./infra/postgresql/data:/var/lib/postgresql/data
+    extends:
+      file: ./infra/postgresql/postgresql-compose.yml
+      service: postgresql
+#    image: postgres:16.1
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#      POSTGRES_DB: postgres
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - ./infra/postgresql/data:/var/lib/postgresql/data
+#      - ./infra/postgresql/init-scripts:/docker-entrypoint-initdb.d

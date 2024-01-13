@@ -13,10 +13,10 @@ importers:
         version: 4.0.1(typescript@5.3.3)
       '@semantic-release/changelog':
         specifier: ^6.0.3
-        version: 6.0.3(semantic-release@22.0.12)
+        version: 6.0.3(semantic-release@23.0.0)
       '@semantic-release/git':
         specifier: ^10.0.1
-        version: 10.0.1(semantic-release@22.0.12)
+        version: 10.0.1(semantic-release@23.0.0)
       '@types/eslint':
         specifier: ^8.56.0
         version: 8.56.0
@@ -40,19 +40,19 @@ importers:
         version: 0.31.0(eslint@8.56.0)
       gradle-semantic-release-plugin:
         specifier: 1.9.0
-        version: 1.9.0(semantic-release@22.0.12)
+        version: 1.9.0(semantic-release@23.0.0)
       prettier:
-        specifier: 3.1.1
-        version: 3.1.1
+        specifier: 3.2.1
+        version: 3.2.1
       prettier-plugin-astro:
         specifier: ~0.12.3
         version: 0.12.3
       prettier-plugin-tailwindcss:
         specifier: ~0.5.10
-        version: 0.5.10(prettier-plugin-astro@0.12.3)(prettier@3.1.1)
+        version: 0.5.10(prettier-plugin-astro@0.12.3)(prettier@3.2.1)
       semantic-release:
-        specifier: ^22.0.12
-        version: 22.0.12(typescript@5.3.3)
+        specifier: ^23.0.0
+        version: 23.0.0(typescript@5.3.3)
       stylelint:
         specifier: ^16.1.0
         version: 16.1.0(typescript@5.3.3)
@@ -108,7 +108,7 @@ importers:
     devDependencies:
       '@astrojs/check':
         specifier: ^0.4.0
-        version: 0.4.0(prettier-plugin-astro@0.12.3)(prettier@3.1.1)(typescript@5.3.3)
+        version: 0.4.0(prettier-plugin-astro@0.12.3)(prettier@3.2.1)(typescript@5.3.3)
       '@lyra/css-config':
         specifier: workspace:*
         version: link:../css-config
@@ -135,7 +135,7 @@ importers:
     dependencies:
       '@astrojs/check':
         specifier: ^0.4.0
-        version: 0.4.0(prettier-plugin-astro@0.12.3)(prettier@3.1.1)(typescript@5.3.3)
+        version: 0.4.0(prettier-plugin-astro@0.12.3)(prettier@3.2.1)(typescript@5.3.3)
       '@astrojs/tailwind':
         specifier: ^5.1.0
         version: 5.1.0(astro@4.0.8)(tailwindcss@3.4.0)(ts-node@10.9.2)
@@ -174,8 +174,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       semantic-release:
-        specifier: ^22.0.12
-        version: 22.0.12(typescript@5.3.3)
+        specifier: ^23.0.0
+        version: 23.0.0(typescript@5.3.3)
       stylelint:
         specifier: ^16.1.0
         version: 16.1.0(typescript@5.3.3)
@@ -212,13 +212,13 @@ packages:
     resolution: {integrity: sha512-gFPqTG7otEJ8uP6wrhDv6mqwGWYZKNvAcCq6u9hOj0c+IKCEsY4L1oC9trPq2SaWIzAfHvqfBDxF591JkMf+kg==}
     dev: true
 
-  /@astrojs/check@0.4.0(prettier-plugin-astro@0.12.3)(prettier@3.1.1)(typescript@5.3.3):
+  /@astrojs/check@0.4.0(prettier-plugin-astro@0.12.3)(prettier@3.2.1)(typescript@5.3.3):
     resolution: {integrity: sha512-hpHweo/9c9f2hYAUdqjGPOIWt6w/9eHHgzS9g8BhqsUgGs9EJdAndSzM4rErR7WCjZOt0hHSzG6HF0CkSogDtA==}
     hasBin: true
     peerDependencies:
       typescript: ^5.0.0
     dependencies:
-      '@astrojs/language-server': 2.6.1(prettier-plugin-astro@0.12.3)(prettier@3.1.1)(typescript@5.3.3)
+      '@astrojs/language-server': 2.6.1(prettier-plugin-astro@0.12.3)(prettier@3.2.1)(typescript@5.3.3)
       chokidar: 3.5.3
       fast-glob: 3.3.2
       kleur: 4.1.5
@@ -240,7 +240,7 @@ packages:
   /@astrojs/internal-helpers@0.2.1:
     resolution: {integrity: sha512-06DD2ZnItMwUnH81LBLco3tWjcZ1lGU9rLCCBaeUCGYe9cI0wKyY2W3kDyoW1I6GmcWgt1fu+D1CTvz+FIKf8A==}
 
-  /@astrojs/language-server@2.6.1(prettier-plugin-astro@0.12.3)(prettier@3.1.1)(typescript@5.3.3):
+  /@astrojs/language-server@2.6.1(prettier-plugin-astro@0.12.3)(prettier@3.2.1)(typescript@5.3.3):
     resolution: {integrity: sha512-M4FkNAmvmE9PHrJNK6hlBoBDHSafWa1gM8eN8Myi5ikwA0YlyBPtYICK+45+eVwfR5Td4p4zm09LqIZ2la7bUQ==}
     hasBin: true
     peerDependencies:
@@ -262,12 +262,12 @@ packages:
       '@volar/typescript': 1.11.1
       fast-glob: 3.3.2
       muggle-string: 0.3.1
-      prettier: 3.1.1
+      prettier: 3.2.1
       prettier-plugin-astro: 0.12.3
       volar-service-css: 0.0.17(@volar/language-service@1.11.1)
       volar-service-emmet: 0.0.17(@volar/language-service@1.11.1)
       volar-service-html: 0.0.17(@volar/language-service@1.11.1)
-      volar-service-prettier: 0.0.17(@volar/language-service@1.11.1)(prettier@3.1.1)
+      volar-service-prettier: 0.0.17(@volar/language-service@1.11.1)(prettier@3.2.1)
       volar-service-typescript: 0.0.17(@volar/language-service@1.11.1)(@volar/typescript@1.11.1)
       volar-service-typescript-twoslash-queries: 0.0.17(@volar/language-service@1.11.1)
       vscode-html-languageservice: 5.1.1
@@ -1461,7 +1461,7 @@ packages:
       - typescript
     dev: true
 
-  /@semantic-release/changelog@6.0.3(semantic-release@22.0.12):
+  /@semantic-release/changelog@6.0.3(semantic-release@23.0.0):
     resolution: {integrity: sha512-dZuR5qByyfe3Y03TpmCvAxCyTnp7r5XwtHRf/8vD9EAn4ZWbavUX8adMtXYzE86EVh0gyLA7lm5yW4IV30XUag==}
     engines: {node: '>=14.17'}
     peerDependencies:
@@ -1471,7 +1471,7 @@ packages:
       aggregate-error: 3.1.0
       fs-extra: 11.2.0
       lodash: 4.17.21
-      semantic-release: 22.0.12(typescript@5.3.3)
+      semantic-release: 23.0.0(typescript@5.3.3)
     dev: true
 
   /@semantic-release/commit-analyzer@11.1.0(semantic-release@22.0.12):
@@ -1492,6 +1492,24 @@ packages:
       - supports-color
     dev: true
 
+  /@semantic-release/commit-analyzer@11.1.0(semantic-release@23.0.0):
+    resolution: {integrity: sha512-cXNTbv3nXR2hlzHjAMgbuiQVtvWHTlwwISt60B+4NZv01y/QRY7p2HcJm8Eh2StzcTJoNnflvKjHH/cjFS7d5g==}
+    engines: {node: ^18.17 || >=20.6.1}
+    peerDependencies:
+      semantic-release: '>=20.1.0'
+    dependencies:
+      conventional-changelog-angular: 7.0.0
+      conventional-commits-filter: 4.0.0
+      conventional-commits-parser: 5.0.0
+      debug: 4.3.4
+      import-from-esm: 1.3.3
+      lodash-es: 4.17.21
+      micromatch: 4.0.5
+      semantic-release: 23.0.0(typescript@5.3.3)
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /@semantic-release/error@3.0.0:
     resolution: {integrity: sha512-5hiM4Un+tpl4cKw3lV4UgzJj+SmfNIDCLLw0TepzQxz9ZGV5ixnqkzIVF+3tp0ZHgcMKE+VNGHJjEeyFG2dcSw==}
     engines: {node: '>=14.17'}
@@ -1502,7 +1520,7 @@ packages:
     engines: {node: '>=18'}
     dev: true
 
-  /@semantic-release/git@10.0.1(semantic-release@22.0.12):
+  /@semantic-release/git@10.0.1(semantic-release@23.0.0):
     resolution: {integrity: sha512-eWrx5KguUcU2wUPaO6sfvZI0wPafUKAMNC18aXY4EnNcrZL86dEmpNVnC9uMpGZkmZJ9EfCVJBQx4pV4EMGT1w==}
     engines: {node: '>=14.17'}
     peerDependencies:
@@ -1516,7 +1534,7 @@ packages:
       lodash: 4.17.21
       micromatch: 4.0.5
       p-reduce: 2.1.0
-      semantic-release: 22.0.12(typescript@5.3.3)
+      semantic-release: 23.0.0(typescript@5.3.3)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1548,6 +1566,33 @@ packages:
       - supports-color
     dev: true
 
+  /@semantic-release/github@9.2.6(semantic-release@23.0.0):
+    resolution: {integrity: sha512-shi+Lrf6exeNZF+sBhK+P011LSbhmIAoUEgEY6SsxF8irJ+J2stwI5jkyDQ+4gzYyDImzV6LCKdYB9FXnQRWKA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      semantic-release: '>=20.1.0'
+    dependencies:
+      '@octokit/core': 5.0.2
+      '@octokit/plugin-paginate-rest': 9.1.5(@octokit/core@5.0.2)
+      '@octokit/plugin-retry': 6.0.1(@octokit/core@5.0.2)
+      '@octokit/plugin-throttling': 8.1.3(@octokit/core@5.0.2)
+      '@semantic-release/error': 4.0.0
+      aggregate-error: 5.0.0
+      debug: 4.3.4
+      dir-glob: 3.0.1
+      globby: 14.0.0
+      http-proxy-agent: 7.0.0
+      https-proxy-agent: 7.0.2
+      issue-parser: 6.0.0
+      lodash-es: 4.17.21
+      mime: 4.0.1
+      p-filter: 4.1.0
+      semantic-release: 23.0.0(typescript@5.3.3)
+      url-join: 5.0.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /@semantic-release/npm@11.0.2(semantic-release@22.0.12):
     resolution: {integrity: sha512-owtf3RjyPvRE63iUKZ5/xO4uqjRpVQDUB9+nnXj0xwfIeM9pRl+cG+zGDzdftR4m3f2s4Wyf3SexW+kF5DFtWA==}
     engines: {node: ^18.17 || >=20}
@@ -1570,6 +1615,28 @@ packages:
       tempy: 3.1.0
     dev: true
 
+  /@semantic-release/npm@11.0.2(semantic-release@23.0.0):
+    resolution: {integrity: sha512-owtf3RjyPvRE63iUKZ5/xO4uqjRpVQDUB9+nnXj0xwfIeM9pRl+cG+zGDzdftR4m3f2s4Wyf3SexW+kF5DFtWA==}
+    engines: {node: ^18.17 || >=20}
+    peerDependencies:
+      semantic-release: '>=20.1.0'
+    dependencies:
+      '@semantic-release/error': 4.0.0
+      aggregate-error: 5.0.0
+      execa: 8.0.1
+      fs-extra: 11.2.0
+      lodash-es: 4.17.21
+      nerf-dart: 1.0.0
+      normalize-url: 8.0.0
+      npm: 10.2.5
+      rc: 1.2.8
+      read-pkg: 9.0.1
+      registry-auth-token: 5.0.2
+      semantic-release: 23.0.0(typescript@5.3.3)
+      semver: 7.5.4
+      tempy: 3.1.0
+    dev: true
+
   /@semantic-release/release-notes-generator@12.1.0(semantic-release@22.0.12):
     resolution: {integrity: sha512-g6M9AjUKAZUZnxaJZnouNBeDNTCUrJ5Ltj+VJ60gJeDaRRahcHsry9HW8yKrnKkKNkx5lbWiEP1FPMqVNQz8Kg==}
     engines: {node: ^18.17 || >=20.6.1}
@@ -1587,6 +1654,27 @@ packages:
       lodash-es: 4.17.21
       read-pkg-up: 11.0.0
       semantic-release: 22.0.12(typescript@5.3.3)
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@semantic-release/release-notes-generator@12.1.0(semantic-release@23.0.0):
+    resolution: {integrity: sha512-g6M9AjUKAZUZnxaJZnouNBeDNTCUrJ5Ltj+VJ60gJeDaRRahcHsry9HW8yKrnKkKNkx5lbWiEP1FPMqVNQz8Kg==}
+    engines: {node: ^18.17 || >=20.6.1}
+    peerDependencies:
+      semantic-release: '>=20.1.0'
+    dependencies:
+      conventional-changelog-angular: 7.0.0
+      conventional-changelog-writer: 7.0.1
+      conventional-commits-filter: 4.0.0
+      conventional-commits-parser: 5.0.0
+      debug: 4.3.4
+      get-stream: 7.0.1
+      import-from-esm: 1.3.3
+      into-stream: 7.0.0
+      lodash-es: 4.17.21
+      read-pkg-up: 11.0.0
+      semantic-release: 23.0.0(typescript@5.3.3)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3217,6 +3305,14 @@ packages:
       java-properties: 1.0.2
     dev: true
 
+  /env-ci@11.0.0:
+    resolution: {integrity: sha512-apikxMgkipkgTvMdRT9MNqWx5VLOci79F4VBd7Op/7OPjjoanjdAvn6fglMCCEf/1bAh8eOiuEVCUs4V3qP3nQ==}
+    engines: {node: ^18.17 || >=20.6.1}
+    dependencies:
+      execa: 8.0.1
+      java-properties: 1.0.2
+    dev: true
+
   /env-paths@2.2.1:
     resolution: {integrity: sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==}
     engines: {node: '>=6'}
@@ -3919,14 +4015,14 @@ packages:
   /graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  /gradle-semantic-release-plugin@1.9.0(semantic-release@22.0.12):
+  /gradle-semantic-release-plugin@1.9.0(semantic-release@23.0.0):
     resolution: {integrity: sha512-8schNX6kF/M9oHFW25d9lWt0U76rXfqyO5sYreROqpwR+TXt6vcHc8w99dSM8cv1rGe+MuKsKlq5zasK+7Cpug==}
     engines: {node: '>=18'}
     peerDependencies:
       semantic-release: ^22.0.5
     dependencies:
       promisified-properties: 3.0.0
-      semantic-release: 22.0.12(typescript@5.3.3)
+      semantic-release: 23.0.0(typescript@5.3.3)
       split2: 4.2.0
     dev: true
 
@@ -4817,6 +4913,21 @@ packages:
   /markdown-table@3.0.3:
     resolution: {integrity: sha512-Z1NL3Tb1M9wH4XESsCDEksWoKTdlUafKc4pt0GRwjUyXaCFZ+dc3g2erqB6zm3szA2IUSi7VnPI+o/9jnxh9hw==}
 
+  /marked-terminal@6.2.0(marked@11.1.1):
+    resolution: {integrity: sha512-ubWhwcBFHnXsjYNsu+Wndpg0zhY4CahSpPlA70PlO0rR9r2sZpkyU+rkCsOWH+KMEkx847UpALON+HWgxowFtw==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      marked: '>=1 <12'
+    dependencies:
+      ansi-escapes: 6.2.0
+      cardinal: 2.1.1
+      chalk: 5.3.0
+      cli-table3: 0.6.3
+      marked: 11.1.1
+      node-emoji: 2.1.3
+      supports-hyperlinks: 3.0.0
+    dev: true
+
   /marked-terminal@6.2.0(marked@9.1.6):
     resolution: {integrity: sha512-ubWhwcBFHnXsjYNsu+Wndpg0zhY4CahSpPlA70PlO0rR9r2sZpkyU+rkCsOWH+KMEkx847UpALON+HWgxowFtw==}
     engines: {node: '>=16.0.0'}
@@ -4830,6 +4941,12 @@ packages:
       marked: 9.1.6
       node-emoji: 2.1.3
       supports-hyperlinks: 3.0.0
+    dev: true
+
+  /marked@11.1.1:
+    resolution: {integrity: sha512-EgxRjgK9axsQuUa/oKMx5DEY8oXpKJfk61rT5iY3aRlgU6QJtUcxU5OAymdhCvWvhYcd9FKmO5eQoX8m9VGJXg==}
+    engines: {node: '>= 18'}
+    hasBin: true
     dev: true
 
   /marked@9.1.6:
@@ -6126,10 +6243,10 @@ packages:
     engines: {node: ^14.15.0 || >=16.0.0}
     dependencies:
       '@astrojs/compiler': 1.8.2
-      prettier: 3.1.1
+      prettier: 3.2.1
       sass-formatter: 0.7.8
 
-  /prettier-plugin-tailwindcss@0.5.10(prettier-plugin-astro@0.12.3)(prettier@3.1.1):
+  /prettier-plugin-tailwindcss@0.5.10(prettier-plugin-astro@0.12.3)(prettier@3.2.1):
     resolution: {integrity: sha512-9UGSejqFxGG6brYjFfTYlJ8zs4L/lvZg1AngFfaC5Fs1otSskASv5IWKmjPu5MlABQUtTKtMArKyYr/hWpXSUg==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
@@ -6178,12 +6295,12 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      prettier: 3.1.1
+      prettier: 3.2.1
       prettier-plugin-astro: 0.12.3
     dev: true
 
-  /prettier@3.1.1:
-    resolution: {integrity: sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw==}
+  /prettier@3.2.1:
+    resolution: {integrity: sha512-qSUWshj1IobVbKc226Gw2pync27t0Kf0EdufZa9j7uBSJay1CC+B3K5lAAZoqgX3ASiKuWsk6OmzKRetXNObWg==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -6665,6 +6782,45 @@ packages:
       lodash-es: 4.17.21
       marked: 9.1.6
       marked-terminal: 6.2.0(marked@9.1.6)
+      micromatch: 4.0.5
+      p-each-series: 3.0.0
+      p-reduce: 3.0.0
+      read-pkg-up: 11.0.0
+      resolve-from: 5.0.0
+      semver: 7.5.4
+      semver-diff: 4.0.0
+      signale: 1.4.0
+      yargs: 17.7.2
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+    dev: true
+
+  /semantic-release@23.0.0(typescript@5.3.3):
+    resolution: {integrity: sha512-Jz7jEWO2igTtske112gC4PPE2whCMVrsgxUPG3/SZI7VE357suIUZFlJd1Yu0g2I6RPc2HxNEfUg7KhmDTjwqg==}
+    engines: {node: '>=20.8.1'}
+    hasBin: true
+    dependencies:
+      '@semantic-release/commit-analyzer': 11.1.0(semantic-release@23.0.0)
+      '@semantic-release/error': 4.0.0
+      '@semantic-release/github': 9.2.6(semantic-release@23.0.0)
+      '@semantic-release/npm': 11.0.2(semantic-release@23.0.0)
+      '@semantic-release/release-notes-generator': 12.1.0(semantic-release@23.0.0)
+      aggregate-error: 5.0.0
+      cosmiconfig: 9.0.0(typescript@5.3.3)
+      debug: 4.3.4
+      env-ci: 11.0.0
+      execa: 8.0.1
+      figures: 6.0.1
+      find-versions: 5.1.0
+      get-stream: 6.0.1
+      git-log-parser: 1.2.0
+      hook-std: 3.0.0
+      hosted-git-info: 7.0.1
+      import-from-esm: 1.3.3
+      lodash-es: 4.17.21
+      marked: 11.1.1
+      marked-terminal: 6.2.0(marked@11.1.1)
       micromatch: 4.0.5
       p-each-series: 3.0.0
       p-reduce: 3.0.0
@@ -8008,7 +8164,7 @@ packages:
       vscode-html-languageservice: 5.1.1
       vscode-uri: 3.0.8
 
-  /volar-service-prettier@0.0.17(@volar/language-service@1.11.1)(prettier@3.1.1):
+  /volar-service-prettier@0.0.17(@volar/language-service@1.11.1)(prettier@3.2.1):
     resolution: {integrity: sha512-YYnzZ+OT0M3Bx+xKuoAfs/uVuxk7ofz4dkZDQqjwa9iC63Ay4YGqONtmHd+xsO3lufkEBXlAQCbofDeZbSz3YQ==}
     peerDependencies:
       '@volar/language-service': ~1.11.0
@@ -8020,7 +8176,7 @@ packages:
         optional: true
     dependencies:
       '@volar/language-service': 1.11.1
-      prettier: 3.1.1
+      prettier: 3.2.1
 
   /volar-service-typescript-twoslash-queries@0.0.17(@volar/language-service@1.11.1):
     resolution: {integrity: sha512-6FHXK5AWeFzCL6uGmEcbkZmQsaQ0m9IjbeLdgOIQ4KGvauqT2aA1BhdfDJu6vRAFIfXe7xjEJ85keIlHl72tSA==}

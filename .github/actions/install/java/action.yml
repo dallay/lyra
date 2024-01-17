@@ -12,7 +12,7 @@ inputs:
     default: 'projects'
   github_token:
     description: 'GITHUB_TOKEN'
-    default: '${{ github.token }}'
+    default: ${{ github.token }}
 
 runs:
   using: composite

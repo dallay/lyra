@@ -1,6 +1,6 @@
 ---
 import { FooterStacked, GlobeGraphCard, NavBarStacked } from '@lyra/ui';
-import LayoutCommon from './LayoutCommon.astro';
+import Layout from './CommonLayout.astro';
 
 import pkg from '../../package.json' assert { type: 'json' };
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 const { title = 'Lyra', description = pkg.description } = Astro.props;
 ---
 
-<LayoutCommon title={title} description={description}>
+<Layout title={title} description={description}>
 	<NavBarStacked />
 	<GlobeGraphCard />
 	<div class="bg-tertiary-100 dark:bg-tertiary-950 flex overflow-hidden pt-16">
@@ -26,4 +26,4 @@ const { title = 'Lyra', description = pkg.description } = Astro.props;
 			<FooterStacked />
 		</div>
 	</div>
-</LayoutCommon>
+</Layout>

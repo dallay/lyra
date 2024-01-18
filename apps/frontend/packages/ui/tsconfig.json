@@ -18,9 +18,9 @@
       "atoms:*": ["components/atoms/*.astro"],
       "molecules:*": ["components/molecules/*.astro"],
       "organisms:*": ["components/organisms/*.astro"],
-      "layouts:*": ["layouts/*.astro"]
-    }
+      "layouts:*": ["layouts/*.astro"],
+    },
   },
   "include": ["./**/*.astro", "./**/*.ts", "./**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

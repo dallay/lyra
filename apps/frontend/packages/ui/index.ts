@@ -8,6 +8,7 @@ export { default as Logo } from './src/components/atoms/Logo.astro';
 export { default as ThemeSwitcher } from './src/components/atoms/ThemeSwitcher.astro';
 export { default as WorldGraph } from './src/components/atoms/WorldGraph.astro';
 export { default as EmailCTA } from './src/components/atoms/EmailCTA.astro';
+export { default as ConfettiLauncher } from './src/components/atoms/ConfettiLauncher.astro';
 // molecules
 export { default as BannerSection } from './src/components/molecules/BannerSection.astro';
 export { default as Card } from './src/components/molecules/Card.astro';

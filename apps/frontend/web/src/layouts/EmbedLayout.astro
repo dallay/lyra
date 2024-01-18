@@ -1,13 +1,16 @@
 ---
 import Layout from './CommonLayout.astro';
 interface Props {
-  title: string;
-  description?: string;
+	title: string;
+	description?: string;
 }
 const { title, description } = Astro.props;
 ---
+
 <Layout title={title} description={description}>
-  <main class="container flex justify-center items-center h-full min-h-screen w-full max-w-screen-2xl mx-auto">
-    <slot />
-  </main>
+	<main
+		class="container mx-auto flex h-full min-h-screen w-full max-w-screen-2xl items-center justify-center"
+	>
+		<slot />
+	</main>
 </Layout>

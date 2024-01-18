@@ -15,5 +15,5 @@ abstract class ApiController(
     protected suspend fun dispatch(command: Command) = mediator.send(command)
 
     @Throws(QueryHandlerExecutionError::class)
-    protected suspend fun ask(query: Query<Response>): Response = mediator.send(query)
+    protected suspend fun <TResponse : Response>ask(query: Query<TResponse>): Response = mediator.send(query)
 }

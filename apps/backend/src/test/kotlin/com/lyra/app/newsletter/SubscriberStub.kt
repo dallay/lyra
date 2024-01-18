@@ -41,4 +41,17 @@ object SubscriberStub {
 
     fun dummyRandomSubscribersFlow(size: Int = 10): Flow<Subscriber> =
         dummyRandomSubscribersList(size).asFlow()
+
+    @Suppress("MultilineRawStringIndentation")
+    fun generateRequest(
+        email: String = faker.internet().emailAddress(),
+        firstname: String = faker.name().firstName(),
+        lastname: String = faker.name().lastName()
+    ): String = """
+      {
+           "email": "$email",
+           "firstname": "$firstname",
+           "lastname": "$lastname"
+       }
+    """.trimIndent()
 }

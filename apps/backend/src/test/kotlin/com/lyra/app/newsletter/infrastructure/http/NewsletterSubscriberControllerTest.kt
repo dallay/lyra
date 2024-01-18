@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
 
 private const val ENDPOINT = "/api/newsletter/subscribers"
-class NewsletterSubscriberControllerTest {
+internal class NewsletterSubscriberControllerTest {
     private val mediator = mockk<Mediator>()
     private val id = UUID.randomUUID().toString()
     private val email = "john.doe@example.com"

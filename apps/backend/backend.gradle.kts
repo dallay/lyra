@@ -30,6 +30,7 @@ dependencies {
     implementation("org.springframework:spring-r2dbc")
     implementation("org.springframework.data:spring-data-r2dbc")
     implementation("org.postgresql:r2dbc-postgresql")
+    runtimeOnly("org.postgresql:postgresql:42.3.1")
 
     implementation(libs.spring.dotenv)
     implementation(libs.sendgrid)

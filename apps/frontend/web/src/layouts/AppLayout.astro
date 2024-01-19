@@ -1,0 +1,18 @@
+---
+import Layout from './CommonLayout.astro';
+import { SideBar } from '@lyra/ui';
+interface Props {
+	title: string;
+	description?: string;
+}
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+	<div class="bg-gray-50 text-gray-700 antialiased dark:bg-gray-900 dark:text-gray-300">
+		<SideBar />
+		<main class="h-auto p-4 pt-20 md:ml-64">
+			<slot />
+		</main>
+	</div>
+</Layout>

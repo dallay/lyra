@@ -4,7 +4,13 @@ module.exports = {
     es2022: true,
     browser: true,
   },
-  extends: ['eslint:recommended', 'plugin:astro/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:astro/recommended',
+    'plugin:astro/jsx-a11y-recommended',
+    'plugin:vue/vue3-recommended',
+  ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -12,8 +18,8 @@ module.exports = {
   rules: {
     'no-mixed-spaces-and-tabs': 'off',
   },
-  settings: {
-  },
+  plugins: ['vue'],
+  settings: {},
   overrides: [
     {
       files: ['*.astro'],
@@ -68,6 +74,16 @@ module.exports = {
       // Script in `<script>` is assigned a virtual file name with the `.js` extension.
       files: ['**/*.astro/*.js', '*.astro/*.js'],
       parser: '@typescript-eslint/parser',
+    },
+    {
+      files: ['*.vue'],
+      rules: {},
+    },
+    {
+      files: ['*.vue'],
+      rules: {
+        'vue/multi-word-component-names': 'off',
+      },
     },
   ],
 };

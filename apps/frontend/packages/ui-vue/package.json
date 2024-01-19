@@ -1,0 +1,64 @@
+{
+  "name": "@lyra/ui-vue",
+  "description": "Lyra vue ui components",
+  "version": "0.0.1",
+  "private": true,
+  "author": "Yuniel Acosta <yunielacosta738@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
+  "files": [
+    "package.json",
+    "dist"
+  ],
+  "keywords": [
+    "vue",
+    "common ui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yacosta738/lyra.git",
+    "directory": "apps/frontend/packages/ui-vue",
+    "branch": "main"
+  },
+  "bugs": {
+    "url": "https://github.com/yacosta738/lyra/issues"
+  },
+  "homepage": "lyra-nwhm.onrender.com",
+  "scripts": {
+    "build:types": "vue-tsc",
+    "build:vite": "vite build",
+    "dev": "echo \"DEV: 🟢 Starting with dev mode\" && vite build -w",
+    "build": "npm-run-all --parallel build:vite build:types",
+    "clean": "rm -rf dist",
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "lint": "npm-run-all --parallel lint:eslint",
+    "lint:eslint": "eslint . --ext .astro,.vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "dependencies": {
+    "vue": "^3.4.15"
+  },
+  "devDependencies": {
+    "@lyra/css-config": "workspace:*",
+    "@types/node": "^20.11.5",
+    "vite-plugin-dts": "^3.7.1",
+    "@vitejs/plugin-vue": "^5.0.3",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11",
+    "vue-tsc": "^1.8.27"
+  },
+  "packageManager": "pnpm@8.14.1"
+}

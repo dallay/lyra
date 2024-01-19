@@ -44,6 +44,10 @@ const { title, description = pkg.description } = Astro.props;
 		<slot />
 	</body>
 </html>
+<script>
+  import 'flowbite';
+  import 'flowbite/dist/datepicker.js';
+</script>
 <style is:global>
 	:root {
 		--header-background-light: rgba(255, 255, 255, 0.4);

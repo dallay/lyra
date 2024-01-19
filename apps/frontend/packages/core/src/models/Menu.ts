@@ -20,4 +20,9 @@ export const navMenus: Menu[] = [
 		title: 'Download',
 		link: '/download',
 	},
+	{
+		id: 'app',
+		title: 'App',
+		link: '/app',
+	},
 ];

@@ -5,7 +5,7 @@
   "tabWidth": 2,
   "trailingComma": "es5",
   "useTabs": true,
-  "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
+  "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss", "eslint-plugin-prettier-vue"],
   "overrides": [
     {
       "files": [".*", "*.json", "*.md", "*.mdx", "*.toml", "*.yml"],

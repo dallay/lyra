@@ -9,12 +9,30 @@ import path from 'path';
 export default defineConfig({
 	build: {
 		lib: {
-			entry: path.resolve(__dirname, 'src/index.ts'),
+			entry: path.resolve(__dirname, 'src/components/index.ts'),
 			fileName: 'index',
 			formats: ['es', 'cjs', 'umd'],
 			name: 'vue-ui',
 		},
 		outDir: './dist',
+    rollupOptions: {
+      // make sure to externalize deps that shouldn't be bundled
+      // into your library
+      input: {
+        main: path.resolve(__dirname, "src/index.ts"),
+      },
+      external: ["vue"],
+      output: {
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === "main.css") return "vue-ui-ts.min.css";
+          return assetInfo.name;
+        },
+        exports: "named",
+        globals: {
+          vue: "Vue",
+        },
+      },
+    },
 	},
 	define: {
 		pkgJson: { name, version },

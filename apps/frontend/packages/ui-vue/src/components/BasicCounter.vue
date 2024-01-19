@@ -4,19 +4,19 @@ import { ref, onMounted } from 'vue';
 const count = ref(0);
 
 onMounted(() => {
-  console.log('mounted');
-  //get from localStorage
-  const storedCount = localStorage.getItem('count');
-  if (storedCount) {
-    count.value = parseInt(storedCount);
-  }
+	console.log('mounted');
+	//get from localStorage
+	const storedCount = localStorage.getItem('count');
+	if (storedCount) {
+		count.value = parseInt(storedCount);
+	}
 });
 
 const increment = () => {
-  console.log('increment');
-  count.value++;
-  //store on localStorage
-  localStorage.setItem('count', count.value.toString());
+	console.log('increment');
+	count.value++;
+	//store on localStorage
+	localStorage.setItem('count', count.value.toString());
 };
 </script>
 

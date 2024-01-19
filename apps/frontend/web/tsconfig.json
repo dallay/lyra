@@ -8,25 +8,13 @@
     "allowJs": true,
     "baseUrl": "/Users/acosta/Dev/lyra/apps/frontend/web",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "~/*": [
-        "src/*"
-      ],
-      "atoms:*": [
-        "components/atoms/*.astro"
-      ],
-      "molecules:*": [
-        "components/molecules/*.astro"
-      ],
-      "organisms:*": [
-        "components/organisms/*.astro"
-      ],
-      "layouts:*": [
-        "layouts/*.astro"
-      ]
+      "@/*": ["src/*"],
+      "~/*": ["src/*"],
+      "atoms:*": ["components/atoms/*.astro"],
+      "molecules:*": ["components/molecules/*.astro"],
+      "organisms:*": ["components/organisms/*.astro"],
+      "layouts:*": ["layouts/*.astro"],
     },
-    "jsx": "preserve"
-  }
+    "jsx": "preserve",
+  },
 }

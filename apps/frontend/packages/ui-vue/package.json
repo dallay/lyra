@@ -40,9 +40,6 @@
     "build": "npm-run-all --parallel build:vite build:types",
     "clean": "rm -rf dist",
     "preview": "vite preview",
-    "format": "prettier --write .",
-    "lint": "npm-run-all --parallel lint:eslint",
-    "lint:eslint": "eslint . --ext .astro,.vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "peerDependencies": {
@@ -57,7 +54,7 @@
     "vite-plugin-dts": "^3.7.1",
     "@vitejs/plugin-vue": "^5.0.3",
     "typescript": "^5.3.3",
-    "vite": "^5.0.11",
+    "vite": "^5.0.12",
     "vue-tsc": "^1.8.27"
   },
   "packageManager": "pnpm@8.14.1"

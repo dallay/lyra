@@ -1,5 +1,5 @@
 import type { App } from 'vue';
-import { BasicCounter } from '@/components';
+import { useGenericDataTable, BasicCounter } from '@/components';
 
 export default {
 	install: (app: App) => {
@@ -7,4 +7,4 @@ export default {
 	},
 };
 
-export { BasicCounter };
+export { BasicCounter, useGenericDataTable };

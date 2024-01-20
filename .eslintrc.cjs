@@ -22,6 +22,20 @@ module.exports = {
   settings: {},
   overrides: [
     {
+      files: ['*.vue'],
+      parser: 'vue-eslint-parser',
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+      extends: ['plugin:@typescript-eslint/recommended'],
+      rules: {
+        'vue/multi-word-component-names': 'off',
+        'vue/require-default-prop': 'off',
+      },
+    },
+    {
       files: ['*.astro'],
       parser: 'astro-eslint-parser',
       parserOptions: {
@@ -74,16 +88,6 @@ module.exports = {
       // Script in `<script>` is assigned a virtual file name with the `.js` extension.
       files: ['**/*.astro/*.js', '*.astro/*.js'],
       parser: '@typescript-eslint/parser',
-    },
-    {
-      files: ['*.vue'],
-      rules: {},
-    },
-    {
-      files: ['*.vue'],
-      rules: {
-        'vue/multi-word-component-names': 'off',
-      },
     },
   ],
 };

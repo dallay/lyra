@@ -1,41 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useGenericDataTable } from '@lyra/ui-vue';
 import type { Subscriber } from '@lyra/vm-core';
+import SubscriberService from '@/services/subscriber.service.ts';
 
 const baseSubscriberUrl = '/app/audience/subscribers';
-const subscribers = ref<Subscriber[]>([
-	{
-		id: '53d58c7f-a7d1-4c94-9708-c905d27b0da9',
-		email: 'john.doe@test.com',
-		name: 'John Doe',
-		status: 'ENABLED',
-	},
-	{
-		id: '5a5474e7-70a5-47e5-b737-ca8392ff79d0',
-		email: 'jane.doe@test.com',
-		name: 'Jane Doe',
-		status: 'BLOCKLISTED',
-	},
-	{
-		id: '53d58c7f-a7d1-4c94-8708-c905d27b0da9',
-		email: 'manolo@test.com',
-		name: 'Manolo',
-		status: 'DISABLED',
-	},
-	{
-		id: '5a5474e7-70a3-47e5-b737-ca8392ff79d0',
-		email: 'acosta@test.com',
-		name: 'Yuniel Acosta',
-		status: 'ENABLED',
-	},
-	{
-		id: '5a5474e7-70a3-47e5-b737-ca9392ff59d0',
-		email: 'bikas@test.com',
-		name: 'Bikas',
-		status: 'DISABLED',
-	},
-]);
+const subscribers = ref<Subscriber[]>([]);
 const columns = ref([
 	{
 		key: 'email',
@@ -54,6 +24,14 @@ const columns = ref([
 	},
 ]);
 const SubscriberDataTable = useGenericDataTable<Subscriber>();
+
+async function refreshData() {
+  subscribers.value = (await SubscriberService.getInstance().getSubscribers()).subscribers;
+}
+
+onMounted(async () => {
+  await refreshData();
+});
 </script>
 
 <template>
@@ -78,17 +56,17 @@ const SubscriberDataTable = useGenericDataTable<Subscriber>();
             <div class="mb-4 flex items-center sm:mb-0">
               <form
                 class="sm:pr-3"
-                action="#"
+                action="/app/audience/subscribers"
                 method="GET"
               >
                 <label
-                  for="products-search"
+                  for="subscribers-search"
                   class="sr-only"
                 >Search</label>
                 <div class="relative mt-1 w-48 sm:w-64 xl:w-96">
                   <input
-                    id="products-search"
-                    type="text"
+                    id="subscribers-search"
+                    type=email
                     name="email"
                     class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
                     placeholder="Search for subscribers"
@@ -101,6 +79,7 @@ const SubscriberDataTable = useGenericDataTable<Subscriber>();
               <button
                 type="button"
                 class="crud-buttons"
+                @click="refreshData"
               >
                 <svg
                   class="-ml-1 mr-2 h-5 w-5"

@@ -60,7 +60,8 @@
     "stylelint-config-standard-scss": "^13.0.0",
     "stylelint-order": "^6.0.4",
     "ts-node": "^10.9.2",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "vite": "^5.0.11"
   },
   "engines": {
     "node": ">=18.14.1",

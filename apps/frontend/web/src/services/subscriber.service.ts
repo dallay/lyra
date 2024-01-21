@@ -1,11 +1,10 @@
 import { BACKEND_API_URL } from '@/constants';
-import type { Subscribers } from '@lyra/vm-core'
+import type { Subscribers } from '@lyra/vm-core';
 
 class SubscriberService {
 	private static instance: SubscriberService;
 
-	private constructor() {
-	}
+	private constructor() {}
 
 	public static getInstance(): SubscriberService {
 		if (!SubscriberService.instance) {

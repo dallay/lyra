@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.4.1",
+    "@astrojs/node": "^8.0.0",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vue": "^4.0.8",
     "@fontsource-variable/onest": "^5.0.2",
@@ -38,12 +39,12 @@
     "vue": "^3.4.15"
   },
   "devDependencies": {
-    "@lyra/css-config": "workspace:*",
-    "@lyra/ui": "workspace:*",
-    "@lyra/ui-vue": "workspace:*",
     "@iconify-json/mdi": "^1.1.64",
     "@iconify-json/ph": "^1.1.10",
     "@iconify-json/simple-icons": "^1.1.88",
+    "@lyra/css-config": "workspace:*",
+    "@lyra/ui": "workspace:*",
+    "@lyra/ui-vue": "workspace:*",
     "astro-icon": "^1.0.2",
     "semantic-release": "^23.0.0",
     "stylelint": "^16.2.0",

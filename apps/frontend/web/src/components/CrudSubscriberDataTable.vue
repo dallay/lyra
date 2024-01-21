@@ -1,0 +1,157 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useGenericDataTable } from '@lyra/ui-vue';
+import type { Subscriber } from '@lyra/vm-core';
+
+const baseSubscriberUrl = '/app/audience/subscribers';
+const subscribers = ref<Subscriber[]>([
+  {
+    id: '53d58c7f-a7d1-4c94-9708-c905d27b0da9',
+    email: 'john.doe@test.com',
+    name: 'John Doe',
+    status: 'ENABLED',
+  },
+  {
+    id: '5a5474e7-70a5-47e5-b737-ca8392ff79d0',
+    email: 'jane.doe@test.com',
+    name: 'Jane Doe',
+    status: 'BLOCKLISTED',
+  },
+  {
+    id: '53d58c7f-a7d1-4c94-8708-c905d27b0da9',
+    email: 'manolo@test.com',
+    name: 'Manolo',
+    status: 'DISABLED',
+  },
+  {
+    id: '5a5474e7-70a3-47e5-b737-ca8392ff79d0',
+    email: 'acosta@test.com',
+    name: 'Yuniel Acosta',
+    status: 'ENABLED',
+  },
+  {
+    id: '5a5474e7-70a3-47e5-b737-ca9392ff59d0',
+    email: 'bikas@test.com',
+    name: 'Bikas',
+    status: 'DISABLED',
+  }
+]);
+const columns = ref([
+  {
+    key: 'email',
+    label: 'Email',
+    sortable: true,
+  },
+  {
+    key: 'name',
+    label: 'Name',
+    sortable: true,
+  },
+  {
+    key: 'status',
+    label: 'Status',
+    sortable: false,
+  },
+]);
+const SubscriberDataTable = useGenericDataTable<Subscriber>();
+</script>
+
+<template>
+  <SubscriberDataTable :columns="columns" :items="subscribers">
+    <template v-slot:top>
+      <div class="mb-1 w-full" slot="top">
+        <div class="mb-4">
+          <slot name="header" />
+          <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white" slot="header">
+            All subscribers
+          </h1>
+          <div class="block items-center justify-between sm:flex">
+            <div class="mb-4 flex items-center sm:mb-0">
+              <form class="sm:pr-3" action="#" method="GET">
+                <label for="products-search" class="sr-only">Search</label>
+                <div class="relative mt-1 w-48 sm:w-64 xl:w-96">
+                  <input
+                    type="text"
+                    name="email"
+                    id="products-search"
+                    class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                    placeholder="Search for subscribers"
+                  />
+                </div>
+              </form>
+            </div>
+
+            <div class="ml-auto flex items-center space-x-2 sm:space-x-3">
+              <button
+                type="button"
+                class="crud-buttons"
+              >
+                <svg
+                  class="-ml-1 mr-2 h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                  ></path>
+                </svg>
+                Refresh
+              </button>
+              <a
+                href="/app/settings/publication/subscribers/import"
+                class="crud-buttons"
+                type="button"
+              >
+                <svg
+                  class="-ml-1 mr-2 h-5 w-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                Import subscribers
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template v-slot:email="{ item }">
+      <a :href="`${baseSubscriberUrl}/${item.id}`"
+         class="font-medium text-primary-600 dark:text-primary-500 hover:underline"
+      >
+        {{ item.email }}
+      </a>
+    </template>
+    <template v-slot:status="{ item }">
+      <span
+        :class="{
+          'bg-green-100 text-green-800 border-green-400 dark:bg-gray-700 dark:text-green-400': item.status === 'ENABLED',
+          'bg-red-100 text-red-800 border-red-400 dark:bg-gray-700 dark:text-red-400': item.status === 'DISABLED',
+          'bg-yellow-100 text-yellow-800 border-yellow-400 dark:bg-gray-700 dark:text-yellow-400': item.status === 'BLOCKLISTED'
+        }"
+        class="text-xs font-medium me-2 px-2.5 py-0.5 rounded"
+      >
+        {{ item.status }}
+      </span>
+    </template>
+  </SubscriberDataTable>
+</template>
+
+<style scoped>
+.crud-buttons{
+  @apply flex items-center space-x-2 sm:space-x-3 text-tertiary-50 bg-tertiary-800 dark:bg-tertiary-800 border-tertiary-300
+  dark:border-tertiary-700 hover:bg-tertiary-700 dark:hover:bg-tertiary-700 hover:border-tertiary-700 dark:hover:border-tertiary-700 rounded px-5 py-2.5
+  text-center font-sans font-semibold uppercase;
+}
+</style>

@@ -1,16 +1,16 @@
 import { defineComponent, h, VNode } from 'vue';
 import BaseDataTable from './BaseDataTable.vue';
-import { ExtractComponentProps } from './types';
+import { ColumnInfo, ExtractComponentProps } from './types';
 
 type NonGenericProps = Omit<ExtractComponentProps<typeof BaseDataTable>, 'columns' | 'items'>;
 
 interface GenericProps<TValue> extends NonGenericProps {
-	modelValue: TValue;
-	options: TValue[];
+	columns: ColumnInfo[];
+	items: TValue[];
 }
 
-interface ItemSlot<TValue> {
-	option: TValue;
+interface DataTableItemSlot<TValue> {
+	item: TValue;
 }
 
 export function useGenericDataTable<TValue = unknown>() {
@@ -28,7 +28,7 @@ export function useGenericDataTable<TValue = unknown>() {
 				(e: 'update:modelValue', value: TValue): void;
 			};
 			$slots: {
-				item: (props: ItemSlot<TValue>) => VNode[];
+				item: (props: DataTableItemSlot<TValue>) => VNode[];
 			};
 		};
 	};

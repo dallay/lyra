@@ -7,5 +7,5 @@ export type ExtractComponentProps<TComponent> = TComponent extends new () => {
 export interface ColumnInfo {
 	key: string;
 	label: string;
-  sortable?: boolean;
+	sortable?: boolean;
 }

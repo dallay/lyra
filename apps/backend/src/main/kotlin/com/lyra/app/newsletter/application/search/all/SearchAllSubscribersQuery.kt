@@ -12,8 +12,8 @@ import com.lyra.common.domain.presentation.sort.Sort
  */
 class SearchAllSubscribersQuery(
     val criteria: Criteria? = null,
-    val limit: Int? = null,
-    val offset: Long? = null,
+    val size: Int? = null,
+    val page: Int? = null,
     val sort: Sort? = null
 ) :
     Query<OffsetPage<SubscriberResponse>> {

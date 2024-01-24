@@ -16,7 +16,7 @@ class SearchAllSubscribersQueryHandler(
 ) : QueryHandler<SearchAllSubscribersQuery, OffsetPage<SubscriberResponse>> {
     override suspend fun handle(query: SearchAllSubscribersQuery): OffsetPage<SubscriberResponse> {
         log.info("Searching all subscribers")
-        return searcher.search(query.criteria, query.limit, query.offset, query.sort)
+        return searcher.search(query.criteria, query.size, query.page, query.sort)
     }
     companion object {
         private val log = LoggerFactory.getLogger(SearchAllSubscribersQueryHandler::class.java)

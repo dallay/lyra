@@ -1,25 +1,8 @@
 ---
 import { Breadcrumb } from '@lyra/ui';
 import CrudSubscriberDataTable from './CrudSubscriberDataTable.vue';
-import type { Subscribers, Subscriber } from '@lyra/vm-core';
 import { BreadcrumbItem } from '@lyra/vm-core';
 
-const subscribers: Subscribers = {
-	subscribers: [
-		{
-			id: '53d58c7f-a7d1-4c94-9708-c905d27b0da9',
-			email: 'john.doe@test.com',
-			name: 'John Doe',
-			status: 'ENABLED',
-		},
-		{
-			id: '5a5474e7-70a5-47e5-b737-ca8392ff79d0',
-			email: 'jane.doe@test.com',
-			name: 'Jane Doe',
-			status: 'ENABLED',
-		},
-	],
-};
 const columns = [
 	{
 		key: 'id',

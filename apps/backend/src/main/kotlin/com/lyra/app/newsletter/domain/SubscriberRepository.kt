@@ -13,8 +13,8 @@ interface SubscriberRepository {
     suspend fun create(subscriber: Subscriber)
     suspend fun searchAll(
         criteria: Criteria? = null,
-        limit: Int? = null,
-        offset: Long? = null,
+        size: Int? = null,
+        page: Int? = null,
         sort: Sort? = null
     ): OffsetPage<Subscriber>
     suspend fun searchActive(): Flow<Subscriber>

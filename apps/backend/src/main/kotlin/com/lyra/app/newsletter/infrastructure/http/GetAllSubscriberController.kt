@@ -42,8 +42,8 @@ class GetAllSubscriberController(
         @RequestParam("created_at", required = false) createdAt: List<String>? = null,
         @RequestParam("updated_at", required = false) updatedAt: List<String>? = null,
         @RequestParam("sort", required = false) sort: List<String>? = null,
-        @RequestParam("page", required = false) page: Long? = null,
-        @RequestParam("per_page", required = false) perPage: Int? = null,
+        @RequestParam("page", required = false, defaultValue = "0") page: Int? = null,
+        @RequestParam("size", required = false, defaultValue = "10") size: Int? = null,
     ): Response {
         log.debug(
             "Get all subscribers with filters: {}, {}, {}, {}, {}, {}",
@@ -67,7 +67,7 @@ class GetAllSubscriberController(
         val response = ask(
             SearchAllSubscribersQuery(
                 criteria,
-                perPage,
+                size,
                 page,
                 sort?.let { sortParser.parse(it) },
             ),

@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import Pagination from '@/components/Pagination.vue';
 import { useGenericDataTable } from '@lyra/ui-vue';
 import type { Subscriber } from '@lyra/vm-core';
 import SubscriberService from '@/services/subscriber.service.ts';
 
 const baseSubscriberUrl = '/app/audience/subscribers';
 const subscribers = ref<Subscriber[]>([]);
+const perPage = ref(10);
+const page = ref(0);
+const totalPages = ref(0);
+const total = ref(0);
 const columns = ref([
 	{
 		key: 'email',
@@ -25,8 +30,19 @@ const columns = ref([
 ]);
 const SubscriberDataTable = useGenericDataTable<Subscriber>();
 
-async function refreshData() {
-	subscribers.value = (await SubscriberService.getInstance().getSubscribers()).subscribers;
+async function refreshData(newPage = page.value) {
+	let offsetPage = await SubscriberService.getInstance().getSubscribers(
+		null,
+		null,
+		perPage.value,
+		newPage
+	);
+	console.log('offsetPage', offsetPage);
+	perPage.value = offsetPage.perPage;
+	page.value = offsetPage.page ?? 0;
+	totalPages.value = offsetPage.totalPages ?? 0;
+	total.value = offsetPage.total ?? 0;
+	subscribers.value = offsetPage.data;
 }
 
 onMounted(async () => {
@@ -124,6 +140,15 @@ onMounted(async () => {
 			>
 				{{ item.status }}
 			</span>
+		</template>
+		<template v-slot:footer>
+			<Pagination
+				:total="total"
+				:per-page="perPage"
+				:page="page"
+				:total-pages="totalPages"
+				@updatePage="refreshData"
+			/>
 		</template>
 	</SubscriberDataTable>
 </template>

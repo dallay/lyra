@@ -11,15 +11,16 @@ import org.slf4j.LoggerFactory
 
 @Service
 class SearchAllSubscriberSearcher(private val repository: SubscriberRepository) {
-    suspend fun search(criteria: Criteria?, limit: Int?, offset: Long?, sort: Sort?): OffsetPage<SubscriberResponse> {
+    suspend fun search(criteria: Criteria?, size: Int?, page: Int?, sort: Sort?): OffsetPage<SubscriberResponse> {
         log.info("Searching all subscribers")
-        val pages: OffsetPage<Subscriber> = repository.searchAll(criteria, limit, offset, sort)
+        val pages: OffsetPage<Subscriber> = repository.searchAll(criteria, size, page, sort)
         val subscribers: List<SubscriberResponse> = pages.data.map { SubscriberResponse.from(it) }.toList()
         return OffsetPage(
             data = subscribers,
             total = pages.total,
             page = pages.page,
             perPage = pages.perPage,
+            totalPages = pages.totalPages,
         )
     }
 

@@ -50,15 +50,27 @@ class SubscriberRepositoryRepository(
 
     override suspend fun searchAll(
         criteria: Criteria?,
-        limit: Int?,
-        offset: Long?,
+        size: Int?,
+        page: Int?,
         sort: Sort?
     ): OffsetPage<Subscriber> {
+        log.debug(
+            "Get all subscribers with filters: {} and sort: {} and pagination: size={}, page={}",
+            criteria,
+            sort,
+            size,
+            page,
+        )
         val criteriaParsed = criteriaParser.parse(criteria ?: Criteria.Empty)
         val sortCriteria = sort.toSpringSort()
-        val pageable = PageRequest.of(offset?.toInt() ?: 0, limit ?: DEFAULT_LIMIT, sortCriteria)
+        // Pageable paging = PageRequest.of(page, size);
+        val pageable = PageRequest.of(page ?: 0, size ?: DEFAULT_LIMIT, sortCriteria)
 
-        return subscriberRegistratorR2dbcRepository.findAll(criteriaParsed, pageable, SubscriberEntity::class)
+        return subscriberRegistratorR2dbcRepository.findAll(
+            criteriaParsed,
+            pageable,
+            SubscriberEntity::class,
+        )
             .awaitFirstOrNull()
             ?.let { pageEntity ->
                 OffsetPage(
@@ -66,6 +78,7 @@ class SubscriberRepositoryRepository(
                     total = pageEntity.totalElements,
                     perPage = pageEntity.size,
                     page = pageEntity.number,
+                    totalPages = pageEntity.totalPages,
                 )
             } ?: OffsetPage(emptyList(), 0, 0, 0)
     }

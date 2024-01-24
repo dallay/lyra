@@ -2,6 +2,7 @@ package com.lyra.app.newsletter.application.search.all
 
 import com.lyra.app.newsletter.SubscriberStub
 import com.lyra.app.newsletter.domain.SubscriberRepository
+import com.lyra.common.domain.criteria.Criteria
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockkClass
@@ -15,25 +16,29 @@ private const val NUM_SUBSCRIBER = 100
 
 internal class SearchAllSubscribersQueryHandlerTest {
     private val repository = mockkClass(SubscriberRepository::class)
-    private val searcher = AllSubscriberSearcher(repository)
+    private val searcher = SearchAllSubscriberSearcher(repository)
     private val searchAllSubscribersQueryHandler = SearchAllSubscribersQueryHandler(searcher)
 
     @BeforeEach
     fun setUp() {
-        coEvery { repository.searchAll() } returns SubscriberStub.dummyRandomSubscribersFlow(
+        coEvery { repository.searchAll(any(Criteria::class)) } returns SubscriberStub.dummyRandomSubscribersOffsetPage(
             NUM_SUBSCRIBER,
         )
     }
 
     @Test
     fun `should search all subscribers`() = runBlocking {
-        // Given
-        val command = SearchAllSubscribersQuery()
-        // When
-        val response = searchAllSubscribersQueryHandler.handle(command)
-        // Then
-        assertTrue(response.subscribers.isNotEmpty())
-        assertEquals(NUM_SUBSCRIBER, response.subscribers.size)
-        coVerify(exactly = 1) { repository.searchAll() }
+        val query = SearchAllSubscribersQuery(criteria = Criteria.Empty)
+        val response = searchAllSubscribersQueryHandler.handle(query)
+        val data = response.data
+        val total = response.total
+        val page = response.page
+        val perPage = response.perPage
+        assertTrue(data.isNotEmpty())
+        assertEquals(100, data.size)
+        assertEquals(100, total)
+        assertEquals(1, page)
+        assertEquals(NUM_SUBSCRIBER, perPage)
+        coVerify(exactly = 1) { repository.searchAll(any(Criteria::class)) }
     }
 }

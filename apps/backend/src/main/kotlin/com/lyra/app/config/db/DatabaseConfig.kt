@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 
 @Configuration
 @EnableTransactionManagement
-@EnableR2dbcRepositories
+@EnableR2dbcRepositories(basePackages = ["com.lyra.*"])
 @EnableR2dbcAuditing
 class DatabaseConfig {
     /**

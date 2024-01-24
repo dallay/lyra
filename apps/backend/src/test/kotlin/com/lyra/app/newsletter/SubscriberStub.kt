@@ -1,5 +1,6 @@
 package com.lyra.app.newsletter
 
+import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.app.newsletter.domain.FirstName
 import com.lyra.app.newsletter.domain.LastName
 import com.lyra.app.newsletter.domain.Name
@@ -7,6 +8,7 @@ import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.SubscriberId
 import com.lyra.app.newsletter.domain.SubscriberStatus
 import com.lyra.common.domain.email.Email
+import com.lyra.common.domain.presentation.pagination.OffsetPage
 import java.util.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -42,6 +44,21 @@ object SubscriberStub {
     fun dummyRandomSubscribersFlow(size: Int = 10): Flow<Subscriber> =
         dummyRandomSubscribersList(size).asFlow()
 
+    fun dummyRandomSubscribersOffsetPage(size: Int = 10): OffsetPage<Subscriber> =
+        OffsetPage(
+            data = dummyRandomSubscribersList(size),
+            total = size.toLong(),
+            perPage = size,
+            page = 1,
+        )
+
+    fun dummyRandomSubscriberResponseOffsetPage(size: Int = 10): OffsetPage<SubscriberResponse> =
+        OffsetPage(
+            data = dummyRandomSubscribersList(size).map { SubscriberResponse.from(it) },
+            total = size.toLong(),
+            perPage = size,
+            page = 1,
+        )
     @Suppress("MultilineRawStringIndentation")
     fun generateRequest(
         email: String = faker.internet().emailAddress(),

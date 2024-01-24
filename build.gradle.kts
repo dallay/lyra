@@ -56,3 +56,7 @@ tasks.named<InstallFrontendTask>("installFrontend") {
     inputs.files(retainedMetadataFileNames).withPropertyName("metadataFiles")
     outputs.dir("$projectDir/node_modules").withPropertyName("nodeModulesDirectory")
 }
+
+tasks.withType<Test>().configureEach {
+    maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
+}

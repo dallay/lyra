@@ -1,3 +1,3 @@
 export interface SubscriberFilter {
-  [key: string]: string[];
+	[key: string]: string[];
 }

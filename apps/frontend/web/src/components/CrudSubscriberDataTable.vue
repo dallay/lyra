@@ -30,17 +30,17 @@ const columns: Ref<ColumnInfo[]> = ref([
 ]);
 
 const filters: Ref<SubscriberFilter> = ref({
-  email: [''],
-  name: [''],
-  status: [''],
-})
+	email: [''],
+	name: [''],
+	status: [''],
+});
 function updateFilters(searchValue: string) {
-  console.log(searchValue)
-  filters.value = {
-    email: ['eq:' + searchValue],
-    name: ['eq:' + searchValue],
-    status: ['eq:' + searchValue],
-  };
+	console.log(searchValue);
+	filters.value = {
+		email: ['eq:' + searchValue],
+		name: ['eq:' + searchValue],
+		status: ['eq:' + searchValue],
+	};
 }
 const SubscriberDataTable = useGenericDataTable<Subscriber>();
 const ColumnSelectInput = useGenericSelectInput<ColumnInfo>();
@@ -60,15 +60,15 @@ async function refreshData(newPage = page.value) {
 }
 
 async function submit() {
-  await refreshData();
+	await refreshData();
 }
 
 onMounted(async () => {
 	await refreshData();
 });
 const form = reactive({
-  columns: columns.value[0]
-})
+	columns: columns.value[0],
+});
 </script>
 
 <template>
@@ -82,24 +82,24 @@ const form = reactive({
 					</h1>
 					<div class="block items-center justify-between sm:flex">
 						<div class="mb-4 flex items-center sm:mb-0">
-							<form class="sm:pr-3 flex items-center justify-center" @submit.prevent="submit">
-                <ColumnSelectInput v-model="form.columns" :options="columns" class="mr-2">
-                  <template #option="{ option }">
-                    <span class="text-gray-900 dark:text-white">{{ option.label }}</span>
-                  </template>
-                </ColumnSelectInput>
+							<form class="flex items-center justify-center sm:pr-3" @submit.prevent="submit">
+								<ColumnSelectInput v-model="form.columns" :options="columns" class="mr-2">
+									<template #option="{ option }">
+										<span class="text-gray-900 dark:text-white">{{ option.label }}</span>
+									</template>
+								</ColumnSelectInput>
 
-                <div class="relative w-48 sm:w-64 xl:w-96">
-                  <label for="subscribers-search" class="sr-only">Search</label>
-                  <input
-                    id="subscribers-search"
-                    type="text"
-                    name="search"
-                    class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                    placeholder="Search for subscribers"
-                    @input="updateFilters($event.target.value)"
-                  />
-                </div>
+								<div class="relative w-48 sm:w-64 xl:w-96">
+									<label for="subscribers-search" class="sr-only">Search</label>
+									<input
+										id="subscribers-search"
+										type="text"
+										name="search"
+										class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+										placeholder="Search for subscribers"
+										@input="updateFilters($event.target.value)"
+									/>
+								</div>
 							</form>
 						</div>
 

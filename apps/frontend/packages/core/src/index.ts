@@ -7,11 +7,11 @@ import { SubscriberFilter } from './models/SubscriberFilter.ts';
 
 export { navMenus };
 export type {
-  Menu,
-  Project,
-  BreadcrumbItem,
-  Subscribers,
-  Subscriber,
-  SubscriberFilter,
-  OffsetPage,
+	Menu,
+	Project,
+	BreadcrumbItem,
+	Subscribers,
+	Subscriber,
+	SubscriberFilter,
+	OffsetPage,
 };

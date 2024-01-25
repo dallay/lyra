@@ -50,8 +50,8 @@
   },
   "devDependencies": {
     "@lyra/css-config": "workspace:*",
-    "@types/node": "^20.11.5",
-    "vite-plugin-dts": "^3.7.1",
+    "@types/node": "^20.11.6",
+    "vite-plugin-dts": "^3.7.2",
     "@vitejs/plugin-vue": "^5.0.3",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",

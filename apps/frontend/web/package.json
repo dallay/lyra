@@ -33,7 +33,7 @@
     "@fontsource-variable/onest": "^5.0.2",
     "@justinribeiro/lite-youtube": "1.5.0",
     "@lyra/vm-core": "workspace:*",
-    "astro": "^4.2.1",
+    "astro": "^4.2.4",
     "sharp": "^0.33.2",
     "typescript": "^5.3.3",
     "vue": "^3.4.15"
@@ -41,7 +41,7 @@
   "devDependencies": {
     "@iconify-json/mdi": "^1.1.64",
     "@iconify-json/ph": "^1.1.10",
-    "@iconify-json/simple-icons": "^1.1.88",
+    "@iconify-json/simple-icons": "^1.1.89",
     "@lyra/css-config": "workspace:*",
     "@lyra/ui": "workspace:*",
     "@lyra/ui-vue": "workspace:*",

@@ -38,9 +38,9 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/eslint": "^8.56.2",
-    "@types/node": "^20.11.5",
-    "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "@typescript-eslint/parser": "^6.19.0",
+    "@types/node": "^20.11.6",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
     "astro-eslint-parser": "^0.16.2",
     "eslint": "^8.56.0",
     "eslint-plugin-astro": "^0.31.3",
@@ -61,7 +61,7 @@
     "stylelint-order": "^6.0.4",
     "ts-node": "^10.9.2",
     "tsconfig": "workspace:*",
-    "vite": "^5.0.11"
+    "vite": "^5.0.12"
   },
   "engines": {
     "node": ">=18.14.1",

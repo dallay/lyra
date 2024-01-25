@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, type Ref, reactive } from 'vue';
 import Pagination from '@/components/Pagination.vue';
-import { useGenericDataTable } from '@lyra/ui-vue';
-import type { Subscriber } from '@lyra/vm-core';
+import { useGenericDataTable, useGenericSelectInput, type ColumnInfo } from '@lyra/ui-vue';
+import type { Subscriber, SubscriberFilter } from '@lyra/vm-core';
 import SubscriberService from '@/services/subscriber.service.ts';
 
 const baseSubscriberUrl = '/app/audience/subscribers';
@@ -11,7 +11,7 @@ const perPage = ref(10);
 const page = ref(0);
 const totalPages = ref(0);
 const total = ref(0);
-const columns = ref([
+const columns: Ref<ColumnInfo[]> = ref([
 	{
 		key: 'email',
 		label: 'Email',
@@ -28,16 +28,30 @@ const columns = ref([
 		sortable: false,
 	},
 ]);
+
+const filters: Ref<SubscriberFilter> = ref({
+  email: [''],
+  name: [''],
+  status: [''],
+})
+function updateFilters(searchValue: string) {
+  console.log(searchValue)
+  filters.value = {
+    email: ['eq:' + searchValue],
+    name: ['eq:' + searchValue],
+    status: ['eq:' + searchValue],
+  };
+}
 const SubscriberDataTable = useGenericDataTable<Subscriber>();
+const ColumnSelectInput = useGenericSelectInput<ColumnInfo>();
 
 async function refreshData(newPage = page.value) {
 	let offsetPage = await SubscriberService.getInstance().getSubscribers(
-		null,
-		null,
+		filters.value,
+		'',
 		perPage.value,
 		newPage
 	);
-	console.log('offsetPage', offsetPage);
 	perPage.value = offsetPage.perPage;
 	page.value = offsetPage.page ?? 0;
 	totalPages.value = offsetPage.totalPages ?? 0;
@@ -45,9 +59,16 @@ async function refreshData(newPage = page.value) {
 	subscribers.value = offsetPage.data;
 }
 
+async function submit() {
+  await refreshData();
+}
+
 onMounted(async () => {
 	await refreshData();
 });
+const form = reactive({
+  columns: columns.value[0]
+})
 </script>
 
 <template>
@@ -61,22 +82,29 @@ onMounted(async () => {
 					</h1>
 					<div class="block items-center justify-between sm:flex">
 						<div class="mb-4 flex items-center sm:mb-0">
-							<form class="sm:pr-3" action="/app/audience/subscribers" method="GET">
-								<label for="subscribers-search" class="sr-only">Search</label>
-								<div class="relative mt-1 w-48 sm:w-64 xl:w-96">
-									<input
-										id="subscribers-search"
-										type="email"
-										name="email"
-										class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-										placeholder="Search for subscribers"
-									/>
-								</div>
+							<form class="sm:pr-3 flex items-center justify-center" @submit.prevent="submit">
+                <ColumnSelectInput v-model="form.columns" :options="columns" class="mr-2">
+                  <template #option="{ option }">
+                    <span class="text-gray-900 dark:text-white">{{ option.label }}</span>
+                  </template>
+                </ColumnSelectInput>
+
+                <div class="relative w-48 sm:w-64 xl:w-96">
+                  <label for="subscribers-search" class="sr-only">Search</label>
+                  <input
+                    id="subscribers-search"
+                    type="text"
+                    name="search"
+                    class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                    placeholder="Search for subscribers"
+                    @input="updateFilters($event.target.value)"
+                  />
+                </div>
 							</form>
 						</div>
 
 						<div class="ml-auto flex items-center space-x-2 sm:space-x-3">
-							<button type="button" class="crud-buttons" @click="refreshData">
+							<button type="button" class="crud-buttons" @click="refreshData()">
 								<svg
 									class="-ml-1 mr-2 h-5 w-5"
 									fill="none"

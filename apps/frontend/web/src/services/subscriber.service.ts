@@ -1,11 +1,5 @@
 import { BACKEND_API_URL } from '@/constants';
-import type { OffsetPage, Subscriber } from '@lyra/vm-core';
-
-interface SubscriberFilter {
-	email?: string;
-	name?: string;
-	status?: string;
-}
+import type { OffsetPage, Subscriber, SubscriberFilter } from '@lyra/vm-core';
 
 class SubscriberService {
 	private static instance: SubscriberService;
@@ -30,7 +24,7 @@ class SubscriberService {
 		const params = new URLSearchParams();
 		if (filter) {
 			Object.entries(filter).forEach(([key, value]) => {
-				params.append(key, value);
+				params.append(key, value.join(','));
 			});
 		}
 		if (sort) {

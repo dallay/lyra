@@ -1,5 +1,5 @@
 import type { App } from 'vue';
-import { useGenericDataTable, BasicCounter } from '@/components';
+import { useGenericDataTable, useGenericSelectInput, BasicCounter, type ColumnInfo } from '@/components';
 import '@lyra/css-config/index.css';
 
 export default {
@@ -8,4 +8,4 @@ export default {
 	},
 };
 
-export { BasicCounter, useGenericDataTable };
+export { BasicCounter, useGenericDataTable, useGenericSelectInput, ColumnInfo };

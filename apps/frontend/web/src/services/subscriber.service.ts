@@ -22,16 +22,16 @@ class SubscriberService {
 		const url = new URL(`${BACKEND_API_URL}newsletter/subscribers`);
 
 		const params = new URLSearchParams();
-    if (filter) {
-      Object.entries(filter)
-        .filter(([, value]) => value.length > 0 && value[0] !== '')
-        .forEach(([key, value]) => {
-          params.append(key, value.join(','));
-        });
-    }
-    for (let entry of params.entries()) {
-      console.log(entry);
-    }
+		if (filter) {
+			Object.entries(filter)
+				.filter(([, value]) => value.length > 0 && value[0] !== '')
+				.forEach(([key, value]) => {
+					params.append(key, value.join(','));
+				});
+		}
+		for (let entry of params.entries()) {
+			console.log(entry);
+		}
 		if (sort) {
 			params.append('sort', sort);
 		}

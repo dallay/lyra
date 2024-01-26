@@ -42,7 +42,7 @@
     "@astrojs/check": "^0.4.1",
     "@lyra/css-config": "workspace:*",
     "@types/canvas-confetti": "^1.6.4",
-    "astro": "^4.2.4",
+    "astro": "^4.2.5",
     "astro-icon": "^1.0.2",
     "canvas-confetti": "^1.9.2",
     "tailwindcss": "^3.4.1",

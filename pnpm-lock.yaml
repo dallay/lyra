@@ -39,17 +39,17 @@ importers:
         specifier: ^0.31.0
         version: 0.31.0(eslint@8.56.0)
       gradle-semantic-release-plugin:
-        specifier: 1.9.0
-        version: 1.9.0(semantic-release@23.0.0)
+        specifier: 1.9.1
+        version: 1.9.1(semantic-release@23.0.0)
       prettier:
         specifier: 3.2.4
         version: 3.2.4
       prettier-plugin-astro:
-        specifier: ~0.12.3
-        version: 0.12.3
+        specifier: ~0.13.0
+        version: 0.13.0
       prettier-plugin-tailwindcss:
         specifier: ~0.5.10
-        version: 0.5.10(prettier-plugin-astro@0.12.3)(prettier@3.2.4)
+        version: 0.5.10(prettier-plugin-astro@0.13.0)(prettier@3.2.4)
       semantic-release:
         specifier: ^23.0.0
         version: 23.0.0(typescript@5.3.3)
@@ -108,7 +108,7 @@ importers:
     devDependencies:
       '@astrojs/check':
         specifier: ^0.4.0
-        version: 0.4.0(prettier-plugin-astro@0.12.3)(prettier@3.2.4)(typescript@5.3.3)
+        version: 0.4.0(prettier-plugin-astro@0.13.0)(prettier@3.2.4)(typescript@5.3.3)
       '@lyra/css-config':
         specifier: workspace:*
         version: link:../css-config
@@ -135,7 +135,7 @@ importers:
     dependencies:
       '@astrojs/check':
         specifier: ^0.4.0
-        version: 0.4.0(prettier-plugin-astro@0.12.3)(prettier@3.2.4)(typescript@5.3.3)
+        version: 0.4.0(prettier-plugin-astro@0.13.0)(prettier@3.2.4)(typescript@5.3.3)
       '@astrojs/tailwind':
         specifier: ^5.1.0
         version: 5.1.0(astro@4.0.8)(tailwindcss@3.4.0)(ts-node@10.9.2)
@@ -212,13 +212,13 @@ packages:
     resolution: {integrity: sha512-gFPqTG7otEJ8uP6wrhDv6mqwGWYZKNvAcCq6u9hOj0c+IKCEsY4L1oC9trPq2SaWIzAfHvqfBDxF591JkMf+kg==}
     dev: true
 
-  /@astrojs/check@0.4.0(prettier-plugin-astro@0.12.3)(prettier@3.2.4)(typescript@5.3.3):
+  /@astrojs/check@0.4.0(prettier-plugin-astro@0.13.0)(prettier@3.2.4)(typescript@5.3.3):
     resolution: {integrity: sha512-hpHweo/9c9f2hYAUdqjGPOIWt6w/9eHHgzS9g8BhqsUgGs9EJdAndSzM4rErR7WCjZOt0hHSzG6HF0CkSogDtA==}
     hasBin: true
     peerDependencies:
       typescript: ^5.0.0
     dependencies:
-      '@astrojs/language-server': 2.6.1(prettier-plugin-astro@0.12.3)(prettier@3.2.4)(typescript@5.3.3)
+      '@astrojs/language-server': 2.6.1(prettier-plugin-astro@0.13.0)(prettier@3.2.4)(typescript@5.3.3)
       chokidar: 3.5.3
       fast-glob: 3.3.2
       kleur: 4.1.5
@@ -240,7 +240,7 @@ packages:
   /@astrojs/internal-helpers@0.2.1:
     resolution: {integrity: sha512-06DD2ZnItMwUnH81LBLco3tWjcZ1lGU9rLCCBaeUCGYe9cI0wKyY2W3kDyoW1I6GmcWgt1fu+D1CTvz+FIKf8A==}
 
-  /@astrojs/language-server@2.6.1(prettier-plugin-astro@0.12.3)(prettier@3.2.4)(typescript@5.3.3):
+  /@astrojs/language-server@2.6.1(prettier-plugin-astro@0.13.0)(prettier@3.2.4)(typescript@5.3.3):
     resolution: {integrity: sha512-M4FkNAmvmE9PHrJNK6hlBoBDHSafWa1gM8eN8Myi5ikwA0YlyBPtYICK+45+eVwfR5Td4p4zm09LqIZ2la7bUQ==}
     hasBin: true
     peerDependencies:
@@ -263,7 +263,7 @@ packages:
       fast-glob: 3.3.2
       muggle-string: 0.3.1
       prettier: 3.2.4
-      prettier-plugin-astro: 0.12.3
+      prettier-plugin-astro: 0.13.0
       volar-service-css: 0.0.17(@volar/language-service@1.11.1)
       volar-service-emmet: 0.0.17(@volar/language-service@1.11.1)
       volar-service-html: 0.0.17(@volar/language-service@1.11.1)
@@ -4015,11 +4015,11 @@ packages:
   /graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  /gradle-semantic-release-plugin@1.9.0(semantic-release@23.0.0):
-    resolution: {integrity: sha512-8schNX6kF/M9oHFW25d9lWt0U76rXfqyO5sYreROqpwR+TXt6vcHc8w99dSM8cv1rGe+MuKsKlq5zasK+7Cpug==}
+  /gradle-semantic-release-plugin@1.9.1(semantic-release@23.0.0):
+    resolution: {integrity: sha512-lCrw22itszP/FLSL3N61E40vH1+CU95/4LG9ZF+Fxr8tcx7EPthh2eqVPAq67udFlM8ZgO2LETnn8LSDRq1J2w==}
     engines: {node: '>=18'}
     peerDependencies:
-      semantic-release: ^22.0.5
+      semantic-release: ^23.0.0
     dependencies:
       promisified-properties: 3.0.0
       semantic-release: 23.0.0(typescript@5.3.3)
@@ -6238,15 +6238,15 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-astro@0.12.3:
-    resolution: {integrity: sha512-GthUSu3zCvmtVyqlArosez0xE08vSJ0R1sWurxIWpABaCkNGYFANoUdFkqmIo54EV2uPLGcVJzOucWvCjPBWvg==}
+  /prettier-plugin-astro@0.13.0:
+    resolution: {integrity: sha512-5HrJNnPmZqTUNoA97zn4gNQv9BgVhv+et03314WpQ9H9N8m2L9OSV798olwmG2YLXPl1iSstlJCR1zB3x5xG4g==}
     engines: {node: ^14.15.0 || >=16.0.0}
     dependencies:
       '@astrojs/compiler': 1.8.2
       prettier: 3.2.4
       sass-formatter: 0.7.8
 
-  /prettier-plugin-tailwindcss@0.5.10(prettier-plugin-astro@0.12.3)(prettier@3.2.4):
+  /prettier-plugin-tailwindcss@0.5.10(prettier-plugin-astro@0.13.0)(prettier@3.2.4):
     resolution: {integrity: sha512-9UGSejqFxGG6brYjFfTYlJ8zs4L/lvZg1AngFfaC5Fs1otSskASv5IWKmjPu5MlABQUtTKtMArKyYr/hWpXSUg==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
@@ -6296,7 +6296,7 @@ packages:
         optional: true
     dependencies:
       prettier: 3.2.4
-      prettier-plugin-astro: 0.12.3
+      prettier-plugin-astro: 0.13.0
     dev: true
 
   /prettier@3.2.4:

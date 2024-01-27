@@ -1,41 +1,23 @@
 ---
 import { Breadcrumb } from '@lyra/ui';
 import CrudSubscriberDataTable from './CrudSubscriberDataTable.vue';
-import { BreadcrumbItem } from '@lyra/vm-core';
+import { type BreadcrumbItem } from '@lyra/vm-core';
 
-const columns = [
-	{
-		key: 'id',
-		label: 'ID',
-	},
-	{
-		key: 'email',
-		label: 'Email',
-	},
-	{
-		key: 'name',
-		label: 'Name',
-	},
-	{
-		key: 'status',
-		label: 'Status',
-	},
-];
 const breadcrumbItems: BreadcrumbItem[] = [
-	{
-		label: 'Home',
-		href: '/app',
-	},
-	{
-		label: 'Audience',
-		href: '/app/audience',
-		icon: 'ph:users-duotone',
-	},
-	{
-		label: 'Subscribers',
-		href: '/app/audience/subscribers',
-		icon: 'ph:users-three-duotone',
-	},
+ {
+  label: 'Home',
+  href: '/app',
+ } as BreadcrumbItem,
+ {
+  label: 'Audience',
+  href: '/app/audience',
+  icon: 'ph:users-duotone',
+ } as BreadcrumbItem,
+ {
+  label: 'Subscribers',
+  href: '/app/audience/subscribers',
+  icon: 'ph:users-three-duotone',
+ } as BreadcrumbItem,
 ];
 ---
 

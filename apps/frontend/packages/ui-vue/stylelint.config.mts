@@ -1,2 +1,2 @@
-import stylelintConfig from '@lyra/css-config/stylelint.config.mts';
+import stylelintConfig from '../css-config/stylelint.config.mjs';
 export default stylelintConfig;

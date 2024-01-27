@@ -10,6 +10,7 @@ module.exports = {
     'plugin:astro/recommended',
     'plugin:astro/jsx-a11y-recommended',
     'plugin:vue/vue3-recommended',
+    'prettier',
   ],
   parserOptions: {
     ecmaVersion: 'latest',

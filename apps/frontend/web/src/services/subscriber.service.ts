@@ -29,7 +29,7 @@ class SubscriberService {
 					params.append(key, value.join(','));
 				});
 		}
-		for (let entry of params.entries()) {
+		for (const entry of params.entries()) {
 			console.log(entry);
 		}
 		if (sort) {

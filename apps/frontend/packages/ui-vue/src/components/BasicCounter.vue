@@ -1,7 +1,5 @@
 <template>
-  <button @click="count++">
-    Clicked {{ count }} times
-  </button>
+	<button @click="count++">Clicked {{ count }} times</button>
 </template>
 
 <script setup lang="ts">

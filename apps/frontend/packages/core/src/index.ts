@@ -3,7 +3,18 @@ import { Project } from './models/Project';
 import { OffsetPage } from './models/OffsetPage';
 import { BreadcrumbItem } from './models/BreadcrumbItem.ts';
 import { Subscriber, Subscribers } from './models/Subscriber.ts';
-import { SubscriberFilter } from './models/SubscriberFilter.ts';
+import {
+	allFilterOperators,
+	FilterOperator,
+	FilterOperatorOption,
+} from './filters/FilterOperator.ts';
+import { BasicFilter, Filter, FilterOptions, FilterType } from './filters/Filter.ts';
+import {
+	convertFieldPropertyToProperty,
+	convertPropertyToFieldProperty,
+	FieldProperty,
+	Property,
+} from './filters/Property.ts';
 
 export { navMenus };
 export type {
@@ -12,6 +23,19 @@ export type {
 	BreadcrumbItem,
 	Subscribers,
 	Subscriber,
-	SubscriberFilter,
 	OffsetPage,
+	FilterOperatorOption,
+	FilterType,
+	FilterOptions,
+	Filter,
+	Property,
+	FieldProperty,
+};
+
+export {
+	FilterOperator,
+	allFilterOperators,
+	BasicFilter,
+	convertPropertyToFieldProperty,
+	convertFieldPropertyToProperty,
 };

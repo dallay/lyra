@@ -1,5 +1,5 @@
 import { BACKEND_API_URL } from '@/constants';
-import type { OffsetPage, Subscriber, SubscriberFilter } from '@lyra/vm-core';
+import type { OffsetPage, Subscriber } from '@lyra/vm-core';
 
 class SubscriberService {
 	private static instance: SubscriberService;
@@ -14,7 +14,7 @@ class SubscriberService {
 	}
 
 	public async getSubscribers(
-		filter?: SubscriberFilter,
+		filter?: string,
 		sort?: string,
 		size: number = 10,
 		page: number = 0
@@ -23,14 +23,11 @@ class SubscriberService {
 
 		const params = new URLSearchParams();
 		if (filter) {
-			Object.entries(filter)
-				.filter(([, value]) => value.length > 0 && value[0] !== '')
-				.forEach(([key, value]) => {
-					params.append(key, value.join(','));
-				});
-		}
-		for (const entry of params.entries()) {
-			console.log(entry);
+			const filters = filter.split('&');
+			filters.forEach((f) => {
+				const [key, value] = f.split('=');
+				params.append(key, value);
+			});
 		}
 		if (sort) {
 			params.append('sort', sort);

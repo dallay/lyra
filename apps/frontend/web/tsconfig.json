@@ -13,8 +13,8 @@
       "atoms:*": ["components/atoms/*.astro"],
       "molecules:*": ["components/molecules/*.astro"],
       "organisms:*": ["components/organisms/*.astro"],
-      "layouts:*": ["layouts/*.astro"],
+      "layouts:*": ["layouts/*.astro"]
     },
-    "jsx": "preserve",
-  },
+    "jsx": "preserve"
+  }
 }

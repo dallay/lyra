@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref, type Ref } from 'vue';
+import { onMounted, ref, type Ref } from 'vue';
 import Pagination from '@/components/Pagination.vue';
-import { type ColumnInfo, useGenericDataTable, useGenericSelectInput } from '@lyra/ui-vue';
-import type { Subscriber, SubscriberFilter } from '@lyra/vm-core';
+import { type ColumnInfo, useGenericDataTable, GeneralFilter } from '@lyra/ui-vue';
+import type { Subscriber, FieldProperty } from '@lyra/vm-core';
 import SubscriberService from '@/services/subscriber.service.ts';
 
 const baseSubscriberUrl = '/app/audience/subscribers';
@@ -28,38 +28,45 @@ const columns: Ref<ColumnInfo[]> = ref([
 		sortable: false,
 	},
 ]);
+const allProperties: FieldProperty<string | number>[] = [
+	{
+		name: 'email',
+		label: 'Email',
+		type: 'email',
+		value: '',
+	},
+	{
+		name: 'firstname',
+		label: 'First Name',
+		type: 'text',
+		value: '',
+	},
+	{
+		name: 'lastname',
+		label: 'Last Name',
+		type: 'text',
+		value: '',
+	},
+	{
+		name: 'status',
+		label: 'Status',
+		type: 'select',
+		value: 'ENABLED',
+		options: ['ENABLED', 'DISABLED', 'BLOCKLISTED'],
+	},
+];
 const isLoaded = ref(false);
 
-const filters: Ref<SubscriberFilter> = ref({
-	email: [''],
-	firstname: [''],
-	lastname: [''],
-	status: [''],
-});
-
-function updateFilters(searchValue: string) {
-	if (searchValue) {
-		if (form.column.key === 'email') {
-			filters.value.email = [`eq:${searchValue}`];
-		} else if (form.column.key === 'name') {
-			const [firstname, lastname] = searchValue.split(' ');
-			filters.value.firstname = [`eq:${firstname}`];
-			if (lastname) filters.value.lastname = [`eq:${lastname}`];
-		} else if (form.column.key === 'status') {
-			filters.value.status = [`eq:${searchValue}`];
-		}
-	}
-}
-
 const SubscriberDataTable = useGenericDataTable<Subscriber>();
-const ColumnSelectInput = useGenericSelectInput<ColumnInfo>();
+
+const filterQuery = ref('');
 
 async function refreshData(
 	pagination: { page: number; perPage: number } = { page: page.value, perPage: perPage.value }
 ) {
 	isLoaded.value = false;
 	let offsetPage = await SubscriberService.getInstance().getSubscribers(
-		filters.value,
+		filterQuery.value,
 		'',
 		pagination.perPage,
 		pagination.page
@@ -72,23 +79,19 @@ async function refreshData(
 	isLoaded.value = true;
 }
 
-async function submit() {
-	await refreshData();
-}
+const applyFilters = (query: string) => {
+	filterQuery.value = query;
+	refreshData();
+};
 
 onMounted(async () => {
 	await refreshData();
 });
-const form = reactive({
-	column: columns.value[0],
-});
 
-const searchInputType = computed(() => {
-	if (form.column.key === 'email') {
-		return 'email';
-	}
-	return 'text';
-});
+const clearFilters = () => {
+	filterQuery.value = '';
+	refreshData();
+};
 </script>
 
 <template>
@@ -101,28 +104,6 @@ const searchInputType = computed(() => {
 						All subscribers
 					</h1>
 					<div class="block items-center justify-between sm:flex">
-						<div class="mb-4 flex items-center sm:mb-0">
-							<form class="flex items-center justify-center sm:pr-3" @submit.prevent="submit">
-								<ColumnSelectInput v-model="form.column" :options="columns" class="mr-2">
-									<template #option="{ option }">
-										{{ option.label }}
-									</template>
-								</ColumnSelectInput>
-
-								<div class="relative w-48 sm:w-64 xl:w-96">
-									<label for="subscribers-search" class="sr-only">Search</label>
-									<input
-										id="subscribers-search"
-										:type="searchInputType"
-										name="search"
-										class="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-										placeholder="Search for subscribers"
-										@input="updateFilters($event?.target?.value ?? '')"
-									/>
-								</div>
-							</form>
-						</div>
-
 						<div class="ml-auto flex items-center space-x-2 sm:space-x-3">
 							<button type="button" class="crud-buttons" @click="refreshData()">
 								<svg
@@ -165,6 +146,13 @@ const searchInputType = computed(() => {
 					</div>
 				</div>
 			</div>
+		</template>
+		<template #header>
+			<GeneralFilter
+				:fields="allProperties"
+				@apply-filters="applyFilters"
+				@clear-filters="clearFilters"
+			/>
 		</template>
 		<template #email="{ item }">
 			<a

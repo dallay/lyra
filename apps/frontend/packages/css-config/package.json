@@ -23,11 +23,11 @@
   "homepage": "lyra-nwhm.onrender.com",
   "dependencies": {
     "autoprefixer": "^10.4.17",
-    "postcss": "^8.4.33",
+    "postcss": "^8.4.35",
     "tailwind-scrollbar": "^3.0.5",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animated": "1.0.1",
-    "stylelint": "^16.2.0",
+    "stylelint": "^16.2.1",
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard-scss": "^13.0.0",
     "stylelint-order": "^6.0.4"

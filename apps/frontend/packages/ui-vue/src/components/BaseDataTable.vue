@@ -10,6 +10,7 @@
 		<div class="overflow-x-auto">
 			<div class="inline-block min-w-full align-middle">
 				<div class="relative block items-center overflow-hidden shadow-md">
+					<slot name="header" />
 					<table
 						v-if="items && items.length > 0"
 						class="w-full min-w-full table-fixed divide-y divide-gray-200 dark:divide-gray-600"

@@ -40,10 +40,12 @@
     "build": "npm-run-all --parallel build:vite build:types",
     "preview": "vite preview",
     "clean": "rm -rf dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run"
   },
   "devDependencies": {
-    "@types/node": "^20.11.7",
+    "@types/node": "^20.11.16",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
     "vite-plugin-dts": "^3.7.2"

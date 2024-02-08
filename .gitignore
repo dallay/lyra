@@ -37,7 +37,7 @@ out/
 .vscode/
 
 # build output
-dist/
+**/dist/
 **/node/
 # generated types
 .astro/

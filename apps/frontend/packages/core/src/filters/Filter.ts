@@ -16,7 +16,7 @@ export interface FilterOptions {
 }
 /**
  * Type for filter type.
- * @typedef {('text'|'email'|'tel'|'select'|'url'|'number'|'password'|'checkbox')} FilterType
+ * @typedef {('text'|'email'|'tel'|'select'|'url'|'number'|'password'|'checkbox'|'date')} FilterType
  */
 export type FilterType =
 	| 'text'
@@ -26,7 +26,8 @@ export type FilterType =
 	| 'url'
 	| 'number'
 	| 'password'
-	| 'checkbox';
+	| 'checkbox'
+  | 'date';
 
 /**
  * Interface for filter.

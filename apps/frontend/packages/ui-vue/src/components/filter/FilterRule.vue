@@ -4,7 +4,7 @@ import { PropType } from 'vue';
 import { FilterType, Property } from '@lyra/vm-core';
 import SvgIcon from '../media/SvgIcon.vue';
 
-const emit = defineEmits(['removeFilterRule', 'applyFilters', 'clearFilters']);
+const emit = defineEmits(['removeFilterRule', 'applyFilters', 'clearInputFilter']);
 const property = defineModel({
 	type: Object as PropType<Property<T>>,
 	required: true,
@@ -27,6 +27,7 @@ const removeFilterRule = (property: Property<T>) => {
 };
 const clearInput = () => {
 	property.value.value = null;
+  emit('clearInputFilter');
 };
 
 const applyFilters = () => {
@@ -128,13 +129,14 @@ const applyFilters = () => {
 					required
 				/>
 				<button
-					v-if="property.value"
+          v-if="property.value"
+					:id="`${property.name}-clear`"
 					type="button"
 					class="absolute end-2.5 top-2.5 bottom-2.5 inline-flex items-center p-1 ms-2 text-sm text-blue-400 bg-transparent rounded-sm"
 					@click="clearInput"
 				>
 					<SvgIcon name="close" class="w-5 h-5 text-gray-400 dark:text-gray-300" />
-					<span class="sr-only">Remove filter rule</span>
+					<span class="sr-only">Clear input</span>
 				</button>
 				<select
 					v-if="property.type == 'select'"

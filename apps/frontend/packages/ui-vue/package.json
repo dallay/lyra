@@ -55,14 +55,15 @@
   "devDependencies": {
     "@lyra/css-config": "workspace:*",
     "@lyra/vm-core": "workspace:*",
-    "@types/node": "^20.11.16",
     "@types/jsdom": "^21.1.6",
+    "@types/node": "^20.11.16",
     "@vitejs/plugin-vue": "^5.0.3",
+    "@vitest/ui": "^1.2.2",
     "@vue/test-utils": "^2.4.4",
     "@vue/tsconfig": "^0.5.1",
-    "typescript": "^5.3.3",
     "jsdom": "^24.0.0",
-    "vite": "^5.0.12",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.0",
     "vite-plugin-dts": "^3.7.2",
     "vue-tsc": "^1.8.27"
   },

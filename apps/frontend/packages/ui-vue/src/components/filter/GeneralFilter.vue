@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T">
 import SvgIcon from '@/components/media/SvgIcon.vue';
-import FilterRuleV2 from '@/components/filter/FilterRule.vue';
+import FilterRule from '@/components/filter/FilterRule.vue';
 import { defineProps, type PropType, Ref, ref } from 'vue';
 import {
 	BasicFilter,
@@ -13,7 +13,7 @@ import {
 } from '@lyra/vm-core';
 import BasicDropdown from '@/components/dropdown/BasicDropdown.vue';
 
-const emit = defineEmits(['applyFilters', 'clearFilters']);
+const emit = defineEmits(['applyFilters', 'removeFilterRule','clearInputFilter']);
 
 const props = defineProps({
 	fields: {
@@ -30,6 +30,7 @@ const removeFilterRule = (property: Property<T>) => {
 	filter.value.removeProperty(property.id);
 	availableFieldProperties.value.push(convertPropertyToFieldProperty(property));
 	applyQueryFilter();
+  emit('removeFilterRule', property);
 };
 
 function applyQueryFilter() {
@@ -57,15 +58,19 @@ const getPropertyIcon = (type: FilterType) => {
 			return 'text';
 	}
 };
+const clearInputFilter = () => {
+  emit('clearInputFilter');
+};
 </script>
 
 <template>
 	<div class="flex items-center">
-		<FilterRuleV2
+		<FilterRule
 			v-for="(property, index) in filter.properties"
 			:key="property.id"
 			v-model="filter.properties[index]"
 			@apply-filters="applyQueryFilter"
+      @clear-input-filter="clearInputFilter"
 			@remove-filter-rule="removeFilterRule"
 		/>
 		<BasicDropdown v-model="showDropdown" text="Filters" close-inside @on-hide="applyQueryFilter">

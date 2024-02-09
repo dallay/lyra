@@ -97,13 +97,11 @@ export class BasicFilter<T> implements Filter<T> {
 	 * @returns {string} The query string.
 	 */
 	toQueryString(): string {
-		const query = this.properties
-			.filter((property) => property.value !== '')
-			.map((property) => {
-				return `${property.name}=${property.operator}:${property.value}`;
-			})
-			.join('&');
-		console.log('🟢 FILTER | query: ', query);
-		return query;
+    return this.properties
+    .filter((property) => property.value !== '')
+    .map((property) => {
+      return `${property.name}=${property.operator}:${property.value}`;
+    })
+    .join('&');
 	}
 }

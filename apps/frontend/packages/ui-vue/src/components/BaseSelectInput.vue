@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, onMounted, PropType } from 'vue';
+import { defineProps, PropType } from 'vue';
 
 const model = defineModel({
 	type: null as PropType<unknown>,
@@ -66,9 +66,4 @@ function isOptionSelected(option: unknown) {
 
 	return option === model.value;
 }
-
-onMounted(() => {
-	console.log('🔵🔵🔵 mounted 🔵🔵🔵');
-	console.log(model.value);
-});
 </script>

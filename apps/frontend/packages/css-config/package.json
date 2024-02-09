@@ -18,7 +18,7 @@
     "url": "https://github.com/yacosta738/lyra/issues"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo No test specified \uD83D\uDE0E && exit 0"
   },
   "homepage": "lyra-nwhm.onrender.com",
   "dependencies": {

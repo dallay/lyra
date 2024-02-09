@@ -85,7 +85,7 @@ async function addFilterRule(
 
 	if (inputType === 'select') {
 		const option: DOMWrapper<HTMLOptionElement> = input.find(`option[value="${inputValue}"]`);
-		// @ts-ignore
+		// @ts-expect-error - setSelected is not defined in the type definition
 		await option.setSelected();
 	} else if (typeof inputValue === 'object') {
 		// if input is a date, we need to set the value differently.

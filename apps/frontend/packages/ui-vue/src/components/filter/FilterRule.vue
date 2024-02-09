@@ -27,7 +27,7 @@ const removeFilterRule = (property: Property<T>) => {
 };
 const clearInput = () => {
 	property.value.value = null;
-  emit('clearInputFilter');
+	emit('clearInputFilter');
 };
 
 const applyFilters = () => {
@@ -129,7 +129,7 @@ const applyFilters = () => {
 					required
 				/>
 				<button
-          v-if="property.value"
+					v-if="property.value"
 					:id="`${property.name}-clear`"
 					type="button"
 					class="absolute end-2.5 top-2.5 bottom-2.5 inline-flex items-center p-1 ms-2 text-sm text-blue-400 bg-transparent rounded-sm"

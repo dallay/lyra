@@ -13,7 +13,7 @@ import {
 } from '@lyra/vm-core';
 import BasicDropdown from '@/components/dropdown/BasicDropdown.vue';
 
-const emit = defineEmits(['applyFilters', 'removeFilterRule','clearInputFilter']);
+const emit = defineEmits(['applyFilters', 'removeFilterRule', 'clearInputFilter']);
 
 const props = defineProps({
 	fields: {
@@ -30,7 +30,7 @@ const removeFilterRule = (property: Property<T>) => {
 	filter.value.removeProperty(property.id);
 	availableFieldProperties.value.push(convertPropertyToFieldProperty(property));
 	applyQueryFilter();
-  emit('removeFilterRule', property);
+	emit('removeFilterRule', property);
 };
 
 function applyQueryFilter() {
@@ -59,7 +59,7 @@ const getPropertyIcon = (type: FilterType) => {
 	}
 };
 const clearInputFilter = () => {
-  emit('clearInputFilter');
+	emit('clearInputFilter');
 };
 </script>
 
@@ -70,7 +70,7 @@ const clearInputFilter = () => {
 			:key="property.id"
 			v-model="filter.properties[index]"
 			@apply-filters="applyQueryFilter"
-      @clear-input-filter="clearInputFilter"
+			@clear-input-filter="clearInputFilter"
 			@remove-filter-rule="removeFilterRule"
 		/>
 		<BasicDropdown v-model="showDropdown" text="Filters" close-inside @on-hide="applyQueryFilter">

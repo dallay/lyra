@@ -27,7 +27,7 @@ export type FilterType =
 	| 'number'
 	| 'password'
 	| 'checkbox'
-  | 'date';
+	| 'date';
 
 /**
  * Interface for filter.

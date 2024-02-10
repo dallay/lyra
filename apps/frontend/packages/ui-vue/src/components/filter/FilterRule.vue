@@ -12,10 +12,10 @@ const property = defineModel({
 });
 
 defineProps({
-  placement: {
-    type: String as PropType<DropdownPlacement>,
-    default: 'bottom',
-  },
+	placement: {
+		type: String as PropType<DropdownPlacement>,
+		default: 'bottom',
+	},
 });
 const getPropertyIcon = (type: FilterType) => {
 	switch (type) {

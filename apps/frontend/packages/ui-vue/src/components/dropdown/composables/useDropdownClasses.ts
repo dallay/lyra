@@ -3,9 +3,9 @@ import classNames from 'classnames';
 import type { DropdownPlacement } from '../types';
 
 export type UseDropdownClassesProps = {
-  placement: Ref<DropdownPlacement>;
-  contentRef: Ref<HTMLDivElement | undefined>;
-  visible: Ref<boolean>;
+	placement: Ref<DropdownPlacement>;
+	contentRef: Ref<HTMLDivElement | undefined>;
+	visible: Ref<boolean>;
 };
 
 const defaultDropdownClasses =

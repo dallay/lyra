@@ -53,7 +53,9 @@
 							</tr>
 						</thead>
 
-						<tbody class="divide-y divide-tertiary-200 bg-white dark:divide-tertiary-700 dark:bg-tertiary-800">
+						<tbody
+							class="divide-y divide-tertiary-200 bg-white dark:divide-tertiary-700 dark:bg-tertiary-800"
+						>
 							<tr
 								v-for="item in sortItems"
 								:key="item.id"

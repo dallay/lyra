@@ -9,7 +9,9 @@ const { title, description } = Astro.props;
 ---
 
 <Layout title={title} description={description}>
-	<div class="text-tertiary-700 antialiased bg-tertiary-100 dark:bg-tertiary-950 dark:text-tertiary-300">
+	<div
+		class="text-tertiary-700 antialiased bg-tertiary-100 dark:bg-tertiary-950 dark:text-tertiary-300"
+	>
 		<SideBar />
 		<main class="h-auto p-4 pt-20 md:ml-64">
 			<slot />

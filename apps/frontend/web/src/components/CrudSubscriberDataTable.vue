@@ -105,12 +105,12 @@ const clearFilters = () => {
 					</h1>
 					<div class="block items-center justify-between sm:flex">
 						<div class="ml-auto flex items-center space-x-2 sm:space-x-3">
-              <GeneralFilter
-                class="mx-2"
-                :fields="allProperties"
-                @apply-filters="applyFilters"
-                @clear-filters="clearFilters"
-              />
+							<GeneralFilter
+								class="mx-2"
+								:fields="allProperties"
+								@apply-filters="applyFilters"
+								@clear-filters="clearFilters"
+							/>
 							<button type="button" class="crud-buttons" @click="refreshData()">
 								<svg
 									class="-ml-1 mr-2 h-5 w-5"
@@ -153,9 +153,7 @@ const clearFilters = () => {
 				</div>
 			</div>
 		</template>
-		<template #header>
-      hola mundo
-		</template>
+		<template #header> hola mundo </template>
 		<template #email="{ item }">
 			<a
 				:href="`${baseSubscriberUrl}/${item.id}`"

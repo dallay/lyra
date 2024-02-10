@@ -79,8 +79,8 @@ async function addFilterRuleInputValue(
 	await wrapper.findAll('ul li button').at(listIndex).trigger('click');
 
 	await wrapper.find('span').trigger('click');
-  const inputSelector = `#${fields[listIndex].name}`;
-  const input = wrapper.find(inputSelector);
+	const inputSelector = `#${fields[listIndex].name}`;
+	const input = wrapper.find(inputSelector);
 	if (inputType === 'select') {
 		const option: DOMWrapper<HTMLOptionElement> = input.find(`option[value="${inputValue}"]`);
 		// @ts-expect-error - setSelected is not defined in the type definition
@@ -218,17 +218,17 @@ test('should not emit clearInputFilter event when clear button is clicked for se
 });
 
 test('should hide and disable the add filter button when all fields are used', async () => {
-  for (let i = 0; i < fields.length; i++) {
-    await wrapper.find('#addFilter').trigger('click');
-    await wrapper.find('ul li button').trigger('click');
-  }
-  const addFilterButton = wrapper.find('#addFilter');
+	for (let i = 0; i < fields.length; i++) {
+		await wrapper.find('#addFilter').trigger('click');
+		await wrapper.find('ul li button').trigger('click');
+	}
+	const addFilterButton = wrapper.find('#addFilter');
 
-  // Check if the button has the class 'hidden'
-  expect(addFilterButton.classes()).toContain('hidden');
+	// Check if the button has the class 'hidden'
+	expect(addFilterButton.classes()).toContain('hidden');
 
-  // Check if the button is disabled
-  const disabledAttr = addFilterButton.attributes('disabled');
-  expect(disabledAttr).toBeDefined();
-  expect(disabledAttr).toBe('');
+	// Check if the button is disabled
+	const disabledAttr = addFilterButton.attributes('disabled');
+	expect(disabledAttr).toBeDefined();
+	expect(disabledAttr).toBe('');
 });

@@ -3,7 +3,7 @@
 		<label
 			v-if="label"
 			:for="label"
-			class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+			class="mb-2 block text-sm font-medium text-tertiary-900 dark:text-white"
 			>{{ label }}</label
 		>
 		<select
@@ -14,7 +14,7 @@
 				'p-2.5 text-sm': size === 'medium',
 				'px-4 py-3 text-base': size === 'large',
 			}"
-			class="block w-full rounded-lg border border-gray-300 bg-gray-50 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+			class="block w-full rounded-lg border border-tertiary-300 bg-tertiary-50 text-tertiary-900 focus:border-blue-500 focus:ring-blue-500 dark:border-tertiary-600 dark:bg-tertiary-700 dark:text-white dark:placeholder-tertiary-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		>
 			<option
 				v-for="option in options"

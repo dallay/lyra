@@ -1,6 +1,6 @@
 import type { App } from 'vue';
 import {
-	BasicCounter,
+	BasePagination,
 	BasicDropdown,
 	type ColumnInfo,
 	GeneralFilter,
@@ -12,19 +12,18 @@ import '@lyra/css-config/index.css';
 
 export default {
 	install: (app: App) => {
-		app.component('BasicCounter', BasicCounter);
+		app.component('BasePagination', BasePagination);
 		app.component('SvgIcon', SvgIcon);
 		app.component('BasicDropdown', BasicDropdown);
 		app.component('GeneralFilter', GeneralFilter);
 	},
 };
-
+export type { ColumnInfo };
 export {
-	BasicCounter,
+	BasePagination,
 	SvgIcon,
 	BasicDropdown,
 	GeneralFilter,
 	useGenericDataTable,
 	useGenericSelectInput,
-	ColumnInfo,
 };

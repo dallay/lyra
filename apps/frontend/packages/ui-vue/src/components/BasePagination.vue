@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { useGenericSelectInput } from '@lyra/ui-vue';
+import { useGenericSelectInput } from './genericSelect';
 
 const props = defineProps({
 	total: {
@@ -58,12 +58,12 @@ const perPageValue = ref(props.perPage);
 		aria-label="Table navigation"
 	>
 		<span
-			class="mb-4 block w-full text-sm font-normal text-gray-500 md:mb-0 md:inline md:w-auto dark:text-gray-400"
+			class="mb-4 block w-full text-sm font-normal text-tertiary-500 md:mb-0 md:inline md:w-auto dark:text-tertiary-400"
 			>Showing
-			<span class="font-semibold text-gray-900 dark:text-white"
+			<span class="font-semibold text-tertiary-900 dark:text-white"
 				>{{ currentPage }}-{{ perPage }}</span
 			>
-			of <span class="font-semibold text-gray-900 dark:text-white">{{ total }}</span>
+			of <span class="font-semibold text-tertiary-900 dark:text-white">{{ total }}</span>
 		</span>
 		<ul class="inline-flex h-8 -space-x-px text-sm rtl:space-x-reverse">
 			<li class="mx-2">
@@ -76,7 +76,7 @@ const perPageValue = ref(props.perPage);
 			</li>
 			<li>
 				<button
-					class="ms-0 flex h-8 items-center justify-center rounded-s-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+					class="ms-0 flex h-8 items-center justify-center rounded-s-lg border border-tertiary-300 bg-white px-3 leading-tight text-tertiary-500 hover:bg-tertiary-100 hover:text-tertiary-700 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400 dark:hover:bg-tertiary-700 dark:hover:text-white"
 					@click.prevent="previousPage"
 				>
 					Previous
@@ -89,7 +89,7 @@ const perPageValue = ref(props.perPage);
 							? 'bg-primary-300 border-primary-300 dark:bg-primary-700 dark:border-primary-700 text-white'
 							: ''
 					"
-					class="flex h-8 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+					class="flex h-8 items-center justify-center border border-tertiary-300 bg-white px-3 leading-tight text-tertiary-500 hover:bg-tertiary-100 hover:text-tertiary-700 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400 dark:hover:bg-tertiary-700 dark:hover:text-white"
 					@click.prevent="goToPage(number)"
 				>
 					{{ number }}
@@ -97,7 +97,7 @@ const perPageValue = ref(props.perPage);
 			</li>
 			<li>
 				<button
-					class="flex h-8 items-center justify-center rounded-e-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+					class="flex h-8 items-center justify-center rounded-e-lg border border-tertiary-300 bg-white px-3 leading-tight text-tertiary-500 hover:bg-tertiary-100 hover:text-tertiary-700 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400 dark:hover:bg-tertiary-700 dark:hover:text-white"
 					@click.prevent="nextPage"
 				>
 					Next

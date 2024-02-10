@@ -91,7 +91,7 @@ const clearInputFilter = () => {
 				<button
 					id="addFilter"
 					:disabled="availableFieldProperties.length === 0"
-					class="flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md p-2"
+					class="flex items-center justify-center hover:bg-tertiary-100 dark:hover:bg-tertiary-800 rounded-md p-2"
 					:class="{
 						hidden: availableFieldProperties.length === 0,
 					}"
@@ -109,12 +109,12 @@ const clearInputFilter = () => {
 			</template>
 			<div
 				id="generalFilter"
-				class="z-10 min-w-max bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+				class="z-10 min-w-max bg-white border border-tertiary-200 rounded-lg shadow dark:bg-tertiary-800 dark:border-tertiary-700"
 			>
-				<ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+				<ul class="py-2 text-sm text-tertiary-700 dark:text-tertiary-200">
 					<li v-for="fieldProperty in availableFieldProperties" :key="fieldProperty.name">
 						<button
-							class="flex w-full px-4 py-2 text-left rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+							class="flex w-full px-4 py-2 text-left rounded hover:bg-tertiary-100 dark:hover:bg-tertiary-800"
 							@click="addFilterProperty(fieldProperty)"
 						>
 							<SvgIcon :name="getPropertyIcon(fieldProperty.type)" class="w-4 h-4 me-2" />

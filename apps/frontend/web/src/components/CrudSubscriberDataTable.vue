@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, type Ref } from 'vue';
-import Pagination from '@/components/Pagination.vue';
-import { type ColumnInfo, useGenericDataTable, GeneralFilter } from '@lyra/ui-vue';
+import { type ColumnInfo, useGenericDataTable, GeneralFilter, BasePagination } from '@lyra/ui-vue';
 import type { Subscriber, FieldProperty } from '@lyra/vm-core';
 import SubscriberService from '@/services/subscriber.service.ts';
 
@@ -153,7 +152,6 @@ const clearFilters = () => {
 				</div>
 			</div>
 		</template>
-		<template #header> hola mundo </template>
 		<template #email="{ item }">
 			<a
 				:href="`${baseSubscriberUrl}/${item.id}`"
@@ -203,7 +201,7 @@ const clearFilters = () => {
 			</div>
 		</template>
 		<template #footer>
-			<Pagination
+			<BasePagination
 				:total="total"
 				:per-page="perPage"
 				:page="page"

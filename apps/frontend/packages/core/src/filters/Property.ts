@@ -69,6 +69,6 @@ export function convertPropertyToFieldProperty<T>(property: Property<T>): FieldP
 		label: property.label,
 		type: property.type,
 		value: property.value as T,
-    options: property.options,
+		options: property.options,
 	};
 }

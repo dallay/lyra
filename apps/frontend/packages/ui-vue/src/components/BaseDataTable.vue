@@ -29,7 +29,7 @@
 											v-if="column.sortable"
 											xmlns="http://www.w3.org/2000/svg"
 											:class="{
-												'border-primary-500 text-primary-500 rounded border':
+												'border-primary-500/50 text-primary-500 dark:border-primary-300/50 dark:text-primary-300 rounded border':
 													sortKey === column.key,
 											}"
 											class="ml-1 h-6 w-6 cursor-pointer p-0.5"
@@ -107,8 +107,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, PropType, ref } from 'vue';
-import { ColumnInfo } from './types';
+import { computed, defineProps, type PropType, ref } from 'vue';
+import type { ColumnInfo } from './types';
 
 const props = defineProps({
 	columns: {

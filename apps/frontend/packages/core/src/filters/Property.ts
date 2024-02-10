@@ -42,6 +42,12 @@ export interface FieldProperty<T> {
 	options?: T[];
 }
 
+/**
+ * Function to convert a FieldProperty to a Property.
+ * @function
+ * @param {FieldProperty<T>} fieldProperty - The field property to convert.
+ * @returns {Property<T>} The converted property.
+ */
 export function convertFieldPropertyToProperty<T>(fieldProperty: FieldProperty<T>): Property<T> {
 	return {
 		...fieldProperty,
@@ -51,11 +57,18 @@ export function convertFieldPropertyToProperty<T>(fieldProperty: FieldProperty<T
 	};
 }
 
+/**
+ * Function to convert a Property to a FieldProperty.
+ * @function
+ * @param {Property<T>} property - The property to convert.
+ * @returns {FieldProperty<T>} The converted field property.
+ */
 export function convertPropertyToFieldProperty<T>(property: Property<T>): FieldProperty<T> {
 	return {
 		name: property.name,
 		label: property.label,
 		type: property.type,
 		value: property.value as T,
+    options: property.options,
 	};
 }

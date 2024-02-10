@@ -57,13 +57,13 @@ const showClearButton = computed(() => {
 	<BasicDropdown :text="property.label" :placement="placement" @on-hide="applyFilters">
 		<template #trigger>
 			<span
-				class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-full dark:bg-tertiary-700 dark:text-primary-400 border border-primary-400 mx-1"
+				class="bg-secondary-100 text-secondary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-full dark:bg-tertiary-700 dark:text-secondary-400 border border-secondary-400 mx-1"
 			>
 				<SvgIcon :name="getPropertyIcon(property.type)" class="w-4 h-4 me-2" />
 				{{ property.label }}={{ property.operator }}:{{ property.value }}
 				<button
 					type="button"
-					class="inline-flex items-center p-1 ms-2 text-sm text-primary-400 bg-transparent rounded-sm hover:bg-primary-200 hover:text-primary-900 dark:hover:bg-primary-800 dark:hover:text-primary-300"
+					class="inline-flex items-center p-1 ms-2 text-sm text-secondary-400 bg-transparent rounded-sm hover:bg-secondary-200 hover:text-secondary-900 dark:hover:bg-secondary-800 dark:hover:text-secondary-300"
 					@click="removeFilterRule(property)"
 				>
 					<svg
@@ -97,7 +97,7 @@ const showClearButton = computed(() => {
 					<select
 						:key="property.operator"
 						v-model="property.operator"
-						class="mx-1 rounded bg-tertiary-50 border border-tertiary-300 text-tertiary-900 text-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-tertiary-700 dark:border-tertiary-600 dark:placeholder-tertiary-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+						class="mx-1 rounded bg-tertiary-50 border border-tertiary-300 text-tertiary-900 text-sm focus:ring-secondary-500 focus:border-secondary-500 dark:bg-tertiary-700 dark:border-tertiary-600 dark:placeholder-tertiary-400 dark:text-white dark:focus:ring-secondary-500 dark:focus:border-secondary-500"
 					>
 						<option
 							v-for="operator in property.availableOperators"
@@ -113,7 +113,7 @@ const showClearButton = computed(() => {
 					<template #trigger>
 						<button
 							type="button"
-							class="inline-flex items-center p-1 ms-2 text-sm text-primary-400 bg-transparent rounded-sm"
+							class="inline-flex items-center p-1 ms-2 text-sm text-secondary-400 bg-transparent rounded-sm"
 						>
 							<SvgIcon name="dots" class="w-5 h-5 text-tertiary-400 dark:text-tertiary-300" />
 							<span class="sr-only">More options</span>
@@ -143,14 +143,14 @@ const showClearButton = computed(() => {
 					v-model="property.value"
 					:type="property.type"
 					:placeholder="property.label"
-					class="block rounded p-2.5 w-full z-20 text-sm text-tertiary-900 bg-tertiary-50 border-s-tertiary-50 border-s-2 border border-tertiary-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-tertiary-700 dark:border-s-tertiary-700 dark:border-tertiary-600 dark:placeholder-tertiary-400 dark:text-white dark:focus:border-primary-500"
+					class="block rounded p-2.5 w-full z-20 text-sm text-tertiary-900 bg-tertiary-50 border-s-tertiary-50 border-s-2 border border-tertiary-300 focus:ring-secondary-500 focus:border-secondary-500 dark:bg-tertiary-700 dark:border-s-tertiary-700 dark:border-tertiary-600 dark:placeholder-tertiary-400 dark:text-white dark:focus:border-secondary-500"
 					required
 				/>
 				<button
 					v-if="showClearButton"
 					:id="`${property.name}-clear`"
 					type="button"
-					class="absolute end-2.5 top-2.5 bottom-2.5 inline-flex items-center p-1 ms-2 text-sm text-primary-400 bg-transparent rounded-sm"
+					class="absolute end-2.5 top-2.5 bottom-2.5 inline-flex items-center p-1 ms-2 text-sm text-secondary-400 bg-transparent rounded-sm"
 					@click="clearInput"
 				>
 					<SvgIcon name="close" class="w-5 h-5 text-tertiary-400 dark:text-tertiary-300" />
@@ -161,7 +161,7 @@ const showClearButton = computed(() => {
 					:id="property.name"
 					v-model="property.value"
 					required
-					class="w-full rounded p-2.5 bg-tertiary-50 border border-tertiary-300 text-tertiary-900 text-sm focus:ring-primary-500 focus:border-primary-500 block dark:bg-tertiary-700 dark:border-tertiary-600 dark:placeholder-tertiary-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+					class="w-full rounded p-2.5 bg-tertiary-50 border border-tertiary-300 text-tertiary-900 text-sm focus:ring-secondary-500 focus:border-secondary-500 block dark:bg-tertiary-700 dark:border-tertiary-600 dark:placeholder-tertiary-400 dark:text-white dark:focus:ring-secondary-500 dark:focus:border-secondary-500"
 				>
 					<option v-for="(option, index) in property.options" :key="index" :value="option">
 						{{ option }}

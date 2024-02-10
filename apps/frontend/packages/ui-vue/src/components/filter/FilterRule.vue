@@ -1,13 +1,21 @@
 <script setup lang="ts" generic="T">
 import BasicDropdown from '@/components/dropdown/BasicDropdown.vue';
-import { computed, PropType } from 'vue';
-import { FilterType, Property } from '@lyra/vm-core';
+import { computed, type PropType } from 'vue';
+import type { FilterType, Property } from '@lyra/vm-core';
 import SvgIcon from '../media/SvgIcon.vue';
+import type { DropdownPlacement } from '@/components/dropdown/types';
 
 const emit = defineEmits(['removeFilterRule', 'applyFilters', 'clearInputFilter']);
 const property = defineModel({
 	type: Object as PropType<Property<T>>,
 	required: true,
+});
+
+defineProps({
+  placement: {
+    type: String as PropType<DropdownPlacement>,
+    default: 'bottom',
+  },
 });
 const getPropertyIcon = (type: FilterType) => {
 	switch (type) {
@@ -46,7 +54,7 @@ const showClearButton = computed(() => {
 </script>
 
 <template>
-	<BasicDropdown :text="property.label" @on-hide="applyFilters">
+	<BasicDropdown :text="property.label" :placement="placement" @on-hide="applyFilters">
 		<template #trigger>
 			<span
 				class="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-blue-400 border border-blue-400 mx-1"
@@ -101,7 +109,7 @@ const showClearButton = computed(() => {
 						</option>
 					</select>
 				</div>
-				<BasicDropdown text="Options" close-inside>
+				<BasicDropdown text="Options" close-inside :placement="placement">
 					<template #trigger>
 						<button
 							type="button"

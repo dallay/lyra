@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="block items-center justify-between border-b border-gray-200 bg-white p-4 sm:flex lg:mt-1.5 dark:border-gray-700 dark:bg-gray-800"
+		class="block items-center justify-between border-b border-tertiary-200 p-4 sm:flex lg:mt-1.5 dark:border-tertiary-700 bg-tertiary-100 dark:bg-tertiary-900"
 	>
 		<div class="mb-1 w-full">
 			<slot name="top" />
@@ -13,15 +13,15 @@
 					<slot name="header" />
 					<table
 						v-if="items && items.length > 0"
-						class="w-full min-w-full table-fixed divide-y divide-gray-200 dark:divide-gray-600"
+						class="w-full min-w-full table-fixed divide-y divide-tertiary-200 dark:divide-tertiary-600"
 					>
-						<thead class="bg-gray-100 dark:bg-gray-700">
+						<thead class="bg-tertiary-100 dark:bg-tertiary-900">
 							<tr>
 								<th
 									v-for="column in columns"
 									:key="column.key"
 									scope="col"
-									class="p-4 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
+									class="p-4 text-left text-xs font-medium uppercase text-tertiary-500 dark:text-tertiary-400"
 								>
 									<div class="flex items-center">
 										{{ column.label }}
@@ -53,18 +53,18 @@
 							</tr>
 						</thead>
 
-						<tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+						<tbody class="divide-y divide-tertiary-200 bg-white dark:divide-tertiary-700 dark:bg-tertiary-800">
 							<tr
 								v-for="item in sortItems"
 								:key="item.id"
-								class="hover:bg-gray-100 dark:hover:bg-gray-700"
+								class="hover:bg-tertiary-100 dark:hover:bg-tertiary-700"
 							>
 								<td
 									v-for="column in columns"
 									:key="column.key"
-									class="whitespace-nowrap p-4 text-sm font-normal text-gray-500 dark:text-gray-400"
+									class="whitespace-nowrap p-4 text-sm font-normal text-tertiary-500 dark:text-tertiary-400"
 								>
-									<div class="text-base font-semibold text-gray-900 dark:text-white">
+									<div class="text-base font-semibold text-tertiary-900 dark:text-white">
 										<slot :name="column.key" :item="item">
 											{{ item[column.key] }}
 										</slot>
@@ -88,7 +88,7 @@
 									/>
 								</svg>
 
-								<p class="mt-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+								<p class="mt-2 text-sm font-medium text-tertiary-500 dark:text-tertiary-400">
 									No data available
 								</p>
 							</div>

@@ -2,8 +2,14 @@ import { computed, nextTick, ref, type Ref, watch } from 'vue';
 import classNames from 'classnames';
 import type { DropdownPlacement } from '../types';
 
+export type UseDropdownClassesProps = {
+  placement: Ref<DropdownPlacement>;
+  contentRef: Ref<HTMLDivElement | undefined>;
+  visible: Ref<boolean>;
+};
+
 const defaultDropdownClasses =
-	'absolute z-10 bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700';
+	'absolute z-10 bg-white border border-gray-200 divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:border-gray-700';
 
 const defaultGapInPx = 8;
 
@@ -12,12 +18,6 @@ const placementDropdownClasses: Record<DropdownPlacement, string> = {
 	left: 'top-0',
 	right: 'top-0',
 	top: '',
-};
-
-export type UseDropdownClassesProps = {
-	placement: Ref<DropdownPlacement>;
-	contentRef: Ref<HTMLDivElement | undefined>;
-	visible: Ref<boolean>;
 };
 
 const placementCalculators: Record<DropdownPlacement, (rect: DOMRect) => string> = {

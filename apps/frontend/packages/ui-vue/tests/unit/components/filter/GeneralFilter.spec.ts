@@ -70,19 +70,17 @@ beforeEach(() => {
 	);
 });
 
-async function addFilterRule(
+async function addFilterRuleInputValue(
 	inputValue: string | number | Date = 'John Doe',
 	listIndex: number = 0,
 	inputType: 'select' | 'input' = 'input'
 ) {
-	await wrapper.find('button').trigger('click');
-
+	await wrapper.find('#addFilter').trigger('click');
 	await wrapper.findAll('ul li button').at(listIndex).trigger('click');
 
 	await wrapper.find('span').trigger('click');
-	// const input = wrapper.find(inputType); change to search for input by id and type
-	const input = wrapper.find(`#${fields[listIndex].name}`);
-
+  const inputSelector = `#${fields[listIndex].name}`;
+  const input = wrapper.find(inputSelector);
 	if (inputType === 'select') {
 		const option: DOMWrapper<HTMLOptionElement> = input.find(`option[value="${inputValue}"]`);
 		// @ts-expect-error - setSelected is not defined in the type definition
@@ -101,7 +99,7 @@ test('should initialize with provided fields', () => {
 	expect(wrapper.vm.availableFieldProperties).toEqual(fields);
 });
 test('should emit applyFilters event when filter if applied', async () => {
-	await addFilterRule('John Doe');
+	await addFilterRuleInputValue('John Doe');
 	const emitted = wrapper.emitted();
 	expect(emitted).toHaveProperty('applyFilters');
 	expect(emitted.applyFilters).toHaveLength(3);
@@ -111,7 +109,7 @@ test('should emit applyFilters event when filter if applied', async () => {
 });
 
 test('should remove filter when remove button is clicked', async () => {
-	await addFilterRule();
+	await addFilterRuleInputValue();
 
 	await wrapper.find('span button').trigger('click');
 
@@ -127,7 +125,7 @@ test('should remove filter when remove button is clicked', async () => {
 });
 
 test('should emit clearInputFilter event when clear button is clicked', async () => {
-	await addFilterRule();
+	await addFilterRuleInputValue();
 	await wrapper.find('span').trigger('click');
 	await wrapper.find('#name-clear').trigger('click');
 
@@ -137,7 +135,7 @@ test('should emit clearInputFilter event when clear button is clicked', async ()
 
 // tests for the other filter types
 test('should emit applyFilters event when filter if applied for number', async () => {
-	await addFilterRule(31, 1);
+	await addFilterRuleInputValue(31, 1);
 	const emitted = wrapper.emitted();
 	expect(emitted).toHaveProperty('applyFilters');
 	expect(emitted.applyFilters).toHaveLength(3);
@@ -145,7 +143,7 @@ test('should emit applyFilters event when filter if applied for number', async (
 });
 
 test('should emit applyFilters event when filter if applied for email', async () => {
-	await addFilterRule('john.doe@supertest.com', 2);
+	await addFilterRuleInputValue('john.doe@supertest.com', 2);
 	const emitted = wrapper.emitted();
 	expect(emitted).toHaveProperty('applyFilters');
 	expect(emitted.applyFilters).toHaveLength(3);
@@ -153,7 +151,7 @@ test('should emit applyFilters event when filter if applied for email', async ()
 });
 
 test('should emit applyFilters event when filter if applied for phone', async () => {
-	await addFilterRule('987654314', 3);
+	await addFilterRuleInputValue('987654314', 3);
 	const emitted = wrapper.emitted();
 	expect(emitted).toHaveProperty('applyFilters');
 	expect(emitted.applyFilters).toHaveLength(3);
@@ -161,7 +159,7 @@ test('should emit applyFilters event when filter if applied for phone', async ()
 });
 
 test('should emit applyFilters event when filter if applied for date', async () => {
-	await addFilterRule(new Date('2022-01-01'), 4);
+	await addFilterRuleInputValue(new Date('2022-01-01'), 4);
 	const emitted = wrapper.emitted();
 	expect(emitted).toHaveProperty('applyFilters');
 	expect(emitted.applyFilters).toHaveLength(3);
@@ -169,7 +167,7 @@ test('should emit applyFilters event when filter if applied for date', async () 
 });
 
 test('should emit applyFilters event when filter if applied for select', async () => {
-	await addFilterRule('Inactive', 5, 'select');
+	await addFilterRuleInputValue('Inactive', 5, 'select');
 	const emitted = wrapper.emitted();
 	expect(emitted).toHaveProperty('applyFilters');
 	expect(emitted.applyFilters).toHaveLength(3);
@@ -177,7 +175,7 @@ test('should emit applyFilters event when filter if applied for select', async (
 });
 
 test('should emit clearInputFilter event when clear button is clicked for number', async () => {
-	await addFilterRule(31, 1);
+	await addFilterRuleInputValue(31, 1);
 	await wrapper.find('span').trigger('click');
 	await wrapper.find('#age-clear').trigger('click');
 
@@ -186,7 +184,7 @@ test('should emit clearInputFilter event when clear button is clicked for number
 });
 
 test('should emit clearInputFilter event when clear button is clicked for email', async () => {
-	await addFilterRule('john@test.com', 2);
+	await addFilterRuleInputValue('john@test.com', 2);
 	await wrapper.find('span').trigger('click');
 	await wrapper.find('#email-clear').trigger('click');
 
@@ -195,7 +193,7 @@ test('should emit clearInputFilter event when clear button is clicked for email'
 });
 
 test('should emit clearInputFilter event when clear button is clicked for phone', async () => {
-	await addFilterRule('987654321', 3);
+	await addFilterRuleInputValue('987654321', 3);
 	await wrapper.find('span').trigger('click');
 	await wrapper.find('#phone-clear').trigger('click');
 
@@ -204,7 +202,7 @@ test('should emit clearInputFilter event when clear button is clicked for phone'
 });
 
 test('should not emit clearInputFilter event when clear button is clicked for date', async () => {
-	await addFilterRule(new Date('2022-01-01'), 4);
+	await addFilterRuleInputValue(new Date('2022-01-01'), 4);
 	await wrapper.find('span').trigger('click');
 	// not find #date-clear button
 	const clearButton = wrapper.find('#date-clear');
@@ -212,9 +210,25 @@ test('should not emit clearInputFilter event when clear button is clicked for da
 });
 
 test('should not emit clearInputFilter event when clear button is clicked for select', async () => {
-	await addFilterRule('Inactive', 5, 'select');
+	await addFilterRuleInputValue('Inactive', 5, 'select');
 	await wrapper.find('span').trigger('click');
 	// not find #status-clear button
 	const clearButton = wrapper.find('#status-clear');
 	expect(clearButton.exists()).toBe(false);
+});
+
+test('should hide and disable the add filter button when all fields are used', async () => {
+  for (let i = 0; i < fields.length; i++) {
+    await wrapper.find('#addFilter').trigger('click');
+    await wrapper.find('ul li button').trigger('click');
+  }
+  const addFilterButton = wrapper.find('#addFilter');
+
+  // Check if the button has the class 'hidden'
+  expect(addFilterButton.classes()).toContain('hidden');
+
+  // Check if the button is disabled
+  const disabledAttr = addFilterButton.attributes('disabled');
+  expect(disabledAttr).toBeDefined();
+  expect(disabledAttr).toBe('');
 });

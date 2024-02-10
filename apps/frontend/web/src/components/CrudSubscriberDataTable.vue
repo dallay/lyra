@@ -100,11 +100,17 @@ const clearFilters = () => {
 			<div class="mb-1 w-full">
 				<div class="mb-4">
 					<slot name="header" />
-					<h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
+					<h1 class="text-xl font-semibold text-tertiary-900 sm:text-2xl dark:text-white">
 						All subscribers
 					</h1>
 					<div class="block items-center justify-between sm:flex">
 						<div class="ml-auto flex items-center space-x-2 sm:space-x-3">
+              <GeneralFilter
+                class="mx-2"
+                :fields="allProperties"
+                @apply-filters="applyFilters"
+                @clear-filters="clearFilters"
+              />
 							<button type="button" class="crud-buttons" @click="refreshData()">
 								<svg
 									class="-ml-1 mr-2 h-5 w-5"
@@ -148,16 +154,12 @@ const clearFilters = () => {
 			</div>
 		</template>
 		<template #header>
-			<GeneralFilter
-				:fields="allProperties"
-				@apply-filters="applyFilters"
-				@clear-filters="clearFilters"
-			/>
+      hola mundo
 		</template>
 		<template #email="{ item }">
 			<a
 				:href="`${baseSubscriberUrl}/${item.id}`"
-				class="text-primary-600 dark:text-primary-500 font-medium hover:underline"
+				class="hover:text-primary-600 dark:hover:text-primary-500 font-medium hover:underline"
 			>
 				{{ item.email }}
 			</a>
@@ -165,11 +167,11 @@ const clearFilters = () => {
 		<template #status="{ item }">
 			<span
 				:class="{
-					'border-green-400 bg-green-100 text-green-800 dark:bg-gray-700 dark:text-green-400':
+					'border-green-400 bg-green-100 text-green-800 dark:bg-tertiary-700 dark:text-green-400':
 						item.status === 'ENABLED',
-					'border-red-400 bg-red-100 text-red-800 dark:bg-gray-700 dark:text-red-400':
+					'border-red-400 bg-red-100 text-red-800 dark:bg-tertiary-700 dark:text-red-400':
 						item.status === 'DISABLED',
-					'border-yellow-400 bg-yellow-100 text-yellow-800 dark:bg-gray-700 dark:text-yellow-400':
+					'border-yellow-400 bg-yellow-100 text-yellow-800 dark:bg-tertiary-700 dark:text-yellow-400':
 						item.status === 'BLOCKLISTED',
 				}"
 				class="me-2 rounded px-2.5 py-0.5 text-xs font-medium"
@@ -185,7 +187,7 @@ const clearFilters = () => {
 			>
 				<svg
 					aria-hidden="true"
-					class="fill-primary-600 h-12 w-12 animate-spin text-gray-200 dark:text-gray-600"
+					class="fill-primary-600 h-12 w-12 animate-spin text-tertiary-200 dark:text-tertiary-600"
 					viewBox="0 0 100 101"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"

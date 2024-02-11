@@ -92,62 +92,62 @@ test('renders no data message when items are empty', () => {
 });
 
 test('sorts items in ascending (default sortDesc = false) order when sort icon is clicked', async () => {
-  const wrapper = mount(BaseDataTable, {
-    props: {
-      columns: [{ key: 'name', label: 'Name', sortable: true }],
-      items: [{ name: 'Item 2' }, { name: 'Item 1' }],
-    },
-  });
+	const wrapper = mount(BaseDataTable, {
+		props: {
+			columns: [{ key: 'name', label: 'Name', sortable: true }],
+			items: [{ name: 'Item 2' }, { name: 'Item 1' }],
+		},
+	});
 
-  await wrapper.find('th svg').trigger('click');
-  await wrapper.find('th svg').trigger('click');
+	await wrapper.find('th svg').trigger('click');
+	await wrapper.find('th svg').trigger('click');
 
-  const rows = wrapper.findAll('tbody tr');
-  expect(rows[0].text()).toContain('Item 1');
-  expect(rows[1].text()).toContain('Item 2');
+	const rows = wrapper.findAll('tbody tr');
+	expect(rows[0].text()).toContain('Item 1');
+	expect(rows[1].text()).toContain('Item 2');
 });
 
 test('sorts items in descending (default sortDesc = false) order when sort icon is clicked twice', async () => {
-  const wrapper = mount(BaseDataTable, {
-    props: {
-      columns: [{ key: 'name', label: 'Name', sortable: true }],
-      items: [{ name: 'Item 1' }, { name: 'Item 2' }],
-    },
-  });
+	const wrapper = mount(BaseDataTable, {
+		props: {
+			columns: [{ key: 'name', label: 'Name', sortable: true }],
+			items: [{ name: 'Item 1' }, { name: 'Item 2' }],
+		},
+	});
 
-  await wrapper.find('th svg').trigger('click');
+	await wrapper.find('th svg').trigger('click');
 
-  const rows = wrapper.findAll('tbody tr');
-  expect(rows[0].text()).toContain('Item 2');
-  expect(rows[1].text()).toContain('Item 1');
+	const rows = wrapper.findAll('tbody tr');
+	expect(rows[0].text()).toContain('Item 2');
+	expect(rows[1].text()).toContain('Item 1');
 });
 
 test('does not sort items when non-sortable column header is clicked', async () => {
-  const wrapper = mount(BaseDataTable, {
-    props: {
-      columns: [{ key: 'name', label: 'Name', sortable: false }],
-      items: [{ name: 'Item 2' }, { name: 'Item 1' }],
-    },
-  });
+	const wrapper = mount(BaseDataTable, {
+		props: {
+			columns: [{ key: 'name', label: 'Name', sortable: false }],
+			items: [{ name: 'Item 2' }, { name: 'Item 1' }],
+		},
+	});
 
-  await wrapper.find('th').trigger('click');
+	await wrapper.find('th').trigger('click');
 
-  const rows = wrapper.findAll('tbody tr');
-  expect(rows[0].text()).toContain('Item 2');
-  expect(rows[1].text()).toContain('Item 1');
+	const rows = wrapper.findAll('tbody tr');
+	expect(rows[0].text()).toContain('Item 2');
+	expect(rows[1].text()).toContain('Item 1');
 });
 
 test('emits sorted event when sortable column header is clicked', async () => {
-  const wrapper = mount(BaseDataTable, {
-    props: {
-      columns: [{ key: 'name', label: 'Name', sortable: true }],
-      items: [{ name: 'Item 2' }, { name: 'Item 1' }],
-    },
-  });
+	const wrapper = mount(BaseDataTable, {
+		props: {
+			columns: [{ key: 'name', label: 'Name', sortable: true }],
+			items: [{ name: 'Item 2' }, { name: 'Item 1' }],
+		},
+	});
 
-  await wrapper.find('th svg').trigger('click');
+	await wrapper.find('th svg').trigger('click');
 
-  const emitted = wrapper.emitted();
-  expect(emitted.sorted).toBeTruthy();
-  expect(emitted.sorted[0][0]).toEqual({ sortKey: 'name', sortType: 'desc' });
+	const emitted = wrapper.emitted();
+	expect(emitted.sorted).toBeTruthy();
+	expect(emitted.sorted[0][0]).toEqual({ sortKey: 'name', sortType: 'desc' });
 });

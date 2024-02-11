@@ -31,15 +31,15 @@ export type {
 	Filter,
 	Property,
 	FieldProperty,
-  Sort
+	Sort,
 };
 
 export {
 	FilterOperator,
-  SortType,
+	SortType,
 	allFilterOperators,
 	BasicFilter,
 	convertPropertyToFieldProperty,
 	convertFieldPropertyToProperty,
-  BasicSort
+	BasicSort,
 };

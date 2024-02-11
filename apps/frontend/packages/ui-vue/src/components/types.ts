@@ -12,4 +12,4 @@ export interface ColumnInfo {
 	sortable?: boolean;
 }
 
-export type SortedEvent = { sortKey: string, sortType: SortType };
+export type SortedEvent = { sortKey: string; sortType: SortType };

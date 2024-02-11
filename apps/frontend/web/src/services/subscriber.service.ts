@@ -30,9 +30,9 @@ class SubscriberService {
 			});
 		}
 		if (sort) {
-      const sortQuery = sort.toQueryString();
-      const [key, value] = sortQuery.split('=');
-      params.append(key, value);
+			const sortQuery = sort.toQueryString();
+			const [key, value] = sortQuery.split('=');
+			params.append(key, value);
 		}
 		params.append('size', size.toString());
 		params.append('page', page.toString());

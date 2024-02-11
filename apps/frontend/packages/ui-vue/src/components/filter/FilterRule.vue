@@ -57,7 +57,7 @@ const showClearButton = computed(() => {
 	<BasicDropdown :text="property.label" :placement="placement" @on-hide="applyFilters">
 		<template #trigger>
 			<span
-				class="bg-secondary-100 text-secondary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-full dark:bg-tertiary-700 dark:text-secondary-400 border border-secondary-400 mx-1"
+				class="bg-secondary-100 text-secondary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-full dark:bg-tertiary-700 dark:text-secondary-400 border border-secondary-400/50 mx-1"
 			>
 				<SvgIcon :name="getPropertyIcon(property.type)" class="w-4 h-4 me-2" />
 				{{ property.label }}={{ property.operator }}:{{ property.value }}

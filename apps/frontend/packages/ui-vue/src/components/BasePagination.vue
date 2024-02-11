@@ -86,10 +86,10 @@ const perPageValue = ref(props.perPage);
 				<button
 					:class="
 						number === currentPage
-							? 'bg-primary-300 border-primary-300 dark:bg-primary-700 dark:border-primary-700 text-white'
-							: ''
+							? 'bg-tertiary-100 text-tertiary-700 dark:bg-tertiary-700 dark:text-white border-tertiary-200 dark:border-tertiary-800'
+							: 'border-tertiary-300 bg-white text-tertiary-500 dark:bg-tertiary-800 dark:text-tertiary-400'
 					"
-					class="flex h-8 items-center justify-center border border-tertiary-300 bg-white px-3 leading-tight text-tertiary-500 hover:bg-tertiary-100 hover:text-tertiary-700 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400 dark:hover:bg-tertiary-700 dark:hover:text-white"
+					class="flex h-8 items-center justify-center border px-3 leading-tight hover:bg-tertiary-100 hover:text-tertiary-700 dark:border-tertiary-700 dark:hover:bg-tertiary-700 dark:hover:text-white"
 					@click.prevent="goToPage(number)"
 				>
 					{{ number }}

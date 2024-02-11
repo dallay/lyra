@@ -42,7 +42,6 @@ const clearInput = () => {
 const applyFilters = () => {
 	emit('applyFilters');
 };
-
 </script>
 
 <template>

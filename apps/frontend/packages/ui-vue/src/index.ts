@@ -1,7 +1,7 @@
 import type { App } from 'vue';
 import {
 	BasePagination,
-  BaseInput,
+	BaseInput,
 	BasicDropdown,
 	type ColumnInfo,
 	GeneralFilter,

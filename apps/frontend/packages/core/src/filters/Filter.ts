@@ -98,7 +98,10 @@ export class BasicFilter<T> implements Filter<T> {
 	 */
 	toQueryString(): string {
 		return this.properties
-			.filter((property) => property.value !== '' && property.value !== null && property.value !== undefined)
+			.filter(
+				(property) =>
+					property.value !== '' && property.value !== null && property.value !== undefined
+			)
 			.map((property) => {
 				return `${property.name}=${property.operator}:${property.value}`;
 			})

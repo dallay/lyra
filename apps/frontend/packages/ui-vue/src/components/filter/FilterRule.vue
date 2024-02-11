@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="T">
 import BasicDropdown from '@/components/dropdown/BasicDropdown.vue';
+import BaseInput from '@/components/BaseInput.vue';
 import { computed, type PropType } from 'vue';
 import type { FilterType, Property } from '@lyra/vm-core';
 import SvgIcon from '../media/SvgIcon.vue';
@@ -42,15 +43,15 @@ const applyFilters = () => {
 	emit('applyFilters');
 };
 
-const showClearButton = computed(() => {
-	return (
-		property.value.value !== null &&
-		property.value.value !== '' &&
-		property.value.value !== undefined &&
-		property.value.type !== 'select' &&
-		property.value.type !== 'date'
-	);
-});
+// const showClearButton = computed(() => {
+// 	return (
+// 		property.value.value !== null &&
+// 		property.value.value !== '' &&
+// 		property.value.value !== undefined &&
+// 		property.value.type !== 'select' &&
+// 		property.value.type !== 'date'
+// 	);
+// });
 </script>
 
 <template>
@@ -137,25 +138,33 @@ const showClearButton = computed(() => {
 				</BasicDropdown>
 			</header>
 			<div class="relative">
-				<input
-					v-if="property.type != 'select'"
-					:id="property.name"
-					v-model="property.value"
-					:type="property.type"
-					:placeholder="property.label"
-					class="block rounded p-2.5 w-full z-20 text-sm text-tertiary-900 bg-tertiary-50 border-s-tertiary-50 border-s-2 border border-tertiary-300 focus:ring-secondary-500 focus:border-secondary-500 dark:bg-tertiary-700 dark:border-s-tertiary-700 dark:border-tertiary-600 dark:placeholder-tertiary-400 dark:text-white dark:focus:border-secondary-500"
-					required
-				/>
-				<button
-					v-if="showClearButton"
-					:id="`${property.name}-clear`"
-					type="button"
-					class="absolute end-2.5 top-2.5 bottom-2.5 inline-flex items-center p-1 ms-2 text-sm text-secondary-400 bg-transparent rounded-sm"
-					@click="clearInput"
-				>
-					<SvgIcon name="close" class="w-5 h-5 text-tertiary-400 dark:text-tertiary-300" />
-					<span class="sr-only">Clear input</span>
-				</button>
+<!--				<input-->
+<!--					v-if="property.type != 'select'"-->
+<!--					:id="property.name"-->
+<!--					v-model="property.value"-->
+<!--					:type="property.type"-->
+<!--					:placeholder="property.label"-->
+<!--					class="block rounded p-2.5 w-full z-20 text-sm text-tertiary-900 bg-tertiary-50 border-s-tertiary-50 border-s-2 border border-tertiary-300 focus:ring-secondary-500 focus:border-secondary-500 dark:bg-tertiary-700 dark:border-s-tertiary-700 dark:border-tertiary-600 dark:placeholder-tertiary-400 dark:text-white dark:focus:border-secondary-500"-->
+<!--					required-->
+<!--				/>-->
+<!--				<button-->
+<!--					v-if="showClearButton"-->
+<!--					:id="`${property.name}-clear`"-->
+<!--					type="button"-->
+<!--					class="absolute end-2.5 top-2.5 bottom-2.5 inline-flex items-center p-1 ms-2 text-sm text-secondary-400 bg-transparent rounded-sm"-->
+<!--					@click="clearInput"-->
+<!--				>-->
+<!--					<SvgIcon name="close" class="w-5 h-5 text-tertiary-400 dark:text-tertiary-300" />-->
+<!--					<span class="sr-only">Clear input</span>-->
+<!--				</button>-->
+        <BaseInput
+          v-if="property.type != 'select'"
+          :id="property.name"
+          v-model="property.value"
+          :type="property.type"
+          :placeholder="property.label"
+          @clear-input="clearInput"
+        />
 				<select
 					v-if="property.type == 'select'"
 					:id="property.name"

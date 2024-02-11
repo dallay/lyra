@@ -1,6 +1,7 @@
 import { expect, test } from 'vitest';
 import { mount } from '@vue/test-utils';
 import BaseDataTable from '../../../src/components/BaseDataTable.vue';
+import { useGenericDataTable } from '../../../src';
 
 test('renders table when items are present', () => {
 	const wrapper = mount(BaseDataTable, {
@@ -88,4 +89,65 @@ test('renders no data message when items are empty', () => {
 	});
 
 	expect(wrapper.text()).toContain('No data available');
+});
+
+test('sorts items in ascending (default sortDesc = false) order when sort icon is clicked', async () => {
+  const wrapper = mount(BaseDataTable, {
+    props: {
+      columns: [{ key: 'name', label: 'Name', sortable: true }],
+      items: [{ name: 'Item 2' }, { name: 'Item 1' }],
+    },
+  });
+
+  await wrapper.find('th svg').trigger('click');
+  await wrapper.find('th svg').trigger('click');
+
+  const rows = wrapper.findAll('tbody tr');
+  expect(rows[0].text()).toContain('Item 1');
+  expect(rows[1].text()).toContain('Item 2');
+});
+
+test('sorts items in descending (default sortDesc = false) order when sort icon is clicked twice', async () => {
+  const wrapper = mount(BaseDataTable, {
+    props: {
+      columns: [{ key: 'name', label: 'Name', sortable: true }],
+      items: [{ name: 'Item 1' }, { name: 'Item 2' }],
+    },
+  });
+
+  await wrapper.find('th svg').trigger('click');
+
+  const rows = wrapper.findAll('tbody tr');
+  expect(rows[0].text()).toContain('Item 2');
+  expect(rows[1].text()).toContain('Item 1');
+});
+
+test('does not sort items when non-sortable column header is clicked', async () => {
+  const wrapper = mount(BaseDataTable, {
+    props: {
+      columns: [{ key: 'name', label: 'Name', sortable: false }],
+      items: [{ name: 'Item 2' }, { name: 'Item 1' }],
+    },
+  });
+
+  await wrapper.find('th').trigger('click');
+
+  const rows = wrapper.findAll('tbody tr');
+  expect(rows[0].text()).toContain('Item 2');
+  expect(rows[1].text()).toContain('Item 1');
+});
+
+test('emits sorted event when sortable column header is clicked', async () => {
+  const wrapper = mount(BaseDataTable, {
+    props: {
+      columns: [{ key: 'name', label: 'Name', sortable: true }],
+      items: [{ name: 'Item 2' }, { name: 'Item 1' }],
+    },
+  });
+
+  await wrapper.find('th svg').trigger('click');
+
+  const emitted = wrapper.emitted();
+  expect(emitted.sorted).toBeTruthy();
+  expect(emitted.sorted[0][0]).toEqual({ sortKey: 'name', sortType: 'desc' });
 });

@@ -4,6 +4,7 @@ import {
 	BaseInput,
 	BasicDropdown,
 	type ColumnInfo,
+	type SortedEvent,
 	GeneralFilter,
 	SvgIcon,
 	useGenericDataTable,
@@ -20,7 +21,7 @@ export default {
 		app.component('GeneralFilter', GeneralFilter);
 	},
 };
-export type { ColumnInfo };
+export type { ColumnInfo, SortedEvent };
 export {
 	BaseInput,
 	BasePagination,

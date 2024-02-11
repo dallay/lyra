@@ -15,6 +15,7 @@ import {
 	FieldProperty,
 	Property,
 } from './filters/Property.ts';
+import { BasicSort, Sort, SortType } from './models/Sort.ts';
 
 export { navMenus };
 export type {
@@ -30,12 +31,15 @@ export type {
 	Filter,
 	Property,
 	FieldProperty,
+  Sort
 };
 
 export {
 	FilterOperator,
+  SortType,
 	allFilterOperators,
 	BasicFilter,
 	convertPropertyToFieldProperty,
 	convertFieldPropertyToProperty,
+  BasicSort
 };

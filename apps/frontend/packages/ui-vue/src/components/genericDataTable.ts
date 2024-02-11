@@ -1,17 +1,21 @@
-import { defineComponent, h, VNode } from 'vue';
+import { defineComponent, h, type VNode } from 'vue';
 import BaseDataTable from './BaseDataTable.vue';
-import { ColumnInfo, ExtractComponentProps } from './types';
+import type { ColumnInfo, ExtractComponentProps, SortedEvent } from './types';
 
-type NonGenericProps = Omit<ExtractComponentProps<typeof BaseDataTable>, 'columns' | 'items'>;
+type NonGenericProps = Omit<ExtractComponentProps<typeof BaseDataTable>,
+  'columns' | 'items' | 'sorted'>;
 
 interface GenericProps<TValue> extends NonGenericProps {
 	columns: ColumnInfo[];
 	items: TValue[];
+  sorted: SortedEvent;
 }
 
 interface DataTableItemSlot<TValue> {
 	item: TValue;
 }
+
+
 
 export function useGenericDataTable<TValue = unknown>() {
 	const wrapper = defineComponent((props: GenericProps<TValue>, { slots }) => {
@@ -26,6 +30,7 @@ export function useGenericDataTable<TValue = unknown>() {
 		new (): {
 			$emit: {
 				(e: 'update:modelValue', value: TValue): void;
+        (e: 'sorted', value: SortedEvent): void;
 			};
 			$slots: {
 				item: (props: DataTableItemSlot<TValue>) => VNode[];

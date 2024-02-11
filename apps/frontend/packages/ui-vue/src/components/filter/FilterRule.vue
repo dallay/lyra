@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T">
 import BasicDropdown from '@/components/dropdown/BasicDropdown.vue';
 import BaseInput from '@/components/BaseInput.vue';
-import { computed, type PropType } from 'vue';
+import { type PropType } from 'vue';
 import type { FilterType, Property } from '@lyra/vm-core';
 import SvgIcon from '../media/SvgIcon.vue';
 import type { DropdownPlacement } from '@/components/dropdown/types';

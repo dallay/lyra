@@ -1,3 +1,5 @@
+import { SortType } from '@lyra/vm-core';
+
 export type ExtractComponentProps<TComponent> = TComponent extends new () => {
 	$props: infer P;
 }
@@ -9,3 +11,5 @@ export interface ColumnInfo {
 	label: string;
 	sortable?: boolean;
 }
+
+export type SortedEvent = { sortKey: string, sortType: SortType };

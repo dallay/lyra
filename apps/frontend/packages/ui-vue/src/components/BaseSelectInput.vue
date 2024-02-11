@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, PropType } from 'vue';
+import { defineProps, type PropType } from 'vue';
 
 const model = defineModel({
 	type: null as PropType<unknown>,

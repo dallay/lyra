@@ -1,5 +1,5 @@
 import { BACKEND_API_URL } from '@/constants';
-import type { OffsetPage, Subscriber } from '@lyra/vm-core';
+import type { OffsetPage, Subscriber, Sort } from '@lyra/vm-core';
 
 class SubscriberService {
 	private static instance: SubscriberService;
@@ -15,7 +15,7 @@ class SubscriberService {
 
 	public async getSubscribers(
 		filter?: string,
-		sort?: string,
+		sort?: Sort,
 		size: number = 10,
 		page: number = 0
 	): Promise<OffsetPage<Subscriber>> {
@@ -30,7 +30,9 @@ class SubscriberService {
 			});
 		}
 		if (sort) {
-			params.append('sort', sort);
+      const sortQuery = sort.toQueryString();
+      const [key, value] = sortQuery.split('=');
+      params.append(key, value);
 		}
 		params.append('size', size.toString());
 		params.append('page', page.toString());

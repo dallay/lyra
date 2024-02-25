@@ -1,12 +1,41 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    "group:all",
-    ":dependencyDashboard",
-    "schedule:daily"
-  ],
-  "reviewers": [
-    "yacosta738"
+  "extends": ["config:recommended", "group:all", ":dependencyDashboard", "schedule:daily"],
+  "reviewers": ["yacosta738"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true
+    },
+    {
+      "extends": "monorepo:kotlin",
+      "groupName": "kotlin monorepo",
+      "matchUpdateTypes": [
+        "digest",
+        "patch",
+        "minor",
+        "major"
+      ]
+    },
+    {
+      "groupName": "spring backend",
+      "matchDepNames": [
+        "org.springframework"
+      ],
+      "matchPackagePrefixes": [
+        "org.springframework:"
+      ]
+    },
+    {
+      "extends": "monorepo:github-workflows-kt",
+      "groupName": "github-workflows-kt monorepo",
+      "matchUpdateTypes": [
+        "digest",
+        "patch",
+        "minor",
+        "major"
+      ]
+    }
   ]
 }

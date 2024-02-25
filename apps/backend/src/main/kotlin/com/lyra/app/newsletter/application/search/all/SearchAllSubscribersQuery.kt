@@ -3,7 +3,7 @@ package com.lyra.app.newsletter.application.search.all
 import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.common.domain.bus.query.Query
 import com.lyra.common.domain.criteria.Criteria
-import com.lyra.common.domain.presentation.pagination.OffsetPage
+import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import com.lyra.common.domain.presentation.sort.Sort
 
 /**
@@ -13,10 +13,10 @@ import com.lyra.common.domain.presentation.sort.Sort
 class SearchAllSubscribersQuery(
     val criteria: Criteria? = null,
     val size: Int? = null,
-    val page: Int? = null,
+    val cursor: String? = null,
     val sort: Sort? = null
 ) :
-    Query<OffsetPage<SubscriberResponse>> {
+    Query<CursorPageResponse<SubscriberResponse>> {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SearchAllSubscribersQuery) return false

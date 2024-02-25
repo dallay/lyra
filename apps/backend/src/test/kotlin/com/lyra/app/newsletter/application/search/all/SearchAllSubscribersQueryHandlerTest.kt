@@ -3,9 +3,11 @@ package com.lyra.app.newsletter.application.search.all
 import com.lyra.app.newsletter.SubscriberStub
 import com.lyra.app.newsletter.domain.SubscriberRepository
 import com.lyra.common.domain.criteria.Criteria
+import com.lyra.common.domain.presentation.sort.Sort
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockkClass
+import java.time.LocalDateTime
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -21,9 +23,17 @@ internal class SearchAllSubscribersQueryHandlerTest {
 
     @BeforeEach
     fun setUp() {
-        coEvery { repository.searchAll(any(Criteria::class)) } returns SubscriberStub.dummyRandomSubscribersOffsetPage(
-            NUM_SUBSCRIBER,
-        )
+        val cursorPageResponse = SubscriberStub
+            .dummyRandomSubscribersPageResponse(
+                NUM_SUBSCRIBER,
+            )
+        coEvery {
+            repository.searchAllByCursor(
+                any(Criteria::class),
+                any(Int::class),
+                any(Sort::class),
+            )
+        } returns cursorPageResponse
     }
 
     @Test
@@ -31,14 +41,12 @@ internal class SearchAllSubscribersQueryHandlerTest {
         val query = SearchAllSubscribersQuery(criteria = Criteria.Empty)
         val response = searchAllSubscribersQueryHandler.handle(query)
         val data = response.data
-        val total = response.total
-        val page = response.page
-        val perPage = response.perPage
+        val nextCursor = response.nextPageCursor
         assertTrue(data.isNotEmpty())
         assertEquals(100, data.size)
-        assertEquals(100, total)
-        assertEquals(1, page)
-        assertEquals(NUM_SUBSCRIBER, perPage)
-        coVerify(exactly = 1) { repository.searchAll(any(Criteria::class)) }
+        val endDate = data.last().createdAt ?: LocalDateTime.now().toString()
+        val cursor = SubscriberStub.getTimestampCursorPage(endDate)
+        assertEquals(cursor, nextCursor)
+        coVerify(exactly = 1) { repository.searchAllByCursor(any(Criteria::class), any(Int::class), any(Sort::class)) }
     }
 }

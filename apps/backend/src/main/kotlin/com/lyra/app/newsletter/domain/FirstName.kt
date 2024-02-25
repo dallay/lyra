@@ -21,16 +21,10 @@ data class FirstName(val firstname: String) : BaseValidateValueObject<String>(fi
      */
     override fun validate(value: String) {
         val firstname = value.trim()
-        if (firstname.isEmpty() || firstname.length > NAME_LEN || containsInvalidCharacters(
-                firstname,
-            )
-        ) {
+        if (firstname.isEmpty() || firstname.length > NAME_LEN) {
             throw FirstNameNotValidException(value)
         }
     }
-
-    private fun containsInvalidCharacters(firstname: String): Boolean =
-        !firstname.matches(Regex("^[a-zA-ZÀ-ÿ\\s]{1,150}\$"))
 
     override fun toString(): String = firstname
 }

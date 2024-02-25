@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useGenericSelectInput } from './genericSelect';
+import { computed, type PropType, ref } from 'vue';
+import { useGenericSelectInput } from '@/components/genericSelect';
 
 const props = defineProps({
 	total: {
@@ -10,6 +10,7 @@ const props = defineProps({
 	perPage: {
 		type: Number,
 		required: true,
+		default: 10,
 	},
 	page: {
 		type: Number,
@@ -18,6 +19,10 @@ const props = defineProps({
 	totalPages: {
 		type: Number,
 		required: true,
+	},
+	perPageOptions: {
+		type: Array as PropType<number[]>,
+		default: () => [5, 10, 25, 50, 100],
 	},
 });
 
@@ -29,15 +34,15 @@ const currentPage = computed(() => props.page + 1);
 const updatePage = (newPage: number, perPage: number) => {
 	emits('updatePage', { page: newPage, perPage: perPage });
 };
-
+const hasNextPage = computed(() => props.page < props.totalPages - 1);
 const nextPage = () => {
-	if (props.page < props.totalPages - 1) {
+	if (hasNextPage.value) {
 		updatePage(props.page + 1, perPageValue.value);
 	}
 };
-
+const hasPreviousPage = computed(() => props.page > 0);
 const previousPage = () => {
-	if (props.page > 0) {
+	if (hasPreviousPage.value) {
 		updatePage(props.page - 1, perPageValue.value);
 	}
 };
@@ -47,8 +52,6 @@ const goToPage = (pageNumber: number) => {
 };
 
 const PerPageSelectInput = useGenericSelectInput<number>();
-
-const perPageOptions = computed(() => [10, 25, 50, 100]);
 const perPageValue = ref(props.perPage);
 </script>
 
@@ -76,7 +79,13 @@ const perPageValue = ref(props.perPage);
 			</li>
 			<li>
 				<button
-					class="ms-0 flex h-8 items-center justify-center rounded-s-lg border border-tertiary-300 bg-white px-3 leading-tight text-tertiary-500 hover:bg-tertiary-100 hover:text-tertiary-700 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400 dark:hover:bg-tertiary-700 dark:hover:text-white"
+					:disabled="!hasPreviousPage"
+					class="ms-0 flex h-8 items-center justify-center rounded-s-lg border border-tertiary-300 bg-white px-3 leading-tight text-tertiary-500 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400"
+					:class="{
+						'cursor-not-allowed': !hasPreviousPage,
+						'hover:bg-tertiary-100 hover:text-tertiary-700 dark:hover:bg-tertiary-700 dark:hover:text-white':
+							hasPreviousPage,
+					}"
 					@click.prevent="previousPage"
 				>
 					Previous
@@ -97,7 +106,13 @@ const perPageValue = ref(props.perPage);
 			</li>
 			<li>
 				<button
-					class="flex h-8 items-center justify-center rounded-e-lg border border-tertiary-300 bg-white px-3 leading-tight text-tertiary-500 hover:bg-tertiary-100 hover:text-tertiary-700 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400 dark:hover:bg-tertiary-700 dark:hover:text-white"
+					:disabled="!hasNextPage"
+					class="flex h-8 items-center justify-center rounded-e-lg border border-tertiary-300 bg-white px-3 leading-tight text-tertiary-500 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400"
+					:class="{
+						'cursor-not-allowed': !hasNextPage,
+						'hover:bg-tertiary-100 hover:text-tertiary-700 dark:hover:bg-tertiary-700 dark:hover:text-white':
+							hasNextPage,
+					}"
 					@click.prevent="nextPage"
 				>
 					Next

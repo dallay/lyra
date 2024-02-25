@@ -8,6 +8,7 @@ import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntit
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.filter.RHSFilterParser
+import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import com.lyra.spring.boot.presentation.filter.RHSFilterParserFactory
 import com.lyra.spring.boot.presentation.sort.SortParser
 import com.lyra.spring.boot.presentation.sort.SortParserFactory
@@ -21,10 +22,11 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 private const val ENDPOINT = "/api/newsletter/subscribers"
 private const val NUM_SUBSCRIBER = 14
-class GetAllSubscriberControllerTest {
+
+internal class GetAllSubscriberControllerTest {
     private val mediator = mockk<Mediator>()
     private val rhsFilterParserFactory = mockk<RHSFilterParserFactory>()
-    private val response = SubscriberStub.dummyRandomSubscriberResponseOffsetPage(
+    private val response = SubscriberStub.dummyRandomSubscriberResponsePageResponse(
         NUM_SUBSCRIBER,
     )
 
@@ -55,9 +57,7 @@ class GetAllSubscriberControllerTest {
             .expectStatus().isOk
             .expectBody()
             .jsonPath("$.data").isArray
-            .jsonPath("$.total").isEqualTo(response.total ?: 0)
-            .jsonPath("$.perPage").isEqualTo(response.perPage)
-            .jsonPath("$.page").isEqualTo(response.page ?: 0)
+            .jsonPath("$.nextPageCursor").isEqualTo(response.nextPageCursor ?: "")
             .jsonPath("$.data[0].id").isEqualTo(data.first().id)
             .jsonPath("$.data[0].email").isEqualTo(data.first().email)
             .jsonPath("$.data[0].name").isEqualTo(data.first().name)
@@ -90,19 +90,17 @@ class GetAllSubscriberControllerTest {
             .uri { uriBuilder ->
                 uriBuilder
                     .path(ENDPOINT)
-                    .queryParam("email", filter[SubscriberEntity::email])
-                    .queryParam("firstname", filter[SubscriberEntity::firstname])
-                    .queryParam("lastname", filter[SubscriberEntity::lastname])
-                    .queryParam("status", filter[SubscriberEntity::status])
+                    .queryParam("search[email]", filter[SubscriberEntity::email])
+                    .queryParam("search[firstname]", filter[SubscriberEntity::firstname])
+                    .queryParam("search[lastname]", filter[SubscriberEntity::lastname])
+                    .queryParam("search[status]", filter[SubscriberEntity::status])
                     .build()
             }
             .exchange()
             .expectStatus().isOk
             .expectBody()
             .jsonPath("$.data").isArray
-            .jsonPath("$.total").isEqualTo(response.total ?: 0)
-            .jsonPath("$.perPage").isEqualTo(response.perPage)
-            .jsonPath("$.page").isEqualTo(response.page ?: 0)
+            .jsonPath("$.nextPageCursor").isEqualTo(response.nextPageCursor ?: "")
             .jsonPath("$.data[0].id").isEqualTo(response.data.first().id)
             .jsonPath("$.data[0].email").isEqualTo(response.data.first().email)
             .jsonPath("$.data[0].name").isEqualTo(response.data.first().name)
@@ -124,12 +122,58 @@ class GetAllSubscriberControllerTest {
             .expectStatus().isOk
             .expectBody()
             .jsonPath("$.data").isArray
-            .jsonPath("$.total").isEqualTo(response.total ?: 0)
-            .jsonPath("$.perPage").isEqualTo(response.perPage)
-            .jsonPath("$.page").isEqualTo(response.page ?: 0)
+            .jsonPath("$.nextPageCursor").isEqualTo(response.nextPageCursor ?: "")
             .jsonPath("$.data[0].id").isEqualTo(response.data.first().id)
             .jsonPath("$.data[0].email").isEqualTo(response.data.first().email)
             .jsonPath("$.data[0].name").isEqualTo(response.data.first().name)
             .jsonPath("$.data[0].status").isEqualTo(response.data.first().status)
+    }
+
+    @Test
+    fun `should paginate subscribers using nextCursor from response`() {
+        val pageSize = 5
+
+        // Assuming the first response contains more than 5 subscribers
+        val firstResponse = SubscriberStub.dummyRandomSubscriberResponsePageResponse(5)
+
+        val firstQuery = SearchAllSubscribersQuery(size = pageSize)
+        coEvery { mediator.send(firstQuery) } returns firstResponse
+
+        val firstRequest = webTestClient.get()
+            .uri { uriBuilder ->
+                uriBuilder
+                    .path(ENDPOINT)
+                    .queryParam("size", pageSize)
+                    .build()
+            }
+            .exchange()
+            .expectStatus().isOk
+            .expectBody(CursorPageResponse::class.java)
+            .returnResult()
+            .responseBody
+
+        // the second response contains less than 5 subscribers (last page)
+        val secondResponse = SubscriberStub.dummyRandomSubscriberResponsePageResponse(3)
+
+        val secondQuery =
+            SearchAllSubscribersQuery(size = pageSize, cursor = firstRequest?.nextPageCursor)
+        coEvery { mediator.send(secondQuery) } returns secondResponse
+
+        if (firstRequest != null) {
+            webTestClient.get()
+                .uri { uriBuilder ->
+                    uriBuilder
+                        .path(ENDPOINT)
+                        .queryParam("size", pageSize)
+                        .queryParam("cursor", firstRequest.nextPageCursor)
+                        .build()
+                }
+                .exchange()
+                .expectStatus().isOk
+                .expectBody()
+                .jsonPath("$.data").isArray
+                .jsonPath("$.data.length()").isEqualTo(secondResponse.data.size)
+                .jsonPath("$.nextPageCursor").isEqualTo(secondResponse.nextPageCursor ?: "")
+        }
     }
 }

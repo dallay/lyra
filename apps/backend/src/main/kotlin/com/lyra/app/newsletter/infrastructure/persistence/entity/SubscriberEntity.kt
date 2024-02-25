@@ -25,7 +25,9 @@ data class SubscriberEntity(
             email: String,
             firstname: String,
             lastname: String,
-            status: SubscriberStatus
+            status: SubscriberStatus,
+            createdAt: LocalDateTime,
+            updatedAt: LocalDateTime?,
         ): SubscriberEntity {
             val entity = SubscriberEntity(
                 id = id,
@@ -33,6 +35,8 @@ data class SubscriberEntity(
                 firstname = firstname,
                 lastname = lastname,
                 status = status,
+                createdAt = createdAt,
+                updatedAt = updatedAt,
             )
             return entity
         }

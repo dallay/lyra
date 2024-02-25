@@ -1,6 +1,6 @@
 package com.lyra.spring.boot.presentation.pagination
 
-import com.lyra.common.domain.presentation.pagination.OffsetPage
+import com.lyra.common.domain.presentation.pagination.OffsetPageResponse
 import com.lyra.spring.boot.presentation.ResponseBodyResultHandlerAdapter
 import org.springframework.http.codec.ServerCodecConfigurer
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -11,7 +11,7 @@ class OffsetPageResponseHandler(
     serverCodecConfigurer: ServerCodecConfigurer,
     resolver: RequestedContentTypeResolver,
     presenter: OffsetPagePresenter
-) : ResponseBodyResultHandlerAdapter<OffsetPage<*>>(
+) : ResponseBodyResultHandlerAdapter<OffsetPageResponse<*>>(
     serverCodecConfigurer.writers,
     resolver,
     presenter,

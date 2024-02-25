@@ -26,22 +26,22 @@
     "test": "echo Testing frontend"
   },
   "dependencies": {
-    "@astrojs/check": "^0.5.2",
+    "@astrojs/check": "^0.5.4",
     "@astrojs/node": "^8.2.0",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vue": "^4.0.8",
     "@fontsource-variable/onest": "^5.0.2",
     "@justinribeiro/lite-youtube": "1.5.0",
     "@lyra/vm-core": "workspace:*",
-    "astro": "^4.3.5",
+    "astro": "^4.4.0",
     "sharp": "^0.33.2",
     "typescript": "^5.3.3",
-    "vue": "^3.4.18"
+    "vue": "^3.4.19"
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.1.64",
     "@iconify-json/ph": "^1.1.11",
-    "@iconify-json/simple-icons": "^1.1.90",
+    "@iconify-json/simple-icons": "^1.1.92",
     "@lyra/css-config": "workspace:*",
     "@lyra/ui": "workspace:*",
     "@lyra/ui-vue": "workspace:*",

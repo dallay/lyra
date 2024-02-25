@@ -2,22 +2,19 @@
 import { onMounted, ref, type Ref } from 'vue';
 import {
 	BaseInput,
-	BasePagination,
+	CursorPagination,
 	type ColumnInfo,
 	GeneralFilter,
-	type SortedEvent,
 	useGenericDataTable,
 } from '@lyra/ui-vue';
 import type { FieldProperty, Sort, Subscriber } from '@lyra/vm-core';
-import { BasicSort, SortType } from '@lyra/vm-core';
 import SubscriberService from '@/services/subscriber.service.ts';
 
 const baseSubscriberUrl = '/app/audience/subscribers';
 const subscribers = ref<Subscriber[]>([]);
-const perPage = ref(10);
-const page = ref(0);
-const totalPages = ref(0);
-const total = ref(0);
+const perPage = ref(2);
+const cursor = ref('');
+
 const columns: Ref<ColumnInfo[]> = ref([
 	{
 		key: 'email',
@@ -67,23 +64,25 @@ const isLoaded = ref(false);
 const SubscriberDataTable = useGenericDataTable<Subscriber>();
 
 const filterQuery = ref('');
+const searchQuery = ref('');
 
 async function refreshData(
-	pagination: { page: number; perPage: number } = { page: page.value, perPage: perPage.value },
-	sort: Sort = new BasicSort('email', SortType.ASC)
+	pagination: { cursor: string; perPage: number } = {
+		cursor: cursor.value,
+		perPage: perPage.value,
+	},
+	sort?: Sort
 ) {
 	isLoaded.value = false;
-	let offsetPage = await SubscriberService.getInstance().getSubscribers(
+	let pageResponse = await SubscriberService.getInstance().getSubscribers(
 		filterQuery.value,
 		sort,
 		pagination.perPage,
-		pagination.page
+		pagination.cursor
 	);
-	perPage.value = offsetPage.perPage;
-	page.value = offsetPage.page ?? 0;
-	totalPages.value = offsetPage.totalPages ?? 0;
-	total.value = offsetPage.total ?? 0;
-	subscribers.value = offsetPage.data;
+	perPage.value = pagination.perPage;
+	cursor.value = pageResponse.nextPageCursor || '';
+	subscribers.value.push(...pageResponse.data);
 	isLoaded.value = true;
 }
 
@@ -100,15 +99,10 @@ const clearFilters = () => {
 	filterQuery.value = '';
 	refreshData();
 };
-const sortElements = (event: SortedEvent) => {
-	const sortKey = event.sortKey === 'name' ? 'firstname' : event.sortKey;
-	const sort = new BasicSort(sortKey, event.sortType);
-	refreshData({ page: page.value, perPage: perPage.value }, sort);
-};
 </script>
 
 <template>
-	<SubscriberDataTable :columns="columns" :items="subscribers" @sorted="sortElements">
+	<SubscriberDataTable :columns="columns" :items="subscribers">
 		<template #top>
 			<div class="mb-1 w-full">
 				<div class="mb-4">
@@ -117,7 +111,13 @@ const sortElements = (event: SortedEvent) => {
 						All subscribers
 					</h1>
 					<div class="block items-center justify-between sm:flex">
-						<BaseInput id="search-subscribers-input" type="text" placeholder="Search subscribers" />
+						<BaseInput
+							id="search-subscribers-input"
+							v-model="searchQuery"
+							type="text"
+							placeholder="Search subscribers"
+							class="w-1/3"
+						/>
 						<div class="ml-auto flex items-center space-x-2 sm:space-x-3">
 							<GeneralFilter
 								class="mx-2"
@@ -216,13 +216,7 @@ const sortElements = (event: SortedEvent) => {
 			</div>
 		</template>
 		<template #footer>
-			<BasePagination
-				:total="total"
-				:per-page="perPage"
-				:page="page"
-				:total-pages="totalPages"
-				@update-page="refreshData"
-			/>
+			<CursorPagination :next-page-cursor="cursor" :per-page="perPage" @update-page="refreshData" />
 		</template>
 	</SubscriberDataTable>
 </template>

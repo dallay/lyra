@@ -10,6 +10,8 @@ data class SubscriberResponse(
     val email: String,
     val name: String,
     val status: String,
+    val createdAt: String? = null,
+    val updatedAt: String? = null,
 ) : Response {
     companion object {
         fun from(subscriber: Subscriber) = SubscriberResponse(
@@ -17,6 +19,8 @@ data class SubscriberResponse(
             email = subscriber.email.value,
             name = subscriber.name.fullName(),
             status = subscriber.status.name,
+            createdAt = subscriber.createdAt.toString(),
+            updatedAt = subscriber.updatedAt?.toString(),
         )
     }
 }

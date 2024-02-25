@@ -1,6 +1,7 @@
 import { Menu, navMenus } from './models/Menu';
 import { Project } from './models/Project';
 import { OffsetPage } from './models/OffsetPage';
+import { PageResponse } from './models/PageResponse';
 import { BreadcrumbItem } from './models/BreadcrumbItem.ts';
 import { Subscriber, Subscribers } from './models/Subscriber.ts';
 import {
@@ -25,6 +26,7 @@ export type {
 	Subscribers,
 	Subscriber,
 	OffsetPage,
+	PageResponse,
 	FilterOperatorOption,
 	FilterType,
 	FilterOptions,

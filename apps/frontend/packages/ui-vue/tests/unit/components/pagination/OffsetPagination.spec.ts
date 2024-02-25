@@ -1,9 +1,9 @@
 import { expect, test } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { BasePagination } from '../../../src';
+import { OffsetPagination } from '../../../../src';
 
 test('emits updatePage event with correct page and perPage when nextPage is called', async () => {
-	const wrapper = mount(BasePagination, {
+	const wrapper = mount(OffsetPagination, {
 		props: {
 			total: 100,
 			perPage: 10,
@@ -19,7 +19,7 @@ test('emits updatePage event with correct page and perPage when nextPage is call
 });
 
 test('does not emit updatePage event when nextPage is called and current page is last page', async () => {
-	const wrapper = mount(BasePagination, {
+	const wrapper = mount(OffsetPagination, {
 		props: {
 			total: 100,
 			perPage: 10,
@@ -34,7 +34,7 @@ test('does not emit updatePage event when nextPage is called and current page is
 });
 
 test('emits updatePage event with correct page and perPage when previousPage is called', async () => {
-	const wrapper = mount(BasePagination, {
+	const wrapper = mount(OffsetPagination, {
 		props: {
 			total: 100,
 			perPage: 10,
@@ -50,7 +50,7 @@ test('emits updatePage event with correct page and perPage when previousPage is 
 });
 
 test('does not emit updatePage event when previousPage is called and current page is first page', async () => {
-	const wrapper = mount(BasePagination, {
+	const wrapper = mount(OffsetPagination, {
 		props: {
 			total: 100,
 			perPage: 10,
@@ -65,7 +65,7 @@ test('does not emit updatePage event when previousPage is called and current pag
 });
 
 test('emits updatePage event with correct page and perPage when goToPage is called', async () => {
-	const wrapper = mount(BasePagination, {
+	const wrapper = mount(OffsetPagination, {
 		props: {
 			total: 100,
 			perPage: 10,

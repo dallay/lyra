@@ -1,5 +1,5 @@
 import { BACKEND_API_URL } from '@/constants';
-import type { OffsetPage, Subscriber, Sort } from '@lyra/vm-core';
+import type { PageResponse, Subscriber, Sort } from '@lyra/vm-core';
 
 class SubscriberService {
 	private static instance: SubscriberService;
@@ -17,8 +17,8 @@ class SubscriberService {
 		filter?: string,
 		sort?: Sort,
 		size: number = 10,
-		page: number = 0
-	): Promise<OffsetPage<Subscriber>> {
+		cursor?: string
+	): Promise<PageResponse<Subscriber>> {
 		const url = new URL(`${BACKEND_API_URL}newsletter/subscribers`);
 
 		const params = new URLSearchParams();
@@ -35,7 +35,10 @@ class SubscriberService {
 			params.append(key, value);
 		}
 		params.append('size', size.toString());
-		params.append('page', page.toString());
+
+		if (cursor) {
+			params.append('cursor', cursor);
+		}
 
 		url.search = params.toString();
 

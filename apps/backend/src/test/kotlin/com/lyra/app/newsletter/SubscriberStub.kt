@@ -1,5 +1,7 @@
 package com.lyra.app.newsletter
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.app.newsletter.domain.FirstName
 import com.lyra.app.newsletter.domain.LastName
@@ -8,7 +10,12 @@ import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.SubscriberId
 import com.lyra.app.newsletter.domain.SubscriberStatus
 import com.lyra.common.domain.email.Email
-import com.lyra.common.domain.presentation.pagination.OffsetPage
+import com.lyra.common.domain.presentation.pagination.CursorPageResponse
+import com.lyra.common.domain.presentation.pagination.TimestampCursor
+import java.io.FileNotFoundException
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.time.LocalDateTime
 import java.util.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -44,21 +51,40 @@ object SubscriberStub {
     fun dummyRandomSubscribersFlow(size: Int = 10): Flow<Subscriber> =
         dummyRandomSubscribersList(size).asFlow()
 
-    fun dummyRandomSubscribersOffsetPage(size: Int = 10): OffsetPage<Subscriber> =
-        OffsetPage(
-            data = dummyRandomSubscribersList(size),
-            total = size.toLong(),
-            perPage = size,
-            page = 1,
+    fun dummyRandomSubscribersPageResponse(size: Int = 10): CursorPageResponse<Subscriber> {
+        val data = dummyRandomSubscribersList(size)
+        val cursor = TimestampCursor(data.last().createdAt).serialize()
+        return CursorPageResponse(
+            data = data,
+            nextPageCursor = cursor,
         )
+    }
 
-    fun dummyRandomSubscriberResponseOffsetPage(size: Int = 10): OffsetPage<SubscriberResponse> =
-        OffsetPage(
-            data = dummyRandomSubscribersList(size).map { SubscriberResponse.from(it) },
-            total = size.toLong(),
-            perPage = size,
-            page = 1,
+    fun dummyRandomSubscriberResponsePageResponse(size: Int = 10): CursorPageResponse<SubscriberResponse> {
+        val data = dummyRandomSubscribersList(size).map { SubscriberResponse.from(it) }
+        val (_, cursor) = getStartAndEndTimestampCursorPage(data)
+        return CursorPageResponse(
+            data = data,
+            nextPageCursor = cursor,
         )
+    }
+
+    private fun getStartAndEndTimestampCursorPage(data: List<SubscriberResponse>): Pair<String, String> {
+        val startCreatedAt = data.first().createdAt
+        val startCursor = startCreatedAt?.let { getTimestampCursorPage(it) }
+            ?: TimestampCursor.DEFAULT_CURSOR.serialize()
+        val lastCreatedAt = data.last().createdAt
+        val endCursor = lastCreatedAt?.let { getTimestampCursorPage(it) }
+            ?: TimestampCursor.DEFAULT_CURSOR.serialize()
+        return Pair(startCursor, endCursor)
+    }
+
+    fun getTimestampCursorPage(date: LocalDateTime = LocalDateTime.now()): String =
+        TimestampCursor(date).serialize()
+
+    fun getTimestampCursorPage(stringDate: String): String =
+        getTimestampCursorPage(LocalDateTime.parse(stringDate))
+
     @Suppress("MultilineRawStringIndentation")
     fun generateRequest(
         email: String = faker.internet().emailAddress(),
@@ -71,4 +97,22 @@ object SubscriberStub {
            "lastname": "$lastname"
        }
     """.trimIndent()
+
+    private fun jsonToSubscriberResponseList(json: String): List<SubscriberResponse> {
+        val mapper = jacksonObjectMapper()
+        return mapper.readValue(json)
+    }
+
+    fun subscriberResponsesByBatch(batch: Int = 1): List<SubscriberResponse> {
+        val url = javaClass.classLoader.getResource("db/subscriber-pagination.json")
+        val path = Paths.get(url?.toURI() ?: throw FileNotFoundException("File not found"))
+        val subscribers: List<SubscriberResponse> = jsonToSubscriberResponseList(Files.readString(path))
+
+        val batches: Map<Int, List<SubscriberResponse>> =
+            subscribers.chunked(5).mapIndexed { index, list ->
+                index + 1 to list
+            }.toMap()
+
+        return batches[batch] ?: emptyList()
+    }
 }

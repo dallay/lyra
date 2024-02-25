@@ -2,12 +2,14 @@ package com.lyra.common.domain.presentation.sort
 
 enum class Direction {
     ASC, DESC;
-
-    fun fromString(direction: String): Direction {
-        return when (direction) {
-            "asc" -> ASC
-            "desc" -> DESC
-            else -> throw IllegalArgumentException("Invalid direction: $direction")
+    fun fromString(direction: String): Direction = Direction.fromString(direction)
+    companion object {
+        fun fromString(direction: String): Direction {
+            return when (direction) {
+                "asc" -> ASC
+                "desc" -> DESC
+                else -> throw IllegalArgumentException("Invalid direction: $direction")
+            }
         }
     }
 }

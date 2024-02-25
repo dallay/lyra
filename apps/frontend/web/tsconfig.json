@@ -6,7 +6,7 @@
     "module": "esnext",
     "strictNullChecks": true,
     "allowJs": true,
-    "baseUrl": "/Users/acosta/Dev/lyra/apps/frontend/web",
+    "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
       "~/*": ["src/*"],

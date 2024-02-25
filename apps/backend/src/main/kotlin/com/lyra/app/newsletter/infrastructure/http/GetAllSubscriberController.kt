@@ -4,16 +4,17 @@ import com.lyra.app.newsletter.application.search.all.SearchAllSubscribersQuery
 import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntity
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.common.domain.bus.query.Response
+import com.lyra.common.domain.presentation.pagination.CursorRequestPageable
 import com.lyra.spring.boot.ApiController
 import com.lyra.spring.boot.presentation.filter.RHSFilterParserFactory
 import com.lyra.spring.boot.presentation.sort.SortParserFactory
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import kotlin.reflect.full.memberProperties
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
@@ -34,42 +35,22 @@ class GetAllSubscriberController(
     )
     @GetMapping("/newsletter/subscribers")
     @ResponseBody
-    suspend fun findAll(
-        @RequestParam(required = false) email: List<String>? = null,
-        @RequestParam(required = false) firstname: List<String>? = null,
-        @RequestParam(required = false) lastname: List<String>? = null,
-        @RequestParam(required = false) status: List<String>? = null,
-        @RequestParam("created_at", required = false) createdAt: List<String>? = null,
-        @RequestParam("updated_at", required = false) updatedAt: List<String>? = null,
-        @RequestParam("sort", required = false) sort: List<String>? = null,
-        @RequestParam("page", required = false, defaultValue = "0") page: Int? = null,
-        @RequestParam("size", required = false, defaultValue = "10") size: Int? = null,
-    ): Response {
-        log.debug(
-            "Get all subscribers with filters: {}, {}, {}, {}, {}, {}",
-            email,
-            firstname,
-            lastname,
-            status,
-            createdAt,
-            updatedAt,
-        )
-        val criteria = rhsFilterParser.parse(
-            mapOf(
-                SubscriberEntity::email to email,
-                SubscriberEntity::firstname to firstname,
-                SubscriberEntity::lastname to lastname,
-                SubscriberEntity::status to status,
-                SubscriberEntity::createdAt to createdAt,
-                SubscriberEntity::updatedAt to updatedAt,
-            ),
-        )
+    suspend fun findAll(cursorRequestPageable: CursorRequestPageable): Response {
+        log.debug("Get all subscribers with cursor: {}", cursorRequestPageable)
+
+        val searchMap = mutableMapOf<kotlin.reflect.KProperty1<SubscriberEntity, *>, List<String>>()
+        SubscriberEntity::class.memberProperties.forEach { property ->
+            searchMap[property] = cursorRequestPageable.search.getOrDefault(property.name, emptyList())
+        }
+
+        val criteria = rhsFilterParser.parse(searchMap)
+
         val response = ask(
             SearchAllSubscribersQuery(
                 criteria,
-                size,
-                page,
-                sort?.let { sortParser.parse(it) },
+                cursorRequestPageable.size,
+                cursorRequestPageable.cursor,
+                cursorRequestPageable.sort?.let { if (it.isEmpty()) null else sortParser.parse(it) },
             ),
         )
         return response

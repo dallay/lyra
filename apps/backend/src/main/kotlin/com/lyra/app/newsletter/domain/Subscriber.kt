@@ -3,13 +3,16 @@ package com.lyra.app.newsletter.domain
 import com.lyra.app.newsletter.domain.event.SubscriberCreatedEvent
 import com.lyra.common.domain.BaseEntity
 import com.lyra.common.domain.email.Email
+import java.time.LocalDateTime
 import java.util.*
 
-class Subscriber(
+data class Subscriber(
     override val id: SubscriberId,
     val email: Email,
     var name: Name,
-    var status: SubscriberStatus = SubscriberStatus.ENABLED
+    var status: SubscriberStatus = SubscriberStatus.ENABLED,
+    override val createdAt: LocalDateTime = LocalDateTime.now(),
+    override var updatedAt: LocalDateTime? = null,
 ) : BaseEntity<SubscriberId>() {
     fun updateName(name: Name) {
         this.name = name
@@ -24,13 +27,17 @@ class Subscriber(
             id: SubscriberId,
             email: Email,
             name: Name,
-            status: SubscriberStatus = SubscriberStatus.ENABLED
+            status: SubscriberStatus = SubscriberStatus.ENABLED,
+            createdAt: LocalDateTime = LocalDateTime.now(),
+            updatedAt: LocalDateTime? = null,
         ): Subscriber {
             val subscriber = Subscriber(
                 id = id,
                 email = email,
                 name = name,
                 status = status,
+                createdAt = createdAt,
+                updatedAt = updatedAt,
             )
             subscriber.record(
                 SubscriberCreatedEvent(
@@ -46,12 +53,16 @@ class Subscriber(
             email: String,
             firstname: String,
             lastname: String,
-            status: SubscriberStatus = SubscriberStatus.ENABLED
+            status: SubscriberStatus = SubscriberStatus.ENABLED,
+            createdAt: LocalDateTime = LocalDateTime.now(),
+            updatedAt: LocalDateTime? = null,
         ): Subscriber = create(
             id = SubscriberId(UUID.randomUUID().toString()),
             email = Email(email),
             name = Name(FirstName(firstname), LastName(lastname)),
             status = status,
+            createdAt = createdAt,
+            updatedAt = updatedAt,
         )
     }
 }

@@ -18,6 +18,8 @@ class TestDatabaseConfiguration {
     @ServiceConnection
     fun postgresContainer(): PostgreSQLContainer<*> =
         PostgreSQLContainer(DockerImageName.parse("postgres:latest"))
+            .withUsername("test")
+            .withPassword("test")
 
     @Bean
     fun dataSource(postgres: PostgreSQLContainer<*>): DriverManagerDataSource {

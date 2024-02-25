@@ -1,7 +1,7 @@
 package com.lyra.spring.boot.presentation.pagination
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.lyra.common.domain.presentation.pagination.OffsetPage
+import com.lyra.common.domain.presentation.pagination.OffsetPageResponse
 import com.lyra.spring.boot.presentation.Presenter
 import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.http.HttpHeaders
@@ -15,11 +15,11 @@ import reactor.core.publisher.Mono
 @Component
 class OffsetPagePresenter(
     private val objectMapper: ObjectMapper
-) : Presenter<OffsetPage<*>> {
-    override val type = OffsetPage::class
+) : Presenter<OffsetPageResponse<*>> {
+    override val type = OffsetPageResponse::class
 
     override suspend fun present(exchange: ServerWebExchange, result: HandlerResult) {
-        val returnValue = (result.returnValue as Mono<OffsetPage<*>>).awaitSingleOrNull()
+        val returnValue = (result.returnValue as Mono<OffsetPageResponse<*>>).awaitSingleOrNull()
         if (returnValue != null) {
             val headers = exchange.response.headers
             val additional = mutableListOf<String>()

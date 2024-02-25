@@ -1,6 +1,7 @@
 package com.lyra.common.domain
 
 import com.lyra.common.domain.bus.event.DomainEvent
+import java.time.LocalDateTime
 
 /**
  * A base class for entities with a generic identifier.
@@ -10,6 +11,8 @@ import com.lyra.common.domain.bus.event.DomainEvent
  */
 abstract class BaseEntity<ID> {
     abstract val id: ID
+    open val createdAt: LocalDateTime = LocalDateTime.now()
+    open var updatedAt: LocalDateTime? = null
     private val domainEvents: MutableList<DomainEvent> = mutableListOf()
 
     fun record(event: DomainEvent) = domainEvents.add(event)

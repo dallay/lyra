@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/yacosta738/lyra/compare/v1.1.0...v1.1.1) (2024-02-26)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([#80](https://github.com/yacosta738/lyra/issues/80)) ([0b5a2d2](https://github.com/yacosta738/lyra/commit/0b5a2d2d9fafa7a4bca654364dc52b11dc704d06))
+
 # [1.1.0](https://github.com/yacosta738/lyra/compare/v1.0.3...v1.1.0) (2024-02-25)
 
 

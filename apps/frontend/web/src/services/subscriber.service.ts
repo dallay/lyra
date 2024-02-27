@@ -14,26 +14,16 @@ class SubscriberService {
 	}
 
 	public async getSubscribers(
-		filter?: string,
+		criteria?: {search?: string, filter?: string},
 		sort?: Sort,
 		size: number = 10,
 		cursor?: string
 	): Promise<PageResponse<Subscriber>> {
 		const url = new URL(`${BACKEND_API_URL}newsletter/subscribers`);
-
 		const params = new URLSearchParams();
-		if (filter) {
-			const filters = filter.split('&');
-			filters.forEach((f) => {
-				const [key, value] = f.split('=');
-				params.append(key, value);
-			});
-		}
-		if (sort) {
-			const sortQuery = sort.toQueryString();
-			const [key, value] = sortQuery.split('=');
-			params.append(key, value);
-		}
+    params.append('search', criteria?.search || '');
+    this.filterParamQuery(criteria?.filter, params);
+    this.sortParamQuery(sort, params);
 		params.append('size', size.toString());
 
 		if (cursor) {
@@ -48,6 +38,23 @@ class SubscriberService {
 		}
 		return await response.json();
 	}
+
+  private filterParamQuery(filter: string | undefined, params: URLSearchParams) {
+    if (filter) {
+      const filters = filter.split('&');
+      filters.forEach((f) => {
+        const [key, value] = f.split('=');
+        params.append(`filter[${key}]`, value);
+      });
+    }
+  }
+  private sortParamQuery(sort: Sort | undefined, params: URLSearchParams) {
+    if (sort) {
+      const sortQuery = sort.toQueryString();
+      const [key, value] = sortQuery.split('=');
+      params.append(key, value);
+    }
+  }
 }
 
 export default SubscriberService;

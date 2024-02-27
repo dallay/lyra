@@ -16,7 +16,8 @@ import org.springframework.test.context.jdbc.Sql
 private const val ENDPOINT = "/api/newsletter/subscribers"
 
 internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegrationTest() {
-    private val typeRef = object : ParameterizedTypeReference<CursorPageResponse<SubscriberResponse>>() {}
+    private val typeRef =
+        object : ParameterizedTypeReference<CursorPageResponse<SubscriberResponse>>() {}
 
     @BeforeEach
     fun setUp() {
@@ -88,8 +89,67 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
             .uri { uriBuilder ->
                 uriBuilder
                     .path(ENDPOINT)
-                    .queryParam("search[email]", listOf("eq:jana.doe@test.com"))
-                    .queryParam("search[status]", listOf("eq:ENABLED"))
+                    .queryParam("filter[email]", listOf("eq:jana.doe@test.com"))
+                    .queryParam("filter[status]", listOf("eq:ENABLED"))
+                    .build()
+            }
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.data").isArray
+            .jsonPath("$.nextPageCursor").doesNotExist()
+            .jsonPath("$.data[0].id").isEqualTo("d73e2961-ec29-4f19-b5c4-b9c2dc7f1def")
+            .jsonPath("$.data[0].email").isEqualTo("jana.doe@test.com")
+            .jsonPath("$.data[0].name").isEqualTo("Jana Doe")
+            .jsonPath("$.data[0].status").isEqualTo("ENABLED")
+            .consumeWith { println(it) }
+    }
+
+    @Test
+    @Sql(
+        "/db/subscriber.sql",
+    )
+    @Sql(
+        "/db/clean.sql",
+        executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
+    )
+    fun `should get all subscribers by search`() {
+        webTestClient.get()
+            .uri { uriBuilder ->
+                uriBuilder
+                    .path(ENDPOINT)
+                    .queryParam("search", "jana")
+                    .build()
+            }
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.data").isArray
+            .jsonPath("$.nextPageCursor").doesNotExist()
+            .jsonPath("$.data[0].id").isEqualTo("d73e2961-ec29-4f19-b5c4-b9c2dc7f1def")
+            .jsonPath("$.data[0].email").isEqualTo("jana.doe@test.com")
+            .jsonPath("$.data[0].name").isEqualTo("Jana Doe")
+            .jsonPath("$.data[0].status").isEqualTo("ENABLED")
+            .consumeWith { println(it) }
+    }
+
+    @Test
+    @Sql(
+        "/db/subscriber.sql",
+    )
+    @Sql(
+        "/db/clean.sql",
+        executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
+    )
+    fun `should prioritize search over filters`() {
+        webTestClient.get()
+            .uri { uriBuilder ->
+                uriBuilder
+                    .path(ENDPOINT)
+                    .queryParam("search", "jana")
+                    .queryParam(
+                        "filter[email]", listOf("eq:john.doe@test.com"),
+                    )
                     .build()
             }
             .exchange()
@@ -195,12 +255,6 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
         // Sort both lists by id before comparing
         val sortedSubscribers = subscribers.sortedBy { it.id }
         val sortedDbSubscribers = dbSubscribers.sortedBy { it.id }
-
-        println("\uD83D\uDFE2 sortedSubscribers(${sortedSubscribers.size}): $sortedSubscribers")
-        println("\uD83D\uDD35 sortedDbSubscribers(${sortedDbSubscribers.size}): $sortedDbSubscribers")
-        // print the ids of both lists
-        println("\uD83D\uDD35 sortedDbSubscribers(${sortedDbSubscribers.size}): ${sortedDbSubscribers.map { it.id }}")
-        println("\uD83D\uDFE2 sortedSubscribers(${sortedSubscribers.size}): ${sortedSubscribers.map { it.id }}")
 
         // Compare each SubscriberResponse in the list to the data in the database
         for (i in sortedSubscribers.indices) {

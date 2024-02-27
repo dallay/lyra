@@ -21,7 +21,7 @@ class RHSFilterParserTest {
     private val rhsFilterParser = RHSFilterParser(Person::class, objectMapper)
 
     @Test
-    fun parse() {
+    fun `base parse with AND operation`() {
         val testCases = listOf(
             TestCase(
                 query = mapOf(
@@ -89,6 +89,48 @@ class RHSFilterParserTest {
         testCases.forEach {
             if (it.sql != null) {
                 val criteria = rhsFilterParser.parse(it.query)
+                assertEquals(it.sql, criteria.toString())
+            }
+            if (it.exception != null) {
+                assertThrows(it.exception.java) { rhsFilterParser.parse(it.query) }
+            }
+        }
+    }
+
+    @Test
+    fun `base parse with OR operation`() {
+        val testCases = listOf(
+            TestCase(
+                query = mapOf(
+                    Person::name to listOf("ne:test", "eq:test"),
+                ),
+                sql = "(name != test OR name = test)",
+            ),
+            TestCase(
+                query = mapOf(
+                    Person::name to listOf("ne:test", "eq:test"),
+                    Person::age to listOf("gte:0"),
+                ),
+                sql = "(name != test OR name = test OR age >= 0)",
+            ),
+            TestCase(
+                query = mapOf(
+                    Person::name to listOf("ne:test", "eq:test"),
+                    Person::age to listOf("gte:0", "lte:0"),
+                ),
+                sql = "(name != test OR name = test OR age >= 0 OR age <= 0)",
+            ),
+            TestCase(
+                query = mapOf(
+                    Person::age to listOf("eq:invalid"),
+                ),
+                exception = FilterInvalidException::class,
+            ),
+        )
+
+        testCases.forEach {
+            if (it.sql != null) {
+                val criteria = rhsFilterParser.parse(it.query, useOr = true)
                 assertEquals(it.sql, criteria.toString())
             }
             if (it.exception != null) {

@@ -17,10 +17,6 @@ const emits = defineEmits(['updatePage']);
 const cursor = ref(props.nextPageCursor);
 
 const nextPage = () => {
-	console.log('🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢');
-	console.log('nextPage', cursor.value);
-	console.log('nextPageCursor', props.nextPageCursor);
-	console.log('perPage', props.perPage);
 	if (!props.nextPageCursor) return;
 	cursor.value = props.nextPageCursor;
 	emits('updatePage', { cursor: cursor.value, perPage: props.perPage });

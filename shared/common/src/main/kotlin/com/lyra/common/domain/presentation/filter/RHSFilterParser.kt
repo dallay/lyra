@@ -14,14 +14,24 @@ class RHSFilterParser<T : Any>(
     private val objectMapper: ObjectMapper
 ) {
     private val regex = Regex("(.[^:]+):(.+)")
+
     @Suppress("TooGenericExceptionCaught", "SwallowedException")
-    fun parse(query: Map<KProperty1<T, *>, Collection<String?>?>): Criteria {
+    fun parse(query: Map<KProperty1<T, *>, Collection<String?>?>, useOr: Boolean = false): Criteria {
         try {
-            val criteriaList = query
+            val criteriaList: List<Criteria> = query
                 .mapNotNull { (key, values) -> processQueryEntry(key, values) }
                 .flatten()
 
-            val criteria = if (criteriaList.isEmpty()) Criteria.Empty else Criteria.And(criteriaList)
+            val criteria =
+                if (criteriaList.isEmpty()) {
+                    Criteria.Empty
+                } else if (useOr) {
+                    Criteria.Or(criteriaList)
+                } else {
+                    Criteria.And(
+                        criteriaList,
+                    )
+                }
             return criteria
         } catch (e: Exception) {
             log.error("Error parsing query: {}", query, e)
@@ -35,9 +45,10 @@ class RHSFilterParser<T : Any>(
     ): List<Criteria> {
         val property = clazz.memberProperties.find { it == key } ?: return emptyList()
         val clazz = property.returnType.classifier as? KClass<*>
-            ?: throw FilterInvalidException("Can't find operand type.")
+            ?: throw FilterInvalidException("Can't find operand type. Property: $property")
 
-        return values?.filterNotNull()?.map { value -> processValue(property, clazz, value) } ?: emptyList()
+        return values?.filterNotNull()?.map { value -> processValue(property, clazz, value) }
+            ?: emptyList()
     }
 
     private fun processValue(
@@ -69,7 +80,7 @@ class RHSFilterParser<T : Any>(
         }
 
         if (converted == null) {
-            throw FilterInvalidException("Can't convert operand.")
+            throw FilterInvalidException("Can't convert operand. Operand: $operand, Type: $clazz")
         }
 
         return converted

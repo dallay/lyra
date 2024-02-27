@@ -29,13 +29,13 @@ internal class GetAllSubscriberControllerTest {
     private val response = SubscriberStub.dummyRandomSubscriberResponsePageResponse(
         NUM_SUBSCRIBER,
     )
+    private val rhsFilterParser = mockk<RHSFilterParser<SubscriberEntity>>()
 
     private lateinit var controller: GetAllSubscriberController
     private lateinit var webTestClient: WebTestClient
 
     @BeforeEach
     fun setUp() {
-        val rhsFilterParser = mockk<RHSFilterParser<SubscriberEntity>>()
         every { rhsFilterParserFactory.create(SubscriberEntity::class) } returns rhsFilterParser
         every { rhsFilterParser.parse(any()) } returns Criteria.Empty
 
@@ -83,17 +83,93 @@ internal class GetAllSubscriberControllerTest {
         )
         val query = SearchAllSubscribersQuery(criteria)
         coEvery { mediator.send(query) } returns response
-        val rhsFilterParser = mockk<RHSFilterParser<SubscriberEntity>>()
         every { rhsFilterParserFactory.create(SubscriberEntity::class) } returns rhsFilterParser
         every { rhsFilterParser.parse(filter) } returns criteria
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
                     .path(ENDPOINT)
-                    .queryParam("search[email]", filter[SubscriberEntity::email])
-                    .queryParam("search[firstname]", filter[SubscriberEntity::firstname])
-                    .queryParam("search[lastname]", filter[SubscriberEntity::lastname])
-                    .queryParam("search[status]", filter[SubscriberEntity::status])
+                    .queryParam("filter[email]", filter[SubscriberEntity::email])
+                    .queryParam("filter[firstname]", filter[SubscriberEntity::firstname])
+                    .queryParam("filter[lastname]", filter[SubscriberEntity::lastname])
+                    .queryParam("filter[status]", filter[SubscriberEntity::status])
+                    .build()
+            }
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.data").isArray
+            .jsonPath("$.nextPageCursor").isEqualTo(response.nextPageCursor ?: "")
+            .jsonPath("$.data[0].id").isEqualTo(response.data.first().id)
+            .jsonPath("$.data[0].email").isEqualTo(response.data.first().email)
+            .jsonPath("$.data[0].name").isEqualTo(response.data.first().name)
+            .jsonPath("$.data[0].status").isEqualTo(response.data.first().status)
+        coEvery { mediator.send(query) }
+    }
+
+    @Test
+    fun `should get all subscribers by search`() {
+        val search = "search value"
+        val criteria = Criteria.Or(
+            listOf(
+                Criteria.Like("email", search),
+                Criteria.Like("firstname", search),
+                Criteria.Like("lastname", search),
+            ),
+        )
+        val query = SearchAllSubscribersQuery(criteria)
+        coEvery { mediator.send(query) } returns response
+        every { rhsFilterParserFactory.create(SubscriberEntity::class) } returns rhsFilterParser
+        every { rhsFilterParser.parse(any(), eq(true)) } returns criteria
+        webTestClient.get()
+            .uri { uriBuilder ->
+                uriBuilder
+                    .path(ENDPOINT)
+                    .queryParam("search", search)
+                    .build()
+            }
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.data").isArray
+            .jsonPath("$.nextPageCursor").isEqualTo(response.nextPageCursor ?: "")
+            .jsonPath("$.data[0].id").isEqualTo(response.data.first().id)
+            .jsonPath("$.data[0].email").isEqualTo(response.data.first().email)
+            .jsonPath("$.data[0].name").isEqualTo(response.data.first().name)
+            .jsonPath("$.data[0].status").isEqualTo(response.data.first().status)
+        coEvery { mediator.send(query) }
+    }
+
+    @Test
+    fun `should prioritize search over filters`() {
+        val search = "search value"
+        val filter = mapOf<KProperty1<SubscriberEntity, *>, Collection<String?>>(
+            SubscriberEntity::email to listOf("eq:email"),
+            SubscriberEntity::firstname to listOf("eq:firstname"),
+            SubscriberEntity::lastname to listOf("eq:lastname"),
+            SubscriberEntity::status to listOf("eq:status"),
+        )
+        val criteria = Criteria.Or(
+            listOf(
+                Criteria.Like("email", search),
+                Criteria.Like("firstname", search),
+                Criteria.Like("lastname", search),
+            ),
+        )
+        val query = SearchAllSubscribersQuery(criteria)
+        coEvery { mediator.send(query) } returns response
+        every { rhsFilterParserFactory.create(SubscriberEntity::class) } returns rhsFilterParser
+        every { rhsFilterParser.parse(filter) } returns Criteria.Empty
+        every { rhsFilterParser.parse(any(), eq(true)) } returns criteria
+        webTestClient.get()
+            .uri { uriBuilder ->
+                uriBuilder
+                    .path(ENDPOINT)
+                    .queryParam("search", search)
+                    .queryParam("filter[email]", filter[SubscriberEntity::email])
+                    .queryParam("filter[firstname]", filter[SubscriberEntity::firstname])
+                    .queryParam("filter[lastname]", filter[SubscriberEntity::lastname])
+                    .queryParam("filter[status]", filter[SubscriberEntity::status])
                     .build()
             }
             .exchange()

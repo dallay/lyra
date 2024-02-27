@@ -19,7 +19,7 @@ importers:
         version: 10.0.1(semantic-release@23.0.2)
       '@types/eslint':
         specifier: ^8.56.0
-        version: 8.56.3
+        version: 8.56.4
       '@types/node':
         specifier: ^20.10.6
         version: 20.11.20
@@ -114,7 +114,7 @@ importers:
         version: link:../css-config
       astro:
         specifier: ^4.0.8
-        version: 4.4.4(@types/node@20.11.20)(typescript@5.3.3)
+        version: 4.4.5(@types/node@20.11.20)(typescript@5.3.3)
       astro-icon:
         specifier: ^1.0.1
         version: 1.1.0
@@ -138,7 +138,7 @@ importers:
         version: 0.4.0(prettier-plugin-astro@0.13.0)(prettier@3.2.4)(typescript@5.3.3)
       '@astrojs/tailwind':
         specifier: ^5.1.0
-        version: 5.1.0(astro@4.4.4)(tailwindcss@3.4.1)(ts-node@10.9.2)
+        version: 5.1.0(astro@4.4.5)(tailwindcss@3.4.1)(ts-node@10.9.2)
       '@fontsource-variable/onest':
         specifier: ^5.0.2
         version: 5.0.2
@@ -147,7 +147,7 @@ importers:
         version: 1.5.0
       astro:
         specifier: ^4.0.8
-        version: 4.4.4(@types/node@20.11.20)(typescript@5.3.3)
+        version: 4.4.5(@types/node@20.11.20)(typescript@5.3.3)
       sharp:
         specifier: ^0.33.1
         version: 0.33.1
@@ -301,13 +301,13 @@ packages:
     dependencies:
       prismjs: 1.29.0
 
-  /@astrojs/tailwind@5.1.0(astro@4.4.4)(tailwindcss@3.4.1)(ts-node@10.9.2):
+  /@astrojs/tailwind@5.1.0(astro@4.4.5)(tailwindcss@3.4.1)(ts-node@10.9.2):
     resolution: {integrity: sha512-BJoCDKuWhU9FT2qYg+fr6Nfb3qP4ShtyjXGHKA/4mHN94z7BGcmauQK23iy+YH5qWvTnhqkd6mQPQ1yTZTe9Ig==}
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0
       tailwindcss: ^3.0.24
     dependencies:
-      astro: 4.4.4(@types/node@20.11.20)(typescript@5.3.3)
+      astro: 4.4.5(@types/node@20.11.20)(typescript@5.3.3)
       autoprefixer: 10.4.17(postcss@8.4.35)
       postcss: 8.4.35
       postcss-load-config: 4.0.2(postcss@8.4.35)(ts-node@10.9.2)
@@ -1770,8 +1770,8 @@ packages:
     dependencies:
       '@types/ms': 0.7.34
 
-  /@types/eslint@8.56.3:
-    resolution: {integrity: sha512-PvSf1wfv2wJpVIFUMSb+i4PvqNYkB9Rkp9ZDO3oaWzq4SKhsQk4mrMBr3ZH06I0hKrVGLBacmgl8JM4WVjb9dg==}
+  /@types/eslint@8.56.4:
+    resolution: {integrity: sha512-lG1GLUnL5vuRBGb3MgWUWLdGMH2Hps+pERuyQXCfWozuGKdnhf9Pbg4pkcrVUHjKrU7Rl+GCZ/299ObBXZFAxg==}
     dependencies:
       '@types/estree': 1.0.5
       '@types/json-schema': 7.0.15
@@ -2344,8 +2344,8 @@ packages:
       - supports-color
     dev: true
 
-  /astro@4.4.4(@types/node@20.11.20)(typescript@5.3.3):
-    resolution: {integrity: sha512-EZrDTN888w4sFKqavGsHu8jSaymyxNwnoqIq5NKlMG9WNU/Xn4Yn41pUdBuAOrgNzRp1NyXXhhV6GV1pN71V2Q==}
+  /astro@4.4.5(@types/node@20.11.20)(typescript@5.3.3):
+    resolution: {integrity: sha512-ccat42P5qr281JExywVsK/BLeKgwSL+oLxJP195s4Wvj3nL32djw+WNJNctuDDTJ5XWgvPdHZjBtSDNO5OgagQ==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
     dependencies:

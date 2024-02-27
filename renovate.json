@@ -11,31 +11,17 @@
     {
       "extends": "monorepo:kotlin",
       "groupName": "kotlin monorepo",
-      "matchUpdateTypes": [
-        "digest",
-        "patch",
-        "minor",
-        "major"
-      ]
+      "matchUpdateTypes": ["digest", "patch", "minor", "major"]
     },
     {
       "groupName": "spring backend",
-      "matchDepNames": [
-        "org.springframework"
-      ],
-      "matchPackagePrefixes": [
-        "org.springframework:"
-      ]
+      "matchDepNames": ["org.springframework"],
+      "matchPackagePrefixes": ["org.springframework:"]
     },
     {
       "extends": "monorepo:github-workflows-kt",
       "groupName": "github-workflows-kt monorepo",
-      "matchUpdateTypes": [
-        "digest",
-        "patch",
-        "minor",
-        "major"
-      ]
+      "matchUpdateTypes": ["digest", "patch", "minor", "major"]
     }
   ]
 }

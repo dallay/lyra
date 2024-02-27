@@ -1,7 +1,6 @@
 import { expect, test } from 'vitest';
 import { mount } from '@vue/test-utils';
 import BaseDataTable from '../../../src/components/BaseDataTable.vue';
-import { useGenericDataTable } from '../../../src';
 
 test('renders table when items are present', () => {
 	const wrapper = mount(BaseDataTable, {

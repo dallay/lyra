@@ -4,19 +4,8 @@ import { OffsetPage } from './models/OffsetPage';
 import { PageResponse } from './models/PageResponse';
 import { BreadcrumbItem } from './models/BreadcrumbItem.ts';
 import { Subscriber, Subscribers } from './models/Subscriber.ts';
-import {
-	allFilterOperators,
-	FilterOperator,
-	FilterOperatorOption,
-} from './filters/FilterOperator.ts';
-import { BasicFilter, Filter, FilterOptions, FilterType } from './filters/Filter.ts';
-import {
-	convertFieldPropertyToProperty,
-	convertPropertyToFieldProperty,
-	FieldProperty,
-	Property,
-} from './filters/Property.ts';
 import { BasicSort, Sort, SortType } from './models/Sort.ts';
+import { toggleTheme, isDarkMode, loadTheme } from './theme/color-theme.ts';
 
 export { navMenus };
 export type {
@@ -27,21 +16,13 @@ export type {
 	Subscriber,
 	OffsetPage,
 	PageResponse,
-	FilterOperatorOption,
-	FilterType,
-	FilterOptions,
-	Filter,
-	Property,
-	FieldProperty,
 	Sort,
 };
 
 export {
-	FilterOperator,
 	SortType,
-	allFilterOperators,
-	BasicFilter,
-	convertPropertyToFieldProperty,
-	convertFieldPropertyToProperty,
 	BasicSort,
+  toggleTheme,
+  isDarkMode,
+  loadTheme
 };

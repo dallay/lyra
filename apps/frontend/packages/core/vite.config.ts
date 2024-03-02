@@ -1,7 +1,6 @@
 /** @type {import('vite').UserConfig} */
-// vite.config.ts
-import path from 'path';
-
+// astro.config.ts
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
@@ -11,7 +10,7 @@ import { name, version } from './package.json';
 export default defineConfig({
 	build: {
 		lib: {
-			entry: path.resolve(__dirname, 'src/index.ts'),
+			entry: resolve(__dirname, 'src/index.ts'),
 			fileName: 'index',
 			name: 'core',
 		},

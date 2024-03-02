@@ -83,7 +83,7 @@ export default defineComponent({
 		const ascendantAndCurrentHandlers: TriggerEventHandlers[] = [handlers];
 		if (triggerVNode?.props) {
 			ascendantAndCurrentHandlers.push(
-				pick(triggerVNode.props, 'onClick', 'onMouseenter', 'onMouseleave', 'onFocus', 'onBlur')
+				<TriggerEventHandlers>pick(triggerVNode.props, 'onClick', 'onMouseenter', 'onMouseleave', 'onFocus', 'onBlur')
 			);
 		}
 

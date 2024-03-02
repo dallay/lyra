@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, type PropType, ref } from 'vue';
-import { useGenericSelectInput } from '@/components/genericSelect';
+import BaseSelectInput from '@/components/BaseSelectInput.vue';
 
 const props = defineProps({
 	total: {
@@ -51,7 +51,6 @@ const goToPage = (pageNumber: number) => {
 	updatePage(pageNumber - 1, perPageValue.value);
 };
 
-const PerPageSelectInput = useGenericSelectInput<number>();
 const perPageValue = ref(props.perPage);
 </script>
 
@@ -70,7 +69,7 @@ const perPageValue = ref(props.perPage);
 		</span>
 		<ul class="inline-flex h-8 -space-x-px text-sm rtl:space-x-reverse">
 			<li class="mx-2">
-				<PerPageSelectInput
+				<BaseSelectInput
 					v-model="perPageValue"
 					:options="perPageOptions"
 					size="small"

@@ -18,8 +18,8 @@
 		>
 			<option
 				v-for="option in options"
-				:key="keyProp ? option[keyProp] : option"
-				:value="keyProp ? option[keyProp] : option"
+				:key="optionValue(option) as string"
+				:value="optionValue(option)"
 				:selected="isOptionSelected(option)"
 			>
 				<slot name="option" :option="option">
@@ -30,11 +30,13 @@
 	</div>
 </template>
 
-<script setup lang="ts">
-import { defineProps, type PropType } from 'vue';
+<script setup lang="ts" generic="T extends OptionProps">
+import { type PropType } from 'vue';
+
+export type OptionProps = { [key: string]: string | number | boolean } | string | number | boolean;
 
 const model = defineModel({
-	type: null as PropType<unknown>,
+	type: {} as PropType<T>,
 });
 const props = defineProps({
 	keyProp: {
@@ -46,7 +48,7 @@ const props = defineProps({
 		default: '',
 	},
 	options: {
-		type: Array as PropType<unknown[]>,
+		type: Array as PropType<T[]>,
 		required: true,
 	},
 	size: {
@@ -55,15 +57,29 @@ const props = defineProps({
 	},
 });
 
-function isOptionSelected(option: unknown) {
+function isOptionSelected(option: T) {
 	if (!model.value) {
 		return false;
 	}
 
 	if (props.keyProp) {
-		return option[props.keyProp] === model.value?.[props.keyProp];
+    if(typeof option === 'object' && typeof model.value === 'object' && option !== null) {
+      return option[props.keyProp] === model.value?.[props.keyProp];
+    }
+    return option === model.value;
 	}
 
 	return option === model.value;
 }
+
+const optionValue = (option: T) => {
+  if (props.keyProp) {
+    if(typeof option === 'object' && option !== null) {
+      return option[props.keyProp];
+    }
+    return option;
+  }
+
+  return option;
+};
 </script>

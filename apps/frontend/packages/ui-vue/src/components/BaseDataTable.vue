@@ -67,9 +67,13 @@
 									class="whitespace-nowrap p-4 text-sm font-normal text-tertiary-500 dark:text-tertiary-400"
 								>
 									<div class="text-base font-semibold text-tertiary-900 dark:text-white">
-										<slot :name="column.key" :item="item">
-											{{ item[column.key] }}
-										</slot>
+<!--										<slot :name="column.key" :item="item">-->
+<!--											{{ item[column.key] }}-->
+<!--										</slot>-->
+                    <slot :name="`cell:${column.key}`"
+                          :value="item[column.key] as T[string]">
+                      {{ item[column.key] }}
+                    </slot>
 									</div>
 								</td>
 							</tr>
@@ -106,11 +110,23 @@
 	<slot name="footer" />
 </template>
 
-<script setup lang="ts" generic="T">
-import { computed, defineProps, type PropType, ref } from 'vue';
+<script setup lang="ts" generic="T extends ItemProps">
+import { computed, type PropType, ref } from 'vue';
 import type { ColumnInfo, SortedEvent } from './types';
 import { SortType } from '@lyra/vm-core';
 
+// define and export Option props
+// export type ItemProps = {
+//   id: string | number;
+//   // name: string;
+//   [key: string]: any;
+// };
+
+export type BaseProps = {
+  id: string | number;
+};
+
+export type ItemProps = Record<string, string | number | Date | null | undefined> & BaseProps;
 const emit = defineEmits(['sorted']);
 
 const props = defineProps({
@@ -123,6 +139,19 @@ const props = defineProps({
 		required: true,
 	},
 });
+
+// define and export slots
+const slots = defineSlots<
+  {
+    [K in keyof T as `cell:${K & string}`]: (props: { value: T[K] }) => T[K];
+  } & {
+    top?: () => any;
+    header?: () => any;
+    loader?: () => any;
+    'no-data'?: () => any;
+    footer?: () => any;
+}
+>();
 const defaultSortKey = props.columns.find((column) => column.sortable)?.key ?? '';
 const sortKey = ref(defaultSortKey);
 const sortDesc = ref(false);

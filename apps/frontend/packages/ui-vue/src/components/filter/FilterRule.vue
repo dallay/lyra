@@ -1,14 +1,14 @@
-<script setup lang="ts" generic="T">
+<script setup lang="ts" generic="T extends Property<string | number | Date>">
 import BasicDropdown from '@/components/dropdown/BasicDropdown.vue';
 import BaseInput from '@/components/BaseInput.vue';
 import { type PropType } from 'vue';
-import type { FilterType, Property } from '@lyra/vm-core';
 import SvgIcon from '../media/SvgIcon.vue';
 import type { DropdownPlacement } from '@/components/dropdown/types';
+import { type Property } from '@/components/filter/Property';
+import { type FilterType } from '@/components/filter/Filter';
 
 const emit = defineEmits(['removeFilterRule', 'applyFilters', 'clearInputFilter']);
-const property = defineModel({
-	type: Object as PropType<Property<T>>,
+const property = defineModel<T>({
 	required: true,
 });
 
@@ -31,11 +31,11 @@ const getPropertyIcon = (type: FilterType) => {
 	}
 };
 
-const removeFilterRule = (property: Property<T>) => {
+const removeFilterRule = (property: T) => {
 	emit('removeFilterRule', property);
 };
 const clearInput = () => {
-	property.value.value = null;
+	property.value.value = '';
 	emit('clearInputFilter');
 };
 

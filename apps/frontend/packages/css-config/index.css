@@ -1,3 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer base, components, utilities;
+
+@layer base {
+  @unocss preflights;
+}
+
+@layer utilities {
+  @unocss default;
+
+  @unocss;
+}

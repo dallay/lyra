@@ -5,6 +5,7 @@
     "target": "esnext",
     "module": "esnext",
     "strictNullChecks": true,
+    "resolveJsonModule": true,
     "allowJs": true,
     "baseUrl": ".",
     "paths": {

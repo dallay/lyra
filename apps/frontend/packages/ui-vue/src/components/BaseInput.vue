@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import SvgIcon from '@/components/media/SvgIcon.vue';
 import { computed, type PropType } from 'vue';
-import { type FilterType } from '@lyra/vm-core';
+import { type FilterType } from '@/components/filter/Filter';
 
 const props = defineProps({
 	id: {

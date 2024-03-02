@@ -1,24 +1,18 @@
-<script setup lang="ts" generic="T">
+<script setup lang="ts" generic="T extends Property<string | number | Date>">
 import SvgIcon from '@/components/media/SvgIcon.vue';
 import FilterRule from '@/components/filter/FilterRule.vue';
-import { defineProps, type PropType, type Ref, ref } from 'vue';
-import {
-	BasicFilter,
-	convertFieldPropertyToProperty,
-	convertPropertyToFieldProperty,
-	type FieldProperty,
-	type Filter,
-	type FilterType,
-	type Property,
-} from '@lyra/vm-core';
+import { type PropType, unref, ref, computed } from 'vue';
+
 import BasicDropdown from '@/components/dropdown/BasicDropdown.vue';
 import type { DropdownPlacement } from '@/components/dropdown/types';
+import { type Property } from '@/components/filter/Property';
+import { BasicFilter, type Filter, type FilterType } from '@/components/filter/Filter';
 
 const emit = defineEmits(['applyFilters', 'removeFilterRule', 'clearInputFilter']);
 
 const props = defineProps({
-	fields: {
-		type: Array as PropType<FieldProperty<T>[]>,
+	properties: {
+		type: Array  as PropType<T[]>,
 		required: true,
 	},
 	placement: {
@@ -28,14 +22,20 @@ const props = defineProps({
 });
 
 const showDropdown = ref(false);
-const filter: Ref<Filter<T>> = ref(new BasicFilter<T>('poc', []));
-const availableFieldProperties: Ref<FieldProperty<T>[]> = ref(props.fields);
+const filter = ref<Filter<T>>(new BasicFilter<T>('generalFilter', []));
+const availableFieldProperties = computed({
+  get: () => props.properties,
+  set: (value: T[]) => {
+    availableFieldProperties.value = value;
+  },
+});
 
-const removeFilterRule = (property: Property<T>) => {
-	filter.value.removeProperty(property.id);
-	availableFieldProperties.value.push(convertPropertyToFieldProperty(property));
-	applyQueryFilter();
-	emit('removeFilterRule', property);
+const removeFilterRule = (property: T) => {
+  const unwrappedProperty: T = unref(property);
+  filter.value.removeProperty(unwrappedProperty.id);
+  availableFieldProperties.value.push(unwrappedProperty);
+  applyQueryFilter();
+  emit('removeFilterRule', unwrappedProperty);
 };
 
 function applyQueryFilter() {
@@ -43,8 +43,8 @@ function applyQueryFilter() {
 	emit('applyFilters', query);
 }
 
-const addFilterProperty = (property: FieldProperty<T>) => {
-	filter.value.addProperty(convertFieldPropertyToProperty(property));
+const addFilterProperty = (property: T) => {
+	filter.value.addProperty(property);
 	availableFieldProperties.value = availableFieldProperties.value.filter(
 		(fieldProperty) => fieldProperty.name !== property.name
 	);

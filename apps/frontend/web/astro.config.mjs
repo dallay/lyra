@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 import icon from 'astro-icon';
+import unocss from 'unocss/astro'
 import vue from '@astrojs/vue';
 import { loadEnv } from 'vite';
 import path from 'path';
@@ -18,8 +18,8 @@ export default defineConfig({
 	site: import.meta.env.DEV ? `http://localhost:${DEV_PORT}` : 'https://lyra-nwhm.onrender.com',
 	outDir: '../build/www',
 	integrations: [
-		tailwind(),
 		vue(),
+    unocss({ injectReset: true, configFile: './uno.config.cjs' }),
 		icon({
 			iconDir: 'src/assets/icons',
 			include: {

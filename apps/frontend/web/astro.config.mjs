@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 import icon from 'astro-icon';
-import unocss from 'unocss/astro'
+import unocss from 'unocss/astro';
 import vue from '@astrojs/vue';
 import { loadEnv } from 'vite';
 import path from 'path';
@@ -19,7 +19,7 @@ export default defineConfig({
 	outDir: '../build/www',
 	integrations: [
 		vue(),
-    unocss({ injectReset: true, configFile: './uno.config.cjs' }),
+		unocss({ injectReset: true, configFile: './uno.config.cjs' }),
 		icon({
 			iconDir: 'src/assets/icons',
 			include: {

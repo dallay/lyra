@@ -4,7 +4,7 @@ import Row from './Row.vue';
 import Cell from './Cell.vue';
 
 export default Object.assign(Table, {
-  Column,
-  Row,
-  Cell,
+	Column,
+	Row,
+	Cell,
 });

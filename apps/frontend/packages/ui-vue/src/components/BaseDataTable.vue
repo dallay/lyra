@@ -67,13 +67,12 @@
 									class="whitespace-nowrap p-4 text-sm font-normal text-tertiary-500 dark:text-tertiary-400"
 								>
 									<div class="text-base font-semibold text-tertiary-900 dark:text-white">
-<!--										<slot :name="column.key" :item="item">-->
-<!--											{{ item[column.key] }}-->
-<!--										</slot>-->
-                    <slot :name="`cell:${column.key}`"
-                          :value="item[column.key] as T[string]">
-                      {{ item[column.key] }}
-                    </slot>
+										<!--										<slot :name="column.key" :item="item">-->
+										<!--											{{ item[column.key] }}-->
+										<!--										</slot>-->
+										<slot :name="`cell:${column.key}`" :value="item[column.key] as T[string]">
+											{{ item[column.key] }}
+										</slot>
 									</div>
 								</td>
 							</tr>
@@ -123,7 +122,7 @@ import { SortType } from '@lyra/vm-core';
 // };
 
 export type BaseProps = {
-  id: string | number;
+	id: string | number;
 };
 
 export type ItemProps = Record<string, string | number | Date | null | undefined> & BaseProps;
@@ -142,15 +141,15 @@ const props = defineProps({
 
 // define and export slots
 const slots = defineSlots<
-  {
-    [K in keyof T as `cell:${K & string}`]: (props: { value: T[K] }) => T[K];
-  } & {
-    top?: () => any;
-    header?: () => any;
-    loader?: () => any;
-    'no-data'?: () => any;
-    footer?: () => any;
-}
+	{
+		[K in keyof T as `cell:${K & string}`]: (props: { value: T[K] }) => T[K];
+	} & {
+		top?: () => any;
+		header?: () => any;
+		loader?: () => any;
+		'no-data'?: () => any;
+		footer?: () => any;
+	}
 >();
 const defaultSortKey = props.columns.find((column) => column.sortable)?.key ?? '';
 const sortKey = ref(defaultSortKey);

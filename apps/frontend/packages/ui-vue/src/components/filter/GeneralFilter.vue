@@ -12,7 +12,7 @@ const emit = defineEmits(['applyFilters', 'removeFilterRule', 'clearInputFilter'
 
 const props = defineProps({
 	properties: {
-		type: Array  as PropType<T[]>,
+		type: Array as PropType<T[]>,
 		required: true,
 	},
 	placement: {
@@ -24,18 +24,18 @@ const props = defineProps({
 const showDropdown = ref(false);
 const filter = ref<Filter<T>>(new BasicFilter<T>('generalFilter', []));
 const availableFieldProperties = computed({
-  get: () => props.properties,
-  set: (value: T[]) => {
-    availableFieldProperties.value = value;
-  },
+	get: () => props.properties,
+	set: (value: T[]) => {
+		availableFieldProperties.value = value;
+	},
 });
 
 const removeFilterRule = (property: T) => {
-  const unwrappedProperty: T = unref(property);
-  filter.value.removeProperty(unwrappedProperty.id);
-  availableFieldProperties.value.push(unwrappedProperty);
-  applyQueryFilter();
-  emit('removeFilterRule', unwrappedProperty);
+	const unwrappedProperty: T = unref(property);
+	filter.value.removeProperty(unwrappedProperty.id);
+	availableFieldProperties.value.push(unwrappedProperty);
+	applyQueryFilter();
+	emit('removeFilterRule', unwrappedProperty);
 };
 
 function applyQueryFilter() {

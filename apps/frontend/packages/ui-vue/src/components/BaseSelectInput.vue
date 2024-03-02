@@ -63,23 +63,23 @@ function isOptionSelected(option: T) {
 	}
 
 	if (props.keyProp) {
-    if(typeof option === 'object' && typeof model.value === 'object' && option !== null) {
-      return option[props.keyProp] === model.value?.[props.keyProp];
-    }
-    return option === model.value;
+		if (typeof option === 'object' && typeof model.value === 'object' && option !== null) {
+			return option[props.keyProp] === model.value?.[props.keyProp];
+		}
+		return option === model.value;
 	}
 
 	return option === model.value;
 }
 
 const optionValue = (option: T) => {
-  if (props.keyProp) {
-    if(typeof option === 'object' && option !== null) {
-      return option[props.keyProp];
-    }
-    return option;
-  }
+	if (props.keyProp) {
+		if (typeof option === 'object' && option !== null) {
+			return option[props.keyProp];
+		}
+		return option;
+	}
 
-  return option;
+	return option;
 };
 </script>

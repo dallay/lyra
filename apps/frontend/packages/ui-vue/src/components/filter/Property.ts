@@ -14,12 +14,12 @@ import { FilterOperator, type FilterOperatorOption } from './FilterOperator';
  * @property {T[]} [options] - The options of the property.
  */
 export type Property<T> = {
-  id: string;
-  name: string;
-  label: string;
-  type: FilterType;
-  operator: FilterOperator;
-  value?: T;
-  availableOperators: FilterOperatorOption[];
-  options?: T[];
-}
+	id: string;
+	name: string;
+	label: string;
+	type: FilterType;
+	operator: FilterOperator;
+	value?: T;
+	availableOperators: FilterOperatorOption[];
+	options?: T[];
+};

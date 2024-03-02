@@ -21,13 +21,13 @@ import { Icon } from 'astro-icon/components';
 </div>
 
 <script>
-  import { isDarkMode, toggleTheme} from '@lyra/vm-core';
+	import { isDarkMode, toggleTheme } from '@lyra/vm-core';
 
-  const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+	const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
 	const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
 	// Change the icons inside the button based on previous settings
-  const isDark = isDarkMode();
+	const isDark = isDarkMode();
 	if (isDark) {
 		themeToggleLightIcon?.classList.remove('hidden');
 	} else {

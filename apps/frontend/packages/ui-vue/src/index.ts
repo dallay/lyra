@@ -1,4 +1,4 @@
-import './style.css'
+import './style.css';
 export { default as BaseDataTable } from './components/BaseDataTable.vue';
 export { default as Table } from './components/table/Table.vue';
 export { default as TextField } from './components/text-field/TextField.vue';

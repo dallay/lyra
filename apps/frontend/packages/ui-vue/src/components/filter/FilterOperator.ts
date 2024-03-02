@@ -38,25 +38,25 @@ export const allFilterOperators: FilterOperatorOption[] = [
 ];
 
 export const textOperators: FilterOperatorOption[] = [
-  { label: 'Equal', value: FilterOperator.EQUAL },
-  { label: 'Not Equal', value: FilterOperator.NOT_EQUAL },
-  { label: 'Like', value: FilterOperator.LIKE },
+	{ label: 'Equal', value: FilterOperator.EQUAL },
+	{ label: 'Not Equal', value: FilterOperator.NOT_EQUAL },
+	{ label: 'Like', value: FilterOperator.LIKE },
 ];
 
 export const numberOperators: FilterOperatorOption[] = [
-  { label: 'Equal', value: FilterOperator.EQUAL },
-  { label: 'Not Equal', value: FilterOperator.NOT_EQUAL },
-  { label: 'Greater Than', value: FilterOperator.GREATER_THAN },
-  { label: 'Greater Than or Equal', value: FilterOperator.GREATER_THAN_OR_EQUAL },
-  { label: 'Less Than', value: FilterOperator.LESS_THAN },
-  { label: 'Less Than or Equal', value: FilterOperator.LESS_THAN_OR_EQUAL },
+	{ label: 'Equal', value: FilterOperator.EQUAL },
+	{ label: 'Not Equal', value: FilterOperator.NOT_EQUAL },
+	{ label: 'Greater Than', value: FilterOperator.GREATER_THAN },
+	{ label: 'Greater Than or Equal', value: FilterOperator.GREATER_THAN_OR_EQUAL },
+	{ label: 'Less Than', value: FilterOperator.LESS_THAN },
+	{ label: 'Less Than or Equal', value: FilterOperator.LESS_THAN_OR_EQUAL },
 ];
 
 export const dateOperators: FilterOperatorOption[] = [
-  { label: 'Equal', value: FilterOperator.EQUAL },
-  { label: 'Not Equal', value: FilterOperator.NOT_EQUAL },
-  { label: 'Greater Than', value: FilterOperator.GREATER_THAN },
-  { label: 'Greater Than or Equal', value: FilterOperator.GREATER_THAN_OR_EQUAL },
-  { label: 'Less Than', value: FilterOperator.LESS_THAN },
-  { label: 'Less Than or Equal', value: FilterOperator.LESS_THAN_OR_EQUAL },
+	{ label: 'Equal', value: FilterOperator.EQUAL },
+	{ label: 'Not Equal', value: FilterOperator.NOT_EQUAL },
+	{ label: 'Greater Than', value: FilterOperator.GREATER_THAN },
+	{ label: 'Greater Than or Equal', value: FilterOperator.GREATER_THAN_OR_EQUAL },
+	{ label: 'Less Than', value: FilterOperator.LESS_THAN },
+	{ label: 'Less Than or Equal', value: FilterOperator.LESS_THAN_OR_EQUAL },
 ];

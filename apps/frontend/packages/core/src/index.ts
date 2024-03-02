@@ -19,10 +19,4 @@ export type {
 	Sort,
 };
 
-export {
-	SortType,
-	BasicSort,
-  toggleTheme,
-  isDarkMode,
-  loadTheme
-};
+export { SortType, BasicSort, toggleTheme, isDarkMode, loadTheme };

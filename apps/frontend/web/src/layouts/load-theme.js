@@ -1,2 +1,2 @@
-import { loadTheme } from '@lyra/vm-core'
-loadTheme()
+import { loadTheme } from '@lyra/vm-core';
+loadTheme();

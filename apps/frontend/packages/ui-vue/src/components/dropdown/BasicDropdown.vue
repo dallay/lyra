@@ -1,41 +1,3 @@
-<template>
-	<div ref="wrapper" class="inline-flex relative">
-		<div class="inline-flex items-center">
-			<slot-listener @click="onToggle">
-				<slot name="trigger">
-					<button
-						class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-						type="button"
-					>
-						{{ props.text }}
-						<svg
-							class="w-4 h-4 ml-2"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M19 9l-7 7-7-7"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-							/>
-						</svg>
-					</button>
-				</slot>
-			</slot-listener>
-		</div>
-		<transition :name="transitionName">
-			<div v-if="visible" ref="content" :class="[contentClasses]" :style="contentStyles">
-				<slot-listener @click="onHide">
-					<slot />
-				</slot-listener>
-			</div>
-		</transition>
-	</div>
-</template>
-
 <script lang="ts" setup>
 import { computed, ref, toRef } from 'vue';
 import { onClickOutside } from '@vueuse/core';
@@ -43,20 +5,10 @@ import type { DropdownPlacement } from './types';
 import { useDropdownClasses } from './composables/useDropdownClasses';
 import SlotListener from '@/components/slot-listener/SlotListener.vue';
 
-const emit = defineEmits(['onHide', 'onToggle']);
-
 const visible = defineModel({
 	type: Boolean,
 	default: false,
 });
-const onHide = () => {
-	if (props.closeInside) visible.value = false;
-	emit('onHide');
-};
-const onToggle = () => {
-	visible.value = !visible.value;
-	emit('onToggle');
-};
 
 const props = withDefaults(
 	defineProps<{
@@ -72,6 +24,20 @@ const props = withDefaults(
 		closeInside: false,
 	}
 );
+
+const emit = defineEmits<{
+	(evt: 'onHide'): void;
+	(evt: 'onToggle'): void;
+}>();
+
+const onHide = () => {
+	if (props.closeInside) visible.value = false;
+	emit('onHide');
+};
+const onToggle = () => {
+	visible.value = !visible.value;
+	emit('onToggle');
+};
 
 const placementTransitionMap: Record<DropdownPlacement, string> = {
 	bottom: 'to-bottom',
@@ -100,6 +66,44 @@ onClickOutside(wrapper, () => {
 	emit('onHide');
 });
 </script>
+
+<template>
+	<div ref="wrapper" class="relative inline-flex">
+		<div class="inline-flex items-center">
+			<SlotListener @click="onToggle">
+				<slot name="trigger">
+					<button
+						class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+						type="button"
+					>
+						{{ props.text }}
+						<svg
+							class="ml-2 h-4 w-4"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M19 9l-7 7-7-7"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+							/>
+						</svg>
+					</button>
+				</slot>
+			</SlotListener>
+		</div>
+		<transition :name="transitionName">
+			<div v-if="visible" ref="content" :class="[contentClasses]" :style="contentStyles">
+				<SlotListener @click="onHide">
+					<slot />
+				</SlotListener>
+			</div>
+		</transition>
+	</div>
+</template>
 
 <style scoped>
 /* transitions */

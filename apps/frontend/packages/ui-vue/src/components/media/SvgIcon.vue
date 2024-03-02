@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { defineAsyncComponent, computed, ref } from 'vue';
 
-const props = defineProps({
-	name: {
-		type: String,
-		required: true,
-	},
-});
+export interface SvgIconProps {
+	name: string;
+}
+
+const props = defineProps<SvgIconProps>();
 
 const dynamicComponent = computed(() =>
 	defineAsyncComponent(() => import(`./icons/${props.name}.vue`))

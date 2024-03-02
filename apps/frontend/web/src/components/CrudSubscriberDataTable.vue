@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref, type Ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import {
 	Table,
-	BaseDataTable,
-	BaseInput,
-	type ColumnInfo,
-	CursorPagination,
-	FilterOperator,
-	textOperators,
-	GeneralFilter,
-	type ColumnItem,
-	type Property,
+	// BaseDataTable,
+	// BaseInput,
+	// type ColumnInfo,
+	// CursorPagination,
+	// FilterOperator,
+	// textOperators,
+	// GeneralFilter,
+	// type ColumnItem,
+	// type Property,
 } from '@lyra/ui-vue';
 import type { Sort, Subscriber } from '@lyra/vm-core';
 import SubscriberService from '@/services/subscriber.service.ts';
 
-const baseSubscriberUrl = '/app/audience/subscribers';
+// const baseSubscriberUrl = '/app/audience/subscribers';
 const subscribers = ref<Subscriber[]>([]);
 const perPage = ref(10);
 const cursor = ref('');
@@ -37,45 +37,45 @@ const cursor = ref('');
 // 		sortable: false,
 // 	},
 // ]);
-const allProperties: Property<string | number>[] = [
-	{
-		id: 'email',
-		name: 'email',
-		label: 'Email',
-		type: 'email',
-		operator: FilterOperator.EQUAL,
-		value: '',
-		availableOperators: textOperators,
-	},
-	{
-		id: 'firstname',
-		name: 'firstname',
-		label: 'First Name',
-		type: 'text',
-		operator: FilterOperator.EQUAL,
-		value: '',
-		availableOperators: textOperators,
-	},
-	{
-		id: 'lastname',
-		name: 'lastname',
-		label: 'Last Name',
-		type: 'text',
-		operator: FilterOperator.EQUAL,
-		value: '',
-		availableOperators: textOperators,
-	},
-	{
-		id: 'status',
-		name: 'status',
-		label: 'Status',
-		type: 'select',
-		operator: FilterOperator.EQUAL,
-		value: 'ENABLED',
-		availableOperators: textOperators,
-		options: ['ENABLED', 'DISABLED', 'BLOCKLISTED'],
-	},
-];
+// const allProperties: Property<string | number>[] = [
+// 	{
+// 		id: 'email',
+// 		name: 'email',
+// 		label: 'Email',
+// 		type: 'email',
+// 		operator: FilterOperator.EQUAL,
+// 		value: '',
+// 		availableOperators: textOperators,
+// 	},
+// 	{
+// 		id: 'firstname',
+// 		name: 'firstname',
+// 		label: 'First Name',
+// 		type: 'text',
+// 		operator: FilterOperator.EQUAL,
+// 		value: '',
+// 		availableOperators: textOperators,
+// 	},
+// 	{
+// 		id: 'lastname',
+// 		name: 'lastname',
+// 		label: 'Last Name',
+// 		type: 'text',
+// 		operator: FilterOperator.EQUAL,
+// 		value: '',
+// 		availableOperators: textOperators,
+// 	},
+// 	{
+// 		id: 'status',
+// 		name: 'status',
+// 		label: 'Status',
+// 		type: 'select',
+// 		operator: FilterOperator.EQUAL,
+// 		value: 'ENABLED',
+// 		availableOperators: textOperators,
+// 		options: ['ENABLED', 'DISABLED', 'BLOCKLISTED'],
+// 	},
+// ];
 const isLoaded = ref(false);
 
 // const SubscriberDataTable = useGenericDataTable<Subscriber>();
@@ -83,14 +83,14 @@ const isLoaded = ref(false);
 const filterQuery = ref('');
 const searchQuery = ref('');
 
-const loadMore = async (
-	pagination: { cursor: string; perPage: number } = {
-		cursor: cursor.value,
-		perPage: perPage.value,
-	}
-) => {
-	await refreshData(pagination, undefined, true);
-};
+// const loadMore = async (
+// 	pagination: { cursor: string; perPage: number } = {
+// 		cursor: cursor.value,
+// 		perPage: perPage.value,
+// 	}
+// ) => {
+// 	await refreshData(pagination, undefined, true);
+// };
 
 async function refreshData(
 	pagination: { cursor: string; perPage: number } = {
@@ -123,23 +123,23 @@ async function refreshData(
 	isLoaded.value = true;
 }
 
-const applyFilters = (query: string) => {
-	filterQuery.value = query;
-	refreshData({ cursor: '', perPage: perPage.value });
-};
+// const applyFilters = (query: string) => {
+// 	filterQuery.value = query;
+// 	refreshData({ cursor: '', perPage: perPage.value });
+// };
 
 onMounted(async () => {
 	await refreshData();
 });
 
-const clearFilters = () => {
-	filterQuery.value = '';
-	refreshData({ cursor: '', perPage: perPage.value });
-};
-const clearSearch = () => {
-	searchQuery.value = '';
-	refreshData({ cursor: '', perPage: perPage.value });
-};
+// const clearFilters = () => {
+// 	filterQuery.value = '';
+// 	refreshData({ cursor: '', perPage: perPage.value });
+// };
+// const clearSearch = () => {
+// 	searchQuery.value = '';
+// 	refreshData({ cursor: '', perPage: perPage.value });
+// };
 
 const state = reactive({
 	columns: [
@@ -168,8 +168,8 @@ const state = reactive({
 
 <template>
 	<Table
-		stickyHeader
 		v-model:control="state.control"
+		sticky-header
 		:columns="state.columns"
 		:rows="state.rows"
 		:count="state.count"

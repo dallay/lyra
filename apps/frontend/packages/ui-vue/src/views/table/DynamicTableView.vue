@@ -4,7 +4,7 @@ import Basic from '@/views/table/Basic.vue';
 
 <template>
 	<h1>Dynamic Table</h1>
-	<div class="flex justify-center items-center">
+	<div class="flex items-center justify-center">
 		<Basic class="my-8" />
 	</div>
 </template>

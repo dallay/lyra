@@ -1,25 +1,26 @@
 <script setup lang="ts" generic="T extends Property<string | number | Date>">
 import SvgIcon from '@/components/media/SvgIcon.vue';
 import FilterRule from '@/components/filter/FilterRule.vue';
-import { type PropType, unref, ref, computed } from 'vue';
+import { unref, ref, computed } from 'vue';
 
 import BasicDropdown from '@/components/dropdown/BasicDropdown.vue';
 import type { DropdownPlacement } from '@/components/dropdown/types';
 import { type Property } from '@/components/filter/Property';
 import { BasicFilter, type Filter, type FilterType } from '@/components/filter/Filter';
 
-const emit = defineEmits(['applyFilters', 'removeFilterRule', 'clearInputFilter']);
-
-const props = defineProps({
-	properties: {
-		type: Array as PropType<T[]>,
-		required: true,
-	},
-	placement: {
-		type: String as PropType<DropdownPlacement>,
-		default: 'bottom',
-	},
+export interface GeneralFilterProps<T> {
+	properties: T[];
+	placement: DropdownPlacement;
+}
+const props = withDefaults(defineProps<GeneralFilterProps<T>>(), {
+	placement: () => 'bottom',
 });
+
+const emit = defineEmits<{
+	(evt: 'applyFilters', val: string): void;
+	(evt: 'removeFilterRule', val: T): void;
+	(evt: 'clearInputFilter'): void;
+}>();
 
 const showDropdown = ref(false);
 const filter = ref<Filter<T>>(new BasicFilter<T>('generalFilter', []));
@@ -90,14 +91,15 @@ const clearInputFilter = () => {
 			<template #trigger>
 				<button
 					id="addFilter"
+					type="button"
 					:disabled="availableFieldProperties.length === 0"
-					class="flex items-center justify-center hover:bg-tertiary-100 dark:hover:bg-tertiary-800 rounded-md p-2"
+					class="hover:bg-tertiary-100 dark:hover:bg-tertiary-800 flex items-center justify-center rounded-md p-2"
 					:class="{
 						hidden: availableFieldProperties.length === 0,
 					}"
 				>
-					<SvgIcon v-if="filter.properties.length === 0" name="filter" class="w-8 h-8" />
-					<SvgIcon v-else name="add" class="w-5 h-5" />
+					<SvgIcon v-if="filter.properties.length === 0" name="filter" class="h-8 w-8" />
+					<SvgIcon v-else name="add" class="h-5 w-5" />
 					<span
 						:class="{
 							'sr-only': filter.properties.length === 0,
@@ -109,15 +111,16 @@ const clearInputFilter = () => {
 			</template>
 			<div
 				id="generalFilter"
-				class="z-10 min-w-max bg-white border border-tertiary-200 rounded-lg shadow dark:bg-tertiary-800 dark:border-tertiary-700"
+				class="border-tertiary-200 dark:bg-tertiary-800 dark:border-tertiary-700 z-10 min-w-max rounded-lg border bg-white shadow"
 			>
-				<ul class="py-2 text-sm text-tertiary-700 dark:text-tertiary-200">
+				<ul class="text-tertiary-700 dark:text-tertiary-200 py-2 text-sm">
 					<li v-for="fieldProperty in availableFieldProperties" :key="fieldProperty.name">
 						<button
-							class="flex w-full px-4 py-2 text-left rounded hover:bg-tertiary-100 dark:hover:bg-tertiary-800"
+							type="button"
+							class="hover:bg-tertiary-100 dark:hover:bg-tertiary-800 flex w-full rounded px-4 py-2 text-left"
 							@click="addFilterProperty(fieldProperty)"
 						>
-							<SvgIcon :name="getPropertyIcon(fieldProperty.type)" class="w-4 h-4 me-2" />
+							<SvgIcon :name="getPropertyIcon(fieldProperty.type)" class="me-2 h-4 w-4" />
 							{{ fieldProperty.label }}
 						</button>
 					</li>

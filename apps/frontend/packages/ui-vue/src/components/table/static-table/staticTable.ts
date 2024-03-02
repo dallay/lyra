@@ -1,12 +1,14 @@
 import { sortBy, chunk } from '@/utils';
+import type { Control } from '@/components/table/types';
+import type { ItemProps } from '@/components/table/Table.vue';
 
-export default <T extends Record<string, any>>(
+export default <T extends ItemProps>(
 	rows: T[],
-	control = { rows: 10, page: 1, field: 'createdAt', direction: 'desc' } as any
+	control = { rows: 10, page: 1, field: 'createdAt', direction: 'desc' } as Control
 ) => {
 	if (!rows?.length) return [];
 
-	let arr = [...rows];
+	const arr = [...rows];
 
 	if (control.field && control.direction === 'asc') {
 		arr.sort(sortBy(control.field));
@@ -16,7 +18,9 @@ export default <T extends Record<string, any>>(
 		arr.sort(sortBy(control.field)).reverse();
 	}
 
-	const chunked = chunk(arr, control.rows);
+	const chunkSize = control.rows ? control.rows : 10;
+	const chunked = chunk(arr, chunkSize);
 
-	return chunked[control.page - 1];
+	const pageIndex = control.page ? control.page - 1 : 0;
+	return chunked[pageIndex];
 };

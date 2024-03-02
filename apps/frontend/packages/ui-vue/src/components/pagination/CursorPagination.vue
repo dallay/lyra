@@ -1,19 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-
-const props = defineProps({
-	nextPageCursor: {
-		type: String,
-		required: true,
-	},
-	perPage: {
-		type: Number,
-		required: true,
-		default: 10,
-	},
+export interface CursorPaginationProps {
+	nextPageCursor: string;
+	perPage: number;
+}
+const props = withDefaults(defineProps<CursorPaginationProps>(), {
+	nextPageCursor: '',
+	perPage: 10,
 });
 
-const emits = defineEmits(['updatePage']);
+const emits = defineEmits<{
+	(evt: 'updatePage', val: { cursor: string; perPage: number }): void;
+}>();
 const cursor = ref(props.nextPageCursor);
 
 const nextPage = () => {
@@ -32,7 +30,7 @@ const nextPage = () => {
 			v-if="props.nextPageCursor"
 			type="button"
 			:disabled="!props.nextPageCursor"
-			class="flex h-8 items-center justify-center rounded-lg border border-tertiary-300 bg-white px-3 leading-tight text-tertiary-500 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400"
+			class="border-tertiary-300 text-tertiary-500 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400 flex h-8 items-center justify-center rounded-lg border bg-white px-3 leading-tight"
 			:class="{
 				'cursor-not-allowed': !props.nextPageCursor,
 				'hover:bg-tertiary-100 hover:text-tertiary-700 dark:hover:bg-tertiary-700 dark:hover:text-white':

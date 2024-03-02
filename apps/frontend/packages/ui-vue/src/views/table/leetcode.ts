@@ -1,6 +1,13 @@
 import staticTable from '@/components/table/static-table/staticTable';
-
-export default async (body: any = {}) => {
+interface RequestBody {
+	title?: string;
+	difficulty?: string;
+	rows?: number;
+	page?: number;
+	field?: string;
+	direction?: string;
+}
+export default async (body: RequestBody = {}) => {
 	const data = [
 		{ id: 1, title: '1. Two Sum', difficulty: 'Easy', createdAt: new Date() },
 		{ id: 2, title: '2. Add Two Numbers', difficulty: 'Medium', createdAt: new Date() },
@@ -187,11 +194,13 @@ export default async (body: any = {}) => {
 	let res = [...data];
 
 	if (body.title) {
-		res = res.filter((item) => item.title.toUpperCase().includes(body.title.toUpperCase()));
+		res = res.filter((item) =>
+			item.title.toUpperCase().includes(body.title?.toUpperCase() || body.title || '')
+		);
 	}
 
 	if (body.difficulty) {
-		res = res.filter((item) => item.difficulty.includes(body.difficulty));
+		res = res.filter((item) => item.difficulty.includes(body.difficulty || ''));
 	}
 
 	return {

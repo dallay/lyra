@@ -61,7 +61,7 @@ const uid = crypto.randomUUID();
 			</div>
 		</label>
 
-		<div v-if="typeof invalid === 'string' && invalid" class="text-red-500 text-xs mt-1">
+		<div v-if="typeof invalid === 'string' && invalid" class="mt-1 text-xs text-red-500">
 			{{ invalid }}
 		</div>
 	</div>
@@ -73,7 +73,7 @@ const uid = crypto.randomUUID();
 }
 
 .Checkbox-Label {
-	@apply flex items-center min-h-10 cursor-pointer;
+	@apply flex min-h-10 cursor-pointer items-center;
 
 	&.disabled {
 		@apply cursor-not-allowed opacity-60;
@@ -85,12 +85,12 @@ const uid = crypto.randomUUID();
 }
 
 .Checkbox-Container {
-	@apply relative flex justify-center items-center;
+	@apply relative flex items-center justify-center;
 }
 
 .Checkbox-Input {
-	@apply appearance-none w-5 h-5 rounded border border-slate-400 dark:border-slate-600 overflow-hidden;
-	@apply focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:shadow-lg;
+	@apply h-5 w-5 appearance-none overflow-hidden rounded border border-slate-400 dark:border-slate-600;
+	@apply focus:ring-primary-500/50 focus:shadow-lg focus:outline-none focus:ring-2;
 	@apply bg-white;
 
 	&.hasValue {
@@ -99,12 +99,12 @@ const uid = crypto.randomUUID();
 
 	&.invalid {
 		@apply border-red-500 dark:border-red-500;
-		@apply focus:ring-red-500/50 focus:border-red-500;
+		@apply focus:border-red-500 focus:ring-red-500/50;
 	}
 }
 
 .Checkbox-Icon {
-	@apply absolute select-none w-6 h-6 text-white;
+	@apply absolute h-6 w-6 select-none text-white;
 }
 
 .Checkbox-Text {

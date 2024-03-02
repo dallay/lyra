@@ -65,7 +65,7 @@ function onClear() {
 		<template #default="{ uid }">
 			<div class="relative w-full">
 				<div v-if="prepend" class="TextField-Prepend" @click.stop="emit('prepend')">
-					<div :class="prepend" class="w-5 h-5"></div>
+					<div :class="prepend" class="h-5 w-5"></div>
 				</div>
 
 				<input
@@ -80,7 +80,7 @@ function onClear() {
 				/>
 
 				<div v-if="append" class="TextField-Append" @click.stop="emit('append')">
-					<div :class="append" class="w-5 h-5"></div>
+					<div :class="append" class="h-5 w-5"></div>
 				</div>
 
 				<div
@@ -96,18 +96,18 @@ function onClear() {
 
 <style lang="scss" scoped>
 .TextField-Prepend {
-	@apply absolute start-2 top-1/2 z-[1] w-5 h-5 -translate-y-1/2;
+	@apply absolute start-2 top-1/2 z-[1] h-5 w-5 -translate-y-1/2;
 }
 
 .TextField-Input {
-	@apply w-full border rounded px-3 py-2 leading-tight;
-	@apply bg-white dark:bg-slate-800 border-slate-500 dark:border-slate-400;
+	@apply w-full rounded border px-3 py-2 leading-tight;
+	@apply border-slate-500 bg-white dark:border-slate-400 dark:bg-slate-800;
 	@apply placeholder:text-slate-400 dark:placeholder:text-slate-500;
-	@apply focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-400;
+	@apply focus:ring-primary-500/40 focus:border-primary-400 focus:outline-none focus:ring-2;
 
 	&.invalid {
 		@apply border-red-500 dark:border-red-500;
-		@apply focus:ring-red-500/40 focus:border-red-500;
+		@apply focus:border-red-500 focus:ring-red-500/40;
 	}
 
 	&.disabled {
@@ -132,11 +132,11 @@ function onClear() {
 }
 
 .TextField-Append {
-	@apply absolute end-2 top-1/2 z-[1] w-5 h-5 -translate-y-1/2;
+	@apply absolute end-2 top-1/2 z-[1] h-5 w-5 -translate-y-1/2;
 }
 
 .TextField-Clear {
-	@apply absolute end-2 top-1/2 z-50 w-5 h-5 -translate-y-1/2 cursor-pointer transition-transform hover:scale-125;
+	@apply absolute end-2 top-1/2 z-50 h-5 w-5 -translate-y-1/2 cursor-pointer transition-transform hover:scale-125;
 
 	&.append {
 		@apply end-8;

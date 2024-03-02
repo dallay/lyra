@@ -254,8 +254,8 @@ watch(
 							:class="[
 								{
 									'border-0': stickyHeader,
-									'sticky left-0 z-5': col.sticky === 'left',
-									'sticky right-0 z-5': col.sticky === 'right',
+									'z-5 sticky left-0': col.sticky === 'left',
+									'z-5 sticky right-0': col.sticky === 'right',
 								},
 								col.class,
 								col.classColumn,
@@ -275,14 +275,14 @@ watch(
 										<SvgIcon
 											v-if="flux.sortField === col.key && flux.sortDirection === 'desc'"
 											name="sort-down"
-											class="w-3.5 h-3.5"
+											class="h-3.5 w-3.5"
 										/>
 										<SvgIcon
 											v-else-if="flux.sortField === col.key && flux.sortDirection === 'asc'"
 											name="sort-up"
-											class="w-3.5 h-3.5"
+											class="h-3.5 w-3.5"
 										/>
-										<SvgIcon v-else name="sort" class="w-3.5 h-3.5" />
+										<SvgIcon v-else name="sort" class="h-3.5 w-3.5" />
 									</div>
 								</template>
 							</div>
@@ -293,8 +293,8 @@ watch(
 				<tbody v-if="loading">
 					<tr>
 						<td :colspan="selectable ? Number(columns?.length) + 1 : columns?.length">
-							<div class="w-full min-h-387px flex flex-col justify-center items-center">
-								<Spinner class="w-10 h-10" />
+							<div class="min-h-387px flex w-full flex-col items-center justify-center">
+								<Spinner class="h-10 w-10" />
 							</div>
 						</td>
 					</tr>
@@ -317,7 +317,7 @@ watch(
 									:key="col.key"
 									:class="[
 										{
-											'sticky-col sticky z-5 bg-white dark:bg-slate-800 !p-0': col.sticky,
+											'sticky-col z-5 sticky bg-white !p-0 dark:bg-slate-800': col.sticky,
 											'left-0': col.sticky === 'left',
 											'right-0': col.sticky === 'right',
 										},
@@ -340,7 +340,7 @@ watch(
 									<div
 										v-else
 										:class="{
-											'border-slate-400/50 w-full px-4': col.sticky,
+											'w-full border-slate-400/50 px-4': col.sticky,
 											'border-r-2': col.sticky === 'left',
 											'border-l-2': col.sticky === 'right',
 										}"
@@ -361,7 +361,7 @@ watch(
 					<tbody v-else>
 						<Row class="bg-gray-200/20">
 							<Cell :colspan="selectable ? Number(columns?.length) + 1 : columns?.length">
-								<div class="w-full !min-h-389px flex flex-col justify-center items-center">
+								<div class="!min-h-389px flex w-full flex-col items-center justify-center">
 									<div class="text-xl font-medium text-stone-300">
 										{{ 'No data to display' }}
 									</div>
@@ -375,11 +375,11 @@ watch(
 
 		<div
 			v-if="typeof countRef === 'number'"
-			class="flex flex-col md:flex-row items-center justify-end p-4 gap-4 text-sm"
+			class="flex flex-col items-center justify-end gap-4 p-4 text-sm md:flex-row"
 		>
 			<div class="Table-RowsPerPage">
 				{{ 'Rows per page:' }}
-				<div class="w-auto ml-2">
+				<div class="ml-2 w-auto">
 					<Select
 						v-model:value="flux.rowsPerPage"
 						:options="flux.rowsPerPageOptions"

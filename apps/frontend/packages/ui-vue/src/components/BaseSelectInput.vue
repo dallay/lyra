@@ -1,60 +1,22 @@
-<template>
-	<div class="flex flex-col">
-		<label
-			v-if="label"
-			:for="label"
-			class="mb-2 block text-sm font-medium text-tertiary-900 dark:text-white"
-			>{{ label }}</label
-		>
-		<select
-			:id="label"
-			v-model="model"
-			:class="{
-				'p-1 text-sm': size === 'small',
-				'p-2.5 text-sm': size === 'medium',
-				'px-4 py-3 text-base': size === 'large',
-			}"
-			class="block w-full rounded-lg border border-tertiary-300 bg-tertiary-50 text-tertiary-900 focus:border-blue-500 focus:ring-blue-500 dark:border-tertiary-600 dark:bg-tertiary-700 dark:text-white dark:placeholder-tertiary-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-		>
-			<option
-				v-for="option in options"
-				:key="optionValue(option) as string"
-				:value="optionValue(option)"
-				:selected="isOptionSelected(option)"
-			>
-				<slot name="option" :option="option">
-					{{ option }}
-				</slot>
-			</option>
-		</select>
-	</div>
-</template>
-
 <script setup lang="ts" generic="T extends OptionProps">
 import { type PropType } from 'vue';
 
 export type OptionProps = { [key: string]: string | number | boolean } | string | number | boolean;
-
+export interface BaseSelectInputProps<T> {
+	keyProp: string;
+	label: string;
+	options: T[];
+	size: 'small' | 'medium' | 'large';
+}
 const model = defineModel({
 	type: {} as PropType<T>,
 });
-const props = defineProps({
-	keyProp: {
-		type: String,
-		default: '',
-	},
-	label: {
-		type: String,
-		default: '',
-	},
-	options: {
-		type: Array as PropType<T[]>,
-		required: true,
-	},
-	size: {
-		type: String as PropType<'small' | 'medium' | 'large'>,
-		default: 'medium',
-	},
+
+const props = withDefaults(defineProps<BaseSelectInputProps<T>>(), {
+	keyProp: '',
+	label: '',
+	options: () => [],
+	size: 'medium',
 });
 
 function isOptionSelected(option: T) {
@@ -83,3 +45,35 @@ const optionValue = (option: T) => {
 	return option;
 };
 </script>
+
+<template>
+	<div class="flex flex-col">
+		<label
+			v-if="label"
+			:for="label"
+			class="text-tertiary-900 mb-2 block text-sm font-medium dark:text-white"
+			>{{ label }}</label
+		>
+		<select
+			:id="label"
+			v-model="model"
+			:class="{
+				'p-1 text-sm': size === 'small',
+				'p-2.5 text-sm': size === 'medium',
+				'px-4 py-3 text-base': size === 'large',
+			}"
+			class="border-tertiary-300 bg-tertiary-50 text-tertiary-900 dark:border-tertiary-600 dark:bg-tertiary-700 dark:placeholder-tertiary-400 block w-full rounded-lg border focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
+		>
+			<option
+				v-for="option in options"
+				:key="optionValue(option) as string"
+				:value="optionValue(option)"
+				:selected="isOptionSelected(option)"
+			>
+				<slot name="option" :option="option">
+					{{ option }}
+				</slot>
+			</option>
+		</select>
+	</div>
+</template>

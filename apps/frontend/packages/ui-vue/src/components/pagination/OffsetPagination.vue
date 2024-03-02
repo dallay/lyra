@@ -1,32 +1,21 @@
 <script setup lang="ts">
-import { computed, type PropType, ref } from 'vue';
+import { computed, ref } from 'vue';
 import BaseSelectInput from '@/components/BaseSelectInput.vue';
-
-const props = defineProps({
-	total: {
-		type: Number,
-		required: true,
-	},
-	perPage: {
-		type: Number,
-		required: true,
-		default: 10,
-	},
-	page: {
-		type: Number,
-		required: true,
-	},
-	totalPages: {
-		type: Number,
-		required: true,
-	},
-	perPageOptions: {
-		type: Array as PropType<number[]>,
-		default: () => [5, 10, 25, 50, 100],
-	},
+export interface OffsetPaginationProps {
+	total: number;
+	perPage: number;
+	page: number;
+	totalPages: number;
+	perPageOptions: number[];
+}
+const props = withDefaults(defineProps<OffsetPaginationProps>(), {
+	perPage: 10,
+	perPageOptions: () => [10, 20, 50, 100],
 });
 
-const emits = defineEmits(['updatePage']);
+const emits = defineEmits<{
+	(evt: 'updatePage', val: { page: number; perPage: number }): void;
+}>();
 
 const pageNumbers = computed(() => Array.from({ length: props.totalPages }, (_, i) => i + 1));
 const currentPage = computed(() => props.page + 1);
@@ -60,12 +49,12 @@ const perPageValue = ref(props.perPage);
 		aria-label="Table navigation"
 	>
 		<span
-			class="mb-4 block w-full text-sm font-normal text-tertiary-500 md:mb-0 md:inline md:w-auto dark:text-tertiary-400"
+			class="text-tertiary-500 dark:text-tertiary-400 mb-4 block w-full text-sm font-normal md:mb-0 md:inline md:w-auto"
 			>Showing
-			<span class="font-semibold text-tertiary-900 dark:text-white"
+			<span class="text-tertiary-900 font-semibold dark:text-white"
 				>{{ currentPage }}-{{ perPage }}</span
 			>
-			of <span class="font-semibold text-tertiary-900 dark:text-white">{{ total }}</span>
+			of <span class="text-tertiary-900 font-semibold dark:text-white">{{ total }}</span>
 		</span>
 		<ul class="inline-flex h-8 -space-x-px text-sm rtl:space-x-reverse">
 			<li class="mx-2">
@@ -78,8 +67,9 @@ const perPageValue = ref(props.perPage);
 			</li>
 			<li>
 				<button
+					type="button"
 					:disabled="!hasPreviousPage"
-					class="ms-0 flex h-8 items-center justify-center rounded-s-lg border border-tertiary-300 bg-white px-3 leading-tight text-tertiary-500 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400"
+					class="border-tertiary-300 text-tertiary-500 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400 ms-0 flex h-8 items-center justify-center rounded-s-lg border bg-white px-3 leading-tight"
 					:class="{
 						'cursor-not-allowed': !hasPreviousPage,
 						'hover:bg-tertiary-100 hover:text-tertiary-700 dark:hover:bg-tertiary-700 dark:hover:text-white':
@@ -92,12 +82,13 @@ const perPageValue = ref(props.perPage);
 			</li>
 			<li v-for="number in pageNumbers" :key="number">
 				<button
+					type="button"
 					:class="
 						number === currentPage
-							? 'bg-tertiary-100 text-tertiary-700 dark:bg-tertiary-700 dark:text-white border-tertiary-200 dark:border-tertiary-800'
-							: 'border-tertiary-300 bg-white text-tertiary-500 dark:bg-tertiary-800 dark:text-tertiary-400'
+							? 'bg-tertiary-100 text-tertiary-700 dark:bg-tertiary-700 border-tertiary-200 dark:border-tertiary-800 dark:text-white'
+							: 'border-tertiary-300 text-tertiary-500 dark:bg-tertiary-800 dark:text-tertiary-400 bg-white'
 					"
-					class="flex h-8 items-center justify-center border px-3 leading-tight hover:bg-tertiary-100 hover:text-tertiary-700 dark:border-tertiary-700 dark:hover:bg-tertiary-700 dark:hover:text-white"
+					class="hover:bg-tertiary-100 hover:text-tertiary-700 dark:border-tertiary-700 dark:hover:bg-tertiary-700 flex h-8 items-center justify-center border px-3 leading-tight dark:hover:text-white"
 					@click.prevent="goToPage(number)"
 				>
 					{{ number }}
@@ -105,8 +96,9 @@ const perPageValue = ref(props.perPage);
 			</li>
 			<li>
 				<button
+					type="button"
 					:disabled="!hasNextPage"
-					class="flex h-8 items-center justify-center rounded-e-lg border border-tertiary-300 bg-white px-3 leading-tight text-tertiary-500 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400"
+					class="border-tertiary-300 text-tertiary-500 dark:border-tertiary-700 dark:bg-tertiary-800 dark:text-tertiary-400 flex h-8 items-center justify-center rounded-e-lg border bg-white px-3 leading-tight"
 					:class="{
 						'cursor-not-allowed': !hasNextPage,
 						'hover:bg-tertiary-100 hover:text-tertiary-700 dark:hover:bg-tertiary-700 dark:hover:text-white':

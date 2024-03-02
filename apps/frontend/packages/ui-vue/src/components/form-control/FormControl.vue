@@ -11,23 +11,23 @@ const uid = crypto.randomUUID();
 
 <template>
 	<div class="flex flex-col">
-		<label :for="uid" class="flex items-center mb-2 text-sm font-bold empty:hidden">
+		<label :for="uid" class="mb-2 flex items-center text-sm font-bold empty:hidden">
 			<template v-if="label">{{ label }}</template>
 			<span v-if="required" class="text-red-500">*</span>
 			<slot name="label"></slot>
 		</label>
 
-		<div class="flex items-center min-h-38px">
+		<div class="min-h-38px flex items-center">
 			<slot :uid="uid" :invalid="!!invalid"></slot>
 		</div>
 
-		<div v-if="invalid && typeof invalid === 'string'" class="text-red-500 text-xs mt-1">
+		<div v-if="invalid && typeof invalid === 'string'" class="mt-1 text-xs text-red-500">
 			{{ invalid }}
 		</div>
 
 		<div
 			v-if="!(invalid && typeof invalid === 'string') && help"
-			class="text-gray-500 dark:text-gray-400 text-xs mt-1"
+			class="mt-1 text-xs text-gray-500 dark:text-gray-400"
 		>
 			{{ help }}
 		</div>

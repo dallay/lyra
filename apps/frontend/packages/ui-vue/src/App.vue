@@ -12,8 +12,8 @@ onMounted(() => {
 	<header class="PrincipalHeader">
 		<img alt="Vue logo" class="logo" src="/vue-ui.svg" width="125" height="125" />
 
-		<div class="flex justify-center items-center">
-			<nav class="flex justify-around items-center nav-links">
+		<div class="flex items-center justify-center">
+			<nav class="nav-links flex items-center justify-around">
 				<RouterLink to="/">Home</RouterLink>
 				<RouterLink to="/about">About</RouterLink>
 				<RouterLink to="/table">Table</RouterLink>
@@ -35,6 +35,6 @@ body {
   scrollbar-track-slate-200  scrollbar-thumb-gray-400 dark:scrollbar-track-gray-900 dark:scrollbar-thumb-gray-700;
 }
 .nav-links {
-	@apply space-x-4 font-bold text-lg uppercase tracking-wider text-tertiary-500 dark:text-tertiary-300;
+	@apply text-tertiary-500 dark:text-tertiary-300 space-x-4 text-lg font-bold uppercase tracking-wider;
 }
 </style>

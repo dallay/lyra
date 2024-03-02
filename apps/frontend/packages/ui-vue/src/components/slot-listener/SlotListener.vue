@@ -1,4 +1,5 @@
 <script lang="ts">
+/* eslint-disable vue/component-api-style */
 import { defineComponent, type PropType, type VNode } from 'vue';
 import pick from '@/utils/pick';
 import type { SlotListenerTrigger, TriggerEventHandlers } from './types';
@@ -83,9 +84,14 @@ export default defineComponent({
 		const ascendantAndCurrentHandlers: TriggerEventHandlers[] = [handlers];
 		if (triggerVNode?.props) {
 			ascendantAndCurrentHandlers.push(
-				<TriggerEventHandlers>(
-					pick(triggerVNode.props, 'onClick', 'onMouseenter', 'onMouseleave', 'onFocus', 'onBlur')
-				)
+				pick(
+					triggerVNode.props,
+					'onClick',
+					'onMouseenter',
+					'onMouseleave',
+					'onFocus',
+					'onBlur'
+				) as TriggerEventHandlers
 			);
 		}
 

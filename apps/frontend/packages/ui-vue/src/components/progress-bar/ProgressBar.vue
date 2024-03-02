@@ -22,11 +22,11 @@ defineProps<{
 
 <style lang="scss" scoped>
 .ProgressBar {
-	@apply overflow-hidden w-full h-1 bg-primary-200;
+	@apply bg-primary-200 h-1 w-full overflow-hidden;
 }
 
 .ProgressBar-Value {
-	@apply w-full h-full bg-primary-500;
+	@apply bg-primary-500 h-full w-full;
 
 	transform-origin: 0% 50%;
 

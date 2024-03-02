@@ -279,7 +279,7 @@ watch(
 
 				<div
 					v-if="value && clearable && !disabled"
-					class="i-fa-times-circle w-4 h-4 ml-2 invisible hover:text-slate-600 group-hover:visible"
+					class="i-fa-times-circle invisible ml-2 h-4 w-4 hover:text-slate-600 group-hover:visible"
 					@click.stop="flux.clear"
 				></div>
 
@@ -291,7 +291,7 @@ watch(
 					<div v-else class="Select-Arrow i-material-symbols-arrow-drop-up-rounded"></div>
 				</div>
 
-				<ProgressBar v-if="loading" class="absolute left-0 bottom-0 rounded" />
+				<ProgressBar v-if="loading" class="absolute bottom-0 left-0 rounded" />
 			</div>
 
 			<Fade>
@@ -341,16 +341,16 @@ watch(
 
 <style lang="scss" scoped>
 .Select-Input {
-	@apply relative flex items-center w-full px-3 py-2 cursor-pointer;
-	@apply border border-slate-400 bg-white dark:bg-slate-800 rounded leading-tight;
-	@apply focus:border-primary-400 focus:outline-0 focus:ring-2 focus:ring-primary-500/50;
+	@apply relative flex w-full cursor-pointer items-center px-3 py-2;
+	@apply rounded border border-slate-400 bg-white leading-tight dark:bg-slate-800;
+	@apply focus:border-primary-400 focus:ring-primary-500/50 focus:outline-0 focus:ring-2;
 
 	&.placeholder {
-		@apply text-slate-400 dark:text-slate-500 truncate;
+		@apply truncate text-slate-400 dark:text-slate-500;
 	}
 
 	&.focused {
-		@apply border-primary-400 outline-0 ring-2 ring-primary-500/50;
+		@apply border-primary-400 ring-primary-500/50 outline-0 ring-2;
 	}
 
 	&.invalid {
@@ -359,21 +359,21 @@ watch(
 	}
 
 	&.disabled {
-		@apply cursor-not-allowed opacity-60 focus:ring-0 focus:border-slate-400;
+		@apply cursor-not-allowed opacity-60 focus:border-slate-400 focus:ring-0;
 	}
 }
 
 .Select-ArrowWrapper {
-	@apply w-5 h-5 overflow-hidden flex justify-center items-center;
+	@apply flex h-5 w-5 items-center justify-center overflow-hidden;
 }
 
 .Select-Arrow {
-	@apply min-w-6 min-h-6 ml-2;
+	@apply ml-2 min-h-6 min-w-6;
 }
 
 .Select-Panel {
-	@apply fixed w-full z-[101] border shadow-lg rounded;
-	@apply bg-white dark:bg-slate-800 border-gray-200 dark:border-gray-700;
+	@apply fixed z-[101] w-full rounded border shadow-lg;
+	@apply border-gray-200 bg-white dark:border-gray-700 dark:bg-slate-800;
 }
 
 .Select-Panel-PlacementBottom {
@@ -389,11 +389,11 @@ watch(
 }
 
 .Select-List {
-	@apply cursor-pointer max-h-40 overflow-auto p-2 empty:hidden;
+	@apply max-h-40 cursor-pointer overflow-auto p-2 empty:hidden;
 }
 
 .Select-Item {
-	@apply px-3 py-1 cursor-pointer rounded-md whitespace-nowrap;
+	@apply cursor-pointer whitespace-nowrap rounded-md px-3 py-1;
 }
 
 .Select-Item-Hover {
@@ -401,6 +401,6 @@ watch(
 }
 
 .Select-Item-Active {
-	@apply bg-primary-500 text-white hover:bg-primary-700 hover:text-white;
+	@apply bg-primary-500 hover:bg-primary-700 text-white hover:text-white;
 }
 </style>

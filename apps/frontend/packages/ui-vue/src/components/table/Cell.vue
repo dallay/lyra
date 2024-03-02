@@ -6,10 +6,10 @@
 
 <style lang="scss" scoped>
 .Cell {
-	@apply h-10 px-4 py-0 align-middle whitespace-nowrap;
+	@apply h-10 whitespace-nowrap px-4 py-0 align-middle;
 
 	> :deep(div) {
-		@apply inline-flex items-center h-full;
+		@apply inline-flex h-full items-center;
 	}
 }
 </style>

@@ -6,10 +6,8 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
     'plugin:astro/recommended',
     'plugin:astro/jsx-a11y-recommended',
-    'plugin:vue/vue3-recommended',
     'prettier',
   ],
   parserOptions: {
@@ -30,10 +28,41 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-      extends: ['plugin:@typescript-eslint/recommended'],
-      rules: {
-        'vue/multi-word-component-names': 'off',
-        'vue/require-default-prop': 'off',
+      extends: [
+        "eslint:recommended",
+        "plugin:vue/vue3-recommended",
+        "@vue/eslint-config-prettier",
+        "@vue/eslint-config-typescript"
+      ],
+      rules:{
+        "vue/multi-word-component-names": "off",
+        "vue/attribute-hyphenation": "off",
+        "vue/v-on-event-hyphenation": "off",
+
+        "vue/block-lang": ["error", { "script": { "lang": "ts" } }],
+        "vue/block-order": ["error", { "order": ["script[setup]", "template", "style[scoped]"] }],
+        "vue/block-tag-newline": [
+          "error",
+          { "singleline": "always", "multiline": "always", "maxEmptyLines": 1 }
+        ],
+        "vue/component-api-style": ["error", ["script-setup"]],
+        "vue/component-name-in-template-casing": [
+          "error",
+          "PascalCase",
+          { "registeredComponentsOnly": true }
+        ],
+        "vue/component-options-name-casing": ["error", "PascalCase"],
+        "vue/custom-event-name-casing": ["error", "camelCase"],
+        "vue/define-emits-declaration": ["error", "type-based"],
+        "vue/define-macros-order": [
+          "error",
+          {
+            "order": ["defineOptions", "defineModel", "defineProps", "defineEmits", "defineSlots"],
+            "defineExposeLast": true
+          }
+        ],
+        "vue/define-props-declaration": ["error", "type-based"],
+        "vue/html-button-has-type": ["error", { "button": true, "submit": true, "reset": true }]
       },
     },
     {

@@ -6,6 +6,6 @@
 
 <style lang="scss" scoped>
 .Row {
-	@apply hover:bg-slate-100 dark:hover:bg-slate-600 border-b last:border-b-0 dark:border-slate-600;
+	@apply border-b last:border-b-0 hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-600;
 }
 </style>

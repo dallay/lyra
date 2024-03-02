@@ -126,11 +126,11 @@ function onClick(evt: Event) {
 
 <style lang="scss" scoped>
 .Button {
-	@apply flex justify-center items-center gap-2 px-6 py-2 border rounded uppercase text-sm font-medium;
-	@apply focus:outline-none focus:ring-2 focus:ring-primary-500/40;
+	@apply flex items-center justify-center gap-2 rounded border px-6 py-2 text-sm font-medium uppercase;
+	@apply focus:ring-primary-500/40 focus:outline-none focus:ring-2;
 
 	&.contained {
-		@apply text-white hover:text-gray-100 active:text-gray-200 shadow-md hover:shadow-lg;
+		@apply text-white shadow-md hover:text-gray-100 hover:shadow-lg active:text-gray-200;
 
 		&.primary {
 			@apply bg-primary-500 hover:bg-primary-600 active:bg-primary-700 border-primary-500;
@@ -141,19 +141,19 @@ function onClick(evt: Event) {
 		}
 
 		&.success {
-			@apply bg-green-500 hover:bg-green-600 active:bg-green-700 border-green-500;
+			@apply border-green-500 bg-green-500 hover:bg-green-600 active:bg-green-700;
 		}
 
 		&.danger {
-			@apply bg-red-500 hover:bg-red-600 active:bg-red-700 border-red-500;
+			@apply border-red-500 bg-red-500 hover:bg-red-600 active:bg-red-700;
 		}
 
 		&.warning {
-			@apply bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700 border-yellow-500;
+			@apply border-yellow-500 bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700;
 		}
 
 		&.info {
-			@apply bg-blue-500 hover:bg-blue-600 active:bg-blue-700 border-blue-500;
+			@apply border-blue-500 bg-blue-500 hover:bg-blue-600 active:bg-blue-700;
 		}
 	}
 
@@ -178,22 +178,22 @@ function onClick(evt: Event) {
 		}
 
 		&.success {
-			@apply text-green-500 hover:text-green-600 dark:text-green-400 active:text-green-700 dark:active:text-green-300;
+			@apply text-green-500 hover:text-green-600 active:text-green-700 dark:text-green-400 dark:active:text-green-300;
 			@apply hover:bg-green-400/25 active:bg-green-500/25;
 		}
 
 		&.danger {
-			@apply text-red-500 hover:text-red-600 dark:text-red-400 active:text-red-700 dark:active:text-red-300;
+			@apply text-red-500 hover:text-red-600 active:text-red-700 dark:text-red-400 dark:active:text-red-300;
 			@apply hover:bg-red-400/25 active:bg-red-500/25;
 		}
 
 		&.warning {
-			@apply text-yellow-500 hover:text-yellow-600 dark:text-yellow-400 active:text-yellow-700 dark:active:text-yellow-300;
+			@apply text-yellow-500 hover:text-yellow-600 active:text-yellow-700 dark:text-yellow-400 dark:active:text-yellow-300;
 			@apply hover:bg-yellow-400/25 active:bg-yellow-500/25;
 		}
 
 		&.info {
-			@apply text-blue-500 hover:text-blue-600 dark:text-blue-400 active:text-blue-700 dark:active:text-blue-300;
+			@apply text-blue-500 hover:text-blue-600 active:text-blue-700 dark:text-blue-400 dark:active:text-blue-300;
 			@apply hover:bg-blue-400/25 active:bg-blue-500/25;
 		}
 	}
@@ -207,31 +207,31 @@ function onClick(evt: Event) {
 	}
 
 	&.icon {
-		@apply p-0 rounded-full w-10 h-10 overflow-hidden;
+		@apply h-10 w-10 overflow-hidden rounded-full p-0;
 
 		&.small {
-			@apply w-8 h-8;
+			@apply h-8 w-8;
 		}
 
 		&.large {
-			@apply w-11 h-11;
+			@apply h-11 w-11;
 		}
 	}
 
 	&.disabled {
-		@apply opacity-60 cursor-not-allowed;
+		@apply cursor-not-allowed opacity-60;
 	}
 }
 
 .Button-Icon {
-	@apply w-5 h-5;
+	@apply h-5 w-5;
 
 	&.small {
-		@apply w-4 h-4;
+		@apply h-4 w-4;
 	}
 
 	&.large {
-		@apply w-6 h-6;
+		@apply h-6 w-6;
 	}
 }
 </style>

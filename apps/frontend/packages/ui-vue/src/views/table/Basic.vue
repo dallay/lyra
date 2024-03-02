@@ -4,7 +4,7 @@ import { Table, TextField, Select, Button, type Control } from '@/index';
 import leetcode from './leetcode';
 
 const state = reactive({
-	rows: [] as any[],
+	rows: [] as unknown[],
 	control: { rows: 10, page: 1, field: 'id', direction: 'asc' } as Control,
 	count: 0,
 });
@@ -40,10 +40,10 @@ async function change(params: Control) {
 
 <template>
 	<div>
-		<div class="text-3xl font-bold my-4">Basic</div>
+		<div class="my-4 text-3xl font-bold">Basic</div>
 
-		<div class="p-8 bg-white dark:bg-slate-800 rounded-lg space-y-8">
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+		<div class="space-y-8 rounded-lg bg-white p-8 dark:bg-slate-800">
+			<div class="grid grid-cols-1 gap-4 md:grid-cols-3">
 				<TextField v-model:value="body.title" />
 
 				<Select
@@ -67,7 +67,7 @@ async function change(params: Control) {
 					{ key: 'title', name: 'Title' },
 					{ key: 'difficulty', name: 'Difficulty' },
 				]"
-				:rows="state.rows"
+				:rows="state.rows as Record<string, unknown>[]"
 				:count="state.count"
 				@change="change"
 			/>

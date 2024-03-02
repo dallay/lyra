@@ -26,7 +26,7 @@
     "format": "echo 🖌️ Formatting frontend && prettier --write . --plugin=prettier-plugin-astro",
     "lint": "echo 🚨 Linting frontend && npm-run-all --parallel lint:eslint lint:stylelint",
     "lint:eslint": "eslint --fix --ext .js,.jsx,.ts,.tsx,.astro,.vue --ignore-path .gitignore .",
-    "lint:stylelint": "stylelint --fix \"**/*.{css,scss,sass}\" --allow-empty-input --config ./apps/frontend/packages/css-config/stylelint.config.mjs",
+    "lint:stylelint": "stylelint --fix \"**/*.{css,scss,sass}\" --allow-empty-input --config ./apps/frontend/packages/css-config/stylelint.config.cjs",
     "test": "echo Testing 🧪 Frontend && pnpm --recursive --parallel --stream run test"
   },
   "workspaces": [

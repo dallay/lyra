@@ -1,12 +1,22 @@
 <script lang="ts" setup>
-defineProps<{
-	label?: string;
-	required?: boolean;
-	invalid?: boolean | string;
-	help?: string;
-}>();
+const props = withDefaults(
+	defineProps<{
+		id?: string;
+		label?: string;
+		required?: boolean;
+		invalid?: boolean | string;
+		help?: string;
+	}>(),
+	{
+		id: crypto.randomUUID(),
+		label: '',
+		required: false,
+		invalid: false,
+		help: '',
+	}
+);
 
-const uid = crypto.randomUUID();
+const uid = props.id || `form-control-${crypto.randomUUID()}`;
 </script>
 
 <template>

@@ -38,7 +38,6 @@ const removeFilterRule = (property: T) => {
 	applyQueryFilter();
 	emit('removeFilterRule', unwrappedProperty);
 };
-
 function applyQueryFilter() {
 	const query = filter.value.toQueryString();
 	emit('applyFilters', query);
@@ -77,9 +76,10 @@ const clearInputFilter = () => {
 			v-for="(property, index) in filter.properties"
 			:key="property.id"
 			v-model="filter.properties[index]"
+			:placement="placement"
 			@apply-filters="applyQueryFilter"
 			@clear-input-filter="clearInputFilter"
-			@remove-filter-rule="removeFilterRule"
+			@remove-filter-rule="removeFilterRule(property as T)"
 		/>
 		<BasicDropdown
 			v-model="showDropdown"

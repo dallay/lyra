@@ -26,24 +26,23 @@
     "test": "echo Testing frontend"
   },
   "dependencies": {
-    "canvas-confetti": "^1.9.2",
-    "@astrojs/check": "^0.5.4",
-    "@astrojs/node": "^8.2.0",
-    "@astrojs/vue": "^4.0.8",
-    "@fontsource-variable/onest": "^5.0.2",
-    "@justinribeiro/lite-youtube": "1.5.0",
     "@lyra/vm-core": "workspace:*",
     "@lyra/ui": "workspace:*",
     "@lyra/ui-vue": "workspace:*",
-    "astro": "^4.4.0",
+    "@astrojs/check": "^0.5.6",
+    "@astrojs/node": "^8.2.3",
+    "@astrojs/vue": "^4.0.8",
+    "@fontsource-variable/onest": "^5.0.2",
+    "@justinribeiro/lite-youtube": "1.5.0",
+    "astro": "^4.4.9",
     "sharp": "^0.33.2",
     "typescript": "^5.3.3",
-    "vue": "^3.4.19"
+    "vue": "^3.4.21"
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.1.64",
     "@iconify-json/ph": "^1.1.11",
-    "@iconify-json/simple-icons": "^1.1.92",
+    "@iconify-json/simple-icons": "^1.1.93",
     "@lyra/css-config": "workspace:*",
     "astro-icon": "^1.1.0",
     "semantic-release": "^23.0.2",

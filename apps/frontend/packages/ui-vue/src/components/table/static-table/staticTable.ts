@@ -1,8 +1,7 @@
 import { sortBy, chunk } from '@/utils';
 import type { Control } from '@/components/table/types';
-import type { ItemProps } from '@/components/table/Table.vue';
 
-export default <T extends ItemProps>(
+export default <T extends Record<string, unknown>>(
 	rows: T[],
 	control = { rows: 10, page: 1, field: 'createdAt', direction: 'desc' } as Control
 ) => {

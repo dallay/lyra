@@ -1,16 +1,12 @@
 <script setup lang="ts" generic="T extends OptionProps">
-import { type PropType } from 'vue';
-
 export type OptionProps = { [key: string]: string | number | boolean } | string | number | boolean;
 export interface BaseSelectInputProps<T> {
-	keyProp: string;
-	label: string;
+	keyProp?: string;
+	label?: string;
 	options: T[];
 	size: 'small' | 'medium' | 'large';
 }
-const model = defineModel({
-	type: {} as PropType<T>,
-});
+const model = defineModel<T>();
 
 const props = withDefaults(defineProps<BaseSelectInputProps<T>>(), {
 	keyProp: '',

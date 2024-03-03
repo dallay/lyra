@@ -5,8 +5,9 @@ import SvgIcon from '../media/SvgIcon.vue';
 import type { DropdownPlacement } from '@/components/dropdown/types';
 import { type Property } from '@/components/filter/Property';
 import { type FilterType } from '@/components/filter/Filter';
+
 export interface FilterRuleProps {
-	placement: DropdownPlacement;
+	placement?: DropdownPlacement;
 }
 const property = defineModel<T>({
 	required: true,

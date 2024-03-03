@@ -17,6 +17,7 @@ const valueModel = defineModel<Option['value']>('value');
 
 const props = withDefaults(
 	defineProps<{
+		id?: string;
 		label?: string;
 		options?: Option[];
 		display?: 'label' | 'value' | ((opt: Option) => string);
@@ -31,6 +32,7 @@ const props = withDefaults(
 		help?: string;
 	}>(),
 	{
+		id: crypto.randomUUID(),
 		label: '',
 		options: () => [],
 		display: 'label',
@@ -249,10 +251,11 @@ watch(
 		if (!val) emit('blur');
 	}
 );
+const uid = props.id || `select-${crypto.randomUUID()}`;
 </script>
 
 <template>
-	<FormControl :label="label" :required="required" :invalid="invalid" :help="help">
+	<FormControl :id="uid" :label="label" :required="required" :invalid="invalid" :help="help">
 		<div ref="target" class="w-full">
 			<div
 				ref="selectInput"

@@ -18,7 +18,7 @@ export default defineConfig({
 	site: import.meta.env.DEV ? `http://localhost:${DEV_PORT}` : 'https://lyra-nwhm.onrender.com',
 	outDir: '../build/www',
 	integrations: [
-		vue(),
+		vue({ appEntrypoint: '/src/pages/app/_app' }),
 		unocss({ injectReset: true, configFile: './uno.config.cjs' }),
 		icon({
 			iconDir: 'src/assets/icons',
@@ -28,7 +28,7 @@ export default defineConfig({
 			},
 		}),
 	],
-	output: 'server',
+	output: 'hybrid',
 	adapter: node({
 		mode: 'standalone',
 	}),

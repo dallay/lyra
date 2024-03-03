@@ -1,4 +1,4 @@
-<script lang="ts" setup generic="T extends object">
+<script lang="ts" setup generic="T extends Record<string, unknown>">
 import type { VNode } from 'vue';
 import { computed, reactive, watch, toRef } from 'vue';
 import type staticTable from './static-table/staticTable';
@@ -6,8 +6,6 @@ import Spinner from '../spinner/Spinner.vue';
 import Button from '../button/Button.vue';
 import Select from '../select/Select.vue';
 import Checkbox from '../checkbox/Checkbox.vue';
-
-import SvgIcon from '../media/SvgIcon.vue';
 
 import type { ColumnItem, Control } from './types';
 import Column from './Column.vue';
@@ -77,7 +75,7 @@ const flux = reactive({
 	rows: [] as any[],
 
 	indeterminate: false,
-	selecteAll: false,
+	selectedAll: false,
 
 	rowsPerPage: 10,
 	rowsPerPageOptions: [
@@ -169,7 +167,7 @@ watch(
 );
 
 watch(
-	() => flux.selecteAll,
+	() => flux.selectedAll,
 	(val) => {
 		if (props.static) {
 			const arr = props.rows?.map((item) => ({ ...item, checked: val })) || [];
@@ -196,8 +194,8 @@ watch(
 			const checked = props.rows.every((item: any) => item.checked);
 			const unchecked = props.rows.every((item: any) => !item.checked);
 			flux.indeterminate = !(checked || unchecked);
-			if (checked) flux.selecteAll = true;
-			if (unchecked) flux.selecteAll = false;
+			if (checked) flux.selectedAll = true;
+			if (unchecked) flux.selectedAll = false;
 		} else {
 			flux.rows = val || [];
 		}
@@ -223,8 +221,8 @@ watch(
 
 			flux.indeterminate = !(checked || unchecked);
 
-			if (checked) flux.selecteAll = true;
-			if (unchecked) flux.selecteAll = false;
+			if (checked) flux.selectedAll = true;
+			if (unchecked) flux.selectedAll = false;
 
 			emit(
 				'update:selected',
@@ -245,7 +243,7 @@ watch(
 
 					<tr :class="{ 'sticky top-0 z-10': stickyHeader }">
 						<Column v-if="selectable" :class="{ 'border-0': stickyHeader }">
-							<Checkbox v-model:value="flux.selecteAll" :indeterminate="flux.indeterminate" />
+							<Checkbox v-model:value="flux.selectedAll" :indeterminate="flux.indeterminate" />
 						</Column>
 
 						<Column
@@ -271,19 +269,17 @@ watch(
 								<div>{{ col.name }}</div>
 
 								<template v-if="typeof col.sortable === 'boolean' ? col.sortable : true">
-									<div>
-										<SvgIcon
-											v-if="flux.sortField === col.key && flux.sortDirection === 'desc'"
-											name="sort-down"
-											class="h-3.5 w-3.5"
-										/>
-										<SvgIcon
-											v-else-if="flux.sortField === col.key && flux.sortDirection === 'asc'"
-											name="sort-up"
-											class="h-3.5 w-3.5"
-										/>
-										<SvgIcon v-else name="sort" class="h-3.5 w-3.5" />
-									</div>
+									<div
+										v-if="flux.sortField === col.key && flux.sortDirection === 'desc'"
+										class="i-fa-sort-desc h-3.5 w-3.5"
+									></div>
+
+									<div
+										v-else-if="flux.sortField === col.key && flux.sortDirection === 'asc'"
+										class="i-fa-sort-asc h-3.5 w-3.5"
+									></div>
+
+									<div v-else class="i-fa-sort h-3.5 w-3.5"></div>
 								</template>
 							</div>
 						</Column>
@@ -381,6 +377,7 @@ watch(
 				{{ 'Rows per page:' }}
 				<div class="ml-2 w-auto">
 					<Select
+						id="per-page-select"
 						v-model:value="flux.rowsPerPage"
 						:options="flux.rowsPerPageOptions"
 						:disabled="loading"

@@ -14,7 +14,7 @@ export default defineConfig({
 			entry: resolve(__dirname, './src/index.ts'),
 			// fileName: 'index',
 			// formats: ['es'],
-			name: 'vue-ui',
+			name: 'ui-vue',
 		},
 		// outDir: './dist',
 		rollupOptions: {

@@ -218,9 +218,12 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
             )
         }
         var nextPageCursor = TimestampCursor(LocalDateTime.parse("2023-02-28T15:44:03.616085"))
-        assertEquals(nextPageCursor.serialize(), responseBody?.nextPageCursor)
+        var cursor = responseBody?.nextPageCursor
+        var expectedCursor = nextPageCursor.serialize()
+        println("🟢🟢🟢 Cursor: $cursor == expectedCursor: $expectedCursor 🟢🟢🟢")
+        assertEquals(expectedCursor, cursor)
 
-        responseBody = makeRequestAndGetResponseBody(pageSize, responseBody?.nextPageCursor)
+        responseBody = makeRequestAndGetResponseBody(pageSize, cursor)
 
         data = responseBody?.data
         assertEquals(pageSize, data?.size)
@@ -231,7 +234,10 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
             )
         }
         nextPageCursor = TimestampCursor(LocalDateTime.parse("2023-03-13T15:44:03.616085"))
-        assertEquals(nextPageCursor.serialize(), responseBody?.nextPageCursor)
+        cursor = responseBody?.nextPageCursor
+        expectedCursor = nextPageCursor.serialize()
+        println("🟢🟢🟢 Cursor: $cursor == expectedCursor: $expectedCursor 🟢🟢🟢")
+        assertEquals(expectedCursor, cursor)
 
         responseBody = makeRequestAndGetResponseBody(pageSize, responseBody?.nextPageCursor)
 

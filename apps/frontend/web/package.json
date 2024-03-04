@@ -34,7 +34,7 @@
     "@astrojs/vue": "^4.0.8",
     "@fontsource-variable/onest": "^5.0.3",
     "@justinribeiro/lite-youtube": "1.5.0",
-    "astro": "^4.4.10",
+    "astro": "^4.4.11",
     "sharp": "^0.33.2",
     "typescript": "^5.3.3",
     "vue": "^3.4.21"

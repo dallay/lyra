@@ -14,3 +14,4 @@ runs:
 
     - name: Run Check
       run: pnpm run check
+      shell: bash

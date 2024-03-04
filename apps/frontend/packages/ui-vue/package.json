@@ -48,7 +48,7 @@
     "build:vite": "vite build",
     "dev": "echo \"DEV: 🟢 Starting with dev mode\" && npm-run-all build:vite dev:ui",
     "dev:ui": "vite",
-    "build": "npm-run-all --parallel build:vite build:types",
+    "build": "run-p build:vite build:types",
     "clean": "rm -rf dist",
     "preview": "vite preview",
     "test": "vitest",
@@ -86,7 +86,7 @@
     "typescript": "^5.3.3",
     "vite": "^5.1.4",
     "vite-plugin-dts": "^3.7.3",
-    "vue-tsc": "^2.0.3"
+    "vue-tsc": "^2.0.4"
   },
   "packageManager": "pnpm@8.14.1"
 }

@@ -11,8 +11,8 @@
   "files": [
     "index.css",
     "postcss.config.cjs",
-    "stylelint.config.mts",
-    "uno.config.mts"
+    "stylelint.config.cjs",
+    "uno.config.cjs"
   ],
   "repository": {
     "type": "git",

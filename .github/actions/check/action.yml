@@ -1,0 +1,16 @@
+name: Check Project Integrity
+description: |
+  This workflow checks the integrity of the project by running various checks
+  such as Validate Gradle wrapper, Install Tools & Dependencies, and Run Check.
+
+runs:
+  using: composite
+  steps:
+    - name: Validate Gradle wrapper
+      uses: gradle/wrapper-validation-action@v1.1.0
+
+    - name: Install Tools & Dependencies
+      uses: ./.github/actions/install/node
+
+    - name: Run Check
+      run: pnpm run check

@@ -29,6 +29,8 @@
   "homepage": "lyra-nwhm.onrender.com",
   "scripts": {
     "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
     "test": "echo Testing..."
   },
   "peerDependencies": {
@@ -41,7 +43,7 @@
     "@astrojs/check": "^0.5.6",
     "@lyra/css-config": "workspace:*",
     "@types/canvas-confetti": "^1.6.4",
-    "astro": "^4.4.9",
+    "astro": "^4.4.10",
     "astro-icon": "^1.1.0",
     "canvas-confetti": "^1.9.2",
     "typescript": "^5.3.3",

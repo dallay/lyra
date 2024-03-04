@@ -49,7 +49,7 @@ jobs:
         with:
           token: ${{ env.CI_GITHUB_TOKEN }}
 
-      - name: Install Java Tools & Dependencies
+      - name: Install Java ☕ Tools & Dependencies
         uses: ./.github/actions/install/java
         with:
           java-version: 21

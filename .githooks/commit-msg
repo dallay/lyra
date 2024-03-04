@@ -7,9 +7,9 @@ convetional_commit_regex="^(build|chore|ci|docs|feat|fix|perf|refactor|revert|st
 # temporary file which holds the message).
 commit_message=$(cat "$1")
 
-# Check if the commit message is a merge commit
-if [[ "$commit_message" =~ ^Merge.* ]]; then
-   echo -e "\e[32mMerge commit, skipping validation...\e[0m"
+# Check if the commit message is a merge or revert commit
+if [[ "$commit_message" =~ ^(Merge|Revert).* ]]; then
+   echo -e "\e[32mMerge or Revert commit, skipping validation...\e[0m"
    exit 0
 fi
 

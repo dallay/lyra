@@ -30,7 +30,7 @@ runs:
       shell: bash
 
     - name: ⚙️ Setup Gradle 🐘
-      uses: gradle/actions/setup-gradle
+      uses: gradle/actions/setup-gradle@v3
       id: gradle
       with:
         arguments: ${{ inputs.gradle-arguments }}

@@ -21,10 +21,10 @@ const { title, description = pkg.description } = Astro.props;
 		<meta name="description" content={description ?? pkg.description} />
 		<meta name="copyright" content={pkg.license} />
 		<title>{title}</title>
-    <script>
-      import { loadTheme } from '@lyra/vm-core';
-      loadTheme();
-    </script>
+		<script>
+			import { loadTheme } from '@lyra/vm-core';
+			loadTheme();
+		</script>
 	</head>
 	<body
 		class:list={[

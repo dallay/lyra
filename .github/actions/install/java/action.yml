@@ -10,6 +10,10 @@ inputs:
     description: 'The arguments to pass to the gradle command'
     required: false
     default: 'projects'
+  should-comment:
+    description: 'Should comment on PR'
+    required: false
+    default: false
   github_token:
     description: 'GITHUB_TOKEN'
     default: ${{ github.token }}
@@ -38,7 +42,7 @@ runs:
 
     - name: Add Build Scan URL as PR comment when build fails
       uses: marocchino/sticky-pull-request-comment@v2
-      if: github.event_name == 'pull_request' && failure()
+      if: ${{ inputs.should-comment }} && github.event_name == 'pull_request' && failure()
       with:
         recreate: true
         header: build-scan-url
@@ -48,7 +52,7 @@ runs:
 
     - name: Add Build Scan URL as PR comment when build succeeds
       uses: marocchino/sticky-pull-request-comment@v2
-      if: github.event_name == 'pull_request' && success()
+      if: ${{ inputs.should-comment }} && github.event_name == 'pull_request' && success()
       with:
         recreate: true
         header: build-scan-url

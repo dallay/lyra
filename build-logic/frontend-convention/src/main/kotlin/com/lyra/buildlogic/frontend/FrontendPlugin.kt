@@ -10,7 +10,7 @@ import org.gradle.kotlin.dsl.named
 import org.siouan.frontendgradleplugin.infrastructure.gradle.FrontendExtension
 import org.siouan.frontendgradleplugin.infrastructure.gradle.InstallFrontendTask
 
-private const val DEFAULT_NODE_VERSION = "20.10.1"
+private const val DEFAULT_NODE_VERSION = "20.11.1"
 
 internal class FrontendPlugin : ConventionPlugin {
 

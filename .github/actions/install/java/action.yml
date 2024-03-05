@@ -44,5 +44,5 @@ runs:
         header: build-scan-url
         GITHUB_TOKEN: ${{ inputs.github_token }}
         message: |
-          ${{ github.event_name == 'pull_request' && failure() && '❌ The build for ${{ github.workflow }} failed: [Build Scan](${{ steps.gradle.outputs.build-scan-url }})'
+          ${{ github.event_name == 'pull_request' && steps.gradle.outcome == 'failure' && '❌ The build for ${{ github.workflow }} failed: [Build Scan](${{ steps.gradle.outputs.build-scan-url }})'
           || '✅ The build for ${{ github.workflow }} succeeded: [Build Scan](${{ steps.gradle.outputs.build-scan-url }})' }}

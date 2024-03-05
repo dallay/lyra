@@ -39,8 +39,8 @@ runs:
     - name: Add Build Scan URL as PR comment
       uses: marocchino/sticky-pull-request-comment@v2
       if: github.event_name == 'pull_request' && failure()
-      recreate: true
       with:
+        recreate: true
         header: build-scan-url
         message: |
           ❌ ${{ github.workflow }} failed: ${{ steps.gradle.outputs.build-scan-url }}

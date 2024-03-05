@@ -39,6 +39,8 @@ runs:
     - name: Add Build Scan URL as PR comment
       uses: marocchino/sticky-pull-request-comment@v2
       if: github.event_name == 'pull_request' && failure()
+      permissions:
+        pull-requests: write
       with:
         recreate: true
         header: build-scan-url

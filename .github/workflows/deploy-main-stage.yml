@@ -56,6 +56,8 @@ jobs:
         with:
           java-version: 21
           gradle-arguments: build --scan --no-daemon --stacktrace
+          should-comment: true
+          github_token: ${{ env.CI_GITHUB_TOKEN }}
 
       - name: Source code vulnerability scanning
         uses: aquasecurity/trivy-action@master

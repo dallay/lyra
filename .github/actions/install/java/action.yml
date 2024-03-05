@@ -42,6 +42,6 @@ runs:
       with:
         recreate: true
         header: build-scan-url
-        message: |
-          ❌ ${{ github.workflow }} failed: ${{ steps.gradle.outputs.build-scan-url }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
+        message: |
+          ❌ The build for ${{ github.workflow }} failed: [Build Scan](${{ steps.gradle.outputs.build-scan-url }})

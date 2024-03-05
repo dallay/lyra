@@ -12,6 +12,7 @@ env:
   CI: CI
   NATIVE_IMAGE_ENABLED: enabled
   CI_GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+  DOCKER_CI_GITHUB_TOKEN: ${{ secrets.DOCKER_CI_GITHUB_TOKEN }}
 
 permissions:
   packages: write
@@ -29,7 +30,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Check Project Integrity
-        uses: ./.github/actions/check
+        uses: ./.github/actions/analysis/check
   build:
     name: Build and Test 🧪
     needs: [ validation ]
@@ -107,38 +108,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install Java Tools & Dependencies
-        uses: ./.github/actions/install/java
-
-      - name: Install Tools & Dependencies
-        uses: ./.github/actions/install/node
-
-      - name: Check OWASP 🛡️
-        run: ./gradlew dependencyCheckAnalyze --no-daemon --stacktrace
-
-      - name:  Upload owasp-report results 🛡️⬆️
-        uses: actions/upload-artifact@v4
-        with:
-          name: owasp-reports
-          path: build/reports/owasp
-
-      - name: Run detekt
-        run: ./gradlew detektAll --no-daemon --stacktrace
-
-      - name: Upload static reports artifact
-        uses: actions/upload-artifact@v4.3.0
-        with:
-          name: static-report
-          path: |
-            build/reports/detekt/detekt.xml
-            **/build/reports/lint-results-debug.xml
-          retention-days: 1
-
-      - name: Analyze detekt report
-        uses: github/codeql-action/upload-sarif@v3.23.2
-        with:
-          sarif_file: build/reports/detekt/detekt.sarif
-          checkout_path: ${{ github.workspace }}
+      - name: Static Analysis Security
+        uses: ./.github/actions/analysis/security
 
   package:
     name: Package and Publish 📦
@@ -149,36 +120,11 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Install Java Tools & Dependencies
-        uses: ./.github/actions/install/java
-
-      - name: Execute Gradle build
-        run: |
-          chmod +x gradlew
-          ./gradlew assemble
-          ./gradlew bootBuildImage --imageName ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-
-      - name: OCI image vulnerability scanning
-        uses: aquasecurity/trivy-action@master
+      - name: Package docker image
+        uses: ./.github/actions/package
         with:
-          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-          format: 'sarif'
-          output: 'trivy-results-oci-image.sarif'
-      - name: Upload vulnerability report
-        uses: github/codeql-action/upload-sarif@v3
-        if: success() || failure()
-        with:
-          sarif_file: 'trivy-results-oci-image.sarif'
-      - name: Log into container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ env.CI_GITHUB_TOKEN }}
-      - name: Publish container image
-        run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-      - name: Publish container image (latest)
-        run: |
-          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }} \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:nightly
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:nightly
+          deliver: false
+          REGISTRY: ${{ env.REGISTRY }}
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          VERSION: ${{ github.sha }}
+          CI_GITHUB_TOKEN: ${{ env.DOCKER_CI_GITHUB_TOKEN }}

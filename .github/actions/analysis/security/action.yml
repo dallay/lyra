@@ -1,0 +1,41 @@
+name: Static Analysis Security
+description: |
+  This workflow is responsible for running static analysis and security checks
+
+runs:
+  using: composite
+  steps:
+    - name: Install Java Tools & Dependencies
+      uses: ./.github/actions/install/java
+
+    - name: Install Tools & Dependencies
+      uses: ./.github/actions/install/node
+
+    - name: Check OWASP 🛡️
+      run: ./gradlew dependencyCheckAnalyze --no-daemon --stacktrace
+      shell: bash
+
+    - name: Upload owasp-report results 🛡️⬆️
+      uses: actions/upload-artifact@v4
+      with:
+        name: owasp-reports
+        path: build/reports/owasp
+
+    - name: Run detekt
+      run: ./gradlew detektAll --no-daemon --stacktrace
+      shell: bash
+
+    - name: Upload static reports artifact
+      uses: actions/upload-artifact@v4.3.0
+      with:
+        name: static-report
+        path: |
+          build/reports/detekt/detekt.xml
+          **/build/reports/lint-results-debug.xml
+        retention-days: 1
+
+    - name: Analyze detekt report
+      uses: github/codeql-action/upload-sarif@v3.23.2
+      with:
+        sarif_file: build/reports/detekt/detekt.sarif
+        checkout_path: ${{ github.workspace }}

@@ -1,0 +1,111 @@
+name: Package and Publish 📦
+description: |
+  This workflow is responsible for packaging and publishing the application
+  to the container registry.
+
+  It also performs vulnerability scanning on the OCI image.
+
+  The workflow is triggered after the build stage.
+
+  The workflow is responsible for the following:
+  - Install Java Tools & Dependencies
+  - Execute Gradle build
+  - OCI image vulnerability scanning
+  - Upload vulnerability report
+  - Log in to Docker Hub
+
+inputs:
+  deliver:
+    description: 'Deliver application to production'
+    required: true
+    default: true
+  REGISTRY:
+    description: 'The container registry to push the image to'
+    required: true
+    default: ${{ env.REGISTRY }}
+  IMAGE_NAME:
+    description: 'The name of the image to be published'
+    required: true
+    default: ${{ env.IMAGE_NAME }}
+  VERSION:
+    description: 'The version of the application'
+    required: true
+    default: ${{ env.VERSION }}
+  CI_GITHUB_TOKEN:
+    description: 'GITHUB_TOKEN with permissions to push to the container registry'
+    required: true
+    default: ${{ env.CI_GITHUB_TOKEN }}
+  OWNER:
+    description: 'The owner of the repository'
+    required: true
+    default: ${{ env.OWNER }}
+  APP_REPO:
+    description: 'The name of the application repository'
+    required: true
+    default: ${{ env.APP_REPO }}
+  DEPLOY_REPO:
+    description: 'The name of the repository to deploy the application to'
+    required: true
+    default: ${{ env.DEPLOY_REPO }}
+
+
+
+runs:
+  using: composite
+  steps:
+    - name: Install Java Tools & Dependencies
+      uses: ./.github/actions/install/java
+
+    - name: Execute Gradle build
+      run: |
+        chmod +x gradlew
+        ./gradlew assemble
+        ./gradlew bootBuildImage --imageName ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ inputs.VERSION }}
+      shell: bash
+
+    - name: OCI image vulnerability scanning
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ inputs.VERSION }}
+        format: 'sarif'
+        output: 'trivy-results-oci-image.sarif'
+
+    - name: Upload vulnerability report
+      uses: github/codeql-action/upload-sarif@v3
+      if: success() || failure()
+      with:
+        sarif_file: 'trivy-results-oci-image.sarif'
+
+    - name: Publish container image to GHCR
+      if: ${{ inputs.deliver }}
+      uses: ./.github/actions/publish/ghcr
+      with:
+        REGISTRY: ${{ inputs.REGISTRY }}
+        IMAGE_NAME: ${{ inputs.IMAGE_NAME }}
+        VERSION: ${{ inputs.VERSION }}
+        CI_GITHUB_TOKEN: ${{ inputs.CI_GITHUB_TOKEN }}
+        OWNER: ${{ inputs.OWNER }}
+        APP_REPO: ${{ inputs.APP_REPO }}
+
+    - name: Publish container image to Docker Hub
+      if: ${{ inputs.deliver }}
+      uses: ./.github/actions/publish/dockerhub
+      with:
+        IMAGE_NAME: ${{ inputs.IMAGE_NAME }}
+        VERSION: ${{ inputs.VERSION }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_IMAGE_NAME: ${{ inputs.IMAGE_NAME }}
+
+    - name: Deliver application to production
+      if: ${{ inputs.deliver }}
+      uses: peter-evans/repository-dispatch@v3
+      with:
+        token: ${{ inputs.CI_GITHUB_TOKEN }}
+        repository: ${{ inputs.OWNER }}/${{ inputs.DEPLOY_REPO }}
+        event-type: app_delivery
+        client-payload: '{
+          "app_image": "${{ inputs.REGISTRY }}/${{ inputs.OWNER }}/${{ inputs.APP_REPO }}",
+          "app_name": "${{ inputs.APP_REPO }}",
+          "app_version": "${{ inputs.VERSION }}"
+        }'

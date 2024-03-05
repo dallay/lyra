@@ -1,0 +1,45 @@
+name: Publish to Docker Hub and Deploy
+description: Publish the application to Docker Hub and deploy to the main stage
+
+inputs:
+  REGISTRY:
+    description: 'The container registry to push the image to'
+    required: true
+    default: 'docker.io'
+  IMAGE_NAME:
+    description: 'The name of the image to be published'
+    required: true
+    default: ${{ env.IMAGE_NAME }}
+  VERSION:
+    description: 'The version of the application'
+    required: true
+    default: ${{ env.VERSION }}
+  DOCKER_USERNAME:
+    description: 'The username for Docker Hub'
+    required: true
+    default: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD:
+    description: 'The password for Docker Hub'
+    required: true
+    default: ${{ secrets.DOCKER_PASSWORD }}
+  DOCKER_IMAGE_NAME:
+    description: 'The name of the image to be published'
+    required: true
+    default: 'n4t5u/lyra'
+
+runs:
+  using: composite
+  steps:
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ inputs.DOCKER_USERNAME }}
+        password: ${{ inputs.DOCKER_PASSWORD }}
+
+    - name: Publish container image
+      run: |
+        docker tag ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ inputs.VERSION }} ${{ inputs.DOCKER_IMAGE_NAME }}:${{ inputs.VERSION }}
+        docker push n4t5u/lyra:${{ inputs.VERSION }}
+        docker tag ${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ inputs.VERSION }} ${{ inputs.DOCKER_IMAGE_NAME }}:latest
+        docker push ${{ inputs.DOCKER_IMAGE_NAME }}:latest
+      shell: bash

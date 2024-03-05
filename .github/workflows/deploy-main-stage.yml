@@ -17,6 +17,7 @@ permissions:
   packages: write
   contents: write
   issues: write
+  pull-requests: write
 
 jobs:
   validation:
@@ -53,7 +54,7 @@ jobs:
         uses: ./.github/actions/install/java
         with:
           java-version: 21
-          gradle-arguments: build --scan
+          gradle-arguments: build --scan --no-daemon --stacktrace
 
       - name: Source code vulnerability scanning
         uses: aquasecurity/trivy-action@master

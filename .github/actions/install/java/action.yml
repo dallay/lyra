@@ -36,13 +36,22 @@ runs:
         arguments: ${{ inputs.gradle-arguments }}
         dependency-graph: generate-and-submit
 
-    - name: Add Build Scan URL as PR comment
+    - name: Add Build Scan URL as PR comment when build fails
       uses: marocchino/sticky-pull-request-comment@v2
-      if: github.event_name == 'pull_request'
+      if: github.event_name == 'pull_request' && failure()
       with:
         recreate: true
         header: build-scan-url
-        GITHUB_TOKEN: ${{ inputs.github_token }}
         message: |
-          ${{ github.event_name == 'pull_request' && steps.gradle.outcome == 'failure' && '❌ The build for ${{ github.workflow }} failed: [Build Scan](${{ steps.gradle.outputs.build-scan-url }})'
-          || '✅ The build for ${{ github.workflow }} succeeded: [Build Scan](${{ steps.gradle.outputs.build-scan-url }})' }}
+          ❌ ${{ github.workflow }} failed: ${{ steps.gradle.outputs.build-scan-url }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+
+    - name: Add Build Scan URL as PR comment when build succeeds
+      uses: marocchino/sticky-pull-request-comment@v2
+      if: github.event_name == 'pull_request' && success()
+      with:
+        recreate: true
+        header: build-scan-url
+        message: |
+          ✅ ${{ github.workflow }} succeeded: ${{ steps.gradle.outputs.build-scan-url }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}

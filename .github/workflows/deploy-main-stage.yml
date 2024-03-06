@@ -188,7 +188,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Package, Publish and Deploy
-        uses: ./.github/actions/package
+        uses: ./.github/actions/docker
         with:
           deliver: true
           registry: ${{ env.REGISTRY }}

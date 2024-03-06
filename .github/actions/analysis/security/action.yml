@@ -6,6 +6,9 @@ inputs:
   nvd_api_key:
     description: 'NVD API Key'
     required: false
+  token:
+    description: 'GITHUB_TOKEN with permissions to push to the container registry'
+    default: ${{ github.token }}
 
 runs:
   using: composite
@@ -44,3 +47,4 @@ runs:
       with:
         sarif_file: build/reports/detekt/detekt.sarif
         checkout_path: ${{ github.workspace }}
+        token: ${{ inputs.github_token }}

@@ -115,6 +115,7 @@ jobs:
         uses: ./.github/actions/analysis/security
         with:
           nvd_api_key: ${{ secrets.NVD_API_KEY }}
+          token: ${{ env.CI_GITHUB_TOKEN }}
 
   package:
     name: Package and Publish 📦

@@ -24,6 +24,14 @@ internal class AppOwaspPlugin : ConventionPlugin {
                     ReportGenerator.Format.SARIF.toString(),
                 )
                 suppressionFile = "${rootProject.rootDir}/config/owasp/owasp-supression.xml"
+                // ENV VAR: OWASP_API_KEY
+                val apiKey = System.getenv("NVD_API_KEY")
+                if (apiKey != null) {
+                    nvd?.apiKey = apiKey
+                    println("✅ NVD_API_KEY was successfully loaded from the environment.")
+                } else {
+                    println("⚠️ NVD_API_KEY was not found in the environment. Please set it to avoid rate limiting.")
+                }
 
                 // remove plugin dependencies, for configs see
                 // https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_plugin_and_dependency_management

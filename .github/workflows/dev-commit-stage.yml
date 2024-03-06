@@ -126,7 +126,7 @@ jobs:
         uses: ./.github/actions/package
         with:
           deliver: false
-          REGISTRY: ${{ env.REGISTRY }}
-          IMAGE_NAME: ${{ env.IMAGE_NAME }}
-          VERSION: ${{ github.sha }}
-          CI_GITHUB_TOKEN: ${{ env.DOCKER_CI_GITHUB_TOKEN }}
+          registry: ${{ env.REGISTRY }}
+          image_name: ${{ env.IMAGE_NAME }}
+          version: ${{ github.sha }}
+          ci_github_token: ${{ env.DOCKER_CI_GITHUB_TOKEN }}

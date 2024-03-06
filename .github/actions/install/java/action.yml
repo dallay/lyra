@@ -12,7 +12,6 @@ inputs:
     default: 'projects'
   should-comment:
     description: 'Should comment on PR'
-    required: false
     default: false
   github_token:
     description: 'GITHUB_TOKEN'

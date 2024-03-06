@@ -192,10 +192,10 @@ jobs:
         uses: ./.github/actions/package
         with:
           deliver: true
-          REGISTRY: ${{ env.REGISTRY }}
-          IMAGE_NAME: ${{ env.IMAGE_NAME }}
-          VERSION: ${{ github.sha }}
-          CI_GITHUB_TOKEN: ${{ env.DOCKER_CI_GITHUB_TOKEN }}
-          OWNER: ${{ env.OWNER }}
-          APP_REPO: ${{ github.repository }}
-          DEPLOY_REPO: ${{ env.DEPLOY_REPO }}
+          registry: ${{ env.REGISTRY }}
+          image_name: ${{ env.IMAGE_NAME }}
+          version: ${{ github.sha }}
+          ci_github_token: ${{ env.DOCKER_CI_GITHUB_TOKEN }}
+          owner: ${{ env.OWNER }}
+          app_repo: ${{ github.repository }}
+          deploy_repo: ${{ env.DEPLOY_REPO }}

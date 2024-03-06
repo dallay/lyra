@@ -12,11 +12,6 @@ inputs:
     required: false
     type: string
     default: 'projects'
-  should-comment:
-    description: 'Should comment on PR'
-    required: false
-    type: boolean
-    default: false
   github_token:
     description: 'GITHUB_TOKEN'
     required: false
@@ -42,12 +37,20 @@ runs:
       uses: gradle/actions/setup-gradle@v3
       id: gradle
       with:
+        add-job-summary-as-pr-comment: on-failure
         arguments: ${{ inputs.gradle-arguments }}
         dependency-graph: generate-and-submit
 
+    - name: Upload build reports
+      uses: actions/upload-artifact@v3
+      if: ${{ steps.gradle.outputs.build-scan-url }}
+      with:
+        name: build-reports
+        path: build/reports/
+
     - name: Add Build Scan URL as PR comment when build fails
       uses: marocchino/sticky-pull-request-comment@v2
-      if: ${{ inputs.should-comment }} && github.event_name == 'pull_request' && failure()
+      if: ${{ steps.gradle.outputs.build-scan-url }} && github.event_name == 'pull_request' && failure()
       with:
         recreate: true
         header: build-scan-url
@@ -57,7 +60,7 @@ runs:
 
     - name: Add Build Scan URL as PR comment when build succeeds
       uses: marocchino/sticky-pull-request-comment@v2
-      if: ${{ inputs.should-comment }} && github.event_name == 'pull_request' && success()
+      if: ${{ steps.gradle.outputs.build-scan-url }} && github.event_name == 'pull_request' && success()
       with:
         recreate: true
         header: build-scan-url

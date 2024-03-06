@@ -13,6 +13,8 @@ env:
   NATIVE_IMAGE_ENABLED: enabled
   CI_GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
   DOCKER_CI_GITHUB_TOKEN: ${{ secrets.DOCKER_CI_GITHUB_TOKEN }}
+  OWNER: ${{ github.repository_owner }}
+  DEPLOY_REPO: ${{ github.event.repository.name }}
 
 permissions:
   packages: write
@@ -54,7 +56,6 @@ jobs:
         with:
           java-version: 21
           gradle-arguments: build --scan --no-daemon --stacktrace
-          should-comment: true
           github_token: ${{ env.CI_GITHUB_TOKEN }}
 
       - name: Source code vulnerability scanning
@@ -130,5 +131,8 @@ jobs:
           image_name: ${{ env.IMAGE_NAME }}
           version: ${{ github.sha }}
           ci_github_token: ${{ env.DOCKER_CI_GITHUB_TOKEN }}
+          owner: ${{ env.OWNER }}
+          app_repo: ${{ github.repository }}
+          deploy_repo: ${{ env.DEPLOY_REPO }}
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}

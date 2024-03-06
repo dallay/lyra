@@ -1,3 +1,17 @@
+# [1.2.0](https://github.com/yacosta738/lyra/compare/v1.1.2...v1.2.0) (2024-03-06)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([#96](https://github.com/yacosta738/lyra/issues/96)) ([f615e21](https://github.com/yacosta738/lyra/commit/f615e21b3e2982704d18bc3a863dcc1e6eb50868))
+* **deps:** update all dependencies ([#97](https://github.com/yacosta738/lyra/issues/97)) ([7e43f6b](https://github.com/yacosta738/lyra/commit/7e43f6bdee0b727bdf84a72f94abbe391285b103))
+
+
+### Features
+
+* [TASK-89,TASK-130] Dev/vue component module lib ([#103](https://github.com/yacosta738/lyra/issues/103)) ([7dccfd0](https://github.com/yacosta738/lyra/commit/7dccfd0f08b56a7ec816e37134ecc618daa4fece))
+* add semantic pull request ([#99](https://github.com/yacosta738/lyra/issues/99)) ([69ebadf](https://github.com/yacosta738/lyra/commit/69ebadff94755eeff728bf42025c0edef1ce7a55))
+
 ## [1.1.2](https://github.com/yacosta738/lyra/compare/v1.1.1...v1.1.2) (2024-02-28)
 
 

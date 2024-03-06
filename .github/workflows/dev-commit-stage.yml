@@ -29,7 +29,7 @@ jobs:
           fetch-depth: 0
 
       - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1.1.0
+        uses: gradle/wrapper-validation-action@v2.1.1
 
       - name: Install Tools & Dependencies
         uses: ./.github/actions/install/node
@@ -95,7 +95,7 @@ jobs:
           ./gradlew koverXmlReport --no-daemon --stacktrace
 
       - name: Upload coverage reports
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: build/reports/kover/report.xml
@@ -132,7 +132,7 @@ jobs:
         run: ./gradlew detektAll --no-daemon --stacktrace
 
       - name: Upload static reports artifact
-        uses: actions/upload-artifact@v4.3.0
+        uses: actions/upload-artifact@v4.3.1
         with:
           name: static-report
           path: |
@@ -141,7 +141,7 @@ jobs:
           retention-days: 1
 
       - name: Analyze detekt report
-        uses: github/codeql-action/upload-sarif@v3.23.2
+        uses: github/codeql-action/upload-sarif@v3.24.6
         with:
           sarif_file: build/reports/detekt/detekt.sarif
           checkout_path: ${{ github.workspace }}

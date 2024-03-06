@@ -40,6 +40,9 @@ runs:
         add-job-summary-as-pr-comment: on-failure
         arguments: ${{ inputs.gradle-arguments }}
         dependency-graph: generate-and-submit
+        build-scan-publish: true
+        build-scan-terms-of-service-url: "https://gradle.com/terms-of-service"
+        build-scan-terms-of-service-agree: "yes"
 
     - name: Upload build reports
       uses: actions/upload-artifact@v3
@@ -47,23 +50,3 @@ runs:
       with:
         name: build-reports
         path: build/reports/
-
-    - name: Add Build Scan URL as PR comment when build fails
-      uses: marocchino/sticky-pull-request-comment@v2
-      if: ${{ steps.gradle.outputs.build-scan-url }} && github.event_name == 'pull_request' && failure()
-      with:
-        recreate: true
-        header: build-scan-url
-        message: |
-          ❌ ${{ github.workflow }} failed: ${{ steps.gradle.outputs.build-scan-url }}
-        GITHUB_TOKEN: ${{ inputs.github_token }}
-
-    - name: Add Build Scan URL as PR comment when build succeeds
-      uses: marocchino/sticky-pull-request-comment@v2
-      if: ${{ steps.gradle.outputs.build-scan-url }} && github.event_name == 'pull_request' && success()
-      with:
-        recreate: true
-        header: build-scan-url
-        message: |
-          ✅ ${{ github.workflow }} succeeded: ${{ steps.gradle.outputs.build-scan-url }}
-        GITHUB_TOKEN: ${{ inputs.github_token }}

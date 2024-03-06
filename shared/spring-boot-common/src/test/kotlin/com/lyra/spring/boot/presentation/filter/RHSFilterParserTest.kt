@@ -1,6 +1,7 @@
 package com.lyra.spring.boot.presentation.filter
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.FilterInvalidException
 import com.lyra.common.domain.presentation.filter.RHSFilterParser
 import com.lyra.spring.boot.entity.Person
@@ -9,6 +10,7 @@ import kotlin.reflect.KProperty1
 import kotlin.test.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertTrue
 
 class RHSFilterParserTest {
     private data class TestCase(
@@ -126,6 +128,12 @@ class RHSFilterParserTest {
                 ),
                 exception = FilterInvalidException::class,
             ),
+            TestCase(
+                query = mapOf(
+                    Person::age to listOf("not_found:0"),
+                ),
+                exception = FilterInvalidException::class,
+            ),
         )
 
         testCases.forEach {
@@ -137,5 +145,14 @@ class RHSFilterParserTest {
                 assertThrows(it.exception.java) { rhsFilterParser.parse(it.query) }
             }
         }
+    }
+
+    @Test
+    fun `should return empty Criteria when no valid properties are provided`() {
+        val query = emptyMap<KProperty1<Person, *>, Collection<String?>>()
+
+        val criteria = rhsFilterParser.parse(query)
+
+        assertTrue(criteria is Criteria.Empty)
     }
 }

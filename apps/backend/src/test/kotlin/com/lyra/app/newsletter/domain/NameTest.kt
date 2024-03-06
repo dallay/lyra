@@ -38,10 +38,17 @@ internal class NameTest {
     }
 
     @Test
-    fun `should not build without lastname`() {
+    fun `should not build with empty lastname`() {
         assertThrows(LastNameNotValidException::class.java) {
             Name("Yuniel", "")
         }
+    }
+    @Test
+    fun `should build without lastname`() {
+        val name = Name("Yuniel", null)
+        assertEquals("Yuniel", name.firstName.value)
+        assertEquals(null, name.lastName?.value)
+        assertEquals("Yuniel", name.fullName())
     }
 
     @Test

@@ -2,9 +2,9 @@ package com.lyra.app.newsletter.domain
 
 data class Name(val firstName: FirstName, val lastName: LastName?) : Comparable<Name> {
 
-    constructor(firstName: String, lastName: String) : this(
+    constructor(firstName: String, lastName: String?) : this(
         FirstName(firstName),
-        LastName(lastName),
+        lastName?.let { LastName(it) },
     )
 
     /**

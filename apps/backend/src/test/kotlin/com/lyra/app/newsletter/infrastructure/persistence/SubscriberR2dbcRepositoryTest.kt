@@ -123,7 +123,8 @@ internal class SubscriberR2dbcRepositoryTest {
     @Test
     fun `should search all subscribers by offset pagination`() = runBlocking {
 
-        val response: OffsetPageResponse<Subscriber> = subscriberRepository.searchAllByOffset(Criteria.Empty)
+        val response: OffsetPageResponse<Subscriber> =
+            subscriberRepository.searchAllByOffset(Criteria.Empty)
         assertEquals(subscribers, response.data.toList())
         coVerify(exactly = 1) {
             subscriberRegistratorR2dbcRepository.findAll(
@@ -135,9 +136,27 @@ internal class SubscriberR2dbcRepositoryTest {
     }
 
     @Test
+    fun `should return empty OffsetPageResponse when no subscribers match the criteria`() =
+        runBlocking {
+            val criteria = Criteria.Equals("status", "NON_EXISTING_STATUS")
+
+            coEvery {
+                subscriberRegistratorR2dbcRepository.findAll(
+                    any(org.springframework.data.relational.core.query.Criteria::class),
+                    any(Pageable::class),
+                    eq(SubscriberEntity::class),
+                )
+            } returns Mono.empty()
+
+            val response = subscriberRepository.searchAllByOffset(criteria)
+            assertEquals(OffsetPageResponse(emptyList<Subscriber>(), 0, 0, 0), response)
+        }
+
+    @Test
     fun `should search all subscribers by cursor pagination`() = runBlocking {
 
-        val response: CursorPageResponse<Subscriber> = subscriberRepository.searchAllByCursor(Criteria.Empty)
+        val response: CursorPageResponse<Subscriber> =
+            subscriberRepository.searchAllByCursor(Criteria.Empty)
         assertEquals(subscribers, response.data.toList())
         coVerify(exactly = 1) {
             subscriberRegistratorR2dbcRepository.findAllByCursor(
@@ -158,38 +177,40 @@ internal class SubscriberR2dbcRepositoryTest {
     }
 
     @Test
-    fun `should search all BLOCKLISTED subscribers by criteria using offset pagination`() = runBlocking {
+    fun `should search all BLOCKLISTED subscribers by criteria using offset pagination`() =
+        runBlocking {
 
-        val criteria = Criteria.Equals("status", "BLOCKLISTED")
+            val criteria = Criteria.Equals("status", "BLOCKLISTED")
 
-        val response = subscriberRepository.searchAllByOffset(criteria)
-        assertEquals(subscribers, response.data.toList())
-        coVerify(exactly = 1) {
-            subscriberRegistratorR2dbcRepository.findAll(
-                any(org.springframework.data.relational.core.query.Criteria::class),
-                any(Pageable::class),
-                eq(SubscriberEntity::class),
-            )
+            val response = subscriberRepository.searchAllByOffset(criteria)
+            assertEquals(subscribers, response.data.toList())
+            coVerify(exactly = 1) {
+                subscriberRegistratorR2dbcRepository.findAll(
+                    any(org.springframework.data.relational.core.query.Criteria::class),
+                    any(Pageable::class),
+                    eq(SubscriberEntity::class),
+                )
+            }
         }
-    }
 
     @Test
-    fun `should search all BLOCKLISTED subscribers by criteria using cursor pagination`() = runBlocking {
+    fun `should search all BLOCKLISTED subscribers by criteria using cursor pagination`() =
+        runBlocking {
 
-        val criteria = Criteria.Equals("status", "BLOCKLISTED")
+            val criteria = Criteria.Equals("status", "BLOCKLISTED")
 
-        val response = subscriberRepository.searchAllByCursor(criteria)
-        assertEquals(subscribers, response.data.toList())
-        coVerify(exactly = 1) {
-            subscriberRegistratorR2dbcRepository.findAllByCursor(
-                any(org.springframework.data.relational.core.query.Criteria::class),
-                any(Int::class),
-                eq(SubscriberEntity::class),
-                any(org.springframework.data.domain.Sort::class),
-                any(Cursor::class),
-            )
+            val response = subscriberRepository.searchAllByCursor(criteria)
+            assertEquals(subscribers, response.data.toList())
+            coVerify(exactly = 1) {
+                subscriberRegistratorR2dbcRepository.findAllByCursor(
+                    any(org.springframework.data.relational.core.query.Criteria::class),
+                    any(Int::class),
+                    eq(SubscriberEntity::class),
+                    any(org.springframework.data.domain.Sort::class),
+                    any(Cursor::class),
+                )
+            }
         }
-    }
 
     @Test
     fun `should search all DISABLED subscribers by criteria using offset pagination`() = runBlocking {
@@ -272,69 +293,72 @@ internal class SubscriberR2dbcRepositoryTest {
             )
         }
     }
-    @Test
-    fun `should search by criteria with multiple filters and sort using offset pagination`() = runBlocking {
-
-        val criteria = Criteria.And(
-            listOf(
-                Criteria.Equals("email", "email"),
-                Criteria.Equals("firstname", "firstname"),
-                Criteria.Equals("lastname", "lastname"),
-                Criteria.Equals("status", "status"),
-            ),
-        )
-        val sort = Sort.by("email", "ASC").and(Sort.by("firstname", "DESC"))
-        val criteriaParsed = R2DBCCriteriaParser(SubscriberEntity::class).parse(criteria)
-        val sortCriteria = sort.toSpringSort()
-        val pageable = PageRequest.of(0, 10, sortCriteria)
-        coEvery {
-            subscriberRegistratorR2dbcRepository.findAll(
-                eq(criteriaParsed),
-                eq(pageable),
-                eq(SubscriberEntity::class),
-            )
-        } returns Mono.just(
-            PageImpl(
-                subscribers.map { it.toEntity() },
-            ),
-        )
-
-        val response = subscriberRepository.searchAllByOffset(criteria, 10, 0, sort)
-        assertEquals(subscribers, response.data.toList())
-    }
 
     @Test
-    fun `should search by criteria with multiple filters and sort using cursor pagination`() = runBlocking {
+    fun `should search by criteria with multiple filters and sort using offset pagination`() =
+        runBlocking {
 
-        val criteria = Criteria.And(
-            listOf(
-                Criteria.Equals("email", "email"),
-                Criteria.Equals("firstname", "firstname"),
-                Criteria.Equals("lastname", "lastname"),
-                Criteria.Equals("status", "status"),
-            ),
-        )
-        val sort = Sort.by("email", "ASC").and(Sort.by("firstname", "DESC"))
-        val criteriaParsed = R2DBCCriteriaParser(SubscriberEntity::class).parse(criteria)
-        val sortCriteria = sort.toSpringSort()
-        coEvery {
-            subscriberRegistratorR2dbcRepository.findAllByCursor(
-                eq(criteriaParsed),
-                eq(10),
-                eq(SubscriberEntity::class),
-                eq(sortCriteria),
-                any(Cursor::class),
+            val criteria = Criteria.And(
+                listOf(
+                    Criteria.Equals("email", "email"),
+                    Criteria.Equals("firstname", "firstname"),
+                    Criteria.Equals("lastname", "lastname"),
+                    Criteria.Equals("status", "status"),
+                ),
             )
-        } returns Mono.just(
-            CursorPageResponse(
-                data = subscribers.map { it.toEntity() },
-                nextPageCursor = TimestampCursor(
-                    subscribers.last().createdAt,
-                ).serialize(),
-            ),
-        )
+            val sort = Sort.by("email", "ASC").and(Sort.by("firstname", "DESC"))
+            val criteriaParsed = R2DBCCriteriaParser(SubscriberEntity::class).parse(criteria)
+            val sortCriteria = sort.toSpringSort()
+            val pageable = PageRequest.of(0, 10, sortCriteria)
+            coEvery {
+                subscriberRegistratorR2dbcRepository.findAll(
+                    eq(criteriaParsed),
+                    eq(pageable),
+                    eq(SubscriberEntity::class),
+                )
+            } returns Mono.just(
+                PageImpl(
+                    subscribers.map { it.toEntity() },
+                ),
+            )
 
-        val response = subscriberRepository.searchAllByCursor(criteria, 10, sort)
-        assertEquals(subscribers, response.data.toList())
-    }
+            val response = subscriberRepository.searchAllByOffset(criteria, 10, 0, sort)
+            assertEquals(subscribers, response.data.toList())
+        }
+
+    @Test
+    fun `should search by criteria with multiple filters and sort using cursor pagination`() =
+        runBlocking {
+
+            val criteria = Criteria.And(
+                listOf(
+                    Criteria.Equals("email", "email"),
+                    Criteria.Equals("firstname", "firstname"),
+                    Criteria.Equals("lastname", "lastname"),
+                    Criteria.Equals("status", "status"),
+                ),
+            )
+            val sort = Sort.by("email", "ASC").and(Sort.by("firstname", "DESC"))
+            val criteriaParsed = R2DBCCriteriaParser(SubscriberEntity::class).parse(criteria)
+            val sortCriteria = sort.toSpringSort()
+            coEvery {
+                subscriberRegistratorR2dbcRepository.findAllByCursor(
+                    eq(criteriaParsed),
+                    eq(10),
+                    eq(SubscriberEntity::class),
+                    eq(sortCriteria),
+                    any(Cursor::class),
+                )
+            } returns Mono.just(
+                CursorPageResponse(
+                    data = subscribers.map { it.toEntity() },
+                    nextPageCursor = TimestampCursor(
+                        subscribers.last().createdAt,
+                    ).serialize(),
+                ),
+            )
+
+            val response = subscriberRepository.searchAllByCursor(criteria, 10, sort)
+            assertEquals(subscribers, response.data.toList())
+        }
 }

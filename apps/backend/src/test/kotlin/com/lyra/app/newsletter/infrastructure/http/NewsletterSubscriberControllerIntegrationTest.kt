@@ -1,24 +1,15 @@
 package com.lyra.app.newsletter.infrastructure.http
 
-import com.lyra.app.IntegrationTest
+import com.lyra.app.ControllerIntegrationTest
+import com.lyra.app.newsletter.SubscriberStub.generateRequest
 import java.util.*
-import net.datafaker.Faker
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.http.MediaType
-import org.springframework.test.web.reactive.server.WebTestClient
 
 private const val ENDPOINT = "/api/newsletter/subscribers"
 
-@IntegrationTest
-@AutoConfigureWebTestClient
-internal class NewsletterSubscriberControllerIntegrationTest {
-    private val faker = Faker()
-
-    @Autowired
-    private lateinit var webTestClient: WebTestClient
+internal class NewsletterSubscriberControllerIntegrationTest : ControllerIntegrationTest() {
 
     @BeforeEach
     fun setUp() {
@@ -58,17 +49,4 @@ internal class NewsletterSubscriberControllerIntegrationTest {
             .isEqualTo("The email <invalid-email> is not valid")
             .jsonPath("$.instance").isNotEmpty
     }
-
-    @Suppress("MultilineRawStringIndentation")
-    private fun generateRequest(
-        email: String = faker.internet().emailAddress(),
-        firstname: String = faker.name().firstName(),
-        lastname: String = faker.name().lastName()
-    ): String = """
-      {
-           "email": "$email",
-           "firstname": "$firstname",
-           "lastname": "$lastname"
-       }
-    """.trimIndent()
 }

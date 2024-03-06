@@ -1,0 +1,14 @@
+---
+import Layout from '@/layouts/EmbedLayout.astro';
+import { EmailCTA } from '@lyra/ui';
+---
+
+<Layout title="Subscribe Forms" description="subscriber forms">
+	<div class="flex w-full flex-col items-center justify-center py-4">
+		<div class="text-tertiary-900 dark:text-tertiary-100 flex flex-col items-center justify-center">
+			<h1 class="mb-2 text-3xl font-bold">Yuniel's Newsletter</h1>
+			<p class="my-4 text-sm">Stay updated with the latest news and articles.</p>
+		</div>
+		<EmailCTA />
+	</div>
+</Layout>

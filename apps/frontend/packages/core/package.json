@@ -1,0 +1,55 @@
+{
+  "name": "@lyra/vm-core",
+  "description": "Lyra core module",
+  "version": "0.0.1",
+  "private": true,
+  "author": "Yuniel Acosta <yunielacosta738@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
+  "files": [
+    "package.json",
+    "dist"
+  ],
+  "keywords": [
+    "core",
+    "common core"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yacosta738/lyra.git",
+    "directory": "apps/frontend/packages/core",
+    "branch": "main"
+  },
+  "bugs": {
+    "url": "https://github.com/yacosta738/lyra/issues"
+  },
+  "homepage": "lyra-nwhm.onrender.com",
+  "scripts": {
+    "build:types": "tsc --build",
+    "build:vite": "vite build",
+    "dev": "echo \"DEV: 🟢 Starting with dev mode\" && vite build -- --watch",
+    "build": "run-p build:vite build:types",
+    "preview": "vite preview",
+    "check": "run-s build:types build:vite",
+    "clean": "rm -rf dist",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.5",
+    "vite-plugin-dts": "^3.7.3"
+  },
+  "packageManager": "pnpm@8.14.1"
+}

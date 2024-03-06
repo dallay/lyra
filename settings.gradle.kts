@@ -96,14 +96,10 @@ projects.forEach { includeGradleProjectsRecursively(it) }
 
 // includeProject(file("documentation"))
 
-if (!System.getenv("CI").isNullOrEmpty() && !System.getenv("BUILD_SCAN_TOS_ACCEPTED")
-        .isNullOrEmpty()
-) {
-    gradleEnterprise {
-        buildScan {
-            termsOfServiceUrl = "https://gradle.com/terms-of-service"
-            termsOfServiceAgree = "yes"
-            tag("CI")
-        }
+gradleEnterprise {
+    buildScan {
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
+        tag("CI")
     }
 }

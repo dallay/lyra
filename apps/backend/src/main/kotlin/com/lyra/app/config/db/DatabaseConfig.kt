@@ -5,9 +5,9 @@ import com.lyra.app.newsletter.infrastructure.persistence.converter.SubscriberCo
 import com.lyra.app.newsletter.infrastructure.persistence.converter.SubscriberStatusWriterConverter
 import io.r2dbc.postgresql.codec.EnumCodec
 import io.r2dbc.postgresql.codec.EnumCodec.Builder.RegistrationPriority
-import io.r2dbc.postgresql.extension.CodecRegistrar
 import io.r2dbc.spi.ConnectionFactoryOptions
 import io.r2dbc.spi.Option
+import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.r2dbc.ConnectionFactoryOptionsBuilderCustomizer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 
 @Configuration
 @EnableTransactionManagement
-@EnableR2dbcRepositories
+@EnableR2dbcRepositories(basePackages = ["com.lyra.*"])
 @EnableR2dbcAuditing
 class DatabaseConfig {
     /**
@@ -29,10 +29,11 @@ class DatabaseConfig {
      */
     @Bean
     fun connectionFactoryOptionsBuilderCustomizer(): ConnectionFactoryOptionsBuilderCustomizer {
+        log.debug("Adding EnumCodec to R2DBC")
         return ConnectionFactoryOptionsBuilderCustomizer { builder: ConnectionFactoryOptions.Builder ->
             builder.option(
                 Option.valueOf("extensions"),
-                listOf<CodecRegistrar>(
+                listOf(
                     EnumCodec.builder()
                         .withEnum("subscriber_status", SubscriberStatus::class.java)
                         .withRegistrationPriority(RegistrationPriority.FIRST)
@@ -47,6 +48,7 @@ class DatabaseConfig {
      */
     @Bean
     fun r2dbcCustomConversions(databaseClient: DatabaseClient): R2dbcCustomConversions {
+        log.debug("Registering custom converters to R2DBC")
         val dialect = DialectResolver.getDialect(databaseClient.connectionFactory)
         val converters: MutableList<Any?> = ArrayList(dialect.converters)
         converters.addAll(R2dbcCustomConversions.STORE_CONVERTERS)
@@ -57,5 +59,9 @@ class DatabaseConfig {
                 SubscriberStatusWriterConverter(),
             ),
         )
+    }
+
+    companion object {
+        private val log = LoggerFactory.getLogger(DatabaseConfig::class.java)
     }
 }

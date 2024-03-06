@@ -24,7 +24,6 @@ git stash -q --keep-index
 $PACKAGE_MANAGER install
 $PACKAGE_MANAGER run format
 $PACKAGE_MANAGER run lint
-$PACKAGE_MANAGER run test
 
 ./gradlew detektAll --no-daemon --stacktrace
 

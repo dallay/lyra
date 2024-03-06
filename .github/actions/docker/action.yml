@@ -1,0 +1,145 @@
+name: Package and Publish 📦
+description: |
+  This workflow is responsible for packaging and publishing the application
+  to the container registry.
+
+  It also performs vulnerability scanning on the OCI image.
+
+  The workflow is triggered after the build stage.
+
+  The workflow is responsible for the following:
+  - Install Java Tools & Dependencies
+  - Execute Gradle build
+  - OCI image vulnerability scanning
+  - Upload vulnerability report
+  - Log in to Docker Hub
+
+inputs:
+  deliver:
+    description: 'Deliver application to production'
+    required: true
+    default: true
+  registry:
+    description: 'The container registry to push the image to'
+    required: true
+    default: 'ghcr.io'
+  docker_username:
+    description: 'The username for Docker Hub'
+    required: true
+  docker_password:
+    description: 'The password for Docker Hub'
+    required: true
+  image_name:
+    description: 'The name of the image to be published'
+    required: true
+  version:
+    description: 'The version of the application'
+    required: true
+  ci_github_token:
+    description: 'GITHUB_TOKEN with permissions to push to the container registry'
+    required: true
+  owner:
+    description: 'The owner of the repository'
+    required: true
+  app_repo:
+    description: 'The name of the application repository'
+    required: true
+  deploy_repo:
+    description: 'The name of the repository to deploy the application to'
+    required: true
+  docker_hub_image:
+    description: 'Docker hub image name'
+    required: false
+    default: 'n4t5u/lyra'
+  non_prod_tag:
+    description: 'Non production docker image tag'
+    required: false
+    default: 'nightly'
+
+
+runs:
+  using: composite
+  steps:
+    - name: Install Java Tools & Dependencies
+      uses: ./.github/actions/install/java
+
+    - name: Execute Gradle build
+      run: |
+        chmod +x gradlew
+        ./gradlew assemble
+        ./gradlew bootBuildImage --imageName ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
+      shell: bash
+
+    - name: OCI image vulnerability scanning
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
+        format: 'sarif'
+        output: 'trivy-results-oci-image.sarif'
+
+    - name: Upload vulnerability report
+      uses: github/codeql-action/upload-sarif@v3
+      if: success() || failure()
+      with:
+        sarif_file: 'trivy-results-oci-image.sarif'
+
+    - name: Log into container registry GHCR
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ inputs.registry }}
+        username: ${{ github.actor }}
+        password: ${{ inputs.ci_github_token }}
+
+    - name: Publish container image to GHCR
+      if: ${{ inputs.deliver }}
+      run: |
+        docker push ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
+        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} \
+            ${{ inputs.registry }}/${{ inputs.image_name }}:latest
+          docker push ${{ inputs.registry }}/${{ inputs.image_name }}:latest
+      shell: bash
+
+    - name: Publish non-production container image to container registry
+      if: ${{ !inputs.deliver }}
+      run: |
+        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} \
+                    ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.non_prod_tag }}
+                  docker push ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.non_prod_tag }}
+      shell: bash
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ inputs.docker_username }}
+        password: ${{ inputs.docker_password }}
+
+    - name: Publish container image to Docker Hub
+      if: ${{ inputs.deliver }}
+      run: |
+        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:${{ inputs.version }}
+        docker push ${{ inputs.docker_hub_image}}:${{ inputs.version }}
+        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:latest
+        docker push ${{ inputs.docker_hub_image}}:latest
+      shell: bash
+
+    - name: Publish non-production container image to Docker Hub
+      if: ${{ !inputs.deliver }}
+      run: |
+        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:${{ inputs.version }}
+        docker push ${{ inputs.docker_hub_image}}:${{ inputs.version }}
+        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:${{ inputs.non_prod_tag }}
+        docker push ${{ inputs.docker_hub_image}}:${{ inputs.non_prod_tag }}
+      shell: bash
+
+    - name: Deliver application to production
+      if: ${{ inputs.deliver }}
+      uses: peter-evans/repository-dispatch@v3
+      with:
+        token: ${{ inputs.ci_github_token }}
+        repository: ${{ inputs.owner }}/${{ inputs.deploy_repo }}
+        event-type: app_delivery
+        client-payload: '{
+          "app_image": "${{ inputs.registry }}/${{ inputs.owner }}/${{ inputs.app_repo }}",
+          "app_name": "${{ inputs.app_repo }}",
+          "app_version": "${{ inputs.version }}"
+        }'

@@ -8,6 +8,7 @@ export { default as Logo } from './src/components/atoms/Logo.astro';
 export { default as ThemeSwitcher } from './src/components/atoms/ThemeSwitcher.astro';
 export { default as WorldGraph } from './src/components/atoms/WorldGraph.astro';
 export { default as EmailCTA } from './src/components/atoms/EmailCTA.astro';
+export { default as ConfettiLauncher } from './src/components/atoms/ConfettiLauncher.astro';
 // molecules
 export { default as BannerSection } from './src/components/molecules/BannerSection.astro';
 export { default as Card } from './src/components/molecules/Card.astro';
@@ -19,4 +20,8 @@ export { default as ItemsSection } from './src/components/molecules/ItemsSection
 export { default as Menu } from './src/components/molecules/Menu.astro';
 export { default as NavBarStacked } from './src/components/molecules/NavBarStacked.astro';
 export { default as EmailCTASection } from './src/components/molecules/EmailCTASection.astro';
+export { default as SideBar } from './src/components/molecules/SideBar.astro';
+export { default as SidebarHeader } from './src/components/molecules/SidebarHeader.astro';
+export { default as NavPagination } from './src/components/molecules/NavPagination.astro';
+export { default as Breadcrumb } from './src/components/molecules/Breadcrumb.astro';
 // organisms

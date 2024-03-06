@@ -10,5 +10,5 @@ data class SubscriberCreatedEvent(
     val subscriberId: String,
     val email: String,
     val name: String,
-    val status: String
+    val status: String,
 ) : BaseDomainEvent()

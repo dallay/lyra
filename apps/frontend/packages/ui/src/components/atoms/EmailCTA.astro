@@ -1,25 +1,32 @@
 ---
 import SubmitButton from '../atoms/SubmitButton.astro';
+import ConfettiLauncher from '../atoms/ConfettiLauncher.astro';
 const { ...attributes } = Astro.props;
 const { class: className = 'w-full max-w-md space-y-2 flex flex-col items-center justify-center' } =
 	attributes;
 ---
 
 <div class:list=`${className}`>
-	<form class="flex space-x-2">
-		<label>
-			<input
-				class="bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full max-w-lg flex-1 rounded-md border border-gray-900 px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-100"
-				placeholder="Enter your email"
+	<form class="relative flex w-full space-x-2">
+		<div class="relative w-full">
+			<label for="subscriber-email" class="hidden">Email:</label><input
+				id="subscriber-email"
+				class="subscriber-email bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium"
 				type="email"
+				placeholder="Enter your email"
+				required
 			/>
-		</label>
-		<SubmitButton type="submit">Subscribe</SubmitButton>
+			<ConfettiLauncher>
+				<SubmitButton class="absolute bottom-0 end-0 top-0 rounded-r" type="submit">
+					Subscribe
+				</SubmitButton>
+			</ConfettiLauncher>
+		</div>
 	</form>
-	<p class="text-tertiary-900 dark:text-tertiary-50 py-4 text-xs">
-		Get ready to redefine your email experience.
-		<a class="text-white underline underline-offset-2" href="#" rel="ugc">
-			Terms &amp; Conditions
-		</a>
-	</p>
 </div>
+<style>
+	.subscriber-email {
+		@apply flex h-12 w-full items-center justify-center rounded-md border-gray-900 px-3
+    focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-100;
+	}
+</style>

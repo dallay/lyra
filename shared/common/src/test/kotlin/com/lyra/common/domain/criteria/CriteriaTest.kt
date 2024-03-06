@@ -47,7 +47,6 @@ class CriteriaTest {
 
     @Test
     fun testEmptyCriteria() {
-        val criteria = Criteria.Empty
         assertEquals("()", Criteria.Empty.toString())
     }
 

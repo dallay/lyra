@@ -1,9 +1,9 @@
 ---
 import { Icon } from 'astro-icon/components';
-import LayoutSimple from '../layouts/LayoutSimple.astro';
+import Layout from '../layouts/SimpleLayout.astro';
 ---
 
-<LayoutSimple title="Page Not Found" description="Page Not Found">
+<Layout title="Page Not Found" description="Page Not Found">
 	<div class="mx-auto flex h-screen flex-col items-center justify-center px-6">
 		<div class="block md:max-w-lg">
 			<Icon name="404" class="h-96 w-96" />
@@ -36,4 +36,4 @@ import LayoutSimple from '../layouts/LayoutSimple.astro';
 			</a>
 		</div>
 	</div>
-</LayoutSimple>
+</Layout>

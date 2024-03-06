@@ -12,7 +12,8 @@ inputs:
     default: 'projects'
   github_token:
     description: 'GITHUB_TOKEN'
-    default: '${{ github.token }}'
+    required: false
+    default: ${{ github.token }}
 
 runs:
   using: composite
@@ -30,21 +31,19 @@ runs:
       shell: bash
 
     - name: ⚙️ Setup Gradle 🐘
-      uses: gradle/gradle-build-action@v2.12.0
+      uses: gradle/actions/setup-gradle@v3
       id: gradle
       with:
+        add-job-summary-as-pr-comment: on-failure
         arguments: ${{ inputs.gradle-arguments }}
         dependency-graph: generate-and-submit
+        build-scan-publish: true
+        build-scan-terms-of-service-url: "https://gradle.com/terms-of-service"
+        build-scan-terms-of-service-agree: "yes"
 
-    - name: Add Build Scan URL as PR comment
-      uses: actions/github-script@v7
-      if: github.event_name == 'pull_request' && failure()
+    - name: Upload build reports
+      uses: actions/upload-artifact@v3
+      if: ${{ steps.gradle.outputs.build-scan-url }}
       with:
-        github-token: ${{ inputs.github_token }}
-        script: |
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: '❌ ${{ github.workflow }} failed: ${{ steps.gradle.outputs.build-scan-url }}'
-          })
+        name: build-reports
+        path: build/reports/

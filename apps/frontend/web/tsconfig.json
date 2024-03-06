@@ -5,6 +5,7 @@
     "target": "esnext",
     "module": "esnext",
     "strictNullChecks": true,
+    "resolveJsonModule": true,
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
@@ -14,6 +15,7 @@
       "molecules:*": ["components/molecules/*.astro"],
       "organisms:*": ["components/organisms/*.astro"],
       "layouts:*": ["layouts/*.astro"]
-    }
+    },
+    "jsx": "preserve"
   }
 }

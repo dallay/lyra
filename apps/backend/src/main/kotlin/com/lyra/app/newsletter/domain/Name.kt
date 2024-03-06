@@ -2,16 +2,16 @@ package com.lyra.app.newsletter.domain
 
 data class Name(val firstName: FirstName, val lastName: LastName?) : Comparable<Name> {
 
-    constructor(firstName: String, lastName: String) : this(
+    constructor(firstName: String, lastName: String?) : this(
         FirstName(firstName),
-        LastName(lastName),
+        lastName?.let { LastName(it) },
     )
 
     /**
      * Returns the full name of the user (first name + last name)
      * @return the full name of the user
      */
-    fun fullName(): String = "$firstName $lastName"
+    fun fullName(): String = "${firstName.value} ${lastName?.value ?: ""}".trim()
 
     /**
      * Compares this object with the specified object for order. Returns zero if this object is equal

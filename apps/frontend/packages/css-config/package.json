@@ -8,6 +8,12 @@
   "type": "module",
   "author": "Yuniel Acosta <yunielacosta738@gmail.com>",
   "license": "MIT",
+  "files": [
+    "index.css",
+    "postcss.config.cjs",
+    "stylelint.config.cjs",
+    "uno.config.cjs"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/yacosta738/lyra.git",
@@ -18,27 +24,22 @@
     "url": "https://github.com/yacosta738/lyra/issues"
   },
   "scripts": {
-    "lint": "pnpm run lint:eslint && pnpm run lint:stylelint",
-    "lint:eslint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
-    "lint:stylelint": "stylelint --fix \"**/*.{css,scss,sass}\" --allow-empty-input",
-    "format": "prettier --write .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo No test specified 😎 && exit 0"
   },
   "homepage": "lyra-nwhm.onrender.com",
   "dependencies": {
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.33",
-    "tailwind-scrollbar": "^3.0.5",
-    "tailwindcss": "^3.4.0",
-    "tailwindcss-animated": "1.0.1",
-    "stylelint": "^16.1.0",
+    "@unocss/postcss": "^0.58.5",
+    "@unocss/reset": "^0.58.5",
+    "postcss": "^8.4.35",
+    "stylelint": "^16.2.1",
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard-scss": "^13.0.0",
-    "stylelint-order": "^6.0.4"
+    "stylelint-order": "^6.0.4",
+    "@julr/unocss-preset-flowbite": "^0.0.2",
+    "unocss": "^0.58.5"
   },
-  "devDependencies": {},
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "pnpm@8.14.3"
+  "packageManager": "pnpm@8.14.1"
 }

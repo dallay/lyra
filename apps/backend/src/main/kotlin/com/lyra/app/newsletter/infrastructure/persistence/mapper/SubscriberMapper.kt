@@ -16,6 +16,8 @@ object SubscriberMapper {
             firstname = name.firstName.toString(),
             lastname = name.lastName.toString(),
             status = status,
+            createdAt = createdAt,
+            updatedAt = updatedAt,
         )
     }
 
@@ -25,9 +27,11 @@ object SubscriberMapper {
             email = Email(email),
             name = Name(
                 firstName = FirstName(firstname),
-                lastName = lastname?.let { LastName(it) },
+                lastName = if (lastname.isNullOrBlank()) null else lastname?.let { LastName(it) },
             ),
             status = status,
+            createdAt = createdAt,
+            updatedAt = updatedAt,
         )
     }
 }

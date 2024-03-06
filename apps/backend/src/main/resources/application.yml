@@ -11,7 +11,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/postgres
+    url: ${DATABASE_URL:r2dbc:postgresql://localhost:5432/pagination  }
     username: postgres
     password: postgres
     pool:

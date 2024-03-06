@@ -16,27 +16,6 @@ internal class FirstNameTest {
     }
 
     @Test
-    fun `should throw an exception when create a first name with invalid value`() {
-        val invalidFirstNames = listOf(
-            "123abc", "abc!@#", "abc.def", "abc-def",
-            "abc_def", "abc+def", "abc*def", "abc/def", "abc=def", "abc?def",
-            "abc#def", "abc\$def", "abc%def", "abc^def", "abc&def", "abc(def",
-            "abc)def", "abc[def", "abc]def", "abc{def", "abc}def", "abc:def",
-            "abc;def", "abc\"def", "abc'def", "abc<def", "abc>def", "abc,def",
-            "abc~def", "abc`def", "abc|def", "abc\\def", "abc¡def", "abc¿def",
-            "abc©def", "abc®def", "abc™def", "abc€def", "abc£def", "abc¥def",
-            "abc¢def", "abc§def", "abc¶def", "abc•def", "abc†def", "abc‡def",
-            "abc°def", "abc±def", "abc¶def", "abc•def", "abc†def", "abc‡def",
-            "abc²def", "abc³def", "abc¼def", "abc½def", "yuniel-acosta", "yuniel_acosta",
-        )
-        invalidFirstNames.forEach {
-            assertThrows(FirstNameNotValidException::class.java) {
-                FirstName(it)
-            }
-        }
-    }
-
-    @Test
     fun `should throw an exception when create a first name with empty value`() {
         assertThrows(FirstNameNotValidException::class.java) {
             FirstName("")

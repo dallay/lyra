@@ -1,8 +1,9 @@
 package com.lyra.app.newsletter.application.search.all
 
-import com.lyra.app.newsletter.application.SubscribersResponse
+import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.query.QueryHandler
+import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import org.slf4j.LoggerFactory
 
 /**
@@ -11,11 +12,11 @@ import org.slf4j.LoggerFactory
  */
 @Service
 class SearchAllSubscribersQueryHandler(
-    private val searcher: AllSubscriberSearcher,
-) : QueryHandler<SearchAllSubscribersQuery, SubscribersResponse> {
-    override suspend fun handle(query: SearchAllSubscribersQuery): SubscribersResponse {
+    private val searcher: SearchAllSubscriberSearcher,
+) : QueryHandler<SearchAllSubscribersQuery, CursorPageResponse<SubscriberResponse>> {
+    override suspend fun handle(query: SearchAllSubscribersQuery): CursorPageResponse<SubscriberResponse> {
         log.info("Searching all subscribers")
-        return searcher.search()
+        return searcher.search(query.criteria, query.size, query.cursor, query.sort)
     }
     companion object {
         private val log = LoggerFactory.getLogger(SearchAllSubscribersQueryHandler::class.java)

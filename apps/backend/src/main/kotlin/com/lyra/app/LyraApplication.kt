@@ -11,7 +11,7 @@ import org.springframework.context.annotation.FilterType
 
 @SpringBootApplication
 @ComponentScan(
-    basePackages = ["com.lyra"],
+    basePackages = ["com.lyra.*"],
     basePackageClasses = [
         EventConfiguration::class,
     ],

@@ -36,7 +36,7 @@ inputs:
     description: 'The tag to use for non-production images'
     required: false
     type: string
-    default: 'non-prod-${{ inputs.version }}'
+    default: 'nightly'
 
 runs:
     using: composite

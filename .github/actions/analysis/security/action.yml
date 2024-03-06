@@ -47,4 +47,4 @@ runs:
       with:
         sarif_file: build/reports/detekt/detekt.sarif
         checkout_path: ${{ github.workspace }}
-        token: ${{ inputs.github_token }}
+        token: ${{ inputs.token }}

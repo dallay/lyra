@@ -24,11 +24,9 @@ inputs:
     description: 'The username for Docker Hub'
     required: true
     type: string
-    default: ${{ secrets.DOCKER_USERNAME }}
   docker_password:
     description: 'The password for Docker Hub'
     required: true
-    default: ${{ secrets.DOCKER_PASSWORD }}
   docker_image_name:
     description: 'The name of the image to be published'
     required: true

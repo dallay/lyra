@@ -25,6 +25,13 @@ inputs:
     required: true
     type: string
     default: 'ghcr.io'
+  docker_username:
+    description: 'The username for Docker Hub'
+    required: true
+    type: string
+  docker_password:
+    description: 'The password for Docker Hub'
+    required: true
   image_name:
     description: 'The name of the image to be published'
     required: true
@@ -95,8 +102,8 @@ runs:
         deliver: ${{ inputs.deliver }}
         image_name: ${{ inputs.image_name }}
         version: ${{ inputs.version }}
-        docker_username: ${{ secrets.DOCKER_USERNAME }}
-        docker_password: ${{ secrets.DOCKER_PASSWORD }}
+        docker_username: ${{ inputs.docker_username }}
+        docker_password: ${{ inputs.docker_password }}
         docker_image_name: ${{ inputs.image_name }}
 
     - name: Deliver application to production

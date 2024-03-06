@@ -130,3 +130,5 @@ jobs:
           image_name: ${{ env.IMAGE_NAME }}
           version: ${{ github.sha }}
           ci_github_token: ${{ env.DOCKER_CI_GITHUB_TOKEN }}
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}

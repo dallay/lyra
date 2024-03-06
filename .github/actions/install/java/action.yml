@@ -5,16 +5,22 @@ inputs:
   java-version:
     description: 'The JDK version to install'
     required: false
+    type: string
     default: '21'
   gradle-arguments:
     description: 'The arguments to pass to the gradle command'
     required: false
+    type: string
     default: 'projects'
   should-comment:
     description: 'Should comment on PR'
+    required: false
+    type: boolean
     default: false
   github_token:
     description: 'GITHUB_TOKEN'
+    required: false
+    type: string
     default: ${{ github.token }}
 
 runs:

@@ -2,6 +2,11 @@ name: Static Analysis Security
 description: |
   This workflow is responsible for running static analysis and security checks
 
+inputs:
+  nvd_api_key:
+    description: 'NVD API Key'
+    required: false
+
 runs:
   using: composite
   steps:

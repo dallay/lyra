@@ -113,6 +113,8 @@ jobs:
 
       - name: Static Analysis Security
         uses: ./.github/actions/analysis/security
+        with:
+          nvd_api_key: ${{ secrets.NVD_API_KEY }}
 
   package:
     name: Package and Publish 📦

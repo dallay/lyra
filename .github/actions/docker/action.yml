@@ -18,53 +18,42 @@ inputs:
   deliver:
     description: 'Deliver application to production'
     required: true
-    type: boolean
     default: true
   registry:
     description: 'The container registry to push the image to'
     required: true
-    type: string
     default: 'ghcr.io'
   docker_username:
     description: 'The username for Docker Hub'
     required: true
-    type: string
   docker_password:
     description: 'The password for Docker Hub'
     required: true
   image_name:
     description: 'The name of the image to be published'
     required: true
-    type: string
   version:
     description: 'The version of the application'
     required: true
-    type: string
   ci_github_token:
     description: 'GITHUB_TOKEN with permissions to push to the container registry'
     required: true
-    type: string
   owner:
     description: 'The owner of the repository'
     required: true
-    type: string
   app_repo:
     description: 'The name of the application repository'
     required: true
-    type: string
   deploy_repo:
     description: 'The name of the repository to deploy the application to'
     required: true
-    type: string
   docker_hub_image:
     description: 'Docker hub image name'
     required: false
-    type: string
     default: 'n4t5u/lyra'
   non_prod_tag:
     description: 'Non production docker image tag'
     required: false
-    type: string
     default: 'nightly'
 
 

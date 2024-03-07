@@ -33,6 +33,10 @@ internal class AppOwaspPlugin : ConventionPlugin {
                     println("⚠️ NVD_API_KEY was not found in the environment. Please set it to avoid rate limiting.")
                 }
 
+                // Configure the data directory to store the NVD data and the H2 database
+                data.directory =
+                    layout.buildDirectory.dir("dependency-check-data").get().asFile.absolutePath
+
                 // remove plugin dependencies, for configs see
                 // https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_plugin_and_dependency_management
                 val validConfigurations = listOf("compileClasspath", "runtimeClasspath", "default")

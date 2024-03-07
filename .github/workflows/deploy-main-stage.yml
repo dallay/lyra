@@ -13,8 +13,11 @@ env:
   DOCKER_CI_GITHUB_TOKEN: ${{ secrets.DOCKER_CI_GITHUB_TOKEN }}
   OWNER: ${{ github.repository_owner }}
   DEPLOY_REPO: ${{ github.event.repository.name }}
+  NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
 
 permissions:
+  # required for all workflows
+  security-events: write
   packages: write
   contents: write
   issues: write
@@ -76,6 +79,10 @@ jobs:
     name: 🔮 Static analysis and 🔒Security Checks
     needs: [ validation ]
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
 
     steps:
       - name: 🔄 Checkout

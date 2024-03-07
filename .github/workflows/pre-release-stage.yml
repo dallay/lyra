@@ -12,6 +12,8 @@ env:
   CI_GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
 
 permissions:
+  # required for all workflows
+  security-events: write
   packages: write
   contents: write
   issues: write

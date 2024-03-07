@@ -18,6 +18,7 @@ runs:
       uses: ./.github/actions/install/node
 
     - name: ♻︎ Restore Cache OWASP Dependency Check Data 🛡️
+      id: cache-owasp-restore
       uses: actions/cache/restore@v3
       with:
         path: build/dependency-check-data
@@ -30,10 +31,11 @@ runs:
       shell: bash
 
     - name: ♻︎ Save Cache OWASP Dependency Check Data 🛡️
+      id: cache-owasp-save
       uses: actions/cache/save@v3
       with:
         path: build/dependency-check-data
-        key: ${{ runner.os }}-owasp-${{ hashFiles('**/gradle.properties') }}
+        key: ${{ steps.cache-owasp-restore.outputs.cache-primary-key }}
 
     - name: Upload owasp-report results 🛡️⬆️
       uses: actions/upload-artifact@v4

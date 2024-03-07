@@ -13,6 +13,7 @@ env:
   DOCKER_CI_GITHUB_TOKEN: ${{ secrets.DOCKER_CI_GITHUB_TOKEN }}
   OWNER: ${{ github.repository_owner }}
   DEPLOY_REPO: ${{ github.event.repository.name }}
+  NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
 
 permissions:
   packages: write
@@ -86,7 +87,6 @@ jobs:
       - name: Static Analysis Security
         uses: ./.github/actions/analysis/security
         with:
-          nvd_api_key: ${{ secrets.NVD_API_KEY }}
           token: ${{ env.CI_GITHUB_TOKEN }}
 
   functional:

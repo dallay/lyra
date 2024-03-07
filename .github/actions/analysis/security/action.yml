@@ -3,9 +3,6 @@ description: |
   This workflow is responsible for running static analysis and security checks
 
 inputs:
-  nvd_api_key:
-    description: 'NVD API Key'
-    required: false
   token:
     description: 'GITHUB_TOKEN with permissions to push to the container registry'
     default: ${{ github.token }}

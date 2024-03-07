@@ -16,6 +16,8 @@ env:
   NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
 
 permissions:
+  # required for all workflows
+  security-events: write
   packages: write
   contents: write
   issues: write

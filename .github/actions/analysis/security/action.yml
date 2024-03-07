@@ -16,6 +16,14 @@ runs:
     - name: Install Tools & Dependencies
       uses: ./.github/actions/install/node
 
+    - name: Cache OWASP files
+      uses: actions/cache@v3
+      with:
+        path: build/dependency-check-data
+        key: ${{ runner.os }}-owasp-${{ hashFiles('**/gradle.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-owasp-
+
     - name: Check OWASP 🛡️
       run: ./gradlew dependencyCheckAnalyze --no-daemon --stacktrace
       shell: bash

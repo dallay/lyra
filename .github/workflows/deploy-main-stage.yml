@@ -92,8 +92,6 @@ jobs:
 
       - name: Static Analysis Security
         uses: ./.github/actions/analysis/security
-        with:
-          token: ${{ env.DOCKER_CI_GITHUB_TOKEN }}
 
   functional:
     name: Functional Acceptance Tests 🎯

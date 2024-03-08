@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/yacosta738/lyra/compare/v1.2.0...v1.2.1) (2024-03-08)
+
+
+### Bug Fixes
+
+* 🔂actions ([#104](https://github.com/yacosta738/lyra/issues/104)) ([edf0667](https://github.com/yacosta738/lyra/commit/edf06676e34667255e0911b32ddb55921a4defc9))
+* **deps:** update all dependencies ([#106](https://github.com/yacosta738/lyra/issues/106)) ([bc6c82b](https://github.com/yacosta738/lyra/commit/bc6c82b1cfe68b251e31b7fd085d09d71355385c))
+* github action cache ([#111](https://github.com/yacosta738/lyra/issues/111)) ([8d076ac](https://github.com/yacosta738/lyra/commit/8d076ac28dcb1b2cd5529e81ff981c16dbc3d7ed))
+
 # [1.2.0](https://github.com/yacosta738/lyra/compare/v1.1.2...v1.2.0) (2024-03-06)
 
 

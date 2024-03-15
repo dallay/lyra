@@ -269,10 +269,10 @@ importers:
         specifier: 0.0.1
         version: link:../../packages/mock-responses
       '@lyra/tsconfig':
-        specifier: workspace:^
+        specifier: 0.0.1
         version: link:../../packages/tsconfig
       '@lyra/utilities':
-        specifier: workspace:^
+        specifier: 0.0.1
         version: link:../../packages/utilities
       '@pinia/testing':
         specifier: ^0.1.3

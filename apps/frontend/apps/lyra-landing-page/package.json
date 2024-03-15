@@ -1,0 +1,19 @@
+{
+  "name": "lyra-landing-page",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "print \"DEV: 🟢 Starting ${npm_package_name} in dev mode\" && astro dev",
+    "start": "print \"DEV: 🟢 Starting ${npm_package_name} in dev mode\" && astro dev",
+    "check": "print \"CHECK: ✅ Checking ${npm_package_name}\" && astro check",
+    "build:all": "print \"BUILD: 🟢 Building ${npm_package_name}\" && astro build",
+    "build": "run-s check build:all",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.5.4",
+    "@astrojs/check": "^0.5.9",
+    "typescript": "^5.4.2"
+  }
+}

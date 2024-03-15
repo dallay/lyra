@@ -1,0 +1,36 @@
+{
+  "name": "mock-server",
+  "version": "1.0.0",
+  "description": "Mock server for testing",
+  "author": {
+    "name": "Yanier Acosta Pérez",
+    "email": "yunielacosta738@gmail.com",
+    "url": "www.yunielacosta.com"
+  },
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "print \"DEV: 🟢 Starting ${npm_package_name} in dev mode\" warning && vite",
+    "mock": "print \"DEV: 🟢 Starting ${npm_package_name} in dev mode\" warning && vite"
+  },
+  "dependencies": {
+    "@fastify/multipart": "^8.1.0",
+    "@fastify/one-line-logger": "^1.2.0",
+    "fastify": "^4.26.2",
+    "fastify-plugin": "^4.5.1"
+  },
+  "devDependencies": {
+    "@lyra/tsconfig": "workspace:^",
+    "@lyra/config": "workspace:^",
+    "@lyra/mock-responses": "workspace:^",
+    "vite": "^5.1.6",
+    "vite-plugin-fastify": "^1.2.5",
+    "vite-plugin-fastify-routes": "^1.1.1"
+  },
+  "engines": {
+    "node": ">=18.14.1",
+    "pnpm": ">=8.6.12"
+  },
+  "packageManager": "pnpm@8.14.1"
+}

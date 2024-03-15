@@ -1,0 +1,28 @@
+services:
+  ci:
+    image: ci
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4173:4173
+    tty: true
+
+  caddy:
+    image: caddy:2.7-alpine
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./dist:/usr/share/caddy
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

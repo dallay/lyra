@@ -1,54 +1,122 @@
 {
   "name": "@lyra/ui",
-  "description": "Lyra ui components",
+  "description": "UI components for Lyra",
   "version": "0.0.1",
   "private": true,
-  "author": "Yuniel Acosta <yunielacosta738@gmail.com>",
-  "license": "MIT",
-  "main": "./index.ts",
-  "exports": {
-    ".": "./index.ts"
+  "author": {
+    "name": "Yanier Acosta Pérez",
+    "email": "yunielacosta738@gmail.com",
+    "url": "www.yunielacosta.com"
   },
-  "files": [
-    "src",
-    "index.ts"
-  ],
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/lyra-vue-ui.umd.js",
+  "module": "./dist/lyra-vue-ui.mjs",
+  "types": "./dist/src/index.d.ts",
+  "styles": "./dist/index.css",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "require": "./dist/lyra-vue-ui.umd.js",
+      "import": {
+        "types": "./src/index.ts",
+        "default": "./src/index.ts"
+      }
+    }
+  },
   "keywords": [
-    "astro",
+    "vue",
     "common ui"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/yacosta738/lyra.git",
-    "directory": "apps/frontend/packages/ui",
+    "directory": "packages/ui",
     "branch": "main"
   },
   "bugs": {
     "url": "https://github.com/yacosta738/lyra/issues"
   },
-  "homepage": "lyra-nwhm.onrender.com",
   "scripts": {
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "test": "echo Testing..."
+    "build:types": "vue-tsc --noEmit && tsc-alias -p tsconfig.json",
+    "build:vite": "vite build",
+    "build:all": "run-s build:types build:vite",
+    "build": "print \"BUILD: 🟢 Building ${npm_package_name}\" && run-s build:all",
+    "check": "print \"CHECK: ✅ Checking ${npm_package_name}\" && vue-tsc --noEmit",
+    "clean": "print \"CLEAN: 🧹 Cleaning ${npm_package_name}\" info && rimraf dist coverage",
+    "test": "print \"TEST: 🧪 Testing ${npm_package_name}\" && vitest --coverage --run",
+    "test:watch": "print \"TEST: 🧪 Watching ${npm_package_name}\" && vitest --watch",
+    "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
-    "astro": "^3.0.0 || ^4.0.0"
+    "typescript": "^5.4.2",
+    "vue": "^3.4.21"
   },
   "dependencies": {
-    "@lyra/vm-core": "workspace:*"
+    "@tiptap/core": "^2.2.4",
+    "@tiptap/extension-blockquote": "^2.2.4",
+    "@tiptap/extension-bold": "^2.2.4",
+    "@tiptap/extension-bullet-list": "^2.2.4",
+    "@tiptap/extension-color": "^2.2.4",
+    "@tiptap/extension-document": "^2.2.4",
+    "@tiptap/extension-dropcursor": "^2.2.4",
+    "@tiptap/extension-gapcursor": "^2.2.4",
+    "@tiptap/extension-hard-break": "^2.2.4",
+    "@tiptap/extension-heading": "^2.2.4",
+    "@tiptap/extension-highlight": "^2.2.4",
+    "@tiptap/extension-history": "^2.2.4",
+    "@tiptap/extension-horizontal-rule": "^2.2.4",
+    "@tiptap/extension-image": "^2.2.4",
+    "@tiptap/extension-italic": "^2.2.4",
+    "@tiptap/extension-link": "^2.2.4",
+    "@tiptap/extension-list-item": "^2.2.4",
+    "@tiptap/extension-ordered-list": "^2.2.4",
+    "@tiptap/extension-paragraph": "^2.2.4",
+    "@tiptap/extension-strike": "^2.2.4",
+    "@tiptap/extension-text": "^2.2.4",
+    "@tiptap/extension-text-align": "^2.2.4",
+    "@tiptap/extension-text-style": "^2.2.4",
+    "@tiptap/extension-underline": "^2.2.4",
+    "@tiptap/pm": "^2.2.4",
+    "@tiptap/vue-3": "^2.2.4",
+    "@unocss/reset": "^0.58.6",
+    "@vueuse/components": "^10.9.0",
+    "@vueuse/core": "^10.9.0",
+    "date-fns": "^3.5.0",
+    "echarts": "^5.5.0",
+    "ofetch": "^1.3.3",
+    "pinia": "^2.1.7",
+    "shiki": "^1.1.7",
+    "vue": "^3.4.21",
+    "vue-component-type-helpers": "^2.0.6",
+    "vue-echarts": "^6.6.9",
+    "vue-imask": "^7.5.0",
+    "vue-localer": "^1.4.1",
+    "vue-router": "^4.3.0",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.5.6",
-    "@lyra/css-config": "workspace:*",
-    "@types/canvas-confetti": "^1.6.4",
-    "astro": "^4.4.11",
-    "astro-icon": "^1.1.0",
-    "canvas-confetti": "^1.9.2",
-    "typescript": "^5.3.3",
-    "vite": "^5.1.5",
-    "vite-plugin-dts": "^3.7.3"
+    "@unocss/postcss": "^0.58.5",
+    "@unocss/reset": "^0.58.6",
+    "@iconify/json": "^2.2.192",
+    "@lyra/config": "workspace:^",
+    "@lyra/tsconfig": "0.0.1",
+    "@lyra/utilities": "0.0.1",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitest/coverage-v8": "^1.4.0",
+    "@vue/test-utils": "^2.4.5",
+    "sass": "^1.72.0",
+    "tailwindcss": "^3.4.1",
+    "tsc-alias": "1.8.8",
+    "typescript": "^5.4.2",
+    "unocss": "^0.58.6",
+    "vite-plugin-dts": "^3.7.3",
+    "vue-tsc": "^2.0.6"
+  },
+  "engines": {
+    "node": ">=18.14.1",
+    "pnpm": ">=8.6.12"
   },
   "packageManager": "pnpm@8.14.1"
 }

@@ -59,4 +59,5 @@ pnpm-debug.log*
 .DS_Store
 
 /node/
+/.node/
 .frontend-gradle-plugin

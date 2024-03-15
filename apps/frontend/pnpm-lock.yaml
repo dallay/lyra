@@ -313,6 +313,10 @@ importers:
       typescript:
         specifier: ^5.4.2
         version: 5.4.2
+    devDependencies:
+      '@lyra/tsconfig':
+        specifier: 0.0.1
+        version: link:../../packages/tsconfig
 
   config:
     devDependencies:

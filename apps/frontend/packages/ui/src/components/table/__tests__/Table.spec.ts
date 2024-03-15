@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import Table from '../Table.vue';
 import { createLocaler } from 'vue-localer';
-import { Control } from '~/components/table';
+import type { Control } from '~/components/table';
 type User = {
 	id: number;
 	name: string;

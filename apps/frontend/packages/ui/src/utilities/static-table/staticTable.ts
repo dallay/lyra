@@ -1,5 +1,5 @@
 import { chunk, sortBy } from '@lyra/utilities';
-import { Control } from '~/components/table/types';
+import type { Control } from '~/components/table/types';
 
 const defaultField = 'createdAt';
 const defaultControl: Control = {

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "./strict.json",
+  "extends": "./tsconfig.strict.json",
   "compilerOptions": {
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,

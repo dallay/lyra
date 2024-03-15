@@ -7,7 +7,8 @@ import type staticTable from '../../utilities/static-table/staticTable';
 import Spinner from '../spinner/Spinner.vue';
 import Checkbox from '../checkbox/Checkbox.vue';
 
-import { ColumnItem, Control, CursorPage, defaultControl, OffsetPage, SortType } from './types';
+import type { ColumnItem, Control, CursorPage, OffsetPage, SortType } from './types';
+import { defaultControl } from './types';
 import Column from './Column.vue';
 import Row from './Row.vue';
 import Cell from './Cell.vue';

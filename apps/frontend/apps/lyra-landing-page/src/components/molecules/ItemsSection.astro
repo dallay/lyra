@@ -1,0 +1,24 @@
+---
+import Card from './Card.astro';
+import { getCollection } from 'astro:content';
+
+const highlights = await getCollection('highlights');
+---
+
+<section
+	class="text-tertiary-900 dark:text-tertiary-50 mt-20 flex flex-col items-center justify-center"
+>
+	<h4
+		class="max-w-4xl text-center font-sans text-3xl font-medium leading-none tracking-wide sm:text-4xl md:text-5xl md:leading-tight md:tracking-wider lg:text-7xl"
+	>
+		How Lyra helps you on a daily basis
+	</h4>
+	<!-- Card grid for the different features -->
+	<div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+		{
+			highlights.map((item) => (
+				<Card title={item.data.title} description={item.data.description} icon={item.data.icon} />
+			))
+		}
+	</div>
+</section>

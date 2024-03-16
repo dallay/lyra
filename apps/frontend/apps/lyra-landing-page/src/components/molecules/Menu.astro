@@ -1,0 +1,30 @@
+---
+import type { Menu } from './types';
+export interface Props {
+	menus: Menu[];
+}
+
+const { menus, ...attributes } = Astro.props;
+---
+
+<div class="flex flex-col" {...attributes}>
+	<ul class="block sm:flex sm:space-x-8 sm:pt-2">
+		{
+			menus.map((menu) => (
+				<li>
+					<a
+						id={menu.id}
+						href={menu.link}
+						class="hover:text-primary-700 dark:hover:text-primary-500 text-sm font-medium text-gray-900 dark:text-gray-100"
+						aria-current="page"
+					>
+						{menu.title}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+	<div class="block py-2">
+		<slot name="last-menu" />
+	</div>
+</div>

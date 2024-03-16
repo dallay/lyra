@@ -7,6 +7,7 @@
     "url": "www.yunielacosta.com"
   },
   "version": "0.0.1",
+  "license": "MIT",
   "type": "module",
   "repository": {
     "type": "git",
@@ -29,7 +30,11 @@
   "dependencies": {
     "@astrojs/check": "^0.5.9",
     "@iconify/json": "^2.2.192",
+    "@iconify-json/mdi": "^1.1.64",
+    "@iconify-json/ph": "^1.1.11",
+    "@iconify-json/simple-icons": "^1.1.94",
     "@lyra/utilities": "0.0.1",
+    "@fontsource-variable/onest": "^5.0.3",
     "astro": "^4.5.5",
     "typescript": "^5.4.2"
   },
@@ -40,6 +45,8 @@
     "@unocss/postcss": "^0.58.6",
     "@unocss/reset": "^0.58.6",
     "astro-icon": "^1.1.0",
-    "canvas-confetti": "^1.9.2"
-  }
+    "canvas-confetti": "^1.9.2",
+    "sharp": "^0.33.2"
+  },
+  "packageManager": "pnpm@8.14.3"
 }

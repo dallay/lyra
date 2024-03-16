@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import WorldGraph from '../atoms/WorldGraph.astro';
 import EmailCTA from '../atoms/EmailCTA.astro';
 
-const { src, ...attrs } = Astro.props;
+const { image, ...attrs } = Astro.props;
 ---
 
 <header
@@ -34,6 +34,6 @@ const { src, ...attrs } = Astro.props;
 			class="to-tertiary-50 dark:to-tertiary-950 absolute bottom-0 left-0 h-full w-full bg-gradient-to-b from-transparent opacity-90"
 		>
 		</div>
-		<Image src={src} alt="Lyra app interface" class="h-full w-full" {...attrs} />
+		<Image src={image} alt="Lyra app interface" class="h-full w-full" {...attrs} />
 	</div>
 </header>

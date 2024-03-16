@@ -45,6 +45,7 @@
     "apps/*"
   ],
   "devDependencies": {
+    "@lyra/scripts": "0.0.1",
     "@playwright/test": "^1.42.1",
     "@types/bun": "latest",
     "@types/eslint": "^8.56.5",
@@ -55,7 +56,6 @@
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
     "astro-eslint-parser": "^0.16.3",
-    "@lyra/scripts": "0.0.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-astro": "^0.31.4",
@@ -64,6 +64,7 @@
     "eslint-plugin-prettier-vue": "^5.0.0",
     "eslint-plugin-vue": "^9.23.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "^6.13.0",
+    "flowbite": "^2.3.0",
     "happy-dom": "^13.8.6",
     "npm-run-all2": "^6.1.2",
     "postcss": "^8.4.35",
@@ -71,13 +72,13 @@
     "prettier-plugin-astro": "~0.13.0",
     "prettier-plugin-tailwindcss": "~0.5.12",
     "process-envify": "^2.0.0",
+    "rimraf": "^5.0.5",
     "stylelint": "^16.2.1",
     "stylelint-config-standard": "^36.0.0",
     "syncpack": "^12.3.0",
     "unocss": "^0.58.6",
     "vite": "^5.1.6",
-    "vitest": "^1.4.0",
-    "rimraf": "^5.0.5"
+    "vitest": "^1.4.0"
   },
   "engines": {
     "node": ">=18.14.1",

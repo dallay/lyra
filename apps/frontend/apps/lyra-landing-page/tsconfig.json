@@ -1,3 +1,15 @@
 {
-  "extends": "@lyra/tsconfig/tsconfig.strict.json"
+  "extends": "@lyra/tsconfig/tsconfig.strict.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "~/*": ["src/*"],
+      "@components:*": ["src/components/*"],
+      "atoms:*": ["src/components/atoms/*.astro"],
+      "molecules:*": ["src/components/molecules/*.astro"],
+      "organisms:*": ["src/components/organisms/*.astro"],
+      "layouts:*": ["src/layouts/*.astro"]
+    }
+  }
 }

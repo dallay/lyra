@@ -4,3 +4,5 @@ dist
 coverage
 docs/.vitepress/cache
 *.log
+**/build/**
+**/build/**/*

@@ -17,3 +17,5 @@ app.use(router);
 app.use(localer);
 
 app.mount('#root');
+
+export default app;

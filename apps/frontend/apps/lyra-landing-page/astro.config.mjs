@@ -3,7 +3,8 @@ import UnoCSS from 'unocss/astro';
 import icon from 'astro-icon';
 import { loadEnv } from 'vite';
 import path from 'path';
-
+import vue from "@astrojs/vue";
+import envify from "process-envify";
 const DEV_PORT = 4321;
 const envDir = path.resolve(process.cwd() + '/../../../');
 console.log('🛸 envDir', envDir);
@@ -13,15 +14,19 @@ console.log('🚀 BACKEND_URL', BACKEND_URL);
 
 // https://astro.build/config
 export default defineConfig({
-	site: import.meta.env.DEV ? `http://localhost:${DEV_PORT}` : 'https://lyra-nwhm.onrender.com',
-	integrations: [
-		UnoCSS({ injectReset: true }),
-		icon({
-			iconDir: 'src/assets/icons',
-			include: {
-				'simple-icons': ['*'],
-				ph: ['*'],
-			},
-		}),
-	],
+  site: import.meta.env.DEV ? `http://localhost:${DEV_PORT}` : 'https://lyra-nwhm.onrender.com',
+  integrations: [UnoCSS({
+    injectReset: true
+  }), icon({
+    iconDir: 'src/assets/icons',
+    include: {
+      'simple-icons': ['*'],
+      ph: ['*']
+    }
+  }), vue()],
+  vite: {
+    define: envify({
+      APP_CLIENT_URL: process.env.APP_CLIENT_URL || 'http://localhost:5173',
+    }),
+  }
 });

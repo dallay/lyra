@@ -29,14 +29,16 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.5.9",
-    "@iconify/json": "^2.2.192",
+    "@astrojs/vue": "^4.0.9",
+    "@fontsource-variable/onest": "^5.0.3",
     "@iconify-json/mdi": "^1.1.64",
     "@iconify-json/ph": "^1.1.11",
     "@iconify-json/simple-icons": "^1.1.94",
+    "@iconify/json": "^2.2.192",
     "@lyra/utilities": "0.0.1",
-    "@fontsource-variable/onest": "^5.0.3",
     "astro": "^4.5.5",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.2",
+    "vue": "^3.4.21"
   },
   "devDependencies": {
     "@lyra/config": "workspace:^",

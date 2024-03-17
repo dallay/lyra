@@ -60,7 +60,6 @@ internal class FrontendPlugin : ConventionPlugin {
         checkScript.set("run check")
         packageJsonDirectory.set(project.file("apps/frontend"))
         nodeInstallDirectory.set(project.rootProject.file(".node"))
-        cacheDirectory.set(project.rootProject.layout.buildDirectory.dir(".frontend-gradle-plugin"))
         verboseModeEnabled.set(true)
     }
 }

@@ -8,7 +8,6 @@ plugins {
     id("app.detekt")
     id("app.kover")
     id("app.owasp.dependency.check")
-    id("app.frontend")
 }
 group = rootProject.findProperty("group")?.toString() ?: "com.lyra"
 version = rootProject.findProperty("version")?.toString() ?: "0.0.1-SNAPSHOT"

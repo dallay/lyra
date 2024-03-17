@@ -10,7 +10,7 @@ export interface Menu {
 	link: string;
 }
 
-const appClientUrl = `${import.meta.env.APP_CLIENT_URL || 'http://localhost:5173'}`;
+const appClientUrl = import.meta.env.PROD ? '/app' : 'http://localhost:5173';
 export const navMenus: Menu[] = [
 	{
 		id: 'about',

@@ -2,6 +2,12 @@ name: Static Analysis Security
 description: |
   This workflow is responsible for running static analysis and security checks
 
+inputs:
+  token:
+    description: 'GITHUB_TOKEN with permissions to push to the container registry'
+    required: false
+    default: ${{ github.token }}
+
 runs:
   using: composite
   steps:
@@ -11,9 +17,25 @@ runs:
     - name: Install Tools & Dependencies
       uses: ./.github/actions/install/node
 
+    - name: ♻︎ Restore Cache OWASP Dependency Check Data 🛡️
+      id: cache-owasp-restore
+      uses: actions/cache/restore@v3
+      with:
+        path: build/dependency-check-data
+        key: ${{ runner.os }}-owasp-${{ hashFiles('**/gradle.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-owasp-
+
     - name: Check OWASP 🛡️
       run: ./gradlew dependencyCheckAnalyze --no-daemon --stacktrace
       shell: bash
+
+    - name: ♻︎ Save Cache OWASP Dependency Check Data 🛡️
+      id: cache-owasp-save
+      uses: actions/cache/save@v3
+      with:
+        path: build/dependency-check-data
+        key: ${{ steps.cache-owasp-restore.outputs.cache-primary-key }}
 
     - name: Upload owasp-report results 🛡️⬆️
       uses: actions/upload-artifact@v4
@@ -39,3 +61,4 @@ runs:
       with:
         sarif_file: build/reports/detekt/detekt.sarif
         checkout_path: ${{ github.workspace }}
+        token: ${{ inputs.token }}

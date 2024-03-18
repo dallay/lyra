@@ -11,9 +11,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
   r2dbc:
-    url: ${DATABASE_URL:r2dbc:postgresql://localhost:5432/pagination  }
-    username: postgres
-    password: postgres
+    url: ${DATABASE_URL:r2dbc:postgresql://localhost:5432/postgres}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
     pool:
       enabled: true
       initial-size: 10

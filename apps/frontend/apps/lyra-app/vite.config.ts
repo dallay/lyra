@@ -9,7 +9,6 @@ import { fileURLToPath, URL } from 'node:url';
 export default mergeConfig(
 	sharedViteConfig(__dirname),
 	defineConfig({
-		base: '/app/',
 		define: envify({
 			API_URL: process.env.API_URL || '',
 		}),
@@ -31,7 +30,7 @@ export default mergeConfig(
 		server: {
 			proxy: {
 				'/api': {
-					target: 'http://127.0.0.1:3000',
+					target: 'http://localhost:8080',
 					ws: true,
 				},
 			},

@@ -14,6 +14,11 @@ export interface Link {
 
 const links = [
 	{ icon: 'i-ic-round-dashboard', name: 'Dashboard', to: '/dashboard' },
+	{
+		icon: 'i-ph:users-thin',
+		name: 'Audience',
+		sub: [{ icon: 'i-ph:users-three-thin', name: 'Subscribers', to: '/audience/subscribers' }],
+	},
 
 	{ name: 'Library' },
 	{ icon: 'i-mdi-cube-scan', name: 'Overview', to: '/overview' },

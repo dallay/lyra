@@ -8,12 +8,6 @@ const router = createRouter({
 		{
 			path: '/',
 			redirect() {
-				return { path: '/app' };
-			},
-		},
-		{
-			path: '/app',
-			redirect() {
 				if (localStorage.getItem('accessToken')) return { path: '/dashboard' };
 				return { path: '/sign-in' };
 			},

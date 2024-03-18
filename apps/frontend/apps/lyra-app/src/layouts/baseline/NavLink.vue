@@ -115,6 +115,7 @@ const hasPermission = true; // props?.permissions?.includes(getters.currentRole)
 			<NavLink
 				v-for="(item, index) in sub"
 				:key="index"
+				:icon="item.icon"
 				:name="item.name"
 				:to="item.to"
 				:permissions="item.permissions"

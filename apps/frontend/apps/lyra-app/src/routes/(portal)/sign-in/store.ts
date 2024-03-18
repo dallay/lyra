@@ -30,6 +30,9 @@ export default defineStore('/sign-in', () => {
 			const response = await request<SignInRes>('/auth/sign-in', {
 				method: 'POST',
 				body: state.signInForm,
+				headers: {
+					Accept: 'application/vnd.api.v1+json',
+				},
 			});
 
 			const result = response._data;

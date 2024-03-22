@@ -445,9 +445,9 @@ function changeLang(lang: string) {
 .Page {
 	@apply container flex-1 self-center;
 	@apply pt-22 lg:pt-26 md:pt-24;
-	@apply ps-4 md:ps-6 lg:ps-8 xl:ps-72;
-	@apply pb-4 md:pb-6 lg:pb-8;
-	@apply pe-4 md:pe-6 lg:pe-8;
+	@apply ps-2 md:ps-4 lg:ps-6 xl:ps-72;
+	@apply pb-2 md:pb-4 lg:pb-6;
+	@apply pe-2 md:pe-4 lg:pe-6;
 }
 
 .Footer {

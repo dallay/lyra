@@ -176,21 +176,16 @@ onUnmounted(() => {
 			</div>
 			<XDivider />
 			<div v-if="flux.filter.showFilterOptions">
-				<!--				<div class="flex justify-end">-->
-				<!--					-->
-				<!--				</div>-->
-				<div class="flex justify-end">
-					<GeneralRule
-						:columns="flux.filter.columnFilters"
-						@apply-filters="applyFilters"
-						@remove-filter-property="removeFilterProperty"
-					>
-						<FilterRangeDate
-							v-model:startDate="flux.filter.startDate"
-							v-model:endDate="flux.filter.endDate"
-						/>
-					</GeneralRule>
-				</div>
+				<GeneralRule
+					:columns="flux.filter.columnFilters"
+					@apply-filters="applyFilters"
+					@remove-filter-property="removeFilterProperty"
+				>
+					<FilterRangeDate
+						v-model:startDate="flux.filter.startDate"
+						v-model:endDate="flux.filter.endDate"
+					/>
+				</GeneralRule>
 			</div>
 		</div>
 		<XTable
@@ -199,7 +194,31 @@ onUnmounted(() => {
 			:columns="flux.columns"
 			:rows="state.subscribers"
 			@change="change"
-		/>
+		>
+			<template #email="{ row }">
+				<a
+					class="hover:text-primary-500 dark:hover:text-primary-400"
+					:href="'/audience/subscribers/' + row.id"
+					>{{ row.email }}</a
+				>
+			</template>
+			<template #status="{ row }">
+				<span
+					:class="{
+						'dark:bg-tertiary-700 border-green-400 bg-green-100 text-green-800 dark:text-green-400':
+							row.status === 'ENABLED',
+						'dark:bg-tertiary-700 border-red-400 bg-red-100 text-red-800 dark:text-red-400':
+							row.status === 'DISABLED',
+						'dark:bg-tertiary-700 border-yellow-400 bg-yellow-100 text-yellow-800 dark:text-yellow-400':
+							row.status === 'BLOCKLISTED',
+					}"
+					class="me-2 rounded px-2.5 py-0.5 text-xs font-medium"
+				>
+					{{ row.status }}
+				</span>
+			</template>
+			<template #createdAt="{ row }">{{ new Date(row.createdAt).toLocaleString() }}</template>
+		</XTable>
 	</div>
 </template>
 

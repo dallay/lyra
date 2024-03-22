@@ -12,6 +12,9 @@ export default mergeConfig(
 			API_URL: process.env.API_URL || '',
 		}),
 		plugins: [Vue(), vueRoutes(), unocss({})],
+		preview: {
+			port: 8979,
+		},
 		server: {
 			port: 8978,
 			proxy: {

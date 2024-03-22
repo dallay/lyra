@@ -34,10 +34,10 @@
     "@iconify-json/mdi": "^1.1.64",
     "@iconify-json/ph": "^1.1.11",
     "@iconify-json/simple-icons": "^1.1.94",
-    "@iconify/json": "^2.2.192",
+    "@iconify/json": "^2.2.195",
     "@lyra/utilities": "0.0.1",
     "astro": "^4.5.5",
-    "typescript": "^5.4.2",
+    "typescript": "^5.4.3",
     "vue": "^3.4.21"
   },
   "devDependencies": {

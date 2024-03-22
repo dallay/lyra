@@ -15,8 +15,8 @@
     "mock": "print \"DEV: 🟢 Starting ${npm_package_name} in dev mode\" warning && vite"
   },
   "dependencies": {
-    "@fastify/multipart": "^8.1.0",
-    "@fastify/one-line-logger": "^1.2.0",
+    "@fastify/multipart": "^8.2.0",
+    "@fastify/one-line-logger": "^1.3.0",
     "fastify": "^4.26.2",
     "fastify-plugin": "^4.5.1"
   },
@@ -24,7 +24,7 @@
     "@lyra/tsconfig": "workspace:^",
     "@lyra/config": "workspace:^",
     "@lyra/mock-responses": "workspace:^",
-    "vite": "^5.1.6",
+    "vite": "^5.2.3",
     "vite-plugin-fastify": "^1.2.5",
     "vite-plugin-fastify-routes": "^1.1.1"
   },

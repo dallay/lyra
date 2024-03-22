@@ -4,6 +4,7 @@ import { XBreadcrumb, XCard, XSelect } from '@lyra/ui';
 
 import WithTable from './WithTable.vue';
 import WithTableInDialog from './WithTableInDialog.vue';
+import WithTableInPopover from './WithTableInPopover.vue';
 
 const flux = reactive({
 	select1: '',
@@ -114,6 +115,14 @@ const flux = reactive({
 				<WithTableInDialog />
 			</XCard>
 		</section>
+	</section>
+
+	<section class="my-4">
+		<h3 class="my-4 pt-2 text-2xl font-semibold">In Popover</h3>
+
+		<XCard>
+			<WithTableInPopover />
+		</XCard>
 	</section>
 
 	<section class="my-8">

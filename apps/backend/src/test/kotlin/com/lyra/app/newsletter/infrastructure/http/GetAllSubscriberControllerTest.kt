@@ -38,6 +38,7 @@ internal class GetAllSubscriberControllerTest {
     fun setUp() {
         every { rhsFilterParserFactory.create(SubscriberEntity::class) } returns rhsFilterParser
         every { rhsFilterParser.parse(any()) } returns Criteria.Empty
+        every { rhsFilterParser.parse(any(), any()) } returns Criteria.Empty
 
         val sortParserFactory = mockk<SortParserFactory>()
         val sortParser = SortParser(SubscriberEntity::class, ObjectMapper())

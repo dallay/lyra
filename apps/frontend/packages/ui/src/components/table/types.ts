@@ -11,12 +11,17 @@ export type ColumnItem = {
 
 export type PaginationType = 'offset' | 'cursor';
 
+export type Sort = {
+	field?: string;
+	direction: SortType;
+};
+
+export type QuerySort = Sort & {
+	toQueryString: () => string;
+};
 export type Control = {
 	paginationType: PaginationType;
-	sort?: {
-		field?: string;
-		direction: SortType;
-	};
+	sort?: Sort;
 	offset?: OffsetPage;
 	cursor?: CursorPage;
 };

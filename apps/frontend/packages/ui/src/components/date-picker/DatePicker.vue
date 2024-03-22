@@ -34,6 +34,7 @@ const props = withDefaults(
 		minDate?: string | Date;
 		maxDate?: string | Date;
 		format?: string;
+		useParentOffset?: boolean;
 	}>(),
 	{
 		value: '',
@@ -41,6 +42,7 @@ const props = withDefaults(
 		minDate: '',
 		maxDate: '',
 		format: 'yyyy/MM/dd',
+		useParentOffset: false,
 	}
 );
 
@@ -156,17 +158,26 @@ const flux = reactive({
 	showDatePicker: false,
 	direction: '' as 'down' | 'up' | '',
 	resizePanel() {
-		const rect = input.value.$el.querySelector('.TextField-Input').getBoundingClientRect();
+		const textFieldInput = input.value.$el.querySelector('.TextField-Input');
+		const rect = textFieldInput.getBoundingClientRect();
+		const offsetParent = textFieldInput.offsetParent as HTMLElement;
+		const parentRect = offsetParent.getBoundingClientRect();
 
-		picker.value.style.left = `${rect.left}px`;
+		picker.value.style.left = props.useParentOffset
+			? `${rect.left - parentRect.left}px`
+			: `${rect.left}px`;
 
 		const center = window.innerHeight / 2;
 
 		if (rect.top > center) {
-			picker.value.style.top = `${rect.top}px`;
+			picker.value.style.top = props.useParentOffset
+				? `${rect.top - parentRect.top}px`
+				: `${rect.top}px`;
 			flux.direction = 'up';
 		} else {
-			picker.value.style.top = `${rect.bottom}px`;
+			picker.value.style.top = props.useParentOffset
+				? `${rect.bottom - parentRect.top}px`
+				: `${rect.bottom}px`;
 			flux.direction = 'down';
 		}
 	},

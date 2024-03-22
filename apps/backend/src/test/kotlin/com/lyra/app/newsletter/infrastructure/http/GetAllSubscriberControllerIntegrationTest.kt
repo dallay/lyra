@@ -134,20 +134,24 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
 
     @Test
     @Sql(
-        "/db/subscriber.sql",
+        "/db/subscriber-pagination.sql",
     )
     @Sql(
         "/db/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
-    fun `should prioritize search over filters`() {
+    fun `should combine search and filters`() {
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
                     .path(ENDPOINT)
-                    .queryParam("search", "jana")
+                    .queryParam("search", "Henry")
                     .queryParam(
-                        "filter[email]", listOf("eq:john.doe@test.com"),
+                        "filter[createdAt]",
+                        listOf(
+                            "gte:2023-03-12T23:00:00.000Z",
+                            "lte:2023-03-17T23:00:00.000Z",
+                        ),
                     )
                     .build()
             }
@@ -156,10 +160,14 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
             .expectBody()
             .jsonPath("$.data").isArray
             .jsonPath("$.nextPageCursor").doesNotExist()
-            .jsonPath("$.data[0].id").isEqualTo("d73e2961-ec29-4f19-b5c4-b9c2dc7f1def")
-            .jsonPath("$.data[0].email").isEqualTo("jana.doe@test.com")
-            .jsonPath("$.data[0].name").isEqualTo("Jana Doe")
+            .jsonPath("$.data[0].id").isEqualTo("a72d3adb-7f07-4837-b592-0be854d20a67")
+            .jsonPath("$.data[0].email").isEqualTo("maurice.henry@test.com")
+            .jsonPath("$.data[0].name").isEqualTo("Maurice Henry")
             .jsonPath("$.data[0].status").isEqualTo("ENABLED")
+            .jsonPath("$.data[1].id").isEqualTo("a4053f51-ddee-4abc-bf5d-767d7588b711")
+            .jsonPath("$.data[1].email").isEqualTo("michel.henry@test.com")
+            .jsonPath("$.data[1].name").isEqualTo("Michel Henry")
+            .jsonPath("$.data[1].status").isEqualTo("ENABLED")
             .consumeWith { println(it) }
     }
 

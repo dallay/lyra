@@ -38,12 +38,7 @@ async function search() {
 	const response = await leetcode({ ...body, control: state.control });
 	state.rows = response.result;
 	state.count = response.count;
-	if (state.count === 0) {
-		state.control = {
-			...state.control,
-			cursor: { cursor: '', limit: 10 },
-		} as TableProps['control'];
-	}
+	state.control = response.control;
 }
 
 async function change(params: TableProps['control']) {
@@ -51,12 +46,7 @@ async function change(params: TableProps['control']) {
 	const response = await leetcode({ ...body, control: params });
 	state.rows = response.result;
 	state.count = response.count;
-	if (state.count === 0) {
-		state.control = {
-			...state.control,
-			cursor: { cursor: '', limit: 10 },
-		} as TableProps['control'];
-	}
+	state.control = response.control;
 }
 </script>
 

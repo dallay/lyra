@@ -14,14 +14,14 @@ const defaultControl: Control = {
 	},
 };
 
-function offsetPagination<T>(control: Control, arr: T[]) {
+function offsetPagination<T>(control: Control, arr: T[]): T[] {
 	const offset = control.offset;
 	const chunked = chunk(arr, offset?.rows ?? 10);
 	const page = (offset?.page ?? 1) - 1;
 	return chunked[page];
 }
 
-function cursorPagination<T extends Record<string, any>>(control: Control, arr: T[]) {
+function cursorPagination<T extends Record<string, any>>(control: Control, arr: T[]): T[] {
 	const cursor = control.cursor;
 	const limit = cursor?.limit ?? 10;
 	// find all the items that are before (greater) the cursor and then take the next limit items
@@ -30,7 +30,10 @@ function cursorPagination<T extends Record<string, any>>(control: Control, arr: 
 	return arr.slice(page, page + limit);
 }
 
-export default <T extends Record<string, any>>(rows: T[], control: Control = defaultControl) => {
+export default <T extends Record<string, any>>(
+	rows: T[],
+	control: Control = defaultControl
+): T[] => {
 	if (!rows?.length) return [];
 
 	const sort = control.sort;

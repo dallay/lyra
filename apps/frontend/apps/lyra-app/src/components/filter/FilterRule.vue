@@ -123,12 +123,14 @@ const submit = () => {
 <template>
 	<XPopover v-model="flux.filterRuleStatus">
 		<span
+			:data-testid="`filter-${property.key}`"
 			class="bg-secondary-100 text-secondary-800 dark:bg-tertiary-700 dark:text-secondary-400 border-secondary-400/50 inline-flex cursor-pointer items-center rounded-full border px-2.5 py-0.5 text-xs font-medium"
 			@click="flux.filterRuleStatus = !flux.filterRuleStatus"
 		>
 			<i :class="`${property.icon} mr-1 h-5 w-5`"></i>
 			{{ property.name }}={{ property.operator }}:{{ formatProperty(property.value) }}
 			<i
+				data-testid="clear-filter"
 				class="i-material-symbols:close ml-1 h-5 w-5 cursor-pointer"
 				@click="removeFilterProperty(property)"
 			></i>
@@ -151,6 +153,7 @@ const submit = () => {
 							:invalid="state.valdn.operator"
 						/>
 						<i
+							data-testid="close-filter"
 							class="i-material-symbols:cancel-outline-rounded ml-1 h-5 w-5 cursor-pointer"
 							@click="removeFilterProperty(property)"
 						></i>
@@ -165,6 +168,7 @@ const submit = () => {
 						:prepend="property.icon"
 						:invalid="state.valdn.valueRule"
 						clearable
+						data-testid="filter-text-field"
 					/>
 					<XSelect
 						v-else-if="inputType === 'select'"
@@ -173,12 +177,14 @@ const submit = () => {
 						:invalid="state.valdn.valueRule"
 						clearable
 						use-parent-offset
+						data-testid="filter-select"
 					/>
 					<XDatePicker
 						v-else-if="inputType === 'date'"
 						v-model:value="state.form.valueRule as string"
 						clearable
 						use-parent-offset
+						data-testid="filter-date-picker"
 					>
 					</XDatePicker>
 				</div>
@@ -186,6 +192,7 @@ const submit = () => {
 				<template #footer>
 					<div class="flex justify-end p-2">
 						<XButton
+							data-testid="apply-filter"
 							size="small"
 							variant="outlined"
 							icon="i-material-symbols:filter-alt"

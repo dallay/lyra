@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
 import { useLocale } from 'vue-localer';
 import Button from '../button/Button.vue';
 
@@ -13,14 +12,10 @@ export interface TableControlCursorProps {
 	limit: number;
 	loading: boolean;
 }
-const flux = reactive({
-	cursor: props.cursor,
-	limit: props.limit,
-});
-
 function loadMore() {
-	if (!flux.cursor) return;
-	emit('loadMore', { cursor: flux.cursor, limit: flux.limit });
+	if (props.loading || !props.cursor) return;
+	if (!props.cursor) return;
+	emit('loadMore', { cursor: props.cursor, limit: props.limit });
 }
 </script>
 
@@ -37,5 +32,3 @@ function loadMore() {
 		/>
 	</div>
 </template>
-
-<style scoped lang="scss"></style>

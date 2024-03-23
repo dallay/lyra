@@ -10,6 +10,7 @@ export interface Subscriber {
 	email: string;
 	name: string;
 	status: string;
+	createdAt: string;
 }
 
 export interface Subscribers {

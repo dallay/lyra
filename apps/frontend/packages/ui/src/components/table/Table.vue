@@ -99,8 +99,9 @@ const flux = reactive({
 		flux.currentPage += 1;
 		flux._updateChange();
 	},
-	loadMore() {
-		flux.cursor = flux.rows[flux.rows.length - 1].id.toString();
+	loadMore(cursorPage: CursorPage) {
+		flux.cursor = cursorPage.cursor;
+		flux.rowsPerPage = cursorPage.limit;
 		flux._updateChange();
 	},
 

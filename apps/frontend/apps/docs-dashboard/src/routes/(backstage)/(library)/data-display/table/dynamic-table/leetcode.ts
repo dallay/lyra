@@ -1,5 +1,7 @@
 import { staticTable, type Control } from '@lyra/ui';
 
+const DEFAULT_LIMIT = 10;
+const DEFAULT_CURSOR_ID = '0';
 export default async (
 	body: {
 		id?: number;
@@ -203,16 +205,29 @@ export default async (
 	}
 
 	const result = staticTable(res, body.control);
-	let count = 0;
+	const control: Control = body.control as Control;
+	let count: number;
 	if (body.control?.paginationType === 'offset') {
 		count = res.length;
 	} else {
 		// if is the end of the list, the cursor is empty
 		count = result.length === 0 ? 0 : res.length;
+		const cursorId = result[result.length - 1]?.id;
+		if (cursorId && cursorId === res[res.length - 1]?.id) {
+			control.cursor = {
+				cursor: DEFAULT_CURSOR_ID,
+				limit: control.cursor?.limit ?? DEFAULT_LIMIT,
+			};
+		}
+		control.cursor = {
+			cursor: cursorId?.toString() ?? DEFAULT_CURSOR_ID,
+			limit: control.cursor?.limit ?? DEFAULT_LIMIT,
+		};
 	}
 	return {
 		message: 'OK',
 		result: result,
 		count: count,
+		control: control,
 	};
 };

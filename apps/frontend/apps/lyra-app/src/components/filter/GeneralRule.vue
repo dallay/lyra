@@ -14,7 +14,6 @@ const emit = defineEmits<{
 	(evt: 'applyFilters', val: string): void;
 	(evt: 'removeFilterProperty', val: ColumnProperty): void;
 	(evt: 'addFilterProperty', val: ColumnProperty): void;
-	(evt: 'clearFilters'): void;
 }>();
 
 const filterStatus = ref(false);
@@ -71,6 +70,7 @@ const removeFilterProperty = (column: ColumnProperty) => {
 					prepend="i-material-symbols:filter-alt"
 					append="i-material-symbols:add"
 					label="Add filter"
+					data-testid="add-filter"
 					@click="filterStatus = !filterStatus"
 				/>
 				<template #content>
@@ -78,6 +78,7 @@ const removeFilterProperty = (column: ColumnProperty) => {
 						<XListbox.Item
 							v-for="column in availableColumns"
 							:key="column.key"
+							:data-testid="`filter-${column.key}`"
 							@click="addFilterProperty(column)"
 						>
 							<div class="flex items-center gap-1">

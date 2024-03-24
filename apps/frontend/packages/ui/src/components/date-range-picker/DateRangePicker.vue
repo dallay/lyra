@@ -334,6 +334,7 @@ useScrollParent(
 	<div ref="target" class="w-full">
 		<TextField
 			ref="input"
+			data-testid="date-range-picker-input"
 			v-bind="$attrs"
 			:value="rangeValue"
 			:disabled="disabled"

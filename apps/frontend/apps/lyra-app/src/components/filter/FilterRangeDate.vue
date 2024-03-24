@@ -64,6 +64,7 @@ onMounted(() => {
 			v-model:endValue="endDate"
 			:maxDate="subDays(new Date(), 1)"
 			clearable
+			data-testid="historical-date-range-picker"
 		>
 			<template #panel>
 				<div class="mt-1 border-t border-gray-200 dark:border-gray-700">
@@ -73,6 +74,7 @@ onMounted(() => {
 						<XButton
 							v-for="historical in flux.allHistorical"
 							:key="historical"
+							:data-testid="historical"
 							:label="historical"
 							variant="text"
 							color="secondary"

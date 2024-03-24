@@ -1,20 +1,9 @@
 import { mount, VueWrapper } from '@vue/test-utils';
 import FilterRule from '@/components/filter/FilterRule.vue';
 import { dateOperators, FilterOperator, textOperators } from '@/components/filter/FilterOperator';
-import { createLocaler } from 'vue-localer';
 import { ColumnProperty } from '@/components/filter/Filter';
+import localer from '@/plugins/localer';
 
-const localer = createLocaler({
-	fallbackLocale: 'en-US',
-	messages: {
-		'en-US': {
-			email: `This must be a valid email`,
-			minLength: `This must be at least {0} characters`,
-			minValue: `This must be greater than {0}`,
-			required: `This is a required field`,
-		},
-	},
-});
 const columnProperty: ColumnProperty = {
 	icon: 'i-ic-round-dashboard',
 	name: 'Name',

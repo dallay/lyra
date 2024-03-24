@@ -11,6 +11,7 @@ export interface Subscriber {
 	name: string;
 	status: string;
 	createdAt: string;
+	updatedAt: string;
 }
 
 export interface Subscribers {

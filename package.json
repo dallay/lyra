@@ -23,15 +23,15 @@
     "update-deps": "pnpm update -i -r --latest",
     "preinstall": "npx only-allow pnpm",
     "setup": "pnpm install && pnpm exec playwright install",
-    "dev": "pnpm --if-present --recursive --aggregate-output --parallel --stream run dev",
-    "build": "pnpm --if-present --recursive --aggregate-output --parallel --stream run build",
-    "clean": "pnpm --if-present --recursive --aggregate-output --parallel --stream run clean",
-    "preview": "pnpm --if-present --recursive --aggregate-output --parallel --stream run preview",
-    "check": "pnpm --if-present --recursive --aggregate-output --parallel --stream run lint && pnpm --if-present --recursive --stream run check",
-    "format": "pnpm --if-present --recursive --aggregate-output --parallel --stream run format",
-    "lint": "pnpm --if-present --recursive --aggregate-output --parallel --stream run lint",
-    "test": "pnpm --if-present --recursive --aggregate-output --parallel --stream run test",
-    "test:watch": "pnpm --if-present --recursive --aggregate-output --parallel --stream run test:watch"
+    "dev": "pnpm -C apps/frontend run dev",
+    "build": "pnpm -C apps/frontend run build",
+    "clean": "pnpm -C apps/frontend run clean",
+    "preview": "pnpm -C apps/frontend run preview",
+    "check": "pnpm -C apps/frontend run lint && pnpm --if-present --recursive --stream run check",
+    "format": "pnpm -C apps/frontend run format",
+    "lint": "pnpm -C apps/frontend run lint",
+    "test": "pnpm -C apps/frontend run test",
+    "test:watch": "pnpm -C apps/frontend run test:watch"
   },
   "workspaces": [
     "apps/frontend/*"

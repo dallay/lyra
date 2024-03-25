@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "private": true,
   "author": {
-    "name": "Yanier Acosta Pérez",
+    "name": "Yuniel Acosta Pérez",
     "email": "yunielacosta738@gmail.com",
     "url": "www.yunielacosta.com"
   },
@@ -42,11 +42,11 @@
     "build:types": "vue-tsc --noEmit && tsc-alias -p tsconfig.json",
     "build:vite": "vite build",
     "build:all": "run-s build:types build:vite",
-    "build": "print \"BUILD: 🟢 Building ${npm_package_name}\" && run-s build:all",
-    "check": "print \"CHECK: ✅ Checking ${npm_package_name}\" && vue-tsc --noEmit",
-    "clean": "print \"CLEAN: 🧹 Cleaning ${npm_package_name}\" info && rimraf dist coverage",
-    "test": "print \"TEST: 🧪 Testing ${npm_package_name}\" && vitest --coverage --run",
-    "test:watch": "print \"TEST: 🧪 Watching ${npm_package_name}\" && vitest --watch",
+    "build": "print \"BUILD: [🟢] Building ${npm_package_name}\" && run-s build:all",
+    "check": "print \"CHECK: [✅] Checking ${npm_package_name}\" && run-s typecheck",
+    "clean": "print \"CLEAN: [🧹] Cleaning ${npm_package_name}\" info && rimraf dist coverage",
+    "test": "print \"TEST: [🧪] Testing ${npm_package_name}\" && vitest --coverage --run",
+    "test:watch": "print \"TEST: [🧪] Watching ${npm_package_name}\" && vitest --watch",
     "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
@@ -99,8 +99,8 @@
   "devDependencies": {
     "@unocss/postcss": "^0.58.6",
     "@unocss/reset": "^0.58.6",
-    "@iconify/json": "^2.2.195",
-    "@lyra/config": "workspace:^",
+    "@iconify/json": "^2.2.196",
+    "@lyra/config": "0.0.1",
     "@lyra/tsconfig": "0.0.1",
     "@lyra/utilities": "0.0.1",
     "@vitejs/plugin-vue": "^5.0.4",
@@ -112,7 +112,8 @@
     "typescript": "^5.4.3",
     "unocss": "^0.58.6",
     "vite-plugin-dts": "^3.7.3",
-    "vue-tsc": "^2.0.7"
+    "vue-tsc": "^2.0.7",
+    "vitest": "^1.4.0"
   },
   "engines": {
     "node": ">=18.14.1",

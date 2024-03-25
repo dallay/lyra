@@ -3,7 +3,7 @@
   "description": "Mock responses for Lyra",
   "version": "0.0.1",
   "author": {
-    "name": "Yanier Acosta Pérez",
+    "name": "Yuniel Acosta Pérez",
     "email": "yunielacosta738@gmail.com",
     "url": "www.yunielacosta.com"
   },
@@ -27,7 +27,7 @@
   "scripts": {
     "check": "tsc --noEmit",
     "build": "tsc --build",
-    "clean": "rimraf dist"
+    "clean": "echo 'Nothing to clean'"
   },
   "peerDependencies": {
     "typescript": "^5.4.3",
@@ -37,7 +37,7 @@
     "@lyra/tsconfig": "0.0.1",
     "tsc-alias": "1.8.8",
     "typescript": "^5.4.3",
-    "vite": "^5.2.3",
+    "vite": "^5.2.6",
     "vite-plugin-dts": "^3.7.3",
     "vitest": "^1.4.0"
   },

@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "author": {
-    "name": "Yanier Acosta Pérez",
+    "name": "Yuniel Acosta Pérez",
     "email": "yunielacosta738@gmail.com",
     "url": "www.yunielacosta.com"
   },
@@ -32,16 +32,17 @@
   "devDependencies": {
     "@codecov/vite-plugin": "0.0.1-beta.5",
     "@julr/unocss-preset-flowbite": "^0.0.2",
-    "@lyra/tsconfig": "workspace:^",
+    "@lyra/tsconfig": "0.0.1",
     "@unocss/postcss": "^0.58.6",
     "@unocss/reset": "^0.58.6",
     "postcss": "^8.4.38",
-    "stylelint": "^16.2.1",
+    "stylelint": "^16.3.0",
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard-scss": "^13.0.0",
     "stylelint-order": "^6.0.4",
     "tailwindcss": "^3.4.1",
-    "unocss": "^0.58.6"
+    "unocss": "^0.58.6",
+    "vitest": "^1.4.0"
   },
   "publishConfig": {
     "access": "public"

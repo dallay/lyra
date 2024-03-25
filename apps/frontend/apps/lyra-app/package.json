@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Lyra UI",
   "author": {
-    "name": "Yanier Acosta Pérez",
+    "name": "Yuniel Acosta Pérez",
     "email": "yunielacosta738@gmail.com",
     "url": "www.yunielacosta.com"
   },
@@ -20,14 +20,14 @@
     "url": "https://github.com/yacosta738/lyra/issues"
   },
   "scripts": {
-    "dev": "print \"DEV: 🟢 Starting ${npm_package_name} in dev mode\" && vite",
-    "build": "print \"BUILD: 🟢 Building ${npm_package_name}\" info && vite build",
+    "dev": "print \"DEV: [🟢] Starting ${npm_package_name} in dev mode\" && vite",
+    "build": "print \"BUILD: [🟢] Building ${npm_package_name}\" info && vite build",
     "preview": "vite preview",
-    "check": "print \"CHECK: ✅ Checking ${npm_package_name}\" && vue-tsc --noEmit",
-    "clean": "print \"CLEAN: 🧹 Cleaning ${npm_package_name}\" warning && rimraf dist coverage test-results",
-    "test": "print \"TEST: 🧪 Testing ${npm_package_name}\" && run-p test:unit test:e2e",
+    "check": "print \"CHECK: [✅] Checking ${npm_package_name}\" && vue-tsc --noEmit",
+    "clean": "print \"CLEAN: [🧹] Cleaning ${npm_package_name}\" warning && rimraf dist coverage test-results",
+    "test": "print \"TEST: [🧪] Testing ${npm_package_name}\" && run-p test:unit test:e2e",
     "test:unit": "vitest --coverage --run",
-    "test:watch": "print \"TEST: 🧪 Watching ${npm_package_name}\" && vitest --watch",
+    "test:watch": "print \"TEST: [🧪] Watching ${npm_package_name}\" && vitest --watch",
     "test:e2e": "playwright test"
   },
   "dependencies": {
@@ -51,10 +51,10 @@
   },
   "devDependencies": {
     "@lyra/tsconfig": "0.0.1",
-    "@lyra/config": "workspace:^",
+    "@lyra/config": "0.0.1",
     "@lyra/utilities": "0.0.1",
     "@lyra/mock-responses": "0.0.1",
-    "@iconify/json": "^2.2.195",
+    "@iconify/json": "^2.2.196",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/test-utils": "^2.4.5",
     "sass": "^1.72.0",
@@ -63,7 +63,8 @@
     "unocss": "^0.58.6",
     "vite-plugin-vue-routes": "^1.1.0",
     "@pinia/testing": "^0.1.3",
-    "vue-tsc": "^2.0.7"
+    "vue-tsc": "^2.0.7",
+    "vitest": "^1.4.0"
   },
   "packageManager": "pnpm@8.14.1"
 }

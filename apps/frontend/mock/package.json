@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Mock server for testing",
   "author": {
-    "name": "Yanier Acosta Pérez",
+    "name": "Yuniel Acosta Pérez",
     "email": "yunielacosta738@gmail.com",
     "url": "www.yunielacosta.com"
   },
@@ -11,8 +11,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "print \"DEV: 🟢 Starting ${npm_package_name} in dev mode\" warning && vite",
-    "mock": "print \"DEV: 🟢 Starting ${npm_package_name} in dev mode\" warning && vite"
+    "dev": "print \"DEV: [🟢] Starting ${npm_package_name} in dev mode\" warning && vite",
+    "mock": "print \"DEV: [🟢] Starting ${npm_package_name} in dev mode\" warning && vite"
   },
   "dependencies": {
     "@fastify/multipart": "^8.2.0",
@@ -21,10 +21,10 @@
     "fastify-plugin": "^4.5.1"
   },
   "devDependencies": {
-    "@lyra/tsconfig": "workspace:^",
-    "@lyra/config": "workspace:^",
-    "@lyra/mock-responses": "workspace:^",
-    "vite": "^5.2.3",
+    "@lyra/tsconfig": "0.0.1",
+    "@lyra/config": "0.0.1",
+    "@lyra/mock-responses": "0.0.1",
+    "vite": "^5.2.6",
     "vite-plugin-fastify": "^1.2.5",
     "vite-plugin-fastify-routes": "^1.1.1"
   },

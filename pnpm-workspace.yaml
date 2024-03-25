@@ -1,0 +1,8 @@
+packages:
+  - '.'
+  - 'apps/frontend'
+  - 'apps/frontend/*'
+  - 'apps/frontend/apps/*'
+  - 'apps/frontend/packages/*'
+  - 'apps/frontend/config'
+  - 'apps/frontend/mock'

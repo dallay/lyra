@@ -8,7 +8,6 @@ export const sharedVitestConfig = (dirname) =>
 			exclude: ['tests/e2e/**/*.spec.e2e.{ts,js}'],
 			testMatch: ['**/__tests__/**/*.spec.{ts,js}'],
 			coverage: {
-				all: true,
 				provider: 'v8',
 				enabled: true,
 				reportsDirectory: './coverage',

@@ -363,6 +363,7 @@ useScrollParent(
 				<div class="mb-1 flex items-center justify-between">
 					<div
 						class="cursor-pointer rounded-full p-1 hover:bg-slate-200 dark:hover:bg-slate-600"
+						data-testid="backward-date-button"
 						@click="flux.decrement"
 					>
 						<div class="i-material-symbols-chevron-left-rounded h-4 w-4"></div>
@@ -389,6 +390,7 @@ useScrollParent(
 
 					<div
 						class="cursor-pointer rounded-full p-1 hover:bg-slate-200 dark:hover:bg-slate-600"
+						data-testid="forward-date-button"
 						@click="flux.increment"
 					>
 						<div class="i-material-symbols-chevron-right-rounded h-4 w-4"></div>
@@ -429,6 +431,7 @@ useScrollParent(
 										'!cursor-not-allowed text-slate-300 dark:text-slate-600': item.disabled,
 										'ring-primary-500 ring-1': item.today,
 									}"
+									:data-testid="`date-${item.date.getDate()}`"
 								>
 									{{ item.date.getDate() }}
 								</div>

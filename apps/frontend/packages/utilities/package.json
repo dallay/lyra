@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "A collection of utilities for Lyra",
   "author": {
-    "name": "Yanier Acosta Pérez",
+    "name": "Yuniel Acosta Pérez",
     "email": "yunielacosta738@gmail.com",
     "url": "www.yunielacosta.com"
   },
@@ -40,21 +40,22 @@
     "url": "https://github.com/yacosta738/lyra/issues"
   },
   "scripts": {
-    "dev": "print \"DEV: 🟢 Starting ${npm_package_name} in dev mode\" && vite build -- --watch",
+    "dev": "print \"DEV: [🟢] Starting ${npm_package_name} in dev mode\" && vite build -- --watch",
     "build:types": "tsc --build",
     "build:vite": "vite build",
     "build:all": "run-s build:types build:vite",
-    "build": "print \"BUILD: 🟢 Building ${npm_package_name}\" && run-s build:all",
+    "build": "print \"BUILD: [🟢] Building ${npm_package_name}\" && run-s build:all",
     "preview": "vite preview",
-    "check": "print \"CHECK: ✅ Checking ${npm_package_name}\" && tsc --noEmit --skipLibCheck",
-    "clean": "print \"CLEAN: 🧹 Cleaning ${npm_package_name}\" info && rimraf dist coverage",
-    "test": "print \"TEST: 🧪 Testing ${npm_package_name}\" && vitest --coverage --run",
-    "test:watch": "print \"TEST: 🧪 Watching ${npm_package_name}\" && vitest --watch"
+    "check": "print \"CHECK: [✅] Checking ${npm_package_name}\" && tsc --noEmit --skipLibCheck",
+    "clean": "print \"CLEAN: [🧹] Cleaning ${npm_package_name}\" info && rimraf dist coverage",
+    "test": "print \"TEST: [🧪] Testing ${npm_package_name}\" && vitest --coverage --run",
+    "test:watch": "print \"TEST: [🧪] Watching ${npm_package_name}\" && vitest --watch"
   },
   "devDependencies": {
-    "@lyra/config": "workspace:^",
+    "@lyra/config": "0.0.1",
     "@lyra/tsconfig": "0.0.1",
     "vite-plugin-dts": "^3.7.3",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.3",
+    "vitest": "^1.4.0"
   }
 }

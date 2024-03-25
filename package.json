@@ -27,7 +27,7 @@
     "build": "pnpm -C apps/frontend run build",
     "clean": "pnpm -C apps/frontend run clean",
     "preview": "pnpm -C apps/frontend run preview",
-    "check": "pnpm -C apps/frontend run lint && pnpm --if-present --recursive --stream run check",
+    "check": "pnpm -C apps/frontend run lint && pnpm -C apps/frontend run check",
     "format": "pnpm -C apps/frontend run format",
     "lint": "pnpm -C apps/frontend run lint",
     "test": "pnpm -C apps/frontend run test",

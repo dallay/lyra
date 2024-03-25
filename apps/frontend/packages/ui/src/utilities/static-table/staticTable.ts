@@ -39,7 +39,7 @@ export default <T extends Record<string, any>>(
 	const sort = control.sort;
 	let arr = [...rows];
 	if (sort && sort.field) {
-		const sortedArr = sortBy(arr, (item) => item[sort?.field ?? defaultField]);
+		const sortedArr = sortBy(arr, (item: T) => item[sort?.field ?? defaultField]);
 		arr = sort.direction === 'asc' ? sortedArr : sortedArr.reverse();
 	}
 	return control.paginationType === 'offset'

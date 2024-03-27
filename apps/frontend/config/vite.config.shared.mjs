@@ -20,8 +20,8 @@ export const sharedViteConfig = (dirname) => ({
 	test: {
 		globals: true,
 		environment: 'happy-dom',
-    alias: {
-      '@/': new URL('./src/', import.meta.url).pathname,
-    }
+		alias: {
+			'@/': new URL('./src/', import.meta.url).pathname,
+		},
 	},
 });

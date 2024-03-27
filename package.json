@@ -44,7 +44,8 @@
     "gradle-semantic-release-plugin": "1.9.1",
     "semantic-release": "^23.0.6",
     "npm-run-all2": "^6.1.2",
-    "rimraf": "^5.0.5"
+    "rimraf": "^5.0.5",
+    "@types/node": "^20.11.30"
   },
   "engines": {
     "node": ">=18.14.1",

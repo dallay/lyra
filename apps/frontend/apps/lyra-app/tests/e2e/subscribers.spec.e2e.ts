@@ -1,7 +1,6 @@
 import { expect, type Page, test } from '@playwright/test';
 import { signIn } from './helper/authHelper';
 import { getSubscribers } from './helper/susbcriberHelper';
-import { Subscriber } from '../../src/routes/(backstage)/audience/subscribers/types';
 
 type SubscriberCell = {
 	name: string;

@@ -16,11 +16,20 @@ beforeEach(() => {
 afterEach(() => {
 	wrapper.unmount();
 });
+
+async function enableDateRangeFilter() {
+	const enableFilterCheckbox = wrapper.find('input[type="checkbox"]');
+	await enableFilterCheckbox.setValue(true);
+}
+
 describe('FilterRangeDate.vue', () => {
 	it('sets historical date range to 1 year on mount', async () => {
 		const today = new Date();
 		const expectedStartDate = format(subYears(today, 1), 'yyyy/MM/dd');
 		const expectedEndDate = format(subDays(today, 1), 'yyyy/MM/dd');
+		await enableDateRangeFilter();
+
+		console.log(wrapper.html());
 		// @ts-ignore
 		expect(wrapper.vm.startDate).toBe(expectedStartDate);
 		// @ts-ignore
@@ -28,6 +37,8 @@ describe('FilterRangeDate.vue', () => {
 	});
 
 	it('updates date range to 7 days when 7D button is clicked', async () => {
+		await enableDateRangeFilter();
+
 		const historicalDOMWrapper = wrapper.find('[data-testid="historical-date-range-picker"]');
 		await historicalDOMWrapper.trigger('focus');
 		await historicalDOMWrapper.trigger('click');
@@ -49,6 +60,8 @@ describe('FilterRangeDate.vue', () => {
 	});
 
 	it('updates date range to start of month when MTD button is clicked', async () => {
+		await enableDateRangeFilter();
+
 		const historicalDOMWrapper = wrapper.find('[data-testid="historical-date-range-picker"]');
 		await historicalDOMWrapper.trigger('focus');
 		await historicalDOMWrapper.trigger('click');
@@ -70,6 +83,8 @@ describe('FilterRangeDate.vue', () => {
 	});
 
 	it('updates date range to 14 days when 14D button is clicked', async () => {
+		await enableDateRangeFilter();
+
 		const historicalDOMWrapper = wrapper.find('[data-testid="historical-date-range-picker"]');
 		await historicalDOMWrapper.trigger('focus');
 		await historicalDOMWrapper.trigger('click');
@@ -91,6 +106,8 @@ describe('FilterRangeDate.vue', () => {
 	});
 
 	it('updates date range to 1 month when 1M button is clicked', async () => {
+		await enableDateRangeFilter();
+
 		const historicalDOMWrapper = wrapper.find('[data-testid="historical-date-range-picker"]');
 		await historicalDOMWrapper.trigger('focus');
 		await historicalDOMWrapper.trigger('click');
@@ -112,6 +129,8 @@ describe('FilterRangeDate.vue', () => {
 	});
 
 	it('updates date range to 3 months when 3M button is clicked', async () => {
+		await enableDateRangeFilter();
+
 		const historicalDOMWrapper = wrapper.find('[data-testid="historical-date-range-picker"]');
 		await historicalDOMWrapper.trigger('focus');
 		await historicalDOMWrapper.trigger('click');
@@ -133,6 +152,8 @@ describe('FilterRangeDate.vue', () => {
 	});
 
 	it('updates date range to 6 months when 6M button is clicked', async () => {
+		await enableDateRangeFilter();
+
 		const historicalDOMWrapper = wrapper.find('[data-testid="historical-date-range-picker"]');
 		await historicalDOMWrapper.trigger('focus');
 		await historicalDOMWrapper.trigger('click');
@@ -154,6 +175,8 @@ describe('FilterRangeDate.vue', () => {
 	});
 
 	it('updates date range to start of year when YTD button is clicked', async () => {
+		await enableDateRangeFilter();
+
 		const historicalDOMWrapper = wrapper.find('[data-testid="historical-date-range-picker"]');
 		await historicalDOMWrapper.trigger('focus');
 		await historicalDOMWrapper.trigger('click');
@@ -175,6 +198,8 @@ describe('FilterRangeDate.vue', () => {
 	});
 
 	it('updates date range to 1 year when 1Y button is clicked', async () => {
+		await enableDateRangeFilter();
+
 		const historicalDOMWrapper = wrapper.find('[data-testid="historical-date-range-picker"]');
 		await historicalDOMWrapper.trigger('focus');
 		await historicalDOMWrapper.trigger('click');

@@ -193,7 +193,6 @@ function changeLang(lang: string) {
 					font-size="30.142"
 					font-weight="700"
 					letter-spacing=".582"
-					style="-inkscape-font-specification: 'Monaspace Radon, Bold'"
 					transform="scale(1.2177 .82122)"
 					word-spacing=".582"
 				/>
@@ -228,6 +227,7 @@ function changeLang(lang: string) {
 
 			<XPopover v-model="menuStatus">
 				<div
+					data-testid="avatar-menu"
 					class="bg-primary-600 w-38px h-38px flex cursor-pointer items-center justify-center rounded-full text-white"
 					@click="menuStatus = !menuStatus"
 				>
@@ -262,7 +262,7 @@ function changeLang(lang: string) {
 							<div class="border dark:border-slate-600"></div>
 
 							<XListbox>
-								<XListbox.Item @click="menu('appearance')">
+								<XListbox.Item data-testid="theme-selector" @click="menu('appearance')">
 									<div class="flex items-center justify-between">
 										<div class="me-2 flex items-center">
 											<div

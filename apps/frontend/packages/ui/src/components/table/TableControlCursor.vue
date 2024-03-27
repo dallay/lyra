@@ -23,6 +23,7 @@ function loadMore() {
 	<div class="flex justify-center">
 		<Button
 			v-if="!loading && cursor"
+			data-testid="load-more"
 			:label="locale.loadMore || 'Load more'"
 			variant="text"
 			color="secondary"

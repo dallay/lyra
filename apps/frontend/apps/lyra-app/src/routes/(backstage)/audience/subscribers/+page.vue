@@ -170,9 +170,20 @@ onUnmounted(() => {
 						@keydown.enter="search"
 						@clear="search"
 					/>
-					<XButton prepend="i-material-symbols-search-rounded" label="Search" @click="search" />
+					<XButton
+						data-testid="search-subscribers"
+						prepend="i-material-symbols-search-rounded"
+						label="Search"
+						@click="search"
+					/>
 				</div>
-				<XButton icon="i-ion:md-options" variant="outlined" size="small" @click="filter" />
+				<XButton
+					data-testid="show-filters"
+					icon="i-ion:md-options"
+					variant="outlined"
+					size="small"
+					@click="filter"
+				/>
 			</div>
 			<XDivider />
 			<div v-if="flux.filter.showFilterOptions">

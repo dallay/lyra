@@ -18,22 +18,18 @@ export async function signIn(
 	await page.goto(startUrl);
 	await page.goto('/sign-in', { waitUntil: 'networkidle' });
 	await expect(page.getByText('Sign in to our platform')).toBeVisible();
-	await page.route('**/api/auth/sign-in', (route) =>
-		route.fulfill({
-			status: 200,
-			body: JSON.stringify(authResponses.successful),
-		})
-	);
+	await page.routeFromHAR('tests/e2e/hars/login.har', {
+		url: '**/api/auth/sign-in',
+		update: false,
+	});
 	await page.getByTestId('sign-in').click();
 	await loadUserData({ page });
 }
 
 export async function loadUserData(options: { page: Page }): Promise<void> {
 	const { page } = options;
-	await page.route('**/api/auth/user', (route) =>
-		route.fulfill({
-			status: 200,
-			body: JSON.stringify(user.admin),
-		})
-	);
+	await page.routeFromHAR('tests/e2e/hars/user.har', {
+		url: '**/api/auth/user',
+		update: false,
+	});
 }

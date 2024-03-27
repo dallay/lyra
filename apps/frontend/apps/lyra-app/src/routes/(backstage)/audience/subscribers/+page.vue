@@ -74,6 +74,7 @@ const flux = reactive({
 		startDate: '',
 		endDate: '',
 		showFilterOptions: false,
+		useFilterRangeDate: false,
 	},
 
 	data: state.subscribers,
@@ -87,7 +88,7 @@ function mergeFilterQuery() {
 	if (flux.filter.criteria.filterQuery) {
 		filterQuery = flux.filter.criteria.filterQuery;
 	}
-	if (flux.filter.startDate && flux.filter.endDate) {
+	if (flux.filter.useFilterRangeDate && flux.filter.startDate && flux.filter.endDate) {
 		const startDate = new Date(flux.filter.startDate);
 		const endDate = new Date(flux.filter.endDate);
 		if (filterQuery) {
@@ -138,7 +139,6 @@ async function filter() {
 		flux.filter.endDate = '';
 	}
 	flux.filter.showFilterOptions = !flux.filter.showFilterOptions;
-	await search();
 }
 
 onMounted(async () => {
@@ -195,6 +195,8 @@ onUnmounted(() => {
 					<FilterRangeDate
 						v-model:startDate="flux.filter.startDate"
 						v-model:endDate="flux.filter.endDate"
+						@use-filter="flux.filter.useFilterRangeDate = $event"
+						@apply-filter="search"
 					/>
 				</GeneralRule>
 			</div>

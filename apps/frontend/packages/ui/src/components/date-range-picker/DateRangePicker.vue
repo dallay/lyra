@@ -59,6 +59,7 @@ const props = withDefaults(
 const emit = defineEmits<{
 	(evt: 'update:startValue', val?: string): void;
 	(evt: 'update:endValue', val?: string): void;
+	(evt: 'hide'): void;
 }>();
 
 const localer = useLocaler();
@@ -305,6 +306,9 @@ watch(
 			flux.selectedRange = [date, date];
 			startValueModel.value = date;
 			endValueModel.value = date;
+		}
+		if (!val) {
+			emit('hide');
 		}
 	}
 );

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue';
-import { XButton, XDateRangePicker } from '@lyra/ui';
+import { onMounted, reactive, watch } from 'vue';
+import { XButton, XDateRangePicker, XCheckbox } from '@lyra/ui';
 import { format, startOfMonth, startOfYear, subDays, subMonths, subYears } from 'date-fns';
 
 const startDate = defineModel<string>('startDate', {
@@ -9,9 +9,14 @@ const startDate = defineModel<string>('startDate', {
 const endDate = defineModel<string>('endDate', {
 	default: '',
 });
+const emit = defineEmits<{
+	(event: 'useFilter', value: boolean): void;
+	(event: 'applyFilter', value: { startDate: string; endDate: string }): void;
+}>();
 
 const flux = reactive({
 	allHistorical: ['7D', '14D', 'MTD', '1M', '3M', '6M', 'YTD', '1Y'],
+	enableFilter: false,
 });
 
 function setHistorical(historical: string) {
@@ -51,20 +56,34 @@ function setHistorical(historical: string) {
 		startDate.value = format(subYears(today, 1), 'yyyy/MM/dd');
 	}
 }
-
+watch(
+	() => flux.enableFilter,
+	(value) => {
+		emit('useFilter', value);
+		if (value && startDate.value === '' && endDate.value === '') {
+			setHistorical('1Y');
+		}
+	}
+);
 onMounted(() => {
-	setHistorical('1Y');
+	if (flux.enableFilter) setHistorical('1Y');
 });
+const applyFilter = () => {
+	emit('applyFilter', { startDate: startDate.value, endDate: endDate.value });
+};
 </script>
 
 <template>
-	<div class="flex w-1/3 justify-end">
+	<div class="flex w-1/2 items-center justify-around">
+		<XCheckbox v-model="flux.enableFilter" class="mx-1">Use Date Range Filter</XCheckbox>
 		<XDateRangePicker
 			v-model:startValue="startDate"
 			v-model:endValue="endDate"
 			:maxDate="subDays(new Date(), 1)"
 			clearable
+			:disabled="!flux.enableFilter"
 			data-testid="historical-date-range-picker"
+			@hide="applyFilter"
 		>
 			<template #panel>
 				<div class="mt-1 border-t border-gray-200 dark:border-gray-700">

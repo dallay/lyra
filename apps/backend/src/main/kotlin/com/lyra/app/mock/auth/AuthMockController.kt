@@ -1,4 +1,4 @@
-package com.lyra.app.auth
+package com.lyra.app.mock.auth
 
 import com.lyra.common.domain.Generated
 import jakarta.validation.Valid
@@ -50,7 +50,7 @@ data class Permission(
     val resource: String,
     val action: String
 )
-@Generated
+@Generated("Mock Auth Controller for development purposes")
 @Suppress("MaximumLineLength", "MaxLineLength")
 @RestController
 @RequestMapping(value = ["/api/auth"], produces = ["application/vnd.api.v1+json"])
@@ -66,7 +66,7 @@ class AuthController {
             otpVerified = false,
         )
     }
-
+    @Generated
     @GetMapping("/user")
     fun user(): User {
         logger.info("User requested")

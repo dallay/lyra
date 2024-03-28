@@ -16,16 +16,12 @@ internal class AppKoverPlugin : ConventionPlugin {
     private val classesExcludes = listOf(
         // Serializers
         "*.*$\$serializer",
-        "com.lyra.app.auth.SignInRequest",
-        "com.lyra.app.auth.SignInResponse",
-        "com.lyra.app.auth.User",
-        "com.lyra.app.auth.Permission",
-        "com.lyra.app.auth.AuthController",
     )
     private val packagesIncludes = listOf("com.lyra")
     private val packagesExcludes = listOf(
         // Common
         "*.buildlogic.*",
+        "*.mock.*",
     )
     private val containerModules = listOf<String>()
 
@@ -61,6 +57,7 @@ internal class AppKoverPlugin : ConventionPlugin {
                 annotatedBy(
                     "androidx.compose.runtime.Composable",
                     "androidx.compose.ui.tooling.preview.Preview",
+                    "com.lyra.common.domain.Generated",
                 )
                 classes(classesExcludes)
                 packages(packagesExcludes)

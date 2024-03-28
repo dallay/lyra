@@ -34,6 +34,7 @@ $ pnpm mock
 ## :computer: Apps links (localhost)
 - [docs](http://localhost:8978)
 - [app](http://localhost:5173)
+- [landing](http://localhost:4321)
 - [mock](http://localhost:3000)
 
 

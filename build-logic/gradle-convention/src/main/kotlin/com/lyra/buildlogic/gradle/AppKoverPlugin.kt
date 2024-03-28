@@ -21,6 +21,7 @@ internal class AppKoverPlugin : ConventionPlugin {
     private val packagesExcludes = listOf(
         // Common
         "*.buildlogic.*",
+        "*.mock.*",
     )
     private val containerModules = listOf<String>()
 
@@ -56,6 +57,7 @@ internal class AppKoverPlugin : ConventionPlugin {
                 annotatedBy(
                     "androidx.compose.runtime.Composable",
                     "androidx.compose.ui.tooling.preview.Preview",
+                    "com.lyra.common.domain.Generated",
                 )
                 classes(classesExcludes)
                 packages(packagesExcludes)

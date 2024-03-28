@@ -1,0 +1,49 @@
+{
+  "name": "@lyra/mock-responses",
+  "description": "Mock responses for Lyra",
+  "version": "0.0.1",
+  "author": {
+    "name": "Yuniel Acosta Pérez",
+    "email": "yunielacosta738@gmail.com",
+    "url": "www.yunielacosta.com"
+  },
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": {
+        "types": "./src/index.ts",
+        "default": "./src/index.ts"
+      }
+    }
+  },
+  "keywords": [
+    "mock",
+    "common responses"
+  ],
+  "scripts": {
+    "check": "tsc --noEmit",
+    "build": "tsc --build",
+    "clean": "echo 'Nothing to clean'"
+  },
+  "peerDependencies": {
+    "typescript": "^5.4.3",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@lyra/tsconfig": "0.0.1",
+    "tsc-alias": "1.8.8",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.6",
+    "vite-plugin-dts": "^3.7.3",
+    "vitest": "^1.4.0"
+  },
+  "engines": {
+    "node": ">=18.14.1",
+    "pnpm": ">=8.6.12"
+  },
+  "packageManager": "pnpm@8.14.1"
+}

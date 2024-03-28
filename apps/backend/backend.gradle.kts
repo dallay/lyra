@@ -43,21 +43,42 @@ dependencies {
     testImplementation("org.testcontainers:postgresql")
     testImplementation("org.testcontainers:r2dbc")
 }
-
-tasks.register<Copy>("processFrontendResources") {
-    val frontendBuildDir = "${project(":apps:frontend").layout.buildDirectory.get()}/www"
+val processFrontendResources = "processFrontendResources"
+tasks.register<Copy>(processFrontendResources) {
+    val www = "${project(":apps:frontend").layout.buildDirectory.get()}/www"
+    val frontendBuildDir = "$www/lyra-app"
     val frontendResourcesDir = "${layout.buildDirectory.get()}/resources/main/static"
 
     group = "Frontend"
     description = "Process frontend resources"
-    dependsOn(":apps:frontend:assembleFrontend")
+    dependsOn(":apps:frontend:$processFrontendResources")
+    mustRunAfter(":apps:frontend:assembleFrontend")
 
-    from(frontendBuildDir)
-    into(frontendResourcesDir)
+    copy {
+        from(frontendBuildDir)
+        into("$frontendResourcesDir/app")
+    }
+
+    copy {
+        from("$www/lyra-landing-page")
+        into(frontendResourcesDir)
+    }
+
+    doLast {
+        println("⚡ Frontend resources processed and copied to $frontendResourcesDir")
+    }
 }
 
 tasks.named<Task>("processResources") {
-    dependsOn("processFrontendResources")
+    dependsOn(processFrontendResources)
+}
+
+tasks.named("build") {
+    dependsOn(processFrontendResources)
+}
+
+tasks.named("bootBuildImage").configure {
+    dependsOn("build")
 }
 
 tasks.withType<KotlinCompile> {

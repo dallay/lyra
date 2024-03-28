@@ -1,0 +1,16 @@
+{
+  "name": "@lyra/scripts",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "print": "./src/echo.js"
+  },
+  "devDependencies": {
+    "chalk": "5.3.0"
+  }
+}

@@ -1,26 +1,13 @@
 {
-  "extends": "tsconfig/astro.json",
+  "extends": "@lyra/tsconfig/tsconfig.node.json",
   "compilerOptions": {
-    "jsx": "preserve",
-    "experimentalDecorators": true,
-    "useDefineForClassFields": false,
-    "incremental": true,
-    "declaration": true,
-    "composite": true,
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "noEmit": true,
+    "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
       "~/*": ["src/*"],
-      "atoms:*": ["components/atoms/*.astro"],
-      "molecules:*": ["components/molecules/*.astro"],
-      "organisms:*": ["components/organisms/*.astro"],
-      "layouts:*": ["layouts/*.astro"]
+      "mock/*": ["../../mock/src/routes/*"]
     }
   },
-  "include": ["./**/*.astro", "./**/*.ts", "./**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["src", "vite.config.ts"],
+  "exclude": ["node_modules", "dist"]
 }

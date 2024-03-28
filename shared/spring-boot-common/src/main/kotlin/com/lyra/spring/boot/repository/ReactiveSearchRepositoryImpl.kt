@@ -81,7 +81,11 @@ class ReactiveSearchRepositoryImpl<T : Any>(
         val pageSize = size + 1
         val cursorCriteriaParsed = R2DBCCriteriaParser(domainType).parse(cursor.getCriteria())
         val criteriaSpringSort = cursor.getSort().toSpringSort()
-        val query = query(criteria.and(cursorCriteriaParsed))
+        // Combine the criteria separately
+        val combinedCriteria = Criteria.empty()
+            .and(criteria)
+            .and(cursorCriteriaParsed)
+        val query = query(combinedCriteria)
             .with(PageRequest.of(0, pageSize, sort.and(criteriaSpringSort)))
         val list = r2dbcTemplate.select(domainType.java).matching(query).all().collectList()
 

@@ -1,2 +1,9 @@
-build
-node
+.DS_Store
+node_modules
+dist
+coverage
+docs/.vitepress/cache
+*.log
+**/build/**
+**/build/**/*
+**/test-results/

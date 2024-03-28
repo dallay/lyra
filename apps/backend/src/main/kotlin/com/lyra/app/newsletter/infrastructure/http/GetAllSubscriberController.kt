@@ -65,26 +65,32 @@ class GetAllSubscriberController(
      */
     private fun criteria(cursorRequestPageable: CursorRequestPageable): Criteria {
         val searchMap = mutableMapOf<KProperty1<SubscriberEntity, *>, List<String>>()
+        val filterMap = mutableMapOf<KProperty1<SubscriberEntity, *>, List<String>>()
         val search = cursorRequestPageable.search
-        val criteria: Criteria =
-            if (!search.isNullOrBlank()) {
-                val searchQuery = getSearchQuery(search)
-                val searchableProperties = mapOf(
-                    SubscriberEntity::email.name to searchQuery,
-                    SubscriberEntity::firstname.name to searchQuery,
-                    SubscriberEntity::lastname.name to searchQuery,
-                )
-                SubscriberEntity::class.memberProperties.forEach { property ->
-                    searchMap[property] = searchableProperties.getOrDefault(property.name, emptyList())
-                }
-                rhsFilterParser.parse(searchMap, true)
-            } else {
-                SubscriberEntity::class.memberProperties.forEach { property ->
-                    searchMap[property] =
-                        cursorRequestPageable.filter.getOrDefault(property.name, emptyList())
-                }
-                rhsFilterParser.parse(searchMap)
-            }
+        val searchQuery = if (!search.isNullOrBlank()) getSearchQuery(search) else emptyList()
+        val searchableProperties = mapOf(
+            SubscriberEntity::email.name to searchQuery,
+            SubscriberEntity::firstname.name to searchQuery,
+            SubscriberEntity::lastname.name to searchQuery,
+        )
+        SubscriberEntity::class.memberProperties.forEach { property ->
+            val propertySearch = searchableProperties.getOrDefault(property.name, emptyList())
+            val propertyFilter = cursorRequestPageable.filter.getOrDefault(property.name, emptyList())
+            searchMap[property] = propertySearch
+            filterMap[property] = propertyFilter
+        }
+        val searchCriteria = rhsFilterParser.parse(searchMap, useOr = true)
+        val filterCriteria = rhsFilterParser.parse(filterMap, useOr = false)
+
+        val criteriaList = mutableListOf<Criteria>()
+        if (filterCriteria !is Criteria.Empty) {
+            criteriaList.add(filterCriteria)
+        }
+        if (searchCriteria !is Criteria.Empty) {
+            criteriaList.add(searchCriteria)
+        }
+
+        val criteria = if (criteriaList.isNotEmpty()) Criteria.And(criteriaList) else Criteria.Empty
         return criteria
     }
 

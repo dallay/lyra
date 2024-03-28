@@ -38,6 +38,7 @@ internal class GetAllSubscriberControllerTest {
     fun setUp() {
         every { rhsFilterParserFactory.create(SubscriberEntity::class) } returns rhsFilterParser
         every { rhsFilterParser.parse(any()) } returns Criteria.Empty
+        every { rhsFilterParser.parse(any(), any()) } returns Criteria.Empty
 
         val sortParserFactory = mockk<SortParserFactory>()
         val sortParser = SortParser(SubscriberEntity::class, ObjectMapper())
@@ -141,7 +142,7 @@ internal class GetAllSubscriberControllerTest {
     }
 
     @Test
-    fun `should prioritize search over filters`() {
+    fun `should combine search and filters`() {
         val search = "search value"
         val filter = mapOf<KProperty1<SubscriberEntity, *>, Collection<String?>>(
             SubscriberEntity::email to listOf("eq:email"),
@@ -159,7 +160,7 @@ internal class GetAllSubscriberControllerTest {
         val query = SearchAllSubscribersQuery(criteria)
         coEvery { mediator.send(query) } returns response
         every { rhsFilterParserFactory.create(SubscriberEntity::class) } returns rhsFilterParser
-        every { rhsFilterParser.parse(filter) } returns Criteria.Empty
+
         every { rhsFilterParser.parse(any(), eq(true)) } returns criteria
         webTestClient.get()
             .uri { uriBuilder ->

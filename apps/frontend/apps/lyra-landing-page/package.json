@@ -1,0 +1,57 @@
+{
+  "name": "lyra-landing-page",
+  "description": "Landing page for Lyra",
+  "author": {
+    "name": "Yuniel Acosta Pérez",
+    "email": "yunielacosta738@gmail.com",
+    "url": "www.yunielacosta.com"
+  },
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yacosta738/lyra.git",
+    "directory": "apps/lyra-landing-page",
+    "branch": "main"
+  },
+  "bugs": {
+    "url": "https://github.com/yacosta738/lyra/issues"
+  },
+  "scripts": {
+    "dev": "print \"DEV: [🟢] Starting ${npm_package_name} in dev mode\" && astro dev",
+    "start": "print \"DEV: [🟢] Starting ${npm_package_name} in dev mode\" && astro dev",
+    "check": "print \"CHECK: [✅] Checking ${npm_package_name}\" && run-s build:utilities check:astro",
+    "check:astro": "astro check",
+    "build:utilities": "pnpm --filter packages/utilities build",
+    "build:astro": "astro build",
+    "build:all": "print \"BUILD: [🟢] Building ${npm_package_name}\" && run-s build:utilities build:astro",
+    "build": "run-s check build:all",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.5.10",
+    "@astrojs/vue": "^4.0.9",
+    "@fontsource-variable/onest": "^5.0.3",
+    "@iconify-json/mdi": "^1.1.64",
+    "@iconify-json/ph": "^1.1.11",
+    "@iconify-json/simple-icons": "^1.1.97",
+    "@iconify/json": "^2.2.196",
+    "@lyra/utilities": "0.0.1",
+    "astro": "^4.5.9",
+    "typescript": "^5.4.3",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@lyra/config": "0.0.1",
+    "@lyra/tsconfig": "0.0.1",
+    "@types/canvas-confetti": "^1.6.4",
+    "@unocss/postcss": "^0.58.6",
+    "@unocss/reset": "^0.58.7",
+    "astro-icon": "^1.1.0",
+    "canvas-confetti": "^1.9.2",
+    "sharp": "^0.33.3"
+  },
+  "packageManager": "pnpm@8.14.3"
+}

@@ -1,0 +1,7 @@
+{
+  "extends": "@lyra/tsconfig/tsconfig.node.json",
+  "compilerOptions": {
+    "composite": true
+  },
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,17 @@
+---
+import Layout from '@/layouts/StackedLayout.astro';
+import appInterface from '../assets/images/app-interface.png';
+import Hero from 'molecules:Hero';
+import ItemsSection from 'molecules:ItemsSection';
+import EmailCTASection from 'molecules:EmailCTASection';
+---
+
+<Layout title="Lyra App.">
+	<main>
+		<div class="flex min-h-screen flex-col">
+			<Hero image={appInterface} />
+			<ItemsSection />
+			<EmailCTASection />
+		</div>
+	</main>
+</Layout>

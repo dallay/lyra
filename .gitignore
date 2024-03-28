@@ -1,6 +1,7 @@
 HELP.md
 .gradle
 **/build/**
+**/build/**/*
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -59,4 +60,5 @@ pnpm-debug.log*
 .DS_Store
 
 /node/
+/.node/
 .frontend-gradle-plugin

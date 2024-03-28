@@ -52,7 +52,4 @@ test('search and filter subscribers', async ({ page }) => {
 			status: 'DISABLED',
 		},
 	]);
-	// check range date filter
-	// await page.locator('input[type="checkbox"]').check();
-	// await page.getByTestId('historical-date-range-picker').click();
 });

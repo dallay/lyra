@@ -1,5 +1,9 @@
 import { type Page, expect } from '@playwright/test';
 import { signIn } from './authHelper';
+import {
+	PageResponse,
+	Subscriber,
+} from '../../../src/routes/(backstage)/audience/subscribers/types';
 
 export async function getSubscribers(page: Page) {
 	await page.routeFromHAR('tests/e2e/hars/subscribers.har', {
@@ -8,7 +12,30 @@ export async function getSubscribers(page: Page) {
 	});
 	await page.goto('/audience/subscribers', { waitUntil: 'networkidle' });
 }
-
+export async function getSubscribersByDateRange(page: Page, startDate: string, endDate: string) {
+	const url = `**/api/newsletter/subscribers?filter%5BcreatedAt%5D=lte:${endDate},gte:${startDate}+&size=10&cursor=**`;
+	await page.route(url, async (route) => {
+		const response: PageResponse<Subscriber> = {
+			data: [
+				{
+					id: 'd73e2961-ec29-4f19-b5c4-b9c2dc7f1dee',
+					name: 'John Doe',
+					email: 'john.doe@test.com',
+					status: 'ENABLED',
+					createdAt: startDate,
+					updatedAt: startDate,
+				},
+			],
+			nextPageCursor: null,
+		};
+		await route.fulfill({
+			status: 200,
+			contentType: 'application/vnd.api.v1+json',
+			body: JSON.stringify(response),
+		});
+	});
+	await page.goto('/audience/subscribers', { waitUntil: 'networkidle' });
+}
 export type SubscriberCell = {
 	name: string;
 	email: string;
@@ -34,7 +61,7 @@ export async function checkTableColumnContent(page: Page, data: SubscriberCell[]
 		const [email, name, status] = rowValues;
 		const expectedData = data.find((d) => d.email === email);
 		const message = `the expected data for ${email} ${name} ${status} is not found`;
-		if (!expectedData) console.log(message);
+		if (!expectedData) console.error(message);
 		expect(expectedData).toBeDefined();
 		expect(name).toBe(expectedData.name);
 		expect(status).toBe(expectedData.status);

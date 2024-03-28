@@ -16,6 +16,11 @@ internal class AppKoverPlugin : ConventionPlugin {
     private val classesExcludes = listOf(
         // Serializers
         "*.*$\$serializer",
+        "com.lyra.app.auth.SignInRequest",
+        "com.lyra.app.auth.SignInResponse",
+        "com.lyra.app.auth.User",
+        "com.lyra.app.auth.Permission",
+        "com.lyra.app.auth.AuthController",
     )
     private val packagesIncludes = listOf("com.lyra")
     private val packagesExcludes = listOf(

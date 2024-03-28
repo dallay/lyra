@@ -75,9 +75,9 @@ const applyFilter = () => {
 
 <template>
 	<div class="flex w-1/2 items-center justify-around">
-		<XCheckbox v-model="flux.enableFilter" class="mx-1" data-testid="enable-filter-date-range"
-			>Use Date Range Filter</XCheckbox
-		>
+		<XCheckbox v-model="flux.enableFilter" class="mx-1" data-testid="enable-filter-date-range">
+			Use Date Range Filter
+		</XCheckbox>
 		<XDateRangePicker
 			v-model:startValue="startDate"
 			v-model:endValue="endDate"
@@ -109,5 +109,3 @@ const applyFilter = () => {
 		</XDateRangePicker>
 	</div>
 </template>
-
-<style scoped lang="scss"></style>

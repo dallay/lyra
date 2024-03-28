@@ -29,7 +29,6 @@ describe('FilterRangeDate.vue', () => {
 		const expectedEndDate = format(subDays(today, 1), 'yyyy/MM/dd');
 		await enableDateRangeFilter();
 
-		console.log(wrapper.html());
 		// @ts-ignore
 		expect(wrapper.vm.startDate).toBe(expectedStartDate);
 		// @ts-ignore

@@ -1,5 +1,6 @@
 package com.lyra.app.auth
 
+import com.lyra.common.domain.Generated
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
 import java.time.LocalDateTime
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+@Generated
 data class SignInRequest(
     @field:NotBlank
     val username: String,
@@ -17,6 +19,7 @@ data class SignInRequest(
     val password: String,
 )
 
+@Generated
 data class SignInResponse(
     val message: String,
     val accessToken: String,
@@ -25,6 +28,7 @@ data class SignInResponse(
     val otpVerified: Boolean,
 )
 
+@Generated
 data class User(
     val message: String,
     @Suppress("ConstructorParameterNaming")
@@ -41,10 +45,12 @@ data class User(
     val permissions: List<Permission>
 )
 
+@Generated
 data class Permission(
     val resource: String,
     val action: String
 )
+@Generated
 @Suppress("MaximumLineLength", "MaxLineLength")
 @RestController
 @RequestMapping(value = ["/api/auth"], produces = ["application/vnd.api.v1+json"])

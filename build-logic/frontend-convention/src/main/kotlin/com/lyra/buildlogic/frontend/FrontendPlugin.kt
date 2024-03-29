@@ -45,16 +45,39 @@ internal class FrontendPlugin : ConventionPlugin {
         }
     }
 
-    private fun FrontendExtension.configure(project: Project) {
-        fun loadNodeVersion() = project.rootProject.file(".node-version").let { file ->
-            if (file.exists()) {
+    /**
+     * Configures the frontend extension.
+     *  - Sets the Node.js version to use for the project.
+     *  - Sets the assemble, clean and check scripts to run.
+     *  - Sets the package.json directory to the frontend app directory.
+     *  - Sets the node install directory to the root project directory.
+     *  - Enables verbose mode.
+     *  - Uses the first found Node.js version file from the list of configFiles.
+     *  - If no Node.js version file is found, uses the default version.
+     *
+     */
+    private fun FrontendExtension.configure(
+        project: Project,
+        configFiles: List<String> = listOf(".node-version", ".nvmrc")
+    ) {
+        /**
+         * Loads the Node.js version from the first found file in the list of configFiles.
+         * If no file is found, uses the default version.
+         */
+        fun loadNodeVersion(): String {
+            val file = configFiles.map { project.rootProject.file(it) }.firstOrNull { it.exists() }
+                ?: configFiles.map { project.file(it) }.firstOrNull { it.exists() }
+
+            return if (file != null) {
                 file.readText().trim()
             } else {
+                println("⚠\uFE0F No Node.js version file found, using default version $DEFAULT_NODE_VERSION")
                 DEFAULT_NODE_VERSION
             }
-        }.also { println("\uD83D\uDFE2 Using Node.js version $it") }
-
-        nodeVersion.set(loadNodeVersion())
+        }
+        val localNodeVersion = loadNodeVersion()
+        println("\uD83D\uDFE2 Using Node.js version $localNodeVersion")
+        nodeVersion.set(localNodeVersion)
         assembleScript.set("run build")
         cleanScript.set("run clean")
         checkScript.set("run check")

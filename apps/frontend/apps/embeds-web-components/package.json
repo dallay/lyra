@@ -1,0 +1,45 @@
+{
+  "name": "embeds-web-components",
+  "description": "Library of embeddable web components",
+  "type": "module",
+  "license": "MIT",
+  "version": "0.0.1",
+  "author": {
+    "name": "Yuniel Acosta Pérez",
+    "email": "yunielacosta738@gmail.com",
+    "url": "www.yunielacosta.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yacosta738/lyra.git",
+    "directory": "apps/embeds-web-components",
+    "branch": "main"
+  },
+  "bugs": {
+    "url": "https://github.com/yacosta738/lyra/issues"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "devToolbar:enable": "astro preferences enable devToolbar",
+    "devToolbar:disable": "astro preferences disable devToolbar"
+  },
+  "dependencies": {
+    "@fontsource-variable/onest": "^5.0.3",
+    "@astrojs/check": "^0.5.10",
+    "@astrojs/node": "^8.2.5",
+    "@iconify/json": "^2.2.196",
+    "@lyra/config": "0.0.1",
+    "@lyra/utilities": "0.0.1",
+    "@lyra/tsconfig": "0.0.1",
+    "@types/canvas-confetti": "^1.6.4",
+    "@unocss/postcss": "^0.58.8",
+    "@unocss/reset": "^0.58.8",
+    "astro": "^4.5.12",
+    "canvas-confetti": "^1.9.2",
+    "typescript": "^5.4.3"
+  }
+}

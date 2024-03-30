@@ -111,7 +111,7 @@
     "tsc-alias": "1.8.8",
     "typescript": "^5.4.3",
     "unocss": "^0.58.7",
-    "vite-plugin-dts": "^3.7.3",
+    "vite-plugin-dts": "^3.8.1",
     "vue-tsc": "^2.0.7",
     "vitest": "^1.4.0"
   },

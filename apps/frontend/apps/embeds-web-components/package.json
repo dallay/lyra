@@ -24,6 +24,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "check": "astro check",
     "devToolbar:enable": "astro preferences enable devToolbar",
     "devToolbar:disable": "astro preferences disable devToolbar"
   },

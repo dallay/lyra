@@ -6,9 +6,8 @@ import vueRoutes from 'vite-plugin-vue-routes';
 import { sharedViteConfig } from '@lyra/config/vite.config.shared';
 import { fileURLToPath, URL } from 'node:url';
 
-export default mergeConfig(
-	sharedViteConfig(__dirname),
-	defineConfig({
+export default defineConfig(
+	mergeConfig(sharedViteConfig(__dirname), {
 		define: envify({
 			API_URL: process.env.API_URL || '',
 		}),

@@ -1,13 +1,13 @@
 [versions]
 kotlin = "1.9.23"
-springBoot = "3.2.2"
-springdoc = "2.3.0"
-junit = "5.10.1"
+springBoot = "3.2.4"
+springdoc = "2.4.0"
+junit = "5.10.2"
 klint-plugin = "12.1.0"
-detekt = "1.23.4"
-owasp = "9.0.9"
-asciidoctor = "4.0.1"
-dokka = "1.9.10"
+detekt = "1.23.6"
+owasp = "9.0.10"
+asciidoctor = "4.0.2"
+dokka = "1.9.20"
 frontend-gradle-plugin = "8.0.0"
 springManagement = "1.1.4"
 reflections = "0.10.2"
@@ -23,17 +23,17 @@ gradle-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref
 # Utils
 gradle-updates = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.51.0" }
 gradle-owasp-depcheck = { module = "org.owasp:dependency-check-gradle", version.ref = "owasp" }
-gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.5" }
+gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.6" }
 gradle-asciidoctor = { module = "org.asciidoctor:asciidoctor-gradle-jvm", version.ref = "asciidoctor" }
 spring-dotenv = 'me.paulschwarz:spring-dotenv:4.0.0'
-sendgrid = 'com.sendgrid:sendgrid-java:4.10.1'
+sendgrid = 'com.sendgrid:sendgrid-java:4.10.2'
 
 # Frontend
 gradle-frontend = { module = "org.siouan:frontend-jdk17", version.ref = "frontend-gradle-plugin" }
 
 # Detekt
 gradle-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
-detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.3.11" }
+detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.3.12" }
 detekt-compose2 = { module = "ru.kode:detekt-rules-compose", version = "1.3.0" }
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 
@@ -50,17 +50,17 @@ spring-boot-docker-compose = { module = "org.springframework.boot:spring-boot-do
 spring-boot-starter-data-r2dbc = { module = "org.springframework.boot:spring-boot-starter-data-r2dbc", version.ref = "springBoot" }
 
 # Kotlin Libraries
-jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version = "2.16.1" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version = "2.17.0" }
 reactor-kotlin-extensions = { module = "io.projectreactor.kotlin:reactor-kotlin-extensions", version = "1.2.2" }
 reflections = { module = "org.reflections:reflections", version.ref = "reflections" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
-kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version = "1.7.3" }
+kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version = "1.8.0" }
 
 # Testing
 junit = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
-reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.2" }
-mockk = { module = "io.mockk:mockk", version = "1.13.9" }
+reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.4" }
+mockk = { module = "io.mockk:mockk", version = "1.13.10" }
 faker = { module = "net.datafaker:datafaker", version = "2.1.0" }
 
 [plugins]

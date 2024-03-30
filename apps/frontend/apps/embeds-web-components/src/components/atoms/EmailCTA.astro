@@ -1,13 +1,14 @@
 ---
 import SubmitButton from '../atoms/SubmitButton.astro';
 import ConfettiLauncher from '../atoms/ConfettiLauncher.astro';
-const { ...attributes } = Astro.props;
+const { id, ...attributes } = Astro.props;
 const { class: className = 'w-full max-w-md space-y-2 flex flex-col items-center justify-center' } =
 	attributes;
+const identifier = id || crypto.randomUUID();
 ---
 
 <div class:list=`${className}`>
-	<form class="relative flex w-full space-x-2">
+	<form class="relative flex w-full space-x-2" id={`subscriber-form-${identifier}`}>
 		<div class="relative w-full">
 			<label for="subscriber-email" class="hidden">Email:</label><input
 				id="subscriber-email"

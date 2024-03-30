@@ -1,5 +1,7 @@
 ---
-import EmailCTA from '../atoms/EmailCTA.astro';
+import EmailCTA from 'atoms:EmailCTA';
+const { id } = Astro.props;
+const identifier = id || crypto.randomUUID();
 ---
 
 <section class="m-1 flex flex-col items-center justify-center p-2">
@@ -14,7 +16,7 @@ import EmailCTA from '../atoms/EmailCTA.astro';
 			my journey.
 		</p>
 		<div class="flex items-center justify-center space-y-4 sm:space-x-4 sm:space-y-0">
-			<EmailCTA />
+			<EmailCTA id={identifier} />
 		</div>
 	</div>
 </section>

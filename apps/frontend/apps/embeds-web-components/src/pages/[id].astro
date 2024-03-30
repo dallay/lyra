@@ -10,6 +10,6 @@ const slim = urlParams.get('slim');
 ---
 
 <Layout title="Subscribe form" description="Subscribe to our newsletter to get the latest updates.">
-	{slim && <EmailCTA class="flex w-full flex-col items-start justify-start" />}
-	{!slim && <EmailCTASection />}
+	{slim && <EmailCTA id={`${id}-slim`} class="flex w-full flex-col items-start justify-start" />}
+	{!slim && <EmailCTASection id={id} />}
 </Layout>

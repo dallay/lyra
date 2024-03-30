@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import WorldGraph from '../atoms/WorldGraph.astro';
-import EmailCTA from '../atoms/EmailCTA.astro';
+import WorldGraph from 'atoms:WorldGraph';
 
 const { image, ...attrs } = Astro.props;
 ---
@@ -24,6 +23,8 @@ const { image, ...attrs } = Astro.props;
 			</h3>
 			<iframe
 				src="http://localhost:9876/1e573ddd-f2cf-49b9-993f-a2d1535fd0cc?slim=true"
+				title="Subscribe to newsletter"
+				id="lyra-embed"
 				data-test-id="lyra-embed"
 				height="52"
 				frameborder="0"

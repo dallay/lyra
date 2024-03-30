@@ -45,7 +45,7 @@
     "semantic-release": "^23.0.6",
     "npm-run-all2": "^6.1.2",
     "rimraf": "^5.0.5",
-    "@types/node": "^20.11.30"
+    "@types/node": "^20.12.2"
   },
   "engines": {
     "node": ">=18.14.1",

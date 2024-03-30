@@ -7,7 +7,7 @@ runs:
   using: composite
   steps:
     - name: Validate Gradle wrapper
-      uses: gradle/wrapper-validation-action@v2.1.2
+      uses: gradle/wrapper-validation-action@v1.1.0
 
     - name: Install Tools & Dependencies
       uses: ./.github/actions/install/node

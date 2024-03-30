@@ -42,7 +42,7 @@ runs:
         build-scan-terms-of-service-agree: "yes"
 
     - name: Upload build reports
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       if: ${{ steps.gradle.outputs.build-scan-url }}
       with:
         name: build-reports

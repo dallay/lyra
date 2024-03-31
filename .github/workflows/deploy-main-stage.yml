@@ -133,7 +133,7 @@ jobs:
           ./gradlew koverXmlReport --no-daemon --stacktrace
 
       - name: Upload coverage reports
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: build/reports/kover/report.xml

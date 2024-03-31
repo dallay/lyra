@@ -54,7 +54,7 @@
   "devDependencies": {
     "@lyra/config": "0.0.1",
     "@lyra/tsconfig": "0.0.1",
-    "vite-plugin-dts": "^3.7.3",
+    "vite-plugin-dts": "^3.8.1",
     "typescript": "^5.4.3",
     "vitest": "^1.4.0"
   }

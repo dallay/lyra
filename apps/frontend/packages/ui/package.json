@@ -80,7 +80,7 @@
     "@tiptap/extension-underline": "^2.2.4",
     "@tiptap/pm": "^2.2.4",
     "@tiptap/vue-3": "^2.2.4",
-    "@unocss/reset": "^0.58.7",
+    "@unocss/reset": "^0.58.8",
     "@vueuse/components": "^10.9.0",
     "@vueuse/core": "^10.9.0",
     "date-fns": "^3.6.0",
@@ -97,8 +97,8 @@
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
-    "@unocss/postcss": "^0.58.6",
-    "@unocss/reset": "^0.58.7",
+    "@unocss/postcss": "^0.58.8",
+    "@unocss/reset": "^0.58.8",
     "@iconify/json": "^2.2.196",
     "@lyra/config": "0.0.1",
     "@lyra/tsconfig": "0.0.1",
@@ -111,7 +111,7 @@
     "tsc-alias": "1.8.8",
     "typescript": "^5.4.3",
     "unocss": "^0.58.7",
-    "vite-plugin-dts": "^3.7.3",
+    "vite-plugin-dts": "^3.8.1",
     "vue-tsc": "^2.0.7",
     "vitest": "^1.4.0"
   },

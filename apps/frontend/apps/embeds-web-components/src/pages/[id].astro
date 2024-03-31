@@ -1,0 +1,15 @@
+---
+import EmailCTA from 'atoms:EmailCTA';
+import EmailCTASection from 'molecules:EmailCTASection';
+import Layout from 'layouts:Layout';
+const { id } = Astro.params;
+const url = new URL(Astro.request.url);
+
+const urlParams = new URLSearchParams(url.search);
+const slim = urlParams.get('slim');
+---
+
+<Layout title="Subscribe form" description="Subscribe to our newsletter to get the latest updates.">
+	{slim && <EmailCTA id={`${id}-slim`} class="flex w-full flex-col items-start justify-start" />}
+	{!slim && <EmailCTASection id={id} />}
+</Layout>

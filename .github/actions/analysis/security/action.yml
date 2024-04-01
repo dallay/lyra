@@ -19,7 +19,7 @@ runs:
 
     - name: ♻︎ Restore Cache OWASP Dependency Check Data 🛡️
       id: cache-owasp-restore
-      uses: actions/cache/restore@v3
+      uses: actions/cache/restore@v4
       with:
         path: build/dependency-check-data
         key: ${{ runner.os }}-owasp-${{ hashFiles('**/gradle.properties') }}
@@ -32,7 +32,7 @@ runs:
 
     - name: ♻︎ Save Cache OWASP Dependency Check Data 🛡️
       id: cache-owasp-save
-      uses: actions/cache/save@v3
+      uses: actions/cache/save@v4
       with:
         path: build/dependency-check-data
         key: ${{ steps.cache-owasp-restore.outputs.cache-primary-key }}

@@ -26,7 +26,7 @@ gradle-owasp-depcheck = { module = "org.owasp:dependency-check-gradle", version.
 gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.5" }
 gradle-asciidoctor = { module = "org.asciidoctor:asciidoctor-gradle-jvm", version.ref = "asciidoctor" }
 spring-dotenv = 'me.paulschwarz:spring-dotenv:4.0.0'
-sendgrid = 'com.sendgrid:sendgrid-java:4.10.1'
+sendgrid = 'com.sendgrid:sendgrid-java:4.10.2'
 
 # Frontend
 gradle-frontend = { module = "org.siouan:frontend-jdk17", version.ref = "frontend-gradle-plugin" }

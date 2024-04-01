@@ -1,6 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", "group:all", ":dependencyDashboard", "schedule:daily"],
+  "extends": ["config:recommended", ":grouping"],
+  "grouping": {
+    "major": ["backend", "frontend", "github-actions"],
+    "minor": ["backend", "frontend", "github-actions"],
+    "patch": ["backend", "frontend", "github-actions"],
+    "digest": ["backend", "frontend", "github-actions"]
+  },
   "reviewers": ["yacosta738"],
   "packageRules": [
     {
@@ -14,14 +20,16 @@
       "matchUpdateTypes": ["digest", "patch", "minor", "major"]
     },
     {
-      "groupName": "spring backend",
-      "matchDepNames": ["org.springframework"],
-      "matchPackagePrefixes": ["org.springframework:"]
+      "groupName": "backend",
+      "matchDepTypes": ["backend"]
     },
     {
-      "extends": "monorepo:github-workflows-kt",
-      "groupName": "github-workflows-kt monorepo",
-      "matchUpdateTypes": ["digest", "patch", "minor", "major"]
+      "groupName": "frontend",
+      "matchDepTypes": ["frontend"]
+    },
+    {
+      "groupName": "github-actions",
+      "matchDepTypes": ["github-actions"]
     }
   ]
 }

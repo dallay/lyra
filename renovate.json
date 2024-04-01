@@ -1,13 +1,20 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", ":grouping"],
-  "grouping": {
-    "major": ["backend", "frontend", "github-actions"],
-    "minor": ["backend", "frontend", "github-actions"],
-    "patch": ["backend", "frontend", "github-actions"],
-    "digest": ["backend", "frontend", "github-actions"]
-  },
+  "extends": [
+    "config:recommended",
+    "group:monorepos",
+    ":dependencyDashboard",
+    "schedule:monthly"
+  ],
   "reviewers": ["yacosta738"],
+  "schedule": [
+    "after 10pm every weekday",
+    "before 5am every weekday",
+    "every weekend"
+  ],
+  "automergeSchedule": [
+    "before 4am on the first day of the month"
+  ],
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
@@ -20,16 +27,23 @@
       "matchUpdateTypes": ["digest", "patch", "minor", "major"]
     },
     {
-      "groupName": "backend",
-      "matchDepTypes": ["backend"]
+      "groupName": "spring backend",
+      "matchDepNames": [
+        "org.springframework"
+      ],
+      "matchPackagePrefixes": [
+        "org.springframework:"
+      ]
     },
     {
-      "groupName": "frontend",
-      "matchDepTypes": ["frontend"]
-    },
-    {
-      "groupName": "github-actions",
-      "matchDepTypes": ["github-actions"]
+      "extends": "monorepo:github-workflows-kt",
+      "groupName": "github-workflows-kt monorepo",
+      "matchUpdateTypes": [
+        "digest",
+        "patch",
+        "minor",
+        "major"
+      ]
     }
   ]
 }

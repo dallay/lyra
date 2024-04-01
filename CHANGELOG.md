@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/yacosta738/lyra/compare/v1.3.0...v1.4.0) (2024-04-01)
+
+
+### Features
+
+* Update Renovate configuration to group for scopes ([#127](https://github.com/yacosta738/lyra/issues/127)) ([1304cb7](https://github.com/yacosta738/lyra/commit/1304cb7c54a0511a983aed2450613f470f1fb535))
+* Update Renovate configuration to use monorepo presets ([#130](https://github.com/yacosta738/lyra/issues/130)) ([337feec](https://github.com/yacosta738/lyra/commit/337feece1e131c59f65f418d0e13ea62b67d28f3))
+
 # [1.3.0](https://github.com/yacosta738/lyra/compare/v1.2.1...v1.3.0) (2024-03-31)
 
 

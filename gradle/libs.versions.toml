@@ -60,7 +60,7 @@ kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 junit = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
 reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.4" }
-mockk = { module = "io.mockk:mockk", version = "1.13.9" }
+mockk = { module = "io.mockk:mockk", version = "1.13.10" }
 faker = { module = "net.datafaker:datafaker", version = "2.1.0" }
 
 [plugins]

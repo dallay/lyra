@@ -66,7 +66,7 @@ test('filter by date range subscribers', async ({ page }) => {
 	const dayDelay = 1;
 	const today = new Date();
 	today.setHours(23, 0, 0, 0);
-	const formatStr = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+	const formatStr = 'yyyy-MM-dd';
 	const startDate = format(subDays(today, 7 + dayDelay), formatStr);
 	const endDate = format(subDays(today, 1 + dayDelay), formatStr);
 	await getSubscribersByDateRange(page, startDate, endDate);

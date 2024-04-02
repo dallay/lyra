@@ -2,7 +2,7 @@
 kotlin = "1.9.23"
 springBoot = "3.2.2"
 springdoc = "2.4.0"
-junit = "5.10.1"
+junit = "5.10.2"
 klint-plugin = "12.1.0"
 detekt = "1.23.6"
 owasp = "9.0.9"

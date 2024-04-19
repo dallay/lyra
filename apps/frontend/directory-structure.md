@@ -26,7 +26,7 @@
             └── index.html
             └── package.json
             └── playwright.config.ts
-            └── postcss.config.cjs
+            └── postcss.config.js
             └── 📁public
                 └── favicon.ico
             └── 📁src
@@ -312,7 +312,7 @@
     └── 📁config
         └── index.css
         └── package.json
-        └── postcss.config.cjs
+        └── postcss.config.js
         └── stylelint.config.cjs
         └── tsconfig.json
         └── uno.config.cjs
@@ -377,7 +377,7 @@
         └── 📁ui
             └── index.ts
             └── package.json
-            └── postcss.config.cjs
+            └── postcss.config.js
             └── 📁src
                 └── 📁components
                     └── 📁accordion

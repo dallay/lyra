@@ -1,7 +1,20 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", "group:all", ":dependencyDashboard", "schedule:daily"],
+  "extends": [
+    "config:recommended",
+    "group:monorepos",
+    ":dependencyDashboard",
+    "schedule:monthly"
+  ],
   "reviewers": ["yacosta738"],
+  "schedule": [
+    "after 10pm every weekday",
+    "before 5am every weekday",
+    "every weekend"
+  ],
+  "automergeSchedule": [
+    "before 4am on the first day of the month"
+  ],
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
@@ -15,13 +28,22 @@
     },
     {
       "groupName": "spring backend",
-      "matchDepNames": ["org.springframework"],
-      "matchPackagePrefixes": ["org.springframework:"]
+      "matchDepNames": [
+        "org.springframework"
+      ],
+      "matchPackagePrefixes": [
+        "org.springframework:"
+      ]
     },
     {
       "extends": "monorepo:github-workflows-kt",
       "groupName": "github-workflows-kt monorepo",
-      "matchUpdateTypes": ["digest", "patch", "minor", "major"]
+      "matchUpdateTypes": [
+        "digest",
+        "patch",
+        "minor",
+        "major"
+      ]
     }
   ]
 }

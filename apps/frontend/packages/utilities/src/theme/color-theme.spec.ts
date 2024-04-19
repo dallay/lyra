@@ -63,4 +63,10 @@ describe('Color Theme', () => {
 		toggleTheme();
 		expect(localStorage.getItem('theme')).toBe('light');
 	});
+
+	test('loadTheme adds event listener for theme-changed', () => {
+		const addEventListenerSpy = vi.spyOn(document, 'addEventListener');
+		loadTheme();
+		expect(addEventListenerSpy).toHaveBeenCalledWith('theme-changed', expect.any(Function));
+	});
 });

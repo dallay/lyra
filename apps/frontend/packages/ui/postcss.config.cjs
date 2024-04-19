@@ -1,1 +1,1 @@
-module.exports = require('@lyra/config/postcss.config.cjs');
+module.exports = require('@lyra/config/postcss.config.js');

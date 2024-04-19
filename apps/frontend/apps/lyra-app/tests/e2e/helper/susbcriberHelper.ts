@@ -1,4 +1,4 @@
-import { type Page, expect } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
 import { signIn } from './authHelper';
 import {
 	PageResponse,
@@ -13,7 +13,8 @@ export async function getSubscribers(page: Page) {
 	await page.goto('/audience/subscribers', { waitUntil: 'networkidle' });
 }
 export async function getSubscribersByDateRange(page: Page, startDate: string, endDate: string) {
-	const url = `**/api/newsletter/subscribers?filter%5BcreatedAt%5D=lte:${endDate},gte:${startDate}+&size=10&cursor=**`;
+	const url = `**/api/newsletter/subscribers?filter%5BcreatedAt%5D=lte:${endDate}*,gte:${startDate}*+&size=10&cursor=**`;
+	console.log('🟢 url', url);
 	await page.route(url, async (route) => {
 		const response: PageResponse<Subscriber> = {
 			data: [

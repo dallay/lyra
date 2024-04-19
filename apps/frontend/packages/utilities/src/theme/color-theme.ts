@@ -2,6 +2,9 @@ const DEFAULT_KEY = 'theme';
 const DARK_THEME = 'dark';
 const LIGHT_THEME = 'light';
 
+export interface ThemeChangedEventDetail {
+	isDark: boolean;
+}
 /**
  * Checks whether dark mode is enabled or not.
  * @param {string} key - The key in localStorage where the theme is stored.
@@ -18,6 +21,7 @@ export const isDarkMode = (
 		(!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
 	);
 };
+const themeChanged = 'theme-changed';
 /**
  * Loads the theme from localStorage and applies it to the document. If the theme is not set in localStorage,
  * it will use the system preference. If the system preference is not set, it will use the light theme.
@@ -44,6 +48,14 @@ export const loadTheme = (
 		document.documentElement.classList.add(lightThemeClass);
 		localStorage.setItem(key, lightThemeClass);
 	}
+
+	// Listen for theme change events
+	document.addEventListener(themeChanged, ((event: CustomEvent<ThemeChangedEventDetail>) => {
+		console.log('🚨 Theme changed', event.detail.isDark);
+		const isDark = event.detail.isDark;
+		document.documentElement.classList.toggle(darkThemeClass, isDark);
+		localStorage.setItem(key, isDark ? darkThemeClass : lightThemeClass);
+	}) as EventListener);
 };
 
 /**
@@ -61,4 +73,6 @@ export const toggleTheme = (
 	const isDark = isDarkMode(key, darkThemeClass);
 	document.documentElement.classList.toggle(darkThemeClass, !isDark);
 	localStorage.setItem(key, !isDark ? darkThemeClass : lightThemeClass);
+	// publish event to notify other components that the theme has changed (dark/light)
+	document.dispatchEvent(new CustomEvent(themeChanged, { detail: { isDark: !isDark } }));
 };

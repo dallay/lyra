@@ -24,22 +24,23 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "check": "astro check",
     "devToolbar:enable": "astro preferences enable devToolbar",
     "devToolbar:disable": "astro preferences disable devToolbar"
   },
   "dependencies": {
-    "@fontsource-variable/onest": "^5.0.3",
     "@astrojs/check": "^0.5.10",
     "@astrojs/node": "^8.2.5",
-    "@iconify/json": "^2.2.196",
+    "@fontsource-variable/onest": "^5.0.3",
+    "@iconify/json": "^2.2.202",
     "@lyra/config": "0.0.1",
-    "@lyra/utilities": "0.0.1",
     "@lyra/tsconfig": "0.0.1",
+    "@lyra/utilities": "0.0.1",
     "@types/canvas-confetti": "^1.6.4",
-    "@unocss/postcss": "^0.58.8",
-    "@unocss/reset": "^0.58.8",
-    "astro": "^4.5.12",
+    "@unocss/postcss": "^0.59.4",
+    "@unocss/reset": "^0.59.4",
+    "astro": "^4.6.3",
     "canvas-confetti": "^1.9.2",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.5"
   }
 }

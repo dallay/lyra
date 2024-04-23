@@ -40,7 +40,7 @@ internal class UpdateFormControllerIntegrationTest : ControllerIntegrationTest()
     }
 
     @Test
-    fun `should return 404 when form is not found`(): Unit = runBlocking {
+    fun `should return bad request when form is not found`(): Unit = runBlocking {
         val id = "a5533c80-61f4-4db2-9fb7-191caa94e2bc"
         val request = FormStub.generateRequest()
         webTestClient.put()
@@ -52,7 +52,7 @@ internal class UpdateFormControllerIntegrationTest : ControllerIntegrationTest()
             .jsonPath("$.type").isEqualTo("https://lyra.io/errors/bad-request")
             .jsonPath("$.title").isEqualTo("Bad request")
             .jsonPath("$.status").isEqualTo(400)
-            .jsonPath("$.detail").isEqualTo("Error updating form because it does not exist")
+            .jsonPath("$.detail").isEqualTo("Form not found")
             .jsonPath("$.instance").isEqualTo("$ENDPOINT/a5533c80-61f4-4db2-9fb7-191caa94e2bc")
             .jsonPath("$.errorCategory").isEqualTo("BAD_REQUEST")
             .jsonPath("$.timestamp").isNumber

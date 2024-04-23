@@ -1,6 +1,7 @@
 package com.lyra.app.forms.application
 
 import com.lyra.app.UnitTest
+import com.lyra.app.forms.FormStub
 import com.lyra.app.forms.domain.FormRepository
 import com.lyra.app.forms.domain.event.FormCreatedEvent
 import com.lyra.common.domain.bus.event.EventPublisher
@@ -19,15 +20,7 @@ internal class CreateFormCommandHandlerTest {
     private var formRepository = mockkClass(FormRepository::class)
     private var formCreator: FormCreator = FormCreator(formRepository, eventPublisher)
     private var createFormCommandHandler: CreateFormCommandHandler = CreateFormCommandHandler(formCreator)
-    private val name = "Form Name"
-    private val header = "Form Header"
-    private val description = "Form Description"
-    private val inputPlaceholder = "Form Input Placeholder"
-    private val buttonText = "Form Button Text"
-    private val buttonColor = "#FFFFFF"
-    private val backgroundColor = "#000000"
-    private val textColor = "#FFFFFF"
-    private val buttonTextColor = "#000000"
+    private val form = FormStub.create()
 
     @BeforeEach
     fun setUp() {
@@ -37,22 +30,20 @@ internal class CreateFormCommandHandlerTest {
 
     @Test
     fun `should create a form`() = runBlocking {
-        // Given
         val command = CreateFormCommand(
             id = UUID.randomUUID().toString(),
-            name = name,
-            header = header,
-            description = description,
-            inputPlaceholder = inputPlaceholder,
-            buttonText = buttonText,
-            buttonColor = buttonColor,
-            backgroundColor = backgroundColor,
-            textColor = textColor,
-            buttonTextColor = buttonTextColor,
+            name = form.name,
+            header = form.header,
+            description = form.description,
+            inputPlaceholder = form.inputPlaceholder,
+            buttonText = form.buttonText,
+            buttonColor = form.buttonColor.hex,
+            backgroundColor = form.backgroundColor.hex,
+            textColor = form.textColor.hex,
+            buttonTextColor = form.buttonTextColor.hex,
         )
-        // When
         createFormCommandHandler.handle(command)
-        // Then
+
         coVerify(exactly = 1) { formRepository.create(any()) }
         coVerify(exactly = 1) { eventPublisher.publish(any(FormCreatedEvent::class)) }
     }

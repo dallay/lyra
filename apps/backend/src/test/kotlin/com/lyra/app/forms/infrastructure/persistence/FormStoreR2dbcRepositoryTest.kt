@@ -70,4 +70,10 @@ internal class FormStoreR2dbcRepositoryTest {
             formStoreR2dbcRepository.update(form)
         }
     }
+
+    @Test
+    fun `should find form by id`(): Unit = runBlocking {
+        coEvery { formR2dbcRepository.findById(any()) } returns form.toEntity()
+        formStoreR2dbcRepository.findById(form.id)
+    }
 }

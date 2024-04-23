@@ -110,17 +110,6 @@ class ReactiveSearchRepositoryImpl<T : Any>(
         val list: List<T> =
             r2dbcTemplate.select(domainType.java).matching(query).all().collectList().awaitFirstOrNull()
                 ?: emptyList()
-
-//        return list.flatMap { entities ->
-//            val content = entities.take(size)
-//            if (content.isEmpty()) {
-//                Mono.just(CursorPageResponse(emptyList(), null))
-//            } else {
-//                val hasNextPage = entities.size > size
-//                val nextCursor = if (hasNextPage) cursor.serialize(content.last()) else null
-//                Mono.just(CursorPageResponse(content, nextCursor))
-//            }
-//        }
         val content = list.take(size)
         val hasNextPage = list.size > size
         val nextCursor = if (hasNextPage) cursor.serialize(content.last()) else null

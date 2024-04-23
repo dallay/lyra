@@ -1151,6 +1151,8 @@ style:
     active: true
   OptionalUnit:
     active: true
+    excludes:
+      - '**/test/**'
   PreferToOverPairSyntax:
     active: true
   ProtectedMemberInFinalClass:

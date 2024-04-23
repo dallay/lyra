@@ -3,6 +3,7 @@ package com.lyra.app.newsletter.infrastructure.persistence
 import com.lyra.app.UnitTest
 import com.lyra.app.newsletter.SubscriberStub
 import com.lyra.app.newsletter.domain.Subscriber
+import com.lyra.app.newsletter.domain.exceptions.SubscriberException
 import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntity
 import com.lyra.app.newsletter.infrastructure.persistence.mapper.SubscriberMapper.toEntity
 import com.lyra.app.newsletter.infrastructure.persistence.repository.SubscriberRegistratorR2dbcRepository
@@ -17,17 +18,17 @@ import com.lyra.spring.boot.repository.R2DBCCriteriaParser
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.dao.DuplicateKeyException
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
-import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
 
 @UnitTest
 internal class SubscriberR2dbcRepositoryTest {
@@ -40,23 +41,18 @@ internal class SubscriberR2dbcRepositoryTest {
     fun setUp() {
         subscribers = runBlocking { SubscriberStub.dummyRandomSubscribersFlow(10).toList() }
         val subscribersEntities = subscribers.map { it.toEntity() }.toList()
-        coEvery { subscriberRegistratorR2dbcRepository.save(any()) } returns Mono.just(
-            subscribersEntities.first(),
-        )
-        coEvery { subscriberRegistratorR2dbcRepository.findAll() } returns Flux.fromIterable(
-            subscribersEntities,
-        )
+        coEvery { subscriberRegistratorR2dbcRepository.save(any()) } returns subscribersEntities.first()
+        coEvery { subscriberRegistratorR2dbcRepository.findAll() } returns subscribersEntities.asFlow()
         coEvery {
             subscriberRegistratorR2dbcRepository.findAll(
                 any(org.springframework.data.relational.core.query.Criteria::class),
                 any(Pageable::class),
                 eq(SubscriberEntity::class),
             )
-        } returns Mono.just(
-            PageImpl(
-                subscribersEntities,
-            ),
+        } returns PageImpl(
+            subscribersEntities,
         )
+
         coEvery {
             subscriberRegistratorR2dbcRepository.findAllByCursor(
                 any(org.springframework.data.relational.core.query.Criteria::class),
@@ -65,22 +61,19 @@ internal class SubscriberR2dbcRepositoryTest {
                 any(org.springframework.data.domain.Sort::class),
                 any(Cursor::class),
             )
-        } returns Mono.just(
+        } returns
             CursorPageResponse(
                 data = subscribersEntities,
                 nextPageCursor = TimestampCursor(
                     subscribersEntities.last().createdAt,
                 ).serialize(),
-            ),
-        )
-        coEvery { subscriberRegistratorR2dbcRepository.findAllByStatus(any()) } returns Flux.fromIterable(
-            subscribersEntities,
-        )
+            )
+
+        coEvery { subscriberRegistratorR2dbcRepository.findAllByStatus(any()) } returns subscribersEntities.asFlow()
     }
 
     @Test
     fun `should save a new subscriber`() {
-
         val subscriber = subscribers.first()
 
         runBlocking {
@@ -92,37 +85,32 @@ internal class SubscriberR2dbcRepositoryTest {
 
     @Test
     fun `should not save a new subscriber if it already exists`() {
-
         val subscriber = subscribers.first()
-        coEvery { subscriberRegistratorR2dbcRepository.save(any()) } returns Mono.error(
-            DuplicateKeyException("Duplicate key"),
-        )
+
+        coEvery { subscriberRegistratorR2dbcRepository.save(any()) } throws DuplicateKeyException("Duplicate key")
 
         runBlocking {
-            subscriberRepository.create(subscriber)
+            assertThrows<SubscriberException> {
+                subscriberRepository.create(subscriber)
+            }
         }
-
-        coEvery { subscriberRegistratorR2dbcRepository.save(any()) }
     }
 
     @Test
     fun `should not save a new subscriber if an unknown exception occur`() {
-
         val subscriber = subscribers.first()
-        coEvery { subscriberRegistratorR2dbcRepository.save(any()) } returns Mono.error(
-            Exception("Unknown exception"),
-        )
+
+        coEvery { subscriberRegistratorR2dbcRepository.save(any()) } throws RuntimeException("Unexpected error")
 
         runBlocking {
-            subscriberRepository.create(subscriber)
+            assertThrows<RuntimeException> {
+                subscriberRepository.create(subscriber)
+            }
         }
-
-        coEvery { subscriberRegistratorR2dbcRepository.save(any()) }
     }
 
     @Test
     fun `should search all subscribers by offset pagination`() = runBlocking {
-
         val response: OffsetPageResponse<Subscriber> =
             subscriberRepository.searchAllByOffset(Criteria.Empty)
         assertEquals(subscribers, response.data.toList())
@@ -139,22 +127,22 @@ internal class SubscriberR2dbcRepositoryTest {
     fun `should return empty OffsetPageResponse when no subscribers match the criteria`() =
         runBlocking {
             val criteria = Criteria.Equals("status", "NON_EXISTING_STATUS")
-
+            val content: List<SubscriberEntity> = emptyList()
             coEvery {
                 subscriberRegistratorR2dbcRepository.findAll(
                     any(org.springframework.data.relational.core.query.Criteria::class),
                     any(Pageable::class),
                     eq(SubscriberEntity::class),
                 )
-            } returns Mono.empty()
+            } returns PageImpl(content, PageRequest.of(0, 10), 0)
 
             val response = subscriberRepository.searchAllByOffset(criteria)
-            assertEquals(OffsetPageResponse(emptyList<Subscriber>(), 0, 0, 0), response)
+            val offsetPageResponse = OffsetPageResponse(emptyList<Subscriber>(), 0, 10, 0, 0)
+            assertEquals(offsetPageResponse, response)
         }
 
     @Test
     fun `should search all subscribers by cursor pagination`() = runBlocking {
-
         val response: CursorPageResponse<Subscriber> =
             subscriberRepository.searchAllByCursor(Criteria.Empty)
         assertEquals(subscribers, response.data.toList())
@@ -171,7 +159,6 @@ internal class SubscriberR2dbcRepositoryTest {
 
     @Test
     fun `should search all active subscribers`() = runBlocking {
-
         val response = subscriberRepository.searchActive().toList()
         assertEquals(subscribers, response)
     }
@@ -179,7 +166,6 @@ internal class SubscriberR2dbcRepositoryTest {
     @Test
     fun `should search all BLOCKLISTED subscribers by criteria using offset pagination`() =
         runBlocking {
-
             val criteria = Criteria.Equals("status", "BLOCKLISTED")
 
             val response = subscriberRepository.searchAllByOffset(criteria)
@@ -196,7 +182,6 @@ internal class SubscriberR2dbcRepositoryTest {
     @Test
     fun `should search all BLOCKLISTED subscribers by criteria using cursor pagination`() =
         runBlocking {
-
             val criteria = Criteria.Equals("status", "BLOCKLISTED")
 
             val response = subscriberRepository.searchAllByCursor(criteria)
@@ -214,7 +199,6 @@ internal class SubscriberR2dbcRepositoryTest {
 
     @Test
     fun `should search all DISABLED subscribers by criteria using offset pagination`() = runBlocking {
-
         val criteria = Criteria.Equals("status", "DISABLED")
 
         val response = subscriberRepository.searchAllByOffset(criteria)
@@ -230,7 +214,6 @@ internal class SubscriberR2dbcRepositoryTest {
 
     @Test
     fun `should search all DISABLED subscribers by criteria using cursor pagination`() = runBlocking {
-
         val criteria = Criteria.Equals("status", "DISABLED")
 
         val response = subscriberRepository.searchAllByCursor(criteria)
@@ -248,7 +231,6 @@ internal class SubscriberR2dbcRepositoryTest {
 
     @Test
     fun `should search by criteria with multiple filters using offset pagination`() = runBlocking {
-
         val criteria = Criteria.And(
             listOf(
                 Criteria.Equals("email", "email"),
@@ -271,7 +253,6 @@ internal class SubscriberR2dbcRepositoryTest {
 
     @Test
     fun `should search by criteria with multiple filters using cursor pagination`() = runBlocking {
-
         val criteria = Criteria.And(
             listOf(
                 Criteria.Equals("email", "email"),
@@ -297,7 +278,6 @@ internal class SubscriberR2dbcRepositoryTest {
     @Test
     fun `should search by criteria with multiple filters and sort using offset pagination`() =
         runBlocking {
-
             val criteria = Criteria.And(
                 listOf(
                     Criteria.Equals("email", "email"),
@@ -316,10 +296,8 @@ internal class SubscriberR2dbcRepositoryTest {
                     eq(pageable),
                     eq(SubscriberEntity::class),
                 )
-            } returns Mono.just(
-                PageImpl(
-                    subscribers.map { it.toEntity() },
-                ),
+            } returns PageImpl(
+                subscribers.map { it.toEntity() },
             )
 
             val response = subscriberRepository.searchAllByOffset(criteria, 10, 0, sort)
@@ -329,7 +307,6 @@ internal class SubscriberR2dbcRepositoryTest {
     @Test
     fun `should search by criteria with multiple filters and sort using cursor pagination`() =
         runBlocking {
-
             val criteria = Criteria.And(
                 listOf(
                     Criteria.Equals("email", "email"),
@@ -349,13 +326,11 @@ internal class SubscriberR2dbcRepositoryTest {
                     eq(sortCriteria),
                     any(Cursor::class),
                 )
-            } returns Mono.just(
-                CursorPageResponse(
-                    data = subscribers.map { it.toEntity() },
-                    nextPageCursor = TimestampCursor(
-                        subscribers.last().createdAt,
-                    ).serialize(),
-                ),
+            } returns CursorPageResponse(
+                data = subscribers.map { it.toEntity() },
+                nextPageCursor = TimestampCursor(
+                    subscribers.last().createdAt,
+                ).serialize(),
             )
 
             val response = subscriberRepository.searchAllByCursor(criteria, 10, sort)

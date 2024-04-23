@@ -1,6 +1,7 @@
 package com.lyra.app.newsletter.infrastructure.persistence.entity
 
 import com.lyra.app.newsletter.domain.SubscriberStatus
+import com.lyra.common.domain.AuditableEntity
 import java.time.LocalDateTime
 import java.util.*
 import org.springframework.data.relational.core.mapping.Column

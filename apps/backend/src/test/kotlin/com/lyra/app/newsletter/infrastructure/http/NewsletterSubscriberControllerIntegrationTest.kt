@@ -1,6 +1,7 @@
 package com.lyra.app.newsletter.infrastructure.http
 
 import com.lyra.app.ControllerIntegrationTest
+import com.lyra.app.IntegrationTest
 import com.lyra.app.newsletter.SubscriberStub.generateRequest
 import java.util.*
 import org.junit.jupiter.api.BeforeEach
@@ -9,6 +10,7 @@ import org.springframework.http.MediaType
 
 private const val ENDPOINT = "/api/newsletter/subscribers"
 
+@IntegrationTest
 internal class NewsletterSubscriberControllerIntegrationTest : ControllerIntegrationTest() {
 
     @BeforeEach

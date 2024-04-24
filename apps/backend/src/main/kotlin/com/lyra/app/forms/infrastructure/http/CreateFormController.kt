@@ -17,14 +17,25 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /**
+ * This is a REST controller for creating forms.
+ * It extends the [ApiController] class and uses a [Mediator] for handling commands.
  *
- * @created 20/4/24
+ * @property mediator The [Mediator] for handling commands.
  */
 @RestController
 @RequestMapping(value = ["/api"], produces = ["application/vnd.api.v1+json"])
 class CreateFormController(
-    mediator: Mediator,
+    private val mediator: Mediator,
 ) : ApiController(mediator) {
+
+    /**
+     * This function handles the PUT request for creating a form.
+     * It validates the request body, dispatches a [CreateFormCommand], and returns a [ResponseEntity].
+     *
+     * @param id The ID of the form to create.
+     * @param request The [CreateFormRequest] body containing the form data.
+     * @return A [ResponseEntity] indicating the result of the operation.
+     */
     @Operation(summary = "Create a form with the given data")
     @ApiResponses(
         ApiResponse(responseCode = "201", description = "Created"),

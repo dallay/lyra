@@ -43,7 +43,6 @@ class FormUpdater(
         form.update(formDTO)
         formRepository.update(form)
         val domainEvents = form.pullDomainEvents()
-        log.debug("Pulling {} events from form", domainEvents.size)
         domainEvents.forEach {
             eventPublisher.publish(it as FormUpdatedEvent)
         }

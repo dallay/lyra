@@ -16,15 +16,26 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /**
+ * This is a REST controller for updating forms.
+ * It extends the [ApiController] class and uses a [Mediator] for handling commands.
  *
- * @created 20/4/24
+ * @property mediator The [Mediator] for handling commands.
  */
 @RestController
 @RequestMapping(value = ["/api"], produces = ["application/vnd.api.v1+json"])
 class UpdateFormController(
     mediator: Mediator,
 ) : ApiController(mediator) {
-    @Operation(summary = "Create a form with the given data")
+
+    /**
+     * This function handles the PUT request for updating a form.
+     * It validates the request body, dispatches an [UpdateFormCommand], and returns a [ResponseEntity].
+     *
+     * @param id The ID of the form to update.
+     * @param request The [UpdateFormRequest] body containing the updated form data.
+     * @return A [ResponseEntity] indicating the result of the operation.
+     */
+    @Operation(summary = "Update a form with the given data")
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "Updated form"),
         ApiResponse(responseCode = "400", description = "Bad request error (validation error)"),

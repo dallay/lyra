@@ -102,3 +102,5 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+![Alt](https://repobeats.axiom.co/api/embed/fcbf097295ea4254db6b733582ac982db8fa4fe6.svg "Repobeats analytics image")

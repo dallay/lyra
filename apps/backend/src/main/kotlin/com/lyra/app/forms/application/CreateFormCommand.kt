@@ -3,8 +3,18 @@ package com.lyra.app.forms.application
 import com.lyra.common.domain.bus.command.Command
 
 /**
+ * Represents a command to create a form.
  *
- * @created 20/4/24
+ * @property id Unique identifier for the form.
+ * @property name Name of the form.
+ * @property header Header text for the form.
+ * @property description Description of the form.
+ * @property inputPlaceholder Placeholder text for the form input field.
+ * @property buttonText Text for the form submission button.
+ * @property buttonColor Color for the form submission button.
+ * @property backgroundColor Background color for the form.
+ * @property textColor Text color for the form.
+ * @property buttonTextColor Text color for the form submission button.
  */
 data class CreateFormCommand(
     val id: String,

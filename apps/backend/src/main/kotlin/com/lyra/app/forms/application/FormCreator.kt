@@ -9,8 +9,10 @@ import com.lyra.common.domain.bus.event.EventPublisher
 import org.slf4j.LoggerFactory
 
 /**
+ * Service class responsible for creating forms.
  *
- * @created 20/4/24
+ * @property formRepository Repository for accessing form data.
+ * @property eventPublisher Publisher for broadcasting form created events.
  */
 @Service
 class FormCreator(
@@ -18,10 +20,16 @@ class FormCreator(
     eventPublisher: EventPublisher<FormCreatedEvent>
 ) {
     private val eventPublisher = EventBroadcaster<FormCreatedEvent>()
+
     init {
         this.eventPublisher.use(eventPublisher)
     }
 
+    /**
+     * Creates a form and publishes a FormCreatedEvent for each domain event pulled from the form.
+     *
+     * @param form The form to be created.
+     */
     suspend fun create(form: Form) {
         log.info("Creating form with name: ${form.name}")
         formRepository.create(form)

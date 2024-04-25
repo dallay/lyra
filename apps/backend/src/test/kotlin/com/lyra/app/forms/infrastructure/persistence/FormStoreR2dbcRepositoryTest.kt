@@ -76,4 +76,10 @@ internal class FormStoreR2dbcRepositoryTest {
         coEvery { formR2dbcRepository.findById(any()) } returns form.toEntity()
         formStoreR2dbcRepository.findById(form.id)
     }
+
+    @Test
+    fun `should delete form`(): Unit = runBlocking {
+        coEvery { formR2dbcRepository.deleteById(any()) } returns Unit
+        formStoreR2dbcRepository.delete(form.id)
+    }
 }

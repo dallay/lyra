@@ -23,7 +23,7 @@ class UpdateFormCommandHandler(
      * @param command The form update command to handle.
      */
     override suspend fun handle(command: UpdateFormCommand) {
-        log.info("Updating form with name: ${command.name}")
+        log.debug("Updating form with name: ${command.name}")
         val formDto = FormDTO(
             name = command.name,
             header = command.header,
@@ -39,9 +39,6 @@ class UpdateFormCommandHandler(
     }
 
     companion object {
-        /**
-         * Logger for the UpdateFormCommandHandler class.
-         */
         private val log = LoggerFactory.getLogger(UpdateFormCommandHandler::class.java)
     }
 }

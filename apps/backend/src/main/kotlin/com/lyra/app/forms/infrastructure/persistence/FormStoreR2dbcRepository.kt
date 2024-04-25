@@ -1,6 +1,7 @@
 package com.lyra.app.forms.infrastructure.persistence
 
 import com.lyra.app.forms.domain.Form
+import com.lyra.app.forms.domain.FormDestroyerRepository
 import com.lyra.app.forms.domain.FormFinderRepository
 import com.lyra.app.forms.domain.FormId
 import com.lyra.app.forms.domain.FormRepository
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class FormStoreR2dbcRepository(
     private val formR2dbcRepository: FormR2dbcRepository
-) : FormRepository, FormFinderRepository {
+) : FormRepository, FormFinderRepository, FormDestroyerRepository {
     /**
      * This function is used to create a new form.
      * It is a suspending function, meaning it can be paused and resumed at a later time.
@@ -59,6 +60,12 @@ class FormStoreR2dbcRepository(
      */
     override suspend fun findById(id: FormId): Form? = formR2dbcRepository.findById(id.value)?.toDomain()
 
+    /**
+     * Deletes a form with the given id.
+     *
+     * @param id The id of the form to be deleted.
+     */
+    override suspend fun delete(id: FormId) = formR2dbcRepository.deleteById(id.value)
     companion object {
         private val log = LoggerFactory.getLogger(FormStoreR2dbcRepository::class.java)
     }

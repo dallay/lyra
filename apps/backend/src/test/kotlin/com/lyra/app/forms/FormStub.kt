@@ -1,9 +1,13 @@
 package com.lyra.app.forms
 
+import com.lyra.app.GeneralStub.getTimestampCursorPage
+import com.lyra.app.forms.application.FormResponse
 import com.lyra.app.forms.domain.Form
 import com.lyra.app.forms.domain.FormId
 import com.lyra.app.forms.domain.HexColor
 import com.lyra.app.forms.domain.dto.FormDTO
+import com.lyra.common.domain.presentation.pagination.CursorPageResponse
+import com.lyra.common.domain.presentation.pagination.TimestampCursor
 import java.util.*
 import net.datafaker.Faker
 
@@ -62,4 +66,32 @@ object FormStub {
         "buttonTextColor": "${dto.buttonTextColor}"
       }
     """.trimIndent()
+
+    fun dummyRandomFormPageResponse(size: Int): CursorPageResponse<FormResponse> {
+        val data = (1..size).map { FormResponse.from(create()) }
+        val (_, cursor) = getStartAndEndTimestampCursorPage(data)
+        return CursorPageResponse(
+            data = data,
+            nextPageCursor = cursor,
+        )
+    }
+
+    private fun getStartAndEndTimestampCursorPage(data: List<FormResponse>): Pair<String, String> {
+        val startCreatedAt = data.first().createdAt
+        val startCursor = startCreatedAt?.let { getTimestampCursorPage(it) }
+            ?: TimestampCursor.DEFAULT_CURSOR.serialize()
+        val lastCreatedAt = data.last().createdAt
+        val endCursor = lastCreatedAt?.let { getTimestampCursorPage(it) }
+            ?: TimestampCursor.DEFAULT_CURSOR.serialize()
+        return Pair(startCursor, endCursor)
+    }
+
+    fun dummyRandomFormsPageResponse(size: Int): CursorPageResponse<Form> {
+        val data = (1..size).map { create() }
+        val cursor = TimestampCursor(data.last().createdAt).serialize()
+        return CursorPageResponse(
+            data = data,
+            nextPageCursor = cursor,
+        )
+    }
 }

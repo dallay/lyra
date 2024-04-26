@@ -1,26 +1,26 @@
-package com.lyra.app.newsletter.application.search.all
+package com.lyra.app.forms.application.search
 
-import com.lyra.app.newsletter.application.SubscriberResponse
+import com.lyra.app.forms.application.FormResponse
 import com.lyra.common.domain.bus.query.Query
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import com.lyra.common.domain.presentation.sort.Sort
 
 /**
- * This class represents a query to search all subscribers.
+ * This class represents a query to search all forms.
  *
- * @property criteria The criteria to filter the subscribers. It can be null.
+ * @property criteria The criteria to filter the forms. It can be null.
  * @property size The size of the page to return. It can be null.
- * @property cursor The cursor to paginate through the subscribers. It can be null.
- * @property sort The sort order for the subscribers. It can be null.
+ * @property cursor The cursor to paginate through the forms. It can be null.
+ * @property sort The sort order for the forms. It can be null.
  */
-class SearchAllSubscribersQuery(
+class SearchFormsQuery(
     val criteria: Criteria? = null,
     val size: Int? = null,
     val cursor: String? = null,
     val sort: Sort? = null
 ) :
-    Query<CursorPageResponse<SubscriberResponse>> {
+    Query<CursorPageResponse<FormResponse>> {
 
     /**
      * Checks if the given object is equal to this instance.
@@ -30,7 +30,7 @@ class SearchAllSubscribersQuery(
      */
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is SearchAllSubscribersQuery) return false
+        if (other !is SearchFormsQuery) return false
         return true
     }
 

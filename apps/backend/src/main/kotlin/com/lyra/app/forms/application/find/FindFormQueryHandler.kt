@@ -1,5 +1,6 @@
 package com.lyra.app.forms.application.find
 
+import com.lyra.app.forms.application.FormResponse
 import com.lyra.app.forms.domain.FormId
 import com.lyra.app.forms.domain.exception.FormNotFoundException
 import com.lyra.common.domain.Service

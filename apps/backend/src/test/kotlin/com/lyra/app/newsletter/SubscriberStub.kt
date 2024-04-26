@@ -2,6 +2,7 @@ package com.lyra.app.newsletter
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.lyra.app.GeneralStub.getTimestampCursorPage
 import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.app.newsletter.domain.FirstName
 import com.lyra.app.newsletter.domain.LastName
@@ -15,16 +16,11 @@ import com.lyra.common.domain.presentation.pagination.TimestampCursor
 import java.io.FileNotFoundException
 import java.nio.file.Files
 import java.nio.file.Paths
-import java.time.LocalDateTime
 import java.util.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import net.datafaker.Faker
 
-/**
- *
- * @created 11/1/24
- */
 object SubscriberStub {
     private val faker = Faker()
     fun create(
@@ -60,7 +56,7 @@ object SubscriberStub {
         )
     }
 
-    fun dummyRandomSubscriberResponsePageResponse(size: Int = 10): CursorPageResponse<SubscriberResponse> {
+    fun dummyRandomSubscriberPageResponse(size: Int = 10): CursorPageResponse<SubscriberResponse> {
         val data = dummyRandomSubscribersList(size).map { SubscriberResponse.from(it) }
         val (_, cursor) = getStartAndEndTimestampCursorPage(data)
         return CursorPageResponse(
@@ -78,12 +74,6 @@ object SubscriberStub {
             ?: TimestampCursor.DEFAULT_CURSOR.serialize()
         return Pair(startCursor, endCursor)
     }
-
-    fun getTimestampCursorPage(date: LocalDateTime = LocalDateTime.now()): String =
-        TimestampCursor(date).serialize()
-
-    fun getTimestampCursorPage(stringDate: String): String =
-        getTimestampCursorPage(LocalDateTime.parse(stringDate))
 
     @Suppress("MultilineRawStringIndentation")
     fun generateRequest(

@@ -1,5 +1,6 @@
 package com.lyra.app.newsletter.application.search.all
 
+import com.lyra.app.GeneralStub.getTimestampCursorPage
 import com.lyra.app.newsletter.SubscriberStub
 import com.lyra.app.newsletter.domain.SubscriberRepository
 import com.lyra.common.domain.criteria.Criteria
@@ -45,7 +46,7 @@ internal class SearchAllSubscribersQueryHandlerTest {
         assertTrue(data.isNotEmpty())
         assertEquals(100, data.size)
         val endDate = data.last().createdAt ?: LocalDateTime.now().toString()
-        val cursor = SubscriberStub.getTimestampCursorPage(endDate)
+        val cursor = getTimestampCursorPage(endDate)
         assertEquals(cursor, nextCursor)
         coVerify(exactly = 1) { repository.searchAllByCursor(any(Criteria::class), any(Int::class), any(Sort::class)) }
     }

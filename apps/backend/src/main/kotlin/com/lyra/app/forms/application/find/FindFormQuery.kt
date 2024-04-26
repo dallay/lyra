@@ -1,5 +1,6 @@
 package com.lyra.app.forms.application.find
 
+import com.lyra.app.forms.application.FormResponse
 import com.lyra.common.domain.bus.query.Query
 
 class FindFormQuery(

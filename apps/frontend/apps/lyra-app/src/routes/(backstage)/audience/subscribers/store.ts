@@ -1,6 +1,7 @@
 import { type QuerySort, request } from '@lyra/ui';
 import { reactive, readonly } from 'vue';
-import type { PageResponse, Subscriber, Subscribers } from './types';
+import type { Subscriber, Subscribers } from './types';
+import type { PageResponse } from '@/types/types';
 import { defineStore } from 'pinia';
 import { SearchParameters } from 'ofetch';
 

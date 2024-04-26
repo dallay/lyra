@@ -19,6 +19,17 @@ const links = [
 		name: 'Audience',
 		sub: [{ icon: 'i-ph:users-three-thin', name: 'Subscribers', to: '/audience/subscribers' }],
 	},
+  {
+    icon: 'i-material-symbols:settings',
+    name: 'Settings',
+    sub: [{ icon: 'i-ooui:articles-rtl', name: 'Publication', sub:[
+        {
+          icon: 'i-material-symbols-light:dynamic-form-rounded',
+          name: 'Subscriber Form',
+          to: '/settings/publication/subscriber-form',
+        }
+      ] }],
+  },
 ] as Link[];
 
 const createLevel = (arr: Link[], level = 1): Link[] => {

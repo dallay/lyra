@@ -16,7 +16,8 @@ const identifier = id || crypto.randomUUID();
 <div class:list=`${className}`>
 	<form class="relative flex w-full space-x-2" id={`subscriber-form-${identifier}`}>
 		<div class="relative w-full">
-			<label for="subscriber-email" class="hidden">Email:</label><input
+			<label for="subscriber-email" class="hidden">Email:</label>
+			<input
 				id="subscriber-email"
 				class="subscriber-email bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium"
 				type="email"
@@ -41,15 +42,17 @@ const identifier = id || crypto.randomUUID();
 
 <style define:vars={{ buttonColor, buttonTextColor }}>
 	.subscriber-email {
-		@apply flex h-12 w-full items-center justify-center rounded-md border-gray-900 px-3
-    focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-100;
+		@apply flex h-12 w-full items-center justify-center px-3
+    focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50;
+		border-radius: 0.375rem;
+		border: solid var(--buttonColor);
 	}
 
 	.submit-button {
 		border-radius: 0 0.375rem 0.375rem 0;
 		background-color: var(--buttonColor);
 		color: var(--buttonTextColor);
-		border: 1px solid var(--buttonColor);
+		border: solid var(--buttonColor);
 	}
 
 	.submit-button:hover {

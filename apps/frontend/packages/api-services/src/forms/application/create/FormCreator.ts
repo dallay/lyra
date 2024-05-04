@@ -7,10 +7,9 @@ export const FORM_CREATOR_PROVIDER = 'FORM_CREATOR_PROVIDER';
 
 @injectable()
 export default class FormCreator {
-  constructor(@inject(FORM_REPOSITORY_PROVIDER) private readonly repository: FormRepository) {
-  }
+	constructor(@inject(FORM_REPOSITORY_PROVIDER) private readonly repository: FormRepository) {}
 
-  async create(form: Form): Promise<void> {
-    await this.repository.create(form);
-  }
+	async create(form: Form): Promise<void> {
+		await this.repository.create(form);
+	}
 }

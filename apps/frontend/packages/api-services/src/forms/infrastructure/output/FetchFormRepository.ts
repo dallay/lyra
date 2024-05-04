@@ -12,7 +12,9 @@ import type FormDestroyerRepository from '~/forms/domain/FormDestroyerRepository
 import type FormFinderRepository from '~/forms/domain/FormFinderRepository.ts';
 
 @injectable()
-export default class FetchFormRepository implements FormRepository, FormFinderRepository, FormDestroyerRepository {
+export default class FetchFormRepository
+	implements FormRepository, FormFinderRepository, FormDestroyerRepository
+{
 	private headers: HeadersInit = {
 		Accept: 'application/vnd.api.v1+json',
 	};
@@ -69,14 +71,14 @@ export default class FetchFormRepository implements FormRepository, FormFinderRe
 		}
 	}
 
-  async create(form: Form): Promise<void> {
-    const response = await request<Form>(`/forms/${form.id}`, {
-      method: 'PUT',
-      headers: this.headers,
-      body: JSON.stringify(form),
-    });
-    if (!response || !response.ok) {
-      throw new Error('Error creating form');
-    }
-  }
+	async create(form: Form): Promise<void> {
+		const response = await request<Form>(`/forms/${form.id}`, {
+			method: 'PUT',
+			headers: this.headers,
+			body: JSON.stringify(form),
+		});
+		if (!response || !response.ok) {
+			throw new Error('Error creating form');
+		}
+	}
 }

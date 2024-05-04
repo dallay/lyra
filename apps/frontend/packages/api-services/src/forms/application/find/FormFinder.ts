@@ -7,16 +7,17 @@ import { FORM_FINDER_REPOSITORY_PROVIDER } from '~/forms/domain/FormFinderReposi
 export const FORM_FINDER_PROVIDER = 'FORM_FINDER_PROVIDER';
 @injectable()
 export default class FormFinder {
-  constructor(@inject(FORM_FINDER_REPOSITORY_PROVIDER) private readonly repository: FormFinderRepository) {
-  }
+	constructor(
+		@inject(FORM_FINDER_REPOSITORY_PROVIDER) private readonly repository: FormFinderRepository
+	) {}
 
-  async find(formId: string): Promise<Form> {
-    const form = await this.repository.find(formId);
+	async find(formId: string): Promise<Form> {
+		const form = await this.repository.find(formId);
 
-    if (!form) {
-      throw new FormNotFoundError(formId);
-    }
+		if (!form) {
+			throw new FormNotFoundError(formId);
+		}
 
-    return form;
-  }
+		return form;
+	}
 }

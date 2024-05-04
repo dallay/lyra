@@ -1,6 +1,6 @@
 export default class CreateFormRequest {
 	constructor(
-    public readonly id: string,
+		public readonly id: string,
 		public readonly name: string,
 		public readonly header: string,
 		public readonly description: string,

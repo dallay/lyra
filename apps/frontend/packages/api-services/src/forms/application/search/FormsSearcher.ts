@@ -9,10 +9,11 @@ export const FORM_SEARCHER_PROVIDER = 'FORM_SEARCHER_PROVIDER';
 
 @injectable()
 export default class FormsSearcher {
-  constructor(@inject(FORM_FINDER_REPOSITORY_PROVIDER) private readonly repository: FormFinderRepository) {
-  }
+	constructor(
+		@inject(FORM_FINDER_REPOSITORY_PROVIDER) private readonly repository: FormFinderRepository
+	) {}
 
-  async search(query: SearchFormsQuery): Promise<PageResponse<Form>> {
-    return await this.repository.search(query.criteria, query.sort, query.size, query.cursor);
-  }
+	async search(query: SearchFormsQuery): Promise<PageResponse<Form>> {
+		return await this.repository.search(query.criteria, query.sort, query.size, query.cursor);
+	}
 }

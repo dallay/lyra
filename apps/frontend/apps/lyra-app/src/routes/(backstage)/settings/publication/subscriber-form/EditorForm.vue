@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-	minLength,
-	nullish,
-	object,
-	string,
-} from 'valibot';
+import { minLength, nullish, object, string } from 'valibot';
 import { useLocaler } from 'vue-localer';
 import { useValdnLocale, XButton, XDrawer, XTextField } from '@lyra/ui';
 import { computed, onMounted, reactive, toRef, watch } from 'vue';

@@ -71,20 +71,20 @@ export default defineStore('/forms', () => {
 		async delete(id: string): Promise<void> {
 			await formController.delete(id);
 		},
-    async create(form: Form): Promise<void> {
-      await formController.create({
-        id: form.id,
-        name: form.name,
-        header: form.header,
-        description: form.description,
-        inputPlaceholder: form.inputPlaceholder,
-        buttonText: form.buttonText,
-        buttonColor: form.buttonColor,
-        backgroundColor: form.backgroundColor,
-        textColor: form.textColor,
-        buttonTextColor: form.buttonTextColor,
-      });
-    }
+		async create(form: Form): Promise<void> {
+			await formController.create({
+				id: form.id,
+				name: form.name,
+				header: form.header,
+				description: form.description,
+				inputPlaceholder: form.inputPlaceholder,
+				buttonText: form.buttonText,
+				buttonColor: form.buttonColor,
+				backgroundColor: form.backgroundColor,
+				textColor: form.textColor,
+				buttonTextColor: form.buttonTextColor,
+			});
+		},
 	});
 
 	function $reset() {

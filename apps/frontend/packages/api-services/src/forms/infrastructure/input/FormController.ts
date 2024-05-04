@@ -16,7 +16,7 @@ import UpdateFormCommandHandler, {
 import CreateFormRequest from '~/forms/infrastructure/input/request/CreateFormRequest.ts';
 import UpdateFormRequest from '~/forms/infrastructure/input/request/UpdateFormRequest.ts';
 import CreateFormCommandHandler, {
-  CREATE_FORM_COMMAND_HANDLER_PROVIDER,
+	CREATE_FORM_COMMAND_HANDLER_PROVIDER,
 } from '~/forms/application/create/CreateFormCommandHandler.ts';
 
 export const FORM_CONTROLLER_PROVIDER = 'FORM_CONTROLLER_PROVIDER';
@@ -31,22 +31,23 @@ export default class FormController {
 		private updateFormCommandHandler: UpdateFormCommandHandler,
 		@inject(DELETE_FORM_COMMAND_HANDLER_PROVIDER)
 		private deleteFormCommandHandler: DeleteFormCommandHandler,
-    @inject(CREATE_FORM_COMMAND_HANDLER_PROVIDER) private createFormCommandHandler: CreateFormCommandHandler
+		@inject(CREATE_FORM_COMMAND_HANDLER_PROVIDER)
+		private createFormCommandHandler: CreateFormCommandHandler
 	) {}
-async create(request: CreateFormRequest): Promise<void> {
-    await this.createFormCommandHandler.handle({
-      id: request.id,
-      name: request.name,
-      header: request.header,
-      description: request.description,
-      inputPlaceholder: request.inputPlaceholder,
-      buttonText: request.buttonText,
-      buttonColor: request.buttonColor,
-      backgroundColor: request.backgroundColor,
-      textColor: request.textColor,
-      buttonTextColor: request.buttonTextColor,
-    });
-  }
+	async create(request: CreateFormRequest): Promise<void> {
+		await this.createFormCommandHandler.handle({
+			id: request.id,
+			name: request.name,
+			header: request.header,
+			description: request.description,
+			inputPlaceholder: request.inputPlaceholder,
+			buttonText: request.buttonText,
+			buttonColor: request.buttonColor,
+			backgroundColor: request.backgroundColor,
+			textColor: request.textColor,
+			buttonTextColor: request.buttonTextColor,
+		});
+	}
 	async findAll(
 		criteria?: CriteriaParam,
 		sort?: QuerySort,

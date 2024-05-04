@@ -31,15 +31,15 @@
   },
   "peerDependencies": {
     "typescript": "^5.4.5",
-    "vue": "^3.4.23"
+    "vue": "^3.4.26"
   },
   "devDependencies": {
     "@lyra/tsconfig": "0.0.1",
     "tsc-alias": "1.8.8",
     "typescript": "^5.4.5",
-    "vite": "^5.2.9",
-    "vite-plugin-dts": "^3.8.3",
-    "vitest": "^1.5.0"
+    "vite": "^5.2.11",
+    "vite-plugin-dts": "^3.9.0",
+    "vitest": "^1.6.0"
   },
   "engines": {
     "node": ">=18.14.1",

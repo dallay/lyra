@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test
 private const val NUM_FORMS = 100
 class SearchFormsQueryHandlerTest {
     private val repository = mockkClass(FormFinderRepository::class)
-    private val searcher = SearchFormsSearcher(repository)
+    private val searcher = FormsSearcher(repository)
     private val searchFormsQueryHandler = SearchFormsQueryHandler(searcher)
 
     @BeforeEach

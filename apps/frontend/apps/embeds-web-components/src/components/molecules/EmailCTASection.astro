@@ -1,22 +1,59 @@
 ---
 import EmailCTA from 'atoms:EmailCTA';
-const { id } = Astro.props;
+const {
+	id,
+	placeholder = 'Enter your email',
+	description = 'Get the latest news and updates',
+	header = 'Subscribe to the newsletter',
+	buttonText = 'subscribe',
+	buttonColor = '#374151',
+	backgroundColor = '#111827',
+	textColor = '#9BA3AF',
+	buttonTextColor = '#F3F4F6',
+	...attributes
+} = Astro.props;
 const identifier = id || crypto.randomUUID();
 ---
 
 <section class="m-1 flex flex-col items-center justify-center p-2">
 	<div
-		class="bg-tertiary-50 border-tertiary-100 dark:bg-tertiary-900 dark:border-tertiary-800 relative w-full rounded-lg border p-4 text-center shadow"
+		class:list={[
+			'relative w-full rounded-lg border p-4 text-center shadow',
+			'background',
+			'border-color',
+		]}
 	>
-		<h5 class="text-tertiary-900 dark:text-tertiary-100 mb-2 text-3xl font-bold">
-			Subscribe to the newsletter
+		<h5 class:list={['mb-2 text-3xl font-bold', 'header-text']}>
+			{header}
 		</h5>
-		<p class="text-tertiary-500 dark:text-tertiary-400 mb-5 text-base sm:text-lg">
-			Get the latest posts delivered right to your inbox every week. I would love to include you in
-			my journey.
+		<p class:list={['mb-5 text-base sm:text-lg', 'description-text']}>
+			{description}
 		</p>
 		<div class="flex items-center justify-center space-y-4 sm:space-x-4 sm:space-y-0">
-			<EmailCTA id={identifier} />
+			<EmailCTA
+				id={identifier}
+				placeholder={placeholder}
+				buttonText={buttonText}
+				buttonColor={buttonColor}
+				buttonTextColor={buttonTextColor}
+				{...attributes}
+			/>
 		</div>
 	</div>
 </section>
+
+<style define:vars={{ textColor, backgroundColor, buttonColor, buttonTextColor }}>
+	.header-text {
+		color: var(--textColor);
+	}
+	.description-text {
+		color: var(--textColor);
+		filter: brightness(80%);
+	}
+	.background {
+		background-color: var(--backgroundColor);
+	}
+	.border-color {
+		border-color: var(--backgroundColor);
+	}
+</style>

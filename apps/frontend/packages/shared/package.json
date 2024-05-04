@@ -1,0 +1,61 @@
+{
+  "name": "@lyra/shared",
+  "version": "0.0.1",
+  "description": "Shared utilities and domain for Lyra API services",
+  "author": {
+    "name": "Yuniel Acosta Pérez",
+    "email": "yunielacosta738@gmail.com",
+    "url": "www.yunielacosta.com"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/shared.js",
+  "module": "./dist/shared.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/shared.js",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/shared.js"
+      }
+    }
+  },
+  "files": [
+    "package.json",
+    "dist"
+  ],
+  "keywords": [
+    "lyra",
+    "api services"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yacosta738/lyra.git",
+    "directory": "packages/shared",
+    "branch": "main"
+  },
+  "bugs": {
+    "url": "https://github.com/yacosta738/lyra/issues"
+  },
+  "scripts": {
+    "dev": "print \"DEV: [🟢] Starting ${npm_package_name} in dev mode\" && vite build -- --watch",
+    "build:types": "tsc --build",
+    "build:vite": "vite build",
+    "build:all": "run-s build:types build:vite",
+    "build": "print \"BUILD: [🟢] Building ${npm_package_name}\" && run-s build:all",
+    "preview": "vite preview",
+    "check": "print \"CHECK: [✅] Checking ${npm_package_name}\" && tsc --noEmit --skipLibCheck",
+    "clean": "print \"CLEAN: [🧹] Cleaning ${npm_package_name}\" info && rimraf dist coverage",
+    "test": "print \"TEST: [🧪] Testing ${npm_package_name}\" && vitest --coverage --run",
+    "test:watch": "print \"TEST: [🧪] Watching ${npm_package_name}\" && vitest --watch"
+  },
+  "devDependencies": {
+    "@lyra/config": "0.0.1",
+    "@lyra/tsconfig": "0.0.1",
+    "vite-plugin-dts": "^3.9.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

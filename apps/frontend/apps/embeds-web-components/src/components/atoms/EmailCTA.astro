@@ -1,7 +1,14 @@
 ---
 import SubmitButton from '../atoms/SubmitButton.astro';
 import ConfettiLauncher from '../atoms/ConfettiLauncher.astro';
-const { id, ...attributes } = Astro.props;
+const {
+	id,
+	placeholder = 'Enter your email',
+	buttonText = 'subscribe',
+	buttonColor = '#374151',
+	buttonTextColor = '#F3F4F6',
+	...attributes
+} = Astro.props;
 const { class: className = 'w-full max-w-md space-y-2 flex flex-col items-center justify-center' } =
 	attributes;
 const identifier = id || crypto.randomUUID();
@@ -14,20 +21,39 @@ const identifier = id || crypto.randomUUID();
 				id="subscriber-email"
 				class="subscriber-email bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium"
 				type="email"
-				placeholder="Enter your email"
+				placeholder={placeholder}
+				{...attributes}
 				required
 			/>
 			<ConfettiLauncher>
-				<SubmitButton class="absolute bottom-0 end-0 top-0 rounded-r" type="submit">
-					Subscribe
-				</SubmitButton>
+				<button
+					class:list={[
+						'absolute bottom-0 end-0 top-0 rounded-r px-5 py-2.5 text-center font-sans font-semibold uppercase',
+						'submit-button',
+					]}
+					type="submit"
+				>
+					{buttonText}
+				</button>
 			</ConfettiLauncher>
 		</div>
 	</form>
 </div>
-<style>
+
+<style define:vars={{ buttonColor, buttonTextColor }}>
 	.subscriber-email {
 		@apply flex h-12 w-full items-center justify-center rounded-md border-gray-900 px-3
     focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-100;
+	}
+
+	.submit-button {
+		border-radius: 0 0.375rem 0.375rem 0;
+		background-color: var(--buttonColor);
+		color: var(--buttonTextColor);
+		border: 1px solid var(--buttonColor);
+	}
+
+	.submit-button:hover {
+		filter: brightness(0.9);
 	}
 </style>

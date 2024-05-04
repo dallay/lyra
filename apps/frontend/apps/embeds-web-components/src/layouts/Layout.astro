@@ -1,5 +1,5 @@
 ---
-import '@fontsource-variable/onest';
+import '../main';
 import pkg from '../../package.json' assert { type: 'json' };
 interface Props {
 	title: string;
@@ -39,8 +39,8 @@ const { title, description = pkg.description } = Astro.props;
 	</body>
 </html>
 
-<style is:global>
-	html {
-		font-family: 'Onest Variable', sans-serif;
-	}
-</style>
+<!--<style is:global>-->
+<!--	html {-->
+<!--		font-family: 'Onest Variable', sans-serif;-->
+<!--	}-->
+<!--</style>-->

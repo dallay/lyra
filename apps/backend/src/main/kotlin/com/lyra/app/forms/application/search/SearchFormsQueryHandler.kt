@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory
 /**
  * This class represents a query handler to search all forms.
  *
- * @property searcher The [SearchFormsSearcher] to search forms.
+ * @property searcher The [FormsSearcher] to search forms.
  */
 @Service
 class SearchFormsQueryHandler(
-    private val searcher: SearchFormsSearcher,
+    private val searcher: FormsSearcher,
 ) : QueryHandler<SearchFormsQuery, CursorPageResponse<FormResponse>> {
 
     /**

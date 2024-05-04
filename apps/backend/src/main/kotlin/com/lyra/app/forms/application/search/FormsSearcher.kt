@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory
  * @property repository The [FormFinderRepository] to fetch forms from.
  */
 @Service
-class SearchFormsSearcher(private val repository: FormFinderRepository) {
+class FormsSearcher(private val repository: FormFinderRepository) {
 
     /**
      * Searches for forms based on the given criteria, size, cursor, and sort.
@@ -47,6 +47,6 @@ class SearchFormsSearcher(private val repository: FormFinderRepository) {
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(SearchFormsSearcher::class.java)
+        private val log = LoggerFactory.getLogger(FormsSearcher::class.java)
     }
 }

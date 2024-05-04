@@ -265,9 +265,9 @@
                                     └── +page.vue
                                     └── schema.ts
                                     └── store.ts
-                                    └── types.ts
+                                    └── Form.ts
                                 └── store.ts
-                                └── types.ts
+                                └── Form.ts
                             └── 📁discussions
                                 └── +page.vue
                             └── 📁two-factor-auth
@@ -296,7 +296,7 @@
                                 └── zh-TW.ts
                             └── schema.ts
                             └── store.ts
-                            └── types.ts
+                            └── Form.ts
                     └── +error.vue
                 └── shims.d.ts
                 └── style.css
@@ -526,7 +526,7 @@
                             └── TableControl.spec.ts
                             └── TableControlCursor.spec.ts
                         └── index.ts
-                        └── types.ts
+                        └── Form.ts
                     └── 📁tabs
                         └── Tab.vue
                         └── Tabs.vue
@@ -553,7 +553,7 @@
                         └── Tree.vue
                         └── TreeNode.vue
                         └── index.ts
-                        └── types.ts
+                        └── Form.ts
                     └── 📁week-picker
                         └── WeekPicker.vue
                     └── 📁year-picker

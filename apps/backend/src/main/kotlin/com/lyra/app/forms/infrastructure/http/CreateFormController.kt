@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import jakarta.validation.Valid
 import java.net.URI
+import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
@@ -46,6 +47,7 @@ class CreateFormController(
         @PathVariable id: String,
         @Valid @RequestBody request: CreateFormRequest
     ): ResponseEntity<String> {
+        log.debug("Creating form with ID: {}", id)
         dispatch(
             CreateFormCommand(
                 id,
@@ -60,7 +62,10 @@ class CreateFormController(
                 request.buttonTextColor,
             ),
         )
-
         return ResponseEntity.created(URI.create("/api/forms/$id")).build()
+    }
+
+    companion object {
+        private val log = LoggerFactory.getLogger(CreateFormController::class.java)
     }
 }

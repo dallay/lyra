@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import {
-	custom,
-	email,
-	literal,
 	minLength,
-	minValue,
 	nullish,
-	number,
 	object,
 	string,
 } from 'valibot';
@@ -73,7 +68,7 @@ const schema = useValibotSchema(
 const submit = () => {
 	if (schema.validate()) {
 		form.value = state.form;
-		actions.updateForm(form.value);
+		actions.update(form.value);
 	}
 };
 watch(

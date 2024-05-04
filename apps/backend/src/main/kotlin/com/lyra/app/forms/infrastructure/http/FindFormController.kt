@@ -26,7 +26,7 @@ class FindFormController(
     )
     @GetMapping("/forms/{id}")
     suspend fun find(@PathVariable id: String): Response {
-        log.info("Finding form with id: $id")
+        log.debug("Finding form with id: $id")
         val query = FindFormQuery(id)
         val response = ask(query)
         return response

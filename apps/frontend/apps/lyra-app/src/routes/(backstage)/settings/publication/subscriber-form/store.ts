@@ -36,14 +36,14 @@ export default defineStore('/forms', () => {
 	const getters = readonly({});
 
 	const actions = readonly({
-		async getForms(
+		async findAll(
 			criteria?: CriteriaParam,
 			sort?: QuerySort,
 			size: number = 10,
 			cursor: string = state.cursor
 		) {
 			state.loading = true;
-			const pageResponse = await formController.getForms(criteria, sort, size, cursor);
+			const pageResponse = await formController.findAll(criteria, sort, size, cursor);
 			const formResponses: FormResponse[] = pageResponse.data;
 			state.forms = formResponses.map((form) => {
 				return responseToForm(form);
@@ -51,12 +51,12 @@ export default defineStore('/forms', () => {
 			state.cursor = pageResponse.nextPageCursor || '';
 			state.loading = false;
 		},
-		async findForm(id: string): Promise<Form> {
-			const formResponse: FormResponse = await formController.findForm(id);
+		async find(id: string): Promise<Form> {
+			const formResponse: FormResponse = await formController.find(id);
 			return responseToForm(formResponse);
 		},
-		async updateForm(form: Form): Promise<void> {
-			await formController.updateForm(form.id, {
+		async update(form: Form): Promise<void> {
+			await formController.update(form.id, {
 				name: form.name,
 				header: form.header,
 				description: form.description,
@@ -68,9 +68,23 @@ export default defineStore('/forms', () => {
 				buttonTextColor: form.buttonTextColor,
 			});
 		},
-		async deleteForm(id: string): Promise<void> {
-			await formController.deleteForm(id);
+		async delete(id: string): Promise<void> {
+			await formController.delete(id);
 		},
+    async create(form: Form): Promise<void> {
+      await formController.create({
+        id: form.id,
+        name: form.name,
+        header: form.header,
+        description: form.description,
+        inputPlaceholder: form.inputPlaceholder,
+        buttonText: form.buttonText,
+        buttonColor: form.buttonColor,
+        backgroundColor: form.backgroundColor,
+        textColor: form.textColor,
+        buttonTextColor: form.buttonTextColor,
+      });
+    }
 	});
 
 	function $reset() {

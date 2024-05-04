@@ -1,17 +1,9 @@
-import type { CriteriaParam, PageResponse, QuerySort } from '~/types/types.ts';
 import type { Form } from './Form.ts';
 
 export const FORM_REPOSITORY_PROVIDER = 'FORM_REPOSITORY_PROVIDER';
 
 export default interface FormRepository {
-	search(
-		criteria?: CriteriaParam,
-		sort?: QuerySort,
-		size?: number,
-		cursor?: string
-	): Promise<PageResponse<Form>>;
+  create(form: Form): Promise<void>;
 
-	findForm(id: string): Promise<Form>;
-
-	updateForm(form: Form): Promise<void>;
+  update(form: Form): Promise<void>;
 }

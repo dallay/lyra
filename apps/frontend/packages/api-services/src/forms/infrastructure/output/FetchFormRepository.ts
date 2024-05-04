@@ -9,13 +9,14 @@ import {
 import request from '@/request/request.ts';
 import { injectable } from 'inversify';
 import type FormDestroyerRepository from '~/forms/domain/FormDestroyerRepository.ts';
+import type FormFinderRepository from '~/forms/domain/FormFinderRepository.ts';
 
 @injectable()
-export default class FetchFormRepository implements FormRepository, FormDestroyerRepository {
+export default class FetchFormRepository implements FormRepository, FormFinderRepository, FormDestroyerRepository {
 	private headers: HeadersInit = {
 		Accept: 'application/vnd.api.v1+json',
 	};
-	async findForm(id: string): Promise<Form> {
+	async find(id: string): Promise<Form> {
 		const response = await request<Form>(`/forms/${id}`, {
 			method: 'GET',
 			headers: this.headers,
@@ -47,7 +48,7 @@ export default class FetchFormRepository implements FormRepository, FormDestroye
 		};
 	}
 
-	async updateForm(form: Form): Promise<void> {
+	async update(form: Form): Promise<void> {
 		const response = await request<Form>(`/forms/update/${form.id}`, {
 			method: 'PUT',
 			headers: this.headers,
@@ -59,7 +60,7 @@ export default class FetchFormRepository implements FormRepository, FormDestroye
 	}
 
 	async delete(id: string): Promise<void> {
-		const response = await request(`/forms/delete/${id}`, {
+		const response = await request(`/forms/${id}`, {
 			method: 'DELETE',
 			headers: this.headers,
 		});
@@ -67,4 +68,15 @@ export default class FetchFormRepository implements FormRepository, FormDestroye
 			throw new Error('Error deleting form');
 		}
 	}
+
+  async create(form: Form): Promise<void> {
+    const response = await request<Form>(`/forms/${form.id}`, {
+      method: 'PUT',
+      headers: this.headers,
+      body: JSON.stringify(form),
+    });
+    if (!response || !response.ok) {
+      throw new Error('Error creating form');
+    }
+  }
 }

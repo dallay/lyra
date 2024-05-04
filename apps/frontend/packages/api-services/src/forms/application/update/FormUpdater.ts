@@ -34,6 +34,6 @@ export default class FormUpdater {
 	 * on the formRepository instance.
 	 */
 	async update(form: Form): Promise<void> {
-		await this.formRepository.updateForm(form);
+		await this.formRepository.update(form);
 	}
 }

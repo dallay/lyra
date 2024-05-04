@@ -13,7 +13,11 @@ import FormResponse from '~/forms/application/FormResponse.ts';
 import UpdateFormCommandHandler, {
 	UPDATE_FORM_COMMAND_HANDLER_PROVIDER,
 } from '~/forms/application/update/UpdateFormCommandHandler.ts';
-import UpdateFormRequest from '~/forms/infrastructure/input/request/UpdateFromRequest.ts';
+import CreateFormRequest from '~/forms/infrastructure/input/request/CreateFormRequest.ts';
+import UpdateFormRequest from '~/forms/infrastructure/input/request/UpdateFormRequest.ts';
+import CreateFormCommandHandler, {
+  CREATE_FORM_COMMAND_HANDLER_PROVIDER,
+} from '~/forms/application/create/CreateFormCommandHandler.ts';
 
 export const FORM_CONTROLLER_PROVIDER = 'FORM_CONTROLLER_PROVIDER';
 
@@ -26,10 +30,24 @@ export default class FormController {
 		@inject(UPDATE_FORM_COMMAND_HANDLER_PROVIDER)
 		private updateFormCommandHandler: UpdateFormCommandHandler,
 		@inject(DELETE_FORM_COMMAND_HANDLER_PROVIDER)
-		private deleteFormCommandHandler: DeleteFormCommandHandler
+		private deleteFormCommandHandler: DeleteFormCommandHandler,
+    @inject(CREATE_FORM_COMMAND_HANDLER_PROVIDER) private createFormCommandHandler: CreateFormCommandHandler
 	) {}
-
-	async getForms(
+async create(request: CreateFormRequest): Promise<void> {
+    await this.createFormCommandHandler.handle({
+      id: request.id,
+      name: request.name,
+      header: request.header,
+      description: request.description,
+      inputPlaceholder: request.inputPlaceholder,
+      buttonText: request.buttonText,
+      buttonColor: request.buttonColor,
+      backgroundColor: request.backgroundColor,
+      textColor: request.textColor,
+      buttonTextColor: request.buttonTextColor,
+    });
+  }
+	async findAll(
 		criteria?: CriteriaParam,
 		sort?: QuerySort,
 		size: number = 10,
@@ -38,11 +56,11 @@ export default class FormController {
 		return this.searchFormsQueryHandler.handle({ criteria, sort, size, cursor });
 	}
 
-	async findForm(id: string) {
+	async find(id: string) {
 		return this.findFormQueryHandler.handle({ id });
 	}
 
-	async updateForm(id: string, request: UpdateFormRequest) {
+	async update(id: string, request: UpdateFormRequest) {
 		return this.updateFormCommandHandler.handle({
 			id: id,
 			name: request.name,
@@ -57,7 +75,7 @@ export default class FormController {
 		});
 	}
 
-	async deleteForm(id: string) {
+	async delete(id: string) {
 		return this.deleteFormCommandHandler.handle({ id });
 	}
 }

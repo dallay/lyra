@@ -1,37 +1,38 @@
-import FindFormQueryHandler from '~/forms/application/find/FindFormQueryHandler.ts';
 import { inject, injectable } from 'inversify';
 import type { CriteriaParam, PageResponse, QuerySort } from '~/types/types.ts';
-import SearchFormsQueryHandler from '~/forms/application/search/SearchFormsQueryHandler.ts';
-import DeleteFormCommandHandler from '~/forms/application/delete/DeleteFormCommandHandler.ts';
 import FormResponse from '~/forms/application/FormResponse.ts';
-import UpdateFormCommandHandler from '~/forms/application/update/UpdateFormCommandHandler.ts';
 import CreateFormRequest from '~/forms/infrastructure/input/request/CreateFormRequest.ts';
 import UpdateFormRequest from '~/forms/infrastructure/input/request/UpdateFormRequest.ts';
-import CreateFormCommandHandler from '~/forms/application/create/CreateFormCommandHandler.ts';
 import {
-	CREATE_FORM_COMMAND_HANDLER_PROVIDER,
-	DELETE_FORM_COMMAND_HANDLER_PROVIDER,
-	FIND_FORM_QUERY_HANDLER_PROVIDER,
-	SEARCH_FORMS_QUERY_HANDLER_PROVIDER,
-	UPDATE_FORM_COMMAND_HANDLER_PROVIDER,
+	FORM_CREATOR_PROVIDER,
+	FORM_DESTROYER_PROVIDER,
+	FORM_FINDER_PROVIDER,
+	FORM_SEARCHER_PROVIDER,
+	FORM_UPDATER_PROVIDER,
 } from '~/di/forms/forms.module.types.ts';
+import type FormFinder from '~/forms/application/find/FormFinder.ts';
+import type FormsSearcher from '~/forms/application/search/FormsSearcher.ts';
+import type FormUpdater from '~/forms/application/update/FormUpdater.ts';
+import type FormDestroyer from '~/forms/application/delete/FormDestroyer.ts';
+import type FormCreator from '~/forms/application/create/FormCreator.ts';
+import type { Form } from '~/forms/domain/Form.ts';
 
 @injectable()
 export default class FormController {
 	constructor(
-		@inject(FIND_FORM_QUERY_HANDLER_PROVIDER) private findFormQueryHandler: FindFormQueryHandler,
-		@inject(SEARCH_FORMS_QUERY_HANDLER_PROVIDER)
-		private searchFormsQueryHandler: SearchFormsQueryHandler,
-		@inject(UPDATE_FORM_COMMAND_HANDLER_PROVIDER)
-		private updateFormCommandHandler: UpdateFormCommandHandler,
-		@inject(DELETE_FORM_COMMAND_HANDLER_PROVIDER)
-		private deleteFormCommandHandler: DeleteFormCommandHandler,
-		@inject(CREATE_FORM_COMMAND_HANDLER_PROVIDER)
-		private createFormCommandHandler: CreateFormCommandHandler
+		@inject(FORM_FINDER_PROVIDER) private formFinder: FormFinder,
+		@inject(FORM_SEARCHER_PROVIDER)
+		private formsSearcher: FormsSearcher,
+		@inject(FORM_UPDATER_PROVIDER)
+		private formUpdater: FormUpdater,
+		@inject(FORM_DESTROYER_PROVIDER)
+		private formDestroyer: FormDestroyer,
+		@inject(FORM_CREATOR_PROVIDER)
+		private formCreator: FormCreator
 	) {}
 
 	async create(request: CreateFormRequest): Promise<void> {
-		await this.createFormCommandHandler.handle({
+		await this.formCreator.create({
 			id: request.id,
 			name: request.name,
 			header: request.header,
@@ -42,7 +43,7 @@ export default class FormController {
 			backgroundColor: request.backgroundColor,
 			textColor: request.textColor,
 			buttonTextColor: request.buttonTextColor,
-		});
+		} as Form);
 	}
 
 	async findAll(
@@ -51,15 +52,15 @@ export default class FormController {
 		size: number = 10,
 		cursor: string = ''
 	): Promise<PageResponse<FormResponse>> {
-		return this.searchFormsQueryHandler.handle({ criteria, sort, size, cursor });
+		return this.formsSearcher.search({ criteria, sort, size, cursor });
 	}
 
 	async find(id: string) {
-		return this.findFormQueryHandler.handle({ id });
+		return this.formFinder.find(id);
 	}
 
 	async update(id: string, request: UpdateFormRequest) {
-		return this.updateFormCommandHandler.handle({
+		return this.formUpdater.update({
 			id: id,
 			name: request.name,
 			header: request.header,
@@ -70,10 +71,10 @@ export default class FormController {
 			backgroundColor: request.backgroundColor,
 			textColor: request.textColor,
 			buttonTextColor: request.buttonTextColor,
-		});
+		} as Form);
 	}
 
 	async delete(id: string) {
-		return this.deleteFormCommandHandler.handle({ id });
+		return this.formDestroyer.destroy(id);
 	}
 }

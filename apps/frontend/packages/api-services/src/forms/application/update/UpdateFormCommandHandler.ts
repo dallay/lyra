@@ -1,10 +1,9 @@
 import type { CommandHandler } from '@lyra/shared';
 import { inject, injectable } from 'inversify';
 import UpdateFormCommand from '~/forms/application/update/UpdateFormCommand.ts';
-import FormUpdater, { FORM_UPDATER_PROVIDER } from '~/forms/application/update/FormUpdater.ts';
+import FormUpdater from '~/forms/application/update/FormUpdater.ts';
 import type { Form } from '~/forms/domain/Form.ts';
-
-export const UPDATE_FORM_COMMAND_HANDLER_PROVIDER = 'UPDATE_FORM_COMMAND_HANDLER_PROVIDER';
+import { FORM_UPDATER_PROVIDER } from '~/di/forms/forms.module.types.ts';
 
 /**
  * @class UpdateFormCommandHandler

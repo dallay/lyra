@@ -1,8 +1,6 @@
 import type FormDestroyerRepository from '~/forms/domain/FormDestroyerRepository.ts';
-import { FORM_DESTROYER_REPOSITORY_PROVIDER } from '~/forms/domain/FormDestroyerRepository.ts';
 import { inject, injectable } from 'inversify';
-
-export const FORM_DESTROYER_PROVIDER = 'FORM_DESTROYER_PROVIDER';
+import { FORM_DESTROYER_REPOSITORY_PROVIDER } from '~/di/forms/forms.module.types.ts';
 
 @injectable()
 export default class FormDestroyer {

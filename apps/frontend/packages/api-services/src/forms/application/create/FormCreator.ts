@@ -1,9 +1,7 @@
-import { injectable, inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import type FormRepository from '~/forms/domain/FormRepository.ts';
-import { FORM_REPOSITORY_PROVIDER } from '~/forms/domain/FormRepository.ts';
 import type { Form } from '~/forms/domain/Form.ts';
-
-export const FORM_CREATOR_PROVIDER = 'FORM_CREATOR_PROVIDER';
+import { FORM_REPOSITORY_PROVIDER } from '~/di/forms/forms.module.types.ts';
 
 @injectable()
 export default class FormCreator {

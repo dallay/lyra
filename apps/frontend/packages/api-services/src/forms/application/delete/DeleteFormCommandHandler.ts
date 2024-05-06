@@ -1,11 +1,8 @@
 import type { CommandHandler } from '@lyra/shared';
 import { inject, injectable } from 'inversify';
 import DeleteFormCommand from '~/forms/application/delete/DeleteFormCommand.ts';
-import FormDestroyer, {
-	FORM_DESTROYER_PROVIDER,
-} from '~/forms/application/delete/FormDestroyer.ts';
-
-export const DELETE_FORM_COMMAND_HANDLER_PROVIDER = 'DELETE_FORM_COMMAND_HANDLER_PROVIDER';
+import FormDestroyer from '~/forms/application/delete/FormDestroyer.ts';
+import { FORM_DESTROYER_PROVIDER } from '~/di/forms/forms.module.types.ts';
 
 @injectable()
 export default class DeleteFormCommandHandler implements CommandHandler<DeleteFormCommand> {

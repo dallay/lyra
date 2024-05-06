@@ -12,7 +12,7 @@ import type FormDestroyerRepository from '~/forms/domain/FormDestroyerRepository
 import type FormFinderRepository from '~/forms/domain/FormFinderRepository.ts';
 
 @injectable()
-export default class FetchFormRepository
+export default class ApiFormRepository
 	implements FormRepository, FormFinderRepository, FormDestroyerRepository
 {
 	private headers: HeadersInit = {

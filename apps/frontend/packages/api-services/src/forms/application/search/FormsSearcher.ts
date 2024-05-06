@@ -3,9 +3,7 @@ import type { PageResponse } from '~/types/types.ts';
 import type SearchFormsQuery from '~/forms/application/search/SearchFormsQuery.ts';
 import { inject, injectable } from 'inversify';
 import type FormFinderRepository from '~/forms/domain/FormFinderRepository.ts';
-import { FORM_FINDER_REPOSITORY_PROVIDER } from '~/forms/domain/FormFinderRepository.ts';
-
-export const FORM_SEARCHER_PROVIDER = 'FORM_SEARCHER_PROVIDER';
+import { FORM_FINDER_REPOSITORY_PROVIDER } from '~/di/forms/forms.module.types.ts';
 
 @injectable()
 export default class FormsSearcher {

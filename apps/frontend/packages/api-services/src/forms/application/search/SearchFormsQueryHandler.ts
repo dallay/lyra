@@ -1,12 +1,11 @@
-import FormsSearcher, { FORM_SEARCHER_PROVIDER } from './FormsSearcher.ts';
+import FormsSearcher from './FormsSearcher.ts';
 import SearchFormsQuery from './SearchFormsQuery.ts';
 import type { QueryHandler } from '@lyra/shared';
 import type { PageResponse } from '~/types/types.ts';
 import type { Form } from '~/forms/domain/Form.ts';
 import FormResponse from '~/forms/application/FormResponse.ts';
 import { inject, injectable } from 'inversify';
-
-export const SEARCH_FORMS_QUERY_HANDLER_PROVIDER = 'SEARCH_FORMS_QUERY_HANDLER_PROVIDER';
+import { FORM_SEARCHER_PROVIDER } from '~/di/forms/forms.module.types.ts';
 
 @injectable()
 export default class SearchFormsQueryHandler

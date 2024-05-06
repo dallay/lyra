@@ -1,25 +1,20 @@
-import FindFormQueryHandler, {
-	FIND_FORM_QUERY_HANDLER_PROVIDER,
-} from '~/forms/application/find/FindFormQueryHandler.ts';
+import FindFormQueryHandler from '~/forms/application/find/FindFormQueryHandler.ts';
 import { inject, injectable } from 'inversify';
 import type { CriteriaParam, PageResponse, QuerySort } from '~/types/types.ts';
-import SearchFormsQueryHandler, {
-	SEARCH_FORMS_QUERY_HANDLER_PROVIDER,
-} from '~/forms/application/search/SearchFormsQueryHandler.ts';
-import DeleteFormCommandHandler, {
-	DELETE_FORM_COMMAND_HANDLER_PROVIDER,
-} from '~/forms/application/delete/DeleteFormCommandHandler.ts';
+import SearchFormsQueryHandler from '~/forms/application/search/SearchFormsQueryHandler.ts';
+import DeleteFormCommandHandler from '~/forms/application/delete/DeleteFormCommandHandler.ts';
 import FormResponse from '~/forms/application/FormResponse.ts';
-import UpdateFormCommandHandler, {
-	UPDATE_FORM_COMMAND_HANDLER_PROVIDER,
-} from '~/forms/application/update/UpdateFormCommandHandler.ts';
+import UpdateFormCommandHandler from '~/forms/application/update/UpdateFormCommandHandler.ts';
 import CreateFormRequest from '~/forms/infrastructure/input/request/CreateFormRequest.ts';
 import UpdateFormRequest from '~/forms/infrastructure/input/request/UpdateFormRequest.ts';
-import CreateFormCommandHandler, {
+import CreateFormCommandHandler from '~/forms/application/create/CreateFormCommandHandler.ts';
+import {
 	CREATE_FORM_COMMAND_HANDLER_PROVIDER,
-} from '~/forms/application/create/CreateFormCommandHandler.ts';
-
-export const FORM_CONTROLLER_PROVIDER = 'FORM_CONTROLLER_PROVIDER';
+	DELETE_FORM_COMMAND_HANDLER_PROVIDER,
+	FIND_FORM_QUERY_HANDLER_PROVIDER,
+	SEARCH_FORMS_QUERY_HANDLER_PROVIDER,
+	UPDATE_FORM_COMMAND_HANDLER_PROVIDER,
+} from '~/di/forms/forms.module.types.ts';
 
 @injectable()
 export default class FormController {
@@ -34,6 +29,7 @@ export default class FormController {
 		@inject(CREATE_FORM_COMMAND_HANDLER_PROVIDER)
 		private createFormCommandHandler: CreateFormCommandHandler
 	) {}
+
 	async create(request: CreateFormRequest): Promise<void> {
 		await this.createFormCommandHandler.handle({
 			id: request.id,
@@ -48,6 +44,7 @@ export default class FormController {
 			buttonTextColor: request.buttonTextColor,
 		});
 	}
+
 	async findAll(
 		criteria?: CriteriaParam,
 		sort?: QuerySort,

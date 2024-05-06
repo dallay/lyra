@@ -1,10 +1,9 @@
 import type { CommandHandler } from '@lyra/shared';
-import { injectable, inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import CreateFormCommand from '~/forms/application/create/CreateFormCommand.ts';
-import FormCreator, { FORM_CREATOR_PROVIDER } from '~/forms/application/create/FormCreator.ts';
+import FormCreator from '~/forms/application/create/FormCreator.ts';
 import type { Form } from '~/forms/domain/Form.ts';
-
-export const CREATE_FORM_COMMAND_HANDLER_PROVIDER = 'CREATE_FORM_COMMAND_HANDLER_PROVIDER';
+import { FORM_CREATOR_PROVIDER } from '~/di/forms/forms.module.types.ts';
 
 @injectable()
 export default class CreateFormCommandHandler implements CommandHandler<CreateFormCommand> {

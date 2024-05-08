@@ -1,6 +1,5 @@
 import { inject, injectable } from 'inversify';
 import type { CriteriaParam, PageResponse, QuerySort } from '~/types/types.ts';
-import FormResponse from '~/forms/application/FormResponse.ts';
 import CreateFormRequest from '~/forms/infrastructure/input/request/CreateFormRequest.ts';
 import UpdateFormRequest from '~/forms/infrastructure/input/request/UpdateFormRequest.ts';
 import {
@@ -15,7 +14,8 @@ import type FormsSearcher from '~/forms/application/search/FormsSearcher.ts';
 import type FormUpdater from '~/forms/application/update/FormUpdater.ts';
 import type FormDestroyer from '~/forms/application/delete/FormDestroyer.ts';
 import type FormCreator from '~/forms/application/create/FormCreator.ts';
-import type { Form } from '~/forms/domain/Form.ts';
+import Form from '~/forms/domain/Form.ts';
+import FormResponse from '~/forms/domain/FormResponse.ts';
 
 @injectable()
 export default class FormController {
@@ -32,18 +32,8 @@ export default class FormController {
 	) {}
 
 	async create(request: CreateFormRequest): Promise<void> {
-		await this.formCreator.create({
-			id: request.id,
-			name: request.name,
-			header: request.header,
-			description: request.description,
-			inputPlaceholder: request.inputPlaceholder,
-			buttonText: request.buttonText,
-			buttonColor: request.buttonColor,
-			backgroundColor: request.backgroundColor,
-			textColor: request.textColor,
-			buttonTextColor: request.buttonTextColor,
-		} as Form);
+    const form = Form.fromPrimitives(request);
+    await this.formCreator.create(form);
 	}
 
 	async findAll(
@@ -52,29 +42,18 @@ export default class FormController {
 		size: number = 10,
 		cursor: string = ''
 	): Promise<PageResponse<FormResponse>> {
-		return this.formsSearcher.search({ criteria, sort, size, cursor });
+    return await this.formsSearcher.search({ criteria, sort, size, cursor });
 	}
 
-	async find(id: string) {
-		return this.formFinder.find(id);
+	async find(id: string): Promise<FormResponse> {
+		return await this.formFinder.find(id);
 	}
 
 	async update(id: string, request: UpdateFormRequest) {
-		return this.formUpdater.update({
-			id: id,
-			name: request.name,
-			header: request.header,
-			description: request.description,
-			inputPlaceholder: request.inputPlaceholder,
-			buttonText: request.buttonText,
-			buttonColor: request.buttonColor,
-			backgroundColor: request.backgroundColor,
-			textColor: request.textColor,
-			buttonTextColor: request.buttonTextColor,
-		} as Form);
+		return await this.formUpdater.update(Form.fromPrimitives({...request, id: id}));
 	}
 
 	async delete(id: string) {
-		return this.formDestroyer.destroy(id);
+		return await this.formDestroyer.destroy(id);
 	}
 }

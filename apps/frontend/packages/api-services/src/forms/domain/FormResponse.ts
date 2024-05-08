@@ -1,5 +1,5 @@
 import type { Response } from '@lyra/shared';
-import type { Form } from '~/forms/domain/Form.ts';
+import Form from '~/forms/domain/Form.ts';
 
 export default class FormResponse implements Response {
 	constructor(
@@ -19,18 +19,22 @@ export default class FormResponse implements Response {
 
 	static from(form: Form): FormResponse {
 		return new FormResponse(
-			form.id,
+			form.id.value,
 			form.name,
 			form.header,
 			form.description,
 			form.inputPlaceholder,
 			form.buttonText,
-			form.buttonColor,
-			form.backgroundColor,
-			form.textColor,
-			form.buttonTextColor,
-			form.createdAt,
-			form.updatedAt
+			form.buttonColor.value,
+			form.backgroundColor.value,
+			form.textColor.value,
+			form.buttonTextColor.value,
+			form.createdAt.toDateString(),
+			form.updatedAt.toDateString()
 		);
 	}
+
+  static to(formResponse: FormResponse): Form {
+    return Form.fromPrimitives(formResponse)
+  }
 }

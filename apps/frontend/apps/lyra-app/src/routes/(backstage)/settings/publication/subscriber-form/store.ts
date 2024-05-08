@@ -1,34 +1,23 @@
 import { reactive, readonly } from 'vue';
 import { CriteriaParam } from '@/types/types';
 import { defineStore } from 'pinia';
-import { Form } from './types';
 import { QuerySort } from '@lyra/ui';
 import dependenciesContainer from '@/plugins/container';
-import { FORM_CONTROLLER_PROVIDER, FormController, FormResponse } from '@lyra/api-services';
+import {
+  CreateFormRequest,
+  FORM_CONTROLLER_PROVIDER,
+  FormController,
+  FormResponse,
+  UpdateFormRequest,
+} from '@lyra/api-services';
 
 const formController: FormController =
 	dependenciesContainer.get<FormController>(FORM_CONTROLLER_PROVIDER);
 
-const responseToForm = (formResponse: FormResponse): Form => {
-	return {
-		id: formResponse.id,
-		name: formResponse.name,
-		header: formResponse.header,
-		description: formResponse.description,
-		inputPlaceholder: formResponse.inputPlaceholder,
-		buttonText: formResponse.buttonText,
-		buttonColor: formResponse.buttonColor,
-		backgroundColor: formResponse.backgroundColor,
-		textColor: formResponse.textColor,
-		buttonTextColor: formResponse.buttonTextColor,
-		createdAt: formResponse.createdAt,
-		updatedAt: formResponse.updatedAt,
-	} as Form;
-};
-
+export type FormState = { forms: FormResponse[], cursor: string, loading: boolean };
 export default defineStore('/forms', () => {
-	const state = reactive({
-		forms: [] as Form[],
+	const state = reactive<FormState>({
+		forms: [],
 		cursor: '',
 		loading: false,
 	});
@@ -44,46 +33,21 @@ export default defineStore('/forms', () => {
 		) {
 			state.loading = true;
 			const pageResponse = await formController.findAll(criteria, sort, size, cursor);
-			const formResponses: FormResponse[] = pageResponse.data;
-			state.forms = formResponses.map((form) => {
-				return responseToForm(form);
-			});
+      state.forms = pageResponse.data
 			state.cursor = pageResponse.nextPageCursor || '';
 			state.loading = false;
 		},
-		async find(id: string): Promise<Form> {
-			const formResponse: FormResponse = await formController.find(id);
-			return responseToForm(formResponse);
+		async find(id: string): Promise<FormResponse> {
+			return formController.find(id)
 		},
-		async update(form: Form): Promise<void> {
-			await formController.update(form.id, {
-				name: form.name,
-				header: form.header,
-				description: form.description,
-				inputPlaceholder: form.inputPlaceholder,
-				buttonText: form.buttonText,
-				buttonColor: form.buttonColor,
-				backgroundColor: form.backgroundColor,
-				textColor: form.textColor,
-				buttonTextColor: form.buttonTextColor,
-			});
+		async update(id:string, request: UpdateFormRequest): Promise<void> {
+			await formController.update(id, request);
 		},
 		async delete(id: string): Promise<void> {
 			await formController.delete(id);
 		},
-		async create(form: Form): Promise<void> {
-			await formController.create({
-				id: form.id,
-				name: form.name,
-				header: form.header,
-				description: form.description,
-				inputPlaceholder: form.inputPlaceholder,
-				buttonText: form.buttonText,
-				buttonColor: form.buttonColor,
-				backgroundColor: form.backgroundColor,
-				textColor: form.textColor,
-				buttonTextColor: form.buttonTextColor,
-			});
+		async create(request: CreateFormRequest): Promise<void> {
+			await formController.create(request);
 		},
 	});
 

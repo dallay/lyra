@@ -1,27 +1,25 @@
 <script setup lang="ts">
 import { minLength, nullish, object, string } from 'valibot';
-import { useLocaler } from 'vue-localer';
 import { useValdnLocale, XButton, XDrawer, XTextField } from '@lyra/ui';
 import { computed, onMounted, reactive, toRef, watch } from 'vue';
 import { useValibotSchema } from 'vue-formor';
-import { Form } from './types';
 import useStore from './store';
+import { FormResponse, UpdateFormRequest } from '@lyra/api-services';
 
 const editorDrawer = defineModel<boolean>('editorDrawer', {
 	default: false,
 });
 const { actions } = useStore();
 
-const form = defineModel<Form>('form', {
+const form = defineModel<FormResponse>('form', {
 	required: true,
 });
 
-const localer = useLocaler();
 const valdnLocale = useValdnLocale();
 
 const state = reactive({
 	form: form.value,
-	valdn: {} as Record<keyof Form, string>,
+	valdn: {} as Record<keyof FormResponse, string>,
 });
 
 const schema = useValibotSchema(
@@ -63,7 +61,19 @@ const schema = useValibotSchema(
 const submit = () => {
 	if (schema.validate()) {
 		form.value = state.form;
-		actions.update(form.value);
+    const request: UpdateFormRequest = {
+      name: state.form.name,
+      header: state.form.header,
+      description: state.form.description,
+      inputPlaceholder: state.form.inputPlaceholder,
+      buttonText: state.form.buttonText,
+      buttonColor: state.form.buttonColor,
+      backgroundColor: state.form.backgroundColor,
+      textColor: state.form.textColor,
+      buttonTextColor: state.form.buttonTextColor,
+
+    }
+		actions.update(form.value.id, request);
 	}
 };
 watch(

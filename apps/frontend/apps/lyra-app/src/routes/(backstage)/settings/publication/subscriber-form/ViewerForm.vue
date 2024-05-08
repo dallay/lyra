@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { XButton, XCodeBlock, XDrawer } from '@lyra/ui';
-import { Form } from './types';
 import { computed, onMounted, reactive, watch } from 'vue';
+import { FormResponse } from '@lyra/api-services';
 
 const viewerDrawer = defineModel<boolean>('viewerDrawer', {
 	default: false,
 });
 
-const form = defineModel<Form>('form', {
+const form = defineModel<FormResponse>('form', {
 	required: true,
 });
 const emit = defineEmits<{

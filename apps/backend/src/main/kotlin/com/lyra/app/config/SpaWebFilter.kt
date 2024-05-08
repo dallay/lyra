@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono
 @Component
 class SpaWebFilter(
     private val excludedPrefixes: List<String> = listOf(
+        "/actuator",
         "/api",
         "/management",
         "/v3/api-docs",

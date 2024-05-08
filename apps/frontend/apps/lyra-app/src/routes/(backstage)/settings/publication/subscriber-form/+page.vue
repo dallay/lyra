@@ -5,7 +5,7 @@ import useStore from './store';
 import CreatorForm from './CreatorForm.vue';
 import EditorForm from './EditorForm.vue';
 import ViewerForm from './ViewerForm.vue';
-import { Form } from './types';
+import { FormResponse } from '@lyra/api-services';
 
 const { state, actions, $reset } = useStore();
 
@@ -21,7 +21,7 @@ const flux = reactive({
 		{ key: 'action', name: 'Action', sortable: false },
 	],
 	data: state.forms,
-	currentForm: {} as Form,
+	currentForm: {} as FormResponse,
 	control: defaultControlCursor as Control,
 	loading: state.loading,
 	formCreatorDrawer: false,

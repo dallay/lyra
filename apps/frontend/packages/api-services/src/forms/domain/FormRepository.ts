@@ -1,7 +1,7 @@
-import type { Form } from './Form.ts';
+import type Form from './Form.ts';
 
 export default interface FormRepository {
-	create(form: Form): Promise<void>;
+  create(form: Form): Promise<void>;
 
-	update(form: Form): Promise<void>;
+  update(form: Form): Promise<void>;
 }

@@ -32,8 +32,8 @@ export default class FormController {
 	) {}
 
 	async create(request: CreateFormRequest): Promise<void> {
-    const form = Form.fromPrimitives(request);
-    await this.formCreator.create(form);
+		const form = Form.fromPrimitives(request);
+		await this.formCreator.create(form);
 	}
 
 	async findAll(
@@ -42,7 +42,7 @@ export default class FormController {
 		size: number = 10,
 		cursor: string = ''
 	): Promise<PageResponse<FormResponse>> {
-    return await this.formsSearcher.search({ criteria, sort, size, cursor });
+		return await this.formsSearcher.search({ criteria, sort, size, cursor });
 	}
 
 	async find(id: string): Promise<FormResponse> {
@@ -50,7 +50,7 @@ export default class FormController {
 	}
 
 	async update(id: string, request: UpdateFormRequest) {
-		return await this.formUpdater.update(Form.fromPrimitives({...request, id: id}));
+		return await this.formUpdater.update(Form.fromPrimitives({ ...request, id: id }));
 	}
 
 	async delete(id: string) {

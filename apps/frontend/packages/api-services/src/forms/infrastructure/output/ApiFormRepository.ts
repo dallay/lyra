@@ -27,7 +27,7 @@ export default class ApiFormRepository
 		if (!response || !response.ok) {
 			throw new Error('Error fetching form');
 		}
-		return response._data || {} as FormResponse;
+		return response._data || ({} as FormResponse);
 	}
 
 	async search(

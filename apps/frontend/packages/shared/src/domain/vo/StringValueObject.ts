@@ -1,3 +1,3 @@
-import ValueObject  from './ValueObject';
+import ValueObject from './ValueObject';
 
 export default abstract class StringValueObject extends ValueObject<string> {}

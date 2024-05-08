@@ -1,8 +1,6 @@
 import { expect, type Page } from '@playwright/test';
 import { signIn } from './authHelper';
-import {
-	Subscriber,
-} from '../../../src/routes/(backstage)/audience/subscribers/types';
+import { Subscriber } from '../../../src/routes/(backstage)/audience/subscribers/types';
 import { PageResponse } from '../../../src/types/types';
 
 export async function getSubscribers(page: Page) {

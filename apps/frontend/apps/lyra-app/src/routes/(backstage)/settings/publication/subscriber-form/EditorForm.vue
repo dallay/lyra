@@ -61,18 +61,17 @@ const schema = useValibotSchema(
 const submit = () => {
 	if (schema.validate()) {
 		form.value = state.form;
-    const request: UpdateFormRequest = {
-      name: state.form.name,
-      header: state.form.header,
-      description: state.form.description,
-      inputPlaceholder: state.form.inputPlaceholder,
-      buttonText: state.form.buttonText,
-      buttonColor: state.form.buttonColor,
-      backgroundColor: state.form.backgroundColor,
-      textColor: state.form.textColor,
-      buttonTextColor: state.form.buttonTextColor,
-
-    }
+		const request: UpdateFormRequest = {
+			name: state.form.name,
+			header: state.form.header,
+			description: state.form.description,
+			inputPlaceholder: state.form.inputPlaceholder,
+			buttonText: state.form.buttonText,
+			buttonColor: state.form.buttonColor,
+			backgroundColor: state.form.backgroundColor,
+			textColor: state.form.textColor,
+			buttonTextColor: state.form.buttonTextColor,
+		};
 		actions.update(form.value.id, request);
 	}
 };

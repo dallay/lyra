@@ -34,7 +34,7 @@ export default class FormResponse implements Response {
 		);
 	}
 
-  static to(formResponse: FormResponse): Form {
-    return Form.fromPrimitives(formResponse)
-  }
+	static to(formResponse: FormResponse): Form {
+		return Form.fromPrimitives(formResponse);
+	}
 }

@@ -4,17 +4,17 @@ import { defineStore } from 'pinia';
 import { QuerySort } from '@lyra/ui';
 import dependenciesContainer from '@/plugins/container';
 import {
-  CreateFormRequest,
-  FORM_CONTROLLER_PROVIDER,
-  FormController,
-  FormResponse,
-  UpdateFormRequest,
+	CreateFormRequest,
+	FORM_CONTROLLER_PROVIDER,
+	FormController,
+	FormResponse,
+	UpdateFormRequest,
 } from '@lyra/api-services';
 
 const formController: FormController =
 	dependenciesContainer.get<FormController>(FORM_CONTROLLER_PROVIDER);
 
-export type FormState = { forms: FormResponse[], cursor: string, loading: boolean };
+export type FormState = { forms: FormResponse[]; cursor: string; loading: boolean };
 export default defineStore('/forms', () => {
 	const state = reactive<FormState>({
 		forms: [],
@@ -33,14 +33,14 @@ export default defineStore('/forms', () => {
 		) {
 			state.loading = true;
 			const pageResponse = await formController.findAll(criteria, sort, size, cursor);
-      state.forms = pageResponse.data
+			state.forms = pageResponse.data;
 			state.cursor = pageResponse.nextPageCursor || '';
 			state.loading = false;
 		},
 		async find(id: string): Promise<FormResponse> {
-			return formController.find(id)
+			return formController.find(id);
 		},
-		async update(id:string, request: UpdateFormRequest): Promise<void> {
+		async update(id: string, request: UpdateFormRequest): Promise<void> {
 			await formController.update(id, request);
 		},
 		async delete(id: string): Promise<void> {

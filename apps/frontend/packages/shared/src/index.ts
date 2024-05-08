@@ -11,19 +11,14 @@ import InvalidArgumentError from '~/domain/vo/InvalidArgumentError.ts';
 import StringValueObject from '~/domain/vo/StringValueObject.ts';
 
 export type {
-  Query,
-  QueryHandler,
-  QueryBus,
-  Response,
-  Command,
-  CommandHandler,
-  CommandBus,
-  Primitives,
+	Query,
+	QueryHandler,
+	QueryBus,
+	Response,
+	Command,
+	CommandHandler,
+	CommandBus,
+	Primitives,
 };
 
-
-export {
-  ValueObject,
-  StringValueObject,
-  InvalidArgumentError
-};
+export { ValueObject, StringValueObject, InvalidArgumentError };

@@ -18,7 +18,7 @@ const url = `http://localhost:9876`;
 const state = reactive({
 	form: form.value,
 });
-const _embedOptions = computed(() => [
+const embedOptions = computed(() => [
 	{
 		title: 'Full Width',
 		description:
@@ -49,7 +49,7 @@ const _embedOptions = computed(() => [
 	},
 ]);
 
-const _deleteForm = async () => {
+const deleteForm = async () => {
 	emit('delete', state.form.id);
 	viewerDrawer.value = false;
 };

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { FormResponse, UpdateFormRequest } from '@lyra/api-services';
-import { XButton, XDrawer, XTextField, useValdnLocale } from '@lyra/ui';
+import { useValdnLocale, XButton, XDrawer, XTextField } from '@lyra/ui';
 import { minLength, nullish, object, string } from 'valibot';
 import { computed, onMounted, onUnmounted, reactive, toRef, watch } from 'vue';
 import { useValibotSchema } from 'vue-formor';
@@ -76,7 +76,7 @@ const $reset = async () => {
 	schema.stop();
 };
 
-const _submit = async () => {
+const submit = async () => {
 	if (schema.validate()) {
 		form.value = state.form;
 		const request: UpdateFormRequest = {

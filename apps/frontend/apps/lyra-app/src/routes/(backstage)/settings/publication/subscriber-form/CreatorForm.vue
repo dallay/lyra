@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { CreateFormRequest, FormResponse } from '@lyra/api-services';
-import { XButton, XDrawer, XTextField, useValdnLocale } from '@lyra/ui';
+import { useValdnLocale, XButton, XDrawer, XTextField } from '@lyra/ui';
 import { minLength, nullish, object, string } from 'valibot';
 import { computed, onUnmounted, reactive, toRef } from 'vue';
 import { useValibotSchema } from 'vue-formor';
@@ -83,7 +83,7 @@ const $reset = async () => {
 	schema.stop();
 };
 
-const _submit = async () => {
+const submit = async () => {
 	if (schema.validate()) {
 		const form = state.form;
 		const request: CreateFormRequest = {
@@ -115,7 +115,7 @@ onUnmounted(() => {
 			class="inline-flex items-center mb-6 text-base font-semibold text-gray-500 uppercase dark:text-gray-400"
 		>
 			<i class="i-material-symbols-light:dynamic-form-rounded me-2.5"></i>
-			Form Editor
+      Form Creator
 		</h5>
 		<XButton
 			icon="i-material-symbols:close"

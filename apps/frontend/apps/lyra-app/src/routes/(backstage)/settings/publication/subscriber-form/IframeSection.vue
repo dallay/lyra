@@ -11,7 +11,7 @@ const props = defineProps<{
 	iframeStyle: string;
 }>();
 
-const _iframeCode = computed(() => {
+const iframeCode = computed(() => {
 	return `<iframe src="${props.iframeSrc}" data-test-id="lyra-embed" width="${props.iframeWidth}" height="${props.iframeHeight}" border="0" style="${props.iframeStyle}"></iframe>`;
 });
 </script>

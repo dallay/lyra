@@ -4,18 +4,17 @@ import { defineStore } from 'pinia';
 import { QuerySort, useNotification } from '@lyra/ui';
 import dependenciesContainer from '@/plugins/container';
 import {
-	CreateFormRequest,
-	FORM_CONTROLLER_PROVIDER,
-	FormController,
-	FormResponse,
-	UpdateFormRequest,
+  CreateFormRequest,
+  FORM_CONTROLLER_PROVIDER,
+  FormController,
+  FormResponse,
+  UpdateFormRequest,
 } from '@lyra/api-services';
 
-// const formController: FormController =
-// 	dependenciesContainer.get<FormController>(FORM_CONTROLLER_PROVIDER);
+const formController: FormController =
+  dependenciesContainer.get<FormController>(FORM_CONTROLLER_PROVIDER);
 
 export type FormState = {
-  readonly _formController: FormController;
   forms: FormResponse[];
   cursor: string;
   loading: boolean;
@@ -23,7 +22,6 @@ export type FormState = {
 export default defineStore('/forms', () => {
   const notification = useNotification();
 	const state = reactive<FormState>({
-    _formController: dependenciesContainer.get<FormController>(FORM_CONTROLLER_PROVIDER),
 		forms: [],
 		cursor: '',
 		loading: false,
@@ -39,17 +37,17 @@ export default defineStore('/forms', () => {
 			cursor: string = state.cursor
 		) {
 			state.loading = true;
-      const pageResponse = await state._formController.findAll(criteria, sort, size, cursor);
+      const pageResponse = await formController.findAll(criteria, sort, size, cursor);
 			state.forms = pageResponse.data;
 			state.cursor = pageResponse.nextPageCursor || '';
 			state.loading = false;
 		},
 		async find(id: string): Promise<FormResponse> {
-      return state._formController.find(id);
+      return formController.find(id);
 		},
 		async update(id: string, request: UpdateFormRequest): Promise<void> {
       try {
-        await state._formController.update(id, request);
+        await formController.update(id, request);
         notification.add({
           message: 'Form updated successfully!',
           color: 'success',
@@ -63,7 +61,7 @@ export default defineStore('/forms', () => {
 		},
 		async delete(id: string): Promise<void> {
       try {
-        await state._formController.delete(id);
+        await formController.delete(id);
         notification.add({
           message: 'Form deleted successfully!',
           color: 'success',
@@ -77,7 +75,7 @@ export default defineStore('/forms', () => {
 		},
 		async create(request: CreateFormRequest): Promise<void> {
       try {
-        await state._formController.create(request);
+        await formController.create(request);
         notification.add({
           message: 'Form created successfully!',
           color: 'success',

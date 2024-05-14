@@ -24,7 +24,7 @@ defineProps<{
 	keys?: KbdKey[];
 }>();
 
-const _kbdKeys: Record<KbdKey, string> = {
+const kbdKeys: Record<KbdKey, string> = {
 	command: '⌘',
 	shift: '⇧',
 	ctrl: '⌃',
@@ -50,7 +50,7 @@ const _kbdKeys: Record<KbdKey, string> = {
 <template>
 	<kbd class="Kbd">
 		<template v-for="key in keys" :key="key">
-      {{ _kbdKeys[key] }}
+      {{ kbdKeys[key] }}
     </template>
 		<slot></slot>
 	</kbd>

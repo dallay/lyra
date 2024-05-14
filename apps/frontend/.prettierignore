@@ -1,7 +1,0 @@
-.github
-.changeset
-*.md
-*.mdx
-pnpm-lock.yaml
-**/node_modules
-**/dist

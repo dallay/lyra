@@ -1,5 +1,0 @@
-dist/
-.output/
-**/node_modules/**
-**/assets/**/*
-**/build/**/*

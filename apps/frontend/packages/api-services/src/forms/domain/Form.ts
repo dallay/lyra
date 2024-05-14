@@ -15,7 +15,9 @@ export default class Form {
 		readonly buttonTextColor: HexColor,
 		readonly createdAt: Date,
 		readonly updatedAt: Date
-	) {}
+  ) {
+    this.id = id;
+  }
 
 	static fromPrimitives(plainData: {
 		id: string;

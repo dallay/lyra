@@ -15,5 +15,6 @@ export default defineConfig(
 			target: 'esnext', // transpile as little as possible
 		},
 		plugins: [dts({ rollupTypes: true })],
+    setupFiles: ['./setupVitest.js'],
 	})
 );

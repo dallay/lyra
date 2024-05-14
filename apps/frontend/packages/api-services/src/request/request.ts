@@ -1,4 +1,4 @@
-import type { FetchOptions, FetchRequest, FetchResponse } from 'ofetch';
+import type { $Fetch, FetchOptions, FetchRequest, FetchResponse } from 'ofetch';
 import { ofetch } from 'ofetch';
 
 const isBrowser = typeof window !== 'undefined';
@@ -45,9 +45,12 @@ const config: FetchOptions = {
 	},
 };
 
-const fetcher = ofetch.create(config);
+const fetcher: $Fetch = ofetch.create(config);
 
-export default async <T>(request: FetchRequest, options?: FetchOptions) => {
+export default async <T>(
+	request: FetchRequest,
+	options?: FetchOptions
+): Promise<FetchResponse<T>> => {
 	try {
 		const response = await fetcher.raw(request, options);
 		return response as FetchResponse<T>;

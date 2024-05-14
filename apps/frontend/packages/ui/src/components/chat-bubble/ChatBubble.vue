@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { ref, reactive } from 'vue';
+import { reactive, ref } from 'vue';
 
 import Avatar from '../avatar/Avatar.vue';
 import Button from '../button/Button.vue';
-import Popover from '../popover/Popover.vue';
-import Listbox from '../listbox/Listbox.vue';
 import ChatBox from '../chat-box/ChatBox.vue';
+import Listbox from '../listbox/Listbox.vue';
+import Popover from '../popover/Popover.vue';
 
 defineProps<{
 	chat?: any;
@@ -14,12 +14,12 @@ defineProps<{
 
 const morePopover = ref(false);
 
-const onMouseLeave = () => {
+const _onMouseLeave = () => {
 	morePopover.value = false;
 };
 
-const edit = ref(false);
-const message = ref('');
+const _edit = ref(false);
+const _message = ref('');
 
 const flux = reactive({
 	files: [] as File[],
@@ -37,7 +37,7 @@ const flux = reactive({
 </script>
 
 <template>
-	<div class="group flex items-start gap-2.5" @mouseleave="onMouseLeave">
+  <div class="group flex items-start gap-2.5" @mouseleave="_onMouseLeave">
 		<Avatar v-if="!self" class="bg-primary-500 text-white">BG</Avatar>
 
 		<div v-if="self" class="hidden self-center group-hover:block">
@@ -54,9 +54,9 @@ const flux = reactive({
 					<Listbox>
 						<Listbox.Item
 							@click="
-								edit = true;
+								_edit = true;
 								morePopover = false;
-								message = chat?.message;
+								_message = chat?.message;
 							"
 						>
 							<div class="flex items-center gap-2">
@@ -84,14 +84,14 @@ const flux = reactive({
 			</div>
 
 			<div
-				v-if="!edit"
+        v-if="!_edit"
 				class="leading-1.5 flex flex-col rounded-e-xl rounded-es-xl border-gray-200 bg-gray-100 p-4 dark:bg-gray-700"
 				:class="{ '!rounded-se-0 rounded-s-xl': self }"
 			>
 				<p class="text-sm font-normal text-gray-900 dark:text-white">{{ chat?.message }}</p>
 			</div>
 
-			<ChatBox v-if="edit" v-model="message" editing />
+      <ChatBox v-if="_edit" v-model="_message" editing />
 
 			<div>
 				<div v-for="(file, index) in flux.files" :key="index" class="flex items-center gap-2">
@@ -103,7 +103,7 @@ const flux = reactive({
 				</div>
 			</div>
 
-			<div v-if="edit" class="flex gap-2">
+      <div v-if="_edit" class="flex gap-2">
 				<div class="flex-1">
 					<Button
 						icon="i-material-symbols-attach-file-add-rounded"
@@ -122,7 +122,7 @@ const flux = reactive({
 					/>
 				</div>
 
-				<Button color="secondary" size="small" @click="edit = false">Cancel</Button>
+        <Button color="secondary" size="small" @click="_edit = false">Cancel</Button>
 				<Button size="small">Save</Button>
 			</div>
 		</div>

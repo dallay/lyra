@@ -7,7 +7,7 @@ interface ImportMetaEnv {
 	readonly APP_CLIENT_URL: string;
 }
 
-// eslint-disable-next-line no-unused-vars
+
 interface ImportMeta {
 	readonly env: ImportMetaEnv;
 }

@@ -22,10 +22,10 @@ import {
 import FormsSearcher from '~/forms/application/search/FormsSearcher';
 import FormFinder from '~/forms/application/find/FormFinder';
 import FormId from '~/forms/domain/FormId';
-import type Form from '~/forms/domain/Form';
+import Form from '~/forms/domain/Form';
 import FormResponse from '~/forms/domain/FormResponse';
-import type CreateFormRequest from '~/forms/infrastructure/input/request/CreateFormRequest';
-import type UpdateFormRequest from '~/forms/infrastructure/input/request/UpdateFormRequest';
+import CreateFormRequest from '~/forms/infrastructure/input/request/CreateFormRequest';
+import UpdateFormRequest from '~/forms/infrastructure/input/request/UpdateFormRequest';
 import HexColor from '~/forms/domain/HexColor';
 
 export const formsModule = new ContainerModule((bind: interfaces.Bind) => {
@@ -43,20 +43,19 @@ export const formsModule = new ContainerModule((bind: interfaces.Bind) => {
 	bind<FormCreator>(FORM_CREATOR_PROVIDER).to(FormCreator);
 	bind<FormController>(FORM_CONTROLLER_PROVIDER).to(FormController);
 });
-
-export type {
+export type { FormRepository, FormDestroyerRepository, FormFinderRepository };
+export {
 	Form,
-	FormRepository,
 	FormsSearcher,
 	FormFinder,
-	FormDestroyerRepository,
 	FormUpdater,
 	FormDestroyer,
-	FormFinderRepository,
 	FormController,
 	FormCreator,
 	CreateFormRequest,
 	UpdateFormRequest,
+  ApiFormRepository,
+  FormId,
+  HexColor,
+  FormResponse,
 };
-
-export { ApiFormRepository, FormId, HexColor, FormResponse };

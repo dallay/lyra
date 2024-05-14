@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { FormResponse, UpdateFormRequest } from '@lyra/api-services';
+import { XButton, XDrawer, XTextField, useValdnLocale } from '@lyra/ui';
 import { minLength, nullish, object, string } from 'valibot';
-import { useValdnLocale, XButton, XDrawer, XTextField } from '@lyra/ui';
-import { computed, onMounted, reactive, toRef, watch } from 'vue';
+import { computed, onMounted, onUnmounted, reactive, toRef, watch } from 'vue';
 import { useValibotSchema } from 'vue-formor';
 import useStore from './store';
-import { FormResponse, UpdateFormRequest } from '@lyra/api-services';
 
 const editorDrawer = defineModel<boolean>('editorDrawer', {
 	default: false,
@@ -58,7 +58,25 @@ const schema = useValibotSchema(
 	toRef(state, 'valdn')
 );
 
-const submit = () => {
+const $reset = async () => {
+	state.form = {
+		id: crypto.randomUUID(),
+		name: '',
+		header: "Lyra's Newsletter",
+		description: '',
+		inputPlaceholder: 'Enter your email',
+		buttonText: 'Subscribe',
+		buttonColor: '#C02CE5',
+		backgroundColor: '#F9FAFB',
+		textColor: '#030712',
+		buttonTextColor: '#FFFFFF',
+	} as FormResponse;
+
+	state.valdn = {} as Record<keyof FormResponse, string>;
+	schema.stop();
+};
+
+const _submit = async () => {
 	if (schema.validate()) {
 		form.value = state.form;
 		const request: UpdateFormRequest = {
@@ -72,7 +90,9 @@ const submit = () => {
 			textColor: state.form.textColor,
 			buttonTextColor: state.form.buttonTextColor,
 		};
-		actions.update(form.value.id, request);
+		await actions.update(form.value.id, request);
+		await $reset();
+		editorDrawer.value = false;
 	}
 };
 watch(
@@ -83,6 +103,10 @@ watch(
 );
 onMounted(() => {
 	state.form = form.value;
+});
+
+onUnmounted(() => {
+	$reset();
 });
 </script>
 
@@ -102,7 +126,7 @@ onMounted(() => {
 			@click="editorDrawer = false"
 			class="absolute top-2.5 end-2.5"
 		/>
-		<form class="mb-6">
+    <form class="mb-6" @submit.prevent="submit">
 			<div class="mb-6">
 				<XTextField
 					v-model:value="state.form.name"
@@ -195,13 +219,7 @@ onMounted(() => {
 				/>
 			</div>
 			<div class="flex justify-end">
-				<XButton
-					@click="submit"
-					prepend="i-carbon:save-series"
-					type="submit"
-					color="primary"
-					label="Save"
-				/>
+        <XButton color="primary" label="Save" prepend="i-carbon:save-series" type="submit" />
 			</div>
 		</form>
 	</XDrawer>

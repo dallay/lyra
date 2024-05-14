@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { CreateFormRequest, FormResponse } from '@lyra/api-services';
+import { XButton, XDrawer, XTextField, useValdnLocale } from '@lyra/ui';
 import { minLength, nullish, object, string } from 'valibot';
-import { useValdnLocale, XButton, XDrawer, XTextField } from '@lyra/ui';
-import { computed, reactive, toRef } from 'vue';
+import { computed, onUnmounted, reactive, toRef } from 'vue';
 import { useValibotSchema } from 'vue-formor';
 import useStore from './store';
-import { CreateFormRequest, FormResponse } from '@lyra/api-services';
 
 const creatorDrawer = defineModel<boolean>('creatorDrawer', {
 	default: false,
@@ -65,7 +65,25 @@ const schema = useValibotSchema(
 	toRef(state, 'valdn')
 );
 
-const submit = async () => {
+const $reset = async () => {
+	state.form = {
+		id: crypto.randomUUID(),
+		name: '',
+		header: "Lyra's Newsletter",
+		description: '',
+		inputPlaceholder: 'Enter your email',
+		buttonText: 'Subscribe',
+		buttonColor: '#C02CE5',
+		backgroundColor: '#F9FAFB',
+		textColor: '#030712',
+		buttonTextColor: '#FFFFFF',
+	} as FormResponse;
+
+	state.valdn = {} as Record<keyof FormResponse, string>;
+	schema.stop();
+};
+
+const _submit = async () => {
 	if (schema.validate()) {
 		const form = state.form;
 		const request: CreateFormRequest = {
@@ -81,8 +99,14 @@ const submit = async () => {
 			buttonTextColor: form.buttonTextColor,
 		};
 		await actions.create(request);
+		await $reset();
+		creatorDrawer.value = false;
 	}
 };
+
+onUnmounted(() => {
+	$reset();
+});
 </script>
 
 <template>
@@ -101,13 +125,14 @@ const submit = async () => {
 			@click="creatorDrawer = false"
 			class="absolute top-2.5 end-2.5"
 		/>
-		<form class="mb-6">
+    <form class="mb-6" @submit.prevent="submit">
 			<div class="mb-6">
 				<XTextField
 					v-model:value="state.form.name"
 					label="Name"
 					required
 					:invalid="state.valdn.name"
+          data-testid="name"
 				/>
 			</div>
 			<div class="relative inline-flex w-full items-center justify-center">
@@ -123,6 +148,7 @@ const submit = async () => {
 					label="Header"
 					required
 					:invalid="state.valdn.header"
+          data-testid="header"
 				/>
 			</div>
 			<div class="relative mb-6">
@@ -131,6 +157,7 @@ const submit = async () => {
 					label="Description"
 					required
 					:invalid="state.valdn.description"
+          data-testid="description"
 				/>
 			</div>
 			<div class="mb-6">
@@ -139,6 +166,7 @@ const submit = async () => {
 					label="Input Placeholder"
 					required
 					:invalid="state.valdn.inputPlaceholder"
+          data-testid="inputPlaceholder"
 				/>
 			</div>
 			<div class="mb-6">
@@ -147,6 +175,7 @@ const submit = async () => {
 					label="Button Text"
 					required
 					:invalid="state.valdn.buttonText"
+          data-testid="buttonText"
 				/>
 			</div>
 			<div class="relative inline-flex w-full items-center justify-center">
@@ -164,6 +193,17 @@ const submit = async () => {
 					title="Choose your color"
 					required
 					:invalid="state.valdn.buttonColor"
+          data-testid="buttonColor"
+        />
+        <XTextField
+          v-model:value="state.form.buttonTextColor"
+          label="Button Text Color"
+          type="color"
+          class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700"
+          title="Choose your color"
+          required
+          :invalid="state.valdn.buttonTextColor"
+          data-testid="buttonTextColor"
 				/>
 				<XTextField
 					v-model:value="state.form.backgroundColor"
@@ -173,6 +213,7 @@ const submit = async () => {
 					title="Choose your color"
 					required
 					:invalid="state.valdn.backgroundColor"
+          data-testid="backgroundColor"
 				/>
 				<XTextField
 					v-model:value="state.form.textColor"
@@ -182,24 +223,16 @@ const submit = async () => {
 					title="Choose your color"
 					required
 					:invalid="state.valdn.textColor"
-				/>
-				<XTextField
-					v-model:value="state.form.buttonTextColor"
-					label="Button Text Color"
-					type="color"
-					class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700"
-					title="Choose your color"
-					required
-					:invalid="state.valdn.buttonTextColor"
+          data-testid="textColor"
 				/>
 			</div>
 			<div class="flex justify-end">
 				<XButton
-					@click="submit"
 					prepend="i-material-symbols:add"
 					type="submit"
 					color="primary"
 					label="Create Form"
+          data-testid="createForm"
 				/>
 			</div>
 		</form>

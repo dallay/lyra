@@ -5,7 +5,7 @@ import Layout from 'layouts:Layout';
 import { dependenciesContainer } from '../main';
 import { FORM_CONTROLLER_PROVIDER, FormController } from '@lyra/api-services';
 
-const { id } = Astro.params;
+const { id = '' } = Astro.params;
 const url = new URL(Astro.request.url);
 
 const formController = dependenciesContainer.get<FormController>(FORM_CONTROLLER_PROVIDER);

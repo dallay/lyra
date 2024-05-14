@@ -1,7 +1,7 @@
-import { expect, type Page } from '@playwright/test';
-import { signIn } from './authHelper';
+import { type Page, expect } from '@playwright/test';
 import { Subscriber } from '../../../src/routes/(backstage)/audience/subscribers/types';
 import { PageResponse } from '../../../src/types/types';
+import { signIn } from './authHelper';
 
 export async function getSubscribers(page: Page) {
 	await page.routeFromHAR('tests/e2e/hars/subscribers.har', {
@@ -47,7 +47,7 @@ export async function initialScreenLoad(page: Page) {
 	await page.getByRole('navigation').getByRole('link', { name: 'Subscribers' }).click();
 	await page.goto('/audience/subscribers', { waitUntil: 'networkidle' });
 	await expect(
-		page.getByRole('main').locator('div').filter({ hasText: 'Subscribers' })
+		page.getByRole('main').locator('h2').filter({ hasText: 'Subscribers' })
 	).toBeVisible();
 }
 

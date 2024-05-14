@@ -29,8 +29,8 @@ test('successful', async () => {
 	const push = vi.spyOn(router, 'push');
 	await router.isReady();
 
-	wrapper.get('[data-testid="username"]').setValue('deno.land');
-	wrapper.get('[data-testid="password"]').setValue('qwerty123');
+  await wrapper.get('[data-testid="username"]').setValue('deno.land');
+  await wrapper.get('[data-testid="password"]').setValue('qwerty123');
 	await wrapper.get('[data-testid="sign-in"]').trigger('click');
 
 	expect(push).toHaveBeenCalledTimes(1);
@@ -44,8 +44,8 @@ test('failed', async () => {
 		}
 	});
 
-	wrapper.get('[data-testid="username"]').setValue('deno.land');
-	wrapper.get('[data-testid="password"]').setValue('qwerty123');
+  await wrapper.get('[data-testid="username"]').setValue('deno.land');
+  await wrapper.get('[data-testid="password"]').setValue('qwerty123');
 	await wrapper.get('[data-testid="sign-in"]').trigger('click');
 
 	expect(wrapper.html()).toMatch('Wrong password. Try again or click Forgot password to reset it.');
@@ -65,8 +65,8 @@ test('2fa', async () => {
 	const push = vi.spyOn(router, 'push');
 	await router.isReady();
 
-	wrapper.get('[data-testid="username"]').setValue('deno.land');
-	wrapper.get('[data-testid="password"]').setValue('qwerty123');
+  await wrapper.get('[data-testid="username"]').setValue('deno.land');
+  await wrapper.get('[data-testid="password"]').setValue('qwerty123');
 	await wrapper.get('[data-testid="sign-in"]').trigger('click');
 
 	expect(wrapper.html()).toMatch('Multi-factor Authentication');
@@ -87,8 +87,8 @@ test('2fa_unverified', async () => {
 	const push = vi.spyOn(router, 'push');
 	await router.isReady();
 
-	wrapper.get('[data-testid="username"]').setValue('deno.land');
-	wrapper.get('[data-testid="password"]').setValue('qwerty123');
+  await wrapper.get('[data-testid="username"]').setValue('deno.land');
+  await wrapper.get('[data-testid="password"]').setValue('qwerty123');
 	await wrapper.get('[data-testid="sign-in"]').trigger('click');
 
 	expect(push).toHaveBeenCalledTimes(1);

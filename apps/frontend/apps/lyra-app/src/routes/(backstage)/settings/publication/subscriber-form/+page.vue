@@ -85,7 +85,10 @@ onUnmounted(() => {
 			<h2 class="my-4 text-3xl font-bold">Subscriber Forms</h2>
 			<p>Create customizable and embeddable email subscribe forms for your other websites.</p>
 			<div class="flex justify-end">
-				<XButton color="primary" @click="createForm">Create Form</XButton>
+        <XButton color="primary" data-testid="create-form-trigger" @click="createForm"
+        >Create Form
+        </XButton
+        >
 				<CreatorForm v-model:creator-drawer="flux.formCreatorDrawer" />
 			</div>
 		</div>

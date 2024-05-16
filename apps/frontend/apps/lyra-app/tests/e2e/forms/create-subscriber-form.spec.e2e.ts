@@ -4,6 +4,7 @@ import {
   getSubscriberForms,
   initialScreenLoad,
 } from '../helper/subscriberFormHelper';
+import { formRequest } from './FormRequestMock';
 
 test('create subscriber form', async ({ page }) => {
   await initialScreenLoad(page);
@@ -21,23 +22,23 @@ test('create subscriber form', async ({ page }) => {
   await expect(modal).toBeVisible();
   const title = modal.locator('h5');
   await expect(title).toBeVisible();
-  await expect(title).toHaveText(' Form Editor ');
+  await expect(title).toHaveText(' Form Creator ');
 
-  const formNameInput = page.getByTestId('name');
+  const formNameInput = page.getByTestId('nameCreator');
   await formNameInput.fill(formRequest.name);
-  const formHeaderInput = page.getByTestId('header');
+  const formHeaderInput = page.getByTestId('headerCreator');
   await formHeaderInput.fill(formRequest.header);
-  const formDescriptionInput = page.getByTestId('description');
+  const formDescriptionInput = page.getByTestId('descriptionCreator');
   await formDescriptionInput.fill(formRequest.description);
-  const formInputPlaceholderInput = page.getByTestId('inputPlaceholder');
+  const formInputPlaceholderInput = page.getByTestId('inputPlaceholderCreator');
   await formInputPlaceholderInput.fill(formRequest.inputPlaceholder);
-  const formButtonTextInput = page.getByTestId('buttonText');
+  const formButtonTextInput = page.getByTestId('buttonTextCreator');
   await formButtonTextInput.fill(formRequest.buttonText);
-  await page.getByTestId('buttonColor').fill(formRequest.buttonColor);
-  await page.getByTestId('buttonTextColor').fill(formRequest.buttonTextColor);
-  await page.getByTestId('backgroundColor').fill(formRequest.backgroundColor);
-  await page.getByTestId('textColor').fill(formRequest.textColor);
-  createFormButton = page.getByTestId('createForm');
+  await page.getByTestId('buttonColorCreator').fill(formRequest.buttonColor);
+  await page.getByTestId('buttonTextColorCreator').fill(formRequest.buttonTextColor);
+  await page.getByTestId('backgroundColorCreator').fill(formRequest.backgroundColor);
+  await page.getByTestId('textColorCreator').fill(formRequest.textColor);
+  createFormButton = page.getByTestId('createFormCreator');
   await createFormButton.click();
   await checkTableColumnContent(page, [
     {
@@ -49,14 +50,3 @@ test('create subscriber form', async ({ page }) => {
   ]);
 });
 
-const formRequest = {
-  name: 'My Super Newsletter',
-  header: 'Lyra\'s Newsletter',
-  description: 'Super description',
-  inputPlaceholder: 'Enter your email',
-  buttonText: 'Subscribe',
-  buttonColor: '#e5652e',
-  backgroundColor: '#838c96',
-  textColor: '#262628',
-  buttonTextColor: '#efe8e8',
-};

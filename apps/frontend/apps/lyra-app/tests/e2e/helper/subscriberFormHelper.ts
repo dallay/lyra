@@ -23,6 +23,10 @@ export async function getSubscriberForms(page: Page) {
     url: '**/api/forms**',
     update: false,
   });
+  await page.routeFromHAR('tests/e2e/hars/subscriber-form.har', {
+    url: '**/api/forms/**',
+    update: false,
+  });
   await page.goto('/settings/publication/subscriber-form', { waitUntil: 'networkidle' });
 }
 

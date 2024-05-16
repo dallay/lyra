@@ -125,14 +125,14 @@ onUnmounted(() => {
 			@click="creatorDrawer = false"
 			class="absolute top-2.5 end-2.5"
 		/>
-    <form class="mb-6" @submit.prevent="submit">
+    <form class="mb-6" @submit="submit">
 			<div class="mb-6">
 				<XTextField
 					v-model:value="state.form.name"
 					label="Name"
 					required
 					:invalid="state.valdn.name"
-          data-testid="name"
+          data-testid="nameCreator"
 				/>
 			</div>
 			<div class="relative inline-flex w-full items-center justify-center">
@@ -148,7 +148,7 @@ onUnmounted(() => {
 					label="Header"
 					required
 					:invalid="state.valdn.header"
-          data-testid="header"
+          data-testid="headerCreator"
 				/>
 			</div>
 			<div class="relative mb-6">
@@ -157,7 +157,7 @@ onUnmounted(() => {
 					label="Description"
 					required
 					:invalid="state.valdn.description"
-          data-testid="description"
+          data-testid="descriptionCreator"
 				/>
 			</div>
 			<div class="mb-6">
@@ -166,7 +166,7 @@ onUnmounted(() => {
 					label="Input Placeholder"
 					required
 					:invalid="state.valdn.inputPlaceholder"
-          data-testid="inputPlaceholder"
+          data-testid="inputPlaceholderCreator"
 				/>
 			</div>
 			<div class="mb-6">
@@ -175,7 +175,7 @@ onUnmounted(() => {
 					label="Button Text"
 					required
 					:invalid="state.valdn.buttonText"
-          data-testid="buttonText"
+          data-testid="buttonTextCreator"
 				/>
 			</div>
 			<div class="relative inline-flex w-full items-center justify-center">
@@ -193,7 +193,7 @@ onUnmounted(() => {
 					title="Choose your color"
 					required
 					:invalid="state.valdn.buttonColor"
-          data-testid="buttonColor"
+          data-testid="buttonColorCreator"
         />
         <XTextField
           v-model:value="state.form.buttonTextColor"
@@ -203,7 +203,7 @@ onUnmounted(() => {
           title="Choose your color"
           required
           :invalid="state.valdn.buttonTextColor"
-          data-testid="buttonTextColor"
+          data-testid="buttonTextColorCreator"
 				/>
 				<XTextField
 					v-model:value="state.form.backgroundColor"
@@ -213,7 +213,7 @@ onUnmounted(() => {
 					title="Choose your color"
 					required
 					:invalid="state.valdn.backgroundColor"
-          data-testid="backgroundColor"
+          data-testid="backgroundColorCreator"
 				/>
 				<XTextField
 					v-model:value="state.form.textColor"
@@ -223,7 +223,7 @@ onUnmounted(() => {
 					title="Choose your color"
 					required
 					:invalid="state.valdn.textColor"
-          data-testid="textColor"
+          data-testid="textColorCreator"
 				/>
 			</div>
 			<div class="flex justify-end">
@@ -232,7 +232,7 @@ onUnmounted(() => {
 					type="submit"
 					color="primary"
 					label="Create Form"
-          data-testid="createForm"
+          data-testid="createFormCreator"
 				/>
 			</div>
 		</form>

@@ -126,13 +126,14 @@ onUnmounted(() => {
 			@click="editorDrawer = false"
 			class="absolute top-2.5 end-2.5"
 		/>
-    <form class="mb-6" @submit.prevent="submit">
+    <form class="mb-6" @submit="submit">
 			<div class="mb-6">
 				<XTextField
 					v-model:value="state.form.name"
 					label="Name"
 					required
 					:invalid="state.valdn.name"
+          data-testid="nameEditor"
 				/>
 			</div>
 			<div class="relative inline-flex w-full items-center justify-center">
@@ -148,6 +149,7 @@ onUnmounted(() => {
 					label="Header"
 					required
 					:invalid="state.valdn.header"
+          data-testid="headerEditor"
 				/>
 			</div>
 			<div class="relative mb-6">
@@ -156,6 +158,7 @@ onUnmounted(() => {
 					label="Description"
 					required
 					:invalid="state.valdn.description"
+          data-testid="descriptionEditor"
 				/>
 			</div>
 			<div class="mb-6">
@@ -164,6 +167,7 @@ onUnmounted(() => {
 					label="Input Placeholder"
 					required
 					:invalid="state.valdn.inputPlaceholder"
+          data-testid="inputPlaceholderEditor"
 				/>
 			</div>
 			<div class="mb-6">
@@ -172,6 +176,7 @@ onUnmounted(() => {
 					label="Button Text"
 					required
 					:invalid="state.valdn.buttonText"
+          data-testid="buttonTextEditor"
 				/>
 			</div>
 			<div class="relative inline-flex w-full items-center justify-center">
@@ -189,37 +194,42 @@ onUnmounted(() => {
 					title="Choose your color"
 					required
 					:invalid="state.valdn.buttonColor"
-				/>
-				<XTextField
-					v-model:value="state.form.backgroundColor"
-					label="Background Color"
-					type="color"
-					class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700"
-					title="Choose your color"
-					required
-					:invalid="state.valdn.backgroundColor"
-				/>
-				<XTextField
-					v-model:value="state.form.textColor"
-					label="Text Color"
-					type="color"
-					class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700"
-					title="Choose your color"
-					required
-					:invalid="state.valdn.textColor"
-				/>
-				<XTextField
-					v-model:value="state.form.buttonTextColor"
-					label="Button Text Color"
-					type="color"
-					class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700"
-					title="Choose your color"
-					required
-					:invalid="state.valdn.buttonTextColor"
-				/>
+          data-testid="buttonColorEditor"
+        />
+        <XTextField
+          v-model:value="state.form.buttonTextColor"
+          :invalid="state.valdn.buttonTextColor"
+          class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700"
+          data-testid="buttonTextColorEditor"
+          label="Button Text Color"
+          required
+          title="Choose your color"
+          type="color"
+        />
+        <XTextField
+          v-model:value="state.form.backgroundColor"
+          :invalid="state.valdn.backgroundColor"
+          class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700"
+          data-testid="backgroundColorEditor"
+          label="Background Color"
+          required
+          title="Choose your color"
+          type="color"
+        />
+        <XTextField
+          v-model:value="state.form.textColor"
+          :invalid="state.valdn.textColor"
+          class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700"
+          data-testid="textColorEditor"
+          label="Text Color"
+          required
+          title="Choose your color"
+          type="color"
+        />
 			</div>
 			<div class="flex justify-end">
-        <XButton color="primary" label="Save" prepend="i-carbon:save-series" type="submit" />
+        <XButton color="primary" data-testid="updateFormEditor" label="Save" prepend="i-carbon:save-series"
+                 type="submit" />
 			</div>
 		</form>
 	</XDrawer>

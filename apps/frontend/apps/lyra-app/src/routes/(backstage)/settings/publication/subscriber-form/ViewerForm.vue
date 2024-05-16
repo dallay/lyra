@@ -101,7 +101,9 @@ onUnmounted(() => {
 
 			<!-- Delete Button -->
 			<div class="mt-6 flex justify-end">
-				<XButton variant="text" color="danger" @click="deleteForm">Delete Form</XButton>
+        <XButton color="danger" data-testid="deleteFormViewer" variant="text" @click="deleteForm">
+          Delete Form
+        </XButton>
 			</div>
 		</form>
 	</XDrawer>

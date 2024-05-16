@@ -101,8 +101,12 @@ onUnmounted(() => {
 		>
 			<template #action="{ row }">
 				<div class="flex items-center space-x-2 p-2">
-					<XButton variant="text" size="small" @click="openViewer(row.id)">View</XButton>
-					<XButton variant="text" size="small" @click="openEditor(row.id)">Edit</XButton>
+          <XButton :data-testid="`view-form-trigger-${row.id}`" size="small" variant="text"
+                   @click="openViewer(row.id)">View
+          </XButton>
+          <XButton :data-testid="`edit-form-trigger-${row.id}`" size="small" variant="text"
+                   @click="openEditor(row.id)">Edit
+          </XButton>
 					<EditorForm
 						v-model:form="flux.currentForm"
 						v-model:editor-drawer="flux.formEditorDrawer"

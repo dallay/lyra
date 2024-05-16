@@ -18,7 +18,7 @@ test('update subscriber form', async ({ page }) => {
   await expect(modal).toBeVisible();
   const title = modal.locator('h5');
   await expect(title).toBeVisible();
-  await expect(title).toHaveText(' 🟢 Form YAP 🚀 ');
+  await expect(title).toHaveText(' Form YAP 🚀 ');
 
   const deleteFormButton = page.getByTestId('deleteFormViewer');
   await deleteFormButton.click();

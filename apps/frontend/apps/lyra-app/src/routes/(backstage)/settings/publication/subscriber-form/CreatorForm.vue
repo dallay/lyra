@@ -122,6 +122,7 @@ onUnmounted(() => {
 			size="small"
 			variant="text"
 			color="secondary"
+      data-testid="closeCreator"
 			@click="creatorDrawer = false"
 			class="absolute top-2.5 end-2.5"
 		/>

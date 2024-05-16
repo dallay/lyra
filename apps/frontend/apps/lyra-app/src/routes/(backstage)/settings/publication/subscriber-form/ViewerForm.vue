@@ -82,6 +82,7 @@ onUnmounted(() => {
 			size="small"
 			variant="text"
 			color="secondary"
+      data-testid="closeViewer"
 			@click="viewerDrawer = false"
 			class="absolute top-2.5 end-2.5"
 		/>

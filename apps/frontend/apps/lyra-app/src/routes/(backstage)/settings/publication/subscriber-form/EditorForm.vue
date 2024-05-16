@@ -123,6 +123,7 @@ onUnmounted(() => {
 			size="small"
 			variant="text"
 			color="secondary"
+      data-testid="closeEditor"
 			@click="editorDrawer = false"
 			class="absolute top-2.5 end-2.5"
 		/>

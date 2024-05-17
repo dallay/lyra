@@ -26,6 +26,8 @@ export default class ApiFormRepository
       Accept: 'application/vnd.api.v1+json',
     },
   ) {
+    this.httpRequest = httpRequest;
+    this.headers = headers;
   }
 
 	async find(id: string): Promise<FormResponse> {

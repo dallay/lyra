@@ -15,7 +15,9 @@ export interface SearchFormsQuery {
 export default class FormsSearcher {
 	constructor(
 		@inject(FORM_FINDER_REPOSITORY_PROVIDER) private readonly repository: FormFinderRepository
-	) {}
+	) {
+    /* ... */
+  }
 
 	async search(query: SearchFormsQuery): Promise<PageResponse<FormResponse>> {
 		return await this.repository.search(query.criteria, query.sort, query.size, query.cursor);

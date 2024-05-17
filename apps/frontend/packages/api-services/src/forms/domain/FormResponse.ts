@@ -15,7 +15,20 @@ export default class FormResponse implements Response {
 		public readonly buttonTextColor: string,
 		public readonly createdAt: string | null = null,
 		public readonly updatedAt: string | null = null
-	) {}
+	) {
+    this.id = id;
+    this.name = name;
+    this.header = header;
+    this.description = description;
+    this.inputPlaceholder = inputPlaceholder;
+    this.buttonText = buttonText;
+    this.buttonColor = buttonColor;
+    this.backgroundColor = backgroundColor;
+    this.textColor = textColor;
+    this.buttonTextColor = buttonTextColor;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
 
 	static from(form: Form): FormResponse {
 		return new FormResponse(

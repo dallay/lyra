@@ -20,7 +20,9 @@ export default class FormUpdater {
 	 * @description The constructor uses inversify's @inject decorator to inject
 	 * an instance of FormRepository.
 	 */
-	constructor(@inject(FORM_REPOSITORY_PROVIDER) private readonly formRepository: FormRepository) {}
+	constructor(@inject(FORM_REPOSITORY_PROVIDER) private readonly formRepository: FormRepository) {
+    /* ... */
+  }
 
 	/**
 	 * @method update

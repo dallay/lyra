@@ -5,7 +5,9 @@ import { FORM_REPOSITORY_PROVIDER } from '~/di/forms/forms.module.types.ts';
 
 @injectable()
 export default class FormCreator {
-	constructor(@inject(FORM_REPOSITORY_PROVIDER) private readonly repository: FormRepository) {}
+	constructor(@inject(FORM_REPOSITORY_PROVIDER) private readonly repository: FormRepository) {
+    /* ... */
+  }
 
 	async create(form: Form): Promise<void> {
 		await this.repository.create(form);

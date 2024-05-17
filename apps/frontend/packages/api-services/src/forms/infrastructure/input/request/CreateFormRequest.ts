@@ -10,5 +10,16 @@ export default class CreateFormRequest {
 		public readonly backgroundColor: string,
 		public readonly textColor: string,
 		public readonly buttonTextColor: string
-	) {}
+	) {
+    this.id = id;
+    this.name = name;
+    this.header = header;
+    this.description = description;
+    this.inputPlaceholder = inputPlaceholder;
+    this.buttonText = buttonText;
+    this.buttonColor = buttonColor;
+    this.backgroundColor = backgroundColor;
+    this.textColor = textColor;
+    this.buttonTextColor = buttonTextColor;
+  }
 }

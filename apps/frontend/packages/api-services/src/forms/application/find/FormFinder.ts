@@ -8,7 +8,9 @@ import type FormResponse from '~/forms/domain/FormResponse.ts';
 export default class FormFinder {
 	constructor(
 		@inject(FORM_FINDER_REPOSITORY_PROVIDER) private readonly repository: FormFinderRepository
-	) {}
+	) {
+    /* ... */
+  }
 
 	async find(formId: string): Promise<FormResponse> {
 		const form = await this.repository.find(formId);

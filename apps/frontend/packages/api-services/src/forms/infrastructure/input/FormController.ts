@@ -29,7 +29,9 @@ export default class FormController {
 		private formDestroyer: FormDestroyer,
 		@inject(FORM_CREATOR_PROVIDER)
 		private formCreator: FormCreator
-	) {}
+	) {
+    /* ... */
+  }
 
 	async create(request: CreateFormRequest): Promise<void> {
 		const form = Form.fromPrimitives(request);

@@ -43,11 +43,11 @@ const emit = defineEmits<{
 }>();
 
 defineSlots<{
-	thead(props: {}): VNode;
-	tbody(props: {}): VNode;
+	thead(props: object): VNode;
+	tbody(props: object): VNode;
 	[colKey: string]: (props: { row: T }) => VNode;
 	collapsible(props: { row: T }): VNode;
-	spanable(props: {}): VNode;
+	spanable(props: object): VNode;
 }>();
 
 const localer = useLocaler();

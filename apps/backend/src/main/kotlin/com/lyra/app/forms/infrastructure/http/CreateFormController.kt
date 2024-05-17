@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import jakarta.validation.Valid
+import java.net.URI
+import java.nio.charset.StandardCharsets
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
@@ -16,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.util.UriUtils
-import java.net.URI
-import java.nio.charset.StandardCharsets
 
 /**
  * This is a REST controller for creating forms.
@@ -49,7 +49,7 @@ class CreateFormController(
         @PathVariable id: String,
         @Valid @RequestBody request: CreateFormRequest
     ): ResponseEntity<String> {
-      val sanitizedId = UriUtils.encodePath(id, StandardCharsets.UTF_8.name())
+        val sanitizedId = UriUtils.encodePath(id, StandardCharsets.UTF_8.name())
         log.debug("Creating form with ID: {}", id)
         dispatch(
             CreateFormCommand(
@@ -65,7 +65,7 @@ class CreateFormController(
                 request.buttonTextColor,
             ),
         )
-      return ResponseEntity.created(URI.create("/api/forms/$sanitizedId")).build()
+        return ResponseEntity.created(URI.create("/api/forms/$sanitizedId")).build()
     }
 
     companion object {

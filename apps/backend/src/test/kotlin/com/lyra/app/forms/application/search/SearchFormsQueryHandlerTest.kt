@@ -47,4 +47,28 @@ class SearchFormsQueryHandlerTest {
         assertEquals(cursor, nextCursor)
         coVerify(exactly = 1) { repository.search(any(Criteria::class), any(Int::class), any(Sort::class)) }
     }
+
+    @Test
+    fun `should search forms with criteria`() = runBlocking {
+        val criteria = Criteria.Or(
+            listOf(
+                Criteria.GreaterThan("createdAt", LocalDateTime.now().minusDays(1)),
+                Criteria.LessThan("createdAt", LocalDateTime.now().plusDays(1)),
+            ),
+        )
+        val dummyRandomFormsPageResponse = FormStub.dummyRandomFormsPageResponse(1)
+        coEvery {
+            repository.search(any(Criteria::class), any(Int::class), any(Sort::class))
+        } returns dummyRandomFormsPageResponse
+        val query = SearchFormsQuery(criteria = criteria)
+        val response = searchFormsQueryHandler.handle(query)
+        val data = response.data
+        val nextCursor = response.nextPageCursor
+        assertTrue(data.isNotEmpty())
+        assertEquals(1, data.size)
+        val endDate = data.last().createdAt ?: LocalDateTime.now().toString()
+        val cursor = getTimestampCursorPage(endDate)
+        assertEquals(cursor, nextCursor)
+        coVerify(exactly = 1) { repository.search(any(Criteria::class), any(Int::class), any(Sort::class)) }
+    }
 }

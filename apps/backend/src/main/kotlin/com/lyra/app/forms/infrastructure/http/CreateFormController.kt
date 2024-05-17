@@ -49,7 +49,6 @@ class CreateFormController(
         @PathVariable id: String,
         @Valid @RequestBody request: CreateFormRequest
     ): ResponseEntity<String> {
-        val sanitizedId = UriUtils.encodePathSegment(id, StandardCharsets.UTF_8)
         log.debug("Creating form with ID: {}", id)
         dispatch(
             CreateFormCommand(
@@ -65,7 +64,7 @@ class CreateFormController(
                 request.buttonTextColor,
             ),
         )
-        val url = "/api/forms/$sanitizedId"
+        val url = "/api/forms/${UriUtils.encode(id, StandardCharsets.UTF_8)}"
         return ResponseEntity.created(URI.create(url)).build()
     }
 

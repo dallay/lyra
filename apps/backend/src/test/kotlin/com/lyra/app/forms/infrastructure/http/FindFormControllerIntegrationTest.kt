@@ -37,10 +37,10 @@ internal class FindFormControllerIntegrationTest : ControllerIntegrationTest() {
             .jsonPath("$.description").isEqualTo("\uD83D\uDFE2 Some description \uD83D\uDD34")
             .jsonPath("$.inputPlaceholder").isEqualTo("Enter your email")
             .jsonPath("$.buttonText").isEqualTo("Subscribe")
-            .jsonPath("$.buttonColor").isEqualTo("2C81E5")
-            .jsonPath("$.backgroundColor").isEqualTo("DFD150")
-            .jsonPath("$.textColor").isEqualTo("222222")
-            .jsonPath("$.buttonTextColor").isEqualTo("FFFFFF")
+            .jsonPath("$.buttonColor").isEqualTo("#2C81E5")
+            .jsonPath("$.backgroundColor").isEqualTo("#DFD150")
+            .jsonPath("$.textColor").isEqualTo("#222222")
+            .jsonPath("$.buttonTextColor").isEqualTo("#FFFFFF")
             .jsonPath("$.createdAt").isNotEmpty
             .jsonPath("$.updatedAt").isNotEmpty
             .consumeWith { response ->

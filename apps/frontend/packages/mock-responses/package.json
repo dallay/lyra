@@ -31,7 +31,7 @@
   },
   "peerDependencies": {
     "typescript": "^5.4.5",
-    "vue": "^3.4.26"
+    "vue": "^3.4.27"
   },
   "devDependencies": {
     "@lyra/tsconfig": "0.0.1",

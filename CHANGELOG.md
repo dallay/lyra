@@ -1,5 +1,6 @@
 # [1.3.0](https://github.com/yacosta738/lyra/compare/v1.2.1...v1.3.0) (2024-03-31)
 
+
 ### Features
 
 * [TASK-134, TASK-144, TASK-143] subscribers crud view ([#119](https://github.com/yacosta738/lyra/issues/119)) ([414cfc6](https://github.com/yacosta738/lyra/commit/414cfc64badd8a48a6ba6a913da05379910e0ccb))

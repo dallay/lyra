@@ -65,7 +65,7 @@ watch(
 			/>
 		</div>
 
-		<Button label="1" :variant="currentPage === 1 ? 'contained' : 'text'" @click="onPage(1)" />
+		<Button label="1" :variant="currentPage === 1 ? 'contained' : 'text'" @click="() => onPage(1)" />
 
 		<template v-if="currentPage">
 			<div v-if="currentPage > 3" class="w-38px text-center">...</div>
@@ -74,20 +74,20 @@ watch(
 				v-else
 				label="2"
 				:variant="currentPage === 2 ? 'contained' : 'text'"
-				@click="onPage(2)"
+				@click="() => onPage(2)"
 			/>
 		</template>
 
 		<Button
 			:label="String(grid3)"
 			:variant="currentPage === grid3 ? 'contained' : 'text'"
-			@click="onPage(grid3)"
+			@click="() => onPage(grid3)"
 		/>
 
 		<Button
 			:label="String(grid4)"
 			:variant="currentPage === grid4 ? 'contained' : 'text'"
-			@click="onPage(grid4)"
+			@click="() => onPage(grid4)"
 		/>
 
 		<template v-if="currentPage">
@@ -97,14 +97,14 @@ watch(
 				v-else
 				:label="String(pages - 1)"
 				:variant="currentPage === pages - 1 ? 'contained' : 'text'"
-				@click="onPage(pages - 1)"
+				@click="() => onPage(pages - 1)"
 			/>
 		</template>
 
 		<Button
 			:label="String(pages)"
 			:variant="currentPage === pages ? 'contained' : 'text'"
-			@click="onPage(pages)"
+			@click="() => onPage(pages)"
 		/>
 
 		<div>
@@ -132,7 +132,7 @@ watch(
 			:key="page"
 			:label="String(page)"
 			:variant="currentPage === page ? 'contained' : 'text'"
-			@click="onPage(page)"
+			@click="() => onPage(page)"
 		/>
 
 		<div>

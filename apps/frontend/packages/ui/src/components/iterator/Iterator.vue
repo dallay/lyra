@@ -84,7 +84,7 @@ function onDelete(idx: number) {
 					icon="i-material-symbols-check-indeterminate-small-rounded"
 					color="danger"
 					:disabled="disabled"
-					@click="onDelete(index)"
+					@click="() => onDelete(index)"
 				/>
 			</div>
 		</div>

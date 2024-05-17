@@ -58,7 +58,7 @@ onUnmounted(() => {
 		<div>{{ locale.leaveConfirmationMessage || 'Changes you made may not be saved.' }}</div>
 
 		<div class="mt-8 flex justify-center gap-2">
-			<Button :label="locale.cancel || 'Cancel'" color="secondary" @click="status = false" />
+			<Button :label="locale.cancel || 'Cancel'" color="secondary" @click="() => status = false" />
 			<Button :label="locale.leave || 'Leave'" @click="confirm" />
 		</div>
 	</Dialog>

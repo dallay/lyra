@@ -67,7 +67,7 @@ onBeforeMount(async () => {
 			size="small"
 			variant="text"
 			color="secondary"
-			@click="copyToClipboard(props.code)"
+			@click="() => copyToClipboard(props.code)"
 			class="absolute top-5 end-0.5 right-2.5"
 		/>
 		<XNotification ref="notify" color="success" icon="i-fluent:clipboard-16-regular" />

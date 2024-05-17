@@ -67,7 +67,7 @@ watch(
 				prepend="i-material-symbols-undo-rounded"
 				:label="locale.cancel || 'Cancel'"
 				color="secondary"
-				@click="defaultModel = false"
+				@click="() =>  defaultModel = false"
 			/>
 
 			<Button
@@ -76,7 +76,7 @@ watch(
 				color="danger"
 				:disabled="expectedModel !== received"
 				:loading="loading"
-				@click="emit('delete')"
+				@click="() => emit('delete')"
 			/>
 		</div>
 	</Dialog>

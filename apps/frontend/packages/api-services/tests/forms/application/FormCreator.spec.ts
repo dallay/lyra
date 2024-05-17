@@ -1,8 +1,9 @@
 import 'reflect-metadata';
 import { type MockProxy, mock } from 'vitest-mock-extended';
-import FormCreator from '~/forms/application/create/FormCreator.ts';
-import Form from '~/forms/domain/Form.ts';
-import type FormRepository from '~/forms/domain/FormRepository.ts';
+import { describe, beforeEach, it, expect } from 'vitest';
+import FormCreator from '@/forms/application/create/FormCreator.ts';
+import Form from '@/forms/domain/Form.ts';
+import type FormRepository from '@/forms/domain/FormRepository.ts';
 
 describe('FormCreator', () => {
 	let formCreator: FormCreator;

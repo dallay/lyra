@@ -1,6 +1,7 @@
-import Form from '~/forms/domain/Form.ts';
-import FormId from '~/forms/domain/FormId.ts';
-import HexColor from '~/forms/domain/HexColor.ts';
+import { describe, beforeEach, it, expect } from 'vitest';
+import Form from '@/forms/domain/Form.ts';
+import FormId from '@/forms/domain/FormId.ts';
+import HexColor from '@/forms/domain/HexColor.ts';
 
 describe('Form', () => {
   let form: Form;

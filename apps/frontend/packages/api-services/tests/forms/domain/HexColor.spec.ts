@@ -1,3 +1,4 @@
+import { describe, beforeEach, it, expect } from 'vitest';
 import { InvalidArgumentError } from '@lyra/shared';
 import HexColor from '~/forms/domain/HexColor.ts';
 

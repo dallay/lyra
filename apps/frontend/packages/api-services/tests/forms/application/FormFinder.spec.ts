@@ -1,10 +1,11 @@
 import 'reflect-metadata';
 import { mock, type MockProxy } from 'vitest-mock-extended';
-import FormFinder from '~/forms/application/find/FormFinder.ts';
-import type FormFinderRepository from '~/forms/domain/FormFinderRepository.ts';
-import FormNotFoundError from '~/forms/domain/FormNotFoundError.ts';
-import Form from '~/forms/domain/Form.ts';
-import FormResponse from '~/forms/domain/FormResponse.ts';
+import { describe, beforeEach, it, expect } from 'vitest';
+import FormFinder from '@/forms/application/find/FormFinder.ts';
+import type FormFinderRepository from '@/forms/domain/FormFinderRepository.ts';
+import FormNotFoundError from '@/forms/domain/FormNotFoundError.ts';
+import Form from '@/forms/domain/Form.ts';
+import FormResponse from '@/forms/domain/FormResponse.ts';
 
 let formFinder: FormFinder;
 let formRepository: MockProxy<FormFinderRepository>;

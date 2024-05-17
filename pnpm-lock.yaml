@@ -450,6 +450,9 @@ importers:
       unocss:
         specifier: ^0.60.2
         version: 0.60.2(postcss@8.4.38)(rollup@4.17.2)(vite@5.2.11(@types/node@20.12.12)(sass@1.77.2)(sugarss@4.0.1(postcss@8.4.38)))
+      vite-tsconfig-paths:
+        specifier: ^4.3.2
+        version: 4.3.2(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12)(sass@1.77.2)(sugarss@4.0.1(postcss@8.4.38)))
       vitest:
         specifier: ^1.6.0
         version: 1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@4.0.1(postcss@8.4.38))
@@ -3995,6 +3998,9 @@ packages:
   globjoin@0.1.4:
     resolution: {integrity: sha512-xYfnw62CKG8nLkZBfWbhWwDw02CHty86jfPcc2cr3ZfeuK9ysoVPPEUxf21bAD/rWAgk52SuBrLJlefNy8mvFg==}
 
+  globrex@0.1.2:
+    resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
+
   gonzales-pe@4.3.0:
     resolution: {integrity: sha512-otgSPpUmdWJ43VXyiNgEYE4luzHCL2pz4wQ0OnDluC6Eg4Ko3Vexy/SrSynglw/eR+OhkzmqFCZa/OFa/RgAOQ==}
     engines: {node: '>=0.6.0'}
@@ -7190,6 +7196,14 @@ packages:
 
   vite-plugin-vue-routes@1.1.0:
     resolution: {integrity: sha512-ABCWOoWqdHNo4tkfd2pjqgA0QBJSolybILVm+eB2vIaPxldQikB8wC7iKfirirx3WwzgO9K8ZjUXy4AVVZLhlQ==}
+
+  vite-tsconfig-paths@4.3.2:
+    resolution: {integrity: sha512-0Vd/a6po6Q+86rPlntHye7F31zA2URZMbH8M3saAZ/xR9QoGN/L21bxEGfXdWmFdNkqPpRdxFT7nmNe12e9/uA==}
+    peerDependencies:
+      vite: '*'
+    peerDependenciesMeta:
+      vite:
+        optional: true
 
   vite@5.2.11:
     resolution: {integrity: sha512-HndV31LWW05i1BLPMUCE1B9E9GFbOu1MbenhS58FuK6owSO5qHm7GiCotrNY1YE5rMeQSFBGmT5ZaLEjFizgiQ==}
@@ -11423,6 +11437,8 @@ snapshots:
 
   globjoin@0.1.4: {}
 
+  globrex@0.1.2: {}
+
   gonzales-pe@4.3.0:
     dependencies:
       minimist: 1.2.8
@@ -15159,6 +15175,17 @@ snapshots:
     dependencies:
       glob: 10.3.12
       lodash.maxby: 4.6.0
+
+  vite-tsconfig-paths@4.3.2(typescript@5.4.5)(vite@5.2.11(@types/node@20.12.12)(sass@1.77.2)(sugarss@4.0.1(postcss@8.4.38))):
+    dependencies:
+      debug: 4.3.4
+      globrex: 0.1.2
+      tsconfck: 3.0.3(typescript@5.4.5)
+    optionalDependencies:
+      vite: 5.2.11(@types/node@20.12.12)(sass@1.77.2)(sugarss@4.0.1(postcss@8.4.38))
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
 
   vite@5.2.11(@types/node@20.12.12)(sass@1.77.2)(sugarss@4.0.1(postcss@8.4.38)):
     dependencies:

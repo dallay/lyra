@@ -1,8 +1,9 @@
 import 'reflect-metadata';
+import { describe, beforeEach, it, expect } from 'vitest';
 import { mock, type MockProxy } from 'vitest-mock-extended';
-import FormUpdater from '~/forms/application/update/FormUpdater.ts';
-import type FormRepository from '~/forms/domain/FormRepository.ts';
-import Form from '~/forms/domain/Form.ts';
+import FormUpdater from '@/forms/application/update/FormUpdater.ts';
+import type FormRepository from '@/forms/domain/FormRepository.ts';
+import Form from '@/forms/domain/Form.ts';
 
 describe('FormUpdater', () => {
   let formUpdater: FormUpdater;

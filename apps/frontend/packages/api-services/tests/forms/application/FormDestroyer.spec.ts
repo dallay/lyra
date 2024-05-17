@@ -1,8 +1,9 @@
 import 'reflect-metadata';
 import { type MockProxy, mock } from 'vitest-mock-extended';
-import FormDestroyer from '~/forms/application/delete/FormDestroyer.ts';
-import Form from '~/forms/domain/Form.ts';
-import type FormDestroyerRepository from '~/forms/domain/FormDestroyerRepository.ts';
+import { describe, beforeEach, it, expect } from 'vitest';
+import FormDestroyer from '@/forms/application/delete/FormDestroyer.ts';
+import Form from '@/forms/domain/Form.ts';
+import type FormDestroyerRepository from '@/forms/domain/FormDestroyerRepository.ts';
 
 describe('FormDestroyer', () => {
 	let formCreator: FormDestroyer;

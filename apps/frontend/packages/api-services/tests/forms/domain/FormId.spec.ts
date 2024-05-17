@@ -1,4 +1,5 @@
-import FormId from '~/forms/domain/FormId.ts';
+import { describe, beforeEach, it, expect } from 'vitest';
+import FormId from '@/forms/domain/FormId.ts';
 import { InvalidArgumentError } from '@lyra/shared';
 
 describe('FormId', () => {

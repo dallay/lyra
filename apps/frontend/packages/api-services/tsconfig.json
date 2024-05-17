@@ -10,6 +10,6 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "vite.config.ts", "vitest/**/*"],
   "exclude": ["node_modules", "dist"]
 }

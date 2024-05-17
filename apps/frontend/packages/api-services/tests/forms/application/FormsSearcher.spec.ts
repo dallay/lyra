@@ -1,10 +1,11 @@
 import 'reflect-metadata';
 import { type MockProxy, mock } from 'vitest-mock-extended';
-import FormsSearcher from '~/forms/application/search/FormsSearcher.ts';
-import Form from '~/forms/domain/Form.ts';
-import type FormFinderRepository from '~/forms/domain/FormFinderRepository.ts';
-import FormResponse from '~/forms/domain/FormResponse.ts';
-import type { CriteriaParam, PageResponse, QuerySort } from '~/types/types.ts';
+import { describe, beforeEach, it, expect } from 'vitest';
+import FormsSearcher from '@/forms/application/search/FormsSearcher.ts';
+import Form from '@/forms/domain/Form.ts';
+import type FormFinderRepository from '@/forms/domain/FormFinderRepository.ts';
+import FormResponse from '@/forms/domain/FormResponse.ts';
+import type { CriteriaParam, PageResponse, QuerySort } from '@/types/types.ts';
 
 describe('FormsSearcher', () => {
 	let formsSearcher: FormsSearcher;

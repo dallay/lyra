@@ -1,3 +1,18 @@
+# [1.5.0](https://github.com/yacosta738/lyra/compare/v1.4.0...v1.5.0) (2024-05-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency com.sendgrid:sendgrid-java to v4.10.2 ([#139](https://github.com/yacosta738/lyra/issues/139)) ([d2c2c06](https://github.com/yacosta738/lyra/commit/d2c2c061941214b5649b25a88e86616c050b7e8f))
+* **deps:** update dependency shiki to v1.2.3 ([#147](https://github.com/yacosta738/lyra/issues/147)) ([e61b624](https://github.com/yacosta738/lyra/commit/e61b6244f369f1d7c6439397c0db541055386cde))
+* **deps:** update springdoc to v2.4.0 ([#157](https://github.com/yacosta738/lyra/issues/157)) ([fb2b187](https://github.com/yacosta738/lyra/commit/fb2b1872bb472b0da5b1275d751f1d047991989b))
+
+
+### Features
+
+* [TASK-86, TASK-184] embed subscriber forms ([#195](https://github.com/yacosta738/lyra/issues/195)) ([d326e15](https://github.com/yacosta738/lyra/commit/d326e1536948744cf83f9b585b87d68575e353ae)), closes [#124](https://github.com/yacosta738/lyra/issues/124)
+* Add repobeats to README.md ([#194](https://github.com/yacosta738/lyra/issues/194)) ([033e481](https://github.com/yacosta738/lyra/commit/033e4813bfae2f4a7130bd458f3aaeb5104020ea))
+
 # [1.3.0](https://github.com/yacosta738/lyra/compare/v1.2.1...v1.3.0) (2024-03-31)
 
 

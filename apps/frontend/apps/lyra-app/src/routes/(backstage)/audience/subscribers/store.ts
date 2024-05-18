@@ -1,47 +1,9 @@
 import { type QuerySort, request } from '@lyra/ui';
 import { reactive, readonly } from 'vue';
-import type { PageResponse, Subscriber, Subscribers } from './types';
+import type { Subscriber, Subscribers } from './types';
+import { buildParams, CriteriaParam, PageResponse } from '@/types/types';
 import { defineStore } from 'pinia';
-import { SearchParameters } from 'ofetch';
 
-type CriteriaParam =
-	| { search?: string | undefined; filter?: string | undefined }
-	| {
-			search?: string;
-			filter?: string;
-	  };
-const buildParams = (
-	criteria?: CriteriaParam,
-	sort?: QuerySort,
-	size: number = 10,
-	cursor?: string
-) => {
-	const params: SearchParameters = {};
-	if (criteria?.search) {
-		params.search = criteria.search;
-	}
-	if (criteria?.filter) {
-		const filters = criteria.filter.split('&');
-		filters.forEach((filter) => {
-			const [key, value] = filter.split('=');
-			if (params[`filter[${key}]`]) {
-				params[`filter[${key}]`] += `,${value}`;
-			} else {
-				params[`filter[${key}]`] = value;
-			}
-		});
-	}
-	if (sort) {
-		const sortQuery = sort.toQueryString();
-		const [key, value] = sortQuery.split('=');
-		params[key] = value;
-	}
-	params.size = size.toString();
-	if (cursor) {
-		params.cursor = cursor;
-	}
-	return params;
-};
 export default defineStore('/newsletter/subscribers', () => {
 	const state = reactive({
 		subscribers: [] as Subscriber[],

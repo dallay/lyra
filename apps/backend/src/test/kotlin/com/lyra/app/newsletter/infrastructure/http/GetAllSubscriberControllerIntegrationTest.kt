@@ -1,6 +1,7 @@
 package com.lyra.app.newsletter.infrastructure.http
 
 import com.lyra.app.ControllerIntegrationTest
+import com.lyra.app.IntegrationTest
 import com.lyra.app.newsletter.SubscriberStub.subscriberResponsesByBatch
 import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
@@ -14,6 +15,7 @@ import org.springframework.test.context.jdbc.Sql
 
 private const val ENDPOINT = "/api/newsletter/subscribers"
 
+@IntegrationTest
 internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegrationTest() {
     private val typeRef =
         object : ParameterizedTypeReference<CursorPageResponse<SubscriberResponse>>() {}

@@ -31,27 +31,27 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.5.10",
-    "@astrojs/vue": "^4.0.9",
-    "@fontsource-variable/onest": "^5.0.3",
-    "@iconify-json/mdi": "^1.1.64",
-    "@iconify-json/ph": "^1.1.11",
-    "@iconify-json/simple-icons": "^1.1.97",
-    "@iconify/json": "^2.2.196",
+    "@astrojs/check": "^0.7.0",
+    "@astrojs/vue": "^4.2.0",
+    "@fontsource-variable/onest": "^5.0.4",
+    "@iconify-json/mdi": "^1.1.66",
+    "@iconify-json/ph": "^1.1.13",
+    "@iconify-json/simple-icons": "^1.1.99",
+    "@iconify/json": "^2.2.211",
     "@lyra/utilities": "0.0.1",
-    "astro": "^4.5.12",
-    "typescript": "^5.4.3",
-    "vue": "^3.4.21"
+    "astro": "^4.8.6",
+    "typescript": "^5.4.5",
+    "vue": "^3.4.27"
   },
   "devDependencies": {
     "@lyra/config": "0.0.1",
     "@lyra/tsconfig": "0.0.1",
     "@types/canvas-confetti": "^1.6.4",
-    "@unocss/postcss": "^0.58.8",
-    "@unocss/reset": "^0.58.8",
+    "@unocss/postcss": "^0.60.2",
+    "@unocss/reset": "^0.60.2",
     "astro-icon": "^1.1.0",
-    "canvas-confetti": "^1.9.2",
-    "sharp": "^0.33.3"
+    "canvas-confetti": "^1.9.3",
+    "sharp": "^0.33.4"
   },
-  "packageManager": "pnpm@8.15.6"
+  "packageManager": "pnpm@9.0.6"
 }

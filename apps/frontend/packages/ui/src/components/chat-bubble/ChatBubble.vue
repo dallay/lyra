@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { ref, reactive } from 'vue';
+import { reactive, ref } from 'vue';
 
 import Avatar from '../avatar/Avatar.vue';
 import Button from '../button/Button.vue';
-import Popover from '../popover/Popover.vue';
-import Listbox from '../listbox/Listbox.vue';
 import ChatBox from '../chat-box/ChatBox.vue';
+import Listbox from '../listbox/Listbox.vue';
+import Popover from '../popover/Popover.vue';
 
 defineProps<{
 	chat?: any;
@@ -37,7 +37,7 @@ const flux = reactive({
 </script>
 
 <template>
-	<div class="group flex items-start gap-2.5" @mouseleave="onMouseLeave">
+  <div class="group flex items-start gap-2.5" @mouseleave="onMouseLeave">
 		<Avatar v-if="!self" class="bg-primary-500 text-white">BG</Avatar>
 
 		<div v-if="self" class="hidden self-center group-hover:block">
@@ -47,7 +47,7 @@ const flux = reactive({
 					variant="text"
 					color="secondary"
 					size="small"
-					@click="morePopover = true"
+					@click="() => morePopover = true"
 				/>
 
 				<template #content>
@@ -84,33 +84,33 @@ const flux = reactive({
 			</div>
 
 			<div
-				v-if="!edit"
+        v-if="!edit"
 				class="leading-1.5 flex flex-col rounded-e-xl rounded-es-xl border-gray-200 bg-gray-100 p-4 dark:bg-gray-700"
 				:class="{ '!rounded-se-0 rounded-s-xl': self }"
 			>
 				<p class="text-sm font-normal text-gray-900 dark:text-white">{{ chat?.message }}</p>
 			</div>
 
-			<ChatBox v-if="edit" v-model="message" editing />
+      <ChatBox v-if="edit" v-model="message" editing />
 
 			<div>
 				<div v-for="(file, index) in flux.files" :key="index" class="flex items-center gap-2">
 					{{ file.name }}
 					<div
 						class="i-material-symbols-delete-rounded size-5 cursor-pointer"
-						@click="flux.onDelete(index)"
+						@click="() => flux.onDelete(index)"
 					></div>
 				</div>
 			</div>
 
-			<div v-if="edit" class="flex gap-2">
+      <div v-if="edit" class="flex gap-2">
 				<div class="flex-1">
 					<Button
 						icon="i-material-symbols-attach-file-add-rounded"
 						variant="text"
 						color="secondary"
 						size="small"
-						@click="($refs.fileInput as HTMLInputElement).click()"
+						@click="() => ($refs.fileInput as HTMLInputElement).click()"
 					/>
 					<input
 						ref="fileInput"
@@ -118,11 +118,11 @@ const flux = reactive({
 						multiple
 						class="hidden"
 						@change="flux.onChange"
-						@click="($refs.fileInput as HTMLInputElement).value = ''"
+						@click="() => ($refs.fileInput as HTMLInputElement).value = ''"
 					/>
 				</div>
 
-				<Button color="secondary" size="small" @click="edit = false">Cancel</Button>
+        <Button color="secondary" size="small" @click="() => edit = false">Cancel</Button>
 				<Button size="small">Save</Button>
 			</div>
 		</div>

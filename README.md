@@ -80,6 +80,12 @@ This will make sure your commit messages follow the [Conventional Commits Specif
 
 Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
+Create the synbolic link of some important files:
+
+```sh
+  ln -s $(pwd)/apps/frontend/.npmrc $(pwd)/.npmrc
+```
+
 There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
 
 Any static assets, like images, can be placed in the `public/` directory.
@@ -102,5 +108,7 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+![Alt](https://repobeats.axiom.co/api/embed/fcbf097295ea4254db6b733582ac982db8fa4fe6.svg "Repobeats analytics image")
 
 ![Alt](https://repobeats.axiom.co/api/embed/fcbf097295ea4254db6b733582ac982db8fa4fe6.svg "Repobeats analytics image")

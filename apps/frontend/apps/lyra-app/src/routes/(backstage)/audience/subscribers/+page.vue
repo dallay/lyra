@@ -157,7 +157,7 @@ onUnmounted(() => {
 		]"
 		class="mb-2.5"
 	/>
-	<div class="my-4 text-3xl font-bold">Subscribers</div>
+	<h2 class="my-4 text-3xl font-bold">Subscribers</h2>
 
 	<div class="space-y-8 rounded-lg bg-white p-8 dark:bg-slate-800">
 		<div class="flex w-full flex-col gap-4">

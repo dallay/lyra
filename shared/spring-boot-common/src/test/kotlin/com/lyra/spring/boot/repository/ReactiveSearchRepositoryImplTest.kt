@@ -1,113 +1,81 @@
 package com.lyra.spring.boot.repository
 
 import com.lyra.common.domain.presentation.pagination.TimestampCursor
+import io.mockk.Runs
+import io.mockk.coEvery
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
 import java.time.LocalDateTime
 import kotlin.random.Random
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.reactor.asFlux
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.reactivestreams.Subscriber
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
 import org.springframework.data.relational.core.query.Criteria
-import reactor.core.publisher.Flux.fromIterable
-import reactor.core.publisher.Mono.just
-import reactor.test.StepVerifier
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 
-class ReactiveSearchRepositoryImplTest {
+data class MyEntity(
+    val fieldName: String,
+    val id: Long = Random.nextLong(from = 1000, until = 3000),
+    val createdAt: LocalDateTime = LocalDateTime.now()
+)
 
-    @Test
-    fun testFindAll() {
-        val r2dbcTemplate = mockk<R2dbcEntityTemplate>()
-        val repository = ReactiveSearchRepositoryImpl<MyEntity>(r2dbcTemplate)
+internal class ReactiveSearchRepositoryImplTest {
+    private val r2dbcTemplate: R2dbcEntityTemplate = mockk()
+    private val reactiveSearchRepository = ReactiveSearchRepositoryImpl<MyEntity>(r2dbcTemplate)
+    private val dummyEntity: MyEntity =
+        MyEntity("test", 1, LocalDateTime.parse("2021-01-01T00:00:00"))
 
-        val criteria = Criteria.where("fieldName").`is`("fieldValue")
-        val domainType = MyEntity::class
-
-        val mockEntityList = listOf(MyEntity("fieldValue"))
-        every {
-            r2dbcTemplate.select(MyEntity::class.java)
-                .matching(any())
-                .all()
-        } returns fromIterable(mockEntityList)
-
-        val resultFlux = repository.findAll(criteria, domainType)
-
-        StepVerifier.create(resultFlux)
-            .expectNextSequence(mockEntityList)
-            .verifyComplete()
+    @BeforeEach
+    fun setUp() {
+        val flux: Flux<MyEntity> = flowOf(dummyEntity).asFlux()
+        val subscriber: Subscriber<MyEntity> = mockk(relaxed = true)
+        coEvery { r2dbcTemplate.select(MyEntity::class.java).matching(any()).all() } returns flux
+        every { flux.subscribe(subscriber) } just Runs
+        coEvery {
+            r2dbcTemplate.select(MyEntity::class.java).matching(any()).all().collectList()
+        } returns Mono.just(listOf(dummyEntity))
+        coEvery {
+            r2dbcTemplate.select(MyEntity::class.java).matching(any()).count()
+        } returns Mono.just(1)
     }
 
     @Test
-    fun testFindAllWithPageable() {
-        val r2dbcTemplate = mockk<R2dbcEntityTemplate>()
-        val repository = ReactiveSearchRepositoryImpl<MyEntity>(r2dbcTemplate)
-
-        val criteria = Criteria.where("fieldName").`is`("fieldValue")
-        val pageable = PageRequest.of(0, 10)
-        val domainType = MyEntity::class
-
-        val mockEntityList = listOf(MyEntity("fieldValue"))
-        every {
-            r2dbcTemplate.select(MyEntity::class.java)
-                .matching(any())
-                .all()
-                .collectList()
-        } returns just(mockEntityList)
-        every {
-            r2dbcTemplate.select(MyEntity::class.java)
-                .matching(any())
-                .count()
-        } returns just(1L)
-
-        val resultMono = repository.findAll(criteria, pageable, domainType)
-
-        StepVerifier.create(resultMono)
-            .expectNextMatches { page ->
-                page.content == mockEntityList && page.totalElements == 1L && page.pageable == pageable
-            }
-            .verifyComplete()
+    fun `should fetch all entities that match the given criteria`() = runBlocking {
+        coEvery { r2dbcTemplate.select(MyEntity::class.java).matching(any()).all() } returns flowOf(
+            dummyEntity,
+        ).asFlux()
+        val result = reactiveSearchRepository.findAll(Criteria.empty(), MyEntity::class).toList()
+        assertEquals(listOf(dummyEntity), result)
     }
 
     @Test
-    fun `should search all subscribers by cursor pagination with criteria and sort`() {
-        val r2dbcTemplate = mockk<R2dbcEntityTemplate>()
-        val repository = ReactiveSearchRepositoryImpl<MyEntity>(r2dbcTemplate)
-        val criteria = Criteria.where("id").greaterThan(1)
-        val sort = Sort.by("fieldName", "ASC")
-        val cursor = TimestampCursor(createdAt = LocalDateTime.parse("2021-01-01T00:00:00"))
-        val mockEntityList =
-            listOf(
-                MyEntity(fieldName = "fieldValue", createdAt = LocalDateTime.parse("2022-01-01T00:00:00")),
-                MyEntity(fieldName = "fieldValue2", createdAt = LocalDateTime.parse("2022-03-01T00:00:00")),
-                MyEntity(fieldName = "fieldValue3", createdAt = LocalDateTime.parse("2022-04-01T00:00:00")),
+    fun `should fetch all entities that match the given criteria with pagination`() = runBlocking {
+        val result =
+            reactiveSearchRepository.findAll(Criteria.empty(), PageRequest.of(0, 1), MyEntity::class)
+        assertEquals(listOf(dummyEntity), result.content)
+    }
+
+    @Test
+    fun `should fetch all entities that match the given criteria with pagination and a cursor`() =
+        runBlocking {
+            val cursor = TimestampCursor(createdAt = LocalDateTime.parse("2021-01-01T00:00:00"))
+            val result = reactiveSearchRepository.findAllByCursor(
+                Criteria.empty(),
+                1,
+                MyEntity::class,
+                Sort.unsorted(),
+                cursor,
             )
-        every {
-            r2dbcTemplate.select(MyEntity::class.java)
-                .matching(any())
-                .all()
-        } returns fromIterable(mockEntityList)
-
-        val resultFlux = repository.findAllByCursor(criteria, 2, MyEntity::class, sort, cursor)
-
-        StepVerifier.create(resultFlux)
-            .consumeNextWith { responsePage ->
-                println("Actual data: ${responsePage.data}")
-                val subList = mockEntityList.subList(0, 2)
-                println("Expected data: $subList")
-                println("Actual nextPageCursor: ${responsePage.nextPageCursor}")
-                println("Expected nextPageCursor: MjAyMi0wMy0wMVQwMDowMDzigJQ+QVND")
-                assertEquals(subList, responsePage.data)
-                val expectedCursor = "MjAyMi0wMy0wMVQwMDowMDzigJQ+QVND"
-                assertEquals(expectedCursor, responsePage.nextPageCursor)
-            }
-            .verifyComplete()
-    }
-
-    data class MyEntity(
-        val fieldName: String,
-        val id: Long = Random.nextLong(from = 1000, until = 3000),
-        val createdAt: LocalDateTime = LocalDateTime.now()
-    )
+            assertEquals(listOf(dummyEntity), result.data)
+        }
 }

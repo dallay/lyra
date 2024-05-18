@@ -1,10 +1,5 @@
 import type { QuerySort, SortType } from '@lyra/ui';
 
-export interface PageResponse<T> {
-	data: T[];
-	nextPageCursor?: string;
-}
-
 export interface Subscriber {
 	id: string;
 	email: string;

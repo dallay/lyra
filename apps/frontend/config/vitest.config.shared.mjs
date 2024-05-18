@@ -1,4 +1,5 @@
 import { mergeConfig } from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths'
 import { sharedViteConfig } from './vite.config.shared.mjs';
 export const sharedVitestConfig = (dirname) =>
 	mergeConfig(sharedViteConfig(dirname), {
@@ -18,4 +19,5 @@ export const sharedVitestConfig = (dirname) =>
 				json: './coverage/json-report.json',
 			},
 		},
+    plugins: [tsconfigPaths()]
 	});

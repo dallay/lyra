@@ -150,7 +150,7 @@ defineExpose({
 							variant="text"
 							color="secondary"
 							size="small"
-							@click="($refs.fileInput as HTMLInputElement).click()"
+							@click="() => ($refs.fileInput as HTMLInputElement).click()"
 						/>
 
 						<input
@@ -160,12 +160,12 @@ defineExpose({
 							multiple
 							class="hidden"
 							@change="flux.onChange"
-							@click="($refs.fileInput as HTMLInputElement).value = ''"
+							@click="() => ($refs.fileInput as HTMLInputElement).value = ''"
 						/>
 					</div>
 
 					<div class="ChatBox-Send">
-						<Button icon="i-material-symbols-send-rounded" @click="emit('send')" />
+						<Button icon="i-material-symbols-send-rounded" @click="() => emit('send')" />
 					</div>
 				</template>
 			</div>
@@ -175,7 +175,7 @@ defineExpose({
 					{{ file.name }}
 					<div
 						class="i-material-symbols-delete-rounded size-5 cursor-pointer"
-						@click="flux.onDelete(index)"
+						@click="() => flux.onDelete(index)"
 					></div>
 				</div>
 			</div>

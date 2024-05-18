@@ -1,5 +1,5 @@
 ---
-import '@fontsource-variable/onest';
+import '../main';
 import pkg from '../../package.json' assert { type: 'json' };
 interface Props {
 	title: string;
@@ -14,6 +14,7 @@ const { title, description = pkg.description } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="color-scheme" content="light dark" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="author" content={pkg.author.name} />
@@ -22,6 +23,7 @@ const { title, description = pkg.description } = Astro.props;
 		<title>{title}</title>
 		<script>
 			import { loadTheme } from '@lyra/utilities';
+
 			loadTheme();
 		</script>
 	</head>
@@ -36,3 +38,9 @@ const { title, description = pkg.description } = Astro.props;
 		<slot />
 	</body>
 </html>
+
+<!--<style is:global>-->
+<!--	html {-->
+<!--		font-family: 'Onest Variable', sans-serif;-->
+<!--	}-->
+<!--</style>-->

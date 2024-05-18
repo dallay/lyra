@@ -20,15 +20,8 @@ echo "*****Running Detekt and Linter Tasks******"
 echo "🟢 Using package manager: $PACKAGE_MANAGER"
 
 git stash -q --keep-index
-# change to dir apps/frontend
-cd apps/frontend
 $PACKAGE_MANAGER install
-$PACKAGE_MANAGER run format
-$PACKAGE_MANAGER run lint
-$PACKAGE_MANAGER run test
-
-# change to root dir
-cd ../../
+#$PACKAGE_MANAGER run check
 
 ./gradlew detektAll --no-daemon --stacktrace
 

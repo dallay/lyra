@@ -1,6 +1,7 @@
 package com.lyra.app.newsletter.infrastructure.http
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.lyra.app.UnitTest
 import com.lyra.app.newsletter.SubscriberStub
 import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.app.newsletter.application.search.all.SearchAllSubscribersQuery
@@ -23,10 +24,11 @@ import org.springframework.test.web.reactive.server.WebTestClient
 private const val ENDPOINT = "/api/newsletter/subscribers"
 private const val NUM_SUBSCRIBER = 14
 
+@UnitTest
 internal class GetAllSubscriberControllerTest {
     private val mediator = mockk<Mediator>()
     private val rhsFilterParserFactory = mockk<RHSFilterParserFactory>()
-    private val response = SubscriberStub.dummyRandomSubscriberResponsePageResponse(
+    private val response = SubscriberStub.dummyRandomSubscriberPageResponse(
         NUM_SUBSCRIBER,
     )
     private val rhsFilterParser = mockk<RHSFilterParser<SubscriberEntity>>()
@@ -211,7 +213,7 @@ internal class GetAllSubscriberControllerTest {
         val pageSize = 5
 
         // Assuming the first response contains more than 5 subscribers
-        val firstResponse = SubscriberStub.dummyRandomSubscriberResponsePageResponse(5)
+        val firstResponse = SubscriberStub.dummyRandomSubscriberPageResponse(5)
 
         val firstQuery = SearchAllSubscribersQuery(size = pageSize)
         coEvery { mediator.send(firstQuery) } returns firstResponse
@@ -230,7 +232,7 @@ internal class GetAllSubscriberControllerTest {
             .responseBody
 
         // the second response contains less than 5 subscribers (last page)
-        val secondResponse = SubscriberStub.dummyRandomSubscriberResponsePageResponse(3)
+        val secondResponse = SubscriberStub.dummyRandomSubscriberPageResponse(3)
 
         val secondQuery =
             SearchAllSubscribersQuery(size = pageSize, cursor = firstRequest?.nextPageCursor)

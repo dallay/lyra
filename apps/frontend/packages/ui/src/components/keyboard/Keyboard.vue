@@ -50,8 +50,8 @@ const kbdKeys: Record<KbdKey, string> = {
 <template>
 	<kbd class="Kbd">
 		<template v-for="key in keys" :key="key">
-			{{ kbdKeys[key] }}
-		</template>
+      {{ kbdKeys[key] }}
+    </template>
 		<slot></slot>
 	</kbd>
 </template>

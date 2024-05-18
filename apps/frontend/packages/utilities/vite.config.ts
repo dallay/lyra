@@ -2,6 +2,7 @@ import dts from 'vite-plugin-dts';
 import { defineConfig, mergeConfig } from 'vite';
 import { resolve } from 'path';
 import { sharedViteConfig } from '@lyra/config/vite.config.shared';
+
 /** @type {import('vite').UserConfig} */
 export default defineConfig(
 	mergeConfig(sharedViteConfig(__dirname), {

@@ -31,7 +31,6 @@ class NewsletterSubscriberController(
         @PathVariable id: String,
         @Valid @RequestBody request: SubscribeNewsletterRequest
     ): ResponseEntity<String> {
-
         dispatch(
             SubscribeNewsletterCommand(
                 id,

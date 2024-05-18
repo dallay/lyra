@@ -1,9 +1,7 @@
 import { type Page, expect } from '@playwright/test';
+import { Subscriber } from '../../../src/routes/(backstage)/audience/subscribers/types';
+import { PageResponse } from '../../../src/types/types';
 import { signIn } from './authHelper';
-import {
-	PageResponse,
-	Subscriber,
-} from '../../../src/routes/(backstage)/audience/subscribers/types';
 
 export async function getSubscribers(page: Page) {
 	await page.routeFromHAR('tests/e2e/hars/subscribers.har', {
@@ -14,7 +12,6 @@ export async function getSubscribers(page: Page) {
 }
 export async function getSubscribersByDateRange(page: Page, startDate: string, endDate: string) {
 	const url = `**/api/newsletter/subscribers?filter%5BcreatedAt%5D=lte:${endDate}*,gte:${startDate}*+&size=10&cursor=**`;
-	console.log('🟢 url', url);
 	await page.route(url, async (route) => {
 		const response: PageResponse<Subscriber> = {
 			data: [
@@ -50,7 +47,7 @@ export async function initialScreenLoad(page: Page) {
 	await page.getByRole('navigation').getByRole('link', { name: 'Subscribers' }).click();
 	await page.goto('/audience/subscribers', { waitUntil: 'networkidle' });
 	await expect(
-		page.getByRole('main').locator('div').filter({ hasText: 'Subscribers' })
+		page.getByRole('main').locator('h2').filter({ hasText: 'Subscribers' })
 	).toBeVisible();
 }
 

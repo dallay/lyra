@@ -1,10 +1,10 @@
+import { URL, fileURLToPath } from 'node:url';
+import { sharedViteConfig } from '@lyra/config/vite.config.shared';
 import Vue from '@vitejs/plugin-vue';
 import envify from 'process-envify';
 import unocss from 'unocss/vite';
 import { defineConfig, mergeConfig } from 'vite';
 import vueRoutes from 'vite-plugin-vue-routes';
-import { sharedViteConfig } from '@lyra/config/vite.config.shared';
-import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig(
 	mergeConfig(sharedViteConfig(__dirname), {
@@ -26,7 +26,11 @@ export default defineConfig(
 				'@templates': fileURLToPath(new URL('./src/components/templates', import.meta.url)),
 			},
 		},
+		preview: {
+			port: 5173,
+		},
 		server: {
+			port: 5173,
 			proxy: {
 				'/api': {
 					target: 'http://localhost:8080',

@@ -27,6 +27,7 @@ dependencies {
     implementation(project(":shared:spring-boot-common"))
 
     implementation(libs.spring.boot.starter.data.r2dbc)
+    implementation(libs.bundles.kotlin.jvm)
     implementation("org.springframework:spring-r2dbc")
     implementation("org.springframework.data:spring-data-r2dbc")
     implementation("org.postgresql:r2dbc-postgresql")

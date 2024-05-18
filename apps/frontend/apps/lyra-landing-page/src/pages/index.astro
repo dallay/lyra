@@ -10,7 +10,7 @@ import ItemsSection from 'molecules:ItemsSection';
 		<div class="flex min-h-screen flex-col">
 			<Hero image={appInterface} />
 			<ItemsSection />
-			<div class="my-4 flex items-center justify-center p-4">
+			<div class="my-4 flex items-center justify-center">
 				<iframe
 					src="http://localhost:9876/1e573ddd-f2cf-49b9-993f-a2d1535fd0cc"
 					class="flex items-center justify-center"
@@ -20,9 +20,16 @@ import ItemsSection from 'molecules:ItemsSection';
 					width="100%"
 					height="200"
 					frameborder="0"
-					scrolling="no"
-					style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
+					scrolling="no"></iframe>
 			</div>
 		</div>
 	</main>
 </Layout>
+
+<style>
+	@media (prefers-color-scheme: dark) {
+		iframe[src*='localhost'] {
+			color-scheme: light;
+		}
+	}
+</style>

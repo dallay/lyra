@@ -41,3 +41,4 @@ springdoc:
     path: /api-docs
     csrf:
       enabled: true
+

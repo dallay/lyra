@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import jakarta.validation.Valid
 import java.net.URI
-import java.nio.charset.StandardCharsets
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.util.UriUtils
 
 /**
  * This is a REST controller for creating forms.
@@ -64,7 +62,7 @@ class CreateFormController(
                 request.buttonTextColor,
             ),
         )
-        val url = "/api/forms/${UriUtils.encode(id, StandardCharsets.UTF_8)}"
+        val url = "/api/forms"
         return ResponseEntity.created(URI.create(url)).build()
     }
 

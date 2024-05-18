@@ -48,7 +48,7 @@ runs:
       shell: bash
 
     - name: Upload static reports artifact
-      uses: actions/upload-artifact@v4.3.1
+      uses: actions/upload-artifact@v4.3.3
       with:
         name: static-report
         path: |

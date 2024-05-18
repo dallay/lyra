@@ -69,7 +69,7 @@ kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotl
 #frontend-gradle-plugin = { id = "org.siouan.frontend-jdk17", version.ref = "frontend-gradle-plugin" }
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springManagement" }
-gradle-git-properties = { id = "com.gorylenko.gradle-git-properties", version = "2.4.1" }
+gradle-git-properties = { id = "com.gorylenko.gradle-git-properties", version = "2.4.2" }
 [bundles]
 spring-boot = ["spring-boot-starter", "spring-boot-starter-webflux",
   "springdoc-openapi-starter-webflux-ui", "springdoc-openapi-starter-webflux-api",

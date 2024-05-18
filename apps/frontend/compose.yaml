@@ -9,7 +9,7 @@ services:
     tty: true
 
   caddy:
-    image: caddy:2.7-alpine
+    image: caddy:2.8-alpine
     restart: unless-stopped
     cap_add:
       - NET_ADMIN

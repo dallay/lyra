@@ -1,7 +1,7 @@
 [versions]
 kotlin = "1.9.24"
 springBoot = "3.2.5"
-springdoc = "2.4.0"
+springdoc = "2.5.0"
 junit = "5.10.2"
 klint-plugin = "12.1.1"
 detekt = "1.23.6"

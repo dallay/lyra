@@ -132,7 +132,7 @@ importers:
     devDependencies:
       '@iconify/json':
         specifier: ^2.2.211
-        version: 2.2.211
+        version: 2.2.212
       '@lyra/config':
         specifier: 0.0.1
         version: link:../../config
@@ -186,7 +186,7 @@ importers:
         version: 8.2.5(astro@4.8.6(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0)(typescript@5.4.5))
       '@iconify/json':
         specifier: ^2.2.211
-        version: 2.2.211
+        version: 2.2.212
       '@lyra/api-services':
         specifier: 0.0.1
         version: link:../../packages/api-services
@@ -277,7 +277,7 @@ importers:
     devDependencies:
       '@iconify/json':
         specifier: ^2.2.211
-        version: 2.2.211
+        version: 2.2.212
       '@lyra/config':
         specifier: 0.0.1
         version: link:../../config
@@ -346,7 +346,7 @@ importers:
         version: 1.1.101
       '@iconify/json':
         specifier: ^2.2.211
-        version: 2.2.211
+        version: 2.2.212
       '@lyra/utilities':
         specifier: 0.0.1
         version: link:../../packages/utilities
@@ -668,7 +668,7 @@ importers:
     devDependencies:
       '@iconify/json':
         specifier: ^2.2.211
-        version: 2.2.211
+        version: 2.2.212
       '@lyra/config':
         specifier: 0.0.1
         version: link:../../config
@@ -1429,8 +1429,8 @@ packages:
   '@iconify-json/simple-icons@1.1.101':
     resolution: {integrity: sha512-7h7iUvCok031UcYUt2+wPD21tOwu/AzFB2I2PzzoC3R1jsNJjn5YV3v1q0g2CXcMYAzcsCyH00RbpFPFAiqjcw==}
 
-  '@iconify/json@2.2.211':
-    resolution: {integrity: sha512-bg/rNpMYwjXJrOR8R56AuMuuNxcSgf/lw/EqtRUyPP1bbiXytF5VJModXohysnsN46M/gr+ydRUjIXRa/vuotA==}
+  '@iconify/json@2.2.212':
+    resolution: {integrity: sha512-d1IXjpbSwk8V3C9D+mruRTJRPqZZpCnOWh9zyG/Zc5zJmPDLBEHNTKz+ZmeiJQ6LdzgjwLJai1WgFvt1HWVIPw==}
 
   '@iconify/tools@3.0.7':
     resolution: {integrity: sha512-DxfhFLMnooS34dHelpGUnnYrxLZHs0czC1CgrBhAbuL8ddVzBb2VEQm8kh9qGh7A34qeXAB5iSHH3A72rAaFrg==}
@@ -3380,6 +3380,7 @@ packages:
   fstream@1.0.12:
     resolution: {integrity: sha512-WvJ193OHa0GHPEL+AycEJgxvBEwyfRkN1vhjca23OaPVMCaLCXTd5qAu82AjTcgP1UJmytkOKb63Ypde7raDIg==}
     engines: {node: '>=0.6'}
+    deprecated: This package is no longer supported.
 
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
@@ -7167,7 +7168,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify/json@2.2.211':
+  '@iconify/json@2.2.212':
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.2

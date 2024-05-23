@@ -1,7 +1,7 @@
 package com.lyra.app.newsletter.infrastructure.http
 
-import com.lyra.app.ControllerIntegrationTest
-import com.lyra.app.IntegrationTest
+import com.lyra.ControllerIntegrationTest
+import com.lyra.IntegrationTest
 import com.lyra.app.newsletter.SubscriberStub.subscriberResponsesByBatch
 import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse

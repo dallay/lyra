@@ -1,6 +1,6 @@
 package com.lyra.app.healthcheck
 
-import com.lyra.app.IntegrationTest
+import com.lyra.IntegrationTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

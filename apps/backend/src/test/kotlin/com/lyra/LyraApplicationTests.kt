@@ -1,4 +1,4 @@
-package com.lyra.app
+package com.lyra
 
 import com.lyra.app.config.TestDatabaseConfiguration
 import com.lyra.spring.boot.bus.event.EventConfiguration

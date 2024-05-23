@@ -655,7 +655,7 @@ importers:
         version: 6.7.2(@vue/runtime-core@3.4.27)(echarts@5.5.0)(vue@3.4.27(typescript@5.4.5))
       vue-imask:
         specifier: ^7.6.0
-        version: 7.6.0(vue@3.4.27(typescript@5.4.5))
+        version: 7.6.1(vue@3.4.27(typescript@5.4.5))
       vue-localer:
         specifier: ^1.5.2
         version: 1.5.2
@@ -2808,8 +2808,8 @@ packages:
     resolution: {integrity: sha512-XgZ0pFcakEUlbwQEVNg3+QAis1FyTL3Qel9FYy8pSkQqoG3PNoT0bOCQtOXcOkur21r2Eq2kI+IE+gsmAEVlYw==}
     engines: {node: '>=0.10.0'}
 
-  core-js-pure@3.37.0:
-    resolution: {integrity: sha512-d3BrpyFr5eD4KcbRvQ3FTUx/KWmaDesr7+a3+1+P46IUnNoEt+oiLijPINZMEon7w9oGkIINWxrBAU9DEciwFQ==}
+  core-js-pure@3.37.1:
+    resolution: {integrity: sha512-J/r5JTHSmzTxbiYYrzXg9w1VpqrYt+gexenBE9pugeyhwPZTAEJddyiReJWsLO6uNQ8xJZFbod6XC7KKwatCiA==}
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -3619,8 +3619,8 @@ packages:
     resolution: {integrity: sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==}
     engines: {node: '>= 4'}
 
-  imask@7.6.0:
-    resolution: {integrity: sha512-6EHsq1q7v5+M4Vas2MGrs2oRpxPRWPwPDiL0HmG1ikBI/0hOwvkxRhVRFQnWIlZcTG7R8iw0az5V+z868qnQ9A==}
+  imask@7.6.1:
+    resolution: {integrity: sha512-sJlIFM7eathUEMChTh9Mrfw/IgiWgJqBKq2VNbyXvBZ7ev/IlO6/KQTKlV/Fm+viQMLrFLG/zCuudrLIwgK2dg==}
     engines: {npm: '>=4.0.0'}
 
   immediate@3.0.6:
@@ -3661,6 +3661,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -6312,8 +6313,8 @@ packages:
   vue-formor@4.1.1:
     resolution: {integrity: sha512-gXXGe2Sprfj98ANZymXc9iq/3redx//wZ1ju0HM/hKe0br9YJSGNcRQLptAvheZ+626KIr62ACUu6AezbO8LiA==}
 
-  vue-imask@7.6.0:
-    resolution: {integrity: sha512-c32XC1EFYbfqCwsYmTrXxTQdtraB5Rkdv0dlJ82CXRxFtqQUTK2zKCgaPsoD/HdF8WwCM3kiKjSmpgYmli2rzg==}
+  vue-imask@7.6.1:
+    resolution: {integrity: sha512-/5ZVNerI9Dn6gZ/cSCYGiZK4JHdwsEBgHBTRpVwS2U0URxK/Jt5FlQuoL1DhbxC6t4ElcVMWYOvkE2hR8hdt1w==}
     peerDependencies:
       vue: '>=2.7'
 
@@ -6835,7 +6836,7 @@ snapshots:
 
   '@babel/runtime-corejs3@7.24.5':
     dependencies:
-      core-js-pure: 3.37.0
+      core-js-pure: 3.37.1
       regenerator-runtime: 0.14.1
 
   '@babel/template@7.24.0':
@@ -8829,7 +8830,7 @@ snapshots:
 
   copy-descriptor@0.1.1: {}
 
-  core-js-pure@3.37.0: {}
+  core-js-pure@3.37.1: {}
 
   core-util-is@1.0.3: {}
 
@@ -9771,7 +9772,7 @@ snapshots:
 
   ignore@5.3.1: {}
 
-  imask@7.6.0:
+  imask@7.6.1:
     dependencies:
       '@babel/runtime-corejs3': 7.24.5
 
@@ -12903,9 +12904,9 @@ snapshots:
 
   vue-formor@4.1.1: {}
 
-  vue-imask@7.6.0(vue@3.4.27(typescript@5.4.5)):
+  vue-imask@7.6.1(vue@3.4.27(typescript@5.4.5)):
     dependencies:
-      imask: 7.6.0
+      imask: 7.6.1
       vue: 3.4.27(typescript@5.4.5)
       vue-demi: 0.14.7(vue@3.4.27(typescript@5.4.5))
     transitivePeerDependencies:

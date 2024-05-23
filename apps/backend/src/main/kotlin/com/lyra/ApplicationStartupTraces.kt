@@ -1,4 +1,4 @@
-package com.lyra.app
+package com.lyra
 
 import java.net.InetAddress
 import java.net.UnknownHostException

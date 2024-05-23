@@ -1,7 +1,7 @@
 package com.lyra.app.forms.infrastructure.http
 
-import com.lyra.app.ControllerIntegrationTest
-import com.lyra.app.IntegrationTest
+import com.lyra.ControllerIntegrationTest
+import com.lyra.IntegrationTest
 import com.lyra.app.forms.application.FormResponse
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import org.junit.jupiter.api.Assertions.assertNotNull

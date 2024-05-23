@@ -1,5 +1,6 @@
-package com.lyra.app
+package com.lyra
 
+import com.lyra.app.ReplaceCamelCase
 import java.lang.annotation.Inherited
 import org.junit.jupiter.api.DisplayNameGeneration
 import org.junit.jupiter.api.Tag

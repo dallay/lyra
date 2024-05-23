@@ -1,7 +1,7 @@
 package com.lyra.app.newsletter.infrastructure.http
 
-import com.lyra.app.ControllerIntegrationTest
-import com.lyra.app.IntegrationTest
+import com.lyra.ControllerIntegrationTest
+import com.lyra.IntegrationTest
 import com.lyra.app.newsletter.SubscriberStub.generateRequest
 import java.util.*
 import org.junit.jupiter.api.BeforeEach

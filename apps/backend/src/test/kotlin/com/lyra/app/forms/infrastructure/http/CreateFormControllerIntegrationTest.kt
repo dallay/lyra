@@ -1,7 +1,7 @@
 package com.lyra.app.forms.infrastructure.http
 
-import com.lyra.app.ControllerIntegrationTest
-import com.lyra.app.IntegrationTest
+import com.lyra.ControllerIntegrationTest
+import com.lyra.IntegrationTest
 import com.lyra.app.forms.FormStub
 import java.util.*
 import org.junit.jupiter.api.BeforeEach

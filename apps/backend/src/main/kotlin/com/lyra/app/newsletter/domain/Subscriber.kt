@@ -2,7 +2,7 @@ package com.lyra.app.newsletter.domain
 
 import com.lyra.app.newsletter.domain.event.SubscriberCreatedEvent
 import com.lyra.common.domain.BaseEntity
-import com.lyra.common.domain.email.Email
+import com.lyra.common.domain.vo.email.Email
 import java.time.LocalDateTime
 import java.util.*
 

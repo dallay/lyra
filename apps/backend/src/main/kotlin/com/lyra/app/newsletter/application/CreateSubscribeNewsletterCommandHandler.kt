@@ -6,7 +6,7 @@ import com.lyra.app.newsletter.domain.Name
 import com.lyra.app.newsletter.domain.SubscriberId
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.command.CommandHandler
-import com.lyra.common.domain.email.Email
+import com.lyra.common.domain.vo.email.Email
 
 @Service
 class CreateSubscribeNewsletterCommandHandler(

@@ -2,7 +2,7 @@ package com.lyra.app.notifications.infrastructure
 
 import com.lyra.app.notifications.domain.EmailMessage
 import com.lyra.app.notifications.domain.EmailMessageId
-import com.lyra.common.domain.email.Email
+import com.lyra.common.domain.vo.email.Email
 import com.sendgrid.Request
 import com.sendgrid.Response
 import com.sendgrid.SendGrid

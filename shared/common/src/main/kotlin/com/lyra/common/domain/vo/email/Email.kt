@@ -1,4 +1,4 @@
-package com.lyra.common.domain.email
+package com.lyra.common.domain.vo.email
 
 import com.lyra.common.domain.BaseValidateValueObject
 import com.lyra.common.domain.error.EmailNotValidException

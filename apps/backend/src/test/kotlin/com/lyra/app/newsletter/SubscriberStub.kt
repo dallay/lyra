@@ -10,9 +10,9 @@ import com.lyra.app.newsletter.domain.Name
 import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.SubscriberId
 import com.lyra.app.newsletter.domain.SubscriberStatus
-import com.lyra.common.domain.email.Email
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import com.lyra.common.domain.presentation.pagination.TimestampCursor
+import com.lyra.common.domain.vo.email.Email
 import java.io.FileNotFoundException
 import java.nio.file.Files
 import java.nio.file.Paths

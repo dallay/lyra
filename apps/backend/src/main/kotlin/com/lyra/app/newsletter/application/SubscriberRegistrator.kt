@@ -8,7 +8,7 @@ import com.lyra.app.newsletter.domain.event.SubscriberCreatedEvent
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.event.EventBroadcaster
 import com.lyra.common.domain.bus.event.EventPublisher
-import com.lyra.common.domain.email.Email
+import com.lyra.common.domain.vo.email.Email
 import org.slf4j.LoggerFactory
 
 /**

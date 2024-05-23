@@ -3,7 +3,7 @@ package com.lyra.app.notifications.domain
 import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.app.notifications.domain.event.NewContentNewsletterEmailSent
 import com.lyra.common.domain.Generated
-import com.lyra.common.domain.email.Email
+import com.lyra.common.domain.vo.email.Email
 
 class NewContentNewsletter(
     override val id: EmailMessageId,

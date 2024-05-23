@@ -1,0 +1,7 @@
+name: common-lyra-infra
+
+networks:
+  frontend:
+    external: true
+  backend:
+    external: true

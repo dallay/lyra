@@ -1,5 +1,20 @@
+name: lyra-app
+include:
+  - ./infra/common.yml
 services:
-  db:
+  keycloak:
     extends:
-      file: ./infra/postgresql/postgresql-compose.yml
+      service: keycloak
+      file: ./infra/keycloak/keycloak-compose.yml
+    depends_on:
+      - postgresql
+    networks:
+      - frontend
+      - backend
+
+  postgresql:
+    extends:
       service: postgresql
+      file: ./infra/postgresql/postgresql-compose.yml
+    networks:
+      - backend

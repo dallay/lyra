@@ -100,5 +100,6 @@ springdoc:
     csrf:
       enabled: true
     oauth:
+      app-name: ${application.name}
       client-id: ${application.security.oauth2.client-id}
       client-secret: ${application.security.oauth2.client-secret}

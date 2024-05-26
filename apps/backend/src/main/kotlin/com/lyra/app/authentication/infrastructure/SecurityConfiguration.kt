@@ -134,7 +134,7 @@ class SecurityConfiguration(
                 }
 
                 headers.permissionsPolicy { permissions -> permissions.policy(POLICY) }
-            }
+            }.redirectToHttps(withDefaults())
             .authorizeExchange {
                     auth ->
                 configureAuthorization(auth)

@@ -1,9 +1,6 @@
 package com.lyra
 
 import com.lyra.common.domain.Service
-import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn
-import io.swagger.v3.oas.annotations.enums.SecuritySchemeType
-import io.swagger.v3.oas.annotations.security.SecurityScheme
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.SpringBootApplication

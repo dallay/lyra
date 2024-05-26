@@ -6,7 +6,9 @@ import com.lyra.common.domain.bus.command.CommandHandlerExecutionError
 import com.lyra.common.domain.bus.query.Query
 import com.lyra.common.domain.bus.query.QueryHandlerExecutionError
 import com.lyra.common.domain.bus.query.Response
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 
+@SecurityRequirement(name = "Keycloak")
 abstract class ApiController(
     private val mediator: Mediator
 ) {

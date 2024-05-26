@@ -7,6 +7,7 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.faker)
     testImplementation(libs.mockk)
+    testImplementation(libs.assertj)
 }
 
 testing {

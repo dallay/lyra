@@ -64,9 +64,6 @@ class SubscriberR2dbcRepository(
             SubscriberEntity::class,
         )
 
-        println("pageEntity: $pageEntity")
-        println("Total Pages: ${pageEntity.totalPages}")
-
         return OffsetPageResponse(
             data = pageEntity.content.map { it.toDomain() },
             total = pageEntity.totalElements,

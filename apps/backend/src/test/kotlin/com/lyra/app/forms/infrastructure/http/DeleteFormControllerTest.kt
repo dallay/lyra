@@ -1,6 +1,6 @@
 package com.lyra.app.forms.infrastructure.http
 
-import com.lyra.app.UnitTest
+import com.lyra.UnitTest
 import com.lyra.app.forms.application.delete.DeleteFormCommand
 import com.lyra.common.domain.bus.Mediator
 import io.mockk.coEvery

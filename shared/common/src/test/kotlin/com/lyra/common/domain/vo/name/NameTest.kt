@@ -1,6 +1,7 @@
 package com.lyra.common.domain.vo.name
 
 import java.util.stream.Stream
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -19,7 +20,7 @@ internal class NameTest {
         names.forEach { (firstname, lastname) ->
             println("Fullname: $firstname $lastname")
             val name = Name(firstname, lastname)
-            assertEquals(firstname, name.firstName.value)
+            assertEquals(firstname, name.firstName?.value)
             assertEquals(lastname, name.lastName?.value)
             assertEquals(name.fullName(), "$firstname $lastname")
         }
@@ -33,17 +34,10 @@ internal class NameTest {
     }
 
     @Test
-    fun `should not build with empty lastname`() {
+    fun `should not build without lastname`() {
         assertThrows(LastNameNotValidException::class.java) {
             Name("Yuniel", "")
         }
-    }
-    @Test
-    fun `should build without lastname`() {
-        val name = Name("Yuniel", null)
-        assertEquals("Yuniel", name.firstName.value)
-        assertEquals(null, name.lastName?.value)
-        assertEquals("Yuniel", name.fullName())
     }
 
     @Test
@@ -83,9 +77,10 @@ internal class NameTest {
             .of(Name("paul", "Dupond"), Name("jean", "Dupont"), Name("jean", "Dupond"))
             .sorted()
             .toList()
-
-        assertEquals(names[0], Name("jean", "Dupond"))
-        assertEquals(names[1], Name("jean", "Dupont"))
-        assertEquals(names[2], Name("paul", "Dupond"))
+        assertThat(names).containsExactly(
+            Name("jean", "Dupond"),
+            Name("jean", "Dupont"),
+            Name("paul", "Dupond"),
+        )
     }
 }

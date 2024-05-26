@@ -1,5 +1,8 @@
 server:
-  port: 8080
+  port: 8443
+  ssl:
+    bundle: "web-server"
+    enabled: true
 logging:
   level:
     org.springframework.r2dbc: DEBUG
@@ -13,6 +16,21 @@ spring:
     name: ${application.name}
   main:
     allow-bean-definition-overriding: true
+  ssl:
+    bundle:
+      pem:
+        keycloak:
+          reload-on-update: true
+          truststore:
+            certificate: file:infra/ssl/cert.pem
+      jks:
+        web-server:
+          key:
+            alias: "server"
+            password: ${SSL_KEYSTORE_PASSWORD:changeme}
+          keystore:
+            location: file:infra/ssl/keystore.jks
+            password: ${SSL_KEYSTORE_PASSWORD:changeme}
   security:
     oauth2:
       client:
@@ -24,10 +42,10 @@ spring:
         provider:
           oidc:
             issuer-uri: ${application.security.oauth2.issuer-uri}
-  #      resourceserver:
-  #        jwt:
-  #          audiences: ${application.security.oauth2.audience}
-  #          jwk-set-uri: ${application.security.oauth2.issuer-uri}/protocol/openid-connect/certs
+#        resourceserver:
+#          jwt:
+#            audiences: ${application.security.oauth2.audience}
+#            jwk-set-uri: ${application.security.oauth2.issuer-uri}/protocol/openid-connect/certs
   r2dbc:
     url: ${DATABASE_URL:r2dbc:postgresql://localhost:5432/postgres}
     username: ${DATABASE_USERNAME:postgres}
@@ -43,7 +61,7 @@ application:
   version: 0.0.1-SNAPSHOT
   security:
     oauth2:
-      base-url: ${OAUTH2_SERVER_URL:http://localhost:9080}
+      base-url: ${OAUTH2_SERVER_URL:https://localhost:6443}
       server-url: ${application.security.oauth2.base-url}
       issuer-uri: ${application.security.oauth2.base-url}/realms/${application.security.oauth2.realm}
       realm: ${REALM:lyra}

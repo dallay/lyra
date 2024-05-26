@@ -4,7 +4,7 @@ services:
     container_name: postgresql
     environment:
       POSTGRES_USER: ${POSTGRESQL_USER}
-      POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRESQL_DB}
     shm_size: 128mb
     ports:

@@ -6,16 +6,16 @@ services:
     volumes:
       - ./realm-config:/opt/keycloak/data/import
       - ./themes:/opt/keycloak/themes
-      - ./ssl/:/etc/x509/https/
-      - ./ssl/fullchain.pem:/etc/x509/https/tls.crt
-      - ./ssl/privkey.pem:/etc/x509/https/tls.key
+      - ../ssl/:/etc/x509/https/
+      - ../ssl/cert.pem:/etc/x509/https/tls.crt
+      - ../ssl/key.pem:/etc/x509/https/tls.key
     environment:
-#      - KC_HOSTNAME_STRICT=false
+      - KC_HOSTNAME_STRICT=false
       - KC_HOSTNAME=${KEYCLOAK_URL:-keycloak.${HOSTNAME}}
       - KC_HTTP_ENABLED=true
       - KC_DB=postgres
       - KC_DB_USERNAME= ${POSTGRESQL_USER}
-      - KC_DB_PASSWORD=${POSTGRESQL_PASS}
+      - KC_DB_PASSWORD=${POSTGRES_PASSWORD}
       - KC_DB_URL=jdbc:postgresql://postgresql:5432/keycloak
       - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
       - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
@@ -27,8 +27,8 @@ services:
     depends_on:
       - postgresql
     ports:
-      - 8443:8443
-      - 9080:8080
+      - 6443:8443
+      - 6080:8080
     networks:
       - frontend
       - backend

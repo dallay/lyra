@@ -7,9 +7,9 @@ import com.lyra.spring.boot.ApiController
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
-import jakarta.validation.Valid
 import java.net.URI
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -29,7 +29,7 @@ class NewsletterSubscriberController(
     @PutMapping("/newsletter/subscribers/{id}")
     suspend fun subscribe(
         @PathVariable id: String,
-        @Valid @RequestBody request: SubscribeNewsletterRequest
+        @Validated @RequestBody request: SubscribeNewsletterRequest
     ): ResponseEntity<String> {
         dispatch(
             SubscribeNewsletterCommand(

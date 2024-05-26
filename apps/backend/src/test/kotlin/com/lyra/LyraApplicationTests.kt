@@ -1,25 +1,18 @@
 package com.lyra
 
-import com.lyra.app.config.TestDatabaseConfiguration
 import com.lyra.spring.boot.bus.event.EventConfiguration
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.fromApplication
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.with
 
-@SpringBootTest
+@IntegrationTest
 class LyraApplicationTests {
     @Suppress("UnusedPrivateProperty")
     @Autowired
     private lateinit var eventConfiguration: EventConfiguration
-
-    @Suppress("EmptyFunctionBlock")
     @Test
-    fun contextLoads() {
-    }
+    fun should_load_context() = Unit
 }
 
-fun main(args: Array<String>) {
-    fromApplication<LyraApplication>().with(TestDatabaseConfiguration::class).run(*args)
-}
+// fun main(args: Array<String>) {
+//    fromApplication<LyraApplication>().with(TestDatabaseConfiguration::class).run(*args)
+// }

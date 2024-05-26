@@ -1,6 +1,6 @@
 package com.lyra.app.newsletter.domain
 
-import com.lyra.app.UnitTest
+import com.lyra.UnitTest
 import com.lyra.app.newsletter.domain.exceptions.FirstNameNotValidException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals

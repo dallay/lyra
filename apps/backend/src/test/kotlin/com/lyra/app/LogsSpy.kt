@@ -14,7 +14,7 @@ import org.junit.jupiter.api.extension.ParameterResolutionException
 import org.junit.jupiter.api.extension.ParameterResolver
 import org.slf4j.LoggerFactory
 
-private const val PACKAGE_NAME = "com.lyra.app"
+private const val PACKAGE_NAME = "com.lyra"
 
 class LogsSpy :
     BeforeEachCallback,

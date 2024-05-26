@@ -1,6 +1,6 @@
 package com.lyra.app.forms.application.delete
 
-import com.lyra.app.UnitTest
+import com.lyra.UnitTest
 import com.lyra.app.forms.domain.FormDestroyerRepository
 import com.lyra.app.forms.domain.event.FormDeletedEvent
 import com.lyra.common.domain.bus.event.EventPublisher

@@ -1,6 +1,6 @@
 package com.lyra.app.newsletter.infrastructure.http
 
-import com.lyra.app.UnitTest
+import com.lyra.UnitTest
 import com.lyra.app.newsletter.application.SubscribeNewsletterCommand
 import com.lyra.app.newsletter.infrastructure.http.request.SubscribeNewsletterRequest
 import com.lyra.common.domain.bus.Mediator

@@ -7,9 +7,9 @@ import com.lyra.spring.boot.ApiController
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
-import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -45,7 +45,7 @@ class UpdateFormController(
     @PutMapping("/forms/update/{id}")
     suspend fun update(
         @PathVariable id: String,
-        @Valid @RequestBody request: UpdateFormRequest
+        @Validated @RequestBody request: UpdateFormRequest
     ): ResponseEntity<String> {
         log.debug("Updating form with ID: {}", id)
         dispatch(

@@ -1,5 +1,6 @@
 package com.lyra.app
 
+import com.lyra.UnitTest
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
 import java.lang.reflect.Parameter
@@ -96,7 +97,7 @@ internal class BeanValidationTest {
     }
 
     companion object {
-        private const val ROOT_PACKAGE = "io.mindsync"
+        private const val ROOT_PACKAGE = "com.lyra"
         private val EXCLUDED_CONTROLLERS = setOf(
             "ExceptionTranslatorTestController",
             "AccountExceptionResource",

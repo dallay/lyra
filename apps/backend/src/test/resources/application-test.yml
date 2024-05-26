@@ -1,0 +1,41 @@
+# File: application-test.yml
+server:
+  ssl:
+    bundle: "web-server"
+    enabled: true
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2.client: DEBUG
+    com.lyra: DEBUG
+spring:
+    main:
+        banner-mode: off
+        allow-bean-definition-overriding: true
+    security:
+        oauth2:
+            client:
+                registration:
+                    oidc:
+                        client-secret: web_app
+                        client-id: web_app
+                        scope: openid,profile,email
+                provider:
+                    oidc:
+                        issuer-uri: http://DO_NOT_CALL:9080/realms/lyra
+    ssl:
+      bundle:
+        pem:
+          keycloak:
+            reload-on-update: true
+            truststore:
+              certificate: "classpath:ssl/cert.pem"
+        jks:
+          web-server:
+            key:
+              alias: "server"
+              password: "testing"
+            keystore:
+              location: "classpath:ssl/keystore.jks"
+              password: "testing"

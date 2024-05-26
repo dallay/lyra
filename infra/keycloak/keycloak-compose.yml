@@ -27,8 +27,8 @@ services:
     depends_on:
       - postgresql
     ports:
-      - 6443:8443
-      - 6080:8080
+      - ${KC_HTTPS_PORT}:8443
+      - ${KC_HTTP_PORT}:8080
     networks:
       - frontend
       - backend

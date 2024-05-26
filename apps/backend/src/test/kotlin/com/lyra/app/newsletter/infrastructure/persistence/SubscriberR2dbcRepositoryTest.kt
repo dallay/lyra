@@ -1,6 +1,6 @@
 package com.lyra.app.newsletter.infrastructure.persistence
 
-import com.lyra.app.UnitTest
+import com.lyra.UnitTest
 import com.lyra.app.newsletter.SubscriberStub
 import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.exceptions.SubscriberException

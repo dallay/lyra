@@ -75,10 +75,14 @@ Make sure you have setup your local Git Hooks:
 git config core.hooksPath .githooks
 ```
 
+This repository contains a script to generate SSL certificates and keystores using `mkcert`, and configure them for a Spring Boot application. The script will generate PEM files (`key.pem` and `cert.pem`), a PKCS12 keystore (`keystore.p12`), and optionally a Java KeyStore (JKS) (`keystore.jks`).
+
+```sh
+./infra/generate-ssl-certificate.sh
+```
+For more information, read the [SSL Configuration](infra/README.md) documentation.
+
 This will make sure your commit messages follow the [Conventional Commits Specification](https://www.conventionalcommits.org/en/v1.0.0/).
-
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
 Create the synbolic link of some important files:
 

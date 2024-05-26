@@ -1,6 +1,6 @@
 package com.lyra.app.newsletter.application
 
-import com.lyra.app.UnitTest
+import com.lyra.UnitTest
 import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.SubscriberRepository
 import com.lyra.app.newsletter.domain.event.SubscriberCreatedEvent

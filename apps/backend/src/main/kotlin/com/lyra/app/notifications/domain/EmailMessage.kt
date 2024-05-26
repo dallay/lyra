@@ -2,7 +2,7 @@ package com.lyra.app.notifications.domain
 
 import com.lyra.common.domain.AggregateRoot
 import com.lyra.common.domain.Generated
-import com.lyra.common.domain.email.Email
+import com.lyra.common.domain.vo.email.Email
 
 /**
  *

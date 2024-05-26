@@ -26,6 +26,8 @@ dependencies {
     implementation(project(":shared:common"))
     implementation(project(":shared:spring-boot-common"))
 
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
     implementation(libs.spring.boot.starter.data.r2dbc)
     implementation(libs.bundles.kotlin.jvm)
     implementation("org.springframework:spring-r2dbc")
@@ -33,8 +35,14 @@ dependencies {
     implementation("org.postgresql:r2dbc-postgresql")
     runtimeOnly("org.postgresql:postgresql:42.7.3")
 
+    // SECURITY DEPENDENCIES
+    implementation("org.springframework.security:spring-security-oauth2-client")
+    implementation("org.springframework.security:spring-security-oauth2-jose")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+
     implementation(libs.spring.dotenv)
     implementation(libs.sendgrid)
+    implementation(libs.bundles.keycloak)
 
     testImplementation(libs.faker)
     testImplementation(libs.mockk)

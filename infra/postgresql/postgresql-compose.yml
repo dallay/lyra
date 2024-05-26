@@ -1,13 +1,19 @@
 services:
   postgresql:
     image: postgres:16.1
-    container_name: db-lyra
+    container_name: postgresql
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRESQL_DB}
+    shm_size: 128mb
     ports:
       - '5432:5432'
     volumes:
       - ./data:/var/lib/postgresql/data
       - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+networks:
+  backend:
+    external: true

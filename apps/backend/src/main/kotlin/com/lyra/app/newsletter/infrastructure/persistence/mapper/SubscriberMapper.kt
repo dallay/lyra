@@ -6,7 +6,7 @@ import com.lyra.app.newsletter.domain.Name
 import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.SubscriberId
 import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntity
-import com.lyra.common.domain.email.Email
+import com.lyra.common.domain.vo.email.Email
 
 object SubscriberMapper {
     fun Subscriber.toEntity(): SubscriberEntity {

@@ -1,7 +1,6 @@
 package com.lyra
 
 import com.lyra.ApplicationStartupTraces.of
-import com.lyra.app.UnitTest
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.mock.env.MockEnvironment

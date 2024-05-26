@@ -1,6 +1,6 @@
 package com.lyra.app.forms.infrastructure.persistence
 
-import com.lyra.app.UnitTest
+import com.lyra.UnitTest
 import com.lyra.app.forms.FormStub
 import com.lyra.app.forms.domain.Form
 import com.lyra.app.forms.domain.exception.FormException

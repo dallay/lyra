@@ -1,7 +1,7 @@
 package com.lyra.app.forms.infrastructure.http
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.lyra.app.UnitTest
+import com.lyra.UnitTest
 import com.lyra.app.forms.FormStub
 import com.lyra.app.forms.application.FormResponse
 import com.lyra.app.forms.application.search.SearchFormsQuery

@@ -1,5 +1,7 @@
 package com.lyra.app.controllers
 
+import com.lyra.app.authentication.domain.UserAuthenticationException
+import com.lyra.app.authentication.domain.UserRefreshTokenException
 import com.lyra.common.domain.error.BusinessRuleValidationException
 import com.lyra.common.domain.error.EntityNotFoundException
 import java.net.URI
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.reactive.result.method.annotation.ResponseEntityExceptionHandler
 
-private const val ERROR_PAGE = "https://lyra.io/errors"
+private const val ERROR_PAGE = "https://lyra.com/errors"
 
 private const val TIMESTAMP = "timestamp"
 
@@ -35,16 +37,16 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
      * @param e The UserAuthenticationException that was thrown.
      * @return The ProblemDetail object representing the exception.
      */
-//  @ResponseStatus(HttpStatus.UNAUTHORIZED)
-//  @ExceptionHandler(UserAuthenticationException::class)
-//  fun handleUserAuthenticationException(e: UserAuthenticationException): ProblemDetail {
-//    val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, e.message)
-//    problemDetail.title = "User authentication failed"
-//    problemDetail.setType(URI.create("$ERROR_PAGE/user-authentication-failed"))
-//    problemDetail.setProperty("errorCategory", "AUTHENTICATION")
-//    problemDetail.setProperty("timestamp", Instant.now())
-//    return problemDetail
-//  }
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(UserAuthenticationException::class)
+    fun handleUserAuthenticationException(e: UserAuthenticationException): ProblemDetail {
+        val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, e.message)
+        problemDetail.title = "User authentication failed"
+        problemDetail.setType(URI.create("$ERROR_PAGE/user-authentication-failed"))
+        problemDetail.setProperty("errorCategory", "AUTHENTICATION")
+        problemDetail.setProperty("timestamp", Instant.now())
+        return problemDetail
+    }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(
@@ -63,7 +65,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(
         IllegalArgumentException::class,
         BusinessRuleValidationException::class,
-//    UserRefreshTokenException::class
+        UserRefreshTokenException::class,
     )
     fun handleIllegalArgumentException(e: Exception): ProblemDetail {
         val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.message ?: "Bad request")

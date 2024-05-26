@@ -1,15 +1,51 @@
-# Configuration file for the application
 server:
-  port: 8080
+  port: 8443
+  ssl:
+    bundle: "web-server"
+    enabled: true
 logging:
   level:
     org.springframework.r2dbc: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2.client: DEBUG
     com.lyra: DEBUG
+  pattern:
+    console: "%d{dd-MM-yyyy HH:mm:ss} %magenta([%thread]) %highlight(%-5level) %logger.%M - %msg%n"
 spring:
   application:
     name: ${application.name}
   main:
     allow-bean-definition-overriding: true
+  ssl:
+    bundle:
+      pem:
+        keycloak:
+          reload-on-update: true
+          truststore:
+            certificate: file:infra/ssl/cert.pem
+      jks:
+        web-server:
+          key:
+            alias: "server"
+            password: ${SSL_KEYSTORE_PASSWORD:changeme}
+          keystore:
+            location: file:infra/ssl/keystore.jks
+            password: ${SSL_KEYSTORE_PASSWORD:changeme}
+  security:
+    oauth2:
+      client:
+        registration:
+          oidc:
+            client-secret: ${application.security.oauth2.client-secret}
+            client-id: ${application.security.oauth2.client-id}
+            scope: openid,profile,email
+        provider:
+          oidc:
+            issuer-uri: ${application.security.oauth2.issuer-uri}
+        resourceserver:
+          jwt:
+            audiences: ${application.security.oauth2.audience}
+            jwk-set-uri: ${application.security.oauth2.issuer-uri}/protocol/openid-connect/certs
   r2dbc:
     url: ${DATABASE_URL:r2dbc:postgresql://localhost:5432/postgres}
     username: ${DATABASE_USERNAME:postgres}
@@ -23,6 +59,28 @@ application:
   name: lyra
   description: Lyra is the take note of the future. It's a note taking app that uses AI to help you take notes.
   version: 0.0.1-SNAPSHOT
+  security:
+    oauth2:
+      base-url: ${OAUTH2_SERVER_URL:https://localhost:6443}
+      server-url: ${application.security.oauth2.base-url}
+      issuer-uri: ${application.security.oauth2.base-url}/realms/${application.security.oauth2.realm}
+      realm: ${REALM:lyra}
+      client-id: ${CLIENT_ID:web_app}
+      client-secret: ${CLIENT_SECRET:web_app}
+      admin-client-id: ${ADMIN_CLIENT_ID:admin-cli}
+      admin-realm: ${ADMIN_REALM:master}
+      admin-username: ${ADMIN_USERNAME:admin}
+      admin-password: ${ADMIN_PASSWORD:secret}
+      audience:
+        - account
+        - api://default
+    cors:
+      allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173, http://localhost:3000}
+      allowed-methods: ${CORS_ALLOWED_METHODS:GET,POST,PUT,DELETE,OPTIONS}
+      allowed-headers: ${CORS_ALLOWED_HEADERS:Authorization,Content-Type,Accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers}
+      exposed-headers: ${CORS_EXPOSED_HEADERS:Access-Control-Allow-Origin,Access-Control-Allow-Credentials}
+      allow-credentials: ${CORS_ALLOW_CREDENTIALS:true}
+      max-age: ${CORS_MAX_AGE:3600}
 
 management:
   endpoints:
@@ -41,4 +99,7 @@ springdoc:
     path: /api-docs
     csrf:
       enabled: true
-
+    oauth:
+      app-name: ${application.name}
+      client-id: ${application.security.oauth2.client-id}
+      client-secret: ${application.security.oauth2.client-secret}

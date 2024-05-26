@@ -56,7 +56,7 @@ internal class FindFormControllerIntegrationTest : ControllerIntegrationTest() {
             .exchange()
             .expectStatus().isNotFound
             .expectBody()
-            .jsonPath("$.type").isEqualTo("https://lyra.io/errors/entity-not-found")
+            .jsonPath("$.type").isEqualTo("https://lyra.com/errors/entity-not-found")
             .jsonPath("$.title").isEqualTo("Entity not found")
             .jsonPath("$.status").isEqualTo(404)
             .jsonPath("$.detail").isEqualTo("Form not found")

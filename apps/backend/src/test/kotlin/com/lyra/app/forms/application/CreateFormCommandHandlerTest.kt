@@ -1,6 +1,6 @@
 package com.lyra.app.forms.application
 
-import com.lyra.app.UnitTest
+import com.lyra.UnitTest
 import com.lyra.app.forms.FormStub
 import com.lyra.app.forms.domain.FormRepository
 import com.lyra.app.forms.domain.event.FormCreatedEvent

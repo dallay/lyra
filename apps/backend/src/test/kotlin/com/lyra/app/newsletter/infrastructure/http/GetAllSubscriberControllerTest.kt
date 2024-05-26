@@ -1,7 +1,7 @@
 package com.lyra.app.newsletter.infrastructure.http
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.lyra.app.UnitTest
+import com.lyra.UnitTest
 import com.lyra.app.newsletter.SubscriberStub
 import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.app.newsletter.application.search.all.SearchAllSubscribersQuery

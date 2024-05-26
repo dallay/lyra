@@ -1,0 +1,39 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
+    container_name: keycloak
+    command: [ "start-dev", "--import-realm" ]
+    volumes:
+      - ./realm-config:/opt/keycloak/data/import
+      - ./themes:/opt/keycloak/themes
+      - ../ssl/:/etc/x509/https/
+      - ../ssl/cert.pem:/etc/x509/https/tls.crt
+      - ../ssl/key.pem:/etc/x509/https/tls.key
+    environment:
+      - KC_HOSTNAME_STRICT=false
+      - KC_HOSTNAME=${KEYCLOAK_URL:-keycloak.${HOSTNAME}}
+      - KC_HTTP_ENABLED=true
+      - KC_DB=postgres
+      - KC_DB_USERNAME= ${POSTGRESQL_USER}
+      - KC_DB_PASSWORD=${POSTGRES_PASSWORD}
+      - KC_DB_URL=jdbc:postgresql://postgresql:5432/keycloak
+      - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
+      - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
+      - KC_HTTPS_CERTIFICATE_FILE=/etc/x509/https/tls.crt
+      - KC_HTTPS_CERTIFICATE_KEY_FILE=/etc/x509/https/tls.key
+      - KC_METRICS_ENABLED=true
+      - KC_HEALTH_ENABLED=true
+      - KEYCLOAK_LOGLEVEL=INFO
+    depends_on:
+      - postgresql
+    ports:
+      - 6443:8443
+      - 6080:8080
+    networks:
+      - frontend
+      - backend
+networks:
+  frontend:
+    external: true
+  backend:
+    external: true

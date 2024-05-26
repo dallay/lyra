@@ -123,6 +123,12 @@ class SecurityConfiguration(
             }
             .addFilterAt(CookieCsrfFilter(), SecurityWebFiltersOrder.REACTOR_CONTEXT)
 //            .addFilterAfter(SpaWebFilter(), SecurityWebFiltersOrder.HTTPS_REDIRECT)
+            .redirectToHttps {
+                    httpsRedirect ->
+                httpsRedirect.httpsRedirectWhen {
+                    it.request.headers.containsKey("X-Forwarded-Proto")
+                }
+            }
             .headers {
                     headers ->
                 headers.contentSecurityPolicy { applicationSecurityProperties.contentSecurityPolicy }
@@ -134,7 +140,7 @@ class SecurityConfiguration(
                 }
 
                 headers.permissionsPolicy { permissions -> permissions.policy(POLICY) }
-            }.redirectToHttps(withDefaults())
+            }
             .authorizeExchange {
                     auth ->
                 configureAuthorization(auth)

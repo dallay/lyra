@@ -1,3 +1,28 @@
+# [1.6.0](https://github.com/yacosta738/lyra/compare/v1.5.0...v1.6.0) (2024-05-26)
+
+
+### Bug Fixes
+
+* **deps:** update astro monorepo ([#265](https://github.com/yacosta738/lyra/issues/265)) ([09b9cad](https://github.com/yacosta738/lyra/commit/09b9cad0a936cb1e0e21c06be1d1af4a4be66231))
+* **deps:** update dependency @iconify-json/simple-icons to v1.1.102 ([#250](https://github.com/yacosta738/lyra/issues/250)) ([da1e2fa](https://github.com/yacosta738/lyra/commit/da1e2fa2229c2ca022778a382c38456d638e1a13))
+* **deps:** update dependency astro to v4.8.7 ([#251](https://github.com/yacosta738/lyra/issues/251)) ([6fff8ee](https://github.com/yacosta738/lyra/commit/6fff8ee64b64b12219102ff3ae756ed69f68cfb6))
+* **deps:** update dependency com.fasterxml.jackson.module:jackson-module-kotlin to v2.17.1 ([#210](https://github.com/yacosta738/lyra/issues/210)) ([8ee0cc4](https://github.com/yacosta738/lyra/commit/8ee0cc4c04040e2b0fd54cfaa3c1fe390ea8b1e3))
+* **deps:** update dependency io.mockk:mockk to v1.13.11 ([#211](https://github.com/yacosta738/lyra/issues/211)) ([5dcd1da](https://github.com/yacosta738/lyra/commit/5dcd1da2116c845c4175b389370a3b442c597246))
+* **deps:** update dependency io.nlopez.compose.rules:detekt to v0.4.1 ([#230](https://github.com/yacosta738/lyra/issues/230)) ([3194999](https://github.com/yacosta738/lyra/commit/3194999dc0f6a2e9349b766e7d1dc0abd8d6e7e3))
+* **deps:** update dependency io.projectreactor:reactor-test to v3.6.6 ([#216](https://github.com/yacosta738/lyra/issues/216)) ([b60e1db](https://github.com/yacosta738/lyra/commit/b60e1db940a035ec16a87e9e58142d5eef2329d2))
+* **deps:** update dependency net.datafaker:datafaker to v2.2.2 ([#231](https://github.com/yacosta738/lyra/issues/231)) ([38e6435](https://github.com/yacosta738/lyra/commit/38e64352de6d381a8e56cdb82d41ac4178c0334b))
+* **deps:** update dependency org.jetbrains.kotlinx:kotlinx-coroutines-reactor to v1.8.1 ([#217](https://github.com/yacosta738/lyra/issues/217)) ([19583df](https://github.com/yacosta738/lyra/commit/19583df4cafb697b3d54e38c2e497b9912a75517))
+* **deps:** update dependency org.jlleitschuh.gradle.ktlint:org.jlleitschuh.gradle.ktlint.gradle.plugin to v12.1.1 ([#218](https://github.com/yacosta738/lyra/issues/218)) ([da98b53](https://github.com/yacosta738/lyra/commit/da98b53491a2c24b87f43c52aaee02055b9499b6))
+* **deps:** update dependency org.owasp:dependency-check-gradle to v9.2.0 ([#155](https://github.com/yacosta738/lyra/issues/155)) ([b7b6413](https://github.com/yacosta738/lyra/commit/b7b64135845dc6cca2d99a76bf8288da8939c108))
+* **deps:** update dependency shiki to v1.6.0 ([#235](https://github.com/yacosta738/lyra/issues/235)) ([56ef867](https://github.com/yacosta738/lyra/commit/56ef86718f5d29a0ee9b12239005c0f0f3d4a2b4))
+* **deps:** update dependency vue-imask to v7.6.1 ([#252](https://github.com/yacosta738/lyra/issues/252)) ([9184baa](https://github.com/yacosta738/lyra/commit/9184baa5f44cc13adf145a2f1f4649a1d0fed332))
+* **deps:** update springdoc to v2.5.0 ([#239](https://github.com/yacosta738/lyra/issues/239)) ([c68eb6c](https://github.com/yacosta738/lyra/commit/c68eb6c62a85eb58f63b94861f49a2ad46a338b4))
+
+
+### Features
+
+* [TASK-46] Implement sso login and registration for users ([#272](https://github.com/yacosta738/lyra/issues/272)) ([78411df](https://github.com/yacosta738/lyra/commit/78411df40ca968b0bd07684d32a1e4fb53a772f3))
+
 # [1.5.0](https://github.com/yacosta738/lyra/compare/v1.4.0...v1.5.0) (2024-05-18)
 
 

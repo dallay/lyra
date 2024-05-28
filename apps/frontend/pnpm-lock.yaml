@@ -132,7 +132,7 @@ importers:
     devDependencies:
       '@iconify/json':
         specifier: ^2.2.211
-        version: 2.2.213
+        version: 2.2.214
       '@lyra/config':
         specifier: 0.0.1
         version: link:../../config
@@ -186,7 +186,7 @@ importers:
         version: 8.2.5(astro@4.9.2(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0)(typescript@5.4.5))
       '@iconify/json':
         specifier: ^2.2.211
-        version: 2.2.213
+        version: 2.2.214
       '@lyra/api-services':
         specifier: 0.0.1
         version: link:../../packages/api-services
@@ -280,7 +280,7 @@ importers:
     devDependencies:
       '@iconify/json':
         specifier: ^2.2.211
-        version: 2.2.213
+        version: 2.2.214
       '@lyra/config':
         specifier: 0.0.1
         version: link:../../config
@@ -349,7 +349,7 @@ importers:
         version: 1.1.102
       '@iconify/json':
         specifier: ^2.2.211
-        version: 2.2.213
+        version: 2.2.214
       '@lyra/utilities':
         specifier: 0.0.1
         version: link:../../packages/utilities
@@ -671,7 +671,7 @@ importers:
     devDependencies:
       '@iconify/json':
         specifier: ^2.2.211
-        version: 2.2.213
+        version: 2.2.214
       '@lyra/config':
         specifier: 0.0.1
         version: link:../../config
@@ -1498,8 +1498,8 @@ packages:
   '@iconify-json/simple-icons@1.1.102':
     resolution: {integrity: sha512-ErRQGs7tjGsq4sj5SSeYwBOQ766yd9LtWblWakyL+ugg1k48ImabkI3mptDN5o+XSUb9SC+b7YNSStlrrecqNQ==}
 
-  '@iconify/json@2.2.213':
-    resolution: {integrity: sha512-5tcEn+ZDoWlBXmlJidYjMsJyFXhXuVscbg7PRpaon86GqrDlwW/cl8mR682C06Oq4AfeypmfVI18YTnczwdqxA==}
+  '@iconify/json@2.2.214':
+    resolution: {integrity: sha512-EVdAczIPBz1gcXVSHrEe0vBl6x4lcG7Dw95tO0o/h2SPTXKigEvV1cufe8yFFNuBHKqv/n1XTwqCZX0ontKTtw==}
 
   '@iconify/tools@3.0.7':
     resolution: {integrity: sha512-DxfhFLMnooS34dHelpGUnnYrxLZHs0czC1CgrBhAbuL8ddVzBb2VEQm8kh9qGh7A34qeXAB5iSHH3A72rAaFrg==}
@@ -7480,7 +7480,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify/json@2.2.213':
+  '@iconify/json@2.2.214':
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.2

@@ -16,7 +16,7 @@ import org.springframework.dao.DuplicateKeyException
 import org.springframework.dao.TransientDataAccessResourceException
 
 @UnitTest
-internal class FormStoreR2dbcRepositoryTest {
+internal class WorkspaceStoreR2DbcRepositoryTest {
     private val formR2dbcRepository: FormR2dbcRepository = mockk()
     private val formStoreR2dbcRepository = FormStoreR2dbcRepository(formR2dbcRepository)
     private lateinit var form: Form

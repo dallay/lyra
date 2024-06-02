@@ -41,6 +41,7 @@
     "@unocss/reset": "^0.60.2",
     "astro": "^4.8.6",
     "canvas-confetti": "^1.9.3",
+    "preline": "^2.3.0",
     "typescript": "^5.4.5"
   }
 }

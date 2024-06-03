@@ -1,10 +1,12 @@
 package com.lyra.app.forms.domain
 
-import com.lyra.app.forms.domain.dto.FormDTO
+import com.lyra.app.forms.domain.dto.FormStyleConfiguration
 import com.lyra.app.forms.domain.event.FormCreatedEvent
 import com.lyra.app.forms.domain.event.FormUpdatedEvent
+import com.lyra.app.workspaces.domain.WorkspaceId
 import com.lyra.common.domain.BaseEntity
 import java.time.LocalDateTime
+import java.util.UUID
 
 /**
  * Data class representing a form.
@@ -33,70 +35,76 @@ data class Form(
     var backgroundColor: HexColor,
     var textColor: HexColor,
     var buttonTextColor: HexColor,
+    val workspaceId: WorkspaceId,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime? = createdAt,
 ) : BaseEntity<FormId>() {
 
     /**
-     * Updates the form with the given DTO and records a FormUpdatedEvent.
+     * Updates the form with the given Style Configuration and records a FormUpdatedEvent.
      *
-     * @param dto The DTO containing the new form data.
+     * @param styleConfiguration The [FormStyleConfiguration] containing the new form data.
      */
-    fun update(dto: FormDTO) {
-        name = dto.name
-        header = dto.header
-        description = dto.description
-        inputPlaceholder = dto.inputPlaceholder
-        buttonText = dto.buttonText
-        buttonColor = HexColor(dto.buttonColor)
-        backgroundColor = HexColor(dto.backgroundColor)
-        textColor = HexColor(dto.textColor)
-        buttonTextColor = HexColor(dto.buttonTextColor)
+    fun update(styleConfiguration: FormStyleConfiguration) {
+        name = styleConfiguration.name
+        header = styleConfiguration.header
+        description = styleConfiguration.description
+        inputPlaceholder = styleConfiguration.inputPlaceholder
+        buttonText = styleConfiguration.buttonText
+        buttonColor = HexColor(styleConfiguration.buttonColor)
+        backgroundColor = HexColor(styleConfiguration.backgroundColor)
+        textColor = HexColor(styleConfiguration.textColor)
+        buttonTextColor = HexColor(styleConfiguration.buttonTextColor)
         updatedAt = LocalDateTime.now()
 
         record(
             FormUpdatedEvent(
                 id.toString(),
-                dto.name,
-                dto.header,
-                dto.description,
-                dto.inputPlaceholder,
-                dto.buttonText,
-                dto.buttonColor,
-                dto.backgroundColor,
-                dto.textColor,
-                dto.buttonTextColor,
+                styleConfiguration.name,
+                styleConfiguration.header,
+                styleConfiguration.description,
+                styleConfiguration.inputPlaceholder,
+                styleConfiguration.buttonText,
+                styleConfiguration.buttonColor,
+                styleConfiguration.backgroundColor,
+                styleConfiguration.textColor,
+                styleConfiguration.buttonTextColor,
             ),
         )
     }
 
     companion object {
         /**
-         * Creates a new form with the given DTO and records a FormCreatedEvent.
+         * Creates a new form with the given id, Style Configuration, workspace id, and creation time.
          *
          * @param id The id of the new form.
-         * @param dto The DTO containing the new form data.
+         * @param styleConfiguration The [FormStyleConfiguration] containing the form data.
+         * @param workspaceId The id of the workspace the form belongs to.
          * @param createdAt The creation time of the new form. Defaults to the current time.
          * @param updatedAt The last update time of the new form. Defaults to the creation time.
          * @return The newly created form.
          */
         fun create(
-            id: FormId,
-            dto: FormDTO,
+            id: UUID,
+            styleConfiguration: FormStyleConfiguration,
+            workspaceId: UUID,
             createdAt: LocalDateTime = LocalDateTime.now(),
             updatedAt: LocalDateTime? = createdAt
         ): Form {
+            val formId = FormId(id)
+            val formWorkspaceId = WorkspaceId(workspaceId)
             val form = Form(
-                id = id,
-                name = dto.name,
-                header = dto.header,
-                description = dto.description,
-                inputPlaceholder = dto.inputPlaceholder,
-                buttonText = dto.buttonText,
-                buttonColor = HexColor(dto.buttonColor),
-                backgroundColor = HexColor(dto.backgroundColor),
-                textColor = HexColor(dto.textColor),
-                buttonTextColor = HexColor(dto.buttonTextColor),
+                id = formId,
+                name = styleConfiguration.name,
+                header = styleConfiguration.header,
+                description = styleConfiguration.description,
+                inputPlaceholder = styleConfiguration.inputPlaceholder,
+                buttonText = styleConfiguration.buttonText,
+                buttonColor = HexColor(styleConfiguration.buttonColor),
+                backgroundColor = HexColor(styleConfiguration.backgroundColor),
+                textColor = HexColor(styleConfiguration.textColor),
+                buttonTextColor = HexColor(styleConfiguration.buttonTextColor),
+                workspaceId = formWorkspaceId,
                 createdAt = createdAt,
                 updatedAt = updatedAt,
             )

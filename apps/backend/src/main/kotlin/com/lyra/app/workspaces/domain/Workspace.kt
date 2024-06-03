@@ -85,6 +85,11 @@ data class Workspace(
         collaborators.find { it.userId == userId }?.updateRole(role)
     }
 
+    /**
+     * Gets the list of collaborators in the workspace.
+     */
+    fun collaborators(): List<WorkspaceCollaborators> = collaborators.toList()
+
     companion object {
         /**
          * Factory method to create a new Workspace instance and record a WorkspaceCreatedEvent.

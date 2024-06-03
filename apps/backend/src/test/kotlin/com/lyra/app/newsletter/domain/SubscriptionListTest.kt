@@ -1,6 +1,7 @@
 package com.lyra.app.newsletter.domain
 
 import com.lyra.UnitTest
+import java.util.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -30,7 +31,13 @@ internal class SubscriptionListTest {
     @Test
     fun `should add subscriber`() {
         val subscriptionList = SubscriptionList.create(name)
-        val subscriber = Subscriber.create(email, firstname, lastname)
+        val subscriber = Subscriber.create(
+            UUID.randomUUID(),
+            email,
+            firstname,
+            lastname,
+            workspaceId = UUID.randomUUID(),
+        )
         subscriptionList.addSubscriber(subscriber)
         assertEquals(1, subscriptionList.subscribers.size)
     }
@@ -38,7 +45,13 @@ internal class SubscriptionListTest {
     @Test
     fun `should remove subscriber`() {
         val subscriptionList = SubscriptionList.create(name)
-        val subscriber = Subscriber.create(email, firstname, lastname)
+        val subscriber = Subscriber.create(
+            UUID.randomUUID(),
+            email,
+            firstname,
+            lastname,
+            workspaceId = UUID.randomUUID(),
+        )
         subscriptionList.addSubscriber(subscriber)
         subscriptionList.removeSubscriber(subscriber)
         assertEquals(0, subscriptionList.subscribers.size)
@@ -47,7 +60,13 @@ internal class SubscriptionListTest {
     @Test
     fun `should update subscriber`() {
         val subscriptionList = SubscriptionList.create(name)
-        val subscriber = Subscriber.create(email, firstname, lastname)
+        val subscriber = Subscriber.create(
+            UUID.randomUUID(),
+            email,
+            firstname,
+            lastname,
+            workspaceId = UUID.randomUUID(),
+        )
         subscriptionList.addSubscriber(subscriber)
         val newName = Name("Jane", "Doe")
         subscriber.updateName(newName)

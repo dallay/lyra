@@ -6,4 +6,4 @@ ${AnsiColor.MAGENTA} ███████╗██║   ██║  ██║█
 ${AnsiColor.MAGENTA} ╚══════╝╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝
 
 ${AnsiColor.BRIGHT_BLUE}:: Lyra 🚀  :: Running Spring Boot ${spring-boot.version} ::
-:: https://www.lyra.ai ::${AnsiColor.DEFAULT}
+:: https://www.lyra.com ::${AnsiColor.DEFAULT}

@@ -20,5 +20,7 @@ data class CreateFormRequest(
     @field:NotBlank(message = "Text color is required")
     val textColor: String,
     @field:NotBlank(message = "Button text color is required")
-    val buttonTextColor: String
+    val buttonTextColor: String,
+    @field:NotBlank(message = "Workspace ID is required")
+    val workspaceId: String
 )

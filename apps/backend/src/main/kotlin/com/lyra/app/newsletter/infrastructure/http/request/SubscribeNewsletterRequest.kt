@@ -9,5 +9,7 @@ data class SubscribeNewsletterRequest(
     val email: String,
     @field:NotBlank(message = "Firstname is required")
     var firstname: String,
-    var lastname: String? = null
+    var lastname: String? = null,
+    @field:NotBlank(message = "Workspace ID is required")
+    val workspaceId: String
 )

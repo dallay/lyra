@@ -8,7 +8,6 @@ import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.test.context.jdbc.Sql
@@ -20,17 +19,12 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
     private val typeRef =
         object : ParameterizedTypeReference<CursorPageResponse<SubscriberResponse>>() {}
 
-    @BeforeEach
-    fun setUp() {
-        // Set Test container here
-    }
-
     @Test
     @Sql(
-        "/db/subscriber.sql",
+        "/db/subscriber/subscriber.sql",
     )
     @Sql(
-        "/db/clean.sql",
+        "/db/subscriber/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should get all subscribers`() {
@@ -61,7 +55,7 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
 
     @Test
     @Sql(
-        "/db/clean.sql",
+        "/db/subscriber/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should get empty list if no subscribers`() {
@@ -78,10 +72,10 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
 
     @Test
     @Sql(
-        "/db/subscriber.sql",
+        "/db/subscriber/subscriber.sql",
     )
     @Sql(
-        "/db/clean.sql",
+        "/db/subscriber/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should get all subscribers with filter`() {
@@ -108,10 +102,10 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
 
     @Test
     @Sql(
-        "/db/subscriber.sql",
+        "/db/subscriber/subscriber.sql",
     )
     @Sql(
-        "/db/clean.sql",
+        "/db/subscriber/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should get all subscribers by search`() {
@@ -136,10 +130,10 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
 
     @Test
     @Sql(
-        "/db/subscriber-pagination.sql",
+        "/db/subscriber/subscriber-pagination.sql",
     )
     @Sql(
-        "/db/clean.sql",
+        "/db/subscriber/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should combine search and filters`() {
@@ -175,10 +169,10 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
 
     @Test
     @Sql(
-        "/db/subscriber.sql",
+        "/db/subscriber/subscriber.sql",
     )
     @Sql(
-        "/db/clean.sql",
+        "/db/subscriber/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should get all subscribers with sort`() {
@@ -208,10 +202,10 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
 
     @Test
     @Sql(
-        "/db/subscriber-pagination.sql",
+        "/db/subscriber/subscriber-pagination.sql",
     )
     @Sql(
-        "/db/clean.sql",
+        "/db/subscriber/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should forward pagination by cursor`() {

@@ -244,6 +244,9 @@ importers:
       canvas-confetti:
         specifier: ^1.9.3
         version: 1.9.3
+      preline:
+        specifier: ^2.3.0
+        version: 2.3.0
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -5824,6 +5827,9 @@ packages:
   preferred-pm@3.1.3:
     resolution: {integrity: sha512-MkXsENfftWSRpzCzImcp4FRsCc3y1opwB73CfCNWyzMqArju2CrlMHlqB7VexKiPEOjGMbttv1r9fSCn5S610w==}
     engines: {node: '>=10'}
+
+  preline@2.3.0:
+    resolution: {integrity: sha512-mBMF7NTbbhC2wp+1RHbBaHUCXsdM9ObJo64LvDcNRSKLbaC4uszkqBZ/X/paklEQh3+dOUAVBp1zvE5yQf/czw==}
 
   prettier-plugin-astro@0.13.0:
     resolution: {integrity: sha512-5HrJNnPmZqTUNoA97zn4gNQv9BgVhv+et03314WpQ9H9N8m2L9OSV798olwmG2YLXPl1iSstlJCR1zB3x5xG4g==}
@@ -13357,6 +13363,10 @@ snapshots:
       find-yarn-workspace-root2: 1.2.16
       path-exists: 4.0.0
       which-pm: 2.0.0
+
+  preline@2.3.0:
+    dependencies:
+      '@popperjs/core': 2.11.8
 
   prettier-plugin-astro@0.13.0:
     dependencies:

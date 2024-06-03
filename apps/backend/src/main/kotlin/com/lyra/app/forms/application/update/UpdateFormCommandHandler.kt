@@ -1,7 +1,7 @@
 package com.lyra.app.forms.application.update
 
 import com.lyra.app.forms.domain.FormId
-import com.lyra.app.forms.domain.dto.FormDTO
+import com.lyra.app.forms.domain.dto.FormStyleConfiguration
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.command.CommandHandler
 import org.slf4j.LoggerFactory
@@ -24,7 +24,7 @@ class UpdateFormCommandHandler(
      */
     override suspend fun handle(command: UpdateFormCommand) {
         log.debug("Updating form with name: ${command.name}")
-        val formDto = FormDTO(
+        val formStyleConfiguration = FormStyleConfiguration(
             name = command.name,
             header = command.header,
             description = command.description,
@@ -35,7 +35,7 @@ class UpdateFormCommandHandler(
             textColor = command.textColor,
             buttonTextColor = command.buttonTextColor,
         )
-        formCreator.update(FormId(command.id), formDto)
+        formCreator.update(FormId(command.id), formStyleConfiguration)
     }
 
     companion object {

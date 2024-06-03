@@ -1,21 +1,32 @@
 package com.lyra.app.newsletter.application
 
-import com.lyra.app.newsletter.domain.FirstName
-import com.lyra.app.newsletter.domain.LastName
-import com.lyra.app.newsletter.domain.Name
-import com.lyra.app.newsletter.domain.SubscriberId
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.command.CommandHandler
-import com.lyra.common.domain.vo.email.Email
+import java.util.*
+import org.slf4j.LoggerFactory
 
+/**
+ * Service class responsible for handling the SubscribeNewsletterCommand.
+ *
+ * @property subscriberRegistrator The service responsible for registering subscribers.
+ */
 @Service
 class CreateSubscribeNewsletterCommandHandler(
     private val subscriberRegistrator: SubscriberRegistrator
 ) : CommandHandler<SubscribeNewsletterCommand> {
+    /**
+     * Function to handle the SubscribeNewsletterCommand.
+     *
+     * @param command The command to be handled.
+     */
     override suspend fun handle(command: SubscribeNewsletterCommand) {
-        val id = SubscriberId(command.id)
-        val email = Email(command.email)
-        val name = Name(FirstName(command.firstname), command.lastname?.let { LastName(it) })
-        subscriberRegistrator.register(id, email, name)
+        log.debug("Handling command: {}", command)
+        val id = UUID.fromString(command.id)
+        val workspaceId = UUID.fromString(command.workspaceId)
+        subscriberRegistrator.register(id, command.email, command.firstname, command.lastname, workspaceId)
+    }
+
+    companion object {
+        private val log = LoggerFactory.getLogger(CreateSubscribeNewsletterCommandHandler::class.java)
     }
 }

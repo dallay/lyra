@@ -42,7 +42,7 @@ internal class CreateFormControllerIntegrationTest : ControllerIntegrationTest()
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should fail when the form already exists`() {
-        val request = FormStub.generateRequest("a0654720-35dc-49d0-b508-1f7df5d915f1")
+        val request = FormStub.generateRequest("7a27728a-8ef3-4070-b615-1d5ddf9a7863")
         val id = "1659d4ae-402a-4172-bf8b-0a5c54255587"
         webTestClient.mutateWith(csrf()).put()
             .uri("$ENDPOINT/$id")

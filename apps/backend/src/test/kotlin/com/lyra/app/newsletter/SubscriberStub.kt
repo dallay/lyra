@@ -10,6 +10,7 @@ import com.lyra.app.newsletter.domain.Name
 import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.SubscriberId
 import com.lyra.app.newsletter.domain.SubscriberStatus
+import com.lyra.app.workspaces.domain.WorkspaceId
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import com.lyra.common.domain.presentation.pagination.TimestampCursor
 import com.lyra.common.domain.vo.email.Email
@@ -29,14 +30,14 @@ object SubscriberStub {
         firstname: String = faker.name().firstName(),
         lastname: String = faker.name().lastName(),
         status: SubscriberStatus = SubscriberStatus.ENABLED,
-    ): Subscriber {
-        return Subscriber(
-            id = SubscriberId(id),
-            email = Email(email),
-            name = Name(FirstName(firstname), LastName(lastname)),
-            status = status,
-        )
-    }
+        workspaceId: String = UUID.randomUUID().toString()
+    ): Subscriber = Subscriber(
+        id = SubscriberId(id),
+        email = Email(email),
+        name = Name(FirstName(firstname), LastName(lastname)),
+        status = status,
+        workspaceId = WorkspaceId(workspaceId),
+    )
 
     fun dummyRandomSubscribersList(size: Int = 10): List<Subscriber> {
         return (1..size).map {
@@ -77,14 +78,16 @@ object SubscriberStub {
 
     @Suppress("MultilineRawStringIndentation")
     fun generateRequest(
+        workspaceId: String,
         email: String = faker.internet().emailAddress(),
         firstname: String = faker.name().firstName(),
-        lastname: String = faker.name().lastName()
+        lastname: String = faker.name().lastName(),
     ): String = """
       {
            "email": "$email",
            "firstname": "$firstname",
-           "lastname": "$lastname"
+           "lastname": "$lastname",
+           "workspaceId": "$workspaceId"
        }
     """.trimIndent()
 
@@ -94,7 +97,7 @@ object SubscriberStub {
     }
 
     fun subscriberResponsesByBatch(batch: Int = 1): List<SubscriberResponse> {
-        val url = javaClass.classLoader.getResource("db/subscriber-pagination.json")
+        val url = javaClass.classLoader.getResource("db/subscriber/subscriber-pagination.json")
         val path = Paths.get(url?.toURI() ?: throw FileNotFoundException("File not found"))
         val subscribers: List<SubscriberResponse> = jsonToSubscriberResponseList(Files.readString(path))
 

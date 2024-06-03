@@ -1,6 +1,7 @@
 package com.lyra.app.newsletter.domain
 
 import com.lyra.app.newsletter.domain.event.SubscriberCreatedEvent
+import com.lyra.app.workspaces.domain.WorkspaceId
 import com.lyra.common.domain.BaseEntity
 import com.lyra.common.domain.vo.email.Email
 import java.time.LocalDateTime
@@ -11,6 +12,7 @@ data class Subscriber(
     val email: Email,
     var name: Name,
     var status: SubscriberStatus = SubscriberStatus.ENABLED,
+    val workspaceId: WorkspaceId,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime? = null,
 ) : BaseEntity<SubscriberId>() {
@@ -24,18 +26,26 @@ data class Subscriber(
 
     companion object {
         fun create(
-            id: SubscriberId,
-            email: Email,
-            name: Name,
+            id: UUID,
+            email: String,
+            firstname: String,
+            lastname: String? = null,
             status: SubscriberStatus = SubscriberStatus.ENABLED,
+            workspaceId: UUID,
             createdAt: LocalDateTime = LocalDateTime.now(),
             updatedAt: LocalDateTime? = null,
         ): Subscriber {
+            val subscriberId = SubscriberId(id)
+            val subscriberEmail = Email(email)
+            val subscriberName = Name(firstname, lastname)
+            val subscriberWorkspaceId = WorkspaceId(workspaceId)
+
             val subscriber = Subscriber(
-                id = id,
-                email = email,
-                name = name,
+                id = subscriberId,
+                email = subscriberEmail,
+                name = subscriberName,
                 status = status,
+                workspaceId = subscriberWorkspaceId,
                 createdAt = createdAt,
                 updatedAt = updatedAt,
             )
@@ -45,24 +55,10 @@ data class Subscriber(
                     subscriber.email.email,
                     subscriber.name.fullName(),
                     subscriber.status.name,
+                    subscriber.workspaceId.toString(),
                 ),
             )
             return subscriber
         }
-        fun create(
-            email: String,
-            firstname: String,
-            lastname: String,
-            status: SubscriberStatus = SubscriberStatus.ENABLED,
-            createdAt: LocalDateTime = LocalDateTime.now(),
-            updatedAt: LocalDateTime? = null,
-        ): Subscriber = create(
-            id = SubscriberId(UUID.randomUUID().toString()),
-            email = Email(email),
-            name = Name(FirstName(firstname), LastName(lastname)),
-            status = status,
-            createdAt = createdAt,
-            updatedAt = updatedAt,
-        )
     }
 }

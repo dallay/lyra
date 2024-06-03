@@ -26,12 +26,12 @@ class FormCreator(
     }
 
     /**
-     * Creates a form and publishes a FormCreatedEvent for each domain event pulled from the form.
+     * Creates a form and publishes a [FormCreatedEvent] for each domain event pulled from the form.
      *
      * @param form The form to be created.
      */
     suspend fun create(form: Form) {
-        log.info("Creating form with name: ${form.name}")
+        log.debug("Creating form with name: ${form.name}")
         formRepository.create(form)
         val domainEvents = form.pullDomainEvents()
         log.debug("Pulling {} events from form", domainEvents.size)

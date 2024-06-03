@@ -3,6 +3,7 @@ package com.lyra.app.workspaces.infrastructure.persistence
 import com.lyra.app.workspaces.domain.Workspace
 import com.lyra.app.workspaces.domain.WorkspaceCollaborators
 import com.lyra.app.workspaces.domain.WorkspaceRepository
+import com.lyra.app.workspaces.domain.exception.WorkspaceCollaboratorException
 import com.lyra.app.workspaces.domain.exception.WorkspaceException
 import com.lyra.app.workspaces.infrastructure.persistence.mapper.WorkspaceCollaboratorsMapper.toEntity
 import com.lyra.app.workspaces.infrastructure.persistence.mapper.WorkspaceMapper.toEntity
@@ -42,13 +43,16 @@ class WorkspaceStoreR2dbcRepository(
      * @param workspace The [WorkspaceCollaborators] to create.
      */
     override suspend fun create(workspace: WorkspaceCollaborators) {
-        log.debug("Creating workspace collaborator with id: {}", workspace.id)
+        log.debug(
+            "Creating workspace collaborator with workspaceId: {} and userId: {}",
+            workspace.id, workspace.userId,
+        )
         try {
             val workspaceCollaboratorEntity = workspace.toEntity()
             workspaceCollaboratorRepository.upsert(workspaceCollaboratorEntity)
         } catch (e: DuplicateKeyException) {
             log.error("Workspace Collaborator already exists in the database: ${workspace.id.value}")
-            throw WorkspaceException("Error creating workspace collaborator", e)
+            throw WorkspaceCollaboratorException("Error creating workspace collaborator", e)
         }
     }
 

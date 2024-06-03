@@ -5,7 +5,8 @@ import com.lyra.app.forms.application.FormResponse
 import com.lyra.app.forms.domain.Form
 import com.lyra.app.forms.domain.FormId
 import com.lyra.app.forms.domain.HexColor
-import com.lyra.app.forms.domain.dto.FormDTO
+import com.lyra.app.forms.domain.dto.FormStyleConfiguration
+import com.lyra.app.workspaces.domain.WorkspaceId
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import com.lyra.common.domain.presentation.pagination.TimestampCursor
 import java.util.*
@@ -16,7 +17,7 @@ object FormStub {
 
     fun create(
         id: String = UUID.randomUUID().toString(),
-        dto: FormDTO = FormDTO(
+        dto: FormStyleConfiguration = FormStyleConfiguration(
             name = faker.lorem().words(3).joinToString(" "),
             header = faker.lorem().words(3).joinToString(" "),
             description = faker.lorem().words(10).joinToString(" "),
@@ -26,7 +27,8 @@ object FormStub {
             backgroundColor = faker.color().hex(),
             textColor = faker.color().hex(),
             buttonTextColor = faker.color().hex(),
-        )
+        ),
+        workspaceId: String = UUID.randomUUID().toString(),
     ): Form = Form(
         id = FormId(id),
         name = dto.name,
@@ -38,11 +40,13 @@ object FormStub {
         backgroundColor = HexColor(dto.backgroundColor),
         textColor = HexColor(dto.textColor),
         buttonTextColor = HexColor(dto.buttonTextColor),
+        workspaceId = WorkspaceId(workspaceId),
     )
 
     @Suppress("MultilineRawStringIndentation")
     fun generateRequest(
-        dto: FormDTO = FormDTO(
+        workspaceId: String,
+        styleConfiguration: FormStyleConfiguration = FormStyleConfiguration(
             name = faker.lorem().words(3).joinToString(" "),
             header = faker.lorem().words(3).joinToString(" "),
             description = faker.lorem().words(10).joinToString(" "),
@@ -55,15 +59,16 @@ object FormStub {
         )
     ): String = """
       {
-        "name": "${dto.name}",
-        "header": "${dto.header}",
-        "description": "${dto.description}",
-        "inputPlaceholder": "${dto.inputPlaceholder}",
-        "buttonText": "${dto.buttonText}",
-        "buttonColor": "${dto.buttonColor}",
-        "backgroundColor": "${dto.backgroundColor}",
-        "textColor": "${dto.textColor}",
-        "buttonTextColor": "${dto.buttonTextColor}"
+        "name": "${styleConfiguration.name}",
+        "header": "${styleConfiguration.header}",
+        "description": "${styleConfiguration.description}",
+        "inputPlaceholder": "${styleConfiguration.inputPlaceholder}",
+        "buttonText": "${styleConfiguration.buttonText}",
+        "buttonColor": "${styleConfiguration.buttonColor}",
+        "backgroundColor": "${styleConfiguration.backgroundColor}",
+        "textColor": "${styleConfiguration.textColor}",
+        "buttonTextColor": "${styleConfiguration.buttonTextColor}",
+        "workspaceId": "$workspaceId"
       }
     """.trimIndent()
 

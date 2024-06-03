@@ -40,12 +40,13 @@ internal class CreateSubscribeNewsletterCommandHandlerTest {
 
     @Test
     fun `should register a subscriber`() = runBlocking {
-        // Given
         val command =
-            SubscribeNewsletterCommand(UUID.randomUUID().toString(), email, firstname, lastname)
-        // When
+            SubscribeNewsletterCommand(
+                UUID.randomUUID().toString(), email, firstname, lastname,
+                UUID.randomUUID().toString(),
+            )
         createSubscribeNewsletterCommandHandler.handle(command)
-        // Then
+
         coVerify(exactly = 1) { subscriberRepository.create(any(Subscriber::class)) }
         coVerify(exactly = 1) { eventPublisher.publish(any(SubscriberCreatedEvent::class)) }
     }

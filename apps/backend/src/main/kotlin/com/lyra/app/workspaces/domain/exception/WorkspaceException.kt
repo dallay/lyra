@@ -8,6 +8,11 @@ data class WorkspaceException(
     override val cause: Throwable? = null
 ) : BusinessRuleValidationException(message, cause)
 
+data class WorkspaceCollaboratorException(
+    override val message: String,
+    override val cause: Throwable? = null
+) : BusinessRuleValidationException(message, cause)
+
 data class WorkspaceNotFoundException(
     override val message: String,
     override val cause: Throwable? = null

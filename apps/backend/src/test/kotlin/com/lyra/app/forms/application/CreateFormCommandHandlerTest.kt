@@ -41,6 +41,7 @@ internal class CreateFormCommandHandlerTest {
             backgroundColor = form.backgroundColor.hex,
             textColor = form.textColor.hex,
             buttonTextColor = form.buttonTextColor.hex,
+            workspaceId = form.workspaceId.value.toString(),
         )
         createFormCommandHandler.handle(command)
 

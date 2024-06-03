@@ -23,10 +23,10 @@ CREATE TABLE workspace_collaborators
   user_id      UUID      NOT NULL,
   role         role_type NOT NULL, -- Use ENUM type for roles
   added_at     TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  created_at     TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at     TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  created_at   TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at   TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   PRIMARY KEY (workspace_id, user_id),
-  CONSTRAINT fk_workspace_id FOREIGN KEY (workspace_id) REFERENCES workspaces (workspace_id)
+  CONSTRAINT fk_workspace_id FOREIGN KEY (workspace_id) REFERENCES workspaces (workspace_id) ON DELETE CASCADE
 );
 
 -- Create subscribers table
@@ -43,7 +43,7 @@ CREATE TABLE subscribers
   created_at   TIMESTAMP WITH TIME ZONE   DEFAULT NOW(),
   updated_at   TIMESTAMP WITH TIME ZONE   DEFAULT NOW(),
   CONSTRAINT pk_subscriber_id PRIMARY KEY (id),
-  CONSTRAINT fk_workspace_id FOREIGN KEY (workspace_id) REFERENCES workspaces (workspace_id)
+  CONSTRAINT fk_workspace_id FOREIGN KEY (workspace_id) REFERENCES workspaces (workspace_id) ON DELETE CASCADE
 );
 
 -- Create indexes
@@ -56,8 +56,8 @@ CREATE INDEX idx_subs_created_at ON subscribers (created_at);
 DROP INDEX IF EXISTS idx_subs_email_workspace;
 CREATE UNIQUE INDEX idx_subs_email_workspace ON subscribers (LOWER(email), workspace_id);
 
-
 -- Forms
+DROP TABLE IF EXISTS forms CASCADE;
 CREATE TABLE forms
 (
   id                UUID NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE forms
   created_at        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   CONSTRAINT pk_form_id PRIMARY KEY (id),
-  CONSTRAINT fk_form_workspace_id FOREIGN KEY (workspace_id) REFERENCES workspaces (workspace_id)
+  CONSTRAINT fk_form_workspace_id FOREIGN KEY (workspace_id) REFERENCES workspaces (workspace_id) ON DELETE CASCADE
 );
 
 -- Create indexes
@@ -82,7 +82,6 @@ DROP INDEX IF EXISTS idx_forms_workspace;
 CREATE INDEX idx_forms_workspace ON forms (workspace_id);
 DROP INDEX IF EXISTS idx_forms_created_at;
 CREATE INDEX idx_forms_created_at ON forms (created_at);
-
 
 -- Enable Row Level Security for subscribers and forms
 ALTER TABLE subscribers

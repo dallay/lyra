@@ -177,7 +177,7 @@ class UserAuthenticatorControllerIntegrationTest : InfrastructureTestContainers(
     @Test
     fun `should throw exception when user is not verified`(): Unit = runBlocking {
         val randomEmail = faker.internet().emailAddress()
-        val randomPassword = faker.internet().password(8, 100, true, true, true)
+        val randomPassword = faker.internet().password(8, 100, true, true, true) + "1Aa@"
         val user = createUser(email = randomEmail, password = randomPassword)
             .also {
                 println("\uD83E\uDDEA TEST: User create for test purpose: $it")

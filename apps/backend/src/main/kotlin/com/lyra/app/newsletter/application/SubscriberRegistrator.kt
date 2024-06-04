@@ -1,19 +1,19 @@
 package com.lyra.app.newsletter.application
 
-import com.lyra.app.newsletter.domain.Name
 import com.lyra.app.newsletter.domain.Subscriber
-import com.lyra.app.newsletter.domain.SubscriberId
 import com.lyra.app.newsletter.domain.SubscriberRepository
 import com.lyra.app.newsletter.domain.event.SubscriberCreatedEvent
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.event.EventBroadcaster
 import com.lyra.common.domain.bus.event.EventPublisher
-import com.lyra.common.domain.vo.email.Email
+import java.util.*
 import org.slf4j.LoggerFactory
 
 /**
+ * Service class responsible for registering subscribers.
  *
- * @created 6/1/24
+ * @property subscriberRepository The repository for managing subscribers.
+ * @property eventPublisher The publisher for broadcasting domain events.
  */
 @Service
 class SubscriberRegistrator(
@@ -26,13 +26,27 @@ class SubscriberRegistrator(
         this.eventPublisher.use(eventPublisher)
     }
 
-    suspend fun register(id: SubscriberId, email: Email, name: Name) {
-        log.info("Registering subscriber with email: $email")
+    /**
+     * Function to register a new subscriber.
+     *
+     * @param id The unique identifier of the subscriber.
+     * @param email The email address of the subscriber.
+     * @param firstName The first name of the subscriber.
+     * @param lastName The last name of the subscriber. This can be null.
+     * @param workspaceId The identifier of the workspace the subscriber belongs to.
+     */
+    suspend fun register(
+        id: UUID,
+        email: String,
+        firstName: String,
+        lastName: String? = null,
+        workspaceId: UUID
+    ) {
+        log.debug("Registering subscriber with email: $email")
 
-        val subscriber = Subscriber.create(id, email, name)
+        val subscriber = Subscriber.create(id, email, firstName, lastName, workspaceId = workspaceId)
         subscriberRepository.create(subscriber)
         val domainEvents = subscriber.pullDomainEvents()
-        log.debug("Pulling {} events from subscriber", domainEvents.size)
 
         domainEvents.forEach {
             eventPublisher.publish(it as SubscriberCreatedEvent)

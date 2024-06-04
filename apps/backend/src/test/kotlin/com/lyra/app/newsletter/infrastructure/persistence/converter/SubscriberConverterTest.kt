@@ -13,7 +13,6 @@ class SubscriberConverterTest {
 
     @Test
     fun `should convert Row to SubscriberEntity`() {
-        // Arrange
         val converter = SubscriberConverter()
         val mockRow: Row = mockk {
             every { get("id", UUID::class.java) } returns UUID.randomUUID()
@@ -21,14 +20,13 @@ class SubscriberConverterTest {
             every { get("firstname", String::class.java) } returns "John"
             every { get("lastname", String::class.java) } returns "Doe"
             every { get("status", SubscriberStatus::class.java) } returns SubscriberStatus.ENABLED
+            every { get("workspace_id", UUID::class.java) } returns UUID.randomUUID()
             every { get("created_at", LocalDateTime::class.java) } returns LocalDateTime.now()
             every { get("updated_at", LocalDateTime::class.java) } returns LocalDateTime.now()
         }
 
-        // Act
         val result = converter.convert(mockRow)
 
-        // Assert
         assertEquals("test@example.com", result.email)
         assertEquals("John", result.firstname)
         assertEquals("Doe", result.lastname)

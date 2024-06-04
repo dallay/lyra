@@ -1,6 +1,6 @@
 package com.lyra.app.forms.domain.dto
 
-data class FormDTO(
+data class FormStyleConfiguration(
     val name: String,
     val header: String,
     val description: String,

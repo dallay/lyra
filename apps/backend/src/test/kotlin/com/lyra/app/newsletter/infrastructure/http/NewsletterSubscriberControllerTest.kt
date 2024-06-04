@@ -17,10 +17,11 @@ private const val ENDPOINT = "/api/newsletter/subscribers"
 internal class NewsletterSubscriberControllerTest {
     private val mediator = mockk<Mediator>()
     private val id = UUID.randomUUID().toString()
+    private val workspaceId = UUID.randomUUID().toString()
     private val email = "john.doe@example.com"
     private val firstname = "John"
     private val lastname = "Doe"
-    private val command = SubscribeNewsletterCommand(id, email, firstname, lastname)
+    private val command = SubscribeNewsletterCommand(id, email, firstname, lastname, workspaceId)
     private val controller = NewsletterSubscriberController(mediator)
     private val webTestClient = WebTestClient.bindToController(controller).build()
 
@@ -31,20 +32,20 @@ internal class NewsletterSubscriberControllerTest {
 
     @Test
     fun `should subscribe a new subscriber`() {
-        // Given
         val request = SubscribeNewsletterRequest(
             email = email,
             firstname = firstname,
             lastname = lastname,
+            workspaceId = workspaceId,
         )
-        // When
+
         webTestClient.put()
             .uri("$ENDPOINT/$id")
             .bodyValue(request)
             .exchange()
             .expectStatus().isCreated
             .expectBody().isEmpty
-        // Then
+
         coEvery { mediator.send(eq(command)) }
     }
 }

@@ -1,10 +1,10 @@
 package com.lyra.app.forms.application
 
 import com.lyra.app.forms.domain.Form
-import com.lyra.app.forms.domain.FormId
-import com.lyra.app.forms.domain.dto.FormDTO
+import com.lyra.app.forms.domain.dto.FormStyleConfiguration
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.command.CommandHandler
+import java.util.*
 import org.slf4j.LoggerFactory
 
 /**
@@ -26,9 +26,11 @@ class CreateFormCommandHandler(
      */
     override suspend fun handle(command: CreateFormCommand) {
         log.debug("Creating form with name: ${command.name}")
+        val formId = UUID.fromString(command.id)
+        val workspaceId = UUID.fromString(command.workspaceId)
         val form = Form.create(
-            id = FormId(command.id),
-            dto = FormDTO(
+            id = formId,
+            styleConfiguration = FormStyleConfiguration(
                 name = command.name,
                 header = command.header,
                 description = command.description,
@@ -39,6 +41,7 @@ class CreateFormCommandHandler(
                 textColor = command.textColor,
                 buttonTextColor = command.buttonTextColor,
             ),
+            workspaceId = workspaceId,
         )
         formCreator.create(form)
     }

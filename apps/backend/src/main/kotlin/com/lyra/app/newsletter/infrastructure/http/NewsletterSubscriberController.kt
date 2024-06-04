@@ -37,9 +37,10 @@ class NewsletterSubscriberController(
                 request.email,
                 request.firstname,
                 request.lastname,
+                request.workspaceId,
             ),
         )
 
-        return ResponseEntity.created(URI.create("/api/newsletter/subscribers/$id")).build()
+        return ResponseEntity.created(URI.create("/api/newsletter/subscribers")).build()
     }
 }

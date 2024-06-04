@@ -21,6 +21,7 @@ data class FormEntity(
     val backgroundColor: String,
     val textColor: String,
     val buttonTextColor: String,
+    val workspaceId: UUID,
     override var createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime? = createdAt,
 ) : AuditableEntity(), Persistable<UUID> {

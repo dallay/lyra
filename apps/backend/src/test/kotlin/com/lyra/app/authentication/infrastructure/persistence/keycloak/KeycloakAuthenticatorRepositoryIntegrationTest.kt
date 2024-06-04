@@ -96,7 +96,7 @@ class KeycloakAuthenticatorRepositoryIntegrationTest : InfrastructureTestContain
     @Test
     fun `should throw exception when user is not verified`(): Unit = runBlocking {
         val randomEmail = faker.internet().emailAddress()
-        val randomPassword = faker.internet().password(8, 80, true, true, true)
+        val randomPassword = faker.internet().password(8, 80, true, true, true) + "1Aa@"
         val user = User.create(
             email = randomEmail,
             firstName = faker.name().firstName(),

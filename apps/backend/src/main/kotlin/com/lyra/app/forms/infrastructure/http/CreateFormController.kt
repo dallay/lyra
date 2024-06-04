@@ -60,6 +60,7 @@ class CreateFormController(
                 request.backgroundColor,
                 request.textColor,
                 request.buttonTextColor,
+                request.workspaceId,
             ),
         )
         val url = "/api/forms"

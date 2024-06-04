@@ -391,8 +391,8 @@ importers:
   config:
     devDependencies:
       '@codecov/vite-plugin':
-        specifier: 0.0.1-beta.6
-        version: 0.0.1-beta.6(vite@5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0))
+        specifier: 0.0.1-beta.8
+        version: 0.0.1-beta.8(vite@5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0))
       '@julr/unocss-preset-flowbite':
         specifier: ^0.0.2
         version: 0.0.2(unocss@0.60.3(postcss@8.4.38)(rollup@4.18.0)(vite@5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0)))
@@ -1113,12 +1113,12 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@codecov/bundler-plugin-core@0.0.1-beta.6':
-    resolution: {integrity: sha512-dGk/s90fZm7D1O00gRtuE2gqM/CW9nglaPzcIT0v10VOV2tj+aHRrdB+yjas+RW8QP8Qf/sMqSmjkufP1iqggw==}
+  '@codecov/bundler-plugin-core@0.0.1-beta.8':
+    resolution: {integrity: sha512-3yxNa4N+pZxqU60XQxJ10sDKUWcDf/YaQSvODrgxLfKG/peZhSdbd92uRc7PYi73szu7lr1CVZIvVerod9C4Uw==}
     engines: {node: '>=18.0.0'}
 
-  '@codecov/vite-plugin@0.0.1-beta.6':
-    resolution: {integrity: sha512-eIi3M9R1om/T+6FoZGaffWMmwSZ0nx1fIGgidFRFkQdXtKAwHU0//YjCXOg17vJsPXlaSatM81EQBU/qmSXQ1Q==}
+  '@codecov/vite-plugin@0.0.1-beta.8':
+    resolution: {integrity: sha512-bMpn2k4w0HUnmbzQmaE8nzsVKqX72eUQVB5VlU7j+Pr225cCqj3DxWQpYibC+LAUzytZKxVEMZnrYOMTQSXHDA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       vite: 4.x || 5.x
@@ -7129,16 +7129,17 @@ snapshots:
   '@biomejs/cli-win32-x64@1.7.3':
     optional: true
 
-  '@codecov/bundler-plugin-core@0.0.1-beta.6':
+  '@codecov/bundler-plugin-core@0.0.1-beta.8':
     dependencies:
       chalk: 4.1.2
       semver: 7.6.2
       unplugin: 1.10.1
       zod: 3.23.8
 
-  '@codecov/vite-plugin@0.0.1-beta.6(vite@5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0))':
+  '@codecov/vite-plugin@0.0.1-beta.8(vite@5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0))':
     dependencies:
-      '@codecov/bundler-plugin-core': 0.0.1-beta.6
+      '@codecov/bundler-plugin-core': 0.0.1-beta.8
+      unplugin: 1.10.1
       vite: 5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0)
 
   '@csstools/css-parser-algorithms@2.6.3(@csstools/css-tokenizer@2.3.1)':
@@ -8817,7 +8818,7 @@ snapshots:
 
   builtins@5.1.0:
     dependencies:
-      semver: 7.6.0
+      semver: 7.6.2
 
   bun-types@1.1.9:
     dependencies:
@@ -11301,11 +11302,11 @@ snapshots:
 
   posix-character-classes@0.1.1: {}
 
-  postcss-html@0.36.0(postcss-syntax@0.36.2)(postcss@7.0.39):
+  postcss-html@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39):
     dependencies:
       htmlparser2: 3.10.1
       postcss: 7.0.39
-      postcss-syntax: 0.36.2(postcss@8.4.38)
+      postcss-syntax: 0.36.2(postcss-html@0.36.0)(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-scss@2.1.1)(postcss@7.0.39)
 
   postcss-import@15.1.0(postcss@8.4.38):
     dependencies:
@@ -11319,11 +11320,11 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.4.38
 
-  postcss-jsx@0.36.4(postcss-syntax@0.36.2)(postcss@7.0.39):
+  postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39):
     dependencies:
       '@babel/core': 7.24.6
       postcss: 7.0.39
-      postcss-syntax: 0.36.2(postcss@8.4.38)
+      postcss-syntax: 0.36.2(postcss-html@0.36.0)(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-scss@2.1.1)(postcss@7.0.39)
     transitivePeerDependencies:
       - supports-color
 
@@ -11338,10 +11339,10 @@ snapshots:
     optionalDependencies:
       postcss: 8.4.38
 
-  postcss-markdown@0.36.0(postcss-syntax@0.36.2)(postcss@7.0.39):
+  postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39):
     dependencies:
       postcss: 7.0.39
-      postcss-syntax: 0.36.2(postcss@8.4.38)
+      postcss-syntax: 0.36.2(postcss-html@0.36.0)(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-scss@2.1.1)(postcss@7.0.39)
       remark: 10.0.1
       unist-util-find-all-after: 1.0.5
 
@@ -11407,9 +11408,15 @@ snapshots:
     dependencies:
       postcss: 8.4.38
 
-  postcss-syntax@0.36.2(postcss@8.4.38):
+  postcss-syntax@0.36.2(postcss-html@0.36.0)(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-scss@2.1.1)(postcss@7.0.39):
     dependencies:
-      postcss: 8.4.38
+      postcss: 7.0.39
+    optionalDependencies:
+      postcss-html: 0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39)
+      postcss-jsx: 0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39)
+      postcss-less: 3.1.4
+      postcss-markdown: 0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39)
+      postcss-scss: 2.1.1
 
   postcss-value-parser@3.3.1: {}
 
@@ -12357,10 +12364,10 @@ snapshots:
       normalize-selector: 0.2.0
       pify: 4.0.1
       postcss: 7.0.39
-      postcss-html: 0.36.0(postcss-syntax@0.36.2)(postcss@7.0.39)
-      postcss-jsx: 0.36.4(postcss-syntax@0.36.2)(postcss@7.0.39)
+      postcss-html: 0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39)
+      postcss-jsx: 0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39)
       postcss-less: 3.1.4
-      postcss-markdown: 0.36.0(postcss-syntax@0.36.2)(postcss@7.0.39)
+      postcss-markdown: 0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39)
       postcss-media-query-parser: 0.2.3
       postcss-reporter: 6.0.1
       postcss-resolve-nested-selector: 0.1.1
@@ -12368,7 +12375,7 @@ snapshots:
       postcss-sass: 0.3.5
       postcss-scss: 2.1.1
       postcss-selector-parser: 3.1.2
-      postcss-syntax: 0.36.2(postcss@8.4.38)
+      postcss-syntax: 0.36.2(postcss-html@0.36.0)(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-scss@2.1.1)(postcss@7.0.39)
       postcss-value-parser: 3.3.1
       resolve-from: 4.0.0
       signal-exit: 3.0.7

@@ -28,7 +28,7 @@ gradle-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref
 # Utils
 gradle-updates = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.51.0" }
 gradle-owasp-depcheck = { module = "org.owasp:dependency-check-gradle", version.ref = "owasp" }
-gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.6" }
+gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.8.0" }
 gradle-asciidoctor = { module = "org.asciidoctor:asciidoctor-gradle-jvm", version.ref = "asciidoctor" }
 spring-dotenv = 'me.paulschwarz:spring-dotenv:4.0.0'
 sendgrid = 'com.sendgrid:sendgrid-java:4.10.2'

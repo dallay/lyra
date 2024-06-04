@@ -35,13 +35,13 @@ importers:
         version: 20.12.12
       '@vitest/coverage-v8':
         specifier: ^1.6.0
-        version: 1.6.0(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0))
+        version: 1.6.0(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0))
       flowbite:
         specifier: ^2.3.0
         version: 2.3.0
       happy-dom:
         specifier: ^14.11.0
-        version: 14.11.0
+        version: 14.12.0
       npm-run-all2:
         specifier: ^6.2.0
         version: 6.2.0
@@ -71,10 +71,10 @@ importers:
         version: 5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0)
       vitest:
         specifier: ^1.6.0
-        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)
+        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)
       vitest-fetch-mock:
         specifier: ^0.2.2
-        version: 0.2.2(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0))
+        version: 0.2.2(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0))
 
   apps/docs-dashboard:
     dependencies:
@@ -171,7 +171,7 @@ importers:
         version: 1.1.0
       vitest:
         specifier: ^1.6.0
-        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)
+        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)
       vue-tsc:
         specifier: ^2.0.19
         version: 2.0.19(typescript@5.4.5)
@@ -319,10 +319,10 @@ importers:
         version: 1.1.0
       vitest:
         specifier: ^1.6.0
-        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)
+        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)
       vitest-mock-extended:
         specifier: ^1.3.1
-        version: 1.3.1(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0))
+        version: 1.3.1(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0))
       vue-tsc:
         specifier: ^2.0.19
         version: 2.0.19(typescript@5.4.5)
@@ -428,7 +428,7 @@ importers:
         version: 4.3.2(typescript@5.4.5)(vite@5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0))
       vitest:
         specifier: ^1.6.0
-        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)
+        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)
 
   mock:
     dependencies:
@@ -487,10 +487,10 @@ importers:
         version: 3.9.1(@types/node@20.12.12)(rollup@4.18.0)(typescript@5.4.5)(vite@5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0))
       vitest:
         specifier: ^1.6.0
-        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)
+        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)
       vitest-mock-extended:
         specifier: ^1.3.1
-        version: 1.3.1(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0))
+        version: 1.3.1(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0))
 
   packages/mock-responses:
     dependencies:
@@ -515,7 +515,7 @@ importers:
         version: 3.9.1(@types/node@20.12.12)(rollup@4.18.0)(typescript@5.4.5)(vite@5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0))
       vitest:
         specifier: ^1.6.0
-        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)
+        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)
 
   packages/scripts:
     devDependencies:
@@ -539,7 +539,7 @@ importers:
         version: 3.9.1(@types/node@20.12.12)(rollup@4.18.0)(typescript@5.4.5)(vite@5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0))
       vitest:
         specifier: ^1.6.0
-        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)
+        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)
 
   packages/tsconfig: {}
 
@@ -689,7 +689,7 @@ importers:
         version: 5.0.4(vite@5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0))(vue@3.4.27(typescript@5.4.5))
       '@vitest/coverage-v8':
         specifier: ^1.6.0
-        version: 1.6.0(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0))
+        version: 1.6.0(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0))
       '@vue/test-utils':
         specifier: ^2.4.6
         version: 2.4.6
@@ -713,7 +713,7 @@ importers:
         version: 3.9.1(@types/node@20.12.12)(rollup@4.18.0)(typescript@5.4.5)(vite@5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0))
       vitest:
         specifier: ^1.6.0
-        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)
+        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)
       vue-tsc:
         specifier: ^2.0.19
         version: 2.0.19(typescript@5.4.5)
@@ -734,7 +734,7 @@ importers:
         version: 3.9.1(@types/node@20.12.12)(rollup@4.18.0)(typescript@5.4.5)(vite@5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0))
       vitest:
         specifier: ^1.6.0
-        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)
+        version: 1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)
 
 packages:
 
@@ -3572,8 +3572,8 @@ packages:
     resolution: {integrity: sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q==}
     engines: {node: '>=10'}
 
-  happy-dom@14.11.0:
-    resolution: {integrity: sha512-vu25dY7YJqLuTG/3ADC0FZRRF0yNBp3q2K0YTN08opXdZi8V/YzIJDNJWFiCnDIuyc+RrCIE093+H5fa9Trlxg==}
+  happy-dom@14.12.0:
+    resolution: {integrity: sha512-dHcnlGFY2o2CdxfuYpqwSrBrpj/Kuzv4u4f3TU5yHW1GL24dKij4pv1BRjXnXc3uWo8qsCbToF9weaDsm/He8A==}
     engines: {node: '>=16.0.0'}
 
   has-flag@3.0.0:
@@ -8137,7 +8137,7 @@ snapshots:
       vite: 5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0)
       vue: 3.4.27(typescript@5.4.5)
 
-  '@vitest/coverage-v8@1.6.0(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0))':
+  '@vitest/coverage-v8@1.6.0(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -8152,7 +8152,7 @@ snapshots:
       std-env: 3.7.0
       strip-literal: 2.1.0
       test-exclude: 6.0.0
-      vitest: 1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)
+      vitest: 1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -9834,7 +9834,7 @@ snapshots:
     dependencies:
       duplexer: 0.1.2
 
-  happy-dom@14.11.0:
+  happy-dom@14.12.0:
     dependencies:
       entities: 4.5.0
       webidl-conversions: 7.0.0
@@ -11301,11 +11301,11 @@ snapshots:
 
   posix-character-classes@0.1.1: {}
 
-  postcss-html@0.36.0(postcss-syntax@0.36.2)(postcss@7.0.39):
+  postcss-html@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39):
     dependencies:
       htmlparser2: 3.10.1
       postcss: 7.0.39
-      postcss-syntax: 0.36.2(postcss@8.4.38)
+      postcss-syntax: 0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-scss@2.1.1)(postcss@7.0.39)
 
   postcss-import@15.1.0(postcss@8.4.38):
     dependencies:
@@ -11319,11 +11319,11 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.4.38
 
-  postcss-jsx@0.36.4(postcss-syntax@0.36.2)(postcss@7.0.39):
+  postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39):
     dependencies:
       '@babel/core': 7.24.6
       postcss: 7.0.39
-      postcss-syntax: 0.36.2(postcss@8.4.38)
+      postcss-syntax: 0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-scss@2.1.1)(postcss@7.0.39)
     transitivePeerDependencies:
       - supports-color
 
@@ -11338,10 +11338,10 @@ snapshots:
     optionalDependencies:
       postcss: 8.4.38
 
-  postcss-markdown@0.36.0(postcss-syntax@0.36.2)(postcss@7.0.39):
+  postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39):
     dependencies:
       postcss: 7.0.39
-      postcss-syntax: 0.36.2(postcss@8.4.38)
+      postcss-syntax: 0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-scss@2.1.1)(postcss@7.0.39)
       remark: 10.0.1
       unist-util-find-all-after: 1.0.5
 
@@ -11407,9 +11407,15 @@ snapshots:
     dependencies:
       postcss: 8.4.38
 
-  postcss-syntax@0.36.2(postcss@8.4.38):
+  postcss-syntax@0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-scss@2.1.1)(postcss@7.0.39):
     dependencies:
-      postcss: 8.4.38
+      postcss: 7.0.39
+    optionalDependencies:
+      postcss-html: 0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39)
+      postcss-jsx: 0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39)
+      postcss-less: 3.1.4
+      postcss-markdown: 0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39)
+      postcss-scss: 2.1.1
 
   postcss-value-parser@3.3.1: {}
 
@@ -12357,10 +12363,10 @@ snapshots:
       normalize-selector: 0.2.0
       pify: 4.0.1
       postcss: 7.0.39
-      postcss-html: 0.36.0(postcss-syntax@0.36.2)(postcss@7.0.39)
-      postcss-jsx: 0.36.4(postcss-syntax@0.36.2)(postcss@7.0.39)
+      postcss-html: 0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39)
+      postcss-jsx: 0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39)
       postcss-less: 3.1.4
-      postcss-markdown: 0.36.0(postcss-syntax@0.36.2)(postcss@7.0.39)
+      postcss-markdown: 0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39)
       postcss-media-query-parser: 0.2.3
       postcss-reporter: 6.0.1
       postcss-resolve-nested-selector: 0.1.1
@@ -12368,7 +12374,7 @@ snapshots:
       postcss-sass: 0.3.5
       postcss-scss: 2.1.1
       postcss-selector-parser: 3.1.2
-      postcss-syntax: 0.36.2(postcss@8.4.38)
+      postcss-syntax: 0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss@8.4.38))(postcss@7.0.39))(postcss-scss@2.1.1)(postcss@7.0.39)
       postcss-value-parser: 3.3.1
       resolve-from: 4.0.0
       signal-exit: 3.0.7
@@ -13022,20 +13028,20 @@ snapshots:
     optionalDependencies:
       vite: 5.2.12(@types/node@20.12.12)(sass@1.77.2)(sugarss@2.0.0)
 
-  vitest-fetch-mock@0.2.2(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)):
+  vitest-fetch-mock@0.2.2(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)):
     dependencies:
       cross-fetch: 3.1.8
-      vitest: 1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)
+      vitest: 1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)
     transitivePeerDependencies:
       - encoding
 
-  vitest-mock-extended@1.3.1(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)):
+  vitest-mock-extended@1.3.1(typescript@5.4.5)(vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)):
     dependencies:
       ts-essentials: 9.4.2(typescript@5.4.5)
       typescript: 5.4.5
-      vitest: 1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0)
+      vitest: 1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0)
 
-  vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.11.0)(sass@1.77.2)(sugarss@2.0.0):
+  vitest@1.6.0(@types/node@20.12.12)(happy-dom@14.12.0)(sass@1.77.2)(sugarss@2.0.0):
     dependencies:
       '@vitest/expect': 1.6.0
       '@vitest/runner': 1.6.0
@@ -13059,7 +13065,7 @@ snapshots:
       why-is-node-running: 2.2.2
     optionalDependencies:
       '@types/node': 20.12.12
-      happy-dom: 14.11.0
+      happy-dom: 14.12.0
     transitivePeerDependencies:
       - less
       - lightningcss

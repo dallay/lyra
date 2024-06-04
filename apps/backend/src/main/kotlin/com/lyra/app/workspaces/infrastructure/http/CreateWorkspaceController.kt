@@ -53,7 +53,7 @@ class CreateWorkspaceController(
                 request.userId,
             ),
         )
-        return ResponseEntity.created(URI.create("/api/workspace/$id")).build()
+        return ResponseEntity.created(URI.create("/api/workspace")).build()
     }
 
     /**

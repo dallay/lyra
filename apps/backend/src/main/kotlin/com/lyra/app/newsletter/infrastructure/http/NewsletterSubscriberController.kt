@@ -41,6 +41,6 @@ class NewsletterSubscriberController(
             ),
         )
 
-        return ResponseEntity.created(URI.create("/api/newsletter/subscribers/$id")).build()
+        return ResponseEntity.created(URI.create("/api/newsletter/subscribers")).build()
     }
 }

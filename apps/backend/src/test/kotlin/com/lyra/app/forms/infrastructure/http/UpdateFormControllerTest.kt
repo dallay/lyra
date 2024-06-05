@@ -1,5 +1,6 @@
 package com.lyra.app.forms.infrastructure.http
 
+import com.lyra.UnitTest
 import com.lyra.app.forms.FormStub
 import com.lyra.app.forms.application.update.UpdateFormCommand
 import com.lyra.app.forms.infrastructure.http.request.UpdateFormRequest
@@ -11,7 +12,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
 
-class UpdateFormControllerTest {
+@UnitTest
+internal class UpdateFormControllerTest {
     private val form = FormStub.create()
     private val mediator = mockk<Mediator>()
     private val id = UUID.randomUUID().toString()

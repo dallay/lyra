@@ -1,5 +1,8 @@
 package com.lyra.app.workspaces.application
 
+import com.lyra.app.workspaces.application.collaborator.AddWorkspaceCollaboratorCommand
+import com.lyra.app.workspaces.application.collaborator.AddWorkspaceCollaboratorCommandHandler
+import com.lyra.app.workspaces.application.collaborator.WorkspaceCollaboratorCreator
 import com.lyra.app.workspaces.domain.WorkspaceCollaborators
 import com.lyra.app.workspaces.domain.WorkspaceRepository
 import com.lyra.app.workspaces.domain.event.WorkspaceCollaboratorAddedEvent

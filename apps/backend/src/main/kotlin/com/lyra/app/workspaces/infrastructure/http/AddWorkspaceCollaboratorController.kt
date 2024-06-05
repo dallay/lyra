@@ -1,6 +1,6 @@
 package com.lyra.app.workspaces.infrastructure.http
 
-import com.lyra.app.workspaces.application.AddWorkspaceCollaboratorCommand
+import com.lyra.app.workspaces.application.collaborator.AddWorkspaceCollaboratorCommand
 import com.lyra.app.workspaces.infrastructure.http.request.AddWorkspaceCollaboratorRequest
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.spring.boot.ApiController

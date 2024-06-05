@@ -16,4 +16,11 @@ interface WorkspaceRepository {
      * @param workspace The workspace collaborator to create.
      */
     suspend fun create(workspace: WorkspaceCollaborators)
+
+    /**
+     * Updates a workspace.
+     *
+     * @param workspace The workspace to be updated.
+     */
+    suspend fun update(workspace: Workspace)
 }

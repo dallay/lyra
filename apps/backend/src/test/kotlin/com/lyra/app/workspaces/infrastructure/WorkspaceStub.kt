@@ -1,9 +1,12 @@
 package com.lyra.app.workspaces.infrastructure
 
+import com.lyra.app.users.domain.UserId
 import com.lyra.app.workspaces.domain.Workspace
 import com.lyra.app.workspaces.domain.WorkspaceCollaborators
+import com.lyra.app.workspaces.domain.WorkspaceId
 import com.lyra.app.workspaces.domain.WorkspaceRole
 import com.lyra.app.workspaces.infrastructure.http.request.CreateWorkspaceRequest
+import com.lyra.app.workspaces.infrastructure.http.request.UpdateWorkspaceRequest
 import java.util.*
 import net.datafaker.Faker
 
@@ -13,10 +16,10 @@ object WorkspaceStub {
         id: UUID = UUID.randomUUID(),
         name: String = faker.lorem().words(3).joinToString(" "),
         userId: UUID = UUID.randomUUID()
-    ): Workspace = Workspace.create(
-        id = id,
+    ): Workspace = Workspace(
+        id = WorkspaceId(id),
         name = name,
-        userId = userId,
+        userId = UserId(userId),
     )
 
     fun createCollaborator(
@@ -35,5 +38,11 @@ object WorkspaceStub {
     ): CreateWorkspaceRequest = CreateWorkspaceRequest(
         name = name,
         userId = userId,
+    )
+
+    fun generateUpdateRequest(
+        name: String = faker.lorem().words(3).joinToString(" "),
+    ): UpdateWorkspaceRequest = UpdateWorkspaceRequest(
+        name = name,
     )
 }

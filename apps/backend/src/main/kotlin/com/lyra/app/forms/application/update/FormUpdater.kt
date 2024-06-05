@@ -49,9 +49,6 @@ class FormUpdater(
     }
 
     companion object {
-        /**
-         * Logger for the FormUpdater class.
-         */
         private val log = LoggerFactory.getLogger(FormUpdater::class.java)
     }
 }

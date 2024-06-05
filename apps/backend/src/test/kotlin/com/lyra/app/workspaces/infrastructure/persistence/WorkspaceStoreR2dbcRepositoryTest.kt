@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.dao.DuplicateKeyException
+import org.springframework.dao.TransientDataAccessResourceException
 
 @UnitTest
 internal class WorkspaceStoreR2dbcRepositoryTest {
@@ -58,6 +59,27 @@ internal class WorkspaceStoreR2dbcRepositoryTest {
         coEvery { workspaceCollaboratorRepository.upsert(any()) } throws DuplicateKeyException("Duplicate key")
         assertThrows<WorkspaceCollaboratorException> {
             workspaceStoreR2dbcRepository.create(workspaceCollaborators)
+        }
+    }
+
+    @Test
+    fun `should update workspace`(): Unit = runBlocking {
+        workspaceStoreR2dbcRepository.update(workspace)
+        coEvery { workspaceRepository.save(any()) }
+    }
+    @Test
+    fun `should handle unexpected error during workspace update`(): Unit = runBlocking {
+        coEvery { workspaceRepository.save(any()) } throws RuntimeException("Unexpected error")
+        assertThrows<RuntimeException> {
+            workspaceStoreR2dbcRepository.update(workspace)
+        }
+    }
+
+    @Test
+    fun `should handle error when the form does not exist`(): Unit = runBlocking {
+        coEvery { workspaceRepository.save(any()) } throws TransientDataAccessResourceException("Unexpected error")
+        assertThrows<WorkspaceException> {
+            workspaceStoreR2dbcRepository.update(workspace)
         }
     }
 }

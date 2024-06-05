@@ -1,4 +1,4 @@
-package com.lyra.app.workspaces.application
+package com.lyra.app.workspaces.application.collaborator
 
 import com.lyra.common.domain.bus.command.Command
 

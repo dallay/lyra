@@ -2,6 +2,7 @@ package com.lyra.app.workspaces.infrastructure.persistence
 
 import com.lyra.app.workspaces.domain.Workspace
 import com.lyra.app.workspaces.domain.WorkspaceCollaborators
+import com.lyra.app.workspaces.domain.WorkspaceDestroyerRepository
 import com.lyra.app.workspaces.domain.WorkspaceFinderRepository
 import com.lyra.app.workspaces.domain.WorkspaceId
 import com.lyra.app.workspaces.domain.WorkspaceRepository
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Repository
 class WorkspaceStoreR2dbcRepository(
     private val workspaceRepository: WorkspaceR2dbcRepository,
     private val workspaceCollaboratorRepository: WorkspaceCollaboratorsR2dbcRepository,
-) : WorkspaceRepository, WorkspaceFinderRepository {
+) : WorkspaceRepository, WorkspaceFinderRepository, WorkspaceDestroyerRepository {
 //    private val criteriaParser = R2DBCCriteriaParser(WorkspaceEntity::class)
 
     /**
@@ -86,6 +87,16 @@ class WorkspaceStoreR2dbcRepository(
     override suspend fun findById(id: WorkspaceId): Workspace? {
         log.debug("Finding workspace with id: {}", id)
         return workspaceRepository.findById(id.value)?.toDomain()
+    }
+
+    /**
+     * Deletes a workspace.
+     *
+     * @param id The workspace id.
+     */
+    override suspend fun delete(id: WorkspaceId) {
+        log.debug("Deleting workspace with id: {}", id)
+        workspaceRepository.deleteById(id.value)
     }
 
     companion object {

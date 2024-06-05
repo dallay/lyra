@@ -33,7 +33,7 @@
 <div align="center">
 
 [![Deploy to Main Stage 💫](https://github.com/yacosta738/lyra/actions/workflows/deploy-main-stage.yml/badge.svg)](https://github.com/yacosta738/lyra/actions/workflows/deploy-main-stage.yml)
-[![codecov](https://codecov.io/gh/yacosta738/lyra/graph/badge.svg?token=4MN8TEOGD9)](https://codecov.io/gh/yacosta738/lyra)
+[![codecov](https://codecov.io/gh/dallay/lyra/graph/badge.svg?token=i5pxpknTbs)](https://codecov.io/gh/dallay/lyra)
 ![GitHub stars](https://img.shields.io/github/stars/yacosta738/lyra)
 ![GitHub issues](https://img.shields.io/github/issues/yacosta738/lyra)
 ![GitHub forks](https://img.shields.io/github/forks/yacosta738/lyra)
@@ -94,7 +94,7 @@ There's nothing special about `src/components/`, but that's where we like to put
 
 Any static assets, like images, can be placed in the `public/` directory.
 
-![codecov](https://codecov.io/gh/yacosta738/lyra/graphs/sunburst.svg?token=4MN8TEOGD9)
+![codecov](https://codecov.io/gh/dallay/lyra/graphs/sunburst.svg?token=i5pxpknTbs)
 
 ## 🧞 Commands
 

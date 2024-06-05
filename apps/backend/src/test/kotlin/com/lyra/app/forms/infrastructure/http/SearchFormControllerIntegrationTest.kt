@@ -6,7 +6,6 @@ import com.lyra.app.forms.application.FormResponse
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.test.context.jdbc.Sql
@@ -17,11 +16,6 @@ private const val ENDPOINT = "/api/forms"
 internal class SearchFormControllerIntegrationTest : ControllerIntegrationTest() {
     private val typeRef =
         object : ParameterizedTypeReference<CursorPageResponse<FormResponse>>() {}
-
-    @BeforeEach
-    fun setUp() {
-        // Set Test container here
-    }
 
     @Test
     @Sql(

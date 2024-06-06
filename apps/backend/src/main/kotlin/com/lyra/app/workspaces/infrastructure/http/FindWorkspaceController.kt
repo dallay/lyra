@@ -26,7 +26,7 @@ class FindWorkspaceController(
     )
     @GetMapping("/$ENDPOINT_WORKSPACE/{id}")
     suspend fun find(@PathVariable id: String): Response {
-        log.debug("Finding workspace with id: $id")
+        log.debug("Finding workspace")
         val query = FindWorkspaceQuery(id)
         val response = ask(query)
         return response

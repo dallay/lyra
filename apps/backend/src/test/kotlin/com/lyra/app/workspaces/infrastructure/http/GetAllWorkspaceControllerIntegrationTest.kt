@@ -9,7 +9,7 @@ internal class GetAllWorkspaceControllerIntegrationTest : ControllerIntegrationT
 
     @Test
     @Sql(
-        "/db/workspace/workspace.sql",
+        "/db/workspace/all-workspace.sql",
     )
     @Sql(
         "/db/workspace/clean.sql",

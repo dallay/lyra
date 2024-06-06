@@ -41,7 +41,7 @@ class SearchFormController(
         ApiResponse(responseCode = "400", description = "Bad request"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @GetMapping("/forms")
+    @GetMapping("/$ENDPOINT_FORM")
     suspend fun search(cursorRequestPageable: CursorRequestPageable): Response {
         log.debug("Searching forms with cursor: {}", cursorRequestPageable)
         val criteria: Criteria = criteria(cursorRequestPageable)

@@ -1,6 +1,6 @@
-package com.lyra.app.forms.infrastructure.http
+package com.lyra.app.workspaces.infrastructure.http
 
-import com.lyra.app.forms.application.find.FindFormQuery
+import com.lyra.app.workspaces.application.find.FindWorkspaceQuery
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.common.domain.bus.query.Response
 import com.lyra.spring.boot.ApiController
@@ -15,24 +15,24 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping(value = ["/api"], produces = ["application/vnd.api.v1+json"])
-class FindFormController(
+class FindWorkspaceController(
     mediator: Mediator,
 ) : ApiController(mediator) {
-    @Operation(summary = "Find a form by ID")
+    @Operation(summary = "Find a workspace by ID")
     @ApiResponses(
-        ApiResponse(responseCode = "200", description = "Found form"),
-        ApiResponse(responseCode = "404", description = "Form not found"),
+        ApiResponse(responseCode = "200", description = "Found workspace"),
+        ApiResponse(responseCode = "404", description = "Workspace not found"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @GetMapping("/$ENDPOINT_FORM/{id}")
+    @GetMapping("/$ENDPOINT_WORKSPACE/{id}")
     suspend fun find(@PathVariable id: String): Response {
-        log.debug("Finding form with id: $id")
-        val query = FindFormQuery(id)
+        log.debug("Finding workspace with id: $id")
+        val query = FindWorkspaceQuery(id)
         val response = ask(query)
         return response
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(FindFormController::class.java)
+        private val log = LoggerFactory.getLogger(FindWorkspaceController::class.java)
     }
 }

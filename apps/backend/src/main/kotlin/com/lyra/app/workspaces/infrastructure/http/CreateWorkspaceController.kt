@@ -40,7 +40,7 @@ class CreateWorkspaceController(
         ApiResponse(responseCode = "201", description = "Created"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @PutMapping("/workspace/{id}")
+    @PutMapping("/$ENDPOINT_WORKSPACE/{id}")
     suspend fun create(
         @PathVariable id: String,
         @Validated @RequestBody request: CreateWorkspaceRequest

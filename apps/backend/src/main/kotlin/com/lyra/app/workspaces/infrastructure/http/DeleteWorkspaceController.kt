@@ -39,7 +39,7 @@ class DeleteWorkspaceController(
         ApiResponse(responseCode = "404", description = "Workspace not found"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @DeleteMapping("/workspace/{id}")
+    @DeleteMapping("/$ENDPOINT_WORKSPACE/{id}")
     @ResponseStatus(HttpStatus.OK)
     suspend fun delete(
         @PathVariable id: String

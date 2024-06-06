@@ -45,4 +45,11 @@ object WorkspaceStub {
     ): UpdateWorkspaceRequest = UpdateWorkspaceRequest(
         name = name,
     )
+
+    fun dummyRandomWorkspaces(size: Int): List<Workspace> {
+        val workspaces = (0 until size).map {
+            create()
+        }
+        return workspaces
+    }
 }

@@ -22,7 +22,7 @@ class SearchAllSubscribersQueryHandler(
      * @return A CursorPageResponse containing the search results.
      */
     override suspend fun handle(query: SearchAllSubscribersQuery): CursorPageResponse<SubscriberResponse> {
-        log.info("Searching all subscribers")
+        log.debug("Searching all subscribers")
         return searcher.search(query.criteria, query.size, query.cursor, query.sort)
     }
     companion object {

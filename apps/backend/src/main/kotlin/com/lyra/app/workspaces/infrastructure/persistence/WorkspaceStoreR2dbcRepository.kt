@@ -13,6 +13,8 @@ import com.lyra.app.workspaces.infrastructure.persistence.mapper.WorkspaceMapper
 import com.lyra.app.workspaces.infrastructure.persistence.mapper.WorkspaceMapper.toEntity
 import com.lyra.app.workspaces.infrastructure.persistence.repository.WorkspaceCollaboratorsR2dbcRepository
 import com.lyra.app.workspaces.infrastructure.persistence.repository.WorkspaceR2dbcRepository
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 import org.slf4j.LoggerFactory
 import org.springframework.dao.DuplicateKeyException
 import org.springframework.stereotype.Repository
@@ -87,6 +89,16 @@ class WorkspaceStoreR2dbcRepository(
     override suspend fun findById(id: WorkspaceId): Workspace? {
         log.debug("Finding workspace with id: {}", id)
         return workspaceRepository.findById(id.value)?.toDomain()
+    }
+
+    /**
+     * Find all workspaces.
+     *
+     * @return A list of all workspaces.
+     */
+    override suspend fun findAll(): List<Workspace> {
+        log.debug("Finding all workspaces")
+        return workspaceRepository.findAll().map { it.toDomain() }.toList()
     }
 
     /**

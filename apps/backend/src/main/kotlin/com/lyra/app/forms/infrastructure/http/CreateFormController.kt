@@ -42,7 +42,7 @@ class CreateFormController(
         ApiResponse(responseCode = "201", description = "Created"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @PutMapping("/forms/{id}")
+    @PutMapping("/${ENDPOINT_FORM}/{id}")
     suspend fun create(
         @PathVariable id: String,
         @Validated @RequestBody request: CreateFormRequest
@@ -63,7 +63,7 @@ class CreateFormController(
                 request.workspaceId,
             ),
         )
-        val url = "/api/forms"
+        val url = "/api/$ENDPOINT_FORM"
         return ResponseEntity.created(URI.create(url)).build()
     }
 

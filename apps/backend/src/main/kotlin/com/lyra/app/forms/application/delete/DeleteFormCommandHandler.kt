@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory
 
 /**
  * This service class is responsible for handling the deletion of forms.
- * It implements the CommandHandler interface with DeleteFormCommand as the command type.
+ * It implements the CommandHandler interface with [DeleteFormCommand] as the command type.
  *
- * @property formDestroyer An instance of FormDestroyer used to delete the form.
+ * @property formDestroyer An instance of [FormDestroyer] used to delete the form.
  */
 @Service
 class DeleteFormCommandHandler(

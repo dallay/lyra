@@ -1,6 +1,6 @@
-package com.lyra.app.forms.infrastructure.http
+package com.lyra.app.workspaces.infrastructure.http
 
-import com.lyra.app.forms.application.delete.DeleteFormCommand
+import com.lyra.app.workspaces.application.delete.DeleteWorkspaceCommand
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.spring.boot.ApiController
 import io.swagger.v3.oas.annotations.Operation
@@ -15,40 +15,40 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 /**
- * This class is a REST controller that handles HTTP requests related to form deletion.
+ * This class is a REST controller that handles HTTP requests related to workspace deletion.
  * It extends the ApiController class and uses the Mediator pattern for handling commands.
  */
 @RestController
 @RequestMapping(value = ["/api"], produces = ["application/vnd.api.v1+json"])
-class DeleteFormController(
+class DeleteWorkspaceController(
     mediator: Mediator,
 ) : ApiController(mediator) {
 
     /**
-     * This function handles the DELETE HTTP request for deleting a form.
-     * It uses the path variable 'id' to identify the form to be deleted.
+     * This function handles the DELETE HTTP request for deleting a workspace.
+     * It uses the path variable 'id' to identify the workspace to be deleted.
      * The function is a suspend function, meaning it is designed to be used with Kotlin coroutines.
-     * It dispatches a DeleteFormCommand with the provided id.
+     * It dispatches a DeleteWorkspaceCommand with the provided id.
      *
-     * @param id The id of the form to be deleted.
-     * @return The result of the DeleteFormCommand dispatch.
+     * @param id The id of the workspace to be deleted.
+     * @return The result of the DeleteWorkspaceCommand dispatch.
      */
-    @Operation(summary = "Delete a form")
+    @Operation(summary = "Delete a workspace")
     @ApiResponses(
-        ApiResponse(responseCode = "200", description = "Form deleted successfully"),
+        ApiResponse(responseCode = "200", description = "Workspace deleted successfully"),
         ApiResponse(responseCode = "404", description = "Workspace not found"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @DeleteMapping("/forms/{id}")
+    @DeleteMapping("/workspace/{id}")
     @ResponseStatus(HttpStatus.OK)
     suspend fun delete(
         @PathVariable id: String
     ) {
-        log.debug("Deleting form with id: $id")
-        dispatch(DeleteFormCommand(id))
+        log.debug("Deleting workspace with id: $id")
+        dispatch(DeleteWorkspaceCommand(id))
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(DeleteFormController::class.java)
+        private val log = LoggerFactory.getLogger(DeleteWorkspaceController::class.java)
     }
 }

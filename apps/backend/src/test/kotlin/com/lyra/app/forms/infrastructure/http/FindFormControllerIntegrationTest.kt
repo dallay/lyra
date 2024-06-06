@@ -3,7 +3,6 @@ package com.lyra.app.forms.infrastructure.http
 import com.lyra.ControllerIntegrationTest
 import com.lyra.IntegrationTest
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.context.jdbc.Sql
 
@@ -11,10 +10,6 @@ private const val ENDPOINT = "/api/forms"
 
 @IntegrationTest
 internal class FindFormControllerIntegrationTest : ControllerIntegrationTest() {
-    @BeforeEach
-    fun setUp() {
-        // Set Test container here
-    }
 
     @Test
     @Sql(

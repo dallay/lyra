@@ -82,4 +82,10 @@ internal class WorkspaceStoreR2dbcRepositoryTest {
             workspaceStoreR2dbcRepository.update(workspace)
         }
     }
+
+    @Test
+    fun `should delete workspace`(): Unit = runBlocking {
+        coEvery { workspaceRepository.deleteById(any()) } returns Unit
+        workspaceStoreR2dbcRepository.delete(workspace.id)
+    }
 }

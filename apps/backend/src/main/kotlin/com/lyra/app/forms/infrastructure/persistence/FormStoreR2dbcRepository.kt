@@ -10,7 +10,6 @@ import com.lyra.app.forms.infrastructure.persistence.entity.FormEntity
 import com.lyra.app.forms.infrastructure.persistence.mapper.FormMapper.toDomain
 import com.lyra.app.forms.infrastructure.persistence.mapper.FormMapper.toEntity
 import com.lyra.app.forms.infrastructure.persistence.repository.FormR2dbcRepository
-import com.lyra.app.newsletter.infrastructure.persistence.mapper.SubscriberMapper.toDomain
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.pagination.Cursor
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
@@ -94,7 +93,8 @@ class FormStoreR2dbcRepository(
      * @param id The id of the form to find.
      * @return The form if found, or null if not found.
      */
-    override suspend fun findById(id: FormId): Form? = formR2dbcRepository.findById(id.value)?.toDomain()
+    override suspend fun findById(id: FormId): Form? =
+        formR2dbcRepository.findById(id.value)?.toDomain()
 
     /**
      * This function is used to search all [Form] by cursor.
@@ -153,6 +153,7 @@ class FormStoreR2dbcRepository(
      * @param id The id of the form to be deleted.
      */
     override suspend fun delete(id: FormId) = formR2dbcRepository.deleteById(id.value)
+
     companion object {
         private val log = LoggerFactory.getLogger(FormStoreR2dbcRepository::class.java)
     }

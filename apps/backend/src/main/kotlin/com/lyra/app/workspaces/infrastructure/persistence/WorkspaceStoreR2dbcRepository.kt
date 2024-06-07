@@ -1,6 +1,8 @@
 package com.lyra.app.workspaces.infrastructure.persistence
 
+import com.lyra.app.users.domain.UserId
 import com.lyra.app.workspaces.domain.Workspace
+import com.lyra.app.workspaces.domain.WorkspaceCollaboratorRemoverRepository
 import com.lyra.app.workspaces.domain.WorkspaceCollaborators
 import com.lyra.app.workspaces.domain.WorkspaceDestroyerRepository
 import com.lyra.app.workspaces.domain.WorkspaceFinderRepository
@@ -19,14 +21,14 @@ import org.slf4j.LoggerFactory
 import org.springframework.dao.DuplicateKeyException
 import org.springframework.stereotype.Repository
 
-// private const val DEFAULT_LIMIT = 20
-
 @Repository
 class WorkspaceStoreR2dbcRepository(
     private val workspaceRepository: WorkspaceR2dbcRepository,
     private val workspaceCollaboratorRepository: WorkspaceCollaboratorsR2dbcRepository,
-) : WorkspaceRepository, WorkspaceFinderRepository, WorkspaceDestroyerRepository {
-//    private val criteriaParser = R2DBCCriteriaParser(WorkspaceEntity::class)
+) : WorkspaceRepository,
+    WorkspaceFinderRepository,
+    WorkspaceDestroyerRepository,
+    WorkspaceCollaboratorRemoverRepository {
 
     /**
      * Create a new workspace.
@@ -109,6 +111,17 @@ class WorkspaceStoreR2dbcRepository(
     override suspend fun delete(id: WorkspaceId) {
         log.debug("Deleting workspace with id: {}", id)
         workspaceRepository.deleteById(id.value)
+    }
+
+    /**
+     * Deletes a workspace.
+     *
+     * @param id The workspace id.
+     * @param userId The user id.
+     */
+    override suspend fun removeCollaborator(id: WorkspaceId, userId: UserId) {
+        log.debug("Removing collaborator with id: {} from workspace with id: {}", userId, id)
+        workspaceCollaboratorRepository.delete(id.value, userId.value)
     }
 
     companion object {

@@ -11,6 +11,7 @@ import com.lyra.app.workspaces.infrastructure.persistence.repository.WorkspaceCo
 import com.lyra.app.workspaces.infrastructure.persistence.repository.WorkspaceR2dbcRepository
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -87,5 +88,23 @@ internal class WorkspaceStoreR2dbcRepositoryTest {
     fun `should delete workspace`(): Unit = runBlocking {
         coEvery { workspaceRepository.deleteById(any()) } returns Unit
         workspaceStoreR2dbcRepository.delete(workspace.id)
+    }
+
+    @Test
+    fun `should find workspace by id`(): Unit = runBlocking {
+        coEvery { workspaceRepository.findById(any()) } returns workspace.toEntity()
+        workspaceStoreR2dbcRepository.findById(workspace.id)
+    }
+
+    @Test
+    fun `should find all workspaces`(): Unit = runBlocking {
+        coEvery { workspaceRepository.findAll() } returns flowOf(workspace.toEntity())
+        workspaceStoreR2dbcRepository.findAll()
+    }
+
+    @Test
+    fun `should delete workspace collaborator`(): Unit = runBlocking {
+        coEvery { workspaceCollaboratorRepository.delete(any(), any()) } returns 0
+        workspaceStoreR2dbcRepository.removeCollaborator(workspace.id, workspaceCollaborators.userId)
     }
 }

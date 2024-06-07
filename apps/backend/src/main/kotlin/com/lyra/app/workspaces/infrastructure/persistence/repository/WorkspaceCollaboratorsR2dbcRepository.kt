@@ -33,4 +33,18 @@ interface WorkspaceCollaboratorsR2dbcRepository :
     """,
     )
     suspend fun upsert(entity: WorkspaceCollaboratorEntity): Int
+
+    /**
+     * Deletes a workspace collaborator.
+     *
+     * @param workspaceId The workspace id.
+     * @param userId The user id.
+     */
+    @Modifying
+    @Query(
+        """
+    DELETE FROM workspace_collaborators WHERE workspace_id = :workspaceId AND user_id = :userId
+    """,
+    )
+    suspend fun delete(workspaceId: UUID, userId: UUID): Int
 }

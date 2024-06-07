@@ -14,7 +14,7 @@ object WorkspaceStub {
     private val faker = Faker()
     fun create(
         id: UUID = UUID.randomUUID(),
-        name: String = faker.lorem().words(3).joinToString(" "),
+        name: String = generateName(),
         userId: UUID = UUID.randomUUID()
     ): Workspace = Workspace(
         id = WorkspaceId(id),
@@ -33,7 +33,7 @@ object WorkspaceStub {
     )
 
     fun generateRequest(
-        name: String = faker.lorem().words(3).joinToString(" "),
+        name: String = generateName(),
         userId: String = UUID.randomUUID().toString(),
     ): CreateWorkspaceRequest = CreateWorkspaceRequest(
         name = name,
@@ -41,8 +41,20 @@ object WorkspaceStub {
     )
 
     fun generateUpdateRequest(
-        name: String = faker.lorem().words(3).joinToString(" "),
+        name: String = generateName(),
     ): UpdateWorkspaceRequest = UpdateWorkspaceRequest(
         name = name,
     )
+
+    fun dummyRandomWorkspaces(size: Int): List<Workspace> {
+        val workspaces = (0 until size).map {
+            create()
+        }
+        return workspaces
+    }
+
+    private fun generateName(): String {
+        val randomNum = faker.number().numberBetween(1, 4)
+        return "Test: ${faker.lorem().words(randomNum).joinToString(" ")}"
+    }
 }

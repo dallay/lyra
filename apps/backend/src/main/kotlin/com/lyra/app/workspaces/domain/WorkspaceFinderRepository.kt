@@ -11,4 +11,11 @@ interface WorkspaceFinderRepository {
      * @return The workspace with the given unique identifier.
      */
     suspend fun findById(id: WorkspaceId): Workspace?
+
+    /**
+     * Find all workspaces.
+     *
+     * @return A list of all workspaces.
+     */
+    suspend fun findAll(): List<Workspace>
 }

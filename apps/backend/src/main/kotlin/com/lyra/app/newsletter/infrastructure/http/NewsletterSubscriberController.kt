@@ -26,7 +26,7 @@ class NewsletterSubscriberController(
         ApiResponse(responseCode = "201", description = "Created"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @PutMapping("/newsletter/subscribers/{id}")
+    @PutMapping("/$ENDPOINT_SUBSCRIBER/{id}")
     suspend fun subscribe(
         @PathVariable id: String,
         @Validated @RequestBody request: SubscribeNewsletterRequest

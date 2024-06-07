@@ -1,5 +1,6 @@
 package com.lyra.app.newsletter.application.search.all
 
+import com.lyra.UnitTest
 import com.lyra.app.GeneralStub.getTimestampCursorPage
 import com.lyra.app.newsletter.SubscriberStub
 import com.lyra.app.newsletter.domain.SubscriberRepository
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.Test
 
 private const val NUM_SUBSCRIBER = 100
 
+@UnitTest
 internal class SearchAllSubscribersQueryHandlerTest {
     private val repository = mockkClass(SubscriberRepository::class)
     private val searcher = SearchAllSubscriberSearcher(repository)

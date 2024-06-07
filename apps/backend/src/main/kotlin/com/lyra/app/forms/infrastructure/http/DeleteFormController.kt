@@ -39,7 +39,7 @@ class DeleteFormController(
         ApiResponse(responseCode = "404", description = "Workspace not found"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @DeleteMapping("/forms/{id}")
+    @DeleteMapping("/$ENDPOINT_FORM/{id}")
     @ResponseStatus(HttpStatus.OK)
     suspend fun delete(
         @PathVariable id: String

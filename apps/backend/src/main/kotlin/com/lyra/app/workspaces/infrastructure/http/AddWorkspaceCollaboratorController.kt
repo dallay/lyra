@@ -40,7 +40,7 @@ class AddWorkspaceCollaboratorController(
         ApiResponse(responseCode = "201", description = "Created"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @PutMapping("/workspace/collaborator")
+    @PutMapping("/$ENDPOINT_COLLABORATOR")
     suspend fun create(
         @Validated @RequestBody request: AddWorkspaceCollaboratorRequest
     ): ResponseEntity<String> {

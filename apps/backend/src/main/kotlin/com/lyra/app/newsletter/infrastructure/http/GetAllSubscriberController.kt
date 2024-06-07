@@ -36,7 +36,7 @@ class GetAllSubscriberController(
         ApiResponse(responseCode = "200", description = "Success"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @GetMapping("/newsletter/subscribers")
+    @GetMapping(ENDPOINT_SUBSCRIBER)
     @ResponseBody
     suspend fun findAll(cursorRequestPageable: CursorRequestPageable): Response {
         log.debug("Get all subscribers with cursor: {}", cursorRequestPageable)

@@ -5,10 +5,6 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.springframework.test.context.jdbc.Sql
 
-@Sql(
-    "/db/workspace/clean.sql",
-    executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS,
-)
 internal class GetAllWorkspaceControllerIntegrationTest : ControllerIntegrationTest() {
 
     @Test

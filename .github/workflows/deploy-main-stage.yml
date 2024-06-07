@@ -150,13 +150,19 @@ jobs:
       - id: get_data
         run: |
           echo "version=$(cat gradle.properties | grep "version =" | cut -d'=' -f2)" >> $GITHUB_OUTPUT
+      - name: 🟢 Generate token for approval workflow
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
       - name: Wait for approval
         uses: trstringer/manual-approval@v1
-        timeout-minutes: 480
+        timeout-minutes: 60
         with:
-          secret: ${{ env.CI_GITHUB_TOKEN }}
+          secret: ${{ steps.generate_token.outputs.token }} # ${{ env.CI_GITHUB_TOKEN }}
           minimum-approvals: 1
-          approvers: ${{ github.repository_owner }}
+          approvers: nomads #${{ github.repository_owner }}
           issue-title: '🚀 Deploying ${{ steps.get_data.outputs.version }} to production'
           issue-body: "Please approve or deny the release of ${{ github.github.repository }}. **VERSION**: ${{ steps.get_data.outputs.version }} **TAG**: ${{ github.ref_name }}  **COMMIT**: ${{ github.sha }}"
           exclude-workflow-initiator-as-approver: false

@@ -1,21 +1,13 @@
-import '@unocss/reset/tailwind.css';
-import 'uno.css';
-import './style.css';
-import { createApp } from 'vue';
-import { createPinia } from 'pinia';
+import 'reflect-metadata';
+import { Container } from 'inversify';
+import { formsModule } from '@lyra/api-services';
 
-import localer from '~/plugins/localer';
-import router from '~/plugins/router';
+const dependenciesContainer = new Container();
 
-import App from './App.vue';
+const setupApplicationDependencies = async (): Promise<void> => {
+	dependenciesContainer.load(formsModule);
+};
 
-const pinia = createPinia();
-const app = createApp(App);
+setupApplicationDependencies().then((r) => r);
 
-app.use(pinia);
-app.use(router);
-app.use(localer);
-
-app.mount('#root');
-
-export default app;
+export { dependenciesContainer };

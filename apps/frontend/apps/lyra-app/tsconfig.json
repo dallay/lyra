@@ -1,13 +1,16 @@
 {
-  "extends": "@lyra/tsconfig/tsconfig.vue.json",
+  "extends": "@lyra/tsconfig/tsconfig.strict.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
       "~/*": ["src/*"],
-      "mock/*": ["../../mock/src/routes/*"]
-    }
-  },
-  "include": ["src", "vite.config.ts"],
-  "exclude": ["node_modules", "dist", "coverage"]
+      "@components:*": ["src/components/*"],
+      "atoms:*": ["src/components/atoms/*.astro"],
+      "molecules:*": ["src/components/molecules/*.astro"],
+      "organisms:*": ["src/components/organisms/*.astro"],
+      "layouts:*": ["src/layouts/*.astro"]
+    },
+    "jsx": "preserve"
+  }
 }

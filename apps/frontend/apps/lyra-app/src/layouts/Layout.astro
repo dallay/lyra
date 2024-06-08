@@ -1,0 +1,46 @@
+---
+import '../main';
+import pkg from '../../package.json' assert { type: 'json' };
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = pkg.description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="color-scheme" content="light dark" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="author" content={pkg.author.name} />
+		<meta name="description" content={description ?? pkg.description} />
+		<meta name="copyright" content={pkg.license} />
+		<title>{title}</title>
+		<script>
+			import { loadTheme } from '@lyra/utilities';
+
+			loadTheme();
+		</script>
+	</head>
+	<body
+		class:list={[
+			'bg-tertiary-100 dark:bg-tertiary-950',
+			'scrollbar scrollbar-w-1 scrollbar-thumb-rounded-[0.25rem]',
+			'scrollbar-track-slate-200  scrollbar-thumb-gray-400',
+			'dark:scrollbar-track-gray-900 dark:scrollbar-thumb-gray-700',
+		]}
+	>
+		<slot />
+	</body>
+</html>
+
+<!--<style is:global>-->
+<!--	html {-->
+<!--		font-family: 'Onest Variable', sans-serif;-->
+<!--	}-->
+<!--</style>-->

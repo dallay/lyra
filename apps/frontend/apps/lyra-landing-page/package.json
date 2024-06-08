@@ -39,7 +39,7 @@
     "@iconify-json/simple-icons": "^1.1.104",
     "@iconify/json": "^2.2.217",
     "@lyra/utilities": "0.0.1",
-    "astro": "^4.9.3",
+    "astro": "^4.10.1",
     "typescript": "^5.4.5",
     "vue": "^3.4.27"
   },

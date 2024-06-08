@@ -1,3 +1,31 @@
+# [1.7.0](https://github.com/dallay/lyra/compare/v1.6.0...v1.7.0) (2024-06-08)
+
+
+### Bug Fixes
+
+* 🚀 deploy main stage ([4b68b38](https://github.com/dallay/lyra/commit/4b68b38e1fdde8ad98f0ac89f253dc6f9726f11d))
+* change manual approval time to 480 minutes ([32575c6](https://github.com/dallay/lyra/commit/32575c631f2e7b34e03a8c6187c3ff2ca999807e))
+* deploy main stage approvals steps ([c057fd2](https://github.com/dallay/lyra/commit/c057fd2a71ae5f465c2da7fbe6069b3d08bc0901))
+* deploy main stage approvals steps. Change the generate token actions ([ec29382](https://github.com/dallay/lyra/commit/ec29382273ead8ddb3239be2651b846b5b3e2ba3))
+* deploy main stage approvals steps. Change the generate token actions ([0b6989a](https://github.com/dallay/lyra/commit/0b6989ab6737d73aaabee0ccd408b5340923f2f2))
+* deploy main stage approvals steps. Change the generate token actions ([2d3b065](https://github.com/dallay/lyra/commit/2d3b0651557af6d73d67435d3f70cb4a13b86942))
+* **deps:** update dependency astro to v4.9.2 ([#291](https://github.com/dallay/lyra/issues/291)) ([87854c9](https://github.com/dallay/lyra/commit/87854c9ffa65381a75b144ed96bb7e8cc0733dc4))
+* **deps:** update dependency io.cucumber:cucumber-java to v7.18.0 ([#275](https://github.com/dallay/lyra/issues/275)) ([ebf7582](https://github.com/dallay/lyra/commit/ebf7582b016a14e74ba035367ca93b9bebb8dfd6))
+* **deps:** update dependency org.assertj:assertj-core to v3.26.0 ([#277](https://github.com/dallay/lyra/issues/277)) ([fcf7ad6](https://github.com/dallay/lyra/commit/fcf7ad68603063370209e387add38a1dde3ed16a))
+* **deps:** update dependency org.keycloak:keycloak-admin-client to v22.0.5 ([#274](https://github.com/dallay/lyra/issues/274)) ([afd233c](https://github.com/dallay/lyra/commit/afd233ce5065379085a69a55e8da40c607b148a7))
+* **deps:** update dependency org.keycloak:keycloak-admin-client to v24 ([#282](https://github.com/dallay/lyra/issues/282)) ([600ae6b](https://github.com/dallay/lyra/commit/600ae6b37a18941dc89d85b04a47e0b1fcc6902b))
+* **deps:** update dependency org.springframework.security:spring-security-test to v6.3.0 ([#278](https://github.com/dallay/lyra/issues/278)) ([5adc5a0](https://github.com/dallay/lyra/commit/5adc5a00e527bf2d107c47f280344f775eec3717))
+* migration url repo ([37bc4f2](https://github.com/dallay/lyra/commit/37bc4f2cfcc7c5be47ac161844d681d4939436e5))
+
+
+### Features
+
+* [TASK-187] Add Workspace Support ([#304](https://github.com/dallay/lyra/issues/304)) ([823c99d](https://github.com/dallay/lyra/commit/823c99d3d8f8598a739731d900a02e6cb974a81d))
+* [TASK-203] Create Workspace ([#300](https://github.com/dallay/lyra/issues/300)) ([e470279](https://github.com/dallay/lyra/commit/e470279408a0e77f7666d9ac41ccd59a0247c9b1))
+* [TASK-204] 🟢  Support Update Workspace ([#301](https://github.com/dallay/lyra/issues/301)) ([a3b35ab](https://github.com/dallay/lyra/commit/a3b35ab15fce4aa625cdd3a3c919e91e07d2576a))
+* [TASK-205] 299 delete workspace ([#302](https://github.com/dallay/lyra/issues/302)) ([b54b50c](https://github.com/dallay/lyra/commit/b54b50ce53e3c2eae80b6943df304c944f1d63f3))
+* env keycloak ([#279](https://github.com/dallay/lyra/issues/279)) ([605e345](https://github.com/dallay/lyra/commit/605e34512e95c0d2eaf543b6d1be7e2f4c999517))
+
 # [1.6.0](https://github.com/dallay/lyra/compare/v1.5.0...v1.6.0) (2024-05-26)
 
 

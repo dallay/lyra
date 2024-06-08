@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yacosta738/lyra.git",
+    "url": "https://github.com/dallay/lyra.git",
     "directory": "apps/embeds-web-components",
     "branch": "main"
   },
   "bugs": {
-    "url": "https://github.com/yacosta738/lyra/issues"
+    "url": "https://github.com/dallay/lyra/issues"
   },
   "scripts": {
     "dev": "astro dev",
@@ -31,7 +31,7 @@
   "dependencies": {
     "@astrojs/check": "^0.7.0",
     "@astrojs/node": "^8.2.5",
-    "@iconify/json": "^2.2.216",
+    "@iconify/json": "^2.2.217",
     "@lyra/api-services": "0.0.1",
     "@lyra/config": "0.0.1",
     "@lyra/tsconfig": "0.0.1",

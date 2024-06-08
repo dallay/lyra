@@ -17,12 +17,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/yacosta738/lyra.git",
+    "url": "https://github.com/dallay/lyra.git",
     "directory": "apps/frontend/packages/css-config",
     "branch": "main"
   },
   "bugs": {
-    "url": "https://github.com/yacosta738/lyra/issues"
+    "url": "https://github.com/dallay/lyra/issues"
   },
   "scripts": {
     "test": "echo No test specified 😎 && exit 0"
@@ -38,7 +38,7 @@
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard-scss": "^13.1.0",
     "stylelint-order": "^6.0.4",
-    "tailwindcss": "^3.4.3",
+    "tailwindcss": "^3.4.4",
     "unocss": "^0.60.4",
     "vitest": "^1.6.0",
     "vite-tsconfig-paths": "^4.3.2"

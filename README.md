@@ -32,7 +32,7 @@
 
 <div align="center">
 
-[![Deploy to Main Stage 💫](https://github.com/yacosta738/lyra/actions/workflows/deploy-main-stage.yml/badge.svg)](https://github.com/yacosta738/lyra/actions/workflows/deploy-main-stage.yml)
+[![Deploy to Main Stage 💫](https://github.com/dallay/lyra/actions/workflows/deploy-main-stage.yml/badge.svg)](https://github.com/dallay/lyra/actions/workflows/deploy-main-stage.yml)
 [![codecov](https://codecov.io/gh/dallay/lyra/graph/badge.svg?token=i5pxpknTbs)](https://codecov.io/gh/dallay/lyra)
 ![GitHub stars](https://img.shields.io/github/stars/yacosta738/lyra)
 ![GitHub issues](https://img.shields.io/github/issues/yacosta738/lyra)

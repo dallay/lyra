@@ -29,10 +29,11 @@ class GetAllTeamController(
     @GetMapping("/$ENDPOINT_ORGANIZATION/{organizationId}/$ENDPOINT_TEAM")
     @ResponseBody
     suspend fun findAll(@PathVariable("organizationId") organizationId: String): Response {
-        log.debug("Get All teams for organization with id: $organizationId")
+        val safeOrganizationId = sanitizePathVariable(organizationId)
+        log.debug("Get All teams for organization with id: $safeOrganizationId")
 
         val response = ask(
-            AllTeamQuery(organizationId),
+            AllTeamQuery(safeOrganizationId),
         )
         return response
     }

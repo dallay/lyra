@@ -45,11 +45,13 @@ class UpdateTeamController(
         @PathVariable id: String,
         @Validated @RequestBody request: UpdateTeamRequest,
     ): ResponseEntity<String> {
-        log.debug("Update Team with ID: {}", id)
+        val safeId = sanitizePathVariable(id)
+        val safeName = sanitizePathVariable(request.name)
+        log.debug("Update Team with ID: {}", safeId)
         dispatch(
             UpdateTeamCommand(
-                id,
-                request.name,
+                safeId,
+                safeName,
             ),
         )
         return ResponseEntity.ok("Team updated successfully")

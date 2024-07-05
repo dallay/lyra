@@ -38,11 +38,13 @@ class RemoveTeamMemberController(
     @DeleteMapping("/team/{teamId}/member/{userId}")
     @ResponseStatus(HttpStatus.OK)
     suspend fun remove(@PathVariable teamId: String, @PathVariable userId: String) {
-        log.debug("Removing team member with teamId: {} and userId: {}", teamId, userId)
+        val safeTeamId = sanitizePathVariable(teamId)
+        val safeUserId = sanitizePathVariable(userId)
+        log.debug("Removing team member with teamId: {} and userId: {}", safeTeamId, safeUserId)
         dispatch(
             RemoveTeamMemberCommand(
-                teamId,
-                userId,
+                safeTeamId,
+                safeUserId,
             ),
         )
     }

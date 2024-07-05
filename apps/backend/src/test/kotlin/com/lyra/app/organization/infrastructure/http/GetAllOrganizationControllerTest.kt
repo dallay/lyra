@@ -21,10 +21,10 @@ internal class GetAllOrganizationControllerTest : ControllerTest() {
         OrganizationStub.dummyRandomOrganizations(size = 6, userId = userId)
 
     @BeforeEach
-    fun setUp() {
+    override fun setUp() {
+        super.setUp()
         val query = AllOrganizationQuery(userId.toString())
         coEvery { mediator.send(eq(query)) } returns OrganizationResponses.from(organizations)
-        mockSecurity()
     }
     @Test
     fun `should get all organizations`() {

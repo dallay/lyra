@@ -42,10 +42,11 @@ class CreateTeamController(
         @PathVariable id: String,
         @Validated @RequestBody request: CreateTeamRequest,
     ): ResponseEntity<String> {
-        log.debug("Creating Team with ID: {}", id)
+        val safeId = sanitizePathVariable(id)
+        log.debug("Creating Team with ID: {}", safeId)
         dispatch(
             CreateTeamCommand(
-                id,
+                safeId,
                 request.organizationId,
                 request.name,
             ),

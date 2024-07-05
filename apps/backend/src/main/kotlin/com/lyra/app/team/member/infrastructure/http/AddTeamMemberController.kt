@@ -38,15 +38,18 @@ class AddTeamMemberController(
     suspend fun create(
         @Validated @RequestBody request: AddTeamMemberRequest
     ): ResponseEntity<String> {
+        val teamId = sanitizePathVariable(request.teamId)
+        val userId = sanitizePathVariable(request.userId)
+        val role = sanitizePathVariable(request.role)
         log.debug(
             "Add team member with teamId: {} and userId: {}",
-            request.teamId, request.userId,
+            teamId, userId,
         )
         dispatch(
             AddTeamMemberCommand(
-                request.teamId,
-                request.userId,
-                request.role,
+                teamId,
+                userId,
+                role,
             ),
         )
         return ResponseEntity.created(URI.create("/api/$ENDPOINT_TEAM_MEMBER")).build()

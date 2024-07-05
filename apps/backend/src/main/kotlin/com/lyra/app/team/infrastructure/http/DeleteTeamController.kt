@@ -24,8 +24,9 @@ class DeleteTeamController(mediator: Mediator) : ApiController(mediator) {
     )
     @DeleteMapping("/$ENDPOINT_TEAM/{id}")
     suspend fun delete(@PathVariable id: String) {
-        log.debug("Deleting team with id: $id")
-        dispatch(DeleteTeamCommand(id))
+        val safeId = sanitizePathVariable(id)
+        log.debug("Deleting team with id: $safeId")
+        dispatch(DeleteTeamCommand(safeId))
     }
 
     companion object {

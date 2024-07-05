@@ -45,10 +45,11 @@ class CreateOrganizationController(
         @PathVariable id: String,
         @Validated @RequestBody request: CreateOrganizationRequest
     ): ResponseEntity<String> {
-        log.debug("Creating Organization with ID: {}", id)
+        val safeId = sanitizePathVariable(id)
+        log.debug("Creating Organization with ID: {}", safeId)
         dispatch(
             OrganizationCommand(
-                id,
+                safeId,
                 request.name,
                 request.userId,
             ),

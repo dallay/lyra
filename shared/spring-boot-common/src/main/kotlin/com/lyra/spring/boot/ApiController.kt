@@ -8,6 +8,7 @@ import com.lyra.common.domain.bus.query.QueryHandlerExecutionError
 import com.lyra.common.domain.bus.query.Response
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import kotlinx.coroutines.reactor.awaitSingleOrNull
+import org.apache.commons.text.StringEscapeUtils
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.ReactiveSecurityContextHolder
 
@@ -28,4 +29,5 @@ abstract class ApiController(
             .awaitSingleOrNull()
         return authentication
     }
+    protected fun sanitizePathVariable(pathVariable: String): String = StringEscapeUtils.escapeJava(pathVariable)
 }

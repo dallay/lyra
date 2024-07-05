@@ -22,7 +22,8 @@ internal class UpdateOrganizationControllerTest : ControllerTest() {
     override val webTestClient = buildWebTestClient(controller)
 
     @BeforeEach
-    fun setUp() {
+    override fun setUp() {
+        super.setUp()
         coEvery { mediator.send(eq(command)) } returns Unit
     }
 

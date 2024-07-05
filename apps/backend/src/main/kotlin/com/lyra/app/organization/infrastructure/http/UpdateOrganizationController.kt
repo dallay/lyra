@@ -47,10 +47,11 @@ class UpdateOrganizationController(
         @PathVariable id: String,
         @Validated @RequestBody request: UpdateOrganizationRequest
     ): ResponseEntity<String> {
-        log.debug("Updating organization with ID: {}", id)
+        val safeId = sanitizePathVariable(id)
+        log.debug("Updating organization with ID: {}", safeId)
         dispatch(
             UpdateOrganizationCommand(
-                id,
+                safeId,
                 request.name,
             ),
         )

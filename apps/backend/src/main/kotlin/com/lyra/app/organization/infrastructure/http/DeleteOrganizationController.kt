@@ -44,8 +44,9 @@ class DeleteOrganizationController(
     suspend fun delete(
         @PathVariable id: String
     ) {
-        log.debug("Deleting organization with id: $id")
-        dispatch(DeleteOrganizationCommand(id))
+        val safeId = sanitizePathVariable(id)
+        log.debug("Deleting organization with id: $safeId")
+        dispatch(DeleteOrganizationCommand(safeId))
     }
 
     companion object {

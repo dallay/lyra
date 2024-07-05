@@ -5,7 +5,10 @@ import com.lyra.spring.boot.ApiController
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
 import java.util.*
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.context.ReactiveSecurityContextHolder
@@ -26,6 +29,11 @@ abstract class ControllerTest {
     protected val userId: UUID = UUID.randomUUID()
 
     abstract val webTestClient: WebTestClient
+
+    @BeforeEach
+    protected open fun setUp() {
+        mockSecurity()
+    }
 
     protected fun buildWebTestClient(controller: ApiController): WebTestClient {
         val jwtAuthenticationToken: JwtAuthenticationToken = jwtAuthenticationToken()
@@ -68,5 +76,10 @@ abstract class ControllerTest {
         val authorities = AuthorityUtils.createAuthorityList("ROLE_USER")
         val jwtAuthenticationToken = JwtAuthenticationToken(jwt, authorities)
         return jwtAuthenticationToken
+    }
+
+    @AfterEach
+    protected fun tearDown() {
+        unmockkStatic(ReactiveSecurityContextHolder::class)
     }
 }

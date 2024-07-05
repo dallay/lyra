@@ -42,9 +42,7 @@ class GetAllOrganizationController(
     @GetMapping(ENDPOINT_ORGANIZATION)
     @ResponseBody
     suspend fun findAll(): Response {
-        println("\uD83D\uDFE2 test ✨✨✨✨✨✨")
         val authentication = authentication()
-        println("✨ authentication: $authentication")
         val jwt = authentication?.principal as? Jwt
         val userId = jwt?.claims?.get("sub") as? String
         log.debug("Get All organizations for user: {}", userId)

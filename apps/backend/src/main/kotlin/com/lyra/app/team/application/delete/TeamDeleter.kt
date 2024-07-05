@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory
  * Service to delete a team. The team is identified by the teamId and the organizationId.
  *
  * @property teamRemoverRepository The repository to delete a team.
- * @property eventPublisher The publisher for workspace collaborator removed events.
+ * @property eventPublisher The publisher for organization collaborator removed events.
 
  */
 @Service

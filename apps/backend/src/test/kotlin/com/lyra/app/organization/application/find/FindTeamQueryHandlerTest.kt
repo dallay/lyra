@@ -27,12 +27,12 @@ internal class FindTeamQueryHandlerTest {
     }
 
     @Test
-    fun `should return workspace response when workspace is found`() = runBlocking {
+    fun `should return organization response when organization is found`() = runBlocking {
         val id = UUID.randomUUID().toString()
         val organizationId = OrganizationId(id)
-        val workspace = OrganizationStub.create()
-        val organizationResponse = OrganizationResponse.from(workspace)
-        coEvery { organizationFinder.find(organizationId) } returns workspace
+        val organization = OrganizationStub.create()
+        val organizationResponse = OrganizationResponse.from(organization)
+        coEvery { organizationFinder.find(organizationId) } returns organization
 
         val result = findOrganizationQueryHandler.handle(FindOrganizationQuery(id))
 
@@ -40,7 +40,7 @@ internal class FindTeamQueryHandlerTest {
     }
 
     @Test
-    fun `should throw exception when workspace is not found`() {
+    fun `should throw exception when organization is not found`() {
         val id = UUID.randomUUID().toString()
         val organizationId = OrganizationId(id)
         coEvery { organizationFinder.find(organizationId) } returns null

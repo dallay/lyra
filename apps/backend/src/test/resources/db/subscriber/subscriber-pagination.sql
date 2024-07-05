@@ -1,5 +1,5 @@
 INSERT INTO organizations (id, name, user_id, created_at, updated_at)
-VALUES ('1b423df9-d6fc-4fd9-904b-4bb40dc88aeb', 'Test: My First Workspace',
+VALUES ('1b423df9-d6fc-4fd9-904b-4bb40dc88aeb', 'Test: My First Organization',
         'da440485-3807-414b-bfc2-01b99b249088', '2024-06-02 11:00:08.251',
         '2024-06-02 11:00:08.281');
 

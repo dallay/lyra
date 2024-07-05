@@ -25,12 +25,12 @@ internal class CreateOrganizationCommandHandlerTest {
     }
 
     @Test
-    fun `handle should create workspace with provided command`() = runBlocking {
-        val workspaceId = UUID.randomUUID().toString()
+    fun `handle should create organization with provided command`() = runBlocking {
+        val organizationId = UUID.randomUUID().toString()
         val userId = UUID.randomUUID().toString()
-        val name = "Test Workspace"
-        val command = OrganizationWorkspaceCommand(
-            id = workspaceId,
+        val name = "Test Organization"
+        val command = OrganizationCommand(
+            id = organizationId,
             name = name,
             userId = userId,
         )

@@ -28,7 +28,7 @@ object FormStub {
             textColor = faker.color().hex(),
             buttonTextColor = faker.color().hex(),
         ),
-        workspaceId: String = UUID.randomUUID().toString(),
+        organizationId: String = UUID.randomUUID().toString(),
     ): Form = Form(
         id = FormId(id),
         name = dto.name,
@@ -40,7 +40,7 @@ object FormStub {
         backgroundColor = HexColor(dto.backgroundColor),
         textColor = HexColor(dto.textColor),
         buttonTextColor = HexColor(dto.buttonTextColor),
-        organizationId = OrganizationId(workspaceId),
+        organizationId = OrganizationId(organizationId),
     )
 
     @Suppress("MultilineRawStringIndentation")
@@ -68,7 +68,7 @@ object FormStub {
         "backgroundColor": "${styleConfiguration.backgroundColor}",
         "textColor": "${styleConfiguration.textColor}",
         "buttonTextColor": "${styleConfiguration.buttonTextColor}",
-        "workspaceId": "$organizationId"
+        "organizationId": "$organizationId"
       }
     """.trimIndent()
 

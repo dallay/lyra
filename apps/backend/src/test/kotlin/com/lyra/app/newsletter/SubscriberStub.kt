@@ -30,13 +30,13 @@ object SubscriberStub {
         firstname: String = faker.name().firstName(),
         lastname: String = faker.name().lastName(),
         status: SubscriberStatus = SubscriberStatus.ENABLED,
-        workspaceId: String = UUID.randomUUID().toString()
+        organizationId: String = UUID.randomUUID().toString()
     ): Subscriber = Subscriber(
         id = SubscriberId(id),
         email = Email(email),
         name = Name(FirstName(firstname), LastName(lastname)),
         status = status,
-        organizationId = OrganizationId(workspaceId),
+        organizationId = OrganizationId(organizationId),
     )
 
     fun dummyRandomSubscribersList(size: Int = 10): List<Subscriber> {
@@ -78,7 +78,7 @@ object SubscriberStub {
 
     @Suppress("MultilineRawStringIndentation")
     fun generateRequest(
-        workspaceId: String,
+        organizationId: String,
         email: String = faker.internet().emailAddress(),
         firstname: String = faker.name().firstName(),
         lastname: String = faker.name().lastName(),
@@ -87,7 +87,7 @@ object SubscriberStub {
            "email": "$email",
            "firstname": "$firstname",
            "lastname": "$lastname",
-           "workspaceId": "$workspaceId"
+           "organizationId": "$organizationId"
        }
     """.trimIndent()
 

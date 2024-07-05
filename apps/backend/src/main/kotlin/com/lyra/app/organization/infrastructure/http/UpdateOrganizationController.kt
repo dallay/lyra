@@ -30,7 +30,7 @@ class UpdateOrganizationController(
 
     /**
      * This method handles the PUT request for updating an organization.
-     * It validates the request body and dispatches an UpdateWorkspaceCommand.
+     * It validates the request body and dispatches an [UpdateOrganizationCommand].
      *
      * @param id The ID of the organization to update.
      * @param request The request body containing the new organization data.

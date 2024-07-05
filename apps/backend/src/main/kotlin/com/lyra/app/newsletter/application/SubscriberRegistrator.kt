@@ -33,18 +33,18 @@ class SubscriberRegistrator(
      * @param email The email address of the subscriber.
      * @param firstName The first name of the subscriber.
      * @param lastName The last name of the subscriber. This can be null.
-     * @param workspaceId The identifier of the workspace the subscriber belongs to.
+     * @param organizationId The identifier of the organization the subscriber belongs to.
      */
     suspend fun register(
         id: UUID,
         email: String,
         firstName: String,
         lastName: String? = null,
-        workspaceId: UUID
+        organizationId: UUID
     ) {
         log.debug("Registering subscriber with email: $email")
 
-        val subscriber = Subscriber.create(id, email, firstName, lastName, workspaceId = workspaceId)
+        val subscriber = Subscriber.create(id, email, firstName, lastName, organizationId = organizationId)
         subscriberRepository.create(subscriber)
         val domainEvents = subscriber.pullDomainEvents()
 

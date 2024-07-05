@@ -18,7 +18,7 @@ internal class DeleteOrganizationControllerIntegrationTest : ControllerIntegrati
         "/db/organization/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
-    fun `should delete workspace when workspace is found`(): Unit = runBlocking {
+    fun `should delete organization when organization is found`(): Unit = runBlocking {
         val id = "a0654720-35dc-49d0-b508-1f7df5d915f1"
         webTestClient.mutateWith(csrf()).delete()
             .uri("$ENDPOINT/$id")
@@ -28,7 +28,7 @@ internal class DeleteOrganizationControllerIntegrationTest : ControllerIntegrati
     }
 
     @Test
-    fun `should return OK when workspace is not found`(): Unit = runBlocking {
+    fun `should return OK when organization is not found`(): Unit = runBlocking {
         val id = "94be1a32-cf2e-4dfc-892d-bdd8ac7ad354"
         webTestClient.mutateWith(csrf()).delete()
             .uri("$ENDPOINT/$id")

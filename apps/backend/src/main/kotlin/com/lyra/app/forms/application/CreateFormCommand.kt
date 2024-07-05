@@ -15,7 +15,7 @@ import com.lyra.common.domain.bus.command.Command
  * @property backgroundColor Background color for the form.
  * @property textColor Text color for the form.
  * @property buttonTextColor Text color for the form submission button.
- * @property workspaceId Unique identifier for the workspace.
+ * @property organizationId Unique identifier for the organization that owns the form.
  */
 data class CreateFormCommand(
     val id: String,
@@ -28,5 +28,5 @@ data class CreateFormCommand(
     val backgroundColor: String,
     val textColor: String,
     val buttonTextColor: String,
-    val workspaceId: String
+    val organizationId: String
 ) : Command

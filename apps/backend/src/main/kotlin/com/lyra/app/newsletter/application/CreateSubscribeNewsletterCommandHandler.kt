@@ -22,8 +22,8 @@ class CreateSubscribeNewsletterCommandHandler(
     override suspend fun handle(command: SubscribeNewsletterCommand) {
         log.debug("Handling command: {}", command)
         val id = UUID.fromString(command.id)
-        val workspaceId = UUID.fromString(command.workspaceId)
-        subscriberRegistrator.register(id, command.email, command.firstname, command.lastname, workspaceId)
+        val organizationId = UUID.fromString(command.organizationId)
+        subscriberRegistrator.register(id, command.email, command.firstname, command.lastname, organizationId)
     }
 
     companion object {

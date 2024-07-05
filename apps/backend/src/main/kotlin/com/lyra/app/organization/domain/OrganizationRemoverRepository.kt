@@ -1,13 +1,13 @@
 package com.lyra.app.organization.domain
 
 /**
- * Repository to delete a workspace.
+ * Repository to delete an organization.
  */
 interface OrganizationRemoverRepository {
     /**
-     * Deletes a workspace.
+     * Deletes an organization.
      *
-     * @param id The workspace id.
+     * @param id The id of the organization to delete.
      */
     suspend fun delete(id: OrganizationId)
 }

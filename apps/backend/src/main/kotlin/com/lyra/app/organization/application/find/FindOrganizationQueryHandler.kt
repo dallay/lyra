@@ -30,7 +30,7 @@ class FindOrganizationQueryHandler(
     override suspend fun handle(query: FindOrganizationQuery): OrganizationResponse {
         log.info("Finding organization with id: ${query.id}")
         val organizationId = OrganizationId(query.id)
-        val organization = finder.find(organizationId) ?: throw OrganizationNotFoundException("Workspace not found")
+        val organization = finder.find(organizationId) ?: throw OrganizationNotFoundException("Organization not found")
         return OrganizationResponse.from(organization)
     }
 

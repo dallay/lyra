@@ -28,15 +28,15 @@ class DeleteOrganizationController(
      * This function handles the DELETE HTTP request for deleting an organization.
      * It uses the path variable 'id' to identify the organization to be deleted.
      * The function is a suspend function, meaning it is designed to be used with Kotlin coroutines.
-     * It dispatches a DeleteWorkspaceCommand with the provided id.
+     * It dispatches a [DeleteOrganizationCommand] with the provided id.
      *
      * @param id The id of the organization to be deleted.
-     * @return The result of the DeleteWorkspaceCommand dispatch.
+     * @return The result of the [DeleteOrganizationCommand] dispatch.
      */
     @Operation(summary = "Delete an organization")
     @ApiResponses(
-        ApiResponse(responseCode = "200", description = "Workspace deleted successfully"),
-        ApiResponse(responseCode = "404", description = "Workspace not found"),
+        ApiResponse(responseCode = "200", description = "Organization deleted successfully"),
+        ApiResponse(responseCode = "404", description = "Organization not found"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
     @DeleteMapping("/$ENDPOINT_ORGANIZATION/{id}")

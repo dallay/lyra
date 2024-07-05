@@ -26,7 +26,7 @@ internal class AllTeamQueryHandlerTest {
     }
 
     @Test
-    fun `should find all workspaces`() = runBlocking {
+    fun `should find all organization`() = runBlocking {
         val query = AllOrganizationQuery(userId.value.toString())
         val response = handler.handle(query)
         assertEquals(organizations.size, response.data.size)

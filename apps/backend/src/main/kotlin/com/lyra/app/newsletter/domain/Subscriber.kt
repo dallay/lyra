@@ -31,14 +31,14 @@ data class Subscriber(
             firstname: String,
             lastname: String? = null,
             status: SubscriberStatus = SubscriberStatus.ENABLED,
-            workspaceId: UUID,
+            organizationId: UUID,
             createdAt: LocalDateTime = LocalDateTime.now(),
             updatedAt: LocalDateTime? = null,
         ): Subscriber {
             val subscriberId = SubscriberId(id)
             val subscriberEmail = Email(email)
             val subscriberName = Name(firstname, lastname)
-            val subscriberOrganizationId = OrganizationId(workspaceId)
+            val subscriberOrganizationId = OrganizationId(organizationId)
 
             val subscriber = Subscriber(
                 id = subscriberId,

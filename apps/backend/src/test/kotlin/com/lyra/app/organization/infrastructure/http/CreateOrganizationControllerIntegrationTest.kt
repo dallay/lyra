@@ -13,7 +13,7 @@ private const val ENDPOINT = "/api/organization"
 
 internal class CreateOrganizationControllerIntegrationTest : ControllerIntegrationTest() {
     @Test
-    fun `should create a new workspace`() {
+    fun `should create a new organization`() {
         val request: CreateOrganizationRequest = OrganizationStub.generateRequest()
         val id = UUID.randomUUID().toString()
         webTestClient.mutateWith(csrf()).put()
@@ -33,7 +33,7 @@ internal class CreateOrganizationControllerIntegrationTest : ControllerIntegrati
         "/db/organization/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
-    fun `should fail when the workspace already exists`() {
+    fun `should fail when the organization already exists`() {
         val request: CreateOrganizationRequest = OrganizationStub.generateRequest()
         val id = "a0654720-35dc-49d0-b508-1f7df5d915f1"
         webTestClient.mutateWith(csrf()).put()

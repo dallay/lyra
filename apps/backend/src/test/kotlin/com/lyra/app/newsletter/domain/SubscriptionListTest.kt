@@ -36,7 +36,7 @@ internal class SubscriptionListTest {
             email,
             firstname,
             lastname,
-            workspaceId = UUID.randomUUID(),
+            organizationId = UUID.randomUUID(),
         )
         subscriptionList.addSubscriber(subscriber)
         assertEquals(1, subscriptionList.subscribers.size)
@@ -50,7 +50,7 @@ internal class SubscriptionListTest {
             email,
             firstname,
             lastname,
-            workspaceId = UUID.randomUUID(),
+            organizationId = UUID.randomUUID(),
         )
         subscriptionList.addSubscriber(subscriber)
         subscriptionList.removeSubscriber(subscriber)
@@ -65,7 +65,7 @@ internal class SubscriptionListTest {
             email,
             firstname,
             lastname,
-            workspaceId = UUID.randomUUID(),
+            organizationId = UUID.randomUUID(),
         )
         subscriptionList.addSubscriber(subscriber)
         val newName = Name("Jane", "Doe")

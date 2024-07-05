@@ -35,7 +35,7 @@ class FindOrganizationController(
     @Operation(summary = "Find an organization by ID")
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "Found organization"),
-        ApiResponse(responseCode = "404", description = "Workspace not found"),
+        ApiResponse(responseCode = "404", description = "Organization not found"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
     @GetMapping("/$ENDPOINT_ORGANIZATION/{id}")

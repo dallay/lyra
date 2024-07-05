@@ -4,7 +4,7 @@ import com.lyra.common.domain.error.BusinessRuleValidationException
 import com.lyra.common.domain.error.EntityNotFoundException
 
 /**
- * This class represents a specific exception related to workspace operations.
+ * This class represents a specific exception related to organization operations.
  * It extends the BusinessRuleValidationException class.
  *
  * @property message The detail message string of this throwable.
@@ -16,7 +16,7 @@ data class OrganizationException(
 ) : BusinessRuleValidationException(message, cause)
 
 /**
- * This class represents a specific exception that is thrown when a workspace is not found.
+ * This class represents a specific exception that is thrown when an organization is not found.
  * It extends the EntityNotFoundException class.
  *
  * @property message The detail message string of this throwable.

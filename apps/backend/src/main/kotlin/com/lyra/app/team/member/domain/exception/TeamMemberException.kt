@@ -3,7 +3,7 @@ package com.lyra.app.team.member.domain.exception
 import com.lyra.common.domain.error.BusinessRuleValidationException
 
 /**
- * This class represents a specific exception related to workspace collaborator operations.
+ * This class represents a specific exception related to team members.
  * It extends the BusinessRuleValidationException class.
  *
  * @property message The detail message string of this throwable.

@@ -1,6 +1,6 @@
 package com.lyra.app.organization.infrastructure.http
 
-import com.lyra.app.organization.application.OrganizationWorkspaceCommand
+import com.lyra.app.organization.application.OrganizationCommand
 import com.lyra.app.organization.infrastructure.http.request.CreateOrganizationRequest
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.spring.boot.ApiController
@@ -45,9 +45,9 @@ class CreateOrganizationController(
         @PathVariable id: String,
         @Validated @RequestBody request: CreateOrganizationRequest
     ): ResponseEntity<String> {
-        log.debug("Creating Workspace with ID: {}", id)
+        log.debug("Creating Organization with ID: {}", id)
         dispatch(
-            OrganizationWorkspaceCommand(
+            OrganizationCommand(
                 id,
                 request.name,
                 request.userId,

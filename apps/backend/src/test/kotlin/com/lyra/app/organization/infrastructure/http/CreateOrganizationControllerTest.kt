@@ -1,7 +1,7 @@
 package com.lyra.app.organization.infrastructure.http
 
 import com.lyra.UnitTest
-import com.lyra.app.organization.application.OrganizationWorkspaceCommand
+import com.lyra.app.organization.application.OrganizationCommand
 import com.lyra.app.organization.infrastructure.OrganizationStub
 import com.lyra.app.organization.infrastructure.http.request.CreateOrganizationRequest
 import com.lyra.common.domain.bus.Mediator
@@ -17,7 +17,7 @@ internal class CreateOrganizationControllerTest {
     private val organization = OrganizationStub.create()
     private val mediator = mockk<Mediator>()
     private val id = UUID.randomUUID().toString()
-    private val command = OrganizationWorkspaceCommand(
+    private val command = OrganizationCommand(
         id = id,
         name = organization.name,
         userId = organization.userId.value.toString(),

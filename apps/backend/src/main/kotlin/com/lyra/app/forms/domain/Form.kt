@@ -75,11 +75,11 @@ data class Form(
 
     companion object {
         /**
-         * Creates a new form with the given id, Style Configuration, workspace id, and creation time.
+         * Creates a new form with the given id, Style Configuration, organization id, and creation time.
          *
          * @param id The id of the new form.
          * @param styleConfiguration The [FormStyleConfiguration] containing the form data.
-         * @param workspaceId The id of the workspace the form belongs to.
+         * @param organizationId The id of the organization the form belongs to.
          * @param createdAt The creation time of the new form. Defaults to the current time.
          * @param updatedAt The last update time of the new form. Defaults to the creation time.
          * @return The newly created form.
@@ -87,12 +87,12 @@ data class Form(
         fun create(
             id: UUID,
             styleConfiguration: FormStyleConfiguration,
-            workspaceId: UUID,
+            organizationId: UUID,
             createdAt: LocalDateTime = LocalDateTime.now(),
             updatedAt: LocalDateTime? = createdAt
         ): Form {
             val formId = FormId(id)
-            val formOrganizationId = OrganizationId(workspaceId)
+            val formOrganizationId = OrganizationId(organizationId)
             val form = Form(
                 id = formId,
                 name = styleConfiguration.name,

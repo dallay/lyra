@@ -58,7 +58,6 @@ abstract class ControllerTest {
         }
 
         every { ReactiveSecurityContextHolder.getContext() } returns Mono.just(securityContext)
-        println("✨ mockSecurity: ${securityContext.authentication.principal}")
     }
 
     protected fun jwtAuthenticationToken(): JwtAuthenticationToken {

@@ -21,7 +21,7 @@ internal class DeleteOrganizationCommandHandlerTest {
         OrganizationDestroyer(destroyerRepository, eventPublisher)
     private val deleteOrganizationCommandHandler: DeleteOrganizationCommandHandler =
         DeleteOrganizationCommandHandler(destroyer)
-    private val workspaceId = UUID.randomUUID().toString()
+    private val organizationId = UUID.randomUUID().toString()
 
     @BeforeEach
     fun setUp() {
@@ -30,8 +30,8 @@ internal class DeleteOrganizationCommandHandlerTest {
     }
 
     @Test
-    fun `should delete a workspace`() = runBlocking {
-        val command = DeleteOrganizationCommand(id = workspaceId)
+    fun `should delete an organization`() = runBlocking {
+        val command = DeleteOrganizationCommand(id = organizationId)
         deleteOrganizationCommandHandler.handle(command)
 
         coVerify(exactly = 1) { destroyerRepository.delete(any()) }

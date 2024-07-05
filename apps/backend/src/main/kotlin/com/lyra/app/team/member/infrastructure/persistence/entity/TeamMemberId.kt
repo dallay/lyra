@@ -5,7 +5,7 @@ import java.util.*
 
 /**
  * Class representing the unique identifier of a team member.
- * @property teamId The unique identifier of the workspace.
+ * @property teamId The unique identifier of the team
  * @property userId The unique identifier of the user.
  */
 data class TeamMemberId(val teamId: UUID, val userId: UUID) : Serializable {

@@ -31,7 +31,7 @@ class OrganizationUpdater(
 
     /**
      * Updates an organization with the given id and name.
-     * Throws a WorkspaceNotFoundException if the organization is not found.
+     * Throws a [OrganizationNotFoundException] if the organization is not found.
      *
      * @param teamId The id of the organization to update.
      * @param name The new name of the organization.
@@ -40,7 +40,7 @@ class OrganizationUpdater(
         log.info("Updating organization with id: $teamId")
         val organizationId = OrganizationId(teamId)
         val organization = organizationFinderRepository.findById(organizationId)
-            ?: throw OrganizationNotFoundException("Workspace not found")
+            ?: throw OrganizationNotFoundException("Organization not found")
         organization.update(name)
         organizationRepository.update(organization)
         val domainEvents = organization.pullDomainEvents()

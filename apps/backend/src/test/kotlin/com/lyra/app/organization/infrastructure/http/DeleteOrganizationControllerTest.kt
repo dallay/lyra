@@ -24,7 +24,7 @@ internal class DeleteOrganizationControllerTest {
     }
 
     @Test
-    fun `should delete workspace`() {
+    fun `should delete organization`() {
         val command = DeleteOrganizationCommand(id)
         coEvery { mediator.send(command) } returns Unit
 

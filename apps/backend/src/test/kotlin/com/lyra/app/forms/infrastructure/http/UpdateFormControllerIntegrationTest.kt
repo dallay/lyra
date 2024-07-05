@@ -36,10 +36,10 @@ internal class UpdateFormControllerIntegrationTest : ControllerIntegrationTest()
 
     @Test
     @Sql(
-        "/db/workspace/workspace.sql",
+        "/db/organization/organization.sql",
     )
     @Sql(
-        "/db/workspace/clean.sql",
+        "/db/organization/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should return 404 when form is not found`(): Unit = runBlocking {

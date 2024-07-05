@@ -1,9 +1,9 @@
-INSERT INTO workspaces (workspace_id, workspace_name, user_id, created_at, updated_at)
+INSERT INTO organizations (id, name, user_id, created_at, updated_at)
 VALUES ('1b423df9-d6fc-4fd9-904b-4bb40dc88aeb', 'Test: My First Workspace',
         'da440485-3807-414b-bfc2-01b99b249088', '2024-06-02 11:00:08.251',
         '2024-06-02 11:00:08.281');
 
-INSERT INTO subscribers (id, email, firstname, lastname, status, workspace_id, created_at,
+INSERT INTO subscribers (id, email, firstname, lastname, status, organization_id, created_at,
                          updated_at,
                          attributes)
 VALUES ('bbf25966-6f2d-4cc5-a6da-19e79dbaba1e', 'boethius@test.com', 'Boethius', '', 'ENABLED',
@@ -75,7 +75,7 @@ VALUES ('bbf25966-6f2d-4cc5-a6da-19e79dbaba1e', 'boethius@test.com', 'Boethius',
           "planet": "earth",
           "initials": "B. R."
         }');
-INSERT INTO subscribers (id, email, firstname, lastname, status, workspace_id, created_at,
+INSERT INTO subscribers (id, email, firstname, lastname, status, organization_id, created_at,
                          updated_at,
                          attributes)
 VALUES ('a4053f51-ddee-4abc-bf5d-767d7588b711', 'michel.henry@test.com', 'Michel', 'Henry',

@@ -6,7 +6,7 @@ import com.lyra.app.forms.domain.Form
 import com.lyra.app.forms.domain.FormId
 import com.lyra.app.forms.domain.HexColor
 import com.lyra.app.forms.domain.dto.FormStyleConfiguration
-import com.lyra.app.workspaces.domain.WorkspaceId
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import com.lyra.common.domain.presentation.pagination.TimestampCursor
 import java.util.*
@@ -40,12 +40,12 @@ object FormStub {
         backgroundColor = HexColor(dto.backgroundColor),
         textColor = HexColor(dto.textColor),
         buttonTextColor = HexColor(dto.buttonTextColor),
-        workspaceId = WorkspaceId(workspaceId),
+        organizationId = OrganizationId(workspaceId),
     )
 
     @Suppress("MultilineRawStringIndentation")
     fun generateRequest(
-        workspaceId: String,
+        organizationId: String,
         styleConfiguration: FormStyleConfiguration = FormStyleConfiguration(
             name = faker.lorem().words(3).joinToString(" "),
             header = faker.lorem().words(3).joinToString(" "),
@@ -68,7 +68,7 @@ object FormStub {
         "backgroundColor": "${styleConfiguration.backgroundColor}",
         "textColor": "${styleConfiguration.textColor}",
         "buttonTextColor": "${styleConfiguration.buttonTextColor}",
-        "workspaceId": "$workspaceId"
+        "workspaceId": "$organizationId"
       }
     """.trimIndent()
 

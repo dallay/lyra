@@ -9,6 +9,7 @@ import java.net.URISyntaxException
 import org.junit.jupiter.api.BeforeAll
 import org.keycloak.representations.AccessTokenResponse
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
@@ -27,14 +28,20 @@ private const val WEB_PORT = 6080
 @Testcontainers
 @IntegrationTest
 abstract class InfrastructureTestContainers {
+    @Value("\${testing.security.username}")
+    protected lateinit var testUsername: String
+
+    @Value("\${testing.security.password}")
+    protected lateinit var testPassword: String
+
     init {
         log.info("Starting infrastructure... \uD83D\uDE80")
         startInfrastructure()
     }
 
-    protected fun getAdminAccessToken(
-        username: String = "john.doe@lyra.com",
-        password: String = "S3cr3tP@ssw0rd*123"
+    protected fun getAccessToken(
+        username: String = testUsername,
+        password: String = testPassword
     ): AccessToken? =
         try {
             val authServerUrl = removeLastSlash(keycloakContainer.authServerUrl)

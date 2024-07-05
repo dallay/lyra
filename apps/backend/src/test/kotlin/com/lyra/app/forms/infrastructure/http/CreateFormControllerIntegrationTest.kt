@@ -15,10 +15,10 @@ internal class CreateFormControllerIntegrationTest : ControllerIntegrationTest()
 
     @Test
     @Sql(
-        "/db/workspace/workspace.sql",
+        "/db/organization/organization.sql",
     )
     @Sql(
-        "/db/workspace/clean.sql",
+        "/db/organization/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should create a new form`() {

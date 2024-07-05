@@ -10,7 +10,7 @@ import com.lyra.app.newsletter.domain.Name
 import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.SubscriberId
 import com.lyra.app.newsletter.domain.SubscriberStatus
-import com.lyra.app.workspaces.domain.WorkspaceId
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import com.lyra.common.domain.presentation.pagination.TimestampCursor
 import com.lyra.common.domain.vo.email.Email
@@ -36,7 +36,7 @@ object SubscriberStub {
         email = Email(email),
         name = Name(FirstName(firstname), LastName(lastname)),
         status = status,
-        workspaceId = WorkspaceId(workspaceId),
+        organizationId = OrganizationId(workspaceId),
     )
 
     fun dummyRandomSubscribersList(size: Int = 10): List<Subscriber> {

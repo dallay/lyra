@@ -53,7 +53,7 @@ data class FormResponse(
             backgroundColor = form.backgroundColor.toString(),
             textColor = form.textColor.toString(),
             buttonTextColor = form.buttonTextColor.toString(),
-            workspaceId = form.workspaceId.value.toString(),
+            workspaceId = form.organizationId.value.toString(),
             createdAt = form.createdAt.toString(),
             updatedAt = form.updatedAt?.toString(),
         )

@@ -1,7 +1,7 @@
 package com.lyra.app.newsletter.domain
 
 import com.lyra.app.newsletter.domain.event.SubscriberCreatedEvent
-import com.lyra.app.workspaces.domain.WorkspaceId
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.BaseEntity
 import com.lyra.common.domain.vo.email.Email
 import java.time.LocalDateTime
@@ -12,7 +12,7 @@ data class Subscriber(
     val email: Email,
     var name: Name,
     var status: SubscriberStatus = SubscriberStatus.ENABLED,
-    val workspaceId: WorkspaceId,
+    val organizationId: OrganizationId,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime? = null,
 ) : BaseEntity<SubscriberId>() {
@@ -38,14 +38,14 @@ data class Subscriber(
             val subscriberId = SubscriberId(id)
             val subscriberEmail = Email(email)
             val subscriberName = Name(firstname, lastname)
-            val subscriberWorkspaceId = WorkspaceId(workspaceId)
+            val subscriberOrganizationId = OrganizationId(workspaceId)
 
             val subscriber = Subscriber(
                 id = subscriberId,
                 email = subscriberEmail,
                 name = subscriberName,
                 status = status,
-                workspaceId = subscriberWorkspaceId,
+                organizationId = subscriberOrganizationId,
                 createdAt = createdAt,
                 updatedAt = updatedAt,
             )
@@ -55,7 +55,7 @@ data class Subscriber(
                     subscriber.email.email,
                     subscriber.name.fullName(),
                     subscriber.status.name,
-                    subscriber.workspaceId.toString(),
+                    subscriber.organizationId.toString(),
                 ),
             )
             return subscriber

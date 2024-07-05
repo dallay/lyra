@@ -14,10 +14,10 @@ internal class NewsletterSubscriberControllerIntegrationTest : ControllerIntegra
     private val workspaceId = "a0654720-35dc-49d0-b508-1f7df5d915f1"
 
     @Sql(
-        "/db/workspace/workspace.sql",
+        "/db/organization/organization.sql",
     )
     @Sql(
-        "/db/workspace/clean.sql",
+        "/db/organization/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     @Test

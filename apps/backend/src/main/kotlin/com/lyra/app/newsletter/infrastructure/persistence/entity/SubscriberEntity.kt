@@ -16,7 +16,7 @@ data class SubscriberEntity(
     var lastname: String? = null,
     @Column("status")
     var status: SubscriberStatus,
-    val workspaceId: UUID,
+    val organizationId: UUID,
     override var createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime? = LocalDateTime.now(),
 ) : AuditableEntity() {
@@ -28,7 +28,7 @@ data class SubscriberEntity(
             firstname: String,
             lastname: String,
             status: SubscriberStatus,
-            workspaceId: UUID,
+            organizationId: UUID,
             createdAt: LocalDateTime,
             updatedAt: LocalDateTime?,
         ): SubscriberEntity {
@@ -38,7 +38,7 @@ data class SubscriberEntity(
                 firstname = firstname,
                 lastname = lastname,
                 status = status,
-                workspaceId = workspaceId,
+                organizationId = organizationId,
                 createdAt = createdAt,
                 updatedAt = updatedAt,
             )

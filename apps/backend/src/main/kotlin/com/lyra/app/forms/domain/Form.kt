@@ -3,7 +3,7 @@ package com.lyra.app.forms.domain
 import com.lyra.app.forms.domain.dto.FormStyleConfiguration
 import com.lyra.app.forms.domain.event.FormCreatedEvent
 import com.lyra.app.forms.domain.event.FormUpdatedEvent
-import com.lyra.app.workspaces.domain.WorkspaceId
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.BaseEntity
 import java.time.LocalDateTime
 import java.util.UUID
@@ -35,7 +35,7 @@ data class Form(
     var backgroundColor: HexColor,
     var textColor: HexColor,
     var buttonTextColor: HexColor,
-    val workspaceId: WorkspaceId,
+    val organizationId: OrganizationId,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime? = createdAt,
 ) : BaseEntity<FormId>() {
@@ -92,7 +92,7 @@ data class Form(
             updatedAt: LocalDateTime? = createdAt
         ): Form {
             val formId = FormId(id)
-            val formWorkspaceId = WorkspaceId(workspaceId)
+            val formOrganizationId = OrganizationId(workspaceId)
             val form = Form(
                 id = formId,
                 name = styleConfiguration.name,
@@ -104,7 +104,7 @@ data class Form(
                 backgroundColor = HexColor(styleConfiguration.backgroundColor),
                 textColor = HexColor(styleConfiguration.textColor),
                 buttonTextColor = HexColor(styleConfiguration.buttonTextColor),
-                workspaceId = formWorkspaceId,
+                organizationId = formOrganizationId,
                 createdAt = createdAt,
                 updatedAt = updatedAt,
             )

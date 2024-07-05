@@ -28,7 +28,7 @@ internal class CreateFormControllerTest {
         backgroundColor = form.backgroundColor.hex,
         textColor = form.textColor.hex,
         buttonTextColor = form.buttonTextColor.hex,
-        workspaceId = form.workspaceId.toString(),
+        workspaceId = form.organizationId.toString(),
     )
     private val controller = CreateFormController(mediator)
     private val webTestClient = WebTestClient.bindToController(controller).build()
@@ -50,7 +50,7 @@ internal class CreateFormControllerTest {
             backgroundColor = form.backgroundColor.hex,
             textColor = form.textColor.hex,
             buttonTextColor = form.buttonTextColor.hex,
-            workspaceId = form.workspaceId.toString(),
+            workspaceId = form.organizationId.toString(),
         )
         webTestClient.put()
             .uri("/api/forms/$id")

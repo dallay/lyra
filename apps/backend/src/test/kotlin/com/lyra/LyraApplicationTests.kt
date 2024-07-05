@@ -12,7 +12,3 @@ class LyraApplicationTests {
     @Test
     fun should_load_context() = Unit
 }
-
-// fun main(args: Array<String>) {
-//    fromApplication<LyraApplication>().with(TestDatabaseConfiguration::class).run(*args)
-// }

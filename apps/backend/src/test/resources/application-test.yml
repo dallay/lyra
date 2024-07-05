@@ -39,3 +39,7 @@ spring:
             keystore:
               location: "classpath:ssl/keystore.jks"
               password: "testing"
+testing:
+  security:
+      username: "john.doe@lyra.com"
+      password: "S3cr3tP@ssw0rd*123"

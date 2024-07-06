@@ -1,7 +1,7 @@
 package com.lyra.app.team.domain
 
 import com.lyra.app.organization.domain.OrganizationId
-import com.lyra.app.team.domain.event.TeamAddedEvent
+import com.lyra.app.team.domain.event.TeamCreatedEvent
 import com.lyra.app.team.domain.event.TeamUpdatedEvent
 import com.lyra.app.team.member.domain.TeamMember
 import com.lyra.app.team.member.domain.TeamMemberRole
@@ -98,7 +98,7 @@ data class Team(
             val oId = OrganizationId(organizationId)
             val team = Team(tId, oId, name)
             team.record(
-                TeamAddedEvent(
+                TeamCreatedEvent(
                     tId.value.toString(),
                     oId.value.toString(),
                     name,

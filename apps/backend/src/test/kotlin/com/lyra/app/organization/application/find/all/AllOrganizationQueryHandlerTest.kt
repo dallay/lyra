@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 @UnitTest
-internal class AllTeamQueryHandlerTest {
+internal class AllOrganizationQueryHandlerTest {
     private val repository = mockkClass(OrganizationFinderRepository::class)
     private val finder = AllOrganizationFinder(repository)
     private val handler = AllOrganizationsQueryHandler(finder)

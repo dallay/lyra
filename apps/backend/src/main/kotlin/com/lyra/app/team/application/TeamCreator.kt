@@ -2,7 +2,7 @@ package com.lyra.app.team.application
 
 import com.lyra.app.team.domain.Team
 import com.lyra.app.team.domain.TeamRepository
-import com.lyra.app.team.domain.event.TeamAddedEvent
+import com.lyra.app.team.domain.event.TeamCreatedEvent
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.event.EventBroadcaster
 import com.lyra.common.domain.bus.event.EventPublisher
@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory
 @Service
 class TeamCreator(
     private val teamRepository: TeamRepository,
-    eventPublisher: EventPublisher<TeamAddedEvent>
+    eventPublisher: EventPublisher<TeamCreatedEvent>
 ) {
-    private val eventPublisher = EventBroadcaster<TeamAddedEvent>()
+    private val eventPublisher = EventBroadcaster<TeamCreatedEvent>()
 
     init {
         this.eventPublisher.use(eventPublisher)
@@ -23,7 +23,7 @@ class TeamCreator(
         teamRepository.create(team)
         val domainEvents = team.pullDomainEvents()
         domainEvents.forEach {
-            eventPublisher.publish(it as TeamAddedEvent)
+            eventPublisher.publish(it as TeamCreatedEvent)
         }
     }
 

@@ -15,7 +15,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 @UnitTest
-internal class FindTeamQueryHandlerTest {
+internal class FindOrganizationQueryHandlerTest {
 
     private lateinit var organizationFinder: OrganizationFinder
     private lateinit var findOrganizationQueryHandler: FindOrganizationQueryHandler

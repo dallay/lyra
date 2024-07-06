@@ -8,7 +8,7 @@ import com.lyra.common.domain.bus.event.BaseDomainEvent
  * @property organizationId The organization id.
  * @property name The team name.
  */
-data class TeamAddedEvent(
+data class TeamCreatedEvent(
     val teamId: String,
     val organizationId: String,
     val name: String

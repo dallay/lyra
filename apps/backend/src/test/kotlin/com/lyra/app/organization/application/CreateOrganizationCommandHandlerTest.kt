@@ -1,6 +1,6 @@
 package com.lyra.app.organization.application
 
-import com.lyra.app.organization.domain.Organization
+import com.lyra.UnitTest
 import com.lyra.app.organization.domain.OrganizationRepository
 import com.lyra.app.organization.domain.event.OrganizationCreatedEvent
 import com.lyra.common.domain.bus.event.EventPublisher
@@ -12,20 +12,27 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
+@UnitTest
 internal class CreateOrganizationCommandHandlerTest {
-    private var eventPublisher: EventPublisher<OrganizationCreatedEvent> = mockk()
-    private val organizationRepository: OrganizationRepository = mockk()
-    private val organizationCreator = OrganizationCreator(organizationRepository, eventPublisher)
-    private val createOrganizationCommandHandler = CreateOrganizationCommandHandler(organizationCreator)
+    private lateinit var eventPublisher: EventPublisher<OrganizationCreatedEvent>
+    private lateinit var organizationRepository: OrganizationRepository
+    private lateinit var organizationCreator: OrganizationCreator
+    private lateinit var createOrganizationCommandHandler: CreateOrganizationCommandHandler
 
     @BeforeEach
     fun setUp() {
-        coEvery { organizationRepository.create(any(Organization::class)) } returns Unit
-        coEvery { eventPublisher.publish(any(OrganizationCreatedEvent::class)) } returns Unit
+        eventPublisher = mockk()
+        organizationRepository = mockk()
+        organizationCreator = OrganizationCreator(organizationRepository, eventPublisher)
+        createOrganizationCommandHandler = CreateOrganizationCommandHandler(organizationCreator)
+
+        coEvery { organizationRepository.create(any()) } returns Unit
+        coEvery { eventPublisher.publish(any<OrganizationCreatedEvent>()) } returns Unit
     }
 
     @Test
-    fun `handle should create organization with provided command`() = runBlocking {
+    fun `should create organization and publish event when handle is called`() = runBlocking {
+        // Given
         val organizationId = UUID.randomUUID().toString()
         val userId = UUID.randomUUID().toString()
         val name = "Test Organization"
@@ -34,9 +41,20 @@ internal class CreateOrganizationCommandHandlerTest {
             name = name,
             userId = userId,
         )
+
+        // When
         createOrganizationCommandHandler.handle(command)
 
-        coVerify(exactly = 1) { organizationRepository.create(any(Organization::class)) }
-        coVerify(exactly = 1) { eventPublisher.publish(any(OrganizationCreatedEvent::class)) }
+        // Then
+        coVerify {
+            organizationRepository.create(
+                withArg {
+                    assert(it.id.value.toString() == organizationId)
+                    assert(it.name == name)
+                    assert(it.userId.value.toString() == userId)
+                },
+            )
+        }
+        coVerify { eventPublisher.publish(ofType<OrganizationCreatedEvent>()) }
     }
 }

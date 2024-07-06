@@ -7,7 +7,6 @@ import com.lyra.common.domain.bus.event.EventPublisher
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.mockkClass
 import java.util.*
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
@@ -15,26 +14,40 @@ import org.junit.jupiter.api.Test
 
 @UnitTest
 internal class DeleteOrganizationCommandHandlerTest {
-    private var eventPublisher: EventPublisher<OrganizationDeletedEvent> = mockk()
-    private val destroyerRepository = mockkClass(OrganizationRemoverRepository::class)
-    private val destroyer: OrganizationDestroyer =
-        OrganizationDestroyer(destroyerRepository, eventPublisher)
-    private val deleteOrganizationCommandHandler: DeleteOrganizationCommandHandler =
-        DeleteOrganizationCommandHandler(destroyer)
-    private val organizationId = UUID.randomUUID().toString()
+    private lateinit var eventPublisher: EventPublisher<OrganizationDeletedEvent>
+    private lateinit var destroyerRepository: OrganizationRemoverRepository
+    private lateinit var destroyer: OrganizationDestroyer
+    private lateinit var deleteOrganizationCommandHandler: DeleteOrganizationCommandHandler
+    private lateinit var organizationId: String
 
     @BeforeEach
     fun setUp() {
+        eventPublisher = mockk()
+        destroyerRepository = mockk()
+        destroyer = OrganizationDestroyer(destroyerRepository, eventPublisher)
+        deleteOrganizationCommandHandler = DeleteOrganizationCommandHandler(destroyer)
+        organizationId = UUID.randomUUID().toString()
+
         coEvery { destroyerRepository.delete(any()) } returns Unit
-        coEvery { eventPublisher.publish(any(OrganizationDeletedEvent::class)) } returns Unit
+        coEvery { eventPublisher.publish(any<OrganizationDeletedEvent>()) } returns Unit
     }
 
     @Test
-    fun `should delete an organization`() = runBlocking {
+    fun `should delete an organization and publish event when handle is called`() = runBlocking {
+        // Given
         val command = DeleteOrganizationCommand(id = organizationId)
+
+        // When
         deleteOrganizationCommandHandler.handle(command)
 
-        coVerify(exactly = 1) { destroyerRepository.delete(any()) }
-        coVerify(exactly = 1) { eventPublisher.publish(any(OrganizationDeletedEvent::class)) }
+        // Then
+        coVerify {
+            destroyerRepository.delete(
+                withArg {
+                    assert(it.value.toString() == organizationId)
+                },
+            )
+        }
+        coVerify { eventPublisher.publish(ofType<OrganizationDeletedEvent>()) }
     }
 }

@@ -22,30 +22,36 @@ internal class FindOrganizationQueryHandlerTest {
 
     @BeforeEach
     fun setup() {
-        organizationFinder = mockk<OrganizationFinder>()
+        organizationFinder = mockk()
         findOrganizationQueryHandler = FindOrganizationQueryHandler(organizationFinder)
     }
 
     @Test
     fun `should return organization response when organization is found`() = runBlocking {
+        // Given
         val id = UUID.randomUUID().toString()
         val organizationId = OrganizationId(id)
         val organization = OrganizationStub.create()
         val organizationResponse = OrganizationResponse.from(organization)
         coEvery { organizationFinder.find(organizationId) } returns organization
 
+        // When
         val result = findOrganizationQueryHandler.handle(FindOrganizationQuery(id))
 
+        // Then
         assertEquals(organizationResponse, result)
     }
 
     @Test
-    fun `should throw exception when organization is not found`() {
+    fun `should throw exception when organization is not found`(): Unit = runBlocking {
+        // Given
         val id = UUID.randomUUID().toString()
         val organizationId = OrganizationId(id)
         coEvery { organizationFinder.find(organizationId) } returns null
 
+        // Then
         assertThrows(OrganizationNotFoundException::class.java) {
+            // When
             runBlocking {
                 findOrganizationQueryHandler.handle(FindOrganizationQuery(id))
             }

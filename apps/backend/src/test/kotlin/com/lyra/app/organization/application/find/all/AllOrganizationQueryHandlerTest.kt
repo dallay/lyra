@@ -1,9 +1,9 @@
 package com.lyra.app.organization.application.find.all
 
 import com.lyra.UnitTest
+import com.lyra.app.organization.OrganizationStub
 import com.lyra.app.organization.domain.Organization
 import com.lyra.app.organization.domain.OrganizationFinderRepository
-import com.lyra.app.organization.infrastructure.OrganizationStub
 import com.lyra.app.users.domain.UserId
 import io.mockk.coEvery
 import io.mockk.mockk

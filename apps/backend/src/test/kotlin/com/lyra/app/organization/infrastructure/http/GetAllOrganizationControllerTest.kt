@@ -1,10 +1,10 @@
 package com.lyra.app.organization.infrastructure.http
 
 import com.lyra.ControllerTest
+import com.lyra.app.organization.OrganizationStub
 import com.lyra.app.organization.application.OrganizationResponses
 import com.lyra.app.organization.application.find.all.AllOrganizationQuery
 import com.lyra.app.organization.domain.Organization
-import com.lyra.app.organization.infrastructure.OrganizationStub
 import io.mockk.coEvery
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

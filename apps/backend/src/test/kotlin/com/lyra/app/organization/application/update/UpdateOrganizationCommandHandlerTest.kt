@@ -1,11 +1,11 @@
 package com.lyra.app.organization.application.update
 
 import com.lyra.UnitTest
+import com.lyra.app.organization.OrganizationStub
 import com.lyra.app.organization.domain.Organization
 import com.lyra.app.organization.domain.OrganizationFinderRepository
 import com.lyra.app.organization.domain.OrganizationRepository
 import com.lyra.app.organization.domain.event.OrganizationUpdatedEvent
-import com.lyra.app.organization.infrastructure.OrganizationStub
 import com.lyra.common.domain.bus.event.EventPublisher
 import io.mockk.coEvery
 import io.mockk.coVerify

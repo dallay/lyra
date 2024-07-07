@@ -1,9 +1,9 @@
 package com.lyra.app.organization.infrastructure.persistence
 
 import com.lyra.UnitTest
+import com.lyra.app.organization.OrganizationStub
 import com.lyra.app.organization.domain.Organization
 import com.lyra.app.organization.domain.exception.OrganizationException
-import com.lyra.app.organization.infrastructure.OrganizationStub
 import com.lyra.app.organization.infrastructure.persistence.mapper.OrganizationMapper.toEntity
 import com.lyra.app.organization.infrastructure.persistence.repository.OrganizationR2dbcRepository
 import com.lyra.app.users.domain.UserId

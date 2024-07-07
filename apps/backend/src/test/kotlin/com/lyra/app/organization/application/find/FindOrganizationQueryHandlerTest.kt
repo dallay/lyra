@@ -1,10 +1,10 @@
 package com.lyra.app.organization.application.find
 
 import com.lyra.UnitTest
+import com.lyra.app.organization.OrganizationStub
 import com.lyra.app.organization.application.OrganizationResponse
 import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.app.organization.domain.exception.OrganizationNotFoundException
-import com.lyra.app.organization.infrastructure.OrganizationStub
 import io.mockk.coEvery
 import io.mockk.mockk
 import java.util.*

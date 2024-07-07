@@ -1,10 +1,9 @@
-package com.lyra.app.organization.infrastructure
+package com.lyra.app.organization
 
 import com.lyra.app.organization.domain.Organization
 import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.app.organization.infrastructure.http.request.CreateOrganizationRequest
 import com.lyra.app.organization.infrastructure.http.request.UpdateOrganizationRequest
-import com.lyra.app.team.domain.Team
 import com.lyra.app.users.domain.UserId
 import java.util.*
 import net.datafaker.Faker
@@ -19,16 +18,6 @@ object OrganizationStub {
         id = OrganizationId(id),
         name = name,
         userId = UserId(userId),
-    )
-
-    fun createTeam(
-        organizationId: UUID = UUID.randomUUID(),
-        teamId: UUID = UUID.randomUUID(),
-        name: String = generateName(),
-    ): Team = Team.create(
-        teamId = teamId.toString(),
-        organizationId = organizationId.toString(),
-        name = name,
     )
 
     fun generateRequest(

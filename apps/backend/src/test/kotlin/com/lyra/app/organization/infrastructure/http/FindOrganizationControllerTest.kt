@@ -1,9 +1,9 @@
 package com.lyra.app.organization.infrastructure.http
 
 import com.lyra.UnitTest
+import com.lyra.app.organization.OrganizationStub
 import com.lyra.app.organization.application.OrganizationResponse
 import com.lyra.app.organization.application.find.FindOrganizationQuery
-import com.lyra.app.organization.infrastructure.OrganizationStub
 import com.lyra.common.domain.bus.Mediator
 import io.mockk.coEvery
 import io.mockk.mockk

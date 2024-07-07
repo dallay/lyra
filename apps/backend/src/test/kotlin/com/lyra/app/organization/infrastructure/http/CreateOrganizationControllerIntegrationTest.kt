@@ -1,7 +1,7 @@
 package com.lyra.app.organization.infrastructure.http
 
 import com.lyra.ControllerIntegrationTest
-import com.lyra.app.organization.infrastructure.OrganizationStub
+import com.lyra.app.organization.OrganizationStub
 import com.lyra.app.organization.infrastructure.http.request.CreateOrganizationRequest
 import java.util.*
 import org.junit.jupiter.api.Test

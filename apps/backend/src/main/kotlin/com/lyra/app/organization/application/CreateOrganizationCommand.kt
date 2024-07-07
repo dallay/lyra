@@ -9,7 +9,7 @@ import com.lyra.common.domain.bus.command.Command
  * @property name Name of the organization.
  * @property userId The user ID of the organization creator.
  */
-data class OrganizationCommand(
+data class CreateOrganizationCommand(
     val id: String,
     val name: String,
     val userId: String,

@@ -1,6 +1,6 @@
 package com.lyra.app.organization.infrastructure.http
 
-import com.lyra.app.organization.application.OrganizationCommand
+import com.lyra.app.organization.application.CreateOrganizationCommand
 import com.lyra.app.organization.infrastructure.http.request.CreateOrganizationRequest
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.spring.boot.ApiController
@@ -48,7 +48,7 @@ class CreateOrganizationController(
         val safeId = sanitizePathVariable(id)
         log.debug("Creating Organization with ID: {}", safeId)
         dispatch(
-            OrganizationCommand(
+            CreateOrganizationCommand(
                 safeId,
                 request.name,
                 request.userId,

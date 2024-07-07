@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 @UnitTest
-internal class DeleteOrganizationCommandHandlerTest {
+internal class DeleteCreateOrganizationCommandHandlerTest {
     private lateinit var eventPublisher: EventPublisher<OrganizationDeletedEvent>
     private lateinit var destroyerRepository: OrganizationRemoverRepository
     private lateinit var destroyer: OrganizationDestroyer

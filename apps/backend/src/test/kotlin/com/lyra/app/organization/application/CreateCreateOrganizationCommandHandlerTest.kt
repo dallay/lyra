@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 @UnitTest
-internal class CreateOrganizationCommandHandlerTest {
+internal class CreateCreateOrganizationCommandHandlerTest {
     private lateinit var eventPublisher: EventPublisher<OrganizationCreatedEvent>
     private lateinit var organizationRepository: OrganizationRepository
     private lateinit var organizationCreator: OrganizationCreator
@@ -36,7 +36,7 @@ internal class CreateOrganizationCommandHandlerTest {
         val organizationId = UUID.randomUUID().toString()
         val userId = UUID.randomUUID().toString()
         val name = "Test Organization"
-        val command = OrganizationCommand(
+        val command = CreateOrganizationCommand(
             id = organizationId,
             name = name,
             userId = userId,

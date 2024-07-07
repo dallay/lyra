@@ -23,12 +23,12 @@ class CreateTeamCommandHandler(
      */
     override suspend fun handle(command: CreateTeamCommand) {
         log.debug("Creating team with team id: {} and organization id: {}", command.teamId, command.organizationId)
-        val organizationCollaborator = Team.create(
+        val team = Team.create(
             teamId = command.teamId,
             organizationId = command.organizationId,
             name = command.name,
         )
-        teamCreator.create(organizationCollaborator)
+        teamCreator.create(team)
     }
 
     companion object {

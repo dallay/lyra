@@ -21,7 +21,7 @@ CREATE TABLE teams
 (
   team_id           UUID         NOT NULL PRIMARY KEY,
   organization_id   UUID         NOT NULL,
-  team_name         VARCHAR(100) NOT NULL,
+  name         VARCHAR(100) NOT NULL,
   created_at        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   CONSTRAINT fk_organization_id FOREIGN KEY (organization_id) REFERENCES organizations (id) ON DELETE CASCADE

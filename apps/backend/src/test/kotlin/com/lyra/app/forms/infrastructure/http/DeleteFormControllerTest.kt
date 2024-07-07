@@ -4,8 +4,11 @@ import com.lyra.UnitTest
 import com.lyra.app.forms.application.delete.DeleteFormCommand
 import com.lyra.common.domain.bus.Mediator
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
+import io.mockk.slot
 import java.util.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
@@ -34,6 +37,8 @@ internal class DeleteFormControllerTest {
             .expectStatus().isOk
             .expectBody().isEmpty()
 
-        coEvery { mediator.send(command) }
+        val commandSlot = slot<DeleteFormCommand>()
+        coVerify(exactly = 1) { mediator.send(capture(commandSlot)) }
+        assertEquals(command, commandSlot.captured)
     }
 }

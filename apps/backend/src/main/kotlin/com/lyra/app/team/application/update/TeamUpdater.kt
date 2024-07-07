@@ -39,7 +39,7 @@ class TeamUpdater(
         log.debug("Updating team with id: $id")
         val teamId = TeamId(id)
         val team = teamFinderRepository.findById(teamId)
-            ?: throw TeamNotFoundException("Organization not found")
+            ?: throw TeamNotFoundException("Team not found")
         team.updateName(name)
         teamRepository.update(team)
         val domainEvents = team.pullDomainEvents()

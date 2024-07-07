@@ -1,51 +1,51 @@
-package com.lyra.app.organization.infrastructure.http
+package com.lyra.app.team.infrastructure.http
 
 import com.lyra.ControllerIntegrationTest
-import com.lyra.app.organization.OrganizationStub
+import com.lyra.app.team.TeamStub
+import com.lyra.app.team.infrastructure.http.request.UpdateTeamRequest
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
 import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.csrf
 import org.springframework.test.context.jdbc.Sql
 
-private const val ENDPOINT = "/api/organization/update"
-
-internal class UpdateOrganizationControllerIntegrationTest : ControllerIntegrationTest() {
-
+internal class UpdateTeamControllerIntegrationTest : ControllerIntegrationTest() {
     @Test
     @Sql(
         "/db/organization/organization.sql",
+        "/db/team/team.sql",
     )
     @Sql(
-        "/db/organization/clean.sql",
+        "/db/team/clean.sql", "/db/organization/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
-    fun `should update an organization`(): Unit = runBlocking {
-        val id = "a0654720-35dc-49d0-b508-1f7df5d915f1"
-        val request = OrganizationStub.generateUpdateRequest()
+    fun `should update a team`(): Unit = runBlocking {
+        val id = "35b75e15-a5d9-4d15-accb-9ce3a904bc3c"
+        val request: UpdateTeamRequest = TeamStub.generateRequest()
         webTestClient.mutateWith(csrf()).put()
-            .uri("$ENDPOINT/$id")
+            .uri("/api/$ENDPOINT_TEAM/update/$id")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(request)
             .exchange()
             .expectStatus().isOk
             .expectBody(String::class.java)
-            .isEqualTo("Organization updated successfully")
+            .isEqualTo("Team updated successfully")
     }
 
     @Test
     @Sql(
         "/db/organization/organization.sql",
+        "/db/team/team.sql",
     )
     @Sql(
-        "/db/organization/clean.sql",
+        "/db/team/clean.sql", "/db/organization/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
-    fun `should return 404 when organization is not found`(): Unit = runBlocking {
-        val id = "a0654720-35dc-49d0-b508-1f7df5d915f2"
-        val request = OrganizationStub.generateUpdateRequest()
+    fun `should return 404 when team is not found`(): Unit = runBlocking {
+        val id = "35b75e15-a5d9-4d15-accb-9ce3a904bc3d"
+        val request: UpdateTeamRequest = TeamStub.generateRequest()
         webTestClient.mutateWith(csrf()).put()
-            .uri("$ENDPOINT/$id")
+            .uri("/api/$ENDPOINT_TEAM/update/$id")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(request)
             .exchange()
@@ -54,13 +54,8 @@ internal class UpdateOrganizationControllerIntegrationTest : ControllerIntegrati
             .jsonPath("$.type").isEqualTo("https://lyra.com/errors/entity-not-found")
             .jsonPath("$.title").isEqualTo("Entity not found")
             .jsonPath("$.status").isEqualTo(404)
-            .jsonPath("$.detail").isEqualTo("Organization not found")
-            .jsonPath("$.instance")
-            .isEqualTo("$ENDPOINT/$id")
+            .jsonPath("$.detail").isEqualTo("Team not found")
+            .jsonPath("$.instance").isEqualTo("/api/$ENDPOINT_TEAM/update/$id")
             .jsonPath("$.errorCategory").isEqualTo("NOT_FOUND")
-            .jsonPath("$.timestamp").isNotEmpty
-            .consumeWith { response ->
-                println(response)
-            }
     }
 }

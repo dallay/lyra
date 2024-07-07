@@ -7,4 +7,4 @@ import com.lyra.common.domain.bus.query.Query
  * Query to find all teams of an organization.
  * @property organizationId The unique identifier of the organization.
  */
-class AllTeamQuery(val organizationId: String) : Query<TeamResponses>
+data class AllTeamQuery(val organizationId: String) : Query<TeamResponses>

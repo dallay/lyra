@@ -1,4 +1,4 @@
-package com.lyra.app.organization.infrastructure.http
+package com.lyra.app.team.infrastructure.http
 
 import com.lyra.ControllerIntegrationTest
 import kotlinx.coroutines.runBlocking
@@ -8,18 +8,19 @@ import org.springframework.test.context.jdbc.Sql
 
 private const val ENDPOINT = "/api/organization"
 
-internal class DeleteOrganizationControllerIntegrationTest : ControllerIntegrationTest() {
+internal class DeleteTeamControllerIntegrationTest : ControllerIntegrationTest() {
 
     @Test
     @Sql(
         "/db/organization/organization.sql",
+        "/db/team/team.sql",
     )
     @Sql(
-        "/db/organization/clean.sql",
+        "/db/team/clean.sql", "/db/organization/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
-    fun `should delete organization`(): Unit = runBlocking {
-        val id = "a0654720-35dc-49d0-b508-1f7df5d915f1"
+    fun `should delete a team`(): Unit = runBlocking {
+        val id = "35b75e15-a5d9-4d15-accb-9ce3a904bc3c"
         webTestClient.mutateWith(csrf()).delete()
             .uri("$ENDPOINT/$id")
             .exchange()
@@ -28,7 +29,7 @@ internal class DeleteOrganizationControllerIntegrationTest : ControllerIntegrati
     }
 
     @Test
-    fun `should return OK when an organization is not found`(): Unit = runBlocking {
+    fun `should return OK when a team is not found`(): Unit = runBlocking {
         val id = "94be1a32-cf2e-4dfc-892d-bdd8ac7ad354"
         webTestClient.mutateWith(csrf()).delete()
             .uri("$ENDPOINT/$id")

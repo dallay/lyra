@@ -81,11 +81,11 @@ class TeamStoreR2DbcRepository(
     /**
      * Deletes a team.
      *
-     * @param id The team id.
+     * @param teamId The team id.
      */
-    override suspend fun delete(id: TeamId) {
-        log.debug("Deleting team with id: {}", id)
-        teamRepository.deleteById(id.value)
+    override suspend fun delete(teamId: TeamId) {
+        log.debug("Deleting team with id: {}", teamId)
+        teamRepository.deleteById(teamId.value)
     }
 
     companion object {

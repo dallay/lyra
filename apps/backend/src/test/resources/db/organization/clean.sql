@@ -1,6 +1,6 @@
--- Delete all data from the workspace tables to ensure a clean state for testing.
+-- Delete all data from the organization tables to ensure a clean state for testing.
 
--- The test data starts in `workspace_name` with "Test: ".
+-- The test data starts in `organization name` with "Test: ".
 DELETE FROM organizations WHERE name LIKE 'Test: %';
 
 DELETE

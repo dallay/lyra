@@ -6,8 +6,11 @@ import com.lyra.app.forms.application.update.UpdateFormCommand
 import com.lyra.app.forms.infrastructure.http.request.UpdateFormRequest
 import com.lyra.common.domain.bus.Mediator
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
+import io.mockk.slot
 import java.util.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
@@ -57,6 +60,8 @@ internal class UpdateFormControllerTest {
             .expectStatus().isOk
             .expectBody(String::class.java)
             .isEqualTo("Form updated successfully")
-        coEvery { mediator.send(eq(command)) }
+        val commandSlot = slot<UpdateFormCommand>()
+        coVerify(exactly = 1) { mediator.send(capture(commandSlot)) }
+        assertEquals(command, commandSlot.captured)
     }
 }

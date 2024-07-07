@@ -1,12 +1,12 @@
 package com.lyra.app.forms.infrastructure.http
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.lyra.ControllerTest
 import com.lyra.UnitTest
 import com.lyra.app.forms.FormStub
 import com.lyra.app.forms.application.FormResponse
 import com.lyra.app.forms.application.search.SearchFormsQuery
 import com.lyra.app.forms.infrastructure.persistence.entity.FormEntity
-import com.lyra.common.domain.bus.Mediator
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.filter.RHSFilterParser
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
@@ -25,16 +25,16 @@ private const val ENDPOINT = "/api/forms"
 private const val NUM_FORMS = 10
 
 @UnitTest
-internal class SearchFormControllerTest {
-    private val mediator = mockk<Mediator>()
+internal class SearchFormControllerTest : ControllerTest() {
     private val rhsFilterParserFactory = mockk<RHSFilterParserFactory>()
     private val rhsFilterParser = mockk<RHSFilterParser<FormEntity>>()
     private val response = FormStub.dummyRandomFormPageResponse(NUM_FORMS)
     private lateinit var controller: SearchFormController
-    private lateinit var webTestClient: WebTestClient
+    override lateinit var webTestClient: WebTestClient
 
     @BeforeEach
-    fun setUp() {
+    override fun setUp() {
+        super.setUp()
         every { rhsFilterParserFactory.create(FormEntity::class) } returns rhsFilterParser
         every { rhsFilterParser.parse(any()) } returns Criteria.Empty
         every { rhsFilterParser.parse(any(), any()) } returns Criteria.Empty
@@ -45,7 +45,7 @@ internal class SearchFormControllerTest {
 
         coEvery { mediator.send(any(SearchFormsQuery::class)) } returns response
         controller = SearchFormController(mediator, rhsFilterParserFactory, sortParserFactory)
-        webTestClient = WebTestClient.bindToController(controller).build()
+        webTestClient = buildWebTestClient(controller)
     }
 
     @Test

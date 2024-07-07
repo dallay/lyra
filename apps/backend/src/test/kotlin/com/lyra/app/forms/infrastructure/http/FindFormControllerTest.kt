@@ -6,8 +6,11 @@ import com.lyra.app.forms.application.FormResponse
 import com.lyra.app.forms.application.find.FindFormQuery
 import com.lyra.common.domain.bus.Mediator
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
+import io.mockk.slot
 import java.util.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
@@ -38,6 +41,8 @@ internal class FindFormControllerTest {
             .expectStatus().isOk
             .expectBody(FormResponse::class.java)
             .isEqualTo(response)
-        coEvery { mediator.send(query) }
+        val querySlot = slot<FindFormQuery>()
+        coVerify(exactly = 1) { mediator.send(capture(querySlot)) }
+        assertEquals(query, querySlot.captured)
     }
 }

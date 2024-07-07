@@ -26,6 +26,7 @@ internal class GetAllOrganizationControllerTest : ControllerTest() {
         val query = AllOrganizationQuery(userId.toString())
         coEvery { mediator.send(eq(query)) } returns OrganizationResponses.from(organizations)
     }
+
     @Test
     fun `should get all organizations`() {
         val token = jwtAuthenticationToken()

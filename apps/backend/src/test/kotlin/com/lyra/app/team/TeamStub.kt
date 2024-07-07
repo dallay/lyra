@@ -6,6 +6,7 @@ import com.lyra.app.team.application.TeamResponse
 import com.lyra.app.team.domain.Team
 import com.lyra.app.team.domain.TeamId
 import com.lyra.app.team.infrastructure.http.request.CreateTeamRequest
+import com.lyra.app.team.infrastructure.http.request.UpdateTeamRequest
 import com.lyra.app.team.member.domain.TeamMember
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import com.lyra.common.domain.presentation.pagination.TimestampCursor
@@ -26,23 +27,18 @@ object TeamStub {
         organizationId = OrganizationId(organizationId),
         members = members,
     )
-//
-//    @Suppress("MultilineRawStringIndentation")
-//    fun generateRequest(
-//        organizationId: String,
-//        name: String = faker.lorem().words(3).joinToString(" ")
-//    ): String = """
-//      {
-//        "organizationId": "$organizationId",
-//        "name": "$name"
-//      }
-//    """.trimIndent()
 
     fun generateRequest(
         organizationId: String = UUID.randomUUID().toString(),
         name: String = faker.lorem().words(2).joinToString(" ")
     ): CreateTeamRequest = CreateTeamRequest(
         organizationId = organizationId,
+        name = name,
+    )
+
+    fun generateRequest(
+        name: String = faker.lorem().words(2).joinToString(" ")
+    ): UpdateTeamRequest = UpdateTeamRequest(
         name = name,
     )
 
@@ -72,5 +68,18 @@ object TeamStub {
         )
     }
 
-    fun dummyRandomTeams(size: Int): List<Team> = (1..size).map { create() }
+    fun dummyRandomTeams(
+        size: Int,
+        id: String = UUID.randomUUID().toString(),
+        name: String = faker.lorem().words(3).joinToString(" "),
+        organizationId: String = UUID.randomUUID().toString(),
+        members: MutableList<TeamMember> = mutableListOf(),
+    ): List<Team> = (1..size).map {
+        create(
+            id = id,
+            name = name,
+            organizationId = organizationId,
+            members = members,
+        )
+    }
 }

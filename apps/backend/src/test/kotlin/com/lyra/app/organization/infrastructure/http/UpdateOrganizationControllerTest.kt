@@ -6,7 +6,10 @@ import com.lyra.app.organization.OrganizationStub
 import com.lyra.app.organization.application.update.UpdateOrganizationCommand
 import com.lyra.app.organization.infrastructure.http.request.UpdateOrganizationRequest
 import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.slot
 import java.util.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -24,7 +27,7 @@ internal class UpdateOrganizationControllerTest : ControllerTest() {
     @BeforeEach
     override fun setUp() {
         super.setUp()
-        coEvery { mediator.send(eq(command)) } returns Unit
+        coEvery { mediator.send(any<UpdateOrganizationCommand>()) } returns Unit
     }
 
     @Test
@@ -32,6 +35,7 @@ internal class UpdateOrganizationControllerTest : ControllerTest() {
         val request = UpdateOrganizationRequest(
             name = organization.name,
         )
+
         webTestClient.put()
             .uri("/api/organization/update/$id")
             .bodyValue(request)
@@ -39,6 +43,9 @@ internal class UpdateOrganizationControllerTest : ControllerTest() {
             .expectStatus().isOk
             .expectBody(String::class.java)
             .isEqualTo("Organization updated successfully")
-        coEvery { mediator.send(eq(command)) }
+
+        val commandSlot = slot<UpdateOrganizationCommand>()
+        coVerify(exactly = 1) { mediator.send(capture(commandSlot)) }
+        assertEquals(command, commandSlot.captured)
     }
 }

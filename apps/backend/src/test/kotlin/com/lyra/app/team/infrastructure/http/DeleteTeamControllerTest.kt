@@ -1,8 +1,8 @@
-package com.lyra.app.organization.infrastructure.http
+package com.lyra.app.team.infrastructure.http
 
 import com.lyra.ControllerTest
 import com.lyra.UnitTest
-import com.lyra.app.organization.application.delete.DeleteOrganizationCommand
+import com.lyra.app.team.application.delete.DeleteTeamCommand
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.slot
@@ -13,29 +13,29 @@ import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
 
 @UnitTest
-internal class DeleteOrganizationControllerTest : ControllerTest() {
-    private lateinit var controller: DeleteOrganizationController
+internal class DeleteTeamControllerTest : ControllerTest() {
+    private lateinit var controller: DeleteTeamController
     override lateinit var webTestClient: WebTestClient
     private val id = UUID.randomUUID().toString()
-    private val command = DeleteOrganizationCommand(id)
+    private val command = DeleteTeamCommand(id)
 
     @BeforeEach
     override fun setUp() {
         super.setUp()
-        controller = DeleteOrganizationController(mediator)
+        controller = DeleteTeamController(mediator)
         webTestClient = WebTestClient.bindToController(controller).build()
         coEvery { mediator.send(command) } returns Unit
     }
 
     @Test
-    fun `should delete organization`() {
+    fun `should delete a team`() {
         webTestClient.delete()
-            .uri("/api/organization/$id")
+            .uri("/api/team/$id")
             .exchange()
             .expectStatus().isOk
             .expectBody().isEmpty()
 
-        val commandSlot = slot<DeleteOrganizationCommand>()
+        val commandSlot = slot<DeleteTeamCommand>()
         coVerify(exactly = 1) { mediator.send(capture(commandSlot)) }
         assertEquals(command, commandSlot.captured)
     }

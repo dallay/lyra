@@ -62,4 +62,6 @@ object TeamStub {
             nextPageCursor = cursor,
         )
     }
+
+    fun dummyRandomTeams(size: Int): List<Team> = (1..size).map { create() }
 }

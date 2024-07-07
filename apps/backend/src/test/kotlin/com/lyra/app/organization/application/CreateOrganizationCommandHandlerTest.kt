@@ -52,6 +52,7 @@ internal class CreateOrganizationCommandHandlerTest {
                     assert(it.id.value.toString() == organizationId)
                     assert(it.name == name)
                     assert(it.userId.value.toString() == userId)
+                    assert(it.teams.isEmpty())
                 },
             )
         }

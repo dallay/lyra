@@ -16,7 +16,7 @@ import org.springframework.security.core.context.SecurityContext
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
 import org.springframework.security.test.context.support.WithMockUser
-import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers
+import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.JwtMutator
 import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.csrf
 import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockAuthentication
 import org.springframework.test.web.reactive.server.WebTestClient
@@ -43,18 +43,14 @@ abstract class ControllerTest {
             .apply {
                 csrf()
             }.apply {
-                mockAuthentication<SecurityMockServerConfigurers.JwtMutator>(jwtAuthenticationToken)
+                mockAuthentication<JwtMutator>(jwtAuthenticationToken)
             }
             .build()
             .mutateWith(csrf())
-            .mutateWith(
-                mockAuthentication<SecurityMockServerConfigurers.JwtMutator>(
-                    jwtAuthenticationToken,
-                ),
-            )
+            .mutateWith(mockAuthentication(jwtAuthenticationToken))
     }
 
-    protected fun mockSecurity(jwt: JwtAuthenticationToken = jwtAuthenticationToken()) {
+    private fun mockSecurity(jwt: JwtAuthenticationToken = jwtAuthenticationToken()) {
         mockkStatic(ReactiveSecurityContextHolder::class)
 
         val authentication: Authentication = mockk {
@@ -74,8 +70,7 @@ abstract class ControllerTest {
             .claim("sub", userId.toString())
             .build()
         val authorities = AuthorityUtils.createAuthorityList("ROLE_USER")
-        val jwtAuthenticationToken = JwtAuthenticationToken(jwt, authorities)
-        return jwtAuthenticationToken
+        return JwtAuthenticationToken(jwt, authorities)
     }
 
     @AfterEach

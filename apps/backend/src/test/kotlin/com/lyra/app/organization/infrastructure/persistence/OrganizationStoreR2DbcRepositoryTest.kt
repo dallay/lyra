@@ -10,6 +10,7 @@ import com.lyra.app.users.domain.UserId
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import java.util.*
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -18,13 +19,12 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.dao.DuplicateKeyException
 import org.springframework.dao.TransientDataAccessResourceException
-import java.util.*
 
 @UnitTest
 internal class OrganizationStoreR2DbcRepositoryTest {
     private val organizationRepository: OrganizationR2dbcRepository = mockk()
-  private val organizationStoreR2dbcRepository =
-    OrganizationStoreR2DbcRepository(organizationRepository)
+    private val organizationStoreR2dbcRepository =
+        OrganizationStoreR2DbcRepository(organizationRepository)
     private lateinit var organization: Organization
 
     @BeforeEach
@@ -34,22 +34,22 @@ internal class OrganizationStoreR2DbcRepositoryTest {
 
     @Test
     fun `should create organization`() = runBlocking {
-      // Given
-      coEvery { organizationRepository.save(any()) } returns organization.toEntity()
+        // Given
+        coEvery { organizationRepository.save(any()) } returns organization.toEntity()
 
-      // When
+        // When
         organizationStoreR2dbcRepository.create(organization)
 
-      // Then
-      coVerify(exactly = 1) { organizationRepository.save(organization.toEntity()) }
+        // Then
+        coVerify(exactly = 1) { organizationRepository.save(organization.toEntity()) }
     }
 
     @Test
     fun `should handle duplicate organization creation gracefully`(): Unit = runBlocking {
-      // Given
+        // Given
         coEvery { organizationRepository.save(any()) } throws DuplicateKeyException("Duplicate key")
 
-      // When / Then
+        // When / Then
         assertThrows<OrganizationException> {
             organizationStoreR2dbcRepository.create(organization)
         }
@@ -57,22 +57,22 @@ internal class OrganizationStoreR2DbcRepositoryTest {
 
     @Test
     fun `should update organization`() = runBlocking {
-      // Given
-      coEvery { organizationRepository.save(any()) } returns organization.toEntity()
+        // Given
+        coEvery { organizationRepository.save(any()) } returns organization.toEntity()
 
-      // When
+        // When
         organizationStoreR2dbcRepository.update(organization)
 
-      // Then
-      coVerify(exactly = 1) { organizationRepository.save(organization.toEntity()) }
+        // Then
+        coVerify(exactly = 1) { organizationRepository.save(organization.toEntity()) }
     }
 
     @Test
     fun `should handle unexpected error during organization update`(): Unit = runBlocking {
-      // Given
+        // Given
         coEvery { organizationRepository.save(any()) } throws RuntimeException("Unexpected error")
 
-      // When / Then
+        // When / Then
         assertThrows<RuntimeException> {
             organizationStoreR2dbcRepository.update(organization)
         }
@@ -80,10 +80,10 @@ internal class OrganizationStoreR2DbcRepositoryTest {
 
     @Test
     fun `should handle error when the form does not exist`(): Unit = runBlocking {
-      // Given
+        // Given
         coEvery { organizationRepository.save(any()) } throws TransientDataAccessResourceException("Unexpected error")
 
-      // When / Then
+        // When / Then
         assertThrows<OrganizationException> {
             organizationStoreR2dbcRepository.update(organization)
         }
@@ -91,41 +91,41 @@ internal class OrganizationStoreR2DbcRepositoryTest {
 
     @Test
     fun `should delete organization`() = runBlocking {
-      // Given
+        // Given
         coEvery { organizationRepository.deleteById(any()) } returns Unit
 
-      // When
+        // When
         organizationStoreR2dbcRepository.delete(organization.id)
 
-      // Then
-      coVerify(exactly = 1) { organizationRepository.deleteById(organization.id.value) }
+        // Then
+        coVerify(exactly = 1) { organizationRepository.deleteById(organization.id.value) }
     }
 
     @Test
     fun `should find organization by id`() = runBlocking {
-      // Given
+        // Given
         coEvery { organizationRepository.findById(any()) } returns organization.toEntity()
 
-      // When
-      val result = organizationStoreR2dbcRepository.findById(organization.id)
+        // When
+        val result = organizationStoreR2dbcRepository.findById(organization.id)
 
-      // Then
-      coVerify(exactly = 1) { organizationRepository.findById(organization.id.value) }
-      assertEquals(organization, result)
+        // Then
+        coVerify(exactly = 1) { organizationRepository.findById(organization.id.value) }
+        assertEquals(organization, result)
     }
 
     @Test
     fun `should find all organizations`() = runBlocking {
-      // Given
-      val userId = UserId(UUID.randomUUID())
+        // Given
+        val userId = UserId(UUID.randomUUID())
         coEvery { organizationRepository.findOrganizationsByUserId(any()) } returns listOf(organization.toEntity())
 
-      // When
-      val result = organizationStoreR2dbcRepository.findAll(userId)
+        // When
+        val result = organizationStoreR2dbcRepository.findAll(userId)
 
-      // Then
-      coVerify(exactly = 1) { organizationRepository.findOrganizationsByUserId(userId.value) }
-      assertTrue(result.isNotEmpty())
-      assertEquals(organization, result.first())
+        // Then
+        coVerify(exactly = 1) { organizationRepository.findOrganizationsByUserId(userId.value) }
+        assertTrue(result.isNotEmpty())
+        assertEquals(organization, result.first())
     }
 }

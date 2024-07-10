@@ -8,11 +8,11 @@ import java.util.*
  * @property teamId The unique identifier of the team
  * @property userId The unique identifier of the user.
  */
-data class TeamMemberId(val teamId: UUID, val userId: UUID) : Serializable {
+data class TeamMemberEntityId(val teamId: UUID, val userId: UUID) : Serializable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is TeamMemberId) return false
+        if (other !is TeamMemberEntityId) return false
 
         if (teamId != other.teamId) return false
         if (userId != other.userId) return false

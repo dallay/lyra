@@ -1,7 +1,6 @@
 package com.lyra.app.team.infrastructure.http
 
 import com.lyra.ControllerTest
-import com.lyra.UnitTest
 import com.lyra.app.team.application.delete.DeleteTeamCommand
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
 
-@UnitTest
 internal class DeleteTeamControllerTest : ControllerTest() {
     private lateinit var controller: DeleteTeamController
     override lateinit var webTestClient: WebTestClient

@@ -1,7 +1,7 @@
 package com.lyra.app.team.member.infrastructure.persistence.repository
 
 import com.lyra.app.team.member.infrastructure.persistence.entity.TeamMemberEntity
-import com.lyra.app.team.member.infrastructure.persistence.entity.TeamMemberId
+import com.lyra.app.team.member.infrastructure.persistence.entity.TeamMemberEntityId
 import com.lyra.spring.boot.repository.ReactiveSearchRepository
 import java.util.*
 import org.springframework.data.r2dbc.repository.Modifying
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface TeamMemberR2dbcRepository :
-    CoroutineCrudRepository<TeamMemberEntity, TeamMemberId>,
+    CoroutineCrudRepository<TeamMemberEntity, TeamMemberEntityId>,
     ReactiveSearchRepository<TeamMemberEntity> {
     suspend fun findByTeamIdAndUserId(teamId: UUID, userId: UUID): TeamMemberEntity
     suspend fun deleteByTeamIdAndUserId(teamId: UUID, userId: UUID)

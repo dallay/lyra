@@ -1,5 +1,6 @@
 package com.lyra.app.team.member.application.remove
 
+import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.command.CommandHandler
 import org.slf4j.LoggerFactory
 
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory
  * Command handler for removing a team member from a team.
  * @property teamMemberRemover The service that removes a team member.
  */
+@Service
 class RemoveTeamMemberCommandHandler(
     private val teamMemberRemover: TeamMemberRemover
 ) : CommandHandler<RemoveTeamMemberCommand> {

@@ -1,5 +1,6 @@
 package com.lyra.app.team.infrastructure.persistence
 
+import com.lyra.UnitTest
 import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.app.team.TeamStub
 import com.lyra.app.team.domain.Team
@@ -24,6 +25,7 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.dao.DuplicateKeyException
 import org.springframework.dao.TransientDataAccessResourceException
 
+@UnitTest
 internal class TeamStoreR2DbcRepositoryTest {
 
     private lateinit var teamR2dbcRepository: TeamR2dbcRepository

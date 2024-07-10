@@ -21,4 +21,13 @@ class UserId(private val id: UUID) : BaseId<UUID>(id) {
      * @see UUID for more information about the UUID
      */
     constructor(id: String) : this(UUID.fromString(id))
+    companion object {
+        /**
+         * Creates a new instance of the class with a random UUID value.
+         *
+         * @return A new instance of the class with a random UUID value.
+         * @see UUID for more information about the UUID
+         */
+        fun create() = UserId(UUID.randomUUID())
+    }
 }

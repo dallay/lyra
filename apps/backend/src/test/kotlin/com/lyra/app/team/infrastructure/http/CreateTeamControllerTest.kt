@@ -1,7 +1,6 @@
 package com.lyra.app.team.infrastructure.http
 
 import com.lyra.ControllerTest
-import com.lyra.UnitTest
 import com.lyra.app.team.TeamStub
 import com.lyra.app.team.application.CreateTeamCommand
 import com.lyra.app.team.infrastructure.http.request.CreateTeamRequest
@@ -10,7 +9,6 @@ import java.util.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-@UnitTest
 internal class CreateTeamControllerTest : ControllerTest() {
     private val team = TeamStub.create()
     private val id = UUID.randomUUID().toString()

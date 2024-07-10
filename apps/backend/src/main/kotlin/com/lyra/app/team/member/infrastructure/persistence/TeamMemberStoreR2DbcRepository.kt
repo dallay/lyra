@@ -26,7 +26,7 @@ class TeamMemberStoreR2DbcRepository(
         val userId = member.id.value.second
         log.debug("Creating team member with teamId: {} and userId: {}", teamId, userId)
         try {
-            teamMemberRepository.save(member.toEntity())
+            teamMemberRepository.upsert(member.toEntity())
         } catch (e: DuplicateKeyException) {
             log.error("Team member already exists in the database: $teamId and $userId")
             throw TeamMemberException("Error creating team member", e)
@@ -40,7 +40,7 @@ class TeamMemberStoreR2DbcRepository(
      */
     override suspend fun update(member: TeamMember) {
         log.debug("Updating team member with id: {}", member.id)
-        teamMemberRepository.save(member.toEntity())
+        teamMemberRepository.upsert(member.toEntity())
     }
 
     /**

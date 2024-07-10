@@ -46,7 +46,7 @@ internal class CreateTeamCommandHandlerTest {
         createTeamCommandHandler.handle(command)
 
         // Then
-        coVerify {
+        coVerify(exactly = 1) {
             teamRepository.create(
                 withArg {
                     assert(it.id.value.toString() == teamId)

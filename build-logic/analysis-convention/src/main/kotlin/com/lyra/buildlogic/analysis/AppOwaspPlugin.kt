@@ -24,14 +24,8 @@ internal class AppOwaspPlugin : ConventionPlugin {
                     ReportGenerator.Format.SARIF.toString(),
                 )
                 suppressionFile = "${rootProject.rootDir}/config/owasp/owasp-supression.xml"
-                // ENV VAR: OWASP_API_KEY
-                val apiKey = System.getenv("NVD_API_KEY")
-                if (apiKey != null) {
-                    nvd?.apiKey = apiKey
-                    println("✅ NVD_API_KEY was successfully loaded from the environment.")
-                } else {
-                    println("⚠️ NVD_API_KEY was not found in the environment. Please set it to avoid rate limiting.")
-                }
+
+                setEnvironmentVariables()
 
                 // Configure the data directory to store the NVD data and the H2 database
                 data.directory =
@@ -45,6 +39,23 @@ internal class AppOwaspPlugin : ConventionPlugin {
                     .toList()
                 outputDirectory = layout.buildDirectory.dir("reports/owasp").get().asFile.absolutePath
             }
+        }
+    }
+
+    private fun DependencyCheckExtension.setEnvironmentVariables() {
+        val apiKey = System.getenv("NVD_API_KEY")
+        if (apiKey != null) {
+            nvd?.apiKey = apiKey
+            println(" ✅  [NVD_API_KEY] was successfully loaded from the environment.")
+        } else {
+            println(" ⚠️  [NVD_API_KEY] was not found in the environment. Please set it to avoid rate limiting.")
+        }
+        val delay = System.getenv("NVD_API_DELAY")
+        if (delay != null) {
+            nvd?.delay = delay.toInt()
+            println(" ✅  [NVD_API_DELAY] was successfully loaded from the environment.")
+        } else {
+            println(" ⚠️  [NVD_API_DELAY] was not found in the environment. Defaulting to 1000ms.")
         }
     }
 }

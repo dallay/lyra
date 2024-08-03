@@ -5,7 +5,7 @@ springdoc = "2.5.0"
 junit = "5.10.2"
 klint-plugin = "12.1.1"
 detekt = "1.23.6"
-owasp = "9.2.0"
+owasp = "10.0.3"
 asciidoctor = "4.0.2"
 dokka = "1.9.20"
 frontend-gradle-plugin = "8.0.0"
@@ -17,6 +17,7 @@ testcontainers = "1.19.8"
 testcontainers-keycloak = "3.3.1"
 jsonwebtoken = "0.11.5"
 cucumber = "7.18.0"
+apacheCommon = "1.12.0"
 
 [libraries]
 # Gradle Plugins
@@ -60,6 +61,9 @@ reactor-kotlin-extensions = { module = "io.projectreactor.kotlin:reactor-kotlin-
 reflections = { module = "org.reflections:reflections", version.ref = "reflections" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version = "1.8.1" }
+# Apache Commons
+commons-text = { module = "org.apache.commons:commons-text", version.ref = "apacheCommon" }
+
 
 # Testing
 junit = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }

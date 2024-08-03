@@ -27,7 +27,7 @@ class KeycloakRefreshTokenManagerRepositoryIntegrationTest : InfrastructureTestC
 
     @Test
     fun `should refresh access token`(): Unit = runBlocking {
-        val accessToken = getAdminAccessToken()
+        val accessToken = getAccessToken()
         val refreshToken = RefreshToken(accessToken?.refreshToken ?: "fake refresh token")
         val newAccessToken = refreshTokenManager.refresh(refreshToken)
         assertNotNull(newAccessToken)

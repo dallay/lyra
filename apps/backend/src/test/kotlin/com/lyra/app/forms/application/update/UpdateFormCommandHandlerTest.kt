@@ -2,6 +2,7 @@ package com.lyra.app.forms.application.update
 
 import com.lyra.UnitTest
 import com.lyra.app.forms.FormStub
+import com.lyra.app.forms.domain.Form
 import com.lyra.app.forms.domain.FormFinderRepository
 import com.lyra.app.forms.domain.FormRepository
 import com.lyra.app.forms.domain.event.FormUpdatedEvent
@@ -9,29 +10,36 @@ import com.lyra.common.domain.bus.event.EventPublisher
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.mockkClass
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 @UnitTest
 internal class UpdateFormCommandHandlerTest {
-    private var eventPublisher: EventPublisher<FormUpdatedEvent> = mockk()
-    private var formRepository = mockkClass(FormRepository::class)
-    private val formFinderRepository = mockkClass(FormFinderRepository::class)
-    private val formUpdater: FormUpdater = FormUpdater(formRepository, formFinderRepository, eventPublisher)
-    private val updateFormCommandHandler: UpdateFormCommandHandler = UpdateFormCommandHandler(formUpdater)
-    private val form = FormStub.create()
+    private lateinit var eventPublisher: EventPublisher<FormUpdatedEvent>
+    private lateinit var formRepository: FormRepository
+    private lateinit var formFinderRepository: FormFinderRepository
+    private lateinit var formUpdater: FormUpdater
+    private lateinit var updateFormCommandHandler: UpdateFormCommandHandler
+    private lateinit var form: Form
 
     @BeforeEach
     fun setUp() {
-        coEvery { formRepository.update(eq(form)) } returns Unit
-        coEvery { formFinderRepository.findById(eq(form.id)) } returns form
+        eventPublisher = mockk()
+        formRepository = mockk()
+        formFinderRepository = mockk()
+        formUpdater = FormUpdater(formRepository, formFinderRepository, eventPublisher)
+        updateFormCommandHandler = UpdateFormCommandHandler(formUpdater)
+        form = FormStub.create()
+
+        coEvery { formRepository.update(any()) } returns Unit
+        coEvery { formFinderRepository.findById(any()) } returns form
         coEvery { eventPublisher.publish(any(FormUpdatedEvent::class)) } returns Unit
     }
 
     @Test
     fun `should update a form`() = runBlocking {
+        // Given
         val command = UpdateFormCommand(
             id = form.id.value.toString(),
             name = form.name,
@@ -44,9 +52,28 @@ internal class UpdateFormCommandHandlerTest {
             textColor = form.textColor.hex,
             buttonTextColor = form.buttonTextColor.hex,
         )
+
+        // When
         updateFormCommandHandler.handle(command)
 
-        coVerify(exactly = 1) { formRepository.update(any()) }
-        coVerify(exactly = 1) { eventPublisher.publish(any(FormUpdatedEvent::class)) }
+        // Then
+        coVerify(exactly = 1) {
+            formRepository.update(
+                withArg {
+                    assert(it.id.value.toString() == form.id.value.toString())
+                    assert(it.name == form.name)
+                    assert(it.header == form.header)
+                    assert(it.description == form.description)
+                    assert(it.inputPlaceholder == form.inputPlaceholder)
+                    assert(it.buttonText == form.buttonText)
+                    assert(it.buttonColor.hex == form.buttonColor.hex)
+                    assert(it.backgroundColor.hex == form.backgroundColor.hex)
+                    assert(it.textColor.hex == form.textColor.hex)
+                    assert(it.buttonTextColor.hex == form.buttonTextColor.hex)
+                },
+            )
+        }
+
+        coVerify(exactly = 1) { eventPublisher.publish(ofType<FormUpdatedEvent>()) }
     }
 }

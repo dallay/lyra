@@ -25,7 +25,7 @@ class SubscriberConverter : Converter<Row, SubscriberEntity> {
         val sourceFirstname = source.get("firstname", String::class.java)
         val sourceLastname = source.get("lastname", String::class.java)
         val sourceStatus = source.get("status", SubscriberStatus::class.java)
-        val workspaceId = source.get("workspace_id", UUID::class.java)
+        val organizationId = source.get("organization_id", UUID::class.java)
         val sourceCreatedAt = source.get("created_at", LocalDateTime::class.java)
         val sourceUpdatedAt = source.get("updated_at", LocalDateTime::class.java)
         return SubscriberEntity(
@@ -34,7 +34,7 @@ class SubscriberConverter : Converter<Row, SubscriberEntity> {
             firstname = sourceFirstname!!,
             lastname = sourceLastname!!,
             status = sourceStatus!!,
-            workspaceId = workspaceId!!,
+            organizationId = organizationId!!,
             createdAt = sourceCreatedAt!!,
             updatedAt = sourceUpdatedAt!!,
         )

@@ -20,33 +20,36 @@ private const val NUM_SUBSCRIBER = 100
 
 @UnitTest
 internal class SearchAllSubscribersQueryHandlerTest {
-    private val repository = mockkClass(SubscriberRepository::class)
-    private val searcher = SearchAllSubscriberSearcher(repository)
-    private val searchAllSubscribersQueryHandler = SearchAllSubscribersQueryHandler(searcher)
+    private lateinit var repository: SubscriberRepository
+    private lateinit var searcher: SearchAllSubscriberSearcher
+    private lateinit var searchAllSubscribersQueryHandler: SearchAllSubscribersQueryHandler
 
     @BeforeEach
     fun setUp() {
-        val cursorPageResponse = SubscriberStub
-            .dummyRandomSubscribersPageResponse(
-                NUM_SUBSCRIBER,
-            )
+        repository = mockkClass(SubscriberRepository::class)
+        searcher = SearchAllSubscriberSearcher(repository)
+        searchAllSubscribersQueryHandler = SearchAllSubscribersQueryHandler(searcher)
+
+        val cursorPageResponse = SubscriberStub.dummyRandomSubscribersPageResponse(NUM_SUBSCRIBER)
+
         coEvery {
-            repository.searchAllByCursor(
-                any(Criteria::class),
-                any(Int::class),
-                any(Sort::class),
-            )
+            repository.searchAllByCursor(any(Criteria::class), any(Int::class), any(Sort::class))
         } returns cursorPageResponse
     }
 
     @Test
     fun `should search all subscribers`() = runBlocking {
+        // Given
         val query = SearchAllSubscribersQuery(criteria = Criteria.Empty)
+
+        // When
         val response = searchAllSubscribersQueryHandler.handle(query)
+
+        // Then
         val data = response.data
         val nextCursor = response.nextPageCursor
         assertTrue(data.isNotEmpty())
-        assertEquals(100, data.size)
+        assertEquals(NUM_SUBSCRIBER, data.size)
         val endDate = data.last().createdAt ?: LocalDateTime.now().toString()
         val cursor = getTimestampCursorPage(endDate)
         assertEquals(cursor, nextCursor)

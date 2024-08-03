@@ -4,7 +4,7 @@ import com.lyra.app.forms.domain.Form
 import com.lyra.app.forms.domain.FormId
 import com.lyra.app.forms.domain.HexColor
 import com.lyra.app.forms.infrastructure.persistence.entity.FormEntity
-import com.lyra.app.workspaces.domain.WorkspaceId
+import com.lyra.app.organization.domain.OrganizationId
 
 /**
  * Object responsible for mapping between the Form domain object and the FormEntity persistence object.
@@ -26,7 +26,7 @@ object FormMapper {
         backgroundColor = backgroundColor.hex,
         textColor = textColor.hex,
         buttonTextColor = buttonTextColor.hex,
-        workspaceId = workspaceId.value,
+        organizationId = organizationId.value,
         createdAt = createdAt,
         updatedAt = updatedAt,
     )
@@ -47,7 +47,7 @@ object FormMapper {
         backgroundColor = HexColor(backgroundColor),
         textColor = HexColor(textColor),
         buttonTextColor = HexColor(buttonTextColor),
-        workspaceId = WorkspaceId(workspaceId),
+        organizationId = OrganizationId(organizationId),
         createdAt = createdAt,
         updatedAt = updatedAt,
     )

@@ -9,12 +9,12 @@ import com.lyra.common.domain.bus.command.Command
  * @property email The email address of the subscriber.
  * @property firstname The first name of the subscriber.
  * @property lastname The last name of the subscriber. This can be null.
- * @property workspaceId The identifier of the workspace the subscriber belongs to.
+ * @property organizationId The identifier of the organization the subscriber belongs to.
  */
 data class SubscribeNewsletterCommand(
     val id: String,
     val email: String,
     val firstname: String,
     val lastname: String?,
-    val workspaceId: String
+    val organizationId: String
 ) : Command

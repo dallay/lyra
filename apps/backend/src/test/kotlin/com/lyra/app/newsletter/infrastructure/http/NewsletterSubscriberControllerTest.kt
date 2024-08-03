@@ -17,11 +17,11 @@ private const val ENDPOINT = "/api/newsletter/subscribers"
 internal class NewsletterSubscriberControllerTest {
     private val mediator = mockk<Mediator>()
     private val id = UUID.randomUUID().toString()
-    private val workspaceId = UUID.randomUUID().toString()
+    private val organizationId = UUID.randomUUID().toString()
     private val email = "john.doe@example.com"
     private val firstname = "John"
     private val lastname = "Doe"
-    private val command = SubscribeNewsletterCommand(id, email, firstname, lastname, workspaceId)
+    private val command = SubscribeNewsletterCommand(id, email, firstname, lastname, organizationId)
     private val controller = NewsletterSubscriberController(mediator)
     private val webTestClient = WebTestClient.bindToController(controller).build()
 
@@ -36,7 +36,7 @@ internal class NewsletterSubscriberControllerTest {
             email = email,
             firstname = firstname,
             lastname = lastname,
-            workspaceId = workspaceId,
+            organizationId = organizationId,
         )
 
         webTestClient.put()

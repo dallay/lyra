@@ -11,18 +11,18 @@ import org.springframework.test.context.jdbc.Sql
 private const val ENDPOINT = "/api/forms"
 
 internal class CreateFormControllerIntegrationTest : ControllerIntegrationTest() {
-    private val workspaceId = "a0654720-35dc-49d0-b508-1f7df5d915f1"
+    private val organizationId = "a0654720-35dc-49d0-b508-1f7df5d915f1"
 
     @Test
     @Sql(
-        "/db/workspace/workspace.sql",
+        "/db/organization/organization.sql",
     )
     @Sql(
-        "/db/workspace/clean.sql",
+        "/db/organization/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should create a new form`() {
-        val request = FormStub.generateRequest(workspaceId)
+        val request = FormStub.generateRequest(organizationId)
         val id = UUID.randomUUID().toString()
         webTestClient.mutateWith(csrf()).put()
             .uri("$ENDPOINT/$id")

@@ -11,18 +11,18 @@ import org.springframework.test.context.jdbc.Sql
 private const val ENDPOINT = "/api/newsletter/subscribers"
 
 internal class NewsletterSubscriberControllerIntegrationTest : ControllerIntegrationTest() {
-    private val workspaceId = "a0654720-35dc-49d0-b508-1f7df5d915f1"
+    private val oranizationId = "a0654720-35dc-49d0-b508-1f7df5d915f1"
 
     @Sql(
-        "/db/workspace/workspace.sql",
+        "/db/organization/organization.sql",
     )
     @Sql(
-        "/db/workspace/clean.sql",
+        "/db/organization/clean.sql",
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     @Test
     fun `should subscribe a new subscriber`() {
-        val request = generateRequest(workspaceId)
+        val request = generateRequest(oranizationId)
         webTestClient.mutateWith(csrf()).put()
             .uri("$ENDPOINT/${UUID.randomUUID()}")
             .contentType(MediaType.APPLICATION_JSON)
@@ -34,7 +34,7 @@ internal class NewsletterSubscriberControllerIntegrationTest : ControllerIntegra
 
     @Test
     fun `should not subscribe a new subscriber if email is invalid`() {
-        val request = generateRequest(workspaceId, email = "invalid-email")
+        val request = generateRequest(oranizationId, email = "invalid-email")
         webTestClient.mutateWith(csrf()).put()
             .uri("$ENDPOINT/${UUID.randomUUID()}")
             .contentType(MediaType.APPLICATION_JSON)

@@ -1,21 +1,22 @@
 package com.lyra.app.forms.infrastructure.http
 
+import com.lyra.ControllerTest
 import com.lyra.UnitTest
 import com.lyra.app.forms.FormStub
 import com.lyra.app.forms.application.CreateFormCommand
 import com.lyra.app.forms.infrastructure.http.request.CreateFormRequest
-import com.lyra.common.domain.bus.Mediator
 import io.mockk.coEvery
-import io.mockk.mockk
+import io.mockk.coVerify
+import io.mockk.slot
 import java.util.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
 
 @UnitTest
-internal class CreateFormControllerTest {
+internal class CreateFormControllerTest : ControllerTest() {
     private val form = FormStub.create()
-    private val mediator = mockk<Mediator>()
     private val id = UUID.randomUUID().toString()
     private val command = CreateFormCommand(
         id = id,
@@ -28,14 +29,15 @@ internal class CreateFormControllerTest {
         backgroundColor = form.backgroundColor.hex,
         textColor = form.textColor.hex,
         buttonTextColor = form.buttonTextColor.hex,
-        workspaceId = form.workspaceId.toString(),
+        organizationId = form.organizationId.toString(),
     )
     private val controller = CreateFormController(mediator)
-    private val webTestClient = WebTestClient.bindToController(controller).build()
+    override val webTestClient: WebTestClient = buildWebTestClient(controller)
 
     @BeforeEach
-    fun setUp() {
-        coEvery { mediator.send(eq(command)) } returns Unit
+    override fun setUp() {
+        super.setUp()
+        coEvery { mediator.send(any<CreateFormCommand>()) } returns Unit
     }
 
     @Test
@@ -50,14 +52,18 @@ internal class CreateFormControllerTest {
             backgroundColor = form.backgroundColor.hex,
             textColor = form.textColor.hex,
             buttonTextColor = form.buttonTextColor.hex,
-            workspaceId = form.workspaceId.toString(),
+            organizationId = form.organizationId.toString(),
         )
+
         webTestClient.put()
             .uri("/api/forms/$id")
             .bodyValue(request)
             .exchange()
             .expectStatus().isCreated
             .expectBody().isEmpty
-        coEvery { mediator.send(eq(command)) }
+
+        val commandSlot = slot<CreateFormCommand>()
+        coVerify(exactly = 1) { mediator.send(capture(commandSlot)) }
+        assertEquals(command, commandSlot.captured)
     }
 }

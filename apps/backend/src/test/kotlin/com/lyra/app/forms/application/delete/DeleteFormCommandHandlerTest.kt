@@ -15,24 +15,40 @@ import org.junit.jupiter.api.Test
 
 @UnitTest
 internal class DeleteFormCommandHandlerTest {
-    private var eventPublisher: EventPublisher<FormDeletedEvent> = mockk()
-    private val formDestroyerRepository = mockkClass(FormDestroyerRepository::class)
-    private val formDestroyer: FormDestroyer = FormDestroyer(formDestroyerRepository, eventPublisher)
-    private val deleteFormCommandHandler: DeleteFormCommandHandler = DeleteFormCommandHandler(formDestroyer)
-    private val formId = UUID.randomUUID().toString()
+    private lateinit var eventPublisher: EventPublisher<FormDeletedEvent>
+    private lateinit var formDestroyerRepository: FormDestroyerRepository
+    private lateinit var formDestroyer: FormDestroyer
+    private lateinit var deleteFormCommandHandler: DeleteFormCommandHandler
+    private lateinit var formId: String
 
     @BeforeEach
     fun setUp() {
+        eventPublisher = mockk()
+        formDestroyerRepository = mockkClass(FormDestroyerRepository::class)
+        formDestroyer = FormDestroyer(formDestroyerRepository, eventPublisher)
+        deleteFormCommandHandler = DeleteFormCommandHandler(formDestroyer)
+        formId = UUID.randomUUID().toString()
+
         coEvery { formDestroyerRepository.delete(any()) } returns Unit
         coEvery { eventPublisher.publish(any(FormDeletedEvent::class)) } returns Unit
     }
 
     @Test
     fun `should delete a form`() = runBlocking {
+        // Given
         val command = DeleteFormCommand(id = formId)
+
+        // When
         deleteFormCommandHandler.handle(command)
 
-        coVerify(exactly = 1) { formDestroyerRepository.delete(any()) }
-        coVerify(exactly = 1) { eventPublisher.publish(any(FormDeletedEvent::class)) }
+        // Then
+        coVerify(exactly = 1) {
+            formDestroyerRepository.delete(
+                withArg {
+                    assert(it.value.toString() == formId)
+                },
+            )
+        }
+        coVerify(exactly = 1) { eventPublisher.publish(ofType<FormDeletedEvent>()) }
     }
 }

@@ -27,7 +27,7 @@ class CreateFormCommandHandler(
     override suspend fun handle(command: CreateFormCommand) {
         log.debug("Creating form with name: ${command.name}")
         val formId = UUID.fromString(command.id)
-        val workspaceId = UUID.fromString(command.workspaceId)
+        val organizationId = UUID.fromString(command.organizationId)
         val form = Form.create(
             id = formId,
             styleConfiguration = FormStyleConfiguration(
@@ -41,7 +41,7 @@ class CreateFormCommandHandler(
                 textColor = command.textColor,
                 buttonTextColor = command.buttonTextColor,
             ),
-            workspaceId = workspaceId,
+            organizationId = organizationId,
         )
         formCreator.create(form)
     }

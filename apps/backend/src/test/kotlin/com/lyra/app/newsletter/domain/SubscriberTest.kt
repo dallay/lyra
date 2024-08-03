@@ -18,7 +18,7 @@ internal class SubscriberTest {
             email,
             firstname,
             lastname,
-            workspaceId = UUID.randomUUID(),
+            organizationId = UUID.randomUUID(),
         )
         val newName = Name("Jane", "Doe")
         subscriber.updateName(newName)
@@ -32,7 +32,7 @@ internal class SubscriberTest {
             email,
             firstname,
             lastname,
-            workspaceId = UUID.randomUUID(),
+            organizationId = UUID.randomUUID(),
         )
         val newStatus = SubscriberStatus.BLOCKLISTED
         subscriber.updateStatus(newStatus)
@@ -47,7 +47,7 @@ internal class SubscriberTest {
             firstname,
             lastname,
             SubscriberStatus.DISABLED,
-            workspaceId = UUID.randomUUID(),
+            organizationId = UUID.randomUUID(),
         )
         assertEquals(SubscriberStatus.DISABLED, subscriber.status)
     }

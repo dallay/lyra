@@ -9,12 +9,12 @@ import com.lyra.common.domain.bus.event.BaseDomainEvent
  * @property email The email address of the subscriber.
  * @property name The name of the subscriber.
  * @property status The status of the subscriber.
- * @property workspaceId The identifier of the workspace the subscriber belongs to.
+ * @property organizationId The identifier of the organization the subscriber belongs to.
  */
 data class SubscriberCreatedEvent(
     val subscriberId: String,
     val email: String,
     val name: String,
     val status: String,
-    val workspaceId: String,
+    val organizationId: String,
 ) : BaseDomainEvent()

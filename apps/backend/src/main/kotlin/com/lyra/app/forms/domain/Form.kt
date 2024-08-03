@@ -3,7 +3,7 @@ package com.lyra.app.forms.domain
 import com.lyra.app.forms.domain.dto.FormStyleConfiguration
 import com.lyra.app.forms.domain.event.FormCreatedEvent
 import com.lyra.app.forms.domain.event.FormUpdatedEvent
-import com.lyra.app.workspaces.domain.WorkspaceId
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.BaseEntity
 import java.time.LocalDateTime
 import java.util.UUID
@@ -35,7 +35,7 @@ data class Form(
     var backgroundColor: HexColor,
     var textColor: HexColor,
     var buttonTextColor: HexColor,
-    val workspaceId: WorkspaceId,
+    val organizationId: OrganizationId,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime? = createdAt,
 ) : BaseEntity<FormId>() {
@@ -75,11 +75,11 @@ data class Form(
 
     companion object {
         /**
-         * Creates a new form with the given id, Style Configuration, workspace id, and creation time.
+         * Creates a new form with the given id, Style Configuration, organization id, and creation time.
          *
          * @param id The id of the new form.
          * @param styleConfiguration The [FormStyleConfiguration] containing the form data.
-         * @param workspaceId The id of the workspace the form belongs to.
+         * @param organizationId The id of the organization the form belongs to.
          * @param createdAt The creation time of the new form. Defaults to the current time.
          * @param updatedAt The last update time of the new form. Defaults to the creation time.
          * @return The newly created form.
@@ -87,12 +87,12 @@ data class Form(
         fun create(
             id: UUID,
             styleConfiguration: FormStyleConfiguration,
-            workspaceId: UUID,
+            organizationId: UUID,
             createdAt: LocalDateTime = LocalDateTime.now(),
             updatedAt: LocalDateTime? = createdAt
         ): Form {
             val formId = FormId(id)
-            val formWorkspaceId = WorkspaceId(workspaceId)
+            val formOrganizationId = OrganizationId(organizationId)
             val form = Form(
                 id = formId,
                 name = styleConfiguration.name,
@@ -104,7 +104,7 @@ data class Form(
                 backgroundColor = HexColor(styleConfiguration.backgroundColor),
                 textColor = HexColor(styleConfiguration.textColor),
                 buttonTextColor = HexColor(styleConfiguration.buttonTextColor),
-                workspaceId = formWorkspaceId,
+                organizationId = formOrganizationId,
                 createdAt = createdAt,
                 updatedAt = updatedAt,
             )

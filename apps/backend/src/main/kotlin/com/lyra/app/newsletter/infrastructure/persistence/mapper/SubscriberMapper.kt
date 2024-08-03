@@ -6,7 +6,7 @@ import com.lyra.app.newsletter.domain.Name
 import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.SubscriberId
 import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntity
-import com.lyra.app.workspaces.domain.WorkspaceId
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.vo.email.Email
 
 /**
@@ -25,7 +25,7 @@ object SubscriberMapper {
             firstname = name.firstName.toString(),
             lastname = name.lastName.toString(),
             status = status,
-            workspaceId = workspaceId.value,
+            organizationId = organizationId.value,
             createdAt = createdAt,
             updatedAt = updatedAt,
         )
@@ -45,7 +45,7 @@ object SubscriberMapper {
                 lastName = if (lastname.isNullOrBlank()) null else lastname?.let { LastName(it) },
             ),
             status = status,
-            workspaceId = WorkspaceId(workspaceId),
+            organizationId = OrganizationId(organizationId),
             createdAt = createdAt,
             updatedAt = updatedAt,
         )

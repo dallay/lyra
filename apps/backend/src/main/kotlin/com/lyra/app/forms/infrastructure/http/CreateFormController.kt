@@ -60,7 +60,7 @@ class CreateFormController(
                 request.backgroundColor,
                 request.textColor,
                 request.buttonTextColor,
-                request.workspaceId,
+                request.organizationId,
             ),
         )
         val url = "/api/$ENDPOINT_FORM"

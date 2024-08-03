@@ -10,7 +10,7 @@ import com.lyra.app.newsletter.domain.Name
 import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.SubscriberId
 import com.lyra.app.newsletter.domain.SubscriberStatus
-import com.lyra.app.workspaces.domain.WorkspaceId
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import com.lyra.common.domain.presentation.pagination.TimestampCursor
 import com.lyra.common.domain.vo.email.Email
@@ -30,13 +30,13 @@ object SubscriberStub {
         firstname: String = faker.name().firstName(),
         lastname: String = faker.name().lastName(),
         status: SubscriberStatus = SubscriberStatus.ENABLED,
-        workspaceId: String = UUID.randomUUID().toString()
+        organizationId: String = UUID.randomUUID().toString()
     ): Subscriber = Subscriber(
         id = SubscriberId(id),
         email = Email(email),
         name = Name(FirstName(firstname), LastName(lastname)),
         status = status,
-        workspaceId = WorkspaceId(workspaceId),
+        organizationId = OrganizationId(organizationId),
     )
 
     fun dummyRandomSubscribersList(size: Int = 10): List<Subscriber> {
@@ -78,7 +78,7 @@ object SubscriberStub {
 
     @Suppress("MultilineRawStringIndentation")
     fun generateRequest(
-        workspaceId: String,
+        organizationId: String,
         email: String = faker.internet().emailAddress(),
         firstname: String = faker.name().firstName(),
         lastname: String = faker.name().lastName(),
@@ -87,7 +87,7 @@ object SubscriberStub {
            "email": "$email",
            "firstname": "$firstname",
            "lastname": "$lastname",
-           "workspaceId": "$workspaceId"
+           "organizationId": "$organizationId"
        }
     """.trimIndent()
 

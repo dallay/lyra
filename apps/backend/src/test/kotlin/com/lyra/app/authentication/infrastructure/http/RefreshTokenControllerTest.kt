@@ -6,24 +6,21 @@ import com.lyra.app.authentication.domain.AccessToken
 import com.lyra.app.authentication.domain.RefreshToken
 import com.lyra.app.authentication.domain.RefreshTokenManager
 import com.lyra.app.authentication.domain.UserRefreshTokenException
-import com.lyra.app.authentication.infrastructure.http.request.RefreshTokenRequest
+import com.lyra.app.authentication.infrastructure.cookie.AuthCookieBuilder
 import com.lyra.app.controllers.GlobalExceptionHandler
 import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
-import net.datafaker.Faker
 import org.junit.jupiter.api.Test
+import org.springframework.http.HttpStatus
 import org.springframework.test.web.reactive.server.WebTestClient
 
 private const val ENDPOINT = "/api/refresh-token"
 
 @UnitTest
-class RefreshTokenControllerTest {
+internal class RefreshTokenControllerTest {
 
-    private val faker = Faker()
     private val accessToken = createAccessToken()
-
     private val refreshTokenManager = mockk<RefreshTokenManager>()
     private val refreshTokenQueryHandler = RefreshTokenQueryHandler(refreshTokenManager)
     private val refreshTokenController = RefreshTokenController(refreshTokenQueryHandler)
@@ -32,15 +29,12 @@ class RefreshTokenControllerTest {
         .build()
 
     @Test
-    fun `should refresh token`(): Unit = runBlocking {
-        // Arrange
-        val refreshTokenRequest = createRefreshTokenRequest()
-
+    fun `refreshTokens should return 200 OK with valid refresh token`(): Unit = runBlocking {
         coEvery { refreshTokenManager.refresh(any(RefreshToken::class)) } returns accessToken
 
-        // Act & Assert
-        webTestClient.post().uri(ENDPOINT)
-            .bodyValue(refreshTokenRequest)
+        webTestClient.post()
+            .uri(ENDPOINT)
+            .cookie(AuthCookieBuilder.REFRESH_TOKEN, "validRefreshToken")
             .exchange()
             .expectStatus().isOk
             .expectBody()
@@ -49,40 +43,48 @@ class RefreshTokenControllerTest {
             .jsonPath("$.refreshToken").isEqualTo(accessToken.refreshToken)
             .jsonPath("$.refreshExpiresIn").isEqualTo(accessToken.refreshExpiresIn)
             .jsonPath("$.tokenType").isEqualTo(accessToken.tokenType)
-            .jsonPath("$.notBeforePolicy").isEqualTo(accessToken.notBeforePolicy!!)
-            .jsonPath("$.sessionState").isEqualTo(accessToken.sessionState!!)
-            .jsonPath("$.scope").isEqualTo(accessToken.scope!!)
-
-        // Verify
-        coVerify { refreshTokenManager.refresh(any()) }
+            .jsonPath("$.notBeforePolicy").isEqualTo(accessToken.notBeforePolicy ?: 0)
+            .jsonPath("$.sessionState").isEqualTo(accessToken.sessionState ?: "")
+            .jsonPath("$.scope").isEqualTo(accessToken.scope ?: "")
     }
 
     @Test
-    fun `should return bad request when refresh token is not provided`(): Unit = runBlocking {
-        // Arrange
-        val refreshTokenRequest = RefreshTokenRequest(refreshToken = "")
+    fun `refreshTokens should return 400 Bad Request when refresh token is missing`(): Unit =
+        runBlocking {
+            webTestClient.post()
+                .uri(ENDPOINT)
+                .exchange()
+                .expectStatus().isBadRequest
+        }
 
-        coEvery {
-            refreshTokenManager.refresh(any(RefreshToken::class))
-        } throws UserRefreshTokenException("Could not refresh access token")
+    @Test
+    fun `refreshTokens should return 401 Unauthorized when handler throws UserRefreshTokenException`(): Unit =
+        runBlocking {
+            coEvery { refreshTokenManager.refresh(any(RefreshToken::class)) } throws UserRefreshTokenException(
+                "Could not refresh access token",
+            )
 
-        // Act & Assert
-        webTestClient.post().uri(ENDPOINT)
-            .bodyValue(refreshTokenRequest)
-            .exchange()
-            .expectStatus().isBadRequest
-            .expectBody()
-            .jsonPath("$.title").isEqualTo("Bad Request")
-            .jsonPath("$.status").isEqualTo(400)
-            .jsonPath("$.detail").isEqualTo("Invalid request content.")
+            webTestClient.post()
+                .uri(ENDPOINT)
+                .cookie(AuthCookieBuilder.REFRESH_TOKEN, "invalidRefreshToken")
+                .exchange()
+                .expectStatus().isUnauthorized
+        }
 
-        // Verify
-        coVerify(exactly = 0) { refreshTokenManager.refresh(any()) }
-    }
+    @Test
+    fun `refreshTokens should return 500 Internal Server Error on unexpected errors`(): Unit =
+        runBlocking {
+            coEvery { refreshTokenManager.refresh(any(RefreshToken::class)) } throws RuntimeException(
+                "Unexpected error",
+            )
 
-    private fun createRefreshTokenRequest(): RefreshTokenRequest = RefreshTokenRequest(
-        refreshToken = faker.lorem().characters(10),
-    )
+            webTestClient.post()
+                .uri(ENDPOINT)
+                .cookie(AuthCookieBuilder.REFRESH_TOKEN, "validRefreshToken")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+
     private fun createAccessToken(): AccessToken = AccessToken(
         token = "token",
         expiresIn = 1L,

@@ -3,7 +3,7 @@ import type { Menu } from './types';
 export interface Props {
 	menus: Menu[];
 }
-
+// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro.
 const { menus, ...attributes } = Astro.props;
 ---
 

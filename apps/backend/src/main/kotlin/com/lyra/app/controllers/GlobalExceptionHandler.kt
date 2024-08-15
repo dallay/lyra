@@ -38,8 +38,8 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
      * @return The ProblemDetail object representing the exception.
      */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(UserAuthenticationException::class)
-    fun handleUserAuthenticationException(e: UserAuthenticationException): ProblemDetail {
+    @ExceptionHandler(UserAuthenticationException::class, UserRefreshTokenException::class)
+    fun handleUserAuthenticationException(e: Exception): ProblemDetail {
         val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, e.message)
         problemDetail.title = "User authentication failed"
         problemDetail.setType(URI.create("$ERROR_PAGE/user-authentication-failed"))
@@ -65,7 +65,6 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(
         IllegalArgumentException::class,
         BusinessRuleValidationException::class,
-        UserRefreshTokenException::class,
     )
     fun handleIllegalArgumentException(e: Exception): ProblemDetail {
         val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.message ?: "Bad request")

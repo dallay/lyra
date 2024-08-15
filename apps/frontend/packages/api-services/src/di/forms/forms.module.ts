@@ -27,15 +27,25 @@ import FormResponse from '~/forms/domain/FormResponse';
 import CreateFormRequest from '~/forms/infrastructure/input/request/CreateFormRequest';
 import UpdateFormRequest from '~/forms/infrastructure/input/request/UpdateFormRequest';
 import HexColor from '~/forms/domain/HexColor';
+import {REQUEST_SERVICE, type RequestService} from "~/request/RequestService.ts";
+import {HttpRequestService} from "~/request/HttpRequestService.ts";
 
-export const formsModule = new ContainerModule((bind: interfaces.Bind) => {
-	bind<FormRepository>(FORM_REPOSITORY_PROVIDER).to(ApiFormRepository).inSingletonScope();
-	bind<FormFinderRepository>(FORM_FINDER_REPOSITORY_PROVIDER)
-		.to(ApiFormRepository)
-		.inSingletonScope();
-	bind<FormDestroyerRepository>(FORM_DESTROYER_REPOSITORY_PROVIDER)
-		.to(ApiFormRepository)
-		.inSingletonScope();
+export const createFormsModule = (apiUrl:string) => new ContainerModule((bind: interfaces.Bind) => {
+  bind<RequestService>(REQUEST_SERVICE).toDynamicValue((_) => {
+    return new HttpRequestService(apiUrl);
+  }).inSingletonScope();
+	bind<FormRepository>(FORM_REPOSITORY_PROVIDER).toDynamicValue((context) => {
+    const requestService = context.container.get<RequestService>(REQUEST_SERVICE);
+    return new ApiFormRepository(requestService);
+  }).inSingletonScope();
+  bind<FormFinderRepository>(FORM_FINDER_REPOSITORY_PROVIDER).toDynamicValue((context) => {
+    const requestService = context.container.get<RequestService>(REQUEST_SERVICE);
+    return new ApiFormRepository(requestService);
+  }).inSingletonScope();
+  bind<FormDestroyerRepository>(FORM_DESTROYER_REPOSITORY_PROVIDER).toDynamicValue((context) => {
+    const requestService = context.container.get<RequestService>(REQUEST_SERVICE);
+    return new ApiFormRepository(requestService);
+  }).inSingletonScope();
 	bind<FormsSearcher>(FORM_SEARCHER_PROVIDER).to(FormsSearcher);
 	bind<FormFinder>(FORM_FINDER_PROVIDER).to(FormFinder);
 	bind<FormUpdater>(FORM_UPDATER_PROVIDER).to(FormUpdater);

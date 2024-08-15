@@ -53,7 +53,7 @@
                     └── zh-TW.ts
                 └── main.ts
                 └── 📁middleware
-                    └── auth.ts
+                    └── auth.global.ts
                 └── 📁plugins
                     └── localer.ts
                     └── router.ts
@@ -304,7 +304,7 @@
                 └── 📁e2e
                     └── auth.spec.e2e.ts
             └── tsconfig.json
-            └── uno.config.cjs
+            └── uno.config.mjs
             └── vite.config.ts
             └── vitest.config.ts
     └── bun.lockb
@@ -315,7 +315,7 @@
         └── postcss.config.js
         └── stylelint.config.cjs
         └── tsconfig.json
-        └── uno.config.cjs
+        └── uno.config.mjs
         └── vite.config.shared.d.ts
         └── vite.config.shared.mjs
         └── vitest.config.shared.d.ts
@@ -584,7 +584,7 @@
                     └── 📁static-table
                         └── staticTable.ts
             └── tsconfig.json
-            └── uno.config.cjs
+            └── uno.config.mjs
             └── vite.config.ts
             └── vitest.config.ts
         └── 📁utilities

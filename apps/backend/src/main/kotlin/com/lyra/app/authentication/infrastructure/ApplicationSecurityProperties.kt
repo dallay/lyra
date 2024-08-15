@@ -1,7 +1,8 @@
 package com.lyra.app.authentication.infrastructure
 
 import com.lyra.app.authentication.infrastructure.ApplicationSecurityProperties.Companion.CONTENT_SECURITY_POLICY
-import com.lyra.app.authentication.infrastructure.ApplicationSecurityProperties.Companion.OAuth2
+import com.lyra.app.authentication.infrastructure.ApplicationSecurityProperties.CorsProperties
+import com.lyra.app.authentication.infrastructure.ApplicationSecurityProperties.OAuth2
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.validation.annotation.Validated
 
@@ -49,32 +50,32 @@ data class ApplicationSecurityProperties(
     val cors: CorsProperties = CorsProperties(),
     val contentSecurityPolicy: String = CONTENT_SECURITY_POLICY
 ) {
+    data class OAuth2(
+        val baseUrl: String = "",
+        val serverUrl: String = "",
+        val issuerUri: String = "",
+        val realm: String = "",
+        val clientId: String = "",
+        val clientSecret: String = "",
+        val adminClientId: String = "admin-cli",
+        val adminRealm: String = "",
+        val adminUsername: String = "",
+        val adminPassword: String = "",
+        val audience: MutableList<String> = ArrayList()
+    )
+
+    data class CorsProperties(
+        val allowedOrigins: MutableList<String> = ArrayList(),
+        val allowedMethods: MutableList<String> = ArrayList(),
+        val allowedHeaders: MutableList<String> = ArrayList(),
+        val exposedHeaders: MutableList<String> = ArrayList(),
+        val allowCredentials: Boolean = false,
+        val maxAge: Long = 0
+    )
+
     companion object {
-        data class OAuth2(
-            val baseUrl: String = "",
-            val serverUrl: String = "",
-            val issuerUri: String = "",
-            val realm: String = "",
-            val clientId: String = "",
-            val clientSecret: String = "",
-            val adminClientId: String = "admin-cli",
-            val adminRealm: String = "",
-            val adminUsername: String = "",
-            val adminPassword: String = "",
-            val audience: MutableList<String> = ArrayList()
-        )
-
-        data class CorsProperties(
-            val allowedOrigins: MutableList<String> = ArrayList(),
-            val allowedMethods: MutableList<String> = ArrayList(),
-            val allowedHeaders: MutableList<String> = ArrayList(),
-            val exposedHeaders: MutableList<String> = ArrayList(),
-            val allowCredentials: Boolean = false,
-            val maxAge: Long = 0
-        )
-
         @Suppress("MaxLineLength")
-        private const val CONTENT_SECURITY_POLICY =
+        const val CONTENT_SECURITY_POLICY =
             "default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:"
     }
 }

@@ -12,7 +12,9 @@
  * groupBy([1.3, 2.1, 2.4], num => Math.floor(num));
  * // Returns: {1: [1.3], 2: [2.1, 2.4]}
  */
-export function groupBy<T, K extends keyof any>(
+
+// biome-ignore lint/suspicious/noExplicitAny: we are using any to allow any key type
+export  function groupBy<T, K extends keyof any>(
 	list: T[],
 	keyGetter: (input: T) => K
 ): Record<K, T[]> {

@@ -2,10 +2,11 @@
 import { Icon } from 'astro-icon/components';
 import type { BreadcrumbItem } from './types';
 
+// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro's `props` object.
 interface Props {
 	items: BreadcrumbItem[];
 }
-const defaultIcon = 'ph:house-simple-light';
+// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro's `props` object.
 const { items } = Astro.props;
 ---
 
@@ -22,7 +23,7 @@ const { items } = Astro.props;
 							href={item.href}
 							class="hover:text-primary-600 inline-flex items-center text-gray-700 dark:text-gray-300 dark:hover:text-white"
 						>
-							<Icon name={item.icon ?? defaultIcon} class="mr-1 h-5 w-5" />
+							<Icon name={item.icon ?? 'ph:house-simple-light'} class="mr-1 h-5 w-5" />
 							{item.label}
 						</a>
 					</li>

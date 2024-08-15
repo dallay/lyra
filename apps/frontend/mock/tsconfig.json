@@ -1,9 +1,0 @@
-{
-  "extends": "@lyra/tsconfig/tsconfig.node.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["src/*"]
-    }
-  }
-}

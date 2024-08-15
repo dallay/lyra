@@ -13,7 +13,7 @@
   "files": [
     "index.css",
     "stylelint.config.cjs",
-    "uno.config.cjs"
+    "uno.config.mjs"
   ],
   "repository": {
     "type": "git",
@@ -29,19 +29,19 @@
   },
   "homepage": "lyra-nwhm.onrender.com",
   "devDependencies": {
-    "@codecov/vite-plugin": "0.0.1-beta.6",
+    "@codecov/vite-plugin": "0.0.1-beta.10",
     "@julr/unocss-preset-flowbite": "^0.0.2",
     "@lyra/tsconfig": "0.0.1",
-    "@unocss/reset": "^0.60.4",
-    "postcss": "^8.4.38",
-    "stylelint": "^16.6.1",
+    "@unocss/reset": "^0.61.9",
+    "postcss": "^8.4.41",
+    "stylelint": "^16.8.1",
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard-scss": "^13.1.0",
     "stylelint-order": "^6.0.4",
-    "tailwindcss": "^3.4.4",
-    "unocss": "^0.60.4",
-    "vitest": "^1.6.0",
-    "vite-tsconfig-paths": "^4.3.2"
+    "tailwindcss": "^3.4.9",
+    "unocss": "^0.62.1",
+    "vite-tsconfig-paths": "^5.0.0",
+    "vitest": "^2.0.5"
   },
   "publishConfig": {
     "access": "public"

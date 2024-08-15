@@ -160,19 +160,16 @@ class SecurityConfiguration(
 
     private fun configureAuthorization(auth: ServerHttpSecurity.AuthorizeExchangeSpec) {
         auth
-            .pathMatchers("/").permitAll()
-            .pathMatchers("/*.*").permitAll()
-            .pathMatchers("/api/health-check").permitAll()
-            .pathMatchers("/api/register").permitAll()
-            .pathMatchers("/api/refresh-token").permitAll()
-            .pathMatchers("/api/login").permitAll()
-            .pathMatchers("/api/logout").permitAll()
-            .pathMatchers("/swagger-ui/**").permitAll()
-            .pathMatchers("/webjars/**").permitAll()
-            .pathMatchers("/api-docs/**").permitAll()
-            .pathMatchers("/swagger-ui.html").permitAll()
-            .pathMatchers("/v3/api-docs/**").permitAll()
-            .pathMatchers("/v3/api-docs.yaml").permitAll()
+            .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            .pathMatchers(
+                "/", "/api/health-check", "/api/register",
+                "/api/refresh-token", "/api/login", "/api/logout",
+            ).permitAll()
+            .pathMatchers(
+                "/swagger-ui/**", "/webjars/**", "/api-docs/**", "/swagger-ui.html",
+                "/v3/api-docs/**", "/v3/api-docs.yaml",
+            ).permitAll()
+            .pathMatchers(HttpMethod.GET, "/api/forms/{id}").permitAll()
             .pathMatchers("/actuator/**").authenticated()
             .pathMatchers("/api/**").authenticated()
             .pathMatchers("/management/health").permitAll()

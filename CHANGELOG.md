@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/dallay/lyra/compare/v1.7.0...v1.8.0) (2024-08-03)
+
+
+### Features
+
+* Create dependabot.yml ([#310](https://github.com/dallay/lyra/issues/310)) ([38ba87a](https://github.com/dallay/lyra/commit/38ba87a406ce08eea1a9e5b0654e3922cdefcdad))
+
 # [1.7.0](https://github.com/dallay/lyra/compare/v1.6.0...v1.7.0) (2024-06-08)
 
 

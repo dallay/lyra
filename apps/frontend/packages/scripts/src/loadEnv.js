@@ -32,7 +32,10 @@ console.log('🟣 [monorepoRoot]:', monorepoRoot);
 const envPath = path.resolve(monorepoRoot, '.env');
 // check if the .env file exists
 if (fs.existsSync(envPath)) {
+  console.log('🟣 [.env file found]');
   process.loadEnvFile(envPath);
+} else{
+  console.log('🔴 [.env file not found]');
 }
 
 const { API_URL, BACKEND_URL } = process.env;

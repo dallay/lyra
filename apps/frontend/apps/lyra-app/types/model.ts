@@ -13,10 +13,11 @@ export interface IForm {
   readonly updatedAt: Date
 }
 
+
 export interface IUser {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  accessToken:string;
+  readonly id: string,
+  readonly name: string,
+  readonly username: string,
+  readonly email: string,
+  readonly roles: string[]
 }

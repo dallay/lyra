@@ -23,10 +23,9 @@ export interface IApiInstance {
 function createRequestWithHeaders(request: Request | string, headers: Record<string, string>): Request {
   if (typeof request === 'string') {
     return new Request(request, { headers });
-  } else {
-    Object.entries(headers).forEach(([key, value]) => request.headers.set(key, value));
-    return request;
   }
+   Object.assign(request.headers, headers);
+  return request;
 }
 
 /**

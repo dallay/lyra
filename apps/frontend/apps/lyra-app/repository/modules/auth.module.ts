@@ -3,9 +3,8 @@ import Routes from "../routes.client";
 import type {AccessToken} from "@lyra/api-services";
 
 class AuthModule extends FetchFactory {
-  private readonly RESOURCE = Routes.User;
+  private readonly RESOURCE = Routes.Auth;
   async authenticate(identifier: string, password: string) {
-    console.log('🧪🧪🧪🧪 AuthModule.authenticate:', identifier, password);
     return this.call<AccessToken>(
       {
         method: 'POST', url: `${this.RESOURCE.Authenticate()}`, body: {username:identifier, password}
@@ -16,6 +15,13 @@ class AuthModule extends FetchFactory {
     return this.call<AccessToken>(
       {
         method: 'POST', url: `${this.RESOURCE.RefreshToken()}`
+      }
+    )
+  }
+  async logout() {
+    return this.call<AccessToken>(
+      {
+        method: 'POST', url: `${this.RESOURCE.Logout()}`
       }
     )
   }

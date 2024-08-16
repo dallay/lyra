@@ -30,7 +30,7 @@ private const val CLIENT_SECRET = "secret"
 
 @UnitTest
 @Suppress("MaxLineLength")
-class KeycloakRefreshTokenManagerRepositoryTest {
+internal class KeycloakRefreshTokenManagerRepositoryTest {
 
     private val faker = Faker()
     private val webClient = mockk<WebClient>(relaxed = true)

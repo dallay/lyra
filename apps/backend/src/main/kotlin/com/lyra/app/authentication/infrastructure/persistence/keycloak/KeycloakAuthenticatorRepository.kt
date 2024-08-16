@@ -57,7 +57,7 @@ class KeycloakAuthenticatorRepository(
      * @return The [AccessToken] object containing the access token and other information.
      */
     override suspend fun authenticate(username: Username, password: Credential): AccessToken {
-        log.info("Authenticating user with username: {}", username)
+        log.debug("Authenticating user with username: {}", username)
         return try {
             val keycloak = newKeycloakBuilderWithPasswordCredentials(username.value, password.value).build()
             val accessTokenResponse = keycloak.tokenManager().accessToken

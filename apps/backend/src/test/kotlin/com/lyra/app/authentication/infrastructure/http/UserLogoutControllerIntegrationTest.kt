@@ -4,7 +4,6 @@ import com.lyra.IntegrationTest
 import com.lyra.app.authentication.domain.AccessToken
 import com.lyra.app.authentication.infrastructure.cookie.AuthCookieBuilder
 import com.lyra.app.config.InfrastructureTestContainers
-import io.kotest.assertions.print.print
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,12 +13,12 @@ import org.springframework.security.test.web.reactive.server.SecurityMockServerC
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.returnResult
 
-private const val ENDPOINT = "/api/refresh-token"
+private const val ENDPOINT = "/api/logout"
 
 @Suppress("MultilineRawStringIndentation")
 @AutoConfigureWebTestClient
 @IntegrationTest
-internal class RefreshTokenControllerIntegrationTest : InfrastructureTestContainers() {
+internal class UserLogoutControllerIntegrationTest : InfrastructureTestContainers() {
     @Autowired
     private lateinit var webTestClient: WebTestClient
 
@@ -49,26 +48,43 @@ internal class RefreshTokenControllerIntegrationTest : InfrastructureTestContain
     }
 
     @Test
-    fun `should refresh token`() {
-        webTestClient
-            .mutateWith(csrf())
-            .post()
+    fun `logout user successfully`() {
+
+        webTestClient.mutateWith(csrf()).post()
             .uri(ENDPOINT)
-            .contentType(MediaType.APPLICATION_JSON)
+            .cookie(AuthCookieBuilder.ACCESS_TOKEN, accessToken?.token ?: "")
             .cookie(AuthCookieBuilder.REFRESH_TOKEN, accessToken?.refreshToken ?: "")
             .exchange()
             .expectStatus().isOk
-            .expectBody()
-            .jsonPath("$.token").isNotEmpty
-            .jsonPath("$.expiresIn").isNotEmpty
-            .jsonPath("$.refreshToken").isNotEmpty
-            .jsonPath("$.refreshExpiresIn").isNotEmpty
-            .jsonPath("$.tokenType").isNotEmpty
-            .jsonPath("$.notBeforePolicy").isNotEmpty
-            .jsonPath("$.sessionState").isNotEmpty
-            .jsonPath("$.scope").isNotEmpty
-            .consumeWith {
-                println(it.responseBody?.print())
-            }
+    }
+
+    @Test
+    fun `logout user with missing cookies`() {
+
+        webTestClient.mutateWith(csrf()).post()
+            .uri(ENDPOINT)
+            .exchange()
+            .expectStatus().isBadRequest
+    }
+
+    @Test
+    fun `logout user with missing refresh token`() {
+
+        webTestClient.mutateWith(csrf()).post()
+            .uri(ENDPOINT)
+            .cookie(AuthCookieBuilder.ACCESS_TOKEN, accessToken?.token ?: "")
+            .exchange()
+            .expectStatus().isBadRequest
+    }
+
+    @Test
+    fun `logout user with wrong refresh token`() {
+
+        webTestClient.mutateWith(csrf()).post()
+            .uri(ENDPOINT)
+            .cookie(AuthCookieBuilder.ACCESS_TOKEN, accessToken?.token ?: "")
+            .cookie(AuthCookieBuilder.REFRESH_TOKEN, "wrong")
+            .exchange()
+            .expectStatus().isBadRequest
     }
 }

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useRouter, onMounted, ref } from '#imports';
+import { storeToRefs } from 'pinia';
+import { useAuthStore } from '~/store/auth.store';
 import {
   Avatar,
   AvatarFallback,
@@ -15,6 +18,31 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import type {IUser} from "~/types/model";
+import initials from "../utils/initials";
+import randomNumber from "~/utils/random-number";
+const router = useRouter();
+const { isAuthenticated } = storeToRefs(useAuthStore());
+const { getUser, logUserOut } = useAuthStore();
+const user = ref<IUser|null>(await getUser());
+const defaultAvatar = `/avatars/0${randomNumber(1,5)}.png`;
+const userAvatar = user?.value?.email? avatar(user?.value.email) : defaultAvatar;
+
+const logout = async () => {
+  await logUserOut();
+  await router.push('/login');
+};
+
+onMounted(() => {
+  if (!isAuthenticated.value || !user.value) {
+    router.push('/login');
+  }
+});
+watchEffect(() => {
+  if (!user.value) {
+    navigateTo('/login')
+  }
+})
 </script>
 
 <template>
@@ -22,8 +50,8 @@ import {
     <DropdownMenuTrigger as-child>
       <Button variant="ghost" class="relative h-8 w-8 rounded-full">
         <Avatar class="h-8 w-8">
-          <AvatarImage src="/avatars/01.png" alt="@shadcn" />
-          <AvatarFallback>SC</AvatarFallback>
+          <AvatarImage :src="userAvatar" alt="@shadcn" />
+          <AvatarFallback>{{ initials(user?.name ?? 'Y A P') }}</AvatarFallback>
         </Avatar>
       </Button>
     </DropdownMenuTrigger>
@@ -31,10 +59,10 @@ import {
       <DropdownMenuLabel class="font-normal flex">
         <div class="flex flex-col space-y-1">
           <p class="text-sm font-medium leading-none">
-            shadcn
+            {{ user?.username }}
           </p>
           <p class="text-xs leading-none text-muted-foreground">
-            m@example.com
+            {{ user?.email }}
           </p>
         </div>
       </DropdownMenuLabel>
@@ -55,7 +83,7 @@ import {
         <DropdownMenuItem>New Team</DropdownMenuItem>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>
+      <DropdownMenuItem @click="logout">
         Log out
         <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
       </DropdownMenuItem>

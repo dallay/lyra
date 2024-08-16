@@ -5,6 +5,7 @@ import com.lyra.app.authentication.application.query.RefreshTokenQuery
 import com.lyra.app.authentication.domain.AccessToken
 import com.lyra.app.authentication.infrastructure.cookie.AuthCookieBuilder
 import com.lyra.app.authentication.infrastructure.cookie.AuthCookieBuilder.buildCookies
+import com.lyra.app.authentication.infrastructure.cookie.getCookie
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
@@ -26,8 +27,9 @@ import org.springframework.web.bind.annotation.RestController
 class RefreshTokenController(private val refreshTokenQueryHandler: RefreshTokenQueryHandler) {
     /**
      * Refreshes the access token.
-     * @param refreshTokenRequest The refresh token request.
-     * @return A Mono of ResponseEntity containing the response object with the access token.
+     * @param request The ServerHttpRequest containing the refresh token.
+     * @param response The ServerHttpResponse where the new access token will be stored.
+     * @return The new access token.
      */
     @Operation(summary = "Refresh token endpoint")
     @ApiResponses(
@@ -42,8 +44,7 @@ class RefreshTokenController(private val refreshTokenQueryHandler: RefreshTokenQ
         response: ServerHttpResponse
     ): ResponseEntity<AccessToken> {
         log.debug("Refreshing tokens")
-        val refreshToken: HttpCookie = request.cookies.getFirst(AuthCookieBuilder.REFRESH_TOKEN)
-            ?: return ResponseEntity.badRequest().build()
+        val refreshToken: HttpCookie = request.getCookie(AuthCookieBuilder.REFRESH_TOKEN)
 
         val accessToken = refreshTokenQueryHandler.handle(RefreshTokenQuery(UUID.randomUUID(), refreshToken.value))
 

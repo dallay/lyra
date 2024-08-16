@@ -19,3 +19,10 @@ class NotAuthenticatedUserException : AuthenticationException()
  * @see AuthenticationException for more information.
  */
 class UnknownAuthenticationException : AuthenticationException()
+
+/**
+ * An exception that is thrown when logout fails.
+ * @param message A message describing the exception.
+ * @param ex The exception that caused the logout to fail.
+ */
+class LogoutFailedException(message: String, ex: Throwable) : RuntimeException(message, ex)

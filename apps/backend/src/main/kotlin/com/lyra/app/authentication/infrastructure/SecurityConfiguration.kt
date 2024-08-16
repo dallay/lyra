@@ -36,6 +36,7 @@ import org.springframework.security.oauth2.server.resource.authentication.Reacti
 import org.springframework.security.oauth2.server.resource.authentication.ReactiveJwtGrantedAuthoritiesConverterAdapter
 import org.springframework.security.web.server.SecurityWebFilterChain
 import org.springframework.security.web.server.csrf.CookieServerCsrfTokenRepository
+import org.springframework.security.web.server.csrf.CsrfServerLogoutHandler
 import org.springframework.security.web.server.csrf.ServerCsrfTokenRequestAttributeHandler
 import org.springframework.security.web.server.header.ReferrerPolicyServerHttpHeadersWriter
 import org.springframework.security.web.server.util.matcher.NegatedServerWebExchangeMatcher
@@ -153,6 +154,9 @@ class SecurityConfiguration(
                         jwt ->
                     jwt.jwtAuthenticationConverter(authenticationConverter())
                 }
+            }.logout {
+                    logout ->
+                logout.logoutHandler(CsrfServerLogoutHandler(CookieServerCsrfTokenRepository.withHttpOnlyFalse()))
             }
             .build()
         // @formatter:on

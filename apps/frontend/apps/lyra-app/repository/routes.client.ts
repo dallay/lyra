@@ -17,9 +17,10 @@ const Routes = {
     FetchDetail : (id: FormId) => `${prefix}/forms/${id.value}`,
     CreateForm :()  => `${prefix}/forms`
   },
-  User:{
+  Auth:{
     Authenticate:()  => `${prefix}/login`,
-    RefreshToken:()  => `${prefix}/refresh-token`
+    RefreshToken:()  => `${prefix}/refresh-token`,
+    Logout:()  => `${prefix}/logout`
   },
   Common:{
     HealthCheck:()  => `${prefix}/health-check`

@@ -9,7 +9,7 @@ import org.springframework.http.server.reactive.ServerHttpResponse
  * It provides a method to build cookies for the access token.
  */
 object AuthCookieBuilder {
-    private const val ACCESS_TOKEN = "ACCESS_TOKEN"
+    const val ACCESS_TOKEN = "ACCESS_TOKEN"
     const val REFRESH_TOKEN = "REFRESH_TOKEN"
     private const val SESSION = "SESSION"
 
@@ -51,5 +51,32 @@ object AuthCookieBuilder {
                     .build(),
             )
         }
+    }
+
+    fun clearCookies(response: ServerHttpResponse) {
+        response.addCookie(
+            ResponseCookie.from(ACCESS_TOKEN, "")
+                .path("/")
+                .maxAge(0)
+                .httpOnly(true)
+                .secure(true)
+                .build(),
+        )
+        response.addCookie(
+            ResponseCookie.from(REFRESH_TOKEN, "")
+                .path("/")
+                .maxAge(0)
+                .httpOnly(true)
+                .secure(true)
+                .build(),
+        )
+        response.addCookie(
+            ResponseCookie.from(SESSION, "")
+                .path("/")
+                .maxAge(0)
+                .httpOnly(true)
+                .secure(true)
+                .build(),
+        )
     }
 }

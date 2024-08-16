@@ -1,10 +1,10 @@
 const { API_URL, BACKEND_URL } = process.env;
-const backendUrl = BACKEND_URL || 'http://localhost:8080';
-const apiUrl = API_URL || 'http://localhost:8080';
+const defaultServer = 'http://localhost:8080';
+const backendUrl = BACKEND_URL || defaultServer;
+const apiUrl = API_URL || defaultServer;
 
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
-// biome-ignore lint/correctness/noUndeclaredVariables: Biome needs support for Vue/Nuxt.
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },

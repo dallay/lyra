@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/dallay/lyra/compare/v1.8.0...v1.9.0) (2024-08-17)
+
+
+### Features
+
+* change app to use nuxt ([#313](https://github.com/dallay/lyra/issues/313)) ([3105f97](https://github.com/dallay/lyra/commit/3105f977a9c1ad2e82ddaac6549d50685b766006))
+
 # [1.8.0](https://github.com/dallay/lyra/compare/v1.7.0...v1.8.0) (2024-08-03)
 
 

@@ -44,7 +44,7 @@
     "build:types": "tsc --build",
     "build:vite": "vite build",
     "build:all": "run-s build:types build:vite",
-    "build": "print \"BUILD: [🟢] Building ${npm_package_name}\" && run-s build:all",
+    "build": "print \"BUILD: [🟢] Building ${npm_package_name}\" && loadEnv && run-s build:all",
     "preview": "vite preview",
     "check": "print \"CHECK: [✅] Checking ${npm_package_name}\" && tsc --noEmit --skipLibCheck",
     "clean": "print \"CLEAN: [🧹] Cleaning ${npm_package_name}\" info && rimraf dist coverage",
@@ -53,15 +53,17 @@
   },
   "dependencies": {
     "@lyra/shared": "0.0.1",
+    "js-cookie": "^3.0.5",
     "ofetch": "^1.3.4"
   },
   "devDependencies": {
     "@lyra/config": "0.0.1",
     "@lyra/tsconfig": "0.0.1",
-    "typescript": "^5.4.5",
-    "vite-plugin-dts": "^3.9.1",
-    "vitest": "^1.6.0",
-    "vitest-mock-extended": "^1.3.1"
+    "@types/js-cookie": "^3.0.6",
+    "typescript": "^5.5.4",
+    "vite-plugin-dts": "^4.0.3",
+    "vitest": "^2.0.5",
+    "vitest-mock-extended": "^2.0.0"
   },
   "engines": {
     "node": ">=18.14.1",

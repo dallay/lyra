@@ -2,12 +2,15 @@ package com.lyra.app.controllers
 
 import com.lyra.app.authentication.domain.UserAuthenticationException
 import com.lyra.app.authentication.domain.UserRefreshTokenException
+import com.lyra.app.authentication.domain.error.LogoutFailedException
+import com.lyra.app.authentication.domain.error.MissingCookieException
 import com.lyra.common.domain.error.BusinessRuleValidationException
 import com.lyra.common.domain.error.EntityNotFoundException
 import java.net.URI
 import java.time.Instant
 import org.springframework.http.HttpStatus
 import org.springframework.http.ProblemDetail
+import org.springframework.http.server.reactive.ServerHttpResponse
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -38,8 +41,8 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
      * @return The ProblemDetail object representing the exception.
      */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(UserAuthenticationException::class)
-    fun handleUserAuthenticationException(e: UserAuthenticationException): ProblemDetail {
+    @ExceptionHandler(UserAuthenticationException::class, UserRefreshTokenException::class)
+    fun handleUserAuthenticationException(e: Exception): ProblemDetail {
         val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, e.message)
         problemDetail.title = "User authentication failed"
         problemDetail.setType(URI.create("$ERROR_PAGE/user-authentication-failed"))
@@ -65,13 +68,33 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(
         IllegalArgumentException::class,
         BusinessRuleValidationException::class,
-        UserRefreshTokenException::class,
+        LogoutFailedException::class,
     )
     fun handleIllegalArgumentException(e: Exception): ProblemDetail {
         val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.message ?: "Bad request")
         problemDetail.title = "Bad request"
         problemDetail.setType(URI.create("$ERROR_PAGE/bad-request"))
         problemDetail.setProperty(ERROR_CATEGORY, "BAD_REQUEST")
+        problemDetail.setProperty(TIMESTAMP, Instant.now())
+        return problemDetail
+    }
+    /**
+     * Exception handler for missing cookies.
+     *
+     * @param e The MissingCookieException.
+     * @param response The HTTP response where the error status will be set.
+     */
+    @ExceptionHandler(MissingCookieException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleMissingCookieException(
+        e: MissingCookieException,
+        response: ServerHttpResponse
+    ): ProblemDetail {
+        response.setStatusCode(HttpStatus.BAD_REQUEST)
+        val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.message)
+        problemDetail.title = "Missing cookie"
+        problemDetail.setType(URI.create("$ERROR_PAGE/missing-cookie"))
+        problemDetail.setProperty(ERROR_CATEGORY, "MISSING_COOKIE")
         problemDetail.setProperty(TIMESTAMP, Instant.now())
         return problemDetail
     }

@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
 @IntegrationTest
-class KeycloakRefreshTokenManagerRepositoryIntegrationTest : InfrastructureTestContainers() {
+internal class KeycloakRefreshTokenManagerRepositoryIntegrationTest : InfrastructureTestContainers() {
 
     @Autowired
     private lateinit var refreshTokenManager: RefreshTokenManager

@@ -1,10 +1,12 @@
 package com.lyra.app.config
 
+import com.lyra.app.authentication.infrastructure.ApplicationSecurityProperties
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.Resource
 import org.springframework.http.MediaType
+import org.springframework.web.reactive.config.CorsRegistry
 import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.config.ResourceHandlerRegistry
 import org.springframework.web.reactive.config.WebFluxConfigurer
@@ -14,7 +16,7 @@ import org.springframework.web.reactive.function.server.router
 
 @Configuration
 @EnableWebFlux
-class WebConfig : WebFluxConfigurer {
+class WebConfig(val applicationSecurityProperties: ApplicationSecurityProperties) : WebFluxConfigurer {
 
     /**
      * Adds resource handlers to the given registry.
@@ -25,6 +27,20 @@ class WebConfig : WebFluxConfigurer {
         registry.addResourceHandler("/**")
             .addResourceLocations("classpath:/static/")
             .addResourceLocations("classpath:/public/")
+    }
+
+    @Suppress("SpreadOperator")
+    override fun addCorsMappings(registry: CorsRegistry) {
+        val cors = applicationSecurityProperties.cors
+        registry.addMapping("/api/**")
+            .allowedOrigins(*cors.allowedOrigins.toTypedArray())
+            .allowedMethods(*cors.allowedMethods.toTypedArray())
+            .allowedHeaders(*cors.allowedHeaders.toTypedArray())
+            .exposedHeaders(*cors.exposedHeaders.toTypedArray())
+            .allowCredentials(cors.allowCredentials)
+            .maxAge(cors.maxAge)
+
+        // Add more mappings...
     }
 
     /**

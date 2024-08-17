@@ -59,6 +59,14 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-/node/
-/.node/
+**/.node/
 .frontend-gradle-plugin
+
+
+*.log*
+**/.nuxt
+**/.nitro
+**/.cache
+**/.output
+.env
+**/dist

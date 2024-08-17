@@ -1,5 +1,6 @@
 ---
 const { ...attributes } = Astro.props;
+// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro.
 const { class: className, ...attrs } = attributes;
 ---
 

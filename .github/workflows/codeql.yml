@@ -19,6 +19,9 @@ on:
   schedule:
     - cron: '25 2 * * 4'
 
+permissions:
+  contents: write
+
 jobs:
   analyze:
     name: Analyze
@@ -49,6 +52,9 @@ jobs:
 
     - name: Install Java Tools & Dependencies
       uses: ./.github/actions/install/java
+      with:
+          java-version: 21
+          gradle-encription-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
     - name: Install Tools & Dependencies
       uses: ./.github/actions/install/node

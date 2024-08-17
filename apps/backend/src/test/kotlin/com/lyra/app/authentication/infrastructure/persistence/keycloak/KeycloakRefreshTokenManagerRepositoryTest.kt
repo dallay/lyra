@@ -30,7 +30,7 @@ private const val CLIENT_SECRET = "secret"
 
 @UnitTest
 @Suppress("MaxLineLength")
-class KeycloakRefreshTokenManagerRepositoryTest {
+internal class KeycloakRefreshTokenManagerRepositoryTest {
 
     private val faker = Faker()
     private val webClient = mockk<WebClient>(relaxed = true)
@@ -38,7 +38,7 @@ class KeycloakRefreshTokenManagerRepositoryTest {
     private val responseSpec = mockk<WebClient.ResponseSpec>()
     private val applicationSecurityProperties = mockk<ApplicationSecurityProperties>()
     private lateinit var keycloakRefreshTokenManagerRepository: KeycloakRefreshTokenManagerRepository
-    private val oAuth2 = mockk<ApplicationSecurityProperties.Companion.OAuth2>()
+    private val oAuth2 = mockk<ApplicationSecurityProperties.OAuth2>()
     private val expectedAccessToken =
         AccessToken(
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",

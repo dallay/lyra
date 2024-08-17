@@ -5,6 +5,7 @@ import { loadEnv } from 'vite';
 import path from 'path';
 import vue from '@astrojs/vue';
 import envify from 'process-envify';
+import basicSsl from '@vitejs/plugin-basic-ssl';
 const DEV_PORT = 4321;
 const envDir = path.resolve(process.cwd() + '/../../../');
 console.log('🛸 envDir', envDir);
@@ -29,6 +30,12 @@ export default defineConfig({
 		vue(),
 	],
 	vite: {
+    vite: {
+      plugins: [basicSsl()],
+      server: {
+        https: true,
+      },
+    },
 		define: envify({
 			APP_CLIENT_URL: process.env.APP_CLIENT_URL || 'http://localhost:5173',
 		}),

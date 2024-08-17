@@ -15,7 +15,9 @@
       "**/test-results",
       "**/dist",
       "**/dist/**/*",
-      "**/node_modules"
+      "**/node_modules",
+      "**/.nuxt",
+      "**/ui"
     ]
   },
   "formatter": {
@@ -117,7 +119,6 @@
     "formatter": {
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",
-      "trailingComma": "es5",
       "semicolons": "always",
       "arrowParentheses": "always",
       "bracketSpacing": true,

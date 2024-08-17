@@ -3,6 +3,8 @@ import Layout from 'layouts:StackedLayout';
 import appInterface from '../assets/images/app-interface.png';
 import Hero from 'molecules:Hero';
 import ItemsSection from 'molecules:ItemsSection';
+// biome-ignore lint/correctness/noUnusedVariables: This is a false positive as the `clientUrl` variable is used in the iframe below.
+const clientUrl = import.meta.env.APP_CLIENT_URL;
 ---
 
 <Layout title="Lyra App.">
@@ -12,7 +14,7 @@ import ItemsSection from 'molecules:ItemsSection';
 			<ItemsSection />
 			<div class="my-4 flex items-center justify-center">
 				<iframe
-					src="http://localhost:9876/1e573ddd-f2cf-49b9-993f-a2d1535fd0cc"
+					src={`${clientUrl}/forms/88e720ca-b04d-4e81-97ec-b7cbceda73db`}
 					class="flex items-center justify-center"
 					title="Subscribe to newsletter"
 					id="lyra-embed"

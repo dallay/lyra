@@ -11,11 +11,6 @@ import org.springframework.web.server.WebFilterChain
 import reactor.core.publisher.Mono
 import reactor.core.scheduler.Schedulers
 
-/**
- *
- * @created 20/8/23
- */
-
 class CookieCsrfFilter : WebFilter {
     /** {@inheritDoc}  */
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {

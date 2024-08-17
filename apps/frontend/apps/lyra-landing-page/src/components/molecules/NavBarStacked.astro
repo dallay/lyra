@@ -6,9 +6,6 @@ import Drawer from './Drawer.astro';
 
 import Menu from './Menu.astro';
 import { navMenus } from './types';
-
-const drawerMenuId = 'mobile-menu';
-const ariaLabelledby = 'mobile-menu-top-label';
 ---
 
 <header id="header-nav" class="fixed top-0 z-50 w-screen lg:px-0">
@@ -25,7 +22,7 @@ const ariaLabelledby = 'mobile-menu-top-label';
 				<div class="flex justify-center justify-items-center">
 					<ThemeSwitcher class="hidden sm:flex" />
 					<LinkButton secondary href="/login" class="mx-2 hidden sm:flex">Login</LinkButton>
-					<Drawer id={drawerMenuId} ariaLabelledby={ariaLabelledby}>
+					<Drawer id='mobile-menu' ariaLabelledby='mobile-menu-top-label'>
 						<Logo slot="nav-title" />
 						<Menu menus={navMenus}>
 							<div slot="last-menu" class="flex flex-col">

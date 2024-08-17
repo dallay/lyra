@@ -1,6 +1,8 @@
 package com.lyra.app.authentication.infrastructure.http
 
+import com.lyra.IntegrationTest
 import com.lyra.app.authentication.domain.AccessToken
+import com.lyra.app.authentication.infrastructure.cookie.AuthCookieBuilder
 import com.lyra.app.config.InfrastructureTestContainers
 import io.kotest.assertions.print.print
 import org.junit.jupiter.api.BeforeEach
@@ -16,7 +18,8 @@ private const val ENDPOINT = "/api/refresh-token"
 
 @Suppress("MultilineRawStringIndentation")
 @AutoConfigureWebTestClient
-class RefreshTokenControllerIntegrationTest : InfrastructureTestContainers() {
+@IntegrationTest
+internal class RefreshTokenControllerIntegrationTest : InfrastructureTestContainers() {
     @Autowired
     private lateinit var webTestClient: WebTestClient
 
@@ -52,13 +55,7 @@ class RefreshTokenControllerIntegrationTest : InfrastructureTestContainers() {
             .post()
             .uri(ENDPOINT)
             .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(
-                """
-                    {
-                    "refreshToken": "${accessToken?.refreshToken}"
-                    }
-                """.trimIndent(),
-            )
+            .cookie(AuthCookieBuilder.REFRESH_TOKEN, accessToken?.refreshToken ?: "")
             .exchange()
             .expectStatus().isOk
             .expectBody()

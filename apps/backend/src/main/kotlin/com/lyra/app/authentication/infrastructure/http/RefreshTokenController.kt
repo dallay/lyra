@@ -1,19 +1,23 @@
 package com.lyra.app.authentication.infrastructure.http
 
 import com.lyra.app.authentication.application.RefreshTokenQueryHandler
+import com.lyra.app.authentication.application.query.RefreshTokenQuery
 import com.lyra.app.authentication.domain.AccessToken
-import com.lyra.app.authentication.infrastructure.http.request.RefreshTokenRequest
+import com.lyra.app.authentication.infrastructure.cookie.AuthCookieBuilder
+import com.lyra.app.authentication.infrastructure.cookie.AuthCookieBuilder.buildCookies
+import com.lyra.app.authentication.infrastructure.cookie.getCookie
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import java.util.*
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpCookie
 import org.springframework.http.ResponseEntity
-import org.springframework.validation.annotation.Validated
+import org.springframework.http.server.reactive.ServerHttpRequest
+import org.springframework.http.server.reactive.ServerHttpResponse
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import reactor.core.publisher.Mono
 
 /**
  * Controller class to handle refreshing access tokens.
@@ -21,11 +25,11 @@ import reactor.core.publisher.Mono
 @RestController
 @RequestMapping("/api", produces = ["application/vnd.api.v1+json"])
 class RefreshTokenController(private val refreshTokenQueryHandler: RefreshTokenQueryHandler) {
-
     /**
      * Refreshes the access token.
-     * @param refreshTokenRequest The refresh token request.
-     * @return A Mono of ResponseEntity containing the response object with the access token.
+     * @param request The ServerHttpRequest containing the refresh token.
+     * @param response The ServerHttpResponse where the new access token will be stored.
+     * @return The new access token.
      */
     @Operation(summary = "Refresh token endpoint")
     @ApiResponses(
@@ -36,11 +40,17 @@ class RefreshTokenController(private val refreshTokenQueryHandler: RefreshTokenQ
     )
     @PostMapping(REFRESH_TOKEN_ROUTE)
     suspend fun refreshTokens(
-        @Validated @RequestBody refreshTokenRequest: RefreshTokenRequest
-    ): Mono<ResponseEntity<AccessToken>> {
+        request: ServerHttpRequest,
+        response: ServerHttpResponse
+    ): ResponseEntity<AccessToken> {
         log.debug("Refreshing tokens")
-        val token = refreshTokenQueryHandler.handle(refreshTokenRequest.toQuery())
-        return Mono.just(ResponseEntity.ok(token))
+        val refreshToken: HttpCookie = request.getCookie(AuthCookieBuilder.REFRESH_TOKEN)
+
+        val accessToken = refreshTokenQueryHandler.handle(RefreshTokenQuery(UUID.randomUUID(), refreshToken.value))
+
+        buildCookies(response, accessToken)
+
+        return ResponseEntity.ok(accessToken)
     }
 
     companion object {

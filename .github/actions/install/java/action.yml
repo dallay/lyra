@@ -10,6 +10,9 @@ inputs:
     description: 'The arguments to pass to the gradle command'
     required: false
     default: 'projects'
+  gradle-encription-key:
+    description: 'The encryption key to use for the gradle cache'
+    required: true
   github_token:
     description: 'GITHUB_TOKEN'
     required: false
@@ -31,15 +34,17 @@ runs:
       shell: bash
 
     - name: ⚙️ Setup Gradle 🐘
-      uses: gradle/actions/setup-gradle@v3
+      uses: gradle/actions/setup-gradle@v4
       id: gradle
       with:
         add-job-summary-as-pr-comment: on-failure
-        arguments: ${{ inputs.gradle-arguments }}
         dependency-graph: generate-and-submit
         build-scan-publish: true
-        build-scan-terms-of-service-url: "https://gradle.com/terms-of-service"
-        build-scan-terms-of-service-agree: "yes"
+        build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+        build-scan-terms-of-use-agree: "yes"
+        cache-encryption-key: ${{ inputs.gradle-encription-key }}
+    - run: ./gradlew ${{ inputs.gradle-arguments }}
+      shell: bash
 
     - name: Upload build reports
       uses: actions/upload-artifact@v4

@@ -27,9 +27,12 @@ export function isEqual(value: unknown, other: unknown): boolean {
 
 	for (const key of keysA) {
 		if (!keysB.includes(key)) return false;
+		// biome-ignore lint/suspicious/noExplicitAny: this is a known object comparison
 		if (typeof (value as any)[key] === 'object' && typeof (other as any)[key] === 'object') {
+      // biome-ignore lint/suspicious/noExplicitAny: this is a known object comparison
 			if (!isEqual((value as any)[key], (other as any)[key])) return false;
 		} else {
+      // biome-ignore lint/suspicious/noExplicitAny: this is a known object comparison
 			if ((value as any)[key] !== (other as any)[key]) return false;
 		}
 	}

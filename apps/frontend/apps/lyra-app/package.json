@@ -1,47 +1,46 @@
 {
-  "name": "lyra-app",
-  "description": "Library of embeddable web components",
+  "name": "nuxt-app",
+  "private": true,
   "type": "module",
-  "license": "MIT",
-  "version": "0.0.1",
-  "author": {
-    "name": "Yuniel Acosta Pérez",
-    "email": "yunielacosta738@gmail.com",
-    "url": "www.yunielacosta.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dallay/lyra.git",
-    "directory": "apps/lyra-app",
-    "branch": "main"
-  },
-  "bugs": {
-    "url": "https://github.com/dallay/lyra/issues"
-  },
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "check": "astro check",
-    "devToolbar:enable": "astro preferences enable devToolbar",
-    "devToolbar:disable": "astro preferences disable devToolbar"
+    "build": "nuxt build",
+    "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 nuxt dev --https --ssl-cert ../../../../infra/ssl/cert.pem --ssl-key ../../../../infra/ssl/key.pem",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@astrojs/check": "^0.7.0",
-    "@astrojs/node": "^8.2.6",
-    "@iconify/json": "^2.2.217",
+    "@internationalized/date": "^3.5.5",
     "@lyra/api-services": "0.0.1",
-    "@lyra/config": "0.0.1",
-    "@lyra/tsconfig": "0.0.1",
-    "@lyra/utilities": "0.0.1",
-    "@types/canvas-confetti": "^1.6.4",
-    "@unocss/postcss": "^0.60.4",
-    "@unocss/reset": "^0.60.4",
-    "astro": "^4.10.1",
-    "canvas-confetti": "^1.9.3",
-    "preline": "^2.3.0",
-    "typescript": "^5.4.5"
+    "@nuxt/icon": "^1.4.5",
+    "@nuxt/image": "^1.7.0",
+    "@nuxt/scripts": "^0.6.6",
+    "@pinia/nuxt": "^0.5.3",
+    "@radix-icons/vue": "^1.0.0",
+    "@unovis/ts": "1.4.4-beta.2",
+    "@unovis/vue": "1.4.4-beta.2",
+    "@vee-validate/zod": "^4.13.2",
+    "@vueuse/core": "^10.11.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "jwt-decode": "^4.0.0",
+    "lucide-vue-next": "^0.427.0",
+    "gravatar-url": "^4.0.1",
+    "nuxt": "^3.12.4",
+    "pinia": "^2.2.1",
+    "radix-vue": "^1.9.4",
+    "shadcn-nuxt": "^0.10.4",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7",
+    "ufo": "^1.5.4",
+    "vee-validate": "^4.13.2",
+    "vue": "^3.4.38",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@nuxtjs/color-mode": "^3.4.2",
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@vue/devtools-api": "6.6.3",
+    "typescript": "^5.5.4"
   }
 }

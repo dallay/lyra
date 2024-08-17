@@ -1,6 +1,7 @@
 package com.lyra.common.domain
 
 import com.lyra.common.domain.bus.event.DomainEvent
+import java.io.Serializable
 import java.time.LocalDateTime
 
 /**
@@ -9,7 +10,7 @@ import java.time.LocalDateTime
  * @param ID the type of the identifier
  * @property id The unique identifier of the entity.
  */
-abstract class BaseEntity<ID> {
+abstract class BaseEntity<ID> : Serializable {
     abstract val id: ID
     open val createdAt: LocalDateTime = LocalDateTime.now()
     open var updatedAt: LocalDateTime? = null
@@ -39,5 +40,9 @@ abstract class BaseEntity<ID> {
         var result = id?.hashCode() ?: 0
         result = 31 * result + domainEvents.hashCode()
         return result
+    }
+
+    companion object {
+        private const val serialVersionUID: Long = 1L
     }
 }

@@ -41,7 +41,7 @@ class KeycloakRefreshTokenManagerRepository(
      * @return the access token of the user
      */
     override suspend fun refresh(refreshToken: RefreshToken): AccessToken {
-        log.info("Refreshing access token for user with refresh token")
+        log.debug("Refreshing access token for user with refresh token")
         val formData: MultiValueMap<String, String> = LinkedMultiValueMap()
         formData.add("grant_type", "refresh_token")
         formData.add("client_id", applicationSecurityProperties.oauth2.clientId)

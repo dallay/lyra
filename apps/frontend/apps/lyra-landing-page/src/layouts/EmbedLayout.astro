@@ -1,9 +1,11 @@
 ---
 import Layout from './CommonLayout.astro';
+// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro.
 interface Props {
 	title: string;
 	description?: string;
 }
+// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro.
 const { title, description } = Astro.props;
 ---
 

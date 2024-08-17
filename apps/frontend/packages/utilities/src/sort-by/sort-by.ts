@@ -12,7 +12,9 @@
  * sortBy([{name: 'banana', age: 2}, {name: 'apple', age: 1}], item => item.age);
  * // Returns: [{name: 'apple', age: 1}, {name: 'banana', age: 2}]
  */
-export function sortBy<T>(array: T[], keyOrGetter: keyof T | ((item: T) => any)): T[] {
+
+// biome-ignore lint/suspicious/noExplicitAny: sort function is a known object comparison
+export  function sortBy<T>(array: T[], keyOrGetter: keyof T | ((item: T) => any)): T[] {
 	const keyGetter =
 		typeof keyOrGetter === 'function' ? keyOrGetter : (item: T) => item[keyOrGetter as keyof T];
 

@@ -1,108 +1,163 @@
--- Define ENUM types
-DROP TYPE IF EXISTS subscriber_status CASCADE;
-CREATE TYPE subscriber_status AS ENUM ('ENABLED', 'DISABLED', 'BLOCKLISTED');
-DROP TYPE IF EXISTS role_type CASCADE;
-CREATE TYPE role_type AS ENUM ('OWNER', 'EDITOR');
+-- Eliminar los triggers existentes
+drop trigger if exists update_organizations_updated_at on organizations;
+drop trigger if exists update_teams_updated_at on teams;
+drop trigger if exists update_team_members_updated_at on team_members;
+drop trigger if exists update_subscribers_updated_at on subscribers;
+drop trigger if exists update_forms_updated_at on forms;
 
--- Create Organizations table
-DROP TABLE IF EXISTS organizations CASCADE;
-CREATE TABLE organizations
+-- Eliminar las funciones existentes
+drop function if exists update_updated_at_column;
+
+-- Eliminar políticas de seguridad a nivel de fila
+drop policy if exists subscriber_policy on subscribers;
+drop policy if exists form_policy on forms;
+
+-- Deshabilitar la seguridad a nivel de fila
+alter table if exists subscribers disable row level security;
+alter table if exists forms disable row level security;
+
+-- Eliminar índices existentes
+drop index if exists idx_subs_email;
+drop index if exists idx_subs_status;
+drop index if exists idx_subs_created_at;
+drop index if exists idx_subs_email_organization;
+drop index if exists idx_forms_organization;
+drop index if exists idx_forms_created_at;
+
+-- Eliminar las tablas existentes
+drop table if exists team_members cascade;
+drop table if exists teams cascade;
+drop table if exists forms cascade;
+drop table if exists subscribers cascade;
+drop table if exists organizations cascade;
+
+-- Eliminar los tipos de datos enumerados existentes
+drop type if exists role_type;
+drop type if exists subscriber_status;
+
+-- Crear los tipos de datos enumerados
+create type subscriber_status as enum ('ENABLED', 'DISABLED', 'BLOCKLISTED');
+create type role_type as enum ('OWNER', 'EDITOR');
+
+-- Crear la tabla organizations
+create table organizations
 (
-  id UUID         NOT NULL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  user_id          UUID         NOT NULL, -- Owner of the organization
-  created_at       TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at       TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  id         uuid not null primary key,
+  name       text not null,
+  user_id    uuid not null, -- Owner of the organization
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now()
 );
 
--- Teams Table
-DROP TABLE IF EXISTS teams CASCADE;
-CREATE TABLE teams
+-- Crear la tabla teams
+create table teams
 (
-  team_id           UUID         NOT NULL PRIMARY KEY,
-  organization_id   UUID         NOT NULL,
-  name         VARCHAR(100) NOT NULL,
-  created_at        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  CONSTRAINT fk_organization_id FOREIGN KEY (organization_id) REFERENCES organizations (id) ON DELETE CASCADE
+  team_id         uuid not null primary key,
+  organization_id uuid not null,
+  name            text not null,
+  created_at      timestamp with time zone default now(),
+  updated_at      timestamp with time zone default now(),
+  constraint fk_organization_id foreign key (organization_id) references organizations (id) on delete cascade
 );
 
--- Team Members Table
-DROP TABLE IF EXISTS team_members CASCADE;
-CREATE TABLE team_members
+-- Crear la tabla team_members
+create table team_members
 (
-  team_id      UUID      NOT NULL,
-  user_id      UUID      NOT NULL,
-  role         role_type NOT NULL, -- Use ENUM type for roles
-  created_at   TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at   TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  PRIMARY KEY (team_id, user_id),
-  CONSTRAINT fk_team_id FOREIGN KEY (team_id) REFERENCES teams (team_id) ON DELETE CASCADE
+  team_id    uuid      not null,
+  user_id    uuid      not null,
+  role       role_type not null,
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now(),
+  primary key (team_id, user_id),
+  constraint fk_team_id foreign key (team_id) references teams (team_id) on delete cascade
 );
 
--- Create subscribers table
-DROP TABLE IF EXISTS subscribers CASCADE;
-CREATE TABLE subscribers
+-- Crear la tabla subscribers
+create table subscribers
 (
-  id              UUID              NOT NULL,
-  email           TEXT              NOT NULL UNIQUE,
-  firstname       TEXT              NOT NULL,
-  lastname        TEXT,
-  status          subscriber_status NOT NULL DEFAULT 'ENABLED',
-  attributes      JSON              NULL,
-  organization_id UUID              NOT NULL,
-  created_at      TIMESTAMP WITH TIME ZONE   DEFAULT NOW(),
-  updated_at      TIMESTAMP WITH TIME ZONE   DEFAULT NOW(),
-  CONSTRAINT pk_subscriber_id PRIMARY KEY (id),
-  CONSTRAINT fk_organization_id FOREIGN KEY (organization_id) REFERENCES organizations (id) ON DELETE CASCADE
+  id              uuid              not null primary key,
+  email           text              not null unique,
+  firstname       text              not null,
+  lastname        text,
+  status          subscriber_status not null default 'ENABLED',
+  attributes      json,
+  organization_id uuid              not null,
+  created_at      timestamp with time zone   default now(),
+  updated_at      timestamp with time zone   default now(),
+  constraint fk_organization_id foreign key (organization_id) references organizations (id) on delete cascade
 );
 
--- Create indexes
-DROP INDEX IF EXISTS idx_subs_email;
-CREATE UNIQUE INDEX idx_subs_email ON subscribers (LOWER(email));
-DROP INDEX IF EXISTS idx_subs_status;
-CREATE INDEX idx_subs_status ON subscribers (status);
-DROP INDEX IF EXISTS idx_subs_created_at;
-CREATE INDEX idx_subs_created_at ON subscribers (created_at);
-DROP INDEX IF EXISTS idx_subs_email_organization;
-CREATE UNIQUE INDEX idx_subs_email_organization ON subscribers (LOWER(email), organization_id);
+-- Crear índices para la tabla subscribers
+create unique index idx_subs_email on subscribers using btree (lower(email));
+create index idx_subs_status on subscribers using btree (status);
+create index idx_subs_created_at on subscribers using btree (created_at);
+create unique index idx_subs_email_organization on subscribers using btree (lower(email), organization_id);
 
--- Forms
-DROP TABLE IF EXISTS forms CASCADE;
-CREATE TABLE forms
+-- Crear la tabla forms
+create table forms
 (
-  id                UUID NOT NULL,
-  name              TEXT NOT NULL,
-  header            TEXT,
-  description       TEXT,
-  input_placeholder TEXT,
-  button_text       TEXT,
-  button_color      TEXT,
-  background_color  TEXT,
-  text_color        TEXT,
-  button_text_color TEXT,
-  organization_id   UUID NOT NULL,
-  created_at        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  CONSTRAINT pk_form_id PRIMARY KEY (id),
-  CONSTRAINT fk_form_organization_id FOREIGN KEY (organization_id) REFERENCES organizations (id) ON DELETE CASCADE
+  id                uuid not null primary key,
+  name              text not null,
+  header            text,
+  description       text,
+  input_placeholder text,
+  button_text       text,
+  button_color      text,
+  background_color  text,
+  text_color        text,
+  button_text_color text,
+  organization_id   uuid not null,
+  created_at        timestamp with time zone default now(),
+  updated_at        timestamp with time zone default now(),
+  constraint fk_form_organization_id foreign key (organization_id) references organizations (id) on delete cascade
 );
 
--- Create indexes
-DROP INDEX IF EXISTS idx_forms_organization;
-CREATE INDEX idx_forms_organization ON forms (organization_id);
-DROP INDEX IF EXISTS idx_forms_created_at;
-CREATE INDEX idx_forms_created_at ON forms (created_at);
+-- Crear índices para la tabla forms
+create index idx_forms_organization on forms using btree (organization_id);
+create index idx_forms_created_at on forms using btree (created_at);
 
--- Enable Row Level Security for subscribers and forms
-ALTER TABLE subscribers
-  ENABLE ROW LEVEL SECURITY;
-ALTER TABLE forms
-  ENABLE ROW LEVEL SECURITY;
+-- Habilitar seguridad a nivel de fila en las tablas
+alter table subscribers enable row level security;
+alter table forms enable row level security;
 
--- Create policies for Row Level Security
-CREATE POLICY subscriber_policy ON subscribers
-  FOR SELECT USING (organization_id = current_setting('lyra.current_organization')::UUID);
+-- Crear políticas de seguridad a nivel de fila
+create policy subscriber_policy on subscribers for
+  select
+  to public using (
+  organization_id = current_setting('lyra.current_organization')::uuid
+  );
 
-CREATE POLICY form_policy ON forms
-  FOR SELECT USING (organization_id = current_setting('lyra.current_organization')::UUID);
+create policy form_policy on forms for
+  select
+  to public using (
+  organization_id = current_setting('lyra.current_organization')::uuid
+  );
+
+-- Crear la función para actualizar la columna updated_at
+create or replace function update_updated_at_column() returns trigger as '
+  BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+  END;
+' language plpgsql;
+
+-- Crear triggers para actualizar la columna updated_at
+create trigger update_organizations_updated_at
+  before update on organizations
+  for each row execute function update_updated_at_column();
+
+create trigger update_teams_updated_at
+  before update on teams
+  for each row execute function update_updated_at_column();
+
+create trigger update_team_members_updated_at
+  before update on team_members
+  for each row execute function update_updated_at_column();
+
+create trigger update_subscribers_updated_at
+  before update on subscribers
+  for each row execute function update_updated_at_column();
+
+create trigger update_forms_updated_at
+  before update on forms
+  for each row execute function update_updated_at_column();

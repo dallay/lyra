@@ -2,7 +2,7 @@ import FetchFactory from "../factory";
 import Routes from "../routes.client";
 import type {FormResponse, FormId} from "@lyra/api-services";
 
-class FormModule extends FetchFactory {
+class OrganizationModule extends FetchFactory {
   private readonly RESOURCE = Routes.Form;
   private accessToken = '';
 
@@ -48,4 +48,4 @@ class FormModule extends FetchFactory {
   }
 }
 
-export default FormModule;
+export default OrganizationModule;

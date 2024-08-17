@@ -124,6 +124,8 @@ jobs:
 
       - name: Static Analysis Security
         uses: ./.github/actions/analysis/security
+        with:
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
   package:
     name: Package and Publish 📦

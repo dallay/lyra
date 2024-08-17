@@ -22,6 +22,7 @@ internal class AppKoverPlugin : ConventionPlugin {
         // Common
         "*.buildlogic.*",
         "*.mock.*",
+        "*.aop.*",
     )
     private val containerModules = listOf<String>()
 

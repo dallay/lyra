@@ -53,6 +53,7 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
     testImplementation("org.testcontainers:r2dbc")
+    testImplementation("com.tngtech.archunit:archunit:1.3.0")
 }
 val processFrontendResources = "processFrontendResources"
 tasks.register<Copy>(processFrontendResources) {

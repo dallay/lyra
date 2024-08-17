@@ -1,5 +1,6 @@
 package com.lyra.app.aop.logging
 
+import com.lyra.common.domain.Generated
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.AfterThrowing
@@ -17,6 +18,7 @@ import org.springframework.core.env.Profiles
  */
 @Suppress("unused")
 @Aspect
+@Generated
 open class LoggingAspect(private val env: Environment) {
 
     /**

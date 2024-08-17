@@ -33,15 +33,15 @@ runs:
         chmod +x gradlew
       shell: bash
 
-    - name: Generate and submit dependency graph
-      uses: gradle/actions/dependency-submission@v4
-
     - name: ⚙️ Setup Gradle 🐘
       uses: gradle/actions/setup-gradle@v4
       id: gradle
       with:
         add-job-summary-as-pr-comment: on-failure
-        # arguments: ${{ inputs.gradle-arguments }}
+        dependency-graph: generate-and-submit
+        build-scan-publish: true
+        build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+        build-scan-terms-of-use-agree: "yes"
         cache-encryption-key: ${{ inputs.gradle-encription-key }}
     - run: ./gradlew ${{ inputs.gradle-arguments }}
       shell: bash

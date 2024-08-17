@@ -58,6 +58,7 @@ jobs:
         uses: ./.github/actions/install/java
         with:
           java-version: 21
+          gradle-encription-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
           gradle-arguments: build --scan --no-daemon --stacktrace
           github_token: ${{ env.CI_GITHUB_TOKEN }}
 
@@ -124,6 +125,9 @@ jobs:
 
       - name: Install Java Tools & Dependencies
         uses: ./.github/actions/install/java
+        with:
+          java-version: 21
+          gradle-encription-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
       - name: Install Tools & Dependencies
         uses: ./.github/actions/install/node
@@ -182,6 +186,9 @@ jobs:
 
       - name: Install Java Tools & Dependencies
         uses: ./.github/actions/install/java
+        with:
+          java-version: 21
+          gradle-encription-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
       - name: Install Tools & Dependencies
         uses: ./.github/actions/install/node

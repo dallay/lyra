@@ -12,6 +12,9 @@ logging:
   pattern:
     console: "%d{dd-MM-yyyy HH:mm:ss} %magenta([%thread]) %highlight(%-5level) %logger.%M - %msg%n"
 spring:
+  liquibase:
+    change-log: classpath:db/changelog/master.xml
+    enabled: true
   application:
     name: ${application.name}
   main:
@@ -54,7 +57,9 @@ spring:
       enabled: true
       initial-size: 10
       max-size: 20
-
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: none
 application:
   name: lyra
   description: Lyra is the take note of the future. It's a note taking app that uses AI to help you take notes.

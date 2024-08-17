@@ -10,6 +10,9 @@ inputs:
     description: 'The arguments to pass to the gradle command'
     required: false
     default: 'projects'
+  gradle-encription-key:
+    description: 'The encryption key to use for the gradle cache'
+    required: true
   github_token:
     description: 'GITHUB_TOKEN'
     required: false
@@ -39,7 +42,7 @@ runs:
       with:
         add-job-summary-as-pr-comment: on-failure
         # arguments: ${{ inputs.gradle-arguments }}
-        cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+        cache-encryption-key: ${{ inputs.gradle-encription-key }}
     - run: ./gradlew ${{ inputs.gradle-arguments }}
       shell: bash
 

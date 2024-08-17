@@ -1,5 +1,6 @@
 package com.lyra.common.domain
 
+import java.io.Serializable
 import java.time.LocalDateTime
 
 /**
@@ -15,4 +16,8 @@ import java.time.LocalDateTime
 abstract class AuditableEntity(
     open val createdAt: LocalDateTime = LocalDateTime.now(),
     open var updatedAt: LocalDateTime? = null
-)
+) : Serializable {
+    companion object {
+        private const val serialVersionUID: Long = 1L
+    }
+}

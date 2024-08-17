@@ -7,12 +7,18 @@ inputs:
     description: 'GITHUB_TOKEN with permissions to push to the container registry'
     required: false
     default: ${{ github.token }}
+  gradle-encryption-key:
+    description: 'The encryption key to use for the gradle cache'
+    required: true
 
 runs:
   using: composite
   steps:
     - name: Install Java Tools & Dependencies
       uses: ./.github/actions/install/java
+      with:
+        java-version: 21
+        gradle-encription-key: ${{ inputs.gradle-encryption-key }}
 
     - name: Install Tools & Dependencies
       uses: ./.github/actions/install/node

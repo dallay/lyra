@@ -223,3 +223,4 @@ jobs:
           deploy_repo: ${{ env.DEPLOY_REPO }}
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
+          gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}

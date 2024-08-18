@@ -48,6 +48,7 @@ spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-s
 springdoc-openapi-starter-webflux-ui = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version.ref = "springdoc" }
 springdoc-openapi-starter-webflux-api = { module = "org.springdoc:springdoc-openapi-starter-webflux-api", version.ref = "springdoc" }
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "springBoot" }
+spring-boot-starter-aop = { module = "org.springframework.boot:spring-boot-starter-aop", version.ref = "springBoot" }
 # Spring Boot Dev
 spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "springBoot" }
 spring-boot-docker-compose = { module = "org.springframework.boot:spring-boot-docker-compose", version.ref = "springBoot" }
@@ -98,7 +99,8 @@ spring-boot = [
   "spring-boot-starter-webflux",
   "springdoc-openapi-starter-webflux-ui",
   "springdoc-openapi-starter-webflux-api",
-  "spring-boot-starter-actuator"
+  "spring-boot-starter-actuator",
+  "spring-boot-starter-aop",
 ]
 spring-boot-dev = ["spring-boot-devtools", "spring-boot-docker-compose"]
 spring-boot-test = ["spring-boot-starter-test", "spring-security-test", "reactor-test", "cucumber-java"]

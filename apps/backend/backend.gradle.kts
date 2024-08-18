@@ -31,7 +31,7 @@ dependencies {
     implementation(libs.spring.boot.starter.data.r2dbc)
     implementation(libs.bundles.kotlin.jvm)
     implementation(libs.commons.text)
-//    implementation("org.liquibase:liquibase-core")
+    implementation("org.liquibase:liquibase-core")
     implementation("org.springframework:spring-r2dbc")
     implementation("org.springframework.data:spring-data-r2dbc")
     implementation("org.postgresql:r2dbc-postgresql")
@@ -53,6 +53,7 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
     testImplementation("org.testcontainers:r2dbc")
+    testImplementation("com.tngtech.archunit:archunit:1.3.0")
 }
 val processFrontendResources = "processFrontendResources"
 tasks.register<Copy>(processFrontendResources) {

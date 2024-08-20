@@ -1,6 +1,6 @@
 import FetchFactory from "../factory";
 import Routes from "../routes.client";
-import type {AccessToken} from "@lyra/api-services";
+import type {AccessToken} from "@lyra/domain";
 
 class AuthModule extends FetchFactory {
   private readonly RESOURCE = Routes.Auth;

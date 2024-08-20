@@ -1,1 +1,5 @@
-export default interface Response {}
+export interface Response {}
+
+export default interface ResponseData<T> extends Response {
+  readonly data: T[],
+}

@@ -1,9 +1,9 @@
 import {useNuxtApp} from "#app";
 import {ref} from "vue";
 import {defineStore} from "pinia";
-import type {Form} from "@lyra/api-services";
+import type {Form} from "@lyra/domain";
 
-export const usePostStore = defineStore("post", () => {
+export const useFormStore = defineStore("forms", () => {
   const {$api} = useNuxtApp();
   const formList = ref<Form[]>([]);
 
@@ -15,7 +15,7 @@ export const usePostStore = defineStore("post", () => {
         console.error(error)
       })
     } catch (error) {
-      console.error("fetchPostList error:" + error);
+      console.error(`fetchFormList error:${error}`);
     }
   };
 

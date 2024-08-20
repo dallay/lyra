@@ -1,14 +1,14 @@
 declare module '#app' {
   interface NuxtApp {
     $dependenciesContainer: import('inversify').Container;
-    $authController: import('@lyra/api-services').HttpAuthenticationService;
+    $authController: import('../../packages/domain').HttpAuthenticationService;
   }
 }
 
 declare module 'vue' {
   interface ComponentCustomProperties {
     $dependenciesContainer: import('inversify').Container;
-    $authController: import('@lyra/api-services').HttpAuthenticationService;
+    $authController: import('../../packages/domain').HttpAuthenticationService;
   }
 }
 

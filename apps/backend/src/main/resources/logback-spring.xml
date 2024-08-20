@@ -1,0 +1,25 @@
+<configuration>
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>
+        %replace(%-5level){
+        'DEBUG', '🟢 DEBUG',
+        'INFO', '🔵 INFO',
+        'WARN', '🟡 WARN',
+        'ERROR', '🔴 ERROR',
+        'TRACE', '⚪ TRACE'
+        } %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <!-- Definir logger para el paquete com.lyra -->
+  <logger name="com.lyra" level="DEBUG" additivity="false">
+    <appender-ref ref="CONSOLE"/>
+  </logger>
+
+  <!-- Logger raíz (opcional, si quieres configurar el resto de los logs de manera diferente) -->
+  <root level="INFO">
+    <appender-ref ref="CONSOLE"/>
+  </root>
+</configuration>

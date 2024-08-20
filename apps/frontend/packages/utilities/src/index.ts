@@ -1,3 +1,7 @@
+import avatar from './avatar/avatar';
+import initials from './initials/initials';
+import randomNumber from './random-number/random-number';
+import generateRandomWords from './random-word/random-word';
 import { range } from './range/range';
 import { chunk } from './chunk/chunk';
 import { groupBy } from './group-by/group-by';
@@ -8,6 +12,10 @@ import { isEqual } from './is-equal/is-equal';
 import { isDarkMode, loadTheme, toggleTheme } from './theme/color-theme';
 
 export {
+  avatar,
+  initials,
+  randomNumber,
+  generateRandomWords,
 	chunk,
 	range,
 	groupBy,

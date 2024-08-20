@@ -8,7 +8,7 @@ import Toaster from '@/components/ui/toast/Toaster.vue'
 //   authModule,
 //   HTTP_AUTHENTICATION_SERVICE,
 //   HttpAuthenticationService
-// } from '@lyra/api-services';
+// } from '@lyra/domain';
 
 // const dependenciesContainer = new Container();
 // const setupApplicationDependencies = async (): Promise<void> => {

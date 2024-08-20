@@ -84,9 +84,15 @@ importers:
       '@internationalized/date':
         specifier: ^3.5.5
         version: 3.5.5
-      '@lyra/api-services':
+      '@lyra/domain':
         specifier: 0.0.1
-        version: link:../../packages/api-services
+        version: link:../../packages/domain
+      '@lyra/shared':
+        specifier: 0.0.1
+        version: link:../../packages/shared
+      '@lyra/utilities':
+        specifier: 0.0.1
+        version: link:../../packages/utilities
       '@nuxt/icon':
         specifier: ^1.4.5
         version: 1.4.5(magicast@0.3.4)(rollup@4.18.0)(vite@5.4.0(@types/node@22.3.0)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.41))(terser@5.31.6))(vue@3.4.38(typescript@5.5.4))
@@ -120,9 +126,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      gravatar-url:
-        specifier: ^4.0.1
-        version: 4.0.1
       jwt-decode:
         specifier: ^4.0.0
         version: 4.0.0
@@ -276,7 +279,7 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5(@types/node@22.3.0)(happy-dom@14.12.3)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.41))(terser@5.31.6)
 
-  packages/api-services:
+  packages/domain:
     dependencies:
       '@lyra/shared':
         specifier: 0.0.1
@@ -337,6 +340,10 @@ importers:
   packages/tsconfig: {}
 
   packages/utilities:
+    dependencies:
+      gravatar-url:
+        specifier: ^4.0.1
+        version: 4.0.1
     devDependencies:
       '@lyra/config':
         specifier: 0.0.1

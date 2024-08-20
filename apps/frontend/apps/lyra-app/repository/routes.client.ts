@@ -2,7 +2,7 @@
 /*
 * Prefix /api for api server
 */
-import type {FormId} from "@lyra/api-services";
+import type {FormId, OrganizationId, UserId, TeamId} from "@lyra/domain";
 
 const prefix : string = '/api';
 
@@ -24,6 +24,16 @@ const Routes = {
   },
   Common:{
     HealthCheck:()  => `${prefix}/health-check`
+  },
+  Organization: {
+    FetchAll:()  => `${prefix}/organization`,
+  },
+  Team: {
+    FetchAll:(id: OrganizationId)  => `${prefix}/organization/${id.value}/team`,
+    CreateTeam:(id: TeamId)  => `${prefix}/team/${id.value}`,
+  },
+  TeamMember: {
+    FetchAll:()  => `${prefix}/team/member`,
   }
 }
 

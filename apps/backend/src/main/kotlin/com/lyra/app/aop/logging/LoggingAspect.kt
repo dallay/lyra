@@ -1,5 +1,6 @@
 package com.lyra.app.aop.logging
 
+import com.lyra.app.AppConstants
 import com.lyra.common.domain.Generated
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.ProceedingJoinPoint
@@ -60,7 +61,7 @@ open class LoggingAspect(private val env: Environment) {
      */
     @AfterThrowing(pointcut = "applicationPackagePointcut() && springBeanPointcut()", throwing = "e")
     fun logAfterThrowing(joinPoint: JoinPoint, e: Throwable) {
-        if (env.acceptsProfiles(Profiles.of("dev"))) {
+        if (env.acceptsProfiles(Profiles.of(AppConstants.SPRING_PROFILE_DEVELOPMENT))) {
             logger(joinPoint).error(
                 "Exception in {}() with cause = \'{}\' and exception = \'{}\'",
                 joinPoint.signature.name,

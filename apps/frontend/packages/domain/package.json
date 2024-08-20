@@ -1,5 +1,5 @@
 {
-  "name": "@lyra/api-services",
+  "name": "@lyra/domain",
   "version": "0.0.1",
   "description": "A collection of services to interact with the Lyra API",
   "author": {
@@ -9,16 +9,16 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "./dist/api-services.js",
-  "module": "./dist/api-services.js",
+  "main": "./dist/domain.js",
+  "module": "./dist/domain.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/api-services.js",
+      "require": "./dist/domain.js",
       "import": {
         "types": "./dist/index.d.ts",
-        "default": "./dist/api-services.js"
+        "default": "./dist/domain.js"
       }
     }
   },
@@ -33,7 +33,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/dallay/lyra.git",
-    "directory": "packages/api-services",
+    "directory": "packages/domain",
     "branch": "main"
   },
   "bugs": {

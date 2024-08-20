@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/dallay/lyra/compare/v1.9.0...v1.10.0) (2024-08-18)
+
+
+### Features
+
+* [TASK-185] sql migration system ([#314](https://github.com/dallay/lyra/issues/314)) ([1c5d152](https://github.com/dallay/lyra/commit/1c5d152af0e24e97d15ebf849a66f89084ae17cc))
+
 # [1.9.0](https://github.com/dallay/lyra/compare/v1.8.0...v1.9.0) (2024-08-17)
 
 

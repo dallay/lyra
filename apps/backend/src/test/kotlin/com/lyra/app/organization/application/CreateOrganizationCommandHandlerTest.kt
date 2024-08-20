@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 @UnitTest
-internal class CreateCreateOrganizationCommandHandlerTest {
+internal class CreateOrganizationCommandHandlerTest {
     private lateinit var eventPublisher: EventPublisher<OrganizationCreatedEvent>
     private lateinit var organizationRepository: OrganizationRepository
     private lateinit var organizationCreator: OrganizationCreator

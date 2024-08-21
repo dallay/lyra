@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia';
 import { useNuxtApp, useRuntimeConfig } from '#imports';
 import { jwtDecode, type JwtPayload } from "jwt-decode";
-import type { AccessToken } from '@lyra/api-services';
-import type {IUser} from "~/types/model";
+import type { AccessToken, IUser } from '@lyra/domain';
 
 interface UserPayloadInterface {
   identifier: string;
@@ -49,11 +48,12 @@ export const useAuthStore = defineStore('auth', {
     async authenticateUser({ identifier, password }: UserPayloadInterface) {
       this.loading = true;
       try {
-        const {$api} = useNuxtApp();
+        const {$api, $updateModulesAccessToken} = useNuxtApp();
 
-        const token = await $api.auth.authenticate(identifier, password);
+        const accessToken = await $api.auth.authenticate(identifier, password);
+        $updateModulesAccessToken($api, accessToken);
 
-        this.accessToken = token || null;
+        this.accessToken = accessToken || null;
 
       } catch (error) {
         console.error(error);
@@ -64,9 +64,10 @@ export const useAuthStore = defineStore('auth', {
     async refreshToken() {
       this.loading = true;
       try {
-        const {$api} = useNuxtApp();
-        const token = await $api.auth.refreshToken();
-        this.accessToken = token || null;
+        const {$api, $updateModulesAccessToken} = useNuxtApp();
+        const accessToken = await $api.auth.refreshToken();
+        $updateModulesAccessToken($api, accessToken);
+        this.accessToken = accessToken || null;
       } catch (error) {
         console.error(error);
       } finally {

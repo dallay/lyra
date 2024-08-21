@@ -1,12 +1,14 @@
 package com.lyra.app.controllers
 
+import com.lyra.UnitTest
 import com.lyra.common.domain.error.BusinessRuleValidationException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.springframework.http.HttpStatus
 
-class GlobalExceptionHandlerTest {
+@UnitTest
+internal class GlobalExceptionHandlerTest {
 
     private val handler = GlobalExceptionHandler()
 

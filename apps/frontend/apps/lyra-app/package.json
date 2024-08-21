@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@internationalized/date": "^3.5.5",
-    "@lyra/api-services": "0.0.1",
+    "@lyra/domain": "0.0.1",
+    "@lyra/shared": "0.0.1",
+    "@lyra/utilities": "0.0.1",
     "@nuxt/icon": "^1.4.5",
     "@nuxt/image": "^1.7.0",
     "@nuxt/scripts": "^0.6.6",
@@ -25,7 +27,6 @@
     "clsx": "^2.1.1",
     "jwt-decode": "^4.0.0",
     "lucide-vue-next": "^0.427.0",
-    "gravatar-url": "^4.0.1",
     "nuxt": "^3.12.4",
     "pinia": "^2.2.1",
     "radix-vue": "^1.9.4",
@@ -40,7 +41,10 @@
   "devDependencies": {
     "@nuxtjs/color-mode": "^3.4.2",
     "@nuxtjs/tailwindcss": "^6.12.1",
+    "@pinia/testing": "^0.1.5",
     "@vue/devtools-api": "6.6.3",
-    "typescript": "^5.5.4"
+    "@vue/test-utils": "^2.4.6",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   }
 }

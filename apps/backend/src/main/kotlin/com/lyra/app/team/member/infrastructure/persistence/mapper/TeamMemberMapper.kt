@@ -1,9 +1,12 @@
 package com.lyra.app.team.member.infrastructure.persistence.mapper
 
+import com.lyra.app.team.member.application.OrganizationTeamMemberResponse
 import com.lyra.app.team.member.domain.TeamMember
 import com.lyra.app.team.member.domain.TeamMemberId
 import com.lyra.app.team.member.domain.TeamMemberRole
+import com.lyra.app.team.member.infrastructure.persistence.entity.OrganizationTeamMemberEntity
 import com.lyra.app.team.member.infrastructure.persistence.entity.TeamMemberEntity
+import java.util.*
 
 /**
  * This object provides mapping functions to convert between domain and entity objects.
@@ -36,4 +39,38 @@ object TeamMemberMapper {
         createdAt = createdAt,
         updatedAt = updatedAt,
     )
+
+    /**
+     * Converts an [OrganizationTeamMemberEntity] to an [OrganizationTeamMemberResponse].
+     *
+     * @receiver The [OrganizationTeamMemberEntity] to convert.
+     * @return The converted [OrganizationTeamMemberResponse].
+     */
+    fun OrganizationTeamMemberEntity.toResponse(): OrganizationTeamMemberResponse =
+        OrganizationTeamMemberResponse(
+            teamId = teamId.toString(),
+            userId = userId.toString(),
+            organizationId = organizationId.toString(),
+            organizationOwnerId = organizationOwnerId.toString(),
+            role = teamMemberRole,
+            teamName = teamName,
+            organizationName = organizationName,
+        )
+
+    /**
+     * Converts an [OrganizationTeamMemberResponse] to an [OrganizationTeamMemberEntity].
+     *
+     * @receiver The [OrganizationTeamMemberResponse] to convert.
+     * @return The converted [OrganizationTeamMemberEntity].
+     */
+    fun OrganizationTeamMemberResponse.toEntity(): OrganizationTeamMemberEntity =
+        OrganizationTeamMemberEntity(
+            organizationId = UUID.fromString(organizationId),
+            organizationOwnerId = UUID.fromString(organizationOwnerId),
+            teamId = UUID.fromString(teamId),
+            userId = UUID.fromString(userId),
+            teamMemberRole = role,
+            teamName = teamName,
+            organizationName = organizationName,
+        )
 }

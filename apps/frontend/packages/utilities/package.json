@@ -51,6 +51,9 @@
     "test": "print \"TEST: [🧪] Testing ${npm_package_name}\" && vitest --coverage --run",
     "test:watch": "print \"TEST: [🧪] Watching ${npm_package_name}\" && vitest --watch"
   },
+  "dependencies": {
+    "gravatar-url": "^4.0.1"
+  },
   "devDependencies": {
     "@lyra/config": "0.0.1",
     "@lyra/tsconfig": "0.0.1",

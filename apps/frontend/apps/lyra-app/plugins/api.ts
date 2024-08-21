@@ -3,7 +3,12 @@ import type { FetchResponse, ResponseType } from 'ofetch';
 import FormModule from '~/repository/modules/form.module';
 import AuthModule from '~/repository/modules/auth.module';
 import CommonModule from '~/repository/modules/common.module';
-import type { AccessToken } from '@lyra/api-services';
+import type { AccessToken } from '@lyra/domain';
+import OrganizationModule from "~/repository/modules/organization.module";
+import TeamModule from "~/repository/modules/team.module";
+import TeamMemberModule from "~/repository/modules/team-member.module";
+import SecureFetchFactory from '~/repository/secure.factory';
+import type FetchFactory from "~/repository/factory";
 
 /**
  * Interface representing the API instance with different modules.
@@ -12,6 +17,9 @@ export interface IApiInstance {
   form: FormModule;
   auth: AuthModule;
   common: CommonModule;
+  organization: OrganizationModule;
+  team: TeamModule;
+  teamMember: TeamMemberModule;
 }
 
 /**
@@ -24,7 +32,7 @@ function createRequestWithHeaders(request: Request | string, headers: Record<str
   if (typeof request === 'string') {
     return new Request(request, { headers });
   }
-   Object.assign(request.headers, headers);
+  Object.assign(request.headers, headers);
   return request;
 }
 
@@ -40,7 +48,30 @@ async  function retryRequest(request: Request | string, newAccessToken: AccessTo
   const headers = { Authorization: `Bearer ${newAccessToken}` };
   const updatedRequest = createRequestWithHeaders(request, headers);
   // biome-ignore lint/correctness/noUndeclaredVariables: fetch is a global function in nuxt
-  return $fetch(updatedRequest);
+  return $fetch.raw(updatedRequest);
+}
+
+/**
+ * Type guard para verificar si un módulo es una instancia de SecureFetchFactory.
+ */
+function isSecureFetchFactory(module: FetchFactory): module is SecureFetchFactory {
+  return module instanceof SecureFetchFactory;
+}
+
+/**
+ * Utility function to update the access token in all API modules.
+ * @param {IApiInstance} modules - The API modules to be updated.
+ * @param {AccessToken} accessToken - The new access token.
+ */
+function updateModulesAccessToken(modules: IApiInstance, accessToken: AccessToken): void {
+  if (accessToken?.token) {
+    for (const moduleName in modules) {
+      const module = modules[moduleName as keyof IApiInstance];
+      if (isSecureFetchFactory(module)) {
+        module.setAccessToken(accessToken.token);
+      }
+    }
+  }
 }
 
 /**
@@ -78,20 +109,24 @@ export default defineNuxtPlugin(async (_) => {
   const formModule = new FormModule(apiFetcher);
   const authModule = new AuthModule(apiFetcher);
   const commonModule = new CommonModule(apiFetcher);
+  const organizationModule = new OrganizationModule(apiFetcher);
+  const teamModule = new TeamModule(apiFetcher);
+  const teamMemberModule = new TeamMemberModule(apiFetcher);
 
   const modules: IApiInstance = {
     form: formModule,
     auth: authModule,
     common: commonModule,
+    organization: organizationModule,
+    team: teamModule,
+    teamMember: teamMemberModule,
   };
 
   if (import.meta.client) {
     try {
       await modules.common.csrfToken();
       const data = await modules.auth.refreshToken();
-      if (data.token) {
-        formModule.setAccessToken(data.tokenType);
-      }
+      updateModulesAccessToken(modules, data);
     } catch (err) {
       console.error('Error occurred during client initialization:', err);
     }
@@ -100,6 +135,7 @@ export default defineNuxtPlugin(async (_) => {
   return {
     provide: {
       api: modules,
+      updateModulesAccessToken,
     },
   };
 });

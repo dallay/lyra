@@ -27,7 +27,7 @@ interface IHttpFactory {
 }
 
 export const XSRF_TOKEN_COOKIE = 'XSRF-TOKEN';
-const CSRF_HEADER = 'X-XSRF-TOKEN';
+const XSRF_TOKEN_HEADER = 'X-XSRF-TOKEN';
 
 class HttpFactory {
 	private readonly $fetch: $Fetch;
@@ -37,10 +37,11 @@ class HttpFactory {
 	}
 
 	async call<T>({ method, url, fetchOptions, body }: IHttpFactory): Promise<T> {
+    const headers = await this.buildHeaders();
 		return this.$fetch<T>(url, {
 			method,
 			body,
-			headers: await this.buildHeaders(),
+			headers,
 			credentials: 'include',
 			...fetchOptions,
 		});
@@ -48,12 +49,11 @@ class HttpFactory {
 
 	private async buildHeaders() {
 		const headers: HeadersInit = {
-			'Content-Type': 'application/vnd.api.v1+json',
 			Accept: 'application/vnd.api.v1+json',
 		};
 		const xsrfToken = useCookie(XSRF_TOKEN_COOKIE).value;
 		if (xsrfToken) {
-			headers[CSRF_HEADER] = xsrfToken;
+			headers[XSRF_TOKEN_HEADER] = xsrfToken;
 		}
 		const language = useCookie('language').value;
 		if (language) {

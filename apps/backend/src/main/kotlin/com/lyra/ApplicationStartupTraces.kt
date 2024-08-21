@@ -1,10 +1,12 @@
 package com.lyra
 
+import com.lyra.app.AppConstants
 import java.net.InetAddress
 import java.net.UnknownHostException
 import java.util.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.core.env.ConfigurableEnvironment
 import org.springframework.core.env.Environment
 
 private const val SEPARATOR_LENGTH = 58
@@ -27,6 +29,19 @@ object ApplicationStartupTraces {
     fun of(environment: Environment): String {
         Objects.requireNonNull(environment, "Environment must not be null")
         return buildTraces(environment)
+    }
+
+    fun initApplication(environment: ConfigurableEnvironment) {
+        val activeProfiles = environment.activeProfiles
+        if (activeProfiles.contains(AppConstants.SPRING_PROFILE_DEVELOPMENT) &&
+            activeProfiles.contains(AppConstants.SPRING_PROFILE_PRODUCTION)
+        ) {
+            log.error(
+                "You have misconfigured your application! " +
+                    "It should not run with both the '${AppConstants.SPRING_PROFILE_DEVELOPMENT}' " +
+                    "and '${AppConstants.SPRING_PROFILE_PRODUCTION}' profiles at the same time.",
+            )
+        }
     }
 
     private fun buildTraces(environment: Environment): String {

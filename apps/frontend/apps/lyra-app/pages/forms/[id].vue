@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, onMounted } from 'vue';
 import { useNuxtApp, useRoute } from '#app';
-import { FormResponse, FormId } from '@lyra/api-services';
+import { FormResponse, FormId } from '@lyra/domain';
 
 const route = useRoute();
 

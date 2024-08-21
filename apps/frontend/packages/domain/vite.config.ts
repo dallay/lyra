@@ -1,6 +1,6 @@
 import dts from 'vite-plugin-dts';
 import { defineConfig, mergeConfig } from 'vite';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import { sharedViteConfig } from '@lyra/config/vite.config.shared';
 import * as path from 'node:path';
 
@@ -10,7 +10,7 @@ export default defineConfig(
 		build: {
 			lib: {
 				entry: resolve(__dirname, 'src/index.ts'),
-				name: 'api-services',
+				name: '@lyra/domain',
 				formats: ['es'],
 			},
 			target: 'esnext', // transpile as little as possible

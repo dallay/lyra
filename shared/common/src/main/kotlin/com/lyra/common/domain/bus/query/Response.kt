@@ -12,6 +12,6 @@ interface Response
  * Generic response to a query.
  *
  * @property T The type of the response.
- * @property response The response of the query.
+ * @property data The response of the query.
  */
-data class QueryResponse<T>(val response: T) : Response
+data class QueryResponse<T>(val data: T) : Response

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRouter, onMounted, ref } from '#imports';
+import {useRouter, onMounted, ref, randomNumber, avatar} from '#imports';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth.store';
 import {
@@ -18,9 +18,8 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import type {IUser} from "~/types/model";
-import initials from "../utils/initials";
-import randomNumber from "~/utils/random-number";
+import type {IUser} from "@lyra/domain";
+
 const router = useRouter();
 const { isAuthenticated } = storeToRefs(useAuthStore());
 const { getUser, logUserOut } = useAuthStore();

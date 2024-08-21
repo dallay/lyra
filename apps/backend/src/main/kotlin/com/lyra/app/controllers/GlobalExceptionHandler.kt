@@ -4,6 +4,7 @@ import com.lyra.app.authentication.domain.UserAuthenticationException
 import com.lyra.app.authentication.domain.UserRefreshTokenException
 import com.lyra.app.authentication.domain.error.LogoutFailedException
 import com.lyra.app.authentication.domain.error.MissingCookieException
+import com.lyra.app.authentication.infrastructure.cookie.AuthCookieBuilder
 import com.lyra.common.domain.error.BusinessRuleValidationException
 import com.lyra.common.domain.error.EntityNotFoundException
 import java.net.URI
@@ -42,12 +43,16 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
      */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UserAuthenticationException::class, UserRefreshTokenException::class)
-    fun handleUserAuthenticationException(e: Exception): ProblemDetail {
+    fun handleUserAuthenticationException(
+        e: Exception,
+        response: ServerHttpResponse
+    ): ProblemDetail {
         val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, e.message)
         problemDetail.title = "User authentication failed"
         problemDetail.setType(URI.create("$ERROR_PAGE/user-authentication-failed"))
         problemDetail.setProperty("errorCategory", "AUTHENTICATION")
         problemDetail.setProperty("timestamp", Instant.now())
+        AuthCookieBuilder.clearCookies(response)
         return problemDetail
     }
 

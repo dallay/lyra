@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -36,18 +38,18 @@ class GetAllTeamMemberController(
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
     @GetMapping("/team/member")
-    suspend fun findAll(): Response {
+    suspend fun findAll(): ResponseEntity<Response> {
         val authentication = authentication()
         val jwt = authentication?.principal as? Jwt
         val userId = jwt?.claims?.get("sub") as? String
         log.debug("Get All team members for user: {}", userId)
         if (userId == null) {
-            return QueryResponse("User not found")
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(QueryResponse("User not found"))
         }
         val response = ask(
             GetAllTeamMember(userId),
         )
-        return response
+        return ResponseEntity.ok(response)
     }
 
     companion object {

@@ -62,7 +62,7 @@ $SEPARATOR""",
     @Test
     fun `init the application with incompatible profiles`() {
         val environment = MockEnvironment()
-        environment.setActiveProfiles("dev", "prod")
+        environment.setActiveProfiles("prod", "dev")
 
         val logger = LoggerFactory.getLogger(ApplicationStartupTraces::class.java) as Logger
         val testAppender = TestAppender()

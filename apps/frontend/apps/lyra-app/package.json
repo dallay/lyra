@@ -41,7 +41,10 @@
   "devDependencies": {
     "@nuxtjs/color-mode": "^3.4.2",
     "@nuxtjs/tailwindcss": "^6.12.1",
+    "@pinia/testing": "^0.1.5",
     "@vue/devtools-api": "6.6.3",
-    "typescript": "^5.5.4"
+    "@vue/test-utils": "^2.4.6",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   }
 }

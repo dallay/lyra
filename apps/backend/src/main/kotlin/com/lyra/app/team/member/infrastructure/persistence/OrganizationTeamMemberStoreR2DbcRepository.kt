@@ -1,9 +1,9 @@
 package com.lyra.app.team.member.infrastructure.persistence
 
-import com.lyra.app.team.member.application.OrganizationTeamMemberResponse
 import com.lyra.app.team.member.application.OrganizationTeamMemberResponses
 import com.lyra.app.team.member.domain.TeamMemberFinderRepository
 import com.lyra.app.team.member.infrastructure.persistence.entity.OrganizationTeamMemberEntity
+import com.lyra.app.team.member.infrastructure.persistence.mapper.TeamMemberMapper.toResponse
 import com.lyra.app.team.member.infrastructure.persistence.repository.OrganizationTeamMemberR2DbcRepository
 import com.lyra.app.users.domain.UserId
 import kotlinx.coroutines.flow.toList
@@ -28,17 +28,6 @@ class OrganizationTeamMemberStoreR2DbcRepository(
         log.debug("Team members: {}", allOrganizationTeamMembers)
         return OrganizationTeamMemberResponses(allOrganizationTeamMembers.map { it.toResponse() })
     }
-
-    private fun OrganizationTeamMemberEntity.toResponse(): OrganizationTeamMemberResponse =
-        OrganizationTeamMemberResponse(
-            teamId = teamId.toString(),
-            userId = userId.toString(),
-            organizationId = organizationId.toString(),
-            organizationOwnerId = organizationOwnerId.toString(),
-            role = teamMemberRole,
-            teamName = teamName,
-            organizationName = organizationName,
-        ).also { log.debug("Mapping team member to response: {}", it) }
 
     companion object {
         private val log = LoggerFactory.getLogger(OrganizationTeamMemberStoreR2DbcRepository::class.java)

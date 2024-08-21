@@ -1,5 +1,6 @@
 package com.lyra.app.team.member.infrastructure.persistence.entity
 
+import com.lyra.common.domain.Generated
 import java.io.Serializable
 import java.util.*
 
@@ -8,6 +9,7 @@ import java.util.*
  * @property teamId The unique identifier of the team
  * @property userId The unique identifier of the user.
  */
+@Generated
 data class OrganizationTeamMemberEntityId(
     val organizationId: UUID,
     val organizationOwnerId: UUID,

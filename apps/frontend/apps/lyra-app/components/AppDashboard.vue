@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import Overview from '@/components/Overview.vue'
 import DateRangePicker from '@/components/DateRangePicker.vue'
-import MainNav from '@/components/MainNav.vue'
+import MainNav from '@/components/nav/MainNav.vue'
 import RecentSales from '@/components/RecentSales.vue'
 import Search from '@/components/Search.vue'
 import OrganizationSwitcher from '~/components/OrganizationSwitcher.vue'
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
-import UserNav from '@/components/UserNav.vue'
+import UserNav from '@/components/nav/UserNav.vue'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -26,17 +26,6 @@ import {
 
 <template>
   <div class="flex-col flex">
-    <div class="border-b">
-      <div class="flex h-16 items-center px-4">
-        <OrganizationSwitcher />
-        <MainNav class="mx-6" />
-        <div class="ml-auto flex items-center space-x-4">
-          <Search />
-          <ThemeSwitcher />
-          <UserNav />
-        </div>
-      </div>
-    </div>
     <div class="flex-1 space-y-4 p-8 pt-6">
       <div class="flex items-center justify-between space-y-2">
         <h2 class="text-3xl font-bold tracking-tight">

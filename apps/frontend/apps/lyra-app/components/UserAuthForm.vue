@@ -33,8 +33,9 @@ const form = useForm({
 });
 
 const { accessToken, loading, isAuthenticated } = storeToRefs(useAuthStore());
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Vue/Nuxt.
 const isLoading = ref(loading.value);
+
+const redirectCookie = useCookie('redirectPath');
 
 const handleAuthentication = async (values: { identifier: string; password: string }) => {
   const { identifier, password } = values;
@@ -46,7 +47,10 @@ const handleAuthentication = async (values: { identifier: string; password: stri
       description: `You are now authenticated.`,
       duration: 5000,
     });
-    await router.push('/');
+
+    const redirectPath = redirectCookie.value || '/';
+    redirectCookie.value = null;
+    await router.push(redirectPath);
   } else {
     toast({
       title: 'Authentication failed!',
@@ -60,16 +64,17 @@ const handleAuthentication = async (values: { identifier: string; password: stri
 // biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Vue/Nuxt.
 const onSubmit = form.handleSubmit(handleAuthentication);
 
-// Vigilar cambios en el estado de autenticación y token
 watch([isAuthenticated, accessToken], async ([isAuthenticated]) => {
-  if (isAuthenticated) {
-    await router.push('/');
+  if (isAuthenticated && router.currentRoute.value.name !== 'login') {
+    const redirectPath = redirectCookie.value || '/';
+    redirectCookie.value = null;
+    await router.push(redirectPath);
   }
 });
 
-// Realizar acciones al montar el componente
 onMounted(async () => {
-  if (!isAuthenticated.value || !accessToken.value) {
+  // Refresca el token solo si no estás autenticado
+  if (!isAuthenticated.value && !accessToken.value) {
     await refreshToken();
   }
 });

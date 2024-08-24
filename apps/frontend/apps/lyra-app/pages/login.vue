@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { definePageMeta } from '#imports'
+definePageMeta({
+  layout: 'simple'
+})
 import UserAuthForm from '@/components/UserAuthForm.vue'
 // biome-ignore lint/correctness/noUnusedVariables: <explanation>
 const onError = async (event: Event) => {

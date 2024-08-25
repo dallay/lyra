@@ -11,16 +11,29 @@ export interface LinkProp {
 
 const links: LinkProp[] = [
   {
-    title: 'Inbox',
-    label: '128',
-    icon: 'lucide:inbox',
+    title: 'Dashboard',
+    to: '/',
+    icon: 'lucide:layout-dashboard',
     variant: 'default',
   },
   {
-    title: 'Drafts',
-    label: '9',
-    icon: 'lucide:file',
+    title: 'Audience',
+    icon: 'ph:users',
     variant: 'ghost',
+    sub: [
+      {
+        title: 'Subscribers',
+        icon: 'lucide:user-2',
+        to: '/subscribers',
+        variant: 'ghost',
+      },
+      {
+        title: 'Subscribe Forms',
+        to: '/forms/subscribe',
+        icon: 'material-symbols-light:dynamic-form-outline-rounded',
+        variant: 'ghost',
+      }
+    ]
   },
   {
     title: 'Sent',

@@ -13,6 +13,7 @@ export default class FormResponse implements Response {
 		public readonly backgroundColor: string,
 		public readonly textColor: string,
 		public readonly buttonTextColor: string,
+    public readonly organizationId: string,
 		public readonly createdAt: string | null = null,
 		public readonly updatedAt: string | null = null
 	) {
@@ -26,6 +27,7 @@ export default class FormResponse implements Response {
     this.backgroundColor = backgroundColor;
     this.textColor = textColor;
     this.buttonTextColor = buttonTextColor;
+    this.organizationId = organizationId;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -42,6 +44,7 @@ export default class FormResponse implements Response {
 			form.backgroundColor.value,
 			form.textColor.value,
 			form.buttonTextColor.value,
+      form.organizationId,
 			form.createdAt.toDateString(),
 			form.updatedAt.toDateString()
 		);

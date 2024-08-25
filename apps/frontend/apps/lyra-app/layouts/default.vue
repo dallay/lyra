@@ -12,37 +12,13 @@ import MainNav from "~/components/nav/MainNav.vue";
 import ThemeSwitcher from "~/components/ThemeSwitcher.vue";
 import {links, links2} from "~/components/nav/links-list";
 
-interface Mail {
-  id: string
-  name: string
-  email: string
-  subject: string
-  text: string
-  date: string
-}
-
-const mail = ref<Mail | undefined>({
-  id: crypto.randomUUID(),
-  name: 'Lucas',
-  email: 'lucas@test.com',
-  subject: 'Hello, world!',
-  text: 'Hello, world! This is a test email.',
-  date: 'Today, 9:00 AM',
-})
-
-interface MailProps {
-  accounts: {
-    label: string
-    email: string
-    icon: string
-  }[]
-  mails: Mail[]
+interface DefaultLayoutProps {
   defaultLayout?: number[]
   defaultCollapsed?: boolean
   navCollapsedSize: number
 }
 
-const props = withDefaults(defineProps<MailProps>(), {
+const props = withDefaults(defineProps<DefaultLayoutProps>(), {
   defaultCollapsed: false,
   defaultLayout: () => [265, 1095],
 })

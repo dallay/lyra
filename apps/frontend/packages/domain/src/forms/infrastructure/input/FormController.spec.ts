@@ -45,6 +45,7 @@ describe('FormController', () => {
       backgroundColor: '#000000',
       textColor: '#FFFFFF',
       buttonTextColor: '#FFFFFF',
+      organizationId: '9083a65f-86d8-4d27-8473-69f12d665c42',
     });
     formFinder = new FormFinder(formFinderRepository);
     formsSearcher = new FormsSearcher(formFinderRepository);
@@ -72,6 +73,7 @@ describe('FormController', () => {
       form.backgroundColor.value,
       form.textColor.value,
       form.buttonTextColor.value,
+      form.organizationId,
     );
     formRepository.create.mockResolvedValue();
 
@@ -115,6 +117,7 @@ describe('FormController', () => {
       form.backgroundColor.value,
       form.textColor.value,
       form.buttonTextColor.value,
+      form.organizationId,
     );
     formRepository.update.mockResolvedValue();
 

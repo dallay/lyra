@@ -53,11 +53,12 @@ const computedClasses = computed(() => {
     : '';
 
   const stateClasses = isActiveLink.value
-    ? 'font-bold text-primary-500 dark:text-primary-200'
+    ? 'font-bold text-primary-500 dark:text-primary-200 bg-muted'
     : '';
 
+
   const collapsedClasses = props.isCollapsed
-    ? 'h-9 w-9 justify-center'
+    ? 'h-9 w-9 justify-center space-y-2'
     : '';
 
   return `${baseClasses} ${variantClasses} ${stateClasses} ${collapsedClasses}`.trim();

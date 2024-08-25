@@ -17,6 +17,7 @@ export default class Form {
    * @param {HexColor} backgroundColor - The background color of the form.
    * @param {HexColor} textColor - The color of the text in the form.
    * @param {HexColor} buttonTextColor - The color of the text on the button.
+   * @param {string} organizationId - The unique identifier of the organization that owns the form.
    * @param {Date} createdAt - The date when the form was created.
    * @param {Date} updatedAt - The date when the form was last updated.
    */
@@ -31,6 +32,7 @@ export default class Form {
     readonly backgroundColor: HexColor,
     readonly textColor: HexColor,
     readonly buttonTextColor: HexColor,
+    readonly organizationId: string,
     readonly createdAt: Date,
     readonly updatedAt: Date
   ) {
@@ -50,6 +52,7 @@ export default class Form {
    * @param {string} plainData.backgroundColor - The background color of the form.
    * @param {string} plainData.textColor - The color of the text in the form.
    * @param {string} plainData.buttonTextColor - The color of the text on the button.
+   * @param {string} plainData.organizationId - The unique identifier of the organization that owns the form.
    * @returns {Form} The created form instance.
    */
   static fromPrimitives(plainData: {
@@ -63,6 +66,7 @@ export default class Form {
     backgroundColor: string;
     textColor: string;
     buttonTextColor: string;
+    organizationId: string;
   }): Form {
     return new Form(
       FormId.create(plainData.id),
@@ -75,6 +79,7 @@ export default class Form {
       HexColor.create(plainData.backgroundColor),
       HexColor.create(plainData.textColor),
       HexColor.create(plainData.buttonTextColor),
+      plainData.organizationId,
       new Date(),
       new Date()
     );
@@ -96,6 +101,7 @@ export default class Form {
       backgroundColor: this.backgroundColor.value,
       textColor: this.textColor.value,
       buttonTextColor: this.buttonTextColor.value,
+      organizationId: this.organizationId,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };

@@ -8,7 +8,8 @@ export default class UpdateFormRequest {
 		public readonly buttonColor: string,
 		public readonly backgroundColor: string,
 		public readonly textColor: string,
-		public readonly buttonTextColor: string
+		public readonly buttonTextColor: string,
+    public readonly organizationId: string
 	) {
     this.name = name;
     this.header = header;
@@ -19,5 +20,6 @@ export default class UpdateFormRequest {
     this.backgroundColor = backgroundColor;
     this.textColor = textColor;
     this.buttonTextColor = buttonTextColor;
+    this.organizationId = organizationId;
   }
 }

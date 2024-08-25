@@ -23,7 +23,9 @@ const Routes = {
   Form:{
     FetchAll:()  => `${prefix}/forms`,
     FetchDetail : (id: FormId) => `${prefix}/forms/${id.value}`,
-    CreateForm :()  => `${prefix}/forms`
+    CreateForm :(id: FormId)  => `${prefix}/forms/${id.value}`,
+    UpdateForm :(id: FormId)  => `${prefix}/forms/update/${id.value}`,
+    DeleteForm :(id: FormId)  => `${prefix}/forms/${id.value}`,
   },
   Common:{
     HealthCheck:()  => `${prefix}/health-check`

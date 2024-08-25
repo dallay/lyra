@@ -81,6 +81,9 @@ importers:
 
   apps/lyra-app:
     dependencies:
+      '@formkit/auto-animate':
+        specifier: ^0.8.2
+        version: 0.8.2
       '@internationalized/date':
         specifier: ^3.5.5
         version: 3.5.5
@@ -1484,6 +1487,9 @@ packages:
 
   '@fontsource-variable/onest@5.0.4':
     resolution: {integrity: sha512-AgdtsALwfkuLuL3dMCCX/ag27ho7yMKNIrkX5AKYKsPDm5u6mrTZ0LcO9jtMI7Z4ant7Huf9c2QtPdK3az/mow==}
+
+  '@formkit/auto-animate@0.8.2':
+    resolution: {integrity: sha512-SwPWfeRa5veb1hOIBMdzI+73te5puUBHmqqaF1Bu7FjvxlYSz/kJcZKSa9Cg60zL0uRNeJL2SbRxV6Jp6Q1nFQ==}
 
   '@iconify-json/carbon@1.1.37':
     resolution: {integrity: sha512-Hj9oZtRmN63yt29YovqgqOJQhaoVMNMTkFLT3HKAJm4HjvI405Juez5UfdysYmLjF708U7gJNx4U6K1k5+fTBw==}
@@ -9792,6 +9798,8 @@ snapshots:
       - vue
 
   '@fontsource-variable/onest@5.0.4': {}
+
+  '@formkit/auto-animate@0.8.2': {}
 
   '@iconify-json/carbon@1.1.37':
     dependencies:

@@ -173,7 +173,7 @@ class SecurityConfiguration(
                 "/swagger-ui/**", "/webjars/**", "/api-docs/**", "/swagger-ui.html",
                 "/v3/api-docs/**", "/v3/api-docs.yaml",
             ).permitAll()
-            .pathMatchers(HttpMethod.GET, "/api/forms/{id}").permitAll()
+            .pathMatchers(HttpMethod.GET, "/api/organization/{organizationId}/form/{formId}").permitAll()
             .pathMatchers("/actuator/**").authenticated()
             .pathMatchers("/api/**").authenticated()
             .pathMatchers("/management/health").permitAll()

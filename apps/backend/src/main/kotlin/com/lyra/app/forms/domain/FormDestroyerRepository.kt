@@ -7,7 +7,7 @@ interface FormDestroyerRepository {
     /**
      * Deletes a form with the given id.
      *
-     * @param id The id of the form to be deleted.
+     * @param formId The id of the form to be deleted.
      */
-    suspend fun delete(id: FormId)
+    suspend fun delete(formId: FormId)
 }

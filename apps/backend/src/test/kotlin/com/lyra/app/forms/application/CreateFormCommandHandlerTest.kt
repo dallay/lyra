@@ -28,7 +28,7 @@ internal class CreateFormCommandHandlerTest {
         formRepository = mockk()
         formCreator = FormCreator(formRepository, eventPublisher)
         createFormCommandHandler = CreateFormCommandHandler(formCreator)
-        form = FormStub.create()
+        form = FormStub.generateRandomForm()
 
         coEvery { formRepository.create(any()) } returns Unit
         coEvery { eventPublisher.publish(any(FormCreatedEvent::class)) } returns Unit

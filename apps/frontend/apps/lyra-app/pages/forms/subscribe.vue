@@ -20,6 +20,7 @@ import {
 import {Button} from "@/components/ui/button";
 import {useFormStore} from "~/store/form.store";
 import {storeToRefs} from '#imports';
+import { useTeamWatcher} from "~/composables/useTeamWatcher";
 import {type Form, FormResponse} from "@lyra/domain";
 import CreateOrEditSubscribeForm from "~/components/forms/CreateOrEditSubscribeForm.vue";
 import ViewSubscribeForm from "~/components/forms/ViewSubscribeForm.vue";
@@ -65,6 +66,8 @@ const viewForm = async (form: Form) => {
   newOrEditForm.value = FormResponse.from(form)
   openSheet.value = true
 }
+
+useTeamWatcher(fetchFormList);
 
 onMounted(async () => {
   await fetchFormList()

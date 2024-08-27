@@ -147,7 +147,7 @@ onMounted(async () => {
                 :value="team"
                 class="text-sm"
                 @select="() => {
-                  selectedTeam = team
+                  setSelectedTeam(team)
                   open = false
                 }"
               >

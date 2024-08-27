@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface FormR2dbcRepository :
     CoroutineCrudRepository<FormEntity, UUID>,
-    ReactiveSearchRepository<FormEntity>
+    ReactiveSearchRepository<FormEntity> {
+    suspend fun findByIdAndOrganizationId(id: UUID, organizationId: UUID): FormEntity?
+}

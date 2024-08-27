@@ -6,6 +6,7 @@ import com.lyra.app.forms.domain.FormRepository
 import com.lyra.app.forms.domain.dto.FormStyleConfiguration
 import com.lyra.app.forms.domain.event.FormUpdatedEvent
 import com.lyra.app.forms.domain.exception.FormNotFoundException
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.event.EventBroadcaster
 import com.lyra.common.domain.bus.event.EventPublisher
@@ -34,12 +35,14 @@ class FormUpdater(
      * Updates a form with the given id and DTO.
      * Throws a FormNotFoundException if the form is not found.
      *
-     * @param id The id of the form to update.
+     * @param organizationId The id of the organization that owns the form.
+     * @param formId The id of the form to update.
      * @param formStyleConfiguration The DTO containing the new form data.
      */
-    suspend fun update(id: FormId, formStyleConfiguration: FormStyleConfiguration) {
-        log.info("Updating form with name: ${formStyleConfiguration.name}")
-        val form = formFinderRepository.findById(id) ?: throw FormNotFoundException("Form not found")
+    suspend fun update(organizationId: OrganizationId, formId: FormId, formStyleConfiguration: FormStyleConfiguration) {
+        log.debug("Updating form with name: ${formStyleConfiguration.name}")
+        val form = formFinderRepository.findByFormIdAndOrganizationId(formId, organizationId)
+            ?: throw FormNotFoundException("Form not found")
         form.update(formStyleConfiguration)
         formRepository.update(form)
         val domainEvents = form.pullDomainEvents()

@@ -16,10 +16,11 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 @UnitTest
 internal class CreateFormControllerTest : ControllerTest() {
-    private val form = FormStub.create()
-    private val id = UUID.randomUUID().toString()
+    private val formId = UUID.randomUUID().toString()
+    private val organizationId = UUID.randomUUID().toString()
+    private val form = FormStub.create(id = formId, organizationId = organizationId)
     private val command = CreateFormCommand(
-        id = id,
+        id = formId,
         name = form.name,
         header = form.header,
         description = form.description,
@@ -29,7 +30,7 @@ internal class CreateFormControllerTest : ControllerTest() {
         backgroundColor = form.backgroundColor.hex,
         textColor = form.textColor.hex,
         buttonTextColor = form.buttonTextColor.hex,
-        organizationId = form.organizationId.toString(),
+        organizationId = form.organizationId.value.toString(),
     )
     private val controller = CreateFormController(mediator)
     override val webTestClient: WebTestClient = buildWebTestClient(controller)
@@ -52,11 +53,10 @@ internal class CreateFormControllerTest : ControllerTest() {
             backgroundColor = form.backgroundColor.hex,
             textColor = form.textColor.hex,
             buttonTextColor = form.buttonTextColor.hex,
-            organizationId = form.organizationId.toString(),
         )
 
         webTestClient.put()
-            .uri("/api/forms/$id")
+            .uri("/api/organization/$organizationId/form/$formId")
             .bodyValue(request)
             .exchange()
             .expectStatus().isCreated

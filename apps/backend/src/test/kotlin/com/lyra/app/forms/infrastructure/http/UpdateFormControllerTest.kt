@@ -17,11 +17,12 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 @UnitTest
 internal class UpdateFormControllerTest {
-    private val form = FormStub.create()
     private val mediator = mockk<Mediator>()
-    private val id = UUID.randomUUID().toString()
+    private val formId = UUID.randomUUID().toString()
+    private val organizationId = UUID.randomUUID().toString()
+    private val form = FormStub.create(id = formId, organizationId = organizationId)
     private val command = UpdateFormCommand(
-        id = id,
+        id = formId,
         name = form.name,
         header = form.header,
         description = form.description,
@@ -31,6 +32,7 @@ internal class UpdateFormControllerTest {
         backgroundColor = form.backgroundColor.hex,
         textColor = form.textColor.hex,
         buttonTextColor = form.buttonTextColor.hex,
+        organizationId = form.organizationId.value.toString(),
     )
     private val controller = UpdateFormController(mediator)
     private val webTestClient = WebTestClient.bindToController(controller).build()
@@ -54,7 +56,7 @@ internal class UpdateFormControllerTest {
             buttonTextColor = form.buttonTextColor.hex,
         )
         webTestClient.put()
-            .uri("/api/forms/update/$id")
+            .uri("/api/organization/${organizationId}/form/$formId/update")
             .bodyValue(request)
             .exchange()
             .expectStatus().isOk

@@ -21,11 +21,11 @@ const Routes = {
     CreateSubscriber: (id: SubscriberId) => `${prefix}/newsletter/subscribers/${id.value}`,
   },
   Form:{
-    FetchAll:()  => `${prefix}/forms`,
-    FetchDetail : (id: FormId) => `${prefix}/forms/${id.value}`,
-    CreateForm :(id: FormId)  => `${prefix}/forms/${id.value}`,
-    UpdateForm :(id: FormId)  => `${prefix}/forms/update/${id.value}`,
-    DeleteForm :(id: FormId)  => `${prefix}/forms/${id.value}`,
+    FetchAll:(organizationId: OrganizationId)  => `${prefix}/organization/${organizationId.value}/form`,
+    FetchDetail : (id: FormId) => `${prefix}/form/${id.value}`,
+    CreateForm :(organizationId: OrganizationId,id: FormId)  => `${prefix}/organization/${organizationId.value}/form/${id.value}`,
+    UpdateForm :(organizationId: OrganizationId,id: FormId)  => `${prefix}/organization/${organizationId.value}/form/${id.value}/update`,
+    DeleteForm :(organizationId: OrganizationId, id: FormId)  => `${prefix}/organization/${organizationId.value}/form/${id.value}`,
   },
   Common:{
     HealthCheck:()  => `${prefix}/health-check`

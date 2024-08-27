@@ -1,8 +1,11 @@
 package com.lyra.app.forms.application.delete
 
+import com.lyra.app.forms.application.find.FormFinder
 import com.lyra.app.forms.domain.FormDestroyerRepository
 import com.lyra.app.forms.domain.FormId
 import com.lyra.app.forms.domain.event.FormDeletedEvent
+import com.lyra.app.forms.domain.exception.FormNotFoundException
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.event.EventBroadcaster
 import com.lyra.common.domain.bus.event.EventPublisher
@@ -17,6 +20,7 @@ import org.slf4j.LoggerFactory
 @Service
 class FormDestroyer(
     private val destroyer: FormDestroyerRepository,
+    private val finder: FormFinder,
     eventPublisher: EventPublisher<FormDeletedEvent>
 ) {
     private val eventPublisher = EventBroadcaster<FormDeletedEvent>()
@@ -28,12 +32,15 @@ class FormDestroyer(
     /**
      * Deletes a form with the given id.
      *
-     * @param id The id of the form to be deleted.
+     * @param organizationId The id of the organization that owns the form.
+     * @param formId The id of the form to be deleted.
      */
-    suspend fun delete(id: FormId) {
-        log.debug("Deleting form with id: {}", id)
-        destroyer.delete(id)
-        eventPublisher.publish(FormDeletedEvent(id.value.toString()))
+    suspend fun delete(organizationId: OrganizationId, formId: FormId) {
+        log.debug("Deleting form with ids: {}, {}", organizationId, formId)
+        val form =
+            finder.find(organizationId, formId) ?: throw FormNotFoundException("Form not found")
+        destroyer.delete(form.id)
+        eventPublisher.publish(FormDeletedEvent(formId.value.toString()))
     }
 
     companion object {

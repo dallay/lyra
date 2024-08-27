@@ -8,10 +8,8 @@ import org.springframework.http.MediaType
 import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.csrf
 import org.springframework.test.context.jdbc.Sql
 
-private const val ENDPOINT = "/api/forms/update"
-
 internal class UpdateFormControllerIntegrationTest : ControllerIntegrationTest() {
-    private val organizationId = "a0654720-35dc-49d0-b508-1f7df5d915f1"
+    private val organizationId = "7a27728a-8ef3-4070-b615-1d5ddf9a7863"
 
     @Test
     @Sql(
@@ -22,10 +20,10 @@ internal class UpdateFormControllerIntegrationTest : ControllerIntegrationTest()
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should update a new form`(): Unit = runBlocking {
-        val id = "1659d4ae-402a-4172-bf8b-0a5c54255587"
-        val request = FormStub.generateRequest(organizationId)
+        val formId = "1659d4ae-402a-4172-bf8b-0a5c54255587"
+        val request = FormStub.generateRequest()
         webTestClient.mutateWith(csrf()).put()
-            .uri("$ENDPOINT/$id")
+            .uri("/api/organization/$organizationId/form/$formId/update")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(request)
             .exchange()
@@ -44,9 +42,9 @@ internal class UpdateFormControllerIntegrationTest : ControllerIntegrationTest()
     )
     fun `should return 404 when form is not found`(): Unit = runBlocking {
         val id = "a5533c80-61f4-4db2-9fb7-191caa94e2bc"
-        val request = FormStub.generateRequest(organizationId)
+        val request = FormStub.generateRequest()
         webTestClient.mutateWith(csrf()).put()
-            .uri("$ENDPOINT/$id")
+            .uri("/api/organization/$organizationId/form/$id/update")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(request)
             .exchange()
@@ -56,7 +54,7 @@ internal class UpdateFormControllerIntegrationTest : ControllerIntegrationTest()
             .jsonPath("$.title").isEqualTo("Entity not found")
             .jsonPath("$.status").isEqualTo(404)
             .jsonPath("$.detail").isEqualTo("Form not found")
-            .jsonPath("$.instance").isEqualTo("$ENDPOINT/$id")
+            .jsonPath("$.instance").isEqualTo("/api/organization/$organizationId/form/$id/update")
             .jsonPath("$.errorCategory").isEqualTo("NOT_FOUND")
             .jsonPath("$.timestamp").isNotEmpty
             .consumeWith { response ->

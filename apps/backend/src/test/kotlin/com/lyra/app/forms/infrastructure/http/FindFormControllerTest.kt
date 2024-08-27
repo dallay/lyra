@@ -20,7 +20,8 @@ internal class FindFormControllerTest {
     private val mediator: Mediator = mockk()
     private lateinit var controller: FindFormController
     private lateinit var webTestClient: WebTestClient
-    private val id = UUID.randomUUID().toString()
+    private val formId = UUID.randomUUID().toString()
+    private val organizationId = UUID.randomUUID().toString()
 
     @BeforeEach
     fun setup() {
@@ -30,13 +31,13 @@ internal class FindFormControllerTest {
 
     @Test
     fun `should return form when form is found`() {
-        val form = FormStub.create()
-        val query = FindFormQuery(id)
+        val form = FormStub.create(organizationId = organizationId, id = formId)
+        val query = FindFormQuery(organizationId = organizationId, formId = formId)
         val response = FormResponse.from(form)
         coEvery { mediator.send(query) } returns response
 
         webTestClient.get()
-            .uri("/api/forms/$id")
+            .uri("/api/organization/$organizationId/form/$formId")
             .exchange()
             .expectStatus().isOk
             .expectBody(FormResponse::class.java)

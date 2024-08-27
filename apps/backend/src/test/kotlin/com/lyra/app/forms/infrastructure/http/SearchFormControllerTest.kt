@@ -21,11 +21,11 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
 
-private const val ENDPOINT = "/api/forms"
 private const val NUM_FORMS = 10
 
 @UnitTest
 internal class SearchFormControllerTest : ControllerTest() {
+    private val organizationId = "27172d5a-b88e-451c-9787-312706f4570d"
     private val rhsFilterParserFactory = mockk<RHSFilterParserFactory>()
     private val rhsFilterParser = mockk<RHSFilterParser<FormEntity>>()
     private val response = FormStub.dummyRandomFormPageResponse(NUM_FORMS)
@@ -51,7 +51,7 @@ internal class SearchFormControllerTest : ControllerTest() {
     @Test
     fun `should get all forms`() {
         val data: Collection<FormResponse> = response.data
-        webTestClient.get().uri(ENDPOINT)
+        webTestClient.get().uri("/api/organization/$organizationId/form")
             .exchange()
             .expectStatus().isOk
             .expectBody()
@@ -97,7 +97,7 @@ internal class SearchFormControllerTest : ControllerTest() {
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationId/form")
                     .queryParam("filter[name]", filter[FormEntity::name])
                     .queryParam("filter[header]", filter[FormEntity::header])
                     .queryParam("filter[description]", filter[FormEntity::description])
@@ -145,7 +145,7 @@ internal class SearchFormControllerTest : ControllerTest() {
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationId/form")
                     .queryParam("search", search)
                     .build()
             }
@@ -200,7 +200,7 @@ internal class SearchFormControllerTest : ControllerTest() {
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationId/form")
                     .queryParam("search", search)
                     .queryParam("filter[name]", filter[FormEntity::name])
                     .queryParam("filter[header]", filter[FormEntity::header])
@@ -236,7 +236,7 @@ internal class SearchFormControllerTest : ControllerTest() {
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationId/form")
                     .queryParam("sort", sort)
                     .build()
             }
@@ -268,7 +268,7 @@ internal class SearchFormControllerTest : ControllerTest() {
         val firstRequest = webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationId/form")
                     .queryParam("size", pageSize)
                     .build()
             }
@@ -286,7 +286,7 @@ internal class SearchFormControllerTest : ControllerTest() {
             webTestClient.get()
                 .uri { uriBuilder ->
                     uriBuilder
-                        .path(ENDPOINT)
+                        .path("/api/organization/$organizationId/form")
                         .queryParam("size", pageSize)
                         .queryParam("cursor", firstRequest.nextPageCursor)
                         .build()

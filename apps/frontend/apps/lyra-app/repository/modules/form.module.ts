@@ -2,7 +2,7 @@ import Routes from "../routes.client";
 import type {
    CreateFormRequest,
    FormId,
-   FormResponse,
+   FormResponse, OrganizationId,
    UpdateFormRequest
 } from "@lyra/domain";
 import type {ResponseData} from "@lyra/shared";
@@ -12,10 +12,10 @@ import {ACCEPT_HEADER} from "~/repository/factory";
 class FormModule extends SecureFetchFactory {
   private readonly RESOURCE = Routes.Form;
 
-  async fetchAll() {
+  async fetchAll(organizationId: OrganizationId) {
     return this.call<ResponseData<FormResponse>>(
       {
-        method: 'GET', url: `${this.RESOURCE.FetchAll()}`,
+        method: 'GET', url: `${this.RESOURCE.FetchAll(organizationId)}`,
         fetchOptions:{
           headers: {
             ...(this.accessToken ? {
@@ -27,10 +27,10 @@ class FormModule extends SecureFetchFactory {
     )
   }
 
-  async createForm(id: FormId, dto : CreateFormRequest) {
+  async createForm(organizationId: OrganizationId,formId: FormId, dto : CreateFormRequest) {
     return this.call<FormResponse>(
       {
-        method: 'PUT', url: `${this.RESOURCE.CreateForm(id)}`,body:dto, fetchOptions: {
+        method: 'PUT', url: `${this.RESOURCE.CreateForm(organizationId, formId)}`,body:dto, fetchOptions: {
           headers: {
             ...(this.accessToken ? {
               'Authorization': `Bearer ${this.accessToken}`
@@ -42,10 +42,10 @@ class FormModule extends SecureFetchFactory {
     )
   }
 
-  async updateForm(id: FormId, dto : UpdateFormRequest) {
+  async updateForm(organizationId: OrganizationId,formId: FormId, dto : UpdateFormRequest) {
     return this.call<FormResponse>(
       {
-        method: 'PUT', url: `${this.RESOURCE.UpdateForm(id)}`,body:dto, fetchOptions: {
+        method: 'PUT', url: `${this.RESOURCE.UpdateForm(organizationId, formId)}`,body:dto, fetchOptions: {
           headers: {
             ...(this.accessToken ? {
               'Authorization': `Bearer ${this.accessToken}`
@@ -57,9 +57,9 @@ class FormModule extends SecureFetchFactory {
     )
   }
 
-  async deleteForm(id: FormId) {
+  async deleteForm(organizationId: OrganizationId,formId: FormId) {
     return this.call({
-      method: 'DELETE', url: `${this.RESOURCE.DeleteForm(id)}`, fetchOptions: {
+      method: 'DELETE', url: `${this.RESOURCE.DeleteForm(organizationId,formId)}`, fetchOptions: {
         headers: {
           ...(this.accessToken ? {
             'Authorization': `Bearer ${this.accessToken}`

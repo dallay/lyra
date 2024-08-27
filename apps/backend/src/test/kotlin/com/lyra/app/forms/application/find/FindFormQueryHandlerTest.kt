@@ -5,6 +5,7 @@ import com.lyra.app.forms.FormStub
 import com.lyra.app.forms.application.FormResponse
 import com.lyra.app.forms.domain.FormId
 import com.lyra.app.forms.domain.exception.FormNotFoundException
+import com.lyra.app.organization.domain.OrganizationId
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -30,34 +31,43 @@ internal class FindFormQueryHandlerTest {
     @Test
     fun `should return form response when form is found`() = runBlocking {
         // Given
-        val id = UUID.randomUUID().toString()
-        val formId = FormId(id)
-        val form = FormStub.create()
+        val formUuid = UUID.randomUUID().toString()
+        val organizaitionUuid = UUID.randomUUID().toString()
+        val formId = FormId(formUuid)
+        val organizationId = OrganizationId(organizaitionUuid)
+        val form = FormStub.create(id = formUuid, organizationId = organizaitionUuid)
         val formResponse = FormResponse.from(form)
-        coEvery { formFinder.find(formId) } returns form
+        coEvery {
+            formFinder.find(
+                organizationId = organizationId,
+                formId = formId,
+            )
+        } returns form
 
         // When
-        val result = findFormQueryHandler.handle(FindFormQuery(id))
+        val result = findFormQueryHandler.handle(FindFormQuery(organizationId = organizaitionUuid, formId = formUuid))
 
         // Then
         assertEquals(formResponse, result)
-        coVerify(exactly = 1) { formFinder.find(formId) }
+        coVerify(exactly = 1) { formFinder.find(organizationId, formId) }
     }
 
     @Test
     fun `should throw exception when form is not found`() {
         // Given
-        val id = UUID.randomUUID().toString()
-        val formId = FormId(id)
-        coEvery { formFinder.find(formId) } returns null
+        val formUuid = UUID.randomUUID().toString()
+        val organizationUuid = UUID.randomUUID().toString()
+        val formId = FormId(formUuid)
+        val organizationId = OrganizationId(organizationUuid)
+        coEvery { formFinder.find(organizationId = organizationId, formId = formId) } returns null
 
         // Then
         assertThrows(FormNotFoundException::class.java) {
             // When
             runBlocking {
-                findFormQueryHandler.handle(FindFormQuery(id))
+                findFormQueryHandler.handle(FindFormQuery(organizationId = organizationUuid, formId = formUuid))
             }
         }
-        coVerify(exactly = 1) { formFinder.find(formId) }
+        coVerify(exactly = 1) { formFinder.find(organizationId, formId) }
     }
 }

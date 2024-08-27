@@ -69,6 +69,14 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         return problemDetail
     }
 
+    /**
+     * Handles IllegalArgumentExceptions by creating a ProblemDetail object with the appropriate status,
+     * detail and properties.
+     * @param e The IllegalArgumentException that was thrown.
+     * @return The ProblemDetail object representing the exception.
+     * @see ProblemDetail
+     * @see HttpStatus
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(
         IllegalArgumentException::class,

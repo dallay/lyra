@@ -9,8 +9,7 @@ export default class CreateFormRequest {
 		public readonly buttonColor: string,
 		public readonly backgroundColor: string,
 		public readonly textColor: string,
-		public readonly buttonTextColor: string,
-		public readonly organizationId: string
+		public readonly buttonTextColor: string
 	) {
     this.id = id;
     this.name = name;
@@ -22,6 +21,5 @@ export default class CreateFormRequest {
     this.backgroundColor = backgroundColor;
     this.textColor = textColor;
     this.buttonTextColor = buttonTextColor;
-    this.organizationId = organizationId;
   }
 }

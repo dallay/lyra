@@ -56,7 +56,7 @@ internal class UpdateFormControllerTest {
             buttonTextColor = form.buttonTextColor.hex,
         )
         webTestClient.put()
-            .uri("/api/organization/${organizationId}/form/$formId/update")
+            .uri("/api/organization/$organizationId/form/$formId/update")
             .bodyValue(request)
             .exchange()
             .expectStatus().isOk

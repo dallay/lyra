@@ -36,7 +36,7 @@ internal class UpdateFormCommandHandlerTest {
         coEvery {
             formFinderRepository.findByFormIdAndOrganizationId(
                 eq(form.id),
-                eq(form.organizationId)
+                eq(form.organizationId),
             )
         } returns form
         coEvery { eventPublisher.publish(any(FormUpdatedEvent::class)) } returns Unit

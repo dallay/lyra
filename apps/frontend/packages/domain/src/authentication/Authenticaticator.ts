@@ -1,9 +1,9 @@
-import type AccessToken from "~/authentication/domain/AccessToken.ts";
+import type AccessToken from "./AccessToken.ts";
 
 /**
  * Interface representing an authentication service.
  */
-export default interface AuthenticationService {
+export default interface Authenticaticator {
   /**
    * Log in with the given username and password.
    * @param {string} username - The username of the user.

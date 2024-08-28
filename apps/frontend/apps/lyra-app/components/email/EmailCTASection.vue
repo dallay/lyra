@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import type { HTMLAttributes } from 'vue';
 
-// Define the props with default values
 const props = withDefaults(
   defineProps<{
     class?: HTMLAttributes['class'];
@@ -30,16 +29,6 @@ const props = withDefaults(
 
 
 const identifier = ref(crypto.randomUUID());
-
-// Watch for changes in props (if necessary)
-watch(
-  () => props,
-  (newProps) => {
-    // Handle any specific logic if needed when props change
-    console.log('Props updated:', newProps);
-  },
-  { deep: true }
-);
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 import type { CriteriaParam, PageResponse, QuerySort } from '~/types/types.ts';
-import type FormResponse from '~/forms/domain/FormResponse.ts';
+import type FormResponse from '~/forms/FormResponse.ts';
 
 export default interface FormFinderRepository {
 	search(

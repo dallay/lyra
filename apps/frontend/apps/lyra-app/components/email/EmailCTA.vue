@@ -45,8 +45,6 @@ const flux = reactive<{
   buttonColor: props.buttonColor,
   buttonTextColor: props.buttonTextColor,
 });
-
-// Watch for changes in props and update `flux` accordingly
 watch(
   () => props,
   (newProps) => {
@@ -81,7 +79,8 @@ const onSubmit = form.handleSubmit((values) => {
           <FormControl>
             <Input type="email" :placeholder="flux.placeholder" v-bind="componentField"
                    :style="{
-                      border: `solid ${flux.buttonColor}`
+                      border: `solid ${flux.buttonColor}`,
+                      color: flux.buttonTextColor,
                     }"
             />
           </FormControl>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {defineEmits, defineProps, ref, computed} from 'vue';
+import {computed, defineEmits, defineProps, ref} from 'vue';
 import {FormId, type FormResponse} from '@lyra/domain';
 import {Separator} from '~/components/ui/separator';
 import {cn} from '~/lib/utils';
@@ -51,7 +51,7 @@ interface SectionCode {
 const sectionCodes: Record<string, SectionCode> = {
   full: {
     width: '100%',
-    height: '320',
+    height: '220px',
     frameborder: '0',
     scrolling: 'no',
     style: 'border-radius: 4px; border: 2px solid #e5e7eb; margin: 0; background-color: transparent;',
@@ -59,14 +59,14 @@ const sectionCodes: Record<string, SectionCode> = {
   },
   fixed: {
     width: '320px',
-    height: '320',
+    height: '220px',
     frameborder: '0',
     scrolling: 'no',
     style: 'border-radius: 4px; border: 2px solid #e5e7eb; margin: 0; background-color: transparent;',
     paragraph: 'Embed this code directly in-line with your website, and it will expand to the specified maximum width.',
   },
   slim: {
-    height: '52',
+    height: '52px',
     frameborder: '0',
     scrolling: 'no',
     style: 'margin: 0; border-radius: 0px !important; background-color: transparent;',
@@ -157,7 +157,9 @@ const copyToClipboard = (iframeCode: string) => {
       <iframe
         :src="type === 'slim' ? `${embedsForm.url}?slim=true` : embedsForm.url"
         :data-test-id="embedsForm.id"
-        v-bind="{ width: sectionCodes[type].width, height: sectionCodes[type].height, frameborder: sectionCodes[type].frameborder, scrolling: sectionCodes[type].scrolling, style: sectionCodes[type].style }">
+        v-bind="{ width: sectionCodes[type].width, height: sectionCodes[type].height, frameborder: sectionCodes[type].frameborder, scrolling: sectionCodes[type].scrolling, style: sectionCodes[type].style }"
+        class="w-full flex justify-center items-center"
+      >
       </iframe>
     </section>
 

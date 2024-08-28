@@ -1,11 +1,12 @@
 import { describe, beforeEach, it, expect } from 'vitest';
-import Form from '@/forms/domain/Form.ts';
-import FormId from '@/forms/domain/FormId.ts';
-import HexColor from '@/forms/domain/HexColor.ts';
+import Form from './Form.ts';
+import FormId from './FormId.ts';
+import HexColor from './HexColor.ts';
 
 describe('Form', () => {
   let form: Form;
-  const id = crypto.randomUUID();
+  const id: string = crypto.randomUUID();
+  const organizationId: string = crypto.randomUUID();
 
   beforeEach(() => {
     form = Form.fromPrimitives({
@@ -19,6 +20,7 @@ describe('Form', () => {
       backgroundColor: '#FFFFFF',
       textColor: '#000000',
       buttonTextColor: '#FFFFFF',
+      organizationId
     });
   });
 

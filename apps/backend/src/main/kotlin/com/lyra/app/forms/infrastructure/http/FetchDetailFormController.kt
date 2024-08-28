@@ -1,8 +1,7 @@
 package com.lyra.app.forms.infrastructure.http
 
 import com.lyra.app.AppConstants.Paths.API
-import com.lyra.app.AppConstants.Paths.FORMS_ID
-import com.lyra.app.forms.application.find.FindFormQuery
+import com.lyra.app.forms.application.details.DetailFormQuery
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.common.domain.bus.query.Response
 import com.lyra.spring.boot.ApiController
@@ -15,26 +14,38 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * Controller for fetching form details.
+ *
+ * @property mediator The mediator used to handle queries.
+ */
 @RestController
 @RequestMapping(value = [API], produces = ["application/vnd.api.v1+json"])
-class FindFormController(
+class FetchDetailFormController(
     mediator: Mediator,
 ) : ApiController(mediator) {
-    @Operation(summary = "Find a form by ID")
+
+    /**
+     * Fetches form details by form ID.
+     *
+     * @param formId The ID of the form to fetch.
+     * @return The response containing form details.
+     */
+    @Operation(summary = "Fetch form details")
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "Found form"),
         ApiResponse(responseCode = "404", description = "Form not found"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @GetMapping(FORMS_ID)
-    suspend fun find(@PathVariable organizationId: String, @PathVariable formId: String): Response {
-        log.debug("Finding form with ids: {}", sanitizeAndJoinPathVariables(organizationId, formId))
-        val query = FindFormQuery(organizationId = organizationId, formId = formId)
+    @GetMapping("/form/{formId}")
+    suspend fun find(@PathVariable formId: String): Response {
+        log.debug("Finding form with ids: {}", sanitizeAndJoinPathVariables(formId))
+        val query = DetailFormQuery(formId)
         val response = ask(query)
         return response
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(FindFormController::class.java)
+        private val log = LoggerFactory.getLogger(FetchDetailFormController::class.java)
     }
 }

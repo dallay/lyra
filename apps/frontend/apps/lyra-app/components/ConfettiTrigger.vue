@@ -21,7 +21,7 @@ declare global {
   interface Window extends JSConfettiApi {}
 }
 
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Vue/Nuxt.
+
 const triggerEl = ref<HTMLElement>()
 
 // Load the js-confetti script
@@ -37,7 +37,7 @@ const { $script } = useScriptNpm<JSConfettiApi>({
   },
 })
 
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Vue/Nuxt.
+
 const triggerConfetti = () => {
   $script.then(({ JSConfetti }) => {
     const confetti = new JSConfetti()

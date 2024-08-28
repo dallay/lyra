@@ -1,3 +1,4 @@
+import { defineNuxtConfig } from 'nuxt/config'
 const { API_URL, BACKEND_URL, APP_CLIENT_URL } = process.env;
 const defaultServer = 'http://localhost:8080';
 const defaultClient = 'https://localhost:4000';

@@ -1,7 +1,7 @@
 package com.lyra.app.forms.infrastructure.http
 
 import com.lyra.app.AppConstants.Paths.API
-import com.lyra.app.AppConstants.Paths.FORMS_ID_V1
+import com.lyra.app.AppConstants.Paths.FORMS_ID
 import com.lyra.app.forms.application.CreateFormCommand
 import com.lyra.app.forms.infrastructure.http.request.CreateFormRequest
 import com.lyra.common.domain.bus.Mediator
@@ -44,7 +44,7 @@ class CreateFormController(
         ApiResponse(responseCode = "201", description = "Created"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @PutMapping(FORMS_ID_V1)
+    @PutMapping(FORMS_ID)
     suspend fun create(
         @PathVariable organizationId: String,
         @PathVariable formId: String,
@@ -66,7 +66,7 @@ class CreateFormController(
                 organizationId,
             ),
         )
-        val url = FORMS_ID_V1.replace("{organizationId}", organizationId).replace("{formId}", formId)
+        val url = FORMS_ID.replace("{organizationId}", organizationId).replace("{formId}", formId)
         return ResponseEntity.created(URI.create("$API$url")).build()
     }
 

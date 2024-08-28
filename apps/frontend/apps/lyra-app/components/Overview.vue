@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { BarChart } from '@/components/ui/chart-bar'
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Vue/Nuxt.
+
 const data = [
   { name: 'Jan', total: Math.floor(Math.random() * 5000) + 1000 },
   { name: 'Feb', total: Math.floor(Math.random() * 5000) + 1000 },

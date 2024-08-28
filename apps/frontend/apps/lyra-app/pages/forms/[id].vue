@@ -2,13 +2,18 @@
 import { reactive, onMounted } from 'vue';
 import { useNuxtApp, useRoute } from '#app';
 import { FormResponse, FormId } from '@lyra/domain';
+import { useFormStore } from "~/store/form.store";
+import { definePageMeta } from '#imports'
+definePageMeta({
+  layout: 'simple'
+})
 
+const formStore = useFormStore();
 const route = useRoute();
 
 const id = route.params.id;
 const idValue = typeof id === 'string' ? id : id[0];
 const formId = FormId.create(idValue);
-// biome-ignore lint/correctness/noUnusedVariables: this is a false positive as the variable is used in the template
 const slim: boolean = route.query.slim === 'true';
 
 const flux = reactive<{
@@ -27,20 +32,21 @@ const flux = reactive<{
     buttonTextColor: '#FFFFFF',
     createdAt: new Date().toDateString(),
     updatedAt: new Date().toDateString(),
+    organizationId: 'af0346d6-a138-4c63-b41f-1cfd1b01dc4d',
   },
 });
 
-const { $api } = useNuxtApp();
-
-onMounted(() => {
-  $api.form
-  .fetchDetail(formId)
-  .then((data) => {
-    flux.form = data;
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+onMounted(async () => {
+  try {
+    console.log('Form ID:', formId);
+    const response = await formStore.formDetail(formId);
+    console.log('Form details:', response);
+    if (response) {
+      flux.form = response;
+    }
+  } catch (error) {
+    console.error('Error fetching form details:', error);
+  }
 });
 </script>
 

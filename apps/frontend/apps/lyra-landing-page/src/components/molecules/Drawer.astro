@@ -1,6 +1,6 @@
 ---
 import HamMenu from '../atoms/HamMenu.astro';
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro.
+
 interface Props {
 	id: string;
 	// tabindex: number | string
@@ -10,12 +10,12 @@ interface Props {
 const {
 	id = 'drawer-top-example',
 	ariaLabelledby = 'drawer-top-label',
-  // biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro.
+
 	...attributes
 } = Astro.props;
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro.
+
 const triggerId = `ham-menu-drawer-${id}`;
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro.
+
 const navMenuDrawer = `nav-menu-drawer-${id}`;
 ---
 

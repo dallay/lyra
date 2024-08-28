@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useRouter, onMounted, ref, randomNumber, avatar} from '#imports';
+import {useRouter, onMounted, ref, randomNumber, avatar, navigateTo, watchEffect} from '#imports';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth.store';
 import {

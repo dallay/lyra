@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
+import  { useCookie } from "#app";
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth.store';
 import { cn } from '@/lib/utils';
@@ -61,7 +62,6 @@ const handleAuthentication = async (values: { identifier: string; password: stri
   }
 };
 
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Vue/Nuxt.
 const onSubmit = form.handleSubmit(handleAuthentication);
 
 watch([isAuthenticated, accessToken], async ([isAuthenticated]) => {

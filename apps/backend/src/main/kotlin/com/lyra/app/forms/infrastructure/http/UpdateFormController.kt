@@ -1,7 +1,7 @@
 package com.lyra.app.forms.infrastructure.http
 
 import com.lyra.app.AppConstants.Paths.API
-import com.lyra.app.AppConstants.Paths.FORMS_ID_V1
+import com.lyra.app.AppConstants.Paths.FORMS_ID
 import com.lyra.app.forms.application.update.UpdateFormCommand
 import com.lyra.app.forms.infrastructure.http.request.UpdateFormRequest
 import com.lyra.common.domain.bus.Mediator
@@ -45,7 +45,7 @@ class UpdateFormController(
         ApiResponse(responseCode = "400", description = "Bad request error (validation error)"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @PutMapping("${FORMS_ID_V1}/update")
+    @PutMapping("${FORMS_ID}/update")
     suspend fun update(
         @PathVariable organizationId: String,
         @PathVariable formId: String,

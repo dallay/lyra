@@ -6,7 +6,7 @@ const publicRoutePatterns = [
   /^\/forms\/[a-zA-Z0-9-]+$/
 ];
 
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware((to, _) => {
   const { accessToken } = storeToRefs(useAuthStore());
 
   const redirectCookie = useCookie('redirectPath');

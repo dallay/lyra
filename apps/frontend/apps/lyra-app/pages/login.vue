@@ -4,7 +4,7 @@ definePageMeta({
   layout: 'simple'
 })
 import UserAuthForm from '@/components/UserAuthForm.vue'
-// biome-ignore lint/correctness/noUnusedVariables: <explanation>
+
 const onError = async (event: Event) => {
   const target = event.target as HTMLImageElement;
   target.src = '/placeholder.svg';

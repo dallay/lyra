@@ -1,7 +1,7 @@
 ---
 import Card from './Card.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro.
+
 const highlights: CollectionEntry<string>[] = await getCollection('highlights');
 ---
 

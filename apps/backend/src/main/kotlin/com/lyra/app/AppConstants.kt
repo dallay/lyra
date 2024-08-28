@@ -15,7 +15,6 @@ object AppConstants {
         const val API = "/api"
         const val ORGANIZATIONS = "/organization"
         const val FORMS = "$ORGANIZATIONS/{organizationId}/form"
-        const val FORMS_ID_V1 = "$ORGANIZATIONS/{organizationId}/form/{formId}"
-        const val FORMS_ID = "/form/{formId}"
+        const val FORMS_ID = "$ORGANIZATIONS/{organizationId}/form/{formId}"
     }
 }

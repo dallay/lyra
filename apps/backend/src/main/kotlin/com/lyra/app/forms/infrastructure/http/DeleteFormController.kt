@@ -1,7 +1,7 @@
 package com.lyra.app.forms.infrastructure.http
 
 import com.lyra.app.AppConstants.Paths.API
-import com.lyra.app.AppConstants.Paths.FORMS_ID_V1
+import com.lyra.app.AppConstants.Paths.FORMS_ID
 import com.lyra.app.forms.application.delete.DeleteFormCommand
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.spring.boot.ApiController
@@ -41,7 +41,7 @@ class DeleteFormController(
         ApiResponse(responseCode = "404", description = "Organization not found"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @DeleteMapping(FORMS_ID_V1)
+    @DeleteMapping(FORMS_ID)
     @ResponseStatus(HttpStatus.OK)
     suspend fun delete(
         @PathVariable organizationId: String,

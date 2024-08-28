@@ -73,13 +73,12 @@ describe('FormController', () => {
       form.backgroundColor.value,
       form.textColor.value,
       form.buttonTextColor.value,
-      form.organizationId,
     );
     formRepository.create.mockResolvedValue();
 
     await formController.create(request);
 
-    expect(formRepository.create).toHaveBeenCalledWith(Form.fromPrimitives(request));
+    expect(formRepository.create).toHaveBeenCalledWith(Form.fromPrimitives({ ...request, organizationId: form.organizationId }));
   });
 
   it('finds all forms successfully', async () => {

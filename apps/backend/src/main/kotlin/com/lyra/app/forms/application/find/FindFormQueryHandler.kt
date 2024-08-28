@@ -28,7 +28,7 @@ class FindFormQueryHandler(
      * @throws [FormNotFoundException] If the form is not found.
      */
     override suspend fun handle(query: FindFormQuery): FormResponse {
-        log.info("Finding form with ids: ${query.organizationId}, ${query.formId}")
+        log.debug("Finding form with ids: ${query.organizationId}, ${query.formId}")
         val formId = FormId(query.formId)
         val organizationId = OrganizationId(query.organizationId)
         val form = finder.find(organizationId, formId) ?: throw FormNotFoundException("Form not found")

@@ -70,17 +70,10 @@ class FormModule extends SecureFetchFactory {
     })
   }
 
-  async fetchDetail(id : FormId) {
+  async fetchDetail(formId: FormId) {
     return this.call<FormResponse>(
       {
-        method: 'GET', url: `${this.RESOURCE.FetchDetail(id)}`, fetchOptions: {
-          headers: {
-            ...(this.accessToken ? {
-              'Authorization': `Bearer ${this.accessToken}`
-            } : {})
-          },
-
-        }
+        method: 'GET', url: `${this.RESOURCE.FetchDetail(formId)}`, fetchOptions: {}
       }
     )
   }

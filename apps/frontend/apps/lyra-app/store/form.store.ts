@@ -78,5 +78,13 @@ const deleteForm = async (formId: FormId) => {
   }
 };
 
-	return { formList, fetchFormList, createForm , updateForm, deleteForm};
+const formDetail = (formId: FormId) => {
+  try{
+    return $api.form.fetchDetail(formId);
+  } catch (error) {
+    console.error(`formDetail error:${error}`);
+  }
+};
+
+	return { formList, fetchFormList, createForm , updateForm, deleteForm, formDetail};
 });

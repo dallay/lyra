@@ -28,7 +28,7 @@ const props = withDefaults(
   }
 );
 
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Vue/Nuxt.
+
 const identifier = ref(crypto.randomUUID());
 
 // Watch for changes in props (if necessary)

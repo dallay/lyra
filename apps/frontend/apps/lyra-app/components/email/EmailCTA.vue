@@ -66,7 +66,7 @@ const formSchema = toTypedSchema(
 const form = useForm({
   validationSchema: formSchema,
 });
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Vue/Nuxt.
+
 const onSubmit = form.handleSubmit((values) => {
   console.log('Form submitted!', values);
   alert('Form submitted! We need to implement the API call here.');

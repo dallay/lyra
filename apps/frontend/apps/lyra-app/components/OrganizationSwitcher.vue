@@ -64,7 +64,7 @@ const open = ref(false);
 const showNewTeamDialog = ref(false);
 
 
-const onSubmit = async (values: any) => {
+const onSubmit = async (values: { name: string }) => {
   try {
     const { teamId } = selectedTeam.value ?? {};
     if (!teamId) {

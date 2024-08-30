@@ -48,7 +48,7 @@ class HttpFactory {
 		});
 	}
 
-  private async buildHeaders() {
+  protected async buildHeaders(): Promise<HeadersInit> {
 		const headers: HeadersInit = {
 			Accept: ACCEPT_HEADER,
 		};

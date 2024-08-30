@@ -11,8 +11,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
 
-private const val ENDPOINT = "/api/newsletter/subscribers"
-
 @UnitTest
 internal class NewsletterSubscriberControllerTest {
     private val mediator = mockk<Mediator>()
@@ -36,11 +34,10 @@ internal class NewsletterSubscriberControllerTest {
             email = email,
             firstname = firstname,
             lastname = lastname,
-            organizationId = organizationId,
         )
 
         webTestClient.put()
-            .uri("$ENDPOINT/$id")
+            .uri("/api/organization/$organizationId/newsletter/subscriber/$id")
             .bodyValue(request)
             .exchange()
             .expectStatus().isCreated

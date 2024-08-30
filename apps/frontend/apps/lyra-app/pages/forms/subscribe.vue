@@ -87,19 +87,19 @@ onMounted(async () => {
             <Button variant="default" class="mt-6" @click="createForm">Create new form</Button>
           </SheetTrigger>
         </header>
-        <SheetContent class="w-screen max-w-xl px-4 overflow-y-scroll">
-            <SheetHeader class="mb-8"
-                         v-if="formEditOrViewOperation === 'edit' || formEditOrViewOperation === 'create'">
-              <SheetTitle>{{ subscribeFormTitle }}</SheetTitle>
-              <SheetDescription>
-                {{ subscribeFormDescription }}
-              </SheetDescription>
-            </SheetHeader>
-            <CreateOrEditSubscribeForm
-              v-if="formEditOrViewOperation === 'edit' || formEditOrViewOperation === 'create'"
-              :form="newOrEditForm" @close="handleClose"/>
-            <ViewSubscribeForm v-else-if="formEditOrViewOperation === 'view'" :form="newOrEditForm"
-                               @close="handleClose"/>
+        <SheetContent class="p-4 w-screen max-w-xl overflow-y-scroll">
+          <SheetHeader class="mb-8"
+                       v-if="formEditOrViewOperation === 'edit' || formEditOrViewOperation === 'create'">
+            <SheetTitle>{{ subscribeFormTitle }}</SheetTitle>
+            <SheetDescription>
+              {{ subscribeFormDescription }}
+            </SheetDescription>
+          </SheetHeader>
+          <CreateOrEditSubscribeForm
+            v-if="formEditOrViewOperation === 'edit' || formEditOrViewOperation === 'create'"
+            :form="newOrEditForm" @close="handleClose"/>
+          <ViewSubscribeForm v-else-if="formEditOrViewOperation === 'view'" :form="newOrEditForm"
+                             @close="handleClose"/>
         </SheetContent>
         <Table>
           <TableCaption>A list of your recent forms.</TableCaption>

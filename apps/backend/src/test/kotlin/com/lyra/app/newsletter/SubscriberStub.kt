@@ -78,7 +78,6 @@ object SubscriberStub {
 
     @Suppress("MultilineRawStringIndentation")
     fun generateRequest(
-        organizationId: String,
         email: String = faker.internet().emailAddress(),
         firstname: String = faker.name().firstName(),
         lastname: String = faker.name().lastName(),
@@ -86,8 +85,7 @@ object SubscriberStub {
       {
            "email": "$email",
            "firstname": "$firstname",
-           "lastname": "$lastname",
-           "organizationId": "$organizationId"
+           "lastname": "$lastname"
        }
     """.trimIndent()
 

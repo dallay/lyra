@@ -69,6 +69,8 @@ onMounted(async () => {
     :buttonText="form.buttonText"
     :buttonColor="form.buttonColor"
     :buttonTextColor="form.buttonTextColor"
+    :backgroundColor="form.backgroundColor"
+    :organizationId="form.organizationId"
     class="flex w-full flex-col items-start justify-center"
   />
   <EmailCTASection
@@ -81,6 +83,7 @@ onMounted(async () => {
     :buttonTextColor="form.buttonTextColor"
     :backgroundColor="form.backgroundColor"
     :textColor="form.textColor"
+    :organizationId="form.organizationId"
     class="flex w-full flex-col items-start justify-center"
   />
 </template>

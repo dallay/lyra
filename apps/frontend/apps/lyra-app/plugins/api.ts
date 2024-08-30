@@ -21,7 +21,7 @@ export interface IApiInstance {
   organization: OrganizationModule;
   team: TeamModule;
   teamMember: TeamMemberModule;
-  subscriberModule: SubscriberModule;
+  subscriber: SubscriberModule;
 }
 
 /**
@@ -54,7 +54,7 @@ async  function retryRequest(request: Request | string, newAccessToken: AccessTo
 }
 
 /**
- * Type guard para verificar si un módulo es una instancia de SecureFetchFactory.
+ * Type guard to verify if a module is an instance of SecureFetchFactory.
  */
 function isSecureFetchFactory(module: FetchFactory): module is SecureFetchFactory {
   return module instanceof SecureFetchFactory;
@@ -95,7 +95,7 @@ export default defineNuxtPlugin(async (_) => {
       }
     },
     onResponse: async ({ request, response }) => {
-      if (response.status === 401 || response.status === 403) {
+      if (response.status === 401) {
         try {
           const newAccessToken = await authModule.refreshToken();
           if (newAccessToken) {
@@ -123,7 +123,7 @@ export default defineNuxtPlugin(async (_) => {
     organization: organizationModule,
     team: teamModule,
     teamMember: teamMemberModule,
-    subscriberModule: subscriberModule,
+    subscriber: subscriberModule,
   };
 
   if (import.meta.client) {

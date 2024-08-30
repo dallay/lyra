@@ -13,6 +13,8 @@ const props = withDefaults(
     buttonTextColor?: string;
     backgroundColor?: string;
     textColor?: string;
+    uppercase?: boolean;
+    organizationId: string;
   }>(),
   {
     class: 'w-full max-w-md space-y-2 flex flex-col items-center justify-center',
@@ -24,6 +26,7 @@ const props = withDefaults(
     buttonTextColor: '#F3F4F6',
     backgroundColor: '#111827',
     textColor: '#9BA3AF',
+    uppercase: false,
   }
 );
 
@@ -53,6 +56,9 @@ const identifier = ref(crypto.randomUUID());
           :buttonText="props.buttonText"
           :buttonColor="props.buttonColor"
           :buttonTextColor="props.buttonTextColor"
+          :background-color="props.backgroundColor"
+          :uppercase="props.uppercase"
+          :organizationId="props.organizationId"
         />
       </div>
     </div>

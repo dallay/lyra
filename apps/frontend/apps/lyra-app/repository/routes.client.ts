@@ -18,7 +18,9 @@ const Routes = {
     Logout:()  => `${prefix}/logout`
   },
   Subscriber: {
-    CreateSubscriber: (id: SubscriberId) => `${prefix}/newsletter/subscribers/${id.value}`,
+    CreateSubscriber: (organizationId: OrganizationId,
+                       subscribeId: SubscriberId) =>
+      `${prefix}/organization/${organizationId.value}/newsletter/subscriber/${subscribeId.value}`,
   },
   Form:{
     FetchAll:(organizationId: OrganizationId)  => `${prefix}/organization/${organizationId.value}/form`,

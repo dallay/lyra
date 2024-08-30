@@ -38,7 +38,7 @@ class SubscriberRegistrator(
     suspend fun register(
         id: UUID,
         email: String,
-        firstName: String,
+        firstName: String? = null,
         lastName: String? = null,
         organizationId: UUID
     ) {

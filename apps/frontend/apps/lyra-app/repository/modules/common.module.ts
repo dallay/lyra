@@ -14,13 +14,11 @@ class CommonModule extends FetchFactory {
 		// check if the csrf token is already in the cookie. If exists do not fetch it again from the server
 		const xsrfToken = useCookie(XSRF_TOKEN_COOKIE).value;
 		if (xsrfToken) {
+      console.log('🧪 [XSRF_TOKEN]', xsrfToken);
 			return xsrfToken;
 		}
 		try {
-			const response = await this.call<string>({
-				method: 'GET',
-				url: `${this.RESOURCE.HealthCheck()}`,
-			});
+			const response = await this.healthCheck();
 			if (response !== 'OK') {
 				console.error('Failed to fetch CSRF token');
 				return '';
@@ -28,7 +26,7 @@ class CommonModule extends FetchFactory {
 		} catch (err) {
 			console.error('Error fetching CSRF token:', err);
 		}
-
+    console.log('🧪 [XSRF_TOKEN]', useCookie(XSRF_TOKEN_COOKIE).value || '');
 		return useCookie(XSRF_TOKEN_COOKIE).value || '';
 	}
 }

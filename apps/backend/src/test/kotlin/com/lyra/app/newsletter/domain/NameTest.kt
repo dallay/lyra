@@ -24,7 +24,7 @@ internal class NameTest {
         names.forEach { (firstname, lastname) ->
             println("Fullname: $firstname $lastname")
             val name = Name(firstname, lastname)
-            assertEquals(firstname, name.firstName.value)
+            assertEquals(firstname, name.firstName?.value)
             assertEquals(lastname, name.lastName?.value)
             assertEquals(name.fullName(), "$firstname $lastname")
         }
@@ -46,7 +46,7 @@ internal class NameTest {
     @Test
     fun `should build without lastname`() {
         val name = Name("Yuniel", null)
-        assertEquals("Yuniel", name.firstName.value)
+        assertEquals("Yuniel", name.firstName?.value)
         assertEquals(null, name.lastName?.value)
         assertEquals("Yuniel", name.fullName())
     }

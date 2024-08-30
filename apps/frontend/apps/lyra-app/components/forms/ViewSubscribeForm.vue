@@ -163,7 +163,7 @@ const copyToClipboard = (iframeCode: string) => {
       </iframe>
     </section>
 
-    <div class="flex justify-end mx-4">
+    <div class="flex justify-end mx-4 mt-4">
       <AlertDialog>
         <AlertDialogTrigger as-child>
           <Button :disabled="!form?.id" type="button" :loading="loading" variant="outline"

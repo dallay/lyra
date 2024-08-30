@@ -1,5 +1,7 @@
 package com.lyra.app.forms.infrastructure.http
 
+import com.lyra.app.AppConstants.Paths.API
+import com.lyra.app.AppConstants.Paths.FORMS_ID
 import com.lyra.app.forms.application.delete.DeleteFormCommand
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.spring.boot.ApiController
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController
  * It extends the ApiController class and uses the Mediator pattern for handling commands.
  */
 @RestController
-@RequestMapping(value = ["/api"], produces = ["application/vnd.api.v1+json"])
+@RequestMapping(value = [API], produces = ["application/vnd.api.v1+json"])
 class DeleteFormController(
     mediator: Mediator,
 ) : ApiController(mediator) {
@@ -39,13 +41,14 @@ class DeleteFormController(
         ApiResponse(responseCode = "404", description = "Organization not found"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @DeleteMapping("/$ENDPOINT_FORM/{id}")
+    @DeleteMapping(FORMS_ID)
     @ResponseStatus(HttpStatus.OK)
     suspend fun delete(
-        @PathVariable id: String
+        @PathVariable organizationId: String,
+        @PathVariable formId: String
     ) {
-        log.debug("Deleting form with id: $id")
-        dispatch(DeleteFormCommand(id))
+        log.debug("Deleting form with id: {}", sanitizeAndJoinPathVariables(organizationId, formId))
+        dispatch(DeleteFormCommand(organizationId, formId))
     }
 
     companion object {

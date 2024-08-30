@@ -6,11 +6,9 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.springframework.test.context.jdbc.Sql
 
-private const val ENDPOINT = "/api/forms"
-
 @IntegrationTest
 internal class FindFormControllerIntegrationTest : ControllerIntegrationTest() {
-
+    private val organizationId = "7a27728a-8ef3-4070-b615-1d5ddf9a7863"
     @Test
     @Sql(
         "/db/form/form.sql",
@@ -20,13 +18,13 @@ internal class FindFormControllerIntegrationTest : ControllerIntegrationTest() {
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should return form when form is found`(): Unit = runBlocking {
-        val id = "1659d4ae-402a-4172-bf8b-0a5c54255587"
+        val formId = "1659d4ae-402a-4172-bf8b-0a5c54255587"
         webTestClient.get()
-            .uri("$ENDPOINT/$id")
+            .uri("/api/organization/$organizationId/form/$formId")
             .exchange()
             .expectStatus().isOk
             .expectBody()
-            .jsonPath("$.id").isEqualTo(id)
+            .jsonPath("$.id").isEqualTo(formId)
             .jsonPath("$.name").isEqualTo("Programming newsletter v1")
             .jsonPath("$.header").isEqualTo("Juan's Newsletter")
             .jsonPath("$.description").isEqualTo("\uD83D\uDFE2 Some description \uD83D\uDD34")
@@ -45,9 +43,9 @@ internal class FindFormControllerIntegrationTest : ControllerIntegrationTest() {
 
     @Test
     fun `should return 404 when form is not found`(): Unit = runBlocking {
-        val id = "94be1a32-cf2e-4dfc-892d-bdd8ac7ad354"
+        val formId = "94be1a32-cf2e-4dfc-892d-bdd8ac7ad354"
         webTestClient.get()
-            .uri("$ENDPOINT/$id")
+            .uri("/api/organization/$organizationId/form/$formId")
             .exchange()
             .expectStatus().isNotFound
             .expectBody()
@@ -55,7 +53,7 @@ internal class FindFormControllerIntegrationTest : ControllerIntegrationTest() {
             .jsonPath("$.title").isEqualTo("Entity not found")
             .jsonPath("$.status").isEqualTo(404)
             .jsonPath("$.detail").isEqualTo("Form not found")
-            .jsonPath("$.instance").isEqualTo("$ENDPOINT/$id")
+            .jsonPath("$.instance").isEqualTo("/api/organization/$organizationId/form/$formId")
             .jsonPath("$.errorCategory").isEqualTo("NOT_FOUND")
             .jsonPath("$.timestamp").isNotEmpty
             .consumeWith { response ->

@@ -1,5 +1,7 @@
 package com.lyra.app.forms.infrastructure.http
 
+import com.lyra.app.AppConstants.Paths.API
+import com.lyra.app.AppConstants.Paths.FORMS_ID
 import com.lyra.app.forms.application.CreateFormCommand
 import com.lyra.app.forms.infrastructure.http.request.CreateFormRequest
 import com.lyra.common.domain.bus.Mediator
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController
  * @property mediator The [Mediator] for handling commands.
  */
 @RestController
-@RequestMapping(value = ["/api"], produces = ["application/vnd.api.v1+json"])
+@RequestMapping(value = [API], produces = ["application/vnd.api.v1+json"])
 class CreateFormController(
     private val mediator: Mediator,
 ) : ApiController(mediator) {
@@ -42,15 +44,16 @@ class CreateFormController(
         ApiResponse(responseCode = "201", description = "Created"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @PutMapping("/${ENDPOINT_FORM}/{id}")
+    @PutMapping(FORMS_ID)
     suspend fun create(
-        @PathVariable id: String,
+        @PathVariable organizationId: String,
+        @PathVariable formId: String,
         @Validated @RequestBody request: CreateFormRequest
     ): ResponseEntity<String> {
-        log.debug("Creating form with ID: {}", id)
+        log.debug("Creating form with ID: {}", sanitizeAndJoinPathVariables(organizationId, formId, request.toString()))
         dispatch(
             CreateFormCommand(
-                id,
+                formId,
                 request.name,
                 request.header,
                 request.description,
@@ -60,11 +63,11 @@ class CreateFormController(
                 request.backgroundColor,
                 request.textColor,
                 request.buttonTextColor,
-                request.organizationId,
+                organizationId,
             ),
         )
-        val url = "/api/$ENDPOINT_FORM"
-        return ResponseEntity.created(URI.create(url)).build()
+        val url = FORMS_ID.replace("{organizationId}", organizationId).replace("{formId}", formId)
+        return ResponseEntity.created(URI.create("$API$url")).build()
     }
 
     companion object {

@@ -30,10 +30,15 @@ internal class UpdateFormCommandHandlerTest {
         formFinderRepository = mockk()
         formUpdater = FormUpdater(formRepository, formFinderRepository, eventPublisher)
         updateFormCommandHandler = UpdateFormCommandHandler(formUpdater)
-        form = FormStub.create()
+        form = FormStub.generateRandomForm()
 
-        coEvery { formRepository.update(any()) } returns Unit
-        coEvery { formFinderRepository.findById(any()) } returns form
+        coEvery { formRepository.update(eq(form)) } returns Unit
+        coEvery {
+            formFinderRepository.findByFormIdAndOrganizationId(
+                eq(form.id),
+                eq(form.organizationId),
+            )
+        } returns form
         coEvery { eventPublisher.publish(any(FormUpdatedEvent::class)) } returns Unit
     }
 
@@ -51,6 +56,7 @@ internal class UpdateFormCommandHandlerTest {
             backgroundColor = form.backgroundColor.hex,
             textColor = form.textColor.hex,
             buttonTextColor = form.buttonTextColor.hex,
+            organizationId = form.organizationId.value.toString(),
         )
 
         // When
@@ -70,6 +76,7 @@ internal class UpdateFormCommandHandlerTest {
                     assert(it.backgroundColor.hex == form.backgroundColor.hex)
                     assert(it.textColor.hex == form.textColor.hex)
                     assert(it.buttonTextColor.hex == form.buttonTextColor.hex)
+                    assert(it.organizationId.value.toString() == form.organizationId.value.toString())
                 },
             )
         }

@@ -28,7 +28,7 @@ data class Subscriber(
         fun create(
             id: UUID,
             email: String,
-            firstname: String,
+            firstname: String? = null,
             lastname: String? = null,
             status: SubscriberStatus = SubscriberStatus.ENABLED,
             organizationId: UUID,

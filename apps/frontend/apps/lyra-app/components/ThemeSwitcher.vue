@@ -2,7 +2,7 @@
 import { useColorMode } from '#imports'
 import { Button } from '@/components/ui/button'
 const colorMode = useColorMode()
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Nuxt.
+
 const toggleDark = () => {
   colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
 }

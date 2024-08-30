@@ -8,8 +8,6 @@ import org.springframework.http.MediaType
 import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.csrf
 import org.springframework.test.context.jdbc.Sql
 
-private const val ENDPOINT = "/api/forms"
-
 internal class CreateFormControllerIntegrationTest : ControllerIntegrationTest() {
     private val organizationId = "a0654720-35dc-49d0-b508-1f7df5d915f1"
 
@@ -22,10 +20,10 @@ internal class CreateFormControllerIntegrationTest : ControllerIntegrationTest()
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should create a new form`() {
-        val request = FormStub.generateRequest(organizationId)
+        val request = FormStub.generateRequest()
         val id = UUID.randomUUID().toString()
         webTestClient.mutateWith(csrf()).put()
-            .uri("$ENDPOINT/$id")
+            .uri("/api/organization/$organizationId/form/$id")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(request)
             .exchange()
@@ -42,10 +40,10 @@ internal class CreateFormControllerIntegrationTest : ControllerIntegrationTest()
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should fail when the form already exists`() {
-        val request = FormStub.generateRequest("7a27728a-8ef3-4070-b615-1d5ddf9a7863")
+        val request = FormStub.generateRequest()
         val id = "1659d4ae-402a-4172-bf8b-0a5c54255587"
         webTestClient.mutateWith(csrf()).put()
-            .uri("$ENDPOINT/$id")
+            .uri("/api/organization/$organizationId/form/$id")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(request)
             .exchange()
@@ -55,7 +53,7 @@ internal class CreateFormControllerIntegrationTest : ControllerIntegrationTest()
             .jsonPath("$.title").isEqualTo("Bad request")
             .jsonPath("$.status").isEqualTo(400)
             .jsonPath("$.detail").isEqualTo("Error creating form")
-            .jsonPath("$.instance").isEqualTo("$ENDPOINT/$id")
+            .jsonPath("$.instance").isEqualTo("/api/organization/$organizationId/form/$id")
             .jsonPath("$.errorCategory").isEqualTo("BAD_REQUEST")
             .jsonPath("$.timestamp").isNumber
     }

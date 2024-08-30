@@ -40,6 +40,14 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 
+interface OrganizationSwitcherProps {
+  isCollapsed: boolean
+}
+
+const props = withDefaults(defineProps<OrganizationSwitcherProps>(), {
+  isCollapsed: false,
+})
+
 const formSchema = toTypedSchema(
   z.object({
     name: z.string().min(2).max(50).default(generateRandomWords()),
@@ -56,7 +64,7 @@ const open = ref(false);
 const showNewTeamDialog = ref(false);
 
 
-const onSubmit = async (values: any) => {
+const onSubmit = async (values: { name: string }) => {
   try {
     const { teamId } = selectedTeam.value ?? {};
     if (!teamId) {
@@ -104,21 +112,27 @@ onMounted(async () => {
     <Popover v-model:open="open">
       <PopoverTrigger as-child>
         <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded="open"
-          aria-label="Select a team"
-          :class="cn('w-[200px] justify-between', $attrs.class ?? '')"
+          :variant="'outline'"
+          :role="'combobox'"
+          :aria-expanded="open"
+          :aria-label="'Select a team'"
+          :class="cn('w-full justify-between', $attrs.class ?? '')"
         >
           <Avatar class="mr-2 h-5 w-5">
             <AvatarImage
               :src="`https://avatar.vercel.sh/${selectedTeam?.teamId}.png`"
               :alt="selectedTeam?.teamName"
             />
-            <AvatarFallback>{{initials(selectedTeam?.teamName)}}</AvatarFallback>
+            <AvatarFallback>{{ initials(selectedTeam?.teamName) }}</AvatarFallback>
           </Avatar>
-          {{ selectedTeam?.teamName }}
-          <Icon  name="radix-icons:caret-sort" color="black" class="ml-auto h-4 w-4 shrink-0 opacity-50" />
+          <template v-if="!isCollapsed">
+            {{ selectedTeam?.teamName }}
+            <Icon
+              name="radix-icons:caret-sort"
+              color="black"
+              class="ml-auto h-4 w-4 shrink-0 opacity-50"
+            />
+          </template>
         </Button>
       </PopoverTrigger>
       <PopoverContent class="w-[200px] p-0">
@@ -133,7 +147,7 @@ onMounted(async () => {
                 :value="team"
                 class="text-sm"
                 @select="() => {
-                  selectedTeam = team
+                  setSelectedTeam(team)
                   open = false
                 }"
               >

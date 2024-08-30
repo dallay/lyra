@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import type { HTMLAttributes } from 'vue';
 
-// Define the props with default values
 const props = withDefaults(
   defineProps<{
     class?: HTMLAttributes['class'];
@@ -14,6 +13,8 @@ const props = withDefaults(
     buttonTextColor?: string;
     backgroundColor?: string;
     textColor?: string;
+    uppercase?: boolean;
+    organizationId: string;
   }>(),
   {
     class: 'w-full max-w-md space-y-2 flex flex-col items-center justify-center',
@@ -25,21 +26,12 @@ const props = withDefaults(
     buttonTextColor: '#F3F4F6',
     backgroundColor: '#111827',
     textColor: '#9BA3AF',
+    uppercase: false,
   }
 );
 
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Vue/Nuxt.
-const identifier = ref(crypto.randomUUID());
 
-// Watch for changes in props (if necessary)
-watch(
-  () => props,
-  (newProps) => {
-    // Handle any specific logic if needed when props change
-    console.log('Props updated:', newProps);
-  },
-  { deep: true }
-);
+const identifier = ref(crypto.randomUUID());
 </script>
 
 <template>
@@ -64,6 +56,9 @@ watch(
           :buttonText="props.buttonText"
           :buttonColor="props.buttonColor"
           :buttonTextColor="props.buttonTextColor"
+          :background-color="props.backgroundColor"
+          :uppercase="props.uppercase"
+          :organizationId="props.organizationId"
         />
       </div>
     </div>

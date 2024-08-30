@@ -15,7 +15,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 private const val ENDPOINT = "/api/register"
 @Suppress("MultilineRawStringIndentation")
 @AutoConfigureWebTestClient
-class UserRegisterControllerIntegrationTest : InfrastructureTestContainers() {
+internal class UserRegisterControllerIntegrationTest : InfrastructureTestContainers() {
     private val faker = Faker()
 
     @Autowired

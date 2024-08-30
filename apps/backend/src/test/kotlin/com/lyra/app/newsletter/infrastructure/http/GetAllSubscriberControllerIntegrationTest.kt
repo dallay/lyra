@@ -12,12 +12,12 @@ import org.junit.jupiter.api.Test
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.test.context.jdbc.Sql
 
-private const val ENDPOINT = "/api/newsletter/subscribers"
-
 @IntegrationTest
 internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegrationTest() {
     private val typeRef =
         object : ParameterizedTypeReference<CursorPageResponse<SubscriberResponse>>() {}
+    private val organizationId = "a0654720-35dc-49d0-b508-1f7df5d915f1"
+    private val organizationIdBatch = "1b423df9-d6fc-4fd9-904b-4bb40dc88aeb"
 
     @Test
     @Sql(
@@ -32,7 +32,7 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
             get()
                 .uri { uriBuilder ->
                     uriBuilder
-                        .path(ENDPOINT)
+                        .path("/api/organization/$organizationId/newsletter/subscriber")
                         .queryParam("size", 10)
                         .build()
                 }
@@ -61,7 +61,7 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
     fun `should get empty list if no subscribers`() {
 
         webTestClient.get()
-            .uri(ENDPOINT)
+            .uri("/api/organization/$organizationId/newsletter/subscriber")
             .exchange()
             .expectStatus().isOk
             .expectBody()
@@ -83,7 +83,7 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationId/newsletter/subscriber")
                     .queryParam("filter[email]", listOf("eq:jana.doe@test.com"))
                     .queryParam("filter[status]", listOf("eq:ENABLED"))
                     .build()
@@ -112,7 +112,7 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationId/newsletter/subscriber")
                     .queryParam("search", "jana")
                     .build()
             }
@@ -140,7 +140,7 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationIdBatch/newsletter/subscriber")
                     .queryParam("search", "Henry")
                     .queryParam(
                         "filter[createdAt]",
@@ -180,7 +180,7 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationId/newsletter/subscriber")
                     .queryParam("sort", sort)
                     .build()
             }
@@ -279,7 +279,7 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
         return webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationIdBatch/newsletter/subscriber")
                     .queryParam("size", size)
                     .apply { if (cursor != null) queryParam("cursor", cursor) }
                     .build()

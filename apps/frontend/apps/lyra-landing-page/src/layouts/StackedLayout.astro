@@ -5,13 +5,13 @@ import NavBarStacked from 'molecules:NavBarStacked';
 import Layout from './CommonLayout.astro';
 
 import pkg from '../../package.json' assert { type: 'json' };
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro's `props` object.
+
 interface Props {
 	title: string;
 	description?: string;
 }
 
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro.
+
 const { title = 'Lyra', description = pkg.description } = Astro.props;
 ---
 

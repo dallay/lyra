@@ -21,7 +21,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
 
-private const val ENDPOINT = "/api/newsletter/subscribers"
 private const val NUM_SUBSCRIBER = 14
 
 @UnitTest
@@ -35,6 +34,7 @@ internal class GetAllSubscriberControllerTest {
 
     private lateinit var controller: GetAllSubscriberController
     private lateinit var webTestClient: WebTestClient
+    private val organizationId = "a0654720-35dc-49d0-b508-1f7df5d915f1"
 
     @BeforeEach
     fun setUp() {
@@ -55,7 +55,7 @@ internal class GetAllSubscriberControllerTest {
     fun `should get all subscribers`() {
         val data: Collection<SubscriberResponse> = response.data
         webTestClient.get()
-            .uri(ENDPOINT)
+            .uri("/api/organization/$organizationId/newsletter/subscriber")
             .exchange()
             .expectStatus().isOk
             .expectBody()
@@ -91,7 +91,7 @@ internal class GetAllSubscriberControllerTest {
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationId/newsletter/subscriber")
                     .queryParam("filter[email]", filter[SubscriberEntity::email])
                     .queryParam("filter[firstname]", filter[SubscriberEntity::firstname])
                     .queryParam("filter[lastname]", filter[SubscriberEntity::lastname])
@@ -127,7 +127,7 @@ internal class GetAllSubscriberControllerTest {
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationId/newsletter/subscriber")
                     .queryParam("search", search)
                     .build()
             }
@@ -167,7 +167,7 @@ internal class GetAllSubscriberControllerTest {
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationId/newsletter/subscriber")
                     .queryParam("search", search)
                     .queryParam("filter[email]", filter[SubscriberEntity::email])
                     .queryParam("filter[firstname]", filter[SubscriberEntity::firstname])
@@ -193,7 +193,7 @@ internal class GetAllSubscriberControllerTest {
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationId/newsletter/subscriber")
                     .queryParam("sort", sort)
                     .build()
             }
@@ -221,7 +221,7 @@ internal class GetAllSubscriberControllerTest {
         val firstRequest = webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
-                    .path(ENDPOINT)
+                    .path("/api/organization/$organizationId/newsletter/subscriber")
                     .queryParam("size", pageSize)
                     .build()
             }
@@ -242,7 +242,7 @@ internal class GetAllSubscriberControllerTest {
             webTestClient.get()
                 .uri { uriBuilder ->
                     uriBuilder
-                        .path(ENDPOINT)
+                        .path("/api/organization/$organizationId/newsletter/subscriber")
                         .queryParam("size", pageSize)
                         .queryParam("cursor", firstRequest.nextPageCursor)
                         .build()

@@ -18,7 +18,8 @@ internal class DeleteFormControllerTest {
     private val mediator: Mediator = mockk()
     private lateinit var controller: DeleteFormController
     private lateinit var webTestClient: WebTestClient
-    private val id = UUID.randomUUID().toString()
+    private val formId = UUID.randomUUID().toString()
+    private val organizationId = UUID.randomUUID().toString()
 
     @BeforeEach
     fun setup() {
@@ -28,11 +29,11 @@ internal class DeleteFormControllerTest {
 
     @Test
     fun `should delete form when form is found`() {
-        val command = DeleteFormCommand(id)
+        val command = DeleteFormCommand(organizationId = organizationId, formId = formId)
         coEvery { mediator.send(command) } returns Unit
 
         webTestClient.delete()
-            .uri("/api/forms/$id")
+            .uri("/api/organization/$organizationId/form/$formId")
             .exchange()
             .expectStatus().isOk
             .expectBody().isEmpty()

@@ -90,5 +90,9 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     );
   };
 
-  return { groupedWorkspace, fetchWorkspaces, selectedTeam, setSelectedTeam, getWorkspaceByTeamId };
+  const getCurrentWorkspace = () => {
+    return getWorkspaceByTeamId(selectedTeam.value?.teamId ?? '');
+  }
+
+  return { groupedWorkspace, fetchWorkspaces, selectedTeam, setSelectedTeam, getWorkspaceByTeamId, getCurrentWorkspace };
 });

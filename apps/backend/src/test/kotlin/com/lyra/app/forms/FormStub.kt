@@ -29,8 +29,26 @@ object FormStub {
             buttonTextColor = faker.color().hex(),
         ),
         organizationId: String = UUID.randomUUID().toString(),
+    ): Form = create(
+        id = FormId(id), dto = dto, organizationId = OrganizationId(organizationId),
+    )
+
+    fun create(
+        id: FormId = FormId.create(),
+        dto: FormStyleConfiguration = FormStyleConfiguration(
+            name = faker.lorem().words(3).joinToString(" "),
+            header = faker.lorem().words(3).joinToString(" "),
+            description = faker.lorem().words(10).joinToString(" "),
+            inputPlaceholder = faker.lorem().words(3).joinToString(" "),
+            buttonText = faker.lorem().words(3).joinToString(" "),
+            buttonColor = faker.color().hex(),
+            backgroundColor = faker.color().hex(),
+            textColor = faker.color().hex(),
+            buttonTextColor = faker.color().hex(),
+        ),
+        organizationId: OrganizationId = OrganizationId.create(),
     ): Form = Form(
-        id = FormId(id),
+        id = id,
         name = dto.name,
         header = dto.header,
         description = dto.description,
@@ -40,12 +58,11 @@ object FormStub {
         backgroundColor = HexColor(dto.backgroundColor),
         textColor = HexColor(dto.textColor),
         buttonTextColor = HexColor(dto.buttonTextColor),
-        organizationId = OrganizationId(organizationId),
+        organizationId = organizationId,
     )
 
     @Suppress("MultilineRawStringIndentation")
     fun generateRequest(
-        organizationId: String,
         styleConfiguration: FormStyleConfiguration = FormStyleConfiguration(
             name = faker.lorem().words(3).joinToString(" "),
             header = faker.lorem().words(3).joinToString(" "),
@@ -67,13 +84,12 @@ object FormStub {
         "buttonColor": "${styleConfiguration.buttonColor}",
         "backgroundColor": "${styleConfiguration.backgroundColor}",
         "textColor": "${styleConfiguration.textColor}",
-        "buttonTextColor": "${styleConfiguration.buttonTextColor}",
-        "organizationId": "$organizationId"
+        "buttonTextColor": "${styleConfiguration.buttonTextColor}"
       }
     """.trimIndent()
 
     fun dummyRandomFormPageResponse(size: Int): CursorPageResponse<FormResponse> {
-        val data = (1..size).map { FormResponse.from(create()) }
+        val data = (1..size).map { FormResponse.from(create(id = FormId.create())) }
         val (_, cursor) = getStartAndEndTimestampCursorPage(data)
         return CursorPageResponse(
             data = data,
@@ -92,11 +108,13 @@ object FormStub {
     }
 
     fun dummyRandomFormsPageResponse(size: Int): CursorPageResponse<Form> {
-        val data = (1..size).map { create() }
+        val data = (1..size).map { generateRandomForm() }
         val cursor = TimestampCursor(data.last().createdAt).serialize()
         return CursorPageResponse(
             data = data,
             nextPageCursor = cursor,
         )
     }
+
+    fun generateRandomForm(): Form = create(id = FormId.create())
 }

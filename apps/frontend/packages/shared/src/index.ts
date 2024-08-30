@@ -10,6 +10,7 @@ import type { Primitives } from '~/domain/vo/ValueObject.ts';
 import ValueObject from '~/domain/vo/ValueObject.ts';
 import InvalidArgumentError from '~/domain/vo/InvalidArgumentError.ts';
 import StringValueObject from '~/domain/vo/StringValueObject.ts';
+import UUIDValueObject from '~/domain/vo/UUIDValueObject.ts';
 
 export type {
 	Query,
@@ -23,4 +24,4 @@ export type {
 	Primitives,
 };
 
-export { ValueObject, StringValueObject, InvalidArgumentError };
+export { ValueObject, StringValueObject,UUIDValueObject, InvalidArgumentError };

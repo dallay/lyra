@@ -3,6 +3,7 @@ package com.lyra.app.forms.application.find
 import com.lyra.app.forms.application.FormResponse
 import com.lyra.app.forms.domain.FormId
 import com.lyra.app.forms.domain.exception.FormNotFoundException
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.query.QueryHandler
 import org.slf4j.LoggerFactory
@@ -23,13 +24,14 @@ class FindFormQueryHandler(
      * If the form is not found, a [FormNotFoundException] is thrown.
      *
      * @param query The form find query to handle.
-     * @return The [FormResponse] for the found form.
+     * @return The [FormResponse] for the xfound form.
      * @throws [FormNotFoundException] If the form is not found.
      */
     override suspend fun handle(query: FindFormQuery): FormResponse {
-        log.info("Finding form with id: ${query.id}")
-        val formId = FormId(query.id)
-        val form = finder.find(formId) ?: throw FormNotFoundException("Form not found")
+        log.debug("Finding form with ids: ${query.organizationId}, ${query.formId}")
+        val formId = FormId(query.formId)
+        val organizationId = OrganizationId(query.organizationId)
+        val form = finder.find(organizationId, formId) ?: throw FormNotFoundException("Form not found")
         return FormResponse.from(form)
     }
 

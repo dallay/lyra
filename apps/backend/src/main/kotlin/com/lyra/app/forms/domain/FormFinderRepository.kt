@@ -1,5 +1,6 @@
 package com.lyra.app.forms.domain
 
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.pagination.Cursor
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
@@ -16,6 +17,14 @@ interface FormFinderRepository {
      * @return The form if found, or null if not found.
      */
     suspend fun findById(id: FormId): Form?
+
+    /**
+     * Find a form by form id and organization id.
+     * @param formId The form id.
+     * @param organizationId The organization id.
+     * @return The form if found, or null if not found.
+     */
+    suspend fun findByFormIdAndOrganizationId(formId: FormId, organizationId: OrganizationId): Form?
 
     /**
      * This function is used to search all [Form] by cursor.

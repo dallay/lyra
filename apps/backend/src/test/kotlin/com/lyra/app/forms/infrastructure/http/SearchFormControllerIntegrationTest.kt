@@ -1,7 +1,6 @@
 package com.lyra.app.forms.infrastructure.http
 
 import com.lyra.ControllerIntegrationTest
-import com.lyra.IntegrationTest
 import com.lyra.app.forms.application.FormResponse
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -10,10 +9,8 @@ import org.junit.jupiter.api.Test
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.test.context.jdbc.Sql
 
-private const val ENDPOINT = "/api/forms"
-
-@IntegrationTest
 internal class SearchFormControllerIntegrationTest : ControllerIntegrationTest() {
+    private val organizationId = "27172d5a-b88e-451c-9787-312706f4570d"
     private val typeRef =
         object : ParameterizedTypeReference<CursorPageResponse<FormResponse>>() {}
 
@@ -30,7 +27,7 @@ internal class SearchFormControllerIntegrationTest : ControllerIntegrationTest()
             get()
                 .uri { uriBuilder ->
                     uriBuilder
-                        .path(ENDPOINT)
+                        .path("/api/organization/$organizationId/form")
                         .queryParam("size", 10)
                         .build()
                 }
@@ -66,7 +63,7 @@ internal class SearchFormControllerIntegrationTest : ControllerIntegrationTest()
             get()
                 .uri { uriBuilder ->
                     uriBuilder
-                        .path(ENDPOINT)
+                        .path("/api/organization/$organizationId/form")
                         .queryParam("size", 10)
                         .build()
                 }
@@ -92,7 +89,7 @@ internal class SearchFormControllerIntegrationTest : ControllerIntegrationTest()
             get()
                 .uri { uriBuilder ->
                     uriBuilder
-                        .path(ENDPOINT)
+                        .path("/api/organization/$organizationId/form")
                         .queryParam("size", 10)
                         .queryParam("filter[name]", listOf("eq:Programming newsletter"))
                         .build()
@@ -131,7 +128,7 @@ internal class SearchFormControllerIntegrationTest : ControllerIntegrationTest()
             get()
                 .uri { uriBuilder ->
                     uriBuilder
-                        .path(ENDPOINT)
+                        .path("/api/organization/$organizationId/form")
                         .queryParam("size", 10)
                         .queryParam("search", "Programming newsletter")
                         .build()
@@ -170,7 +167,7 @@ internal class SearchFormControllerIntegrationTest : ControllerIntegrationTest()
             get()
                 .uri { uriBuilder ->
                     uriBuilder
-                        .path(ENDPOINT)
+                        .path("/api/organization/$organizationId/form")
                         .queryParam("size", 10)
                         .queryParam("search", "Programming newsletter")
                         .queryParam("filter[header]", listOf("eq:Astrum's Newsletter"))
@@ -211,7 +208,7 @@ internal class SearchFormControllerIntegrationTest : ControllerIntegrationTest()
             get()
                 .uri { uriBuilder ->
                     uriBuilder
-                        .path(ENDPOINT)
+                        .path("/api/organization/$organizationId/form")
                         .queryParam("size", 10)
                         .queryParam("sort", sort)
                         .build()
@@ -251,7 +248,7 @@ internal class SearchFormControllerIntegrationTest : ControllerIntegrationTest()
             get()
                 .uri { uriBuilder ->
                     uriBuilder
-                        .path(ENDPOINT)
+                        .path("/api/organization/$organizationId/form")
                         .queryParam("size", 10)
                         .queryParam("search", "Programming newsletter")
                         .queryParam("filter[header]", listOf("eq:Astrum's Newsletter"))
@@ -292,7 +289,7 @@ internal class SearchFormControllerIntegrationTest : ControllerIntegrationTest()
             get()
                 .uri { uriBuilder ->
                     uriBuilder
-                        .path(ENDPOINT)
+                        .path("/api/organization/$organizationId/form")
                         .queryParam("size", 3)
                         .build()
                 }
@@ -305,7 +302,7 @@ internal class SearchFormControllerIntegrationTest : ControllerIntegrationTest()
                     get()
                         .uri { uriBuilder ->
                             uriBuilder
-                                .path(ENDPOINT)
+                                .path("/api/organization/$organizationId/form")
                                 .queryParam("size", 3)
                                 .queryParam("cursor", cursor)
                                 .build()

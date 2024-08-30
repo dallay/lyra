@@ -9,6 +9,7 @@ import TeamModule from "~/repository/modules/team.module";
 import TeamMemberModule from "~/repository/modules/team-member.module";
 import SecureFetchFactory from '~/repository/secure.factory';
 import type FetchFactory from "~/repository/factory";
+import SubscriberModule from "~/repository/modules/subscriber.module";
 
 /**
  * Interface representing the API instance with different modules.
@@ -20,6 +21,7 @@ export interface IApiInstance {
   organization: OrganizationModule;
   team: TeamModule;
   teamMember: TeamMemberModule;
+  subscriber: SubscriberModule;
 }
 
 /**
@@ -52,7 +54,7 @@ async  function retryRequest(request: Request | string, newAccessToken: AccessTo
 }
 
 /**
- * Type guard para verificar si un módulo es una instancia de SecureFetchFactory.
+ * Type guard to verify if a module is an instance of SecureFetchFactory.
  */
 function isSecureFetchFactory(module: FetchFactory): module is SecureFetchFactory {
   return module instanceof SecureFetchFactory;
@@ -93,7 +95,7 @@ export default defineNuxtPlugin(async (_) => {
       }
     },
     onResponse: async ({ request, response }) => {
-      if (response.status === 401 || response.status === 403) {
+      if (response.status === 401) {
         try {
           const newAccessToken = await authModule.refreshToken();
           if (newAccessToken) {
@@ -112,6 +114,7 @@ export default defineNuxtPlugin(async (_) => {
   const organizationModule = new OrganizationModule(apiFetcher);
   const teamModule = new TeamModule(apiFetcher);
   const teamMemberModule = new TeamMemberModule(apiFetcher);
+  const subscriberModule = new SubscriberModule(apiFetcher);
 
   const modules: IApiInstance = {
     form: formModule,
@@ -120,6 +123,7 @@ export default defineNuxtPlugin(async (_) => {
     organization: organizationModule,
     team: teamModule,
     teamMember: teamMemberModule,
+    subscriber: subscriberModule,
   };
 
   if (import.meta.client) {

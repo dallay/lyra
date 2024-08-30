@@ -2,13 +2,13 @@
 import FooterStacked from 'molecules:FooterStacked';
 import NavBarStacked from 'molecules:NavBarStacked';
 import Layout from './CommonLayout.astro';
-// biome-ignore lint/correctness/noUnusedVariables: This is a false positive as the `title` and `description` variables are used in the Layout component below.
+
 interface Props {
 	title: string;
 	description?: string;
 }
 
-// biome-ignore lint/correctness/noUnusedVariables: This is a false positive as the `title` and `description` variables are used in the Layout component below.
+
 const { title, description } = Astro.props;
 ---
 

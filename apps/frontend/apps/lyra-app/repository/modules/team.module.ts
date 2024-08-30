@@ -1,4 +1,3 @@
-import FetchFactory from "../factory";
 import Routes from "../routes.client";
 import type {ResponseData} from "@lyra/shared";
 import type {ITeam, OrganizationId,TeamId} from "@lyra/domain";
@@ -12,7 +11,6 @@ export interface CreateTeamRequest {
 
 class TeamModule extends SecureFetchFactory {
   private readonly RESOURCE = Routes.Team;
-  // private accessToken = '';
 
   async fetchAll(id: OrganizationId) {
     return this.call<ResponseData<ITeam>>(
@@ -44,10 +42,6 @@ class TeamModule extends SecureFetchFactory {
       }
     )
   }
-
-  // setAccessToken(accessToken: string) {
-  //   this.accessToken = accessToken;
-  // }
 }
 
 export default TeamModule;

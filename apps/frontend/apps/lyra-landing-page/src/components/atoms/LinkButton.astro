@@ -1,8 +1,8 @@
 ---
 const { ...attributes } = Astro.props;
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro.
+
 const { secondary: ButtonVariant, class: className, href, ...attrs } = attributes;
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Astro.
+
 const variant = ButtonVariant ? 'secondary-button' : 'primary-button';
 ---
 

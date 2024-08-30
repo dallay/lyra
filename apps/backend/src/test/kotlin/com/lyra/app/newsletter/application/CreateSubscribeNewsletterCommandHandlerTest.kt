@@ -59,7 +59,7 @@ internal class CreateSubscribeNewsletterCommandHandlerTest {
                 withArg {
                     assert(it.id.value.toString() == subscriberId)
                     assert(it.email.value == email)
-                    assert(it.name.firstName.value == firstname)
+                    assert(it.name.firstName?.value == firstname)
                     assert(it.name.lastName?.value == lastname)
                 },
             )

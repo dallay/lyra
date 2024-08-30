@@ -28,6 +28,7 @@ interface IHttpFactory {
 
 export const XSRF_TOKEN_COOKIE = 'XSRF-TOKEN';
 const XSRF_TOKEN_HEADER = 'X-XSRF-TOKEN';
+export const ACCEPT_HEADER = 'application/vnd.api.v1+json';
 
 class HttpFactory {
 	private readonly $fetch: $Fetch;
@@ -47,9 +48,9 @@ class HttpFactory {
 		});
 	}
 
-	private async buildHeaders() {
+  protected async buildHeaders(): Promise<HeadersInit> {
 		const headers: HeadersInit = {
-			Accept: 'application/vnd.api.v1+json',
+			Accept: ACCEPT_HEADER,
 		};
 		const xsrfToken = useCookie(XSRF_TOKEN_COOKIE).value;
 		if (xsrfToken) {

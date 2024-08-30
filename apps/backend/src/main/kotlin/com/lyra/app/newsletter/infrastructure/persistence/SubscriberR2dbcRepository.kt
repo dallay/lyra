@@ -36,7 +36,7 @@ class SubscriberR2dbcRepository(
             subscriberRegistratorR2dbcRepository.save(subscriber.toEntity())
         } catch (e: DuplicateKeyException) {
             log.error("Form already exists in the database: ${subscriber.id.value}")
-            throw SubscriberException("Error creating form", e)
+            throw SubscriberException("Error creating subscriber", e)
         }
     }
 
@@ -55,7 +55,7 @@ class SubscriberR2dbcRepository(
         )
         val criteriaParsed = criteriaParser.parse(criteria ?: Criteria.Empty)
         val sortCriteria = sort.toSpringSort()
-        // Pageable paging = PageRequest.of(page, size);
+
         val pageable = PageRequest.of(page ?: 0, size ?: DEFAULT_LIMIT, sortCriteria)
 
         val pageEntity = subscriberRegistratorR2dbcRepository.findAll(

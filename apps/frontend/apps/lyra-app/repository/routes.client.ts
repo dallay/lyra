@@ -2,7 +2,7 @@
 /*
 * Prefix /api for api server
 */
-import type {FormId, OrganizationId, UserId, TeamId} from "@lyra/domain";
+import type {FormId, OrganizationId, SubscriberId, TeamId} from "@lyra/domain";
 
 const prefix : string = '/api';
 
@@ -12,15 +12,22 @@ const prefix : string = '/api';
 // const anotherPrefix : string = '/api/another'
 
 const Routes = {
-  Form:{
-    FetchAll:()  => `${prefix}/forms`,
-    FetchDetail : (id: FormId) => `${prefix}/forms/${id.value}`,
-    CreateForm :()  => `${prefix}/forms`
-  },
   Auth:{
     Authenticate:()  => `${prefix}/login`,
     RefreshToken:()  => `${prefix}/refresh-token`,
     Logout:()  => `${prefix}/logout`
+  },
+  Subscriber: {
+    CreateSubscriber: (organizationId: OrganizationId,
+                       subscribeId: SubscriberId) =>
+      `${prefix}/organization/${organizationId.value}/newsletter/subscriber/${subscribeId.value}`,
+  },
+  Form:{
+    FetchAll:(organizationId: OrganizationId)  => `${prefix}/organization/${organizationId.value}/form`,
+    FetchDetail : (id: FormId) => `${prefix}/form/${id.value}`,
+    CreateForm :(organizationId: OrganizationId,id: FormId)  => `${prefix}/organization/${organizationId.value}/form/${id.value}`,
+    UpdateForm :(organizationId: OrganizationId,id: FormId)  => `${prefix}/organization/${organizationId.value}/form/${id.value}/update`,
+    DeleteForm :(organizationId: OrganizationId, id: FormId)  => `${prefix}/organization/${organizationId.value}/form/${id.value}`,
   },
   Common:{
     HealthCheck:()  => `${prefix}/health-check`

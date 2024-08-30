@@ -1,13 +1,13 @@
 ---
 import '@fontsource-variable/onest';
 import pkg from '../../package.json' assert { type: 'json' };
-// biome-ignore lint/correctness/noUnusedVariables: This is a false positive as the `title` and `description` variables are used in the Layout component below.
+
 interface Props {
   title: string;
   description?: string;
 }
 
-// biome-ignore lint/correctness/noUnusedVariables: This is a false positive as the `title` and `description` variables are used in the Layout component below.
+
 const { title, description } = Astro.props;
 ---
 

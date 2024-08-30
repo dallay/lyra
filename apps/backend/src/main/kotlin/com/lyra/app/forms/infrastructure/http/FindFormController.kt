@@ -1,5 +1,7 @@
 package com.lyra.app.forms.infrastructure.http
 
+import com.lyra.app.AppConstants.Paths.API
+import com.lyra.app.AppConstants.Paths.FORMS_ID
 import com.lyra.app.forms.application.find.FindFormQuery
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.common.domain.bus.query.Response
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(value = ["/api"], produces = ["application/vnd.api.v1+json"])
+@RequestMapping(value = [API], produces = ["application/vnd.api.v1+json"])
 class FindFormController(
     mediator: Mediator,
 ) : ApiController(mediator) {
@@ -24,10 +26,10 @@ class FindFormController(
         ApiResponse(responseCode = "404", description = "Form not found"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @GetMapping("/$ENDPOINT_FORM/{id}")
-    suspend fun find(@PathVariable id: String): Response {
-        log.debug("Finding form with id: $id")
-        val query = FindFormQuery(id)
+    @GetMapping(FORMS_ID)
+    suspend fun find(@PathVariable organizationId: String, @PathVariable formId: String): Response {
+        log.debug("Finding form with ids: {}", sanitizeAndJoinPathVariables(organizationId, formId))
+        val query = FindFormQuery(organizationId = organizationId, formId = formId)
         val response = ask(query)
         return response
     }

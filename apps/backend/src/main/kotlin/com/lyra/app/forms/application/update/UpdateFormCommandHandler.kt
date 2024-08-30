@@ -2,6 +2,7 @@ package com.lyra.app.forms.application.update
 
 import com.lyra.app.forms.domain.FormId
 import com.lyra.app.forms.domain.dto.FormStyleConfiguration
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.command.CommandHandler
 import org.slf4j.LoggerFactory
@@ -35,7 +36,10 @@ class UpdateFormCommandHandler(
             textColor = command.textColor,
             buttonTextColor = command.buttonTextColor,
         )
-        formCreator.update(FormId(command.id), formStyleConfiguration)
+        formCreator.update(
+            OrganizationId(command.organizationId),
+            FormId(command.id), formStyleConfiguration,
+        )
     }
 
     companion object {

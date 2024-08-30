@@ -1,67 +1,89 @@
 <script setup lang="ts">
-import { reactive, onMounted } from 'vue';
-import { useNuxtApp, useRoute } from '#app';
+import { ref, onMounted } from 'vue';
+import { useRoute } from '#app';
 import { FormResponse, FormId } from '@lyra/domain';
+import { useFormStore } from "~/store/form.store";
+import { Skeleton } from '@/components/ui/skeleton'
+import { definePageMeta } from '#imports'
+definePageMeta({
+  layout: 'simple'
+})
 
+const formStore = useFormStore();
 const route = useRoute();
 
 const id = route.params.id;
 const idValue = typeof id === 'string' ? id : id[0];
 const formId = FormId.create(idValue);
-// biome-ignore lint/correctness/noUnusedVariables: this is a false positive as the variable is used in the template
 const slim: boolean = route.query.slim === 'true';
 
-const flux = reactive<{
-  form: FormResponse;
-}>({
-  form: {
-    id: idValue,
-    name: 'Form Example Test',
-    header: 'Default Newsletter',
-    description: '🔴 Some description 🔴',
-    inputPlaceholder: 'Enter your email',
-    buttonText: 'Subscribe',
-    buttonColor: '#2C81E5',
-    backgroundColor: '#DFD150',
-    textColor: '#222222',
-    buttonTextColor: '#FFFFFF',
-    createdAt: new Date().toDateString(),
-    updatedAt: new Date().toDateString(),
-  },
-});
+const defaultForm = {
+  id: idValue,
+  name: 'Form Example Test',
+  header: 'Default Newsletter',
+  description: '🔴 Some description 🔴',
+  inputPlaceholder: 'Enter your email',
+  buttonText: 'Subscribe',
+  buttonColor: '#2C81E5',
+  backgroundColor: '#DFD150',
+  textColor: '#222222',
+  buttonTextColor: '#FFFFFF',
+  createdAt: new Date().toDateString(),
+  updatedAt: new Date().toDateString(),
+  organizationId: 'af0346d6-a138-4c63-b41f-1cfd1b01dc4d',
+};
+const form = ref<FormResponse>();
 
-const { $api } = useNuxtApp();
-
-onMounted(() => {
-  $api.form
-  .fetchDetail(formId)
-  .then((data) => {
-    flux.form = data;
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+onMounted(async () => {
+  try {
+    const response = await formStore.formDetail(formId);
+    if (response) {
+      form.value = response;
+    } else {
+      form.value = defaultForm;
+    }
+  } catch (error) {
+    console.error('Error fetching form details:', error);
+  }
 });
 </script>
 
 <template>
+  <div v-if="!form">
+    <div v-if="slim" class="flex space-x-3 mx-1">
+      <Skeleton class="h-10 w-full rounded-md" />
+      <Skeleton class="h-10 w-32 rounded-md" />
+    </div>
+    <div v-else class="m-1 flex flex-col items-center justify-center p-2 space-y-3">
+      <Skeleton class="h-8 w-3/4 rounded-md" />
+      <Skeleton class="h-6 w-1/2 rounded-md" />
+      <div class="flex space-x-3 mx-1 w-3/5">
+        <Skeleton class="h-10 w-full rounded-md" />
+        <Skeleton class="h-10 w-32 rounded-md" />
+      </div>
+    </div>
+  </div>
   <EmailCTA
-    v-if="slim"
-    :placeholder="flux.form.inputPlaceholder"
-    :buttonText="flux.form.buttonText"
-    :buttonColor="flux.form.buttonColor"
-    :buttonTextColor="flux.form.buttonTextColor"
-    class="flex w-full flex-col items-start justify-start"
-    />
+    v-else-if="slim"
+    :placeholder="form.inputPlaceholder"
+    :buttonText="form.buttonText"
+    :buttonColor="form.buttonColor"
+    :buttonTextColor="form.buttonTextColor"
+    :backgroundColor="form.backgroundColor"
+    :organizationId="form.organizationId"
+    class="flex w-full flex-col items-start justify-center"
+  />
   <EmailCTASection
-    v-if="!slim"
-    :description="flux.form.description"
-    :header="flux.form.header"
-    :placeholder="flux.form.inputPlaceholder"
-    :buttonText="flux.form.buttonText"
-    :buttonColor="flux.form.buttonColor"
-    :buttonTextColor="flux.form.buttonTextColor"
-    :backgroundColor="flux.form.backgroundColor"
-    :textColor="flux.form.textColor"
+    v-else-if="!slim"
+    :description="form.description"
+    :header="form.header"
+    :placeholder="form.inputPlaceholder"
+    :buttonText="form.buttonText"
+    :buttonColor="form.buttonColor"
+    :buttonTextColor="form.buttonTextColor"
+    :backgroundColor="form.backgroundColor"
+    :textColor="form.textColor"
+    :organizationId="form.organizationId"
+    class="flex w-full flex-col items-start justify-center"
   />
 </template>

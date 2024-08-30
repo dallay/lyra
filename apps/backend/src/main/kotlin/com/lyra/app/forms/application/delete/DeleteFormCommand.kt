@@ -5,8 +5,10 @@ import com.lyra.common.domain.bus.command.Command
 /**
  * Represents a command to delete a form.
  *
- * @property id Unique identifier for the form.
+ * @property organizationId Unique identifier for the organization.
+ * @property formId Unique identifier for the form.
  */
 data class DeleteFormCommand(
-    val id: String
+    val organizationId: String,
+    val formId: String
 ) : Command

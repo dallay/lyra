@@ -72,7 +72,7 @@ private const val POLICY =
 @Configuration
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
-class SecurityConfiguration(
+open class SecurityConfiguration(
     val applicationSecurityProperties: ApplicationSecurityProperties
 ) {
     @Value("\${spring.security.oauth2.client.provider.oidc.issuer-uri}")
@@ -86,7 +86,7 @@ class SecurityConfiguration(
      * @return A [CorsConfigurationSource] object that is configured based on the applicationSecurityProperties.
      */
     @Bean
-    fun corsConfigurationSource(): CorsConfigurationSource {
+    open fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
         configuration.allowedOrigins = applicationSecurityProperties.cors.allowedOrigins
         configuration.allowedMethods = applicationSecurityProperties.cors.allowedMethods
@@ -106,7 +106,7 @@ class SecurityConfiguration(
      * @return The configured SecurityWebFilterChain.
      */
     @Bean
-    fun filterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
+    open fun filterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
         // @formatter:off
         return http
             .securityMatcher(
@@ -173,7 +173,15 @@ class SecurityConfiguration(
                 "/swagger-ui/**", "/webjars/**", "/api-docs/**", "/swagger-ui.html",
                 "/v3/api-docs/**", "/v3/api-docs.yaml",
             ).permitAll()
-            .pathMatchers(HttpMethod.GET, "/api/forms/{id}").permitAll()
+            .pathMatchers(
+                HttpMethod.GET,
+                "/api/organization/{organizationId}/form/{formId}",
+                "/api/form/{formId}",
+            ).permitAll()
+            .pathMatchers(
+                HttpMethod.PUT,
+                "/api/organization/{organizationId}/newsletter/subscriber/{subscriberId}",
+            ).permitAll()
             .pathMatchers("/actuator/**").authenticated()
             .pathMatchers("/api/**").authenticated()
             .pathMatchers("/management/health").permitAll()
@@ -222,7 +230,7 @@ class SecurityConfiguration(
      * @return a [GrantedAuthoritiesMapper] that maps groups from the IdP to Spring Security Authorities.
      */
     @Bean
-    fun userAuthoritiesMapper(): GrantedAuthoritiesMapper {
+    open fun userAuthoritiesMapper(): GrantedAuthoritiesMapper {
         return GrantedAuthoritiesMapper { authorities ->
             val mappedAuthorities = HashSet<GrantedAuthority>()
 
@@ -245,7 +253,7 @@ class SecurityConfiguration(
      */
     @Bean
     @Generated(reason = "Only called with a valid client registration repository")
-    fun jwtDecoder(
+    open fun jwtDecoder(
         clientRegistrationRepository: ReactiveClientRegistrationRepository,
         ssl: WebClientSsl
     ): ReactiveJwtDecoder {

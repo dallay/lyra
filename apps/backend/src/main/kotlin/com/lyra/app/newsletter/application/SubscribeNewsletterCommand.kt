@@ -14,7 +14,7 @@ import com.lyra.common.domain.bus.command.Command
 data class SubscribeNewsletterCommand(
     val id: String,
     val email: String,
-    val firstname: String,
+    val firstname: String?,
     val lastname: String?,
     val organizationId: String
 ) : Command

@@ -1,4 +1,3 @@
-import FetchFactory from "../factory";
 import Routes from "../routes.client";
 import type {IOrganization} from "@lyra/domain";
 import type {ResponseData} from "@lyra/shared";
@@ -6,8 +5,6 @@ import SecureFetchFactory from "~/repository/secure.factory";
 
 class OrganizationModule extends SecureFetchFactory {
   private readonly RESOURCE = Routes.Organization;
-  // private accessToken = '';
-
   async fetchAll() {
     return this.call<ResponseData<IOrganization>>(
       {
@@ -21,10 +18,6 @@ class OrganizationModule extends SecureFetchFactory {
       }
     )
   }
-
-  // override setAccessToken(accessToken: string) {
-  //   this.accessToken = accessToken;
-  // }
 }
 
 export default OrganizationModule;

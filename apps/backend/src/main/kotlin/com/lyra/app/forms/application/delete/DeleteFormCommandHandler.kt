@@ -1,6 +1,7 @@
 package com.lyra.app.forms.application.delete
 
 import com.lyra.app.forms.domain.FormId
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.command.CommandHandler
 import org.slf4j.LoggerFactory
@@ -23,8 +24,8 @@ class DeleteFormCommandHandler(
      * @param command The command object containing the id of the form to be deleted.
      */
     override suspend fun handle(command: DeleteFormCommand) {
-        log.debug("Deleting form with id: ${command.id}")
-        formDestroyer.delete(FormId(command.id))
+        log.debug("Deleting form with ids: {}, {}", command.organizationId, command.formId)
+        formDestroyer.delete(OrganizationId(command.organizationId), FormId(command.formId))
     }
 
     companion object {

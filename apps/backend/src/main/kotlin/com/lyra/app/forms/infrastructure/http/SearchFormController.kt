@@ -1,10 +1,13 @@
 package com.lyra.app.forms.infrastructure.http
 
+import com.lyra.app.AppConstants.Paths.API
+import com.lyra.app.AppConstants.Paths.FORMS
 import com.lyra.app.forms.application.search.SearchFormsQuery
 import com.lyra.app.forms.infrastructure.persistence.entity.FormEntity
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.common.domain.bus.query.Response
 import com.lyra.common.domain.criteria.Criteria
+import com.lyra.common.domain.criteria.and
 import com.lyra.common.domain.presentation.pagination.CursorRequestPageable
 import com.lyra.spring.boot.ApiController
 import com.lyra.spring.boot.presentation.filter.RHSFilterParserFactory
@@ -17,6 +20,7 @@ import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -26,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController
  * It uses the RHSFilterParserFactory and SortParserFactory for parsing filters and sorting parameters.
  */
 @RestController
-@RequestMapping(value = ["/api"], produces = ["application/vnd.api.v1+json"])
+@RequestMapping(value = [API], produces = ["application/vnd.api.v1+json"])
 class SearchFormController(
     mediator: Mediator,
     rhsFilterParserFactory: RHSFilterParserFactory,
@@ -41,10 +45,16 @@ class SearchFormController(
         ApiResponse(responseCode = "400", description = "Bad request"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @GetMapping("/$ENDPOINT_FORM")
-    suspend fun search(cursorRequestPageable: CursorRequestPageable): Response {
-        log.debug("Searching forms with cursor: {}", cursorRequestPageable)
-        val criteria: Criteria = criteria(cursorRequestPageable)
+    @GetMapping(FORMS)
+    suspend fun search(
+        @PathVariable organizationId: String,
+        cursorRequestPageable: CursorRequestPageable
+    ): Response {
+        log.debug(
+            "Searching forms with cursor: {}",
+            sanitizeAndJoinPathVariables(organizationId, cursorRequestPageable.toString()),
+        )
+        val criteria: Criteria = criteria(cursorRequestPageable).and(Criteria.Equals("organizationId", organizationId))
 
         val response = ask(
             SearchFormsQuery(
@@ -81,7 +91,8 @@ class SearchFormController(
         )
         FormEntity::class.memberProperties.forEach { property ->
             val propertySearch = searchableProperties.getOrDefault(property, emptyList())
-            val propertyFilter = cursorRequestPageable.filter.getOrDefault(property.name, emptyList())
+            val propertyFilter =
+                cursorRequestPageable.filter.getOrDefault(property.name, emptyList())
             searchMap[property] = propertySearch
             filterMap[property] = propertyFilter
         }

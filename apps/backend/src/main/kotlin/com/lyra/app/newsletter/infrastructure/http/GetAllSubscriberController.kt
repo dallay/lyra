@@ -1,10 +1,12 @@
 package com.lyra.app.newsletter.infrastructure.http
 
+import com.lyra.app.AppConstants.Paths.SUBSCRIBER
 import com.lyra.app.newsletter.application.search.all.SearchAllSubscribersQuery
 import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntity
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.common.domain.bus.query.Response
 import com.lyra.common.domain.criteria.Criteria
+import com.lyra.common.domain.criteria.and
 import com.lyra.common.domain.presentation.pagination.CursorRequestPageable
 import com.lyra.spring.boot.ApiController
 import com.lyra.spring.boot.presentation.filter.RHSFilterParserFactory
@@ -17,6 +19,7 @@ import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
@@ -36,11 +39,14 @@ class GetAllSubscriberController(
         ApiResponse(responseCode = "200", description = "Success"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @GetMapping(ENDPOINT_SUBSCRIBER)
+    @GetMapping(SUBSCRIBER)
     @ResponseBody
-    suspend fun findAll(cursorRequestPageable: CursorRequestPageable): Response {
+    suspend fun findAll(
+        @PathVariable organizationId: String,
+        cursorRequestPageable: CursorRequestPageable
+    ): Response {
         log.debug("Get all subscribers with cursor: {}", cursorRequestPageable)
-        val criteria: Criteria = criteria(cursorRequestPageable)
+        val criteria: Criteria = criteria(cursorRequestPageable).and(Criteria.Equals("organizationId", organizationId))
 
         val response = ask(
             SearchAllSubscribersQuery(

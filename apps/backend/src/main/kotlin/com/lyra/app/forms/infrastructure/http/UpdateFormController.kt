@@ -1,5 +1,7 @@
 package com.lyra.app.forms.infrastructure.http
 
+import com.lyra.app.AppConstants.Paths.API
+import com.lyra.app.AppConstants.Paths.FORMS_ID
 import com.lyra.app.forms.application.update.UpdateFormCommand
 import com.lyra.app.forms.infrastructure.http.request.UpdateFormRequest
 import com.lyra.common.domain.bus.Mediator
@@ -23,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController
  * @property mediator The [Mediator] for handling commands.
  */
 @RestController
-@RequestMapping(value = ["/api"], produces = ["application/vnd.api.v1+json"])
+@RequestMapping(value = [API], produces = ["application/vnd.api.v1+json"])
 class UpdateFormController(
     mediator: Mediator,
 ) : ApiController(mediator) {
@@ -32,7 +34,8 @@ class UpdateFormController(
      * This function handles the PUT request for updating a form.
      * It validates the request body, dispatches an [UpdateFormCommand], and returns a [ResponseEntity].
      *
-     * @param id The ID of the form to update.
+     * @param organizationId The ID of the organization that owns the form.
+     * @param formId The ID of the form to update.
      * @param request The [UpdateFormRequest] body containing the updated form data.
      * @return A [ResponseEntity] indicating the result of the operation.
      */
@@ -42,15 +45,19 @@ class UpdateFormController(
         ApiResponse(responseCode = "400", description = "Bad request error (validation error)"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @PutMapping("/$ENDPOINT_FORM/update/{id}")
+    @PutMapping("${FORMS_ID}/update")
     suspend fun update(
-        @PathVariable id: String,
+        @PathVariable organizationId: String,
+        @PathVariable formId: String,
         @Validated @RequestBody request: UpdateFormRequest
     ): ResponseEntity<String> {
-        log.debug("Updating form with ID: {}", id)
+        log.debug(
+            "Updating form with data: {}",
+            sanitizeAndJoinPathVariables(organizationId, formId, request.toString()),
+        )
         dispatch(
             UpdateFormCommand(
-                id,
+                formId,
                 request.name,
                 request.header,
                 request.description,
@@ -60,6 +67,7 @@ class UpdateFormController(
                 request.backgroundColor,
                 request.textColor,
                 request.buttonTextColor,
+                organizationId,
             ),
         )
 

@@ -12,13 +12,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Vue/Nuxt.
+
 const df = new DateFormatter('en-US', {
   dateStyle: 'medium',
 })
 
 const calendarDate = new CalendarDate(2023, 0, 20)
-// biome-ignore lint/correctness/noUnusedVariables: Biome needs support for Vue/Nuxt.
+
 const value = ref({
   start: calendarDate,
   end: calendarDate.add({ days: 20 }),

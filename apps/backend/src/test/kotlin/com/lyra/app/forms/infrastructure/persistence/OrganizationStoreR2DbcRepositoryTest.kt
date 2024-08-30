@@ -23,7 +23,7 @@ internal class OrganizationStoreR2DbcRepositoryTest {
 
     @BeforeEach
     fun setUp() {
-        form = FormStub.create()
+        form = FormStub.generateRandomForm()
         coEvery { formR2dbcRepository.save(any()) } returns form.toEntity()
     }
 

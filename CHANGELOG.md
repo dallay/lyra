@@ -1,3 +1,11 @@
+# [1.11.0](https://github.com/dallay/lyra/compare/v1.10.0...v1.11.0) (2024-08-30)
+
+
+### Features
+
+* [TASK-209] organization and teams switcher component ([#317](https://github.com/dallay/lyra/issues/317)) ([f02d5ce](https://github.com/dallay/lyra/commit/f02d5ce17184a10ff509195a8a62737b6d2de9d7))
+* [TASK-86] subscriber form and customization screen ([#319](https://github.com/dallay/lyra/issues/319)) ([5e0ccec](https://github.com/dallay/lyra/commit/5e0ccecb7b5a450dbf8ad69b1bad121de1fbdbad))
+
 # [1.10.0](https://github.com/dallay/lyra/compare/v1.9.0...v1.10.0) (2024-08-18)
 
 

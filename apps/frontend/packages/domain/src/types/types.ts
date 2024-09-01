@@ -28,7 +28,7 @@ export const buildParams = (
   sort?: QuerySort,
   size = 10,
   cursor?: string
-) => {
+): SearchParameters => {
   const params: SearchParameters = {};
   if (criteria?.search) {
     params.search = criteria.search;

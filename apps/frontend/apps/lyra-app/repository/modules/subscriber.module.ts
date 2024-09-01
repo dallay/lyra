@@ -1,5 +1,12 @@
 import Routes from "../routes.client";
-import type {OrganizationId, SubscriberId, SubscriberRequest} from "@lyra/domain";
+import type {
+  CriteriaParam,
+  OrganizationId,
+  QuerySort, Subscriber, PageResponse,
+  SubscriberId,
+  SubscriberRequest
+} from "@lyra/domain";
+import  {buildParams} from "@lyra/domain";
 import SecureFetchFactory from "~/repository/secure.factory";
 
 class SubscriberModule extends SecureFetchFactory {
@@ -12,6 +19,26 @@ class SubscriberModule extends SecureFetchFactory {
         method: 'PUT',
         url: `${this.RESOURCE.CreateSubscriber(organizationId, subscribeId)}`,
         body: request
+      }
+    )
+  }
+
+  async fetchAll(organizationId: OrganizationId, criteria?: CriteriaParam,
+                 sort?: QuerySort, size = 10, cursor?: string) {
+    const headers = await this.buildHeaders()
+    return this.call<PageResponse<Subscriber>>(
+      {
+        method: 'GET',
+        url: `${this.RESOURCE.FetchAll(organizationId)}`,
+        fetchOptions: {
+          params: buildParams(criteria, sort, size, cursor),
+          headers: {
+            ...headers,
+            ...(this.accessToken ? {
+              'Authorization': `Bearer ${this.accessToken}`
+            } : {})
+          }
+        }
       }
     )
   }

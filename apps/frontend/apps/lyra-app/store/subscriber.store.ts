@@ -2,10 +2,12 @@ import {useNuxtApp} from "#app";
 import {ref} from "vue";
 import {defineStore} from "pinia";
 import {OrganizationId, type Subscriber, SubscriberId, type SubscriberRequest} from "@lyra/domain";
+import { useWorkspaceStore } from "~/store/workspace.store";
 
 export const useSubscriberStore = defineStore('subscriber', () => {
 	const { $api } = useNuxtApp();
 	const subscribers = ref<Subscriber[]>([]);
+  const workspaceStore = useWorkspaceStore();
 
 	const createSubscriber = async (organizationId: OrganizationId, request: SubscriberRequest) => {
 		try {
@@ -16,5 +18,21 @@ export const useSubscriberStore = defineStore('subscriber', () => {
 		}
 	};
 
-	return { subscribers, createSubscriber };
+const fetchAllSubscriber = async (organizationId?: OrganizationId) => {
+  try {
+    organizationId = organizationId || workspaceStore.getCurrentOrganizationId() || await (async () => {
+      await workspaceStore.fetchWorkspaces();
+      return workspaceStore.getCurrentOrganizationId();
+    })();
+
+    if (!organizationId) return;
+
+    const response = await $api.subscriber.fetchAll(organizationId);
+    subscribers.value = response.data;
+  } catch (error) {
+    console.error(`fetchAllSubscriber error:${error}`);
+  }
+}
+
+	return { subscribers, createSubscriber, fetchAllSubscriber };
 });

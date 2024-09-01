@@ -45,7 +45,10 @@ class GetAllSubscriberController(
         @PathVariable organizationId: String,
         cursorRequestPageable: CursorRequestPageable
     ): Response {
-        log.debug("Get all subscribers with cursor: {}", cursorRequestPageable)
+        log.debug(
+            "Get all subscribers with cursor: {}",
+            sanitizeAndJoinPathVariables(organizationId, cursorRequestPageable.toString()),
+        )
         val criteria: Criteria = criteria(cursorRequestPageable).and(Criteria.Equals("organizationId", organizationId))
 
         val response = ask(

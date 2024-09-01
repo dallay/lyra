@@ -20,6 +20,7 @@
     "@nuxt/scripts": "^0.7.1",
     "@pinia/nuxt": "^0.5.4",
     "@radix-icons/vue": "^1.0.0",
+    "@tanstack/vue-table": "^8.20.5",
     "@unovis/ts": "1.4.4-beta.2",
     "@unovis/vue": "1.4.4-beta.2",
     "@vee-validate/zod": "^4.13.2",

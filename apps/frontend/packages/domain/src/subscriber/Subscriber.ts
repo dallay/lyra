@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 export interface Subscriber {
   readonly id: string,
   readonly email: string,
@@ -19,3 +21,15 @@ export enum SubscriberStatus {
   DISABLED = "DISABLED",
   BLOCKLISTED = "BLOCKLISTED"
 }
+
+export const subscriberSchema = z.object({
+  id: z.string(),
+  email: z.string(),
+  firstname: z.string().optional(),
+  lastname: z.string().optional(),
+  status: z.nativeEnum(SubscriberStatus),
+  attributes: z.record(z.string()).optional(),
+  organizationId: z.string(),
+  createdAt: z.union([z.date(), z.string()]).optional(),
+  updatedAt: z.union([z.date(), z.string()]).optional()
+});

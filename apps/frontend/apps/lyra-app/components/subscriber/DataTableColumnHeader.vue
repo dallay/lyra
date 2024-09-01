@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Column } from '@tanstack/vue-table'
-import type { Subscriber } from './data/schema'
+import type {Subscriber} from '@lyra/domain';
 import {ArrowDownIcon, ArrowUpIcon, CaretSortIcon, EyeNoneIcon} from '@radix-icons/vue'
 
 import { cn } from '@/lib/utils'

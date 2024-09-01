@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { Row } from '@tanstack/vue-table'
 import { computed } from 'vue'
-import { labels } from './data/data'
-import { subscriberSchema } from './data/schema'
-import type { Subscriber } from './data/schema'
+import { tags } from './data/data'
+import {type Subscriber, subscriberSchema} from '@lyra/domain';
 import {DotsHorizontalIcon} from '@radix-icons/vue'
 
 import { Button } from '@/components/ui/button'
@@ -48,8 +47,8 @@ const subscriber = computed(() => subscriberSchema.parse(props.row.original))
       <DropdownMenuSub>
         <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
         <DropdownMenuSubContent>
-          <DropdownMenuRadioGroup :value="subscriber.label">
-            <DropdownMenuRadioItem v-for="label in labels" :key="label.value" :value="label.value">
+          <DropdownMenuRadioGroup :value="subscriber.attributes?.tags">
+            <DropdownMenuRadioItem v-for="label in tags" :key="label.value" :value="label.value">
               {{ label.label }}
             </DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>

@@ -1,8 +1,8 @@
 import type {ColumnDef} from '@tanstack/vue-table';
 import {h} from 'vue';
 
-import {labels, priorities, statuses} from './data/data';
-import type {Subscriber} from './data/schema';
+import {tags, priorities, statuses} from './data/data';
+import type {Subscriber} from '@lyra/domain';
 import DataTableColumnHeader from './DataTableColumnHeader.vue';
 import DataTableRowActions from './DataTableRowActions.vue';
 import {Checkbox} from '@/components/ui/checkbox';
@@ -38,7 +38,7 @@ export const columns: ColumnDef<Subscriber>[] = [
 		header: ({ column }) => h(DataTableColumnHeader, { column, title: 'Email' }),
 
 		cell: ({ row }) => {
-			const label = labels.find((label) => label.value === row.original.attributes?.label);
+			const label = tags.find((label) => label.value === row.original.attributes?.tags);
 
 			return h('div', { class: 'flex space-x-2' }, [
 				label ? h(Badge, { variant: 'outline' }, () => label.label) : null,
@@ -74,9 +74,10 @@ export const columns: ColumnDef<Subscriber>[] = [
 			const rowStatus = row.getValue('status') as SubscriberStatus;
 
 			return h(
-				'div',
+        Badge,
 				{
-					class: `flex w-[130px] items-center justify-between text-xs font-medium px-2.5 py-0.5 rounded ${statusClasses[rowStatus]}`,
+          variant: 'outline',
+					class: `flex w-[130px] items-center justify-between font-medium px-2.5 py-0.5 rounded ${statusClasses[rowStatus]}`,
 				},
 				[
 					h('span', status.label),

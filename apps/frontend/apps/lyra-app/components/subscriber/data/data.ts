@@ -8,7 +8,7 @@ import {
   CircleBackslashIcon
 } from '@radix-icons/vue'
 
-export const labels = [
+export const tags = [
   {
     value: 'bug',
     label: 'Bug',

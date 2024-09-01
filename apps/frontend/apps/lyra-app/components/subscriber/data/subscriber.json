@@ -5,6 +5,10 @@
       "firstname" : "Shanny",
       "lastname" : "Yost",
       "status" : "ENABLED",
+      "attributes": {
+        "tags": "documentation",
+        "priority": "high"
+      },
       "organizationId" : "c3f79cb3-c933-4ba1-a6dc-49e774288d27",
       "createdAt" : "2024-08-29T13:06:18.832Z",
       "updatedAt" : "2024-08-29T13:06:18.889Z"
@@ -15,6 +19,10 @@
       "firstname" : "Paris",
       "lastname" : "Marquardt",
       "status" : "ENABLED",
+      "attributes": {
+        "tags": "bug",
+        "priority": "low"
+      },
       "organizationId" : "c3f79cb3-c933-4ba1-a6dc-49e774288d27",
       "createdAt" : "2024-08-31T07:41:28.415Z",
       "updatedAt" : "2024-08-31T07:41:28.425Z"
@@ -26,7 +34,7 @@
       "lastname" : "Jast",
       "status" : "ENABLED",
       "attributes" : {
-        "label": "feature",
+        "tags": "feature",
         "priority": "medium"
       },
       "organizationId" : "c3f79cb3-c933-4ba1-a6dc-49e774288d27",

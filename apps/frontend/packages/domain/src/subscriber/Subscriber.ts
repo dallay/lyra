@@ -1,15 +1,19 @@
-import { z } from 'zod';
+import {z} from 'zod';
+
+export interface Attributes {
+	[key: string]: string | string[] | number | boolean;
+}
 
 export interface Subscriber {
-  readonly id: string,
-  readonly email: string,
-  readonly firstname?: string,
-  readonly lastname?: string,
-  readonly status: SubscriberStatus,
-  readonly attributes?: Record<string, string>,
-  readonly organizationId: string,
-  readonly createdAt?: Date | string,
-  readonly updatedAt?: Date | string
+	readonly id: string;
+	readonly email: string;
+	readonly firstname?: string;
+	readonly lastname?: string;
+	readonly status: SubscriberStatus;
+	readonly attributes?: Attributes;
+	readonly organizationId: string;
+	readonly createdAt?: Date | string;
+	readonly updatedAt?: Date | string;
 }
 
 /**
@@ -17,19 +21,21 @@ export interface Subscriber {
  * @enum {string}
  */
 export enum SubscriberStatus {
-  ENABLED = "ENABLED",
-  DISABLED = "DISABLED",
-  BLOCKLISTED = "BLOCKLISTED"
+	ENABLED = 'ENABLED',
+	DISABLED = 'DISABLED',
+	BLOCKLISTED = 'BLOCKLISTED',
 }
 
 export const subscriberSchema = z.object({
-  id: z.string(),
-  email: z.string(),
-  firstname: z.string().optional(),
-  lastname: z.string().optional(),
-  status: z.nativeEnum(SubscriberStatus),
-  attributes: z.record(z.string()).optional(),
-  organizationId: z.string(),
-  createdAt: z.union([z.date(), z.string()]).optional(),
-  updatedAt: z.union([z.date(), z.string()]).optional()
+	id: z.string(),
+	email: z.string(),
+	firstname: z.string().optional(),
+	lastname: z.string().optional(),
+	status: z.nativeEnum(SubscriberStatus),
+	attributes: z
+		.record(z.union([z.string(), z.array(z.string()), z.number(), z.boolean()]))
+		.optional(),
+	organizationId: z.string(),
+	createdAt: z.union([z.date(), z.string()]).optional(),
+	updatedAt: z.union([z.date(), z.string()]).optional(),
 });

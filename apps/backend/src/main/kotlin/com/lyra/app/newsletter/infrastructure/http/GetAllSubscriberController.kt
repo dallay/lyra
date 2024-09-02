@@ -1,5 +1,6 @@
 package com.lyra.app.newsletter.infrastructure.http
 
+import com.lyra.app.AppConstants.Paths.API
 import com.lyra.app.AppConstants.Paths.SUBSCRIBER
 import com.lyra.app.newsletter.application.search.all.SearchAllSubscribersQuery
 import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntity
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(value = ["/api"], produces = ["application/vnd.api.v1+json"])
+@RequestMapping(value = [API], produces = ["application/vnd.api.v1+json"])
 class GetAllSubscriberController(
     mediator: Mediator,
     rhsFilterParserFactory: RHSFilterParserFactory,

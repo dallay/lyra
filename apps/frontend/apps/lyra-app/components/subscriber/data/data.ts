@@ -26,17 +26,17 @@ export const tags = [
 export const statuses = [
   {
     value: 'ENABLED',
-    label: 'ENABLED',
+    label: 'Enabled',
     icon: h(CheckCircledIcon),
   },
   {
     value: 'DISABLED',
-    label: 'DISABLED',
+    label: 'Disabled',
     icon: h(CircleIcon),
   },
   {
     value: 'BLOCKLISTED',
-    label: 'BLOCKLISTED',
+    label: 'Blocklisted',
     icon: h(CircleBackslashIcon),
   },
 ]

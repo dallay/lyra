@@ -23,10 +23,18 @@ class CreateSubscribeNewsletterCommandHandler(
         log.debug("Handling command: {}", command)
         val id = UUID.fromString(command.id)
         val organizationId = UUID.fromString(command.organizationId)
-        subscriberRegistrator.register(id, command.email, command.firstname, command.lastname, organizationId)
+        subscriberRegistrator.register(
+            id,
+            command.email,
+            command.firstname,
+            command.lastname,
+            command.attributes,
+            organizationId,
+        )
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(CreateSubscribeNewsletterCommandHandler::class.java)
+        private val log =
+            LoggerFactory.getLogger(CreateSubscribeNewsletterCommandHandler::class.java)
     }
 }

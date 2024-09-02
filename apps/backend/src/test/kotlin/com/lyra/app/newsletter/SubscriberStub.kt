@@ -85,7 +85,10 @@ object SubscriberStub {
       {
            "email": "$email",
            "firstname": "$firstname",
-           "lastname": "$lastname"
+           "lastname": "$lastname",
+           "attributes": {
+             "tags": ["tag1", "tag2"]
+           }
        }
     """.trimIndent()
 

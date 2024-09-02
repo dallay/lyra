@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import subscribers from './data/subscriber.json'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import DataTable from '~/components/subscriber/DataTable.vue'
 import { columns } from '~/components/subscriber/columns'
 import {Button} from "~/components/ui/button";
@@ -31,6 +31,21 @@ onMounted(async () => {
         Import Subscribers
       </Button>
     </div>
-    <DataTable :data="subscribers" :columns="columns" />
+    <Tabs default-value="subscribers" class="w-full">
+      <TabsList>
+        <TabsTrigger value="subscribers">
+          Subscribers
+        </TabsTrigger>
+        <TabsTrigger value="tags">
+          Tags
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="subscribers">
+        <DataTable :data="subscribers" :columns="columns" />
+      </TabsContent>
+      <TabsContent value="tags">
+        Tags component here.
+      </TabsContent>
+    </Tabs>
   </div>
 </template>

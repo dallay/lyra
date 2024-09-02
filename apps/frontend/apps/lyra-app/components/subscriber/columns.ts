@@ -1,14 +1,13 @@
 import type {ColumnDef} from '@tanstack/vue-table';
 import {h} from 'vue';
 
-import {tags, priorities, statuses} from './data/data';
-import type {Subscriber} from '@lyra/domain';
+import {priorities, statuses} from './data/data';
+import type {Subscriber, SubscriberStatus} from '@lyra/domain';
 import DataTableColumnHeader from './DataTableColumnHeader.vue';
 import DataTableRowActions from './DataTableRowActions.vue';
 import {Checkbox} from '@/components/ui/checkbox';
 import {Badge} from '@/components/ui/badge';
 import {NuxtLink} from '#components';
-import type {SubscriberStatus} from '@lyra/domain';
 import {formatDate} from '@lyra/utilities';
 
 export const columns: ColumnDef<Subscriber>[] = [
@@ -38,10 +37,10 @@ export const columns: ColumnDef<Subscriber>[] = [
 		header: ({ column }) => h(DataTableColumnHeader, { column, title: 'Email' }),
 
 		cell: ({ row }) => {
-			const label = tags.find((label) => label.value === row.original.attributes?.tags);
+			const tags = Array.isArray(row.original.attributes?.tags) ? row.original.attributes.tags : [];
 
-			return h('div', { class: 'flex space-x-2' }, [
-				label ? h(Badge, { variant: 'outline' }, () => label.label) : null,
+			return h('div', { class: 'flex space-x-2 items-center' }, [
+				...tags.map((tag: string) => h(Badge, { variant: 'outline' }, () => tag)),
 				h(
 					NuxtLink,
 					{
@@ -64,20 +63,19 @@ export const columns: ColumnDef<Subscriber>[] = [
 
 			const statusClasses: Record<SubscriberStatus, string> = {
 				ENABLED:
-					'bg-green-100 text-green-800 dark:bg-gray-700 dark:text-green-400 border border-green-400',
+					'bg-green-100/80 text-green-800/80 dark:bg-gray-700/80 dark:text-green-400/80  border-green-400/80',
 				DISABLED:
-					'bg-yellow-100 text-yellow-800 dark:bg-gray-700 dark:text-yellow-400 border border-yellow-400',
-				BLOCKLISTED:
-					'bg-red-100 text-red-800 dark:bg-gray-700 dark:text-red-400 border border-red-400',
+					'bg-yellow-100/80 text-yellow-800/80 dark:bg-gray-700/80 dark:text-yellow-400/80  border-yellow-400/80',
+				BLOCKLISTED: 'bg-red-100/80 text-red-800/80 dark:bg-gray-700/80 dark:text-red-400/80  border-red-400/80',
 			};
 
 			const rowStatus = row.getValue('status') as SubscriberStatus;
 
 			return h(
-        Badge,
+				Badge,
 				{
-          variant: 'outline',
-					class: `flex w-[130px] items-center justify-between font-medium px-2.5 py-0.5 rounded ${statusClasses[rowStatus]}`,
+					variant: 'outline',
+					class: `flex w-[130px] items-center justify-between ${statusClasses[rowStatus]}`,
 				},
 				[
 					h('span', status.label),

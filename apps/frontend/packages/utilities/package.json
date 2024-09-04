@@ -55,11 +55,11 @@
     "gravatar-url": "^4.0.1"
   },
   "devDependencies": {
+    "@internationalized/date": "^3.5.5",
     "@lyra/config": "0.0.1",
     "@lyra/tsconfig": "0.0.1",
-    "@internationalized/date": "^3.5.5",
     "typescript": "^5.5.4",
-    "vite-plugin-dts": "^4.0.3",
+    "vite-plugin-dts": "^4.1.0",
     "vitest": "^2.0.5"
   }
 }

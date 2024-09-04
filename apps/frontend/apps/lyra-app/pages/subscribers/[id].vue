@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import { ref, onMounted } from 'vue';
+<script setup lang="ts">;
 import { useRoute } from '#app';
 import {SubscriberId} from "@lyra/domain";
 const route = useRoute();

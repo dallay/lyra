@@ -61,9 +61,9 @@
     "@lyra/tsconfig": "0.0.1",
     "@types/js-cookie": "^3.0.6",
     "typescript": "^5.5.4",
-    "vite-plugin-dts": "^4.0.3",
+    "vite-plugin-dts": "^4.1.0",
     "vitest": "^2.0.5",
-    "vitest-mock-extended": "^2.0.0"
+    "vitest-mock-extended": "^2.0.2"
   },
   "engines": {
     "node": ">=18.14.1",

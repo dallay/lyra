@@ -12,7 +12,6 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
     "@internationalized/date": "^3.5.5",
-    "@lyra/domain": "0.0.1",
     "@lyra/shared": "0.0.1",
     "@lyra/utilities": "0.0.1",
     "@nuxt/icon": "^1.5.1",

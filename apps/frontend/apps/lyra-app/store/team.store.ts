@@ -1,8 +1,9 @@
 import {useNuxtApp} from "#app";
 import {ref} from "vue";
 import {defineStore} from "pinia";
-import type {ITeam, OrganizationId} from "@lyra/domain";
 import type {CreateTeamRequest} from "~/repository/modules/team.module";
+import type {ITeam} from "~/domain/team";
+import {OrganizationId} from "~/domain/organization";
 
 export const useTeamStore = defineStore("team", () => {
   const {$api} = useNuxtApp();

@@ -18,7 +18,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import type {IUser} from "@lyra/domain";
+import type {IUser} from "@/domain/user";
 
 const router = useRouter();
 const { isAuthenticated } = storeToRefs(useAuthStore());

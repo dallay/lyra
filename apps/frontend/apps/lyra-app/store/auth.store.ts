@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import { useNuxtApp, useRuntimeConfig } from '#imports';
 import { jwtDecode, type JwtPayload } from "jwt-decode";
-import type { AccessToken, IUser } from '@lyra/domain';
+import {AccessToken} from "~/domain/authentication";
+import type {IUser} from "~/domain/user";
 
 interface UserPayloadInterface {
   identifier: string;

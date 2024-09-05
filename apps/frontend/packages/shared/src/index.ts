@@ -1,8 +1,8 @@
 import type Query from '~/domain/query/Query.ts';
 import type QueryHandler from '~/domain/query/QueryHandler.ts';
 import type QueryBus from '~/domain/query/QueryBus.ts';
-import type ResponseData from '~/domain/ResponseData.ts';
-import type Response from '~/domain/Response.ts';
+import type PageResponse from '~/domain/PageResponse.ts';
+import type ApiResponse from '~/domain/ApiResponse.ts';
 import type Command from '~/domain/command/Command.ts';
 import type CommandHandler from '~/domain/command/CommandHandler.ts';
 import type CommandBus from '~/domain/command/CommandBus.ts';
@@ -16,8 +16,8 @@ export type {
 	Query,
 	QueryHandler,
 	QueryBus,
-	Response,
-  ResponseData,
+	ApiResponse,
+  PageResponse,
 	Command,
 	CommandHandler,
 	CommandBus,

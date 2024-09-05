@@ -28,7 +28,6 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import {toast} from "~/components/ui/toast";
-import {OrganizationId, TeamId} from "@lyra/domain";
 import {
   Dialog,
   DialogContent,
@@ -39,6 +38,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import {OrganizationId} from "~/domain/organization";
+import {TeamId} from "~/domain/team";
 
 interface OrganizationSwitcherProps {
   isCollapsed: boolean

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { InvalidArgumentError } from '@lyra/shared';
-import HexColor from './HexColor.ts';
+import HexColor from './HexColor';
 
 describe('HexColor', () => {
 	it('creates HexColor from valid hexadecimal color', () => {

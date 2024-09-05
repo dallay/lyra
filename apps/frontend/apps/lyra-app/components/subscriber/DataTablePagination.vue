@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Table } from '@tanstack/vue-table'
-import type {Subscriber} from '@lyra/domain';
+import type {Subscriber} from '@/domain/subscriber';
 import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-icons/vue'
 
 import { Button } from '@/components/ui/button'

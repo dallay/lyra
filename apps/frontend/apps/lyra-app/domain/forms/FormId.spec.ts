@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import FormId from './FormId.ts';
+import FormId from './FormId';
 import { InvalidArgumentError } from '@lyra/shared';
 
 describe('FormId', () => {

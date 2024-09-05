@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Table } from '@tanstack/vue-table'
 import { computed } from 'vue'
-import type {Subscriber} from '@lyra/domain';
+import type {Subscriber} from '@/domain/subscriber';
 
 import { priorities, statuses } from './data/data'
 import DataTableFacetedFilter from './DataTableFacetedFilter.vue'

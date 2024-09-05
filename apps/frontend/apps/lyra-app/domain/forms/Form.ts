@@ -1,5 +1,5 @@
-import FormId from '~/forms/FormId.ts';
-import HexColor from '~/forms/HexColor.ts';
+import FormId from '~/domain/forms/FormId';
+import HexColor from '~/domain/forms/HexColor';
 
 /**
  * Class representing a form.

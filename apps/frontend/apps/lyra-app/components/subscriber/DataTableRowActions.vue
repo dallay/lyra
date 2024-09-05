@@ -2,7 +2,7 @@
 import type { Row } from '@tanstack/vue-table'
 import { computed } from 'vue'
 import { tags } from './data/data'
-import {type Subscriber, subscriberSchema} from '@lyra/domain';
+import {type Subscriber, subscriberSchema} from '@/domain/subscriber';
 import {DotsHorizontalIcon} from '@radix-icons/vue'
 
 import { Button } from '@/components/ui/button'

@@ -17,7 +17,7 @@ import {
 } from '@tanstack/vue-table'
 
 import { ref } from 'vue'
-import type {Subscriber} from '@lyra/domain';
+import type {Subscriber} from '@/domain/subscriber';
 import DataTablePagination from './DataTablePagination.vue'
 import DataTableToolbar from './DataTableToolbar.vue'
 import { valueUpdater } from '@/lib/utils'

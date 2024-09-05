@@ -4,7 +4,6 @@ import {useForm} from 'vee-validate'
 import {toTypedSchema} from '@vee-validate/zod'
 import * as z from 'zod'
 import {vAutoAnimate} from '@formkit/auto-animate/vue'
-import {FormId, type FormResponse} from "@lyra/domain";
 import {Button} from '~/components/ui/button'
 import {
   FormControl,
@@ -21,6 +20,7 @@ import {cn} from "~/lib/utils";
 import {useFormStore} from "~/store/form.store";
 import {useWorkspaceStore} from "~/store/workspace.store";
 import {storeToRefs} from "pinia";
+import {FormId, FormResponse} from "~/domain/forms";
 
 const formStore = useFormStore()
 const workspaceStore = useWorkspaceStore()

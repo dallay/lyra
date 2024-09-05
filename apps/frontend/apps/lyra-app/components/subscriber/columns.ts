@@ -2,13 +2,13 @@ import type {ColumnDef} from '@tanstack/vue-table';
 import {h} from 'vue';
 
 import {priorities, statuses} from './data/data';
-import type {Subscriber, SubscriberStatus} from '@lyra/domain';
 import DataTableColumnHeader from './DataTableColumnHeader.vue';
 import DataTableRowActions from './DataTableRowActions.vue';
 import {Checkbox} from '@/components/ui/checkbox';
 import {Badge} from '@/components/ui/badge';
 import {NuxtLink} from '#components';
 import {formatDate} from '@lyra/utilities';
+import {type Subscriber, SubscriberStatus} from "~/domain/subscriber";
 
 export const columns: ColumnDef<Subscriber>[] = [
 	{

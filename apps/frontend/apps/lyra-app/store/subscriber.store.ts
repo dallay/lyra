@@ -1,8 +1,9 @@
 import {useNuxtApp} from "#app";
 import {ref} from "vue";
 import {defineStore} from "pinia";
-import {OrganizationId, type Subscriber, SubscriberId, type SubscriberRequest} from "@lyra/domain";
 import { useWorkspaceStore } from "~/store/workspace.store";
+import {type Subscriber, SubscriberId, type SubscriberRequest} from "~/domain/subscriber";
+import {OrganizationId} from "~/domain/organization";
 
 export const useSubscriberStore = defineStore('subscriber', () => {
 	const { $api } = useNuxtApp();

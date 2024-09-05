@@ -1,5 +1,5 @@
 import Routes from "../routes.client";
-import type {IOrganization} from "@lyra/domain";
+import type {IOrganization} from "@/domain/organization";
 import type {ResponseData} from "@lyra/shared";
 import SecureFetchFactory from "~/repository/secure.factory";
 

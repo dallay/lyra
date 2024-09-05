@@ -1,5 +1,5 @@
 import type { Response } from '@lyra/shared';
-import Form from '~/forms/Form.ts';
+import Form from '~/domain/forms/Form';
 
 export default class FormResponse implements Response {
 	constructor(

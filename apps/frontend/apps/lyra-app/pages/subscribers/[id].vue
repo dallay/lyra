@@ -1,6 +1,6 @@
-<script setup lang="ts">;
+<script setup lang="ts">
+import {SubscriberId} from "~/domain/subscriber";
 import { useRoute } from '#app';
-import {SubscriberId} from "@lyra/domain";
 const route = useRoute();
 const id = route.params.id;
 const idValue = typeof id === 'string' ? id : id[0];

@@ -1,13 +1,9 @@
 import Routes from "../routes.client";
-import type {
-   CreateFormRequest,
-   FormId,
-   FormResponse, OrganizationId,
-   UpdateFormRequest
-} from "@lyra/domain";
 import type {ResponseData} from "@lyra/shared";
 import SecureFetchFactory from "~/repository/secure.factory";
 import {ACCEPT_HEADER} from "~/repository/factory";
+import {OrganizationId} from "~/domain/organization";
+import {CreateFormRequest, FormId, FormResponse, UpdateFormRequest} from "~/domain/forms";
 
 class FormModule extends SecureFetchFactory {
   private readonly RESOURCE = Routes.Form;

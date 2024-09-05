@@ -1,10 +1,10 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import {OrganizationId, type OrganizationTeamMember} from "@lyra/domain";
 import { useAuthStore } from "~/store/auth.store";
 import { useRouter } from "#imports";
 import { useNuxtApp } from "#app";
 import type { ResponseData } from "@lyra/shared";
+import {OrganizationId, type OrganizationTeamMember} from "~/domain/organization";
 
 export type WorkspaceTeam = {
   teamId: string;

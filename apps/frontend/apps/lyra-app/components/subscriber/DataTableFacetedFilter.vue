@@ -2,7 +2,7 @@
 import type { Column } from '@tanstack/vue-table'
 import type { Component } from 'vue'
 import { computed } from 'vue'
-import type {Subscriber} from '@lyra/domain';
+import type {Subscriber} from '@/domain/subscriber';
 import {PlusCircledIcon, CheckIcon} from '@radix-icons/vue'
 
 import { Badge } from '@/components/ui/badge'

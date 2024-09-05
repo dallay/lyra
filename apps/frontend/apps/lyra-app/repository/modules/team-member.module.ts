@@ -1,7 +1,7 @@
 import Routes from "../routes.client";
 import type {ResponseData} from "@lyra/shared";
-import type {OrganizationTeamMember} from "@lyra/domain";
 import SecureFetchFactory from "~/repository/secure.factory";
+import type {OrganizationTeamMember} from "~/domain/organization";
 
 class TeamMemberModule extends SecureFetchFactory {
   private readonly RESOURCE = Routes.TeamMember;

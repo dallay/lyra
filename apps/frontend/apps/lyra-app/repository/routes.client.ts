@@ -2,8 +2,12 @@
 /*
 * Prefix /api for api server
 */
-import type {FormId, OrganizationId, SubscriberId, TeamId, CriteriaParam, QuerySort} from "@lyra/domain";
 
+
+import {OrganizationId} from "~/domain/organization";
+import {SubscriberId} from "~/domain/subscriber";
+import {FormId} from "~/domain/forms";
+import {TeamId} from "~/domain/team";
 
 const prefix : string = '/api';
 

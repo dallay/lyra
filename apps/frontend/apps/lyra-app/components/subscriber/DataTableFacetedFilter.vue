@@ -1,36 +1,89 @@
 <script setup lang="ts">
-import type { Column } from '@tanstack/vue-table'
-import type { Component } from 'vue'
-import { computed } from 'vue'
+import type {Column} from '@tanstack/vue-table'
+import type {Component} from 'vue'
+import {computed} from 'vue'
 import type {Subscriber} from '@/domain/subscriber';
-import {PlusCircledIcon, CheckIcon} from '@radix-icons/vue'
+import {CheckIcon, PlusCircledIcon} from '@radix-icons/vue'
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from '@/components/ui/command'
-
+import {Badge} from '@/components/ui/badge'
+import {Button} from '@/components/ui/button'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import { Separator } from '@/components/ui/separator'
-import { cn } from '@/lib/utils'
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator
+} from '@/components/ui/command'
+
+import {Popover, PopoverContent, PopoverTrigger,} from '@/components/ui/popover'
+import {Separator} from '@/components/ui/separator'
+import {cn} from '@/lib/utils'
+import {useSubscriberStore} from "~/store/subscriber.store";
+import type {CriteriaParam, CriteriaParamValue} from "~/domain/criteria";
+
+const subscriberStore = useSubscriberStore();
+const { fetchAllSubscriber, addAllSubscriberFilterCriteria } = subscriberStore;
+
+type FilterOption = {
+	label: string;
+	value: string;
+	icon?: Component;
+};
 
 interface DataTableFacetedFilter {
-  column?: Column<Subscriber, any>
-  title?: string
-  options: {
-    label: string
-    value: string
-    icon?: Component
-  }[]
+	column?: Column<Subscriber, any>;
+	title?: string;
+	options: FilterOption[];
 }
 
-const props = defineProps<DataTableFacetedFilter>()
+const props = defineProps<DataTableFacetedFilter>();
 
-const facets = computed(() => props.column?.getFacetedUniqueValues())
-const selectedValues = computed(() => new Set(props.column?.getFilterValue() as string[]))
+const facets = computed(() => props.column?.getFacetedUniqueValues());
+const selectedValues = computed(() => new Set(props.column?.getFilterValue() as string[]));
+
+async function toggleSelection(option: FilterOption) {
+	const columnId = props.column?.id;
+	if (!columnId) return;
+
+	const isSelected = selectedValues.value.has(option.value);
+
+	if (isSelected) {
+		selectedValues.value.delete(option.value);
+	} else {
+		selectedValues.value.add(option.value);
+	}
+
+	if (selectedValues.value.size > 0) {
+		const allCriteriaValue: CriteriaParamValue[] = Array.from(selectedValues.value).map(
+			(value) => ({
+				operator: 'eq',
+				value: value,
+			}),
+		);
+		const allCriteria: CriteriaParam = {
+			column: columnId,
+			logicalOperator: 'OR',
+			values: allCriteriaValue,
+		};
+
+		addAllSubscriberFilterCriteria([allCriteria]);
+	} else {
+		addAllSubscriberFilterCriteria([]);
+	}
+	await fetchAllSubscriber();
+
+	const filterValues = Array.from(selectedValues.value);
+	props.column?.setFilterValue(filterValues.length ? filterValues : undefined);
+}
+
+async function clearFilter() {
+	props.column?.setFilterValue(undefined);
+	selectedValues.value.clear();
+  addAllSubscriberFilterCriteria([]);
+	await fetchAllSubscriber();
+}
 </script>
 
 <template>
@@ -83,20 +136,7 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
               v-for="option in options"
               :key="option.value"
               :value="option"
-              @select="(e) => {
-                console.log(e.detail.value)
-                const isSelected = selectedValues.has(option.value)
-                if (isSelected) {
-                  selectedValues.delete(option.value)
-                }
-                else {
-                  selectedValues.add(option.value)
-                }
-                const filterValues = Array.from(selectedValues)
-                column?.setFilterValue(
-                  filterValues.length ? filterValues : undefined,
-                )
-              }"
+              @select="async () => await toggleSelection(option)"
             >
               <div
                 :class="cn(
@@ -122,7 +162,7 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
               <CommandItem
                 :value="{ label: 'Clear filters' }"
                 class="justify-center text-center"
-                @select="column?.setFilterValue(undefined)"
+                @select="clearFilter();"
               >
                 Clear filters
               </CommandItem>

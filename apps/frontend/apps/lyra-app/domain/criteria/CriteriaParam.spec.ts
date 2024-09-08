@@ -1,13 +1,13 @@
-import { describe, expect, it} from "vitest";
-import { toQueryParams, type CriteriaParam } from './CriteriaParam';
-import type { SortParam } from './SortParam';
+import {describe, expect, it} from "vitest";
+import {type CriteriaParam, toQueryParams} from './CriteriaParam';
+import type {SortParam} from './SortParam';
 
 describe('toQueryParams', () => {
   it('should convert filter criteria to query params', () => {
-    const filterCriteria: CriteriaParam[] = [
-      { column: 'age', operator: 'gt', values: ['30'] },
-      { column: 'name', operator: 'eq', values: ['John'] },
-    ];
+    const filterCriteria: Set<CriteriaParam> = new Set([
+      { column: 'age',  values: [{operator: 'gt',value:'30'}] },
+      { column: 'name',  values: [{operator: 'eq', value:'John'}] },
+    ]);
     const result = toQueryParams({ filterCriteria, size: 10 });
     expect(result).toEqual({
       'filter[age]': 'gt:30',
@@ -16,10 +16,23 @@ describe('toQueryParams', () => {
     });
   });
 
+  it('should convert filter criteria to query params with logical operator', () => {
+    const filterCriteria: Set<CriteriaParam> = new Set([
+      { column: 'status', logicalOperator: 'OR', values: [{operator: 'eq', value:'BLOCKLISTED'},{operator: 'eq', value: 'DISABLED'}] },
+      { column: 'createdAt', logicalOperator: 'AND', values: [{operator: 'gte', value:'2024-03-23T23:00:00.000Z'}, {operator: 'lte',value:'2024-09-07T23:00:00.000Z'}] },
+    ]);
+    const result = toQueryParams({ filterCriteria, size: 10 });
+    expect(result).toEqual({
+      'filter[status]': 'OR:eq:BLOCKLISTED,eq:DISABLED',
+      'filter[createdAt]': 'AND:gte:2024-03-23T23:00:00.000Z,lte:2024-09-07T23:00:00.000Z',
+      'size': '10',
+    });
+  });
+
   it('should convert search criteria to query params', () => {
-    const searchCriteria: CriteriaParam[] = [
-      { column: 'description', operator: 'ne', values: ['test'] },
-    ];
+    const searchCriteria: Set<CriteriaParam> = new Set([
+      { column: 'description',  values: [{operator: 'ne',value:'test'}] },
+    ]);
     const result = toQueryParams({ searchCriteria, size: 10 });
     expect(result).toEqual({
       'search[description]': 'ne:test',
@@ -28,9 +41,9 @@ describe('toQueryParams', () => {
   });
 
   it('should handle multiple values for a single criterion', () => {
-    const filterCriteria: CriteriaParam[] = [
-      { column: 'status', operator: 'eq', values: ['active', 'pending'] },
-    ];
+    const filterCriteria: Set<CriteriaParam> = new Set([
+      { column: 'status',  values: [{operator: 'eq',value:'active'}, {operator: 'eq',value:'pending'}] },
+    ]);
     const result = toQueryParams({ filterCriteria, size: 10 });
     expect(result).toEqual({
       'filter[status]': 'eq:active,eq:pending',
@@ -39,10 +52,10 @@ describe('toQueryParams', () => {
   });
 
   it('should merge values for the same column', () => {
-    const filterCriteria: CriteriaParam[] = [
-      { column: 'age', operator: 'gt', values: ['30'] },
-      { column: 'age', operator: 'lt', values: ['50'] },
-    ];
+    const filterCriteria: Set<CriteriaParam> = new Set([
+      { column: 'age',  values: [{operator: 'gt',value:'30'}] },
+      { column: 'age',  values: [{operator: 'lt',value:'50'}] },
+    ]);
     const result = toQueryParams({ filterCriteria, size: 10 });
     expect(result).toEqual({
       'filter[age]': 'gt:30,lt:50',
@@ -56,12 +69,12 @@ describe('toQueryParams', () => {
   });
 
   it('should handle both filter and search criteria', () => {
-    const filterCriteria: CriteriaParam[] = [
-      { column: 'age', operator: 'gt', values: ['30'] },
-    ];
-    const searchCriteria: CriteriaParam[] = [
-      { column: 'description', operator: 'ne', values: ['test'] },
-    ];
+    const filterCriteria: Set<CriteriaParam> = new Set([
+      { column: 'age',  values: [{operator: 'gt',value:'30'}] },
+    ]);
+    const searchCriteria: Set<CriteriaParam> = new Set([
+      { column: 'description', values: [{operator: 'ne', value:'test'}] },
+    ]);
     const result = toQueryParams({ filterCriteria, searchCriteria, size: 10 });
     expect(result).toEqual({
       'filter[age]': 'gt:30',
@@ -71,10 +84,10 @@ describe('toQueryParams', () => {
   });
 
   it('should handle sort criteria', () => {
-    const sortCriteria: SortParam[] = [
+    const sortCriteria: Set<SortParam> = new Set([
       { field: 'name', direction: 'asc' },
       { field: 'age', direction: 'desc' },
-    ];
+    ]);
     const result = toQueryParams({ sortCriteria, size: 10 });
     expect(result).toEqual({
       'sort': ['asc:name', 'desc:age'],

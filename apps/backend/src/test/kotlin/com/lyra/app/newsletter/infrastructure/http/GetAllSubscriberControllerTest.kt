@@ -16,7 +16,6 @@ import com.lyra.spring.boot.presentation.sort.SortParserFactory
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
-import kotlin.reflect.KProperty1
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
@@ -69,48 +68,6 @@ internal class GetAllSubscriberControllerTest {
     }
 
     @Test
-    fun `should get all subscribers with filter`() {
-        val filter = mapOf<KProperty1<SubscriberEntity, *>, Collection<String?>>(
-            SubscriberEntity::email to listOf("eq:email"),
-            SubscriberEntity::firstname to listOf("eq:firstname"),
-            SubscriberEntity::lastname to listOf("eq:lastname"),
-            SubscriberEntity::status to listOf("eq:status"),
-        )
-        val criteria = Criteria.And(
-            listOf(
-                Criteria.Equals("email", "email"),
-                Criteria.Equals("firstname", "firstname"),
-                Criteria.Equals("lastname", "lastname"),
-                Criteria.Equals("status", "status"),
-            ),
-        )
-        val query = SearchAllSubscribersQuery(criteria)
-        coEvery { mediator.send(query) } returns response
-        every { rhsFilterParserFactory.create(SubscriberEntity::class) } returns rhsFilterParser
-        every { rhsFilterParser.parse(filter) } returns criteria
-        webTestClient.get()
-            .uri { uriBuilder ->
-                uriBuilder
-                    .path("/api/organization/$organizationId/newsletter/subscriber")
-                    .queryParam("filter[email]", filter[SubscriberEntity::email])
-                    .queryParam("filter[firstname]", filter[SubscriberEntity::firstname])
-                    .queryParam("filter[lastname]", filter[SubscriberEntity::lastname])
-                    .queryParam("filter[status]", filter[SubscriberEntity::status])
-                    .build()
-            }
-            .exchange()
-            .expectStatus().isOk
-            .expectBody()
-            .jsonPath("$.data").isArray
-            .jsonPath("$.nextPageCursor").isEqualTo(response.nextPageCursor ?: "")
-            .jsonPath("$.data[0].id").isEqualTo(response.data.first().id)
-            .jsonPath("$.data[0].email").isEqualTo(response.data.first().email)
-            .jsonPath("$.data[0].name").isEqualTo(response.data.first().name)
-            .jsonPath("$.data[0].status").isEqualTo(response.data.first().status)
-        coEvery { mediator.send(query) }
-    }
-
-    @Test
     fun `should get all subscribers by search`() {
         val search = "search value"
         val criteria = Criteria.Or(
@@ -129,50 +86,6 @@ internal class GetAllSubscriberControllerTest {
                 uriBuilder
                     .path("/api/organization/$organizationId/newsletter/subscriber")
                     .queryParam("search", search)
-                    .build()
-            }
-            .exchange()
-            .expectStatus().isOk
-            .expectBody()
-            .jsonPath("$.data").isArray
-            .jsonPath("$.nextPageCursor").isEqualTo(response.nextPageCursor ?: "")
-            .jsonPath("$.data[0].id").isEqualTo(response.data.first().id)
-            .jsonPath("$.data[0].email").isEqualTo(response.data.first().email)
-            .jsonPath("$.data[0].name").isEqualTo(response.data.first().name)
-            .jsonPath("$.data[0].status").isEqualTo(response.data.first().status)
-        coEvery { mediator.send(query) }
-    }
-
-    @Test
-    fun `should combine search and filters`() {
-        val search = "search value"
-        val filter = mapOf<KProperty1<SubscriberEntity, *>, Collection<String?>>(
-            SubscriberEntity::email to listOf("eq:email"),
-            SubscriberEntity::firstname to listOf("eq:firstname"),
-            SubscriberEntity::lastname to listOf("eq:lastname"),
-            SubscriberEntity::status to listOf("eq:status"),
-        )
-        val criteria = Criteria.Or(
-            listOf(
-                Criteria.Like("email", search),
-                Criteria.Like("firstname", search),
-                Criteria.Like("lastname", search),
-            ),
-        )
-        val query = SearchAllSubscribersQuery(criteria)
-        coEvery { mediator.send(query) } returns response
-        every { rhsFilterParserFactory.create(SubscriberEntity::class) } returns rhsFilterParser
-
-        every { rhsFilterParser.parse(any(), eq(true)) } returns criteria
-        webTestClient.get()
-            .uri { uriBuilder ->
-                uriBuilder
-                    .path("/api/organization/$organizationId/newsletter/subscriber")
-                    .queryParam("search", search)
-                    .queryParam("filter[email]", filter[SubscriberEntity::email])
-                    .queryParam("filter[firstname]", filter[SubscriberEntity::firstname])
-                    .queryParam("filter[lastname]", filter[SubscriberEntity::lastname])
-                    .queryParam("filter[status]", filter[SubscriberEntity::status])
                     .build()
             }
             .exchange()

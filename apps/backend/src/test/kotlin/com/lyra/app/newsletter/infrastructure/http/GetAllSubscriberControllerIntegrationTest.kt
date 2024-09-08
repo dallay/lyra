@@ -5,6 +5,8 @@ import com.lyra.IntegrationTest
 import com.lyra.app.newsletter.SubscriberStub.subscriberResponsesByBatch
 import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
+import com.lyra.common.domain.presentation.pagination.FilterCondition
+import com.lyra.common.domain.presentation.pagination.LogicalOperator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
@@ -137,18 +139,20 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
     )
     fun `should combine search and filters`() {
+        val filterCondition = FilterCondition(
+            operator = LogicalOperator.AND,
+            values = listOf(
+                "gte:2023-03-12T23:00:00.000Z",
+                "lte:2023-03-17T23:00:00.000Z",
+            ),
+        ).toString()
+
         webTestClient.get()
             .uri { uriBuilder ->
                 uriBuilder
                     .path("/api/organization/$organizationIdBatch/newsletter/subscriber")
                     .queryParam("search", "Henry")
-                    .queryParam(
-                        "filter[createdAt]",
-                        listOf(
-                            "gte:2023-03-12T23:00:00.000Z",
-                            "lte:2023-03-17T23:00:00.000Z",
-                        ),
-                    )
+                    .queryParam("filter[createdAt]", filterCondition)
                     .build()
             }
             .exchange()

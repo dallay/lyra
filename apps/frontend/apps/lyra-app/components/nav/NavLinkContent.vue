@@ -15,7 +15,7 @@ const props = defineProps<NavLinkContentProps>();
 </script>
 
 <template>
-  <Icon v-if="icon" :name="icon" color="black" :class="cn('size-4', !isCollapsed && 'mr-2')"/>
+  <Icon v-if="icon" :name="icon" color="black" :class="cn('size-4', !isCollapsed && 'mx-2')"/>
   <template v-if="!isCollapsed">
     {{ title }}
     <span v-if="label"

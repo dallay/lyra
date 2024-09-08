@@ -21,7 +21,8 @@ import {
 } from '@/components/ui/form';
 import { toast } from '~/components/ui/toast';
 
-const { authenticateUser, refreshToken } = useAuthStore();
+const store = useAuthStore();
+const { authenticateUser, refreshToken } = store;
 const router = useRouter();
 
 const formSchema = toTypedSchema(z.object({
@@ -33,7 +34,7 @@ const form = useForm({
   validationSchema: formSchema,
 });
 
-const { accessToken, loading, isAuthenticated } = storeToRefs(useAuthStore());
+const { accessToken, loading, isAuthenticated } = storeToRefs(store);
 const isLoading = ref(loading.value);
 
 const redirectCookie = useCookie('redirectPath');
@@ -73,7 +74,6 @@ watch([isAuthenticated, accessToken], async ([isAuthenticated]) => {
 });
 
 onMounted(async () => {
-  // Refresca el token solo si no estás autenticado
   if (!isAuthenticated.value && !accessToken.value) {
     await refreshToken();
   }

@@ -29,6 +29,10 @@ open class WebConfig(val applicationSecurityProperties: ApplicationSecurityPrope
             .addResourceLocations("classpath:/public/")
     }
 
+    override fun addFormatters(registry: org.springframework.format.FormatterRegistry) {
+        registry.addConverter(StringToFilterConditionConverter())
+    }
+
     @Suppress("SpreadOperator")
     override fun addCorsMappings(registry: CorsRegistry) {
         val cors = applicationSecurityProperties.cors
@@ -39,8 +43,6 @@ open class WebConfig(val applicationSecurityProperties: ApplicationSecurityPrope
             .exposedHeaders(*cors.exposedHeaders.toTypedArray())
             .allowCredentials(cors.allowCredentials)
             .maxAge(cors.maxAge)
-
-        // Add more mappings...
     }
 
     /**

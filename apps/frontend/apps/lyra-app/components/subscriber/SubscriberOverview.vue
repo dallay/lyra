@@ -11,7 +11,7 @@ const { subscribers } = storeToRefs(store);
 const { fetchAllSubscriber } = store;
 
 onMounted(async () => {
-  await fetchAllSubscriber();
+ await fetchAllSubscriber();
 })
 </script>
 

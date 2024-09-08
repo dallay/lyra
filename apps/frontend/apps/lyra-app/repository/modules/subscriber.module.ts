@@ -14,7 +14,7 @@ class SubscriberModule extends SecureFetchFactory {
     subscribeId: SubscriberId,
     request: SubscriberRequest,
   ) {
-    return this.call({
+    return this.call<void>({
       method: 'PUT',
       url: `${this.RESOURCE.CreateSubscriber(organizationId, subscribeId)}`,
       body: request,
@@ -23,19 +23,17 @@ class SubscriberModule extends SecureFetchFactory {
 
   async fetchAll(
     organizationId: OrganizationId,
-    criteria: CriteriaQueryParams = {
-      filterCriteria: [],
-      searchCriteria: [],
-      sortCriteria: [],
-      size: 10,
-    },
+    criteria: CriteriaQueryParams
   ) {
+    console.log('[CRITERIA]', criteria)
     const headers = await this.buildHeaders();
+    const params = toQueryParams(criteria)
+    console.log('[PARAMS]', params)
     return this.call<PageResponse<Subscriber>>({
       method: 'GET',
       url: `${this.RESOURCE.FetchAll(organizationId)}`,
       fetchOptions: {
-        params: toQueryParams(criteria),
+        params: params,
         headers: {
           ...headers,
           ...(this.accessToken

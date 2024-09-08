@@ -9,6 +9,10 @@ import DataTableViewOptions from './DataTableViewOptions.vue'
 import {Cross2Icon} from '@radix-icons/vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import {useSubscriberStore} from "~/store/subscriber.store";
+
+const subscriberStore = useSubscriberStore();
+const {fetchAllSubscriber, resetSubscriberFilterOptions} = subscriberStore;
 
 interface DataTableToolbarProps {
   table: Table<Subscriber>
@@ -17,13 +21,19 @@ interface DataTableToolbarProps {
 const props = defineProps<DataTableToolbarProps>()
 
 const isFiltered = computed(() => props.table.getState().columnFilters.length > 0)
+
+const resetColumnFilters = async () => {
+  props.table.resetColumnFilters()
+  resetSubscriberFilterOptions();
+  await fetchAllSubscriber();
+}
 </script>
 
 <template>
   <div class="flex items-center justify-between">
     <div class="flex flex-1 items-center space-x-2">
       <Input
-        placeholder="Filter tasks..."
+        placeholder="Filter subscribers..."
         :model-value="(table.getColumn('email')?.getFilterValue() as string) ?? ''"
         class="h-8 w-[150px] lg:w-[250px]"
         @input="table.getColumn('email')?.setFilterValue($event.target.value)"
@@ -45,7 +55,7 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
         v-if="isFiltered"
         variant="ghost"
         class="h-8 px-2 lg:px-3"
-        @click="table.resetColumnFilters()"
+        @click="resetColumnFilters"
       >
         Reset
         <Cross2Icon class="ml-2 h-4 w-4" />

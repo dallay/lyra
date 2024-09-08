@@ -9,6 +9,8 @@ import com.lyra.common.domain.bus.query.Response
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.criteria.and
 import com.lyra.common.domain.presentation.pagination.CursorRequestPageable
+import com.lyra.common.domain.presentation.pagination.FilterCondition
+import com.lyra.common.domain.presentation.pagination.LogicalOperator
 import com.lyra.spring.boot.ApiController
 import com.lyra.spring.boot.presentation.filter.RHSFilterParserFactory
 import com.lyra.spring.boot.presentation.sort.SortParserFactory
@@ -79,7 +81,7 @@ class SearchFormController(
      */
     private fun criteria(cursorRequestPageable: CursorRequestPageable): Criteria {
         val searchMap = mutableMapOf<KProperty1<FormEntity, *>, List<String>>()
-        val filterMap = mutableMapOf<KProperty1<FormEntity, *>, List<String>>()
+        val filterMap = mutableMapOf<KProperty1<FormEntity, *>, FilterCondition>()
         val search = cursorRequestPageable.search
         val searchQuery = if (!search.isNullOrBlank()) getSearchQuery(search) else emptyList()
         val searchableProperties = mapOf(
@@ -92,16 +94,21 @@ class SearchFormController(
         FormEntity::class.memberProperties.forEach { property ->
             val propertySearch = searchableProperties.getOrDefault(property, emptyList())
             val propertyFilter =
-                cursorRequestPageable.filter.getOrDefault(property.name, emptyList())
+                cursorRequestPageable.filter.getOrDefault(
+                    property.name,
+                    FilterCondition(LogicalOperator.AND, emptyList()),
+                )
             searchMap[property] = propertySearch
             filterMap[property] = propertyFilter
         }
+        val filterCriteriaList = mutableListOf<Criteria>()
+        processFilterMap(filterMap, filterCriteriaList)
+
         val searchCriteria = rhsFilterParser.parse(searchMap, useOr = true)
-        val filterCriteria = rhsFilterParser.parse(filterMap, useOr = false)
 
         val criteriaList = mutableListOf<Criteria>()
-        if (filterCriteria !is Criteria.Empty) {
-            criteriaList.add(filterCriteria)
+        if (filterCriteriaList.isNotEmpty()) {
+            criteriaList.add(Criteria.And(filterCriteriaList))
         }
         if (searchCriteria !is Criteria.Empty) {
             criteriaList.add(searchCriteria)
@@ -109,6 +116,30 @@ class SearchFormController(
 
         val criteria = if (criteriaList.isNotEmpty()) Criteria.And(criteriaList) else Criteria.Empty
         return criteria
+    }
+
+    private fun processFilterMap(
+        filterMap: MutableMap<KProperty1<FormEntity, *>, FilterCondition>,
+        filterCriteriaList: MutableList<Criteria>
+    ) {
+        filterMap.forEach { (property, condition) ->
+            val criteria = when (condition.operator) {
+                LogicalOperator.OR -> rhsFilterParser.parse(
+                    mapOf(property to condition.values),
+                    useOr = true,
+                )
+
+                LogicalOperator.AND -> rhsFilterParser.parse(
+                    mapOf(property to condition.values),
+                    useOr = false,
+                )
+
+                else -> throw IllegalArgumentException("Unsupported operator: ${condition.operator}")
+            }
+            if (criteria !is Criteria.Empty) {
+                filterCriteriaList.add(criteria)
+            }
+        }
     }
 
     /**

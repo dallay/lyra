@@ -4,9 +4,10 @@ import com.lyra.UnitTest
 import com.lyra.app.newsletter.SubscriberStub
 import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.exceptions.SubscriberException
+import com.lyra.app.newsletter.infrastructure.persistence.entity.CountByStatusEntity
 import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntity
 import com.lyra.app.newsletter.infrastructure.persistence.mapper.SubscriberMapper.toEntity
-import com.lyra.app.newsletter.infrastructure.persistence.repository.SubscriberRegistratorR2dbcRepository
+import com.lyra.app.newsletter.infrastructure.persistence.repository.SubscriberReactiveR2dbcRepository
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.pagination.Cursor
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
@@ -32,19 +33,19 @@ import org.springframework.data.domain.Pageable
 
 @UnitTest
 internal class SubscriberR2dbcRepositoryTest {
-    private val subscriberRegistratorR2dbcRepository: SubscriberRegistratorR2dbcRepository = mockk()
+    private val subscriberReactiveR2DbcRepository: SubscriberReactiveR2dbcRepository = mockk()
     private val subscriberRepository =
-        SubscriberR2dbcRepository(subscriberRegistratorR2dbcRepository)
+        SubscriberR2dbcRepository(subscriberReactiveR2DbcRepository)
     private lateinit var subscribers: List<Subscriber>
 
     @BeforeEach
     fun setUp() {
         subscribers = runBlocking { SubscriberStub.dummyRandomSubscribersFlow(10).toList() }
         val subscribersEntities = subscribers.map { it.toEntity() }.toList()
-        coEvery { subscriberRegistratorR2dbcRepository.save(any()) } returns subscribersEntities.first()
-        coEvery { subscriberRegistratorR2dbcRepository.findAll() } returns subscribersEntities.asFlow()
+        coEvery { subscriberReactiveR2DbcRepository.save(any()) } returns subscribersEntities.first()
+        coEvery { subscriberReactiveR2DbcRepository.findAll() } returns subscribersEntities.asFlow()
         coEvery {
-            subscriberRegistratorR2dbcRepository.findAll(
+            subscriberReactiveR2DbcRepository.findAll(
                 any(org.springframework.data.relational.core.query.Criteria::class),
                 any(Pageable::class),
                 eq(SubscriberEntity::class),
@@ -54,7 +55,7 @@ internal class SubscriberR2dbcRepositoryTest {
         )
 
         coEvery {
-            subscriberRegistratorR2dbcRepository.findAllByCursor(
+            subscriberReactiveR2DbcRepository.findAllByCursor(
                 any(org.springframework.data.relational.core.query.Criteria::class),
                 any(Int::class),
                 eq(SubscriberEntity::class),
@@ -69,7 +70,12 @@ internal class SubscriberR2dbcRepositoryTest {
                 ).serialize(),
             )
 
-        coEvery { subscriberRegistratorR2dbcRepository.findAllByStatus(any()) } returns subscribersEntities.asFlow()
+        coEvery { subscriberReactiveR2DbcRepository.findAllByStatus(any()) } returns subscribersEntities.asFlow()
+        coEvery { subscriberReactiveR2DbcRepository.countByStatus() } returns listOf<CountByStatusEntity>(
+            CountByStatusEntity("ENABLED", 478_289L),
+            CountByStatusEntity("DISABLED", 32L),
+            CountByStatusEntity("BLOCKLISTED", 1L),
+        ).asFlow()
     }
 
     @Test
@@ -80,14 +86,14 @@ internal class SubscriberR2dbcRepositoryTest {
             subscriberRepository.create(subscriber)
         }
 
-        coEvery { subscriberRegistratorR2dbcRepository.save(any()) }
+        coEvery { subscriberReactiveR2DbcRepository.save(any()) }
     }
 
     @Test
     fun `should not save a new subscriber if it already exists`() {
         val subscriber = subscribers.first()
 
-        coEvery { subscriberRegistratorR2dbcRepository.save(any()) } throws DuplicateKeyException("Duplicate key")
+        coEvery { subscriberReactiveR2DbcRepository.save(any()) } throws DuplicateKeyException("Duplicate key")
 
         runBlocking {
             assertThrows<SubscriberException> {
@@ -100,7 +106,7 @@ internal class SubscriberR2dbcRepositoryTest {
     fun `should not save a new subscriber if an unknown exception occur`() {
         val subscriber = subscribers.first()
 
-        coEvery { subscriberRegistratorR2dbcRepository.save(any()) } throws RuntimeException("Unexpected error")
+        coEvery { subscriberReactiveR2DbcRepository.save(any()) } throws RuntimeException("Unexpected error")
 
         runBlocking {
             assertThrows<RuntimeException> {
@@ -115,7 +121,7 @@ internal class SubscriberR2dbcRepositoryTest {
             subscriberRepository.searchAllByOffset(Criteria.Empty)
         assertEquals(subscribers, response.data.toList())
         coVerify(exactly = 1) {
-            subscriberRegistratorR2dbcRepository.findAll(
+            subscriberReactiveR2DbcRepository.findAll(
                 any(org.springframework.data.relational.core.query.Criteria::class),
                 any(Pageable::class),
                 eq(SubscriberEntity::class),
@@ -129,7 +135,7 @@ internal class SubscriberR2dbcRepositoryTest {
             val criteria = Criteria.Equals("status", "NON_EXISTING_STATUS")
             val content: List<SubscriberEntity> = emptyList()
             coEvery {
-                subscriberRegistratorR2dbcRepository.findAll(
+                subscriberReactiveR2DbcRepository.findAll(
                     any(org.springframework.data.relational.core.query.Criteria::class),
                     any(Pageable::class),
                     eq(SubscriberEntity::class),
@@ -147,7 +153,7 @@ internal class SubscriberR2dbcRepositoryTest {
             subscriberRepository.searchAllByCursor(Criteria.Empty)
         assertEquals(subscribers, response.data.toList())
         coVerify(exactly = 1) {
-            subscriberRegistratorR2dbcRepository.findAllByCursor(
+            subscriberReactiveR2DbcRepository.findAllByCursor(
                 any(org.springframework.data.relational.core.query.Criteria::class),
                 any(Int::class),
                 eq(SubscriberEntity::class),
@@ -164,6 +170,15 @@ internal class SubscriberR2dbcRepositoryTest {
     }
 
     @Test
+    fun `should count all subscribers by status`() = runBlocking {
+        val response = subscriberRepository.countByStatus().toList()
+        assertEquals(3, response.size)
+        assertEquals(478_289L, response.first { it.first == "ENABLED" }.second)
+        assertEquals(32L, response.first { it.first == "DISABLED" }.second)
+        assertEquals(1L, response.first { it.first == "BLOCKLISTED" }.second)
+    }
+
+    @Test
     fun `should search all BLOCKLISTED subscribers by criteria using offset pagination`() =
         runBlocking {
             val criteria = Criteria.Equals("status", "BLOCKLISTED")
@@ -171,7 +186,7 @@ internal class SubscriberR2dbcRepositoryTest {
             val response = subscriberRepository.searchAllByOffset(criteria)
             assertEquals(subscribers, response.data.toList())
             coVerify(exactly = 1) {
-                subscriberRegistratorR2dbcRepository.findAll(
+                subscriberReactiveR2DbcRepository.findAll(
                     any(org.springframework.data.relational.core.query.Criteria::class),
                     any(Pageable::class),
                     eq(SubscriberEntity::class),
@@ -187,7 +202,7 @@ internal class SubscriberR2dbcRepositoryTest {
             val response = subscriberRepository.searchAllByCursor(criteria)
             assertEquals(subscribers, response.data.toList())
             coVerify(exactly = 1) {
-                subscriberRegistratorR2dbcRepository.findAllByCursor(
+                subscriberReactiveR2DbcRepository.findAllByCursor(
                     any(org.springframework.data.relational.core.query.Criteria::class),
                     any(Int::class),
                     eq(SubscriberEntity::class),
@@ -204,7 +219,7 @@ internal class SubscriberR2dbcRepositoryTest {
         val response = subscriberRepository.searchAllByOffset(criteria)
         assertEquals(subscribers, response.data.toList())
         coVerify(exactly = 1) {
-            subscriberRegistratorR2dbcRepository.findAll(
+            subscriberReactiveR2DbcRepository.findAll(
                 any(org.springframework.data.relational.core.query.Criteria::class),
                 any(Pageable::class),
                 eq(SubscriberEntity::class),
@@ -219,7 +234,7 @@ internal class SubscriberR2dbcRepositoryTest {
         val response = subscriberRepository.searchAllByCursor(criteria)
         assertEquals(subscribers, response.data.toList())
         coVerify(exactly = 1) {
-            subscriberRegistratorR2dbcRepository.findAllByCursor(
+            subscriberReactiveR2DbcRepository.findAllByCursor(
                 any(org.springframework.data.relational.core.query.Criteria::class),
                 any(Int::class),
                 eq(SubscriberEntity::class),
@@ -243,7 +258,7 @@ internal class SubscriberR2dbcRepositoryTest {
         val response = subscriberRepository.searchAllByOffset(criteria)
         assertEquals(subscribers, response.data.toList())
         coVerify(exactly = 1) {
-            subscriberRegistratorR2dbcRepository.findAll(
+            subscriberReactiveR2DbcRepository.findAll(
                 any(org.springframework.data.relational.core.query.Criteria::class),
                 any(Pageable::class),
                 eq(SubscriberEntity::class),
@@ -265,7 +280,7 @@ internal class SubscriberR2dbcRepositoryTest {
         val response = subscriberRepository.searchAllByCursor(criteria)
         assertEquals(subscribers, response.data.toList())
         coVerify(exactly = 1) {
-            subscriberRegistratorR2dbcRepository.findAllByCursor(
+            subscriberReactiveR2DbcRepository.findAllByCursor(
                 any(org.springframework.data.relational.core.query.Criteria::class),
                 any(Int::class),
                 eq(SubscriberEntity::class),
@@ -291,7 +306,7 @@ internal class SubscriberR2dbcRepositoryTest {
             val sortCriteria = sort.toSpringSort()
             val pageable = PageRequest.of(0, 10, sortCriteria)
             coEvery {
-                subscriberRegistratorR2dbcRepository.findAll(
+                subscriberReactiveR2DbcRepository.findAll(
                     eq(criteriaParsed),
                     eq(pageable),
                     eq(SubscriberEntity::class),
@@ -319,7 +334,7 @@ internal class SubscriberR2dbcRepositoryTest {
             val criteriaParsed = R2DBCCriteriaParser(SubscriberEntity::class).parse(criteria)
             val sortCriteria = sort.toSpringSort()
             coEvery {
-                subscriberRegistratorR2dbcRepository.findAllByCursor(
+                subscriberReactiveR2DbcRepository.findAllByCursor(
                     eq(criteriaParsed),
                     eq(10),
                     eq(SubscriberEntity::class),

@@ -163,6 +163,6 @@ class GetAllSubscriberController(
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(GetAllSubscriberController::class.java)
+        private val log = LoggerFactory.getLogger(SubscriberCountByStatusController::class.java)
     }
 }

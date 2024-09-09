@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import type { Table } from '@tanstack/vue-table'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import type {Subscriber} from '@/domain/subscriber';
 
-import { priorities, statuses } from './data/data'
+import { priorities } from './data/data'
 import DataTableFacetedFilter from './DataTableFacetedFilter.vue'
 import DataTableViewOptions from './DataTableViewOptions.vue'
 import {Cross2Icon} from '@radix-icons/vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import {useSubscriberStore} from "~/store/subscriber.store";
+import { useSubscriberStore } from "~/store/subscriber.store";
+import { storeToRefs } from 'pinia';
 
-const subscriberStore = useSubscriberStore();
-const {fetchAllSubscriber, resetSubscriberFilterOptions} = subscriberStore;
+const subscriberStore = useSubscriberStore()
+const { statuses } = storeToRefs(subscriberStore)
+const {fetchAllSubscriber, resetSubscriberFilterOptions, subscriberCountByStatus} = subscriberStore;
 
 interface DataTableToolbarProps {
   table: Table<Subscriber>
@@ -27,6 +29,10 @@ const resetColumnFilters = async () => {
   resetSubscriberFilterOptions();
   await fetchAllSubscriber();
 }
+
+onMounted(async () => {
+  await subscriberCountByStatus();
+})
 </script>
 
 <template>

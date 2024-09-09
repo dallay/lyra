@@ -20,15 +20,18 @@ import {
 import {Popover, PopoverContent, PopoverTrigger,} from '@/components/ui/popover'
 import {Separator} from '@/components/ui/separator'
 import {cn} from '@/lib/utils'
-import {useSubscriberStore} from "~/store/subscriber.store";
 import type {CriteriaParam, CriteriaParamValue} from "~/domain/criteria";
+import {useSubscriberStore} from "~/store/subscriber.store";
+import {storeToRefs} from 'pinia';
 
 const subscriberStore = useSubscriberStore();
+const { statuses } = storeToRefs(subscriberStore);
 const { fetchAllSubscriber, addAllSubscriberFilterCriteria } = subscriberStore;
 
 type FilterOption = {
 	label: string;
 	value: string;
+	count?: number;
 	icon?: Component;
 };
 
@@ -40,7 +43,25 @@ interface DataTableFacetedFilter {
 
 const props = defineProps<DataTableFacetedFilter>();
 
-const facets = computed(() => props.column?.getFacetedUniqueValues());
+const facets = computed(() => {
+	const uniqueValues = props.column?.getFacetedUniqueValues() || new Map();
+	const facetsMap = new Map<string, number>();
+
+	props.options.forEach((option) => {
+		if (option.count !== undefined && option.count !== null) {
+			facetsMap.set(option.value, option.count);
+		} else {
+			const uniqueValueCount = uniqueValues.get(option.value);
+			if (uniqueValueCount !== undefined) {
+				facetsMap.set(option.value, uniqueValueCount);
+			}
+		}
+	});
+
+	console.log('🧪 FACEEETS', facetsMap);
+	return facetsMap;
+});
+
 const selectedValues = computed(() => new Set(props.column?.getFilterValue() as string[]));
 
 async function toggleSelection(option: FilterOption) {
@@ -81,7 +102,7 @@ async function toggleSelection(option: FilterOption) {
 async function clearFilter() {
 	props.column?.setFilterValue(undefined);
 	selectedValues.value.clear();
-  addAllSubscriberFilterCriteria([]);
+	addAllSubscriberFilterCriteria([]);
 	await fetchAllSubscriber();
 }
 </script>
@@ -150,7 +171,7 @@ async function clearFilter() {
               </div>
               <component :is="option.icon" v-if="option.icon" class="mr-2 h-4 w-4 text-muted-foreground" />
               <span>{{ option.label }}</span>
-              <span v-if="facets?.get(option.value)" class="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
+              <span v-if="facets.get(option.value)" class="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
                 {{ facets.get(option.value) }}
               </span>
             </CommandItem>

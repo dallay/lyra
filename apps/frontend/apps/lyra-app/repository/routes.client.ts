@@ -28,6 +28,8 @@ const Routes = {
       `${prefix}/organization/${organizationId.value}/newsletter/subscriber/${subscribeId.value}`,
     FetchAll: (organizationId: OrganizationId) =>
       `${prefix}/organization/${organizationId.value}/newsletter/subscriber`,
+    CountByStatus: (organizationId: OrganizationId) =>
+      `${prefix}/organization/${organizationId.value}/newsletter/subscriber/count-by-status`,
   },
   Form:{
     FetchAll:(organizationId: OrganizationId)  => `${prefix}/organization/${organizationId.value}/form`,

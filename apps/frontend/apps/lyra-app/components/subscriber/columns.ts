@@ -1,7 +1,7 @@
 import type {ColumnDef} from '@tanstack/vue-table';
 import {h} from 'vue';
 
-import {priorities, statuses} from './data/data';
+import {priorities} from './data/data';
 import DataTableColumnHeader from './DataTableColumnHeader.vue';
 import DataTableRowActions from './DataTableRowActions.vue';
 import {Checkbox} from '@/components/ui/checkbox';
@@ -9,6 +9,11 @@ import {Badge} from '@/components/ui/badge';
 import {NuxtLink} from '#components';
 import {formatDate} from '@lyra/utilities';
 import {type Subscriber, SubscriberStatus} from "~/domain/subscriber";
+import { useSubscriberStore } from "~/store/subscriber.store";
+import { storeToRefs } from 'pinia';
+
+const subscriberStore = useSubscriberStore()
+const { statuses } = storeToRefs(subscriberStore)
 
 export const columns: ColumnDef<Subscriber>[] = [
 	{
@@ -57,7 +62,7 @@ export const columns: ColumnDef<Subscriber>[] = [
 		header: ({ column }) => h(DataTableColumnHeader, { column, title: 'Status' }),
 
 		cell: ({ row }) => {
-			const status = statuses.find((status) => status.value === row.getValue('status'));
+			const status = statuses.value.find((status) => status.value === row.getValue('status'));
 
 			if (!status) return null;
 

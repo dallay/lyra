@@ -7,6 +7,11 @@ import {
   CircleIcon,
   CircleBackslashIcon
 } from '@radix-icons/vue'
+import { useSubscriberStore } from "~/store/subscriber.store";
+import type { CountByStatusResponse } from '~/domain/subscriber';
+
+const subscriberStore = useSubscriberStore()
+const { subscriberCountByStatus } = subscriberStore
 
 export const tags = [
   {
@@ -23,23 +28,34 @@ export const tags = [
   },
 ]
 
-export const statuses = [
+ const statusIcons = [
   {
     value: 'ENABLED',
-    label: 'Enabled',
     icon: h(CheckCircledIcon),
   },
   {
     value: 'DISABLED',
-    label: 'Disabled',
     icon: h(CircleIcon),
   },
   {
     value: 'BLOCKLISTED',
-    label: 'Blocklisted',
     icon: h(CircleBackslashIcon),
   },
 ]
+
+const loadIcon = (status: string) => {
+  const icon = statusIcons.find((icon) => icon.value === status)
+  return icon ? icon.icon : h(CircleIcon)
+}
+
+const response = await subscriberCountByStatus();
+export const statuses = response.data.map((countByStatus: CountByStatusResponse) => ({
+  value: countByStatus.status,
+  label: countByStatus.status.charAt(0).toUpperCase() + countByStatus.status.slice(1).toLowerCase(),
+  count: countByStatus.count,
+  icon: loadIcon(countByStatus.status),
+}))
+
 
 export const priorities = [
   {

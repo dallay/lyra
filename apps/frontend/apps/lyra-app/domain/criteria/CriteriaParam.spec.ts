@@ -30,12 +30,10 @@ describe('toQueryParams', () => {
   });
 
   it('should convert search criteria to query params', () => {
-    const searchCriteria: Set<CriteriaParam> = new Set([
-      { column: 'description',  values: [{operator: 'ne',value:'test'}] },
-    ]);
-    const result = toQueryParams({ searchCriteria, size: 10 });
+    const search = 'test';
+    const result = toQueryParams({ search, size: 10 });
     expect(result).toEqual({
-      'search[description]': 'ne:test',
+      'search': 'test',
       'size': '10',
     });
   });
@@ -72,13 +70,11 @@ describe('toQueryParams', () => {
     const filterCriteria: Set<CriteriaParam> = new Set([
       { column: 'age',  values: [{operator: 'gt',value:'30'}] },
     ]);
-    const searchCriteria: Set<CriteriaParam> = new Set([
-      { column: 'description', values: [{operator: 'ne', value:'test'}] },
-    ]);
-    const result = toQueryParams({ filterCriteria, searchCriteria, size: 10 });
+    const search = 'test';
+    const result = toQueryParams({ filterCriteria, search, size: 10 });
     expect(result).toEqual({
       'filter[age]': 'gt:30',
-      'search[description]': 'ne:test',
+      'search': 'test',
       'size': '10',
     });
   });

@@ -37,6 +37,7 @@ class R2DBCCriteriaParser<T : Any>(
             is Criteria.IsNull -> parse(criteria)
             is Criteria.IsNotNull -> parse(criteria)
             is Criteria.Like -> parse(criteria)
+            is Criteria.Ilike -> parse(criteria)
             is Criteria.NotLike -> parse(criteria)
             is Criteria.In -> parse(criteria)
             is Criteria.NotIn -> parse(criteria)
@@ -100,6 +101,9 @@ class R2DBCCriteriaParser<T : Any>(
 
     private fun parse(criteria: Criteria.Like): R2DBCCriteria =
         where(criteria.key).like(criteria.value)
+
+    private fun parse(criteria: Criteria.Ilike): R2DBCCriteria =
+        where(criteria.key).like(criteria.value).ignoreCase(true)
 
     private fun parse(criteria: Criteria.NotLike): R2DBCCriteria =
         where(criteria.key).notLike(criteria.value)

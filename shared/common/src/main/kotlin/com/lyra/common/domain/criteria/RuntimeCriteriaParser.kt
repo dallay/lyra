@@ -31,7 +31,9 @@ class RuntimeCriteriaParser<T : Any>(
             is Criteria.GreaterThanEquals -> parse(criteria)
             is Criteria.IsNull -> parse(criteria)
             is Criteria.IsNotNull -> parse(criteria)
-            is Criteria.Like -> parse(criteria)
+//            is Criteria.Like -> parse(criteria)
+//            is Criteria.Ilike -> parse(criteria)
+            is CriteriaLike -> parse(criteria)
             is Criteria.NotLike -> parse(criteria)
             is Criteria.Regexp -> parse(criteria)
             is Criteria.NotRegexp -> parse(criteria)
@@ -186,8 +188,10 @@ class RuntimeCriteriaParser<T : Any>(
         }
     }
 
-    private fun parse(criteria: Criteria.Like): (T) -> Boolean {
-        val pattern = Pattern.compile(SqlLikeTranspiler.toRegEx(criteria.value))
+    private fun parse(criteria: CriteriaLike, ignoreCase: Boolean = false): (T) -> Boolean {
+        val regexFlags = if (ignoreCase) Pattern.CASE_INSENSITIVE else 0
+        val pattern = Pattern.compile(SqlLikeTranspiler.toRegEx(criteria.value), regexFlags)
+
         return {
             properties[criteria.key]?.get(it)?.let { value ->
                 if (value is CharSequence) {
@@ -198,6 +202,10 @@ class RuntimeCriteriaParser<T : Any>(
             } ?: false
         }
     }
+
+    // Puedes definir las funciones parse para LIKE e ILIKE
+    private fun parse(criteria: Criteria.Like): (T) -> Boolean = parse(criteria, ignoreCase = false)
+    private fun parse(criteria: Criteria.Ilike): (T) -> Boolean = parse(criteria, ignoreCase = true)
 
     private fun parse(criteria: Criteria.NotLike): (T) -> Boolean {
         val pattern = Pattern.compile(SqlLikeTranspiler.toRegEx(criteria.value))

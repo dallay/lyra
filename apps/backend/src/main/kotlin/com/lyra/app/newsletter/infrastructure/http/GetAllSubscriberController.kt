@@ -83,11 +83,8 @@ class GetAllSubscriberController(
         val search = cursorRequestPageable.search
         val searchQuery = if (!search.isNullOrBlank()) getSearchQuery(search) else emptyList()
 
-        // Aplica la búsqueda a los campos correspondientes
         val searchableProperties = mapOf(
             SubscriberEntity::email.name to searchQuery,
-            SubscriberEntity::firstname.name to searchQuery,
-            SubscriberEntity::lastname.name to searchQuery,
         )
 
         SubscriberEntity::class.memberProperties.forEach { property ->
@@ -152,17 +149,12 @@ class GetAllSubscriberController(
     private fun getSearchQuery(search: String): List<String> {
         val trimQuery = search.trim()
         val searchQuery = listOf(
-            "lk:$trimQuery", "lk:${trimQuery.lowercase()}", "lk:${trimQuery.uppercase()}",
-            "lk:${
-                trimQuery.replaceFirstChar {
-                    if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
-                }
-            }",
+            "ilk:%$trimQuery%",
         )
         return searchQuery
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(SubscriberCountByStatusController::class.java)
+        private val log = LoggerFactory.getLogger(GetAllSubscriberController::class.java)
     }
 }

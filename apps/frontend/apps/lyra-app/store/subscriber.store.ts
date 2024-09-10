@@ -159,23 +159,13 @@ export const useSubscriberStore = defineStore('subscriber', () => {
 	/**
 	 * Add All Subscriber Filter Criteria to the subscriber filter options.
 	 * @param {CriteriaParam[]} criteria - The criteria to set.
-	 * @param {boolean} isSearch - Whether the criteria is for searching.
 	 */
-	const addAllSubscriberFilterCriteria = (criteria: CriteriaParam[], isSearch: boolean = false) => {
-		const criteriaSet: Set<CriteriaParam> = isSearch
-			? subscriberFilterOptions.value.searchCriteria ?? new Set<CriteriaParam>()
-			: subscriberFilterOptions.value.filterCriteria ?? new Set<CriteriaParam>();
-
-		criteriaSet.clear();
-		criteria.forEach((c) => criteriaSet.add(c));
-
-		// Set the criteria set based on whether it's a search or filter criteria
-		if (isSearch) {
-			subscriberFilterOptions.value.searchCriteria = criteriaSet;
-		} else {
-			subscriberFilterOptions.value.filterCriteria = criteriaSet;
-		}
-	};
+  const addAllSubscriberFilterCriteria = (criteria: CriteriaParam[]) => {
+    const criteriaSet = subscriberFilterOptions.value.filterCriteria ?? new Set<CriteriaParam>();
+    criteriaSet.clear();
+    criteria.forEach(c => criteriaSet.add(c));
+    subscriberFilterOptions.value.filterCriteria = criteriaSet;
+  };
 
 	/**
 	 * Removes a specific criteria from the subscriber filter options.

@@ -2,6 +2,10 @@ package com.lyra.common.domain.criteria
 
 import java.util.regex.Pattern
 
+open class CriteriaLike(open val key: String, open val value: String) : Criteria() {
+    override fun toString(): String = "$key LIKE $value"
+}
+
 sealed class Criteria {
     object Empty : Criteria() {
         override fun toString(): String = "()"
@@ -55,8 +59,12 @@ sealed class Criteria {
         override fun toString(): String = "$key != null"
     }
 
-    data class Like(val key: String, val value: String) : Criteria() {
+    data class Like(override val key: String, override val value: String) : CriteriaLike(key, value) {
         override fun toString(): String = "$key LIKE $value"
+    }
+
+    data class Ilike(override val key: String, override val value: String) : CriteriaLike(key, value) {
+        override fun toString(): String = "$key ILIKE $value"
     }
 
     data class NotLike(val key: String, val value: String) : Criteria() {

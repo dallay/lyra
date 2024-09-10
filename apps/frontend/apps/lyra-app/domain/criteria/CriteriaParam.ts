@@ -28,7 +28,7 @@ export interface CriteriaParam {
  */
 export interface CriteriaQueryParams {
   filterCriteria?: Set<CriteriaParam>;
-  searchCriteria?: Set<CriteriaParam>;
+  search?: string;
   sortCriteria?: Set<SortParam>;
   size: number;
   cursor?: string;
@@ -50,7 +50,7 @@ export function toQueryParams(
 
   const {
     filterCriteria = new Set<CriteriaParam>(),
-    searchCriteria = new Set<CriteriaParam>(),
+    search = "",
     sortCriteria = new Set<SortParam>(),
     size = DEFAULT_PAGE_SIZE,
     cursor,
@@ -79,8 +79,9 @@ export function toQueryParams(
   };
 
   addCriteriaToParams(filterCriteria, "filter");
-  addCriteriaToParams(searchCriteria, "search");
-
+  if (search) {
+    params["search"] = search;
+  }
   if (Array.from(sortCriteria).length > 0) {
     params["sort"] = Array.from(sortCriteria)
       .filter(({ field }) => field)

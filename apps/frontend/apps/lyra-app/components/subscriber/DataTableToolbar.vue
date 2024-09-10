@@ -11,9 +11,10 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useSubscriberStore } from "~/store/subscriber.store";
 import { storeToRefs } from 'pinia';
+import type {CriteriaParam} from "~/domain/criteria";
 
 const subscriberStore = useSubscriberStore()
-const { statuses } = storeToRefs(subscriberStore)
+const { statuses, subscriberFilterOptions } = storeToRefs(subscriberStore)
 const {fetchAllSubscriber, resetSubscriberFilterOptions, subscriberCountByStatus} = subscriberStore;
 
 interface DataTableToolbarProps {
@@ -30,6 +31,21 @@ const resetColumnFilters = async () => {
   await fetchAllSubscriber();
 }
 
+const debounce = (func: Function, wait: number) => {
+  let timeout: number;
+  return (...args: any[]) => {
+    clearTimeout(timeout);
+    timeout = window.setTimeout(() => func.apply(this, args), wait);
+  };
+};
+
+const setEmailFilterValue = debounce(async (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  subscriberFilterOptions.value.search = target.value;
+  await fetchAllSubscriber();
+  props.table.getColumn('email')?.setFilterValue(target.value);
+}, 300);
+
 onMounted(async () => {
   await subscriberCountByStatus();
 })
@@ -42,7 +58,7 @@ onMounted(async () => {
         placeholder="Filter subscribers..."
         :model-value="(table.getColumn('email')?.getFilterValue() as string) ?? ''"
         class="h-8 w-[150px] lg:w-[250px]"
-        @input="table.getColumn('email')?.setFilterValue($event.target.value)"
+        @input="setEmailFilterValue"
       />
       <DataTableFacetedFilter
         v-if="table.getColumn('status')"

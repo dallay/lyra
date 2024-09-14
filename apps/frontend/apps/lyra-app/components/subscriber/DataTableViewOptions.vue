@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Table } from '@tanstack/vue-table'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import type {Subscriber} from '@/domain/subscriber';
 import {MixerHorizontalIcon} from '@radix-icons/vue'
 
@@ -25,6 +25,16 @@ const columns = computed(() => props.table.getAllColumns()
     column =>
       typeof column.accessorFn !== 'undefined' && column.getCanHide(),
   ))
+
+  onMounted(() => {
+    const startHiddenColumns = ['tags']
+    startHiddenColumns.forEach((columnId) => {
+      const column = props.table.getColumn(columnId)
+      if (column) {
+        column.toggleVisibility(false)
+      }
+    })
+  })
 </script>
 
 <template>

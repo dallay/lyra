@@ -27,8 +27,8 @@ class CountByStatusQueryHandler(private val counter: SubscriberCountByStatus) :
      * @return [SubscriberCountByStatusResponse] The response containing the count of subscribers by status.
      */
     override suspend fun handle(query: CountByStatusQuery): SubscriberCountByStatusResponse {
-        log.debug("Counting subscribers by status")
-        return SubscriberCountByStatusResponse(counter.count())
+        log.debug("Counting subscribers by status for organization {}", query.organizationId)
+        return SubscriberCountByStatusResponse(counter.count(query.organizationId))
     }
 
     companion object {

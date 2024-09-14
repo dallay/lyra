@@ -54,6 +54,10 @@ class SendNewContentNewsletterCommandHandlerTest {
                     email = it.email.value,
                     name = it.name.fullName(),
                     status = it.status.name,
+                    attributes = it.attributes,
+                    organizationId = it.organizationId.value.toString(),
+                    createdAt = it.createdAt.toString(),
+                    updatedAt = it.updatedAt?.toString(),
                 )
             }.let {
                 SubscribersResponse(it)

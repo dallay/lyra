@@ -5,9 +5,11 @@ import com.lyra.app.newsletter.SubscriberStub
 import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.exceptions.SubscriberException
 import com.lyra.app.newsletter.infrastructure.persistence.entity.CountByStatusEntity
+import com.lyra.app.newsletter.infrastructure.persistence.entity.CountByTagsEntity
 import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntity
 import com.lyra.app.newsletter.infrastructure.persistence.mapper.SubscriberMapper.toEntity
 import com.lyra.app.newsletter.infrastructure.persistence.repository.SubscriberReactiveR2dbcRepository
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.pagination.Cursor
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
@@ -37,6 +39,7 @@ internal class SubscriberR2dbcRepositoryTest {
     private val subscriberRepository =
         SubscriberR2dbcRepository(subscriberReactiveR2DbcRepository)
     private lateinit var subscribers: List<Subscriber>
+    private val organizationId = OrganizationId("9b2f1a0f-b484-43c8-8030-98d0f1208a42")
 
     @BeforeEach
     fun setUp() {
@@ -65,16 +68,31 @@ internal class SubscriberR2dbcRepositoryTest {
         } returns
             CursorPageResponse(
                 data = subscribersEntities,
+                prevPageCursor = TimestampCursor(
+                    subscribersEntities.first().createdAt,
+                ).serialize(),
                 nextPageCursor = TimestampCursor(
                     subscribersEntities.last().createdAt,
                 ).serialize(),
             )
 
         coEvery { subscriberReactiveR2DbcRepository.findAllByStatus(any()) } returns subscribersEntities.asFlow()
-        coEvery { subscriberReactiveR2DbcRepository.countByStatus() } returns listOf<CountByStatusEntity>(
+        coEvery {
+            subscriberReactiveR2DbcRepository
+                .countByStatus(organizationId.value)
+        } returns listOf<CountByStatusEntity>(
             CountByStatusEntity("ENABLED", 478_289L),
             CountByStatusEntity("DISABLED", 32L),
             CountByStatusEntity("BLOCKLISTED", 1L),
+        ).asFlow()
+
+        coEvery {
+            subscriberReactiveR2DbcRepository
+                .countByTag(eq(organizationId.value))
+        } returns listOf<CountByTagsEntity>(
+            CountByTagsEntity("tag1", 478_289L),
+            CountByTagsEntity("tag2", 32L),
+            CountByTagsEntity("tag3", 1L),
         ).asFlow()
     }
 
@@ -171,11 +189,22 @@ internal class SubscriberR2dbcRepositoryTest {
 
     @Test
     fun `should count all subscribers by status`() = runBlocking {
-        val response = subscriberRepository.countByStatus().toList()
+        val response = subscriberRepository.countByStatus(organizationId).toList()
         assertEquals(3, response.size)
         assertEquals(478_289L, response.first { it.first == "ENABLED" }.second)
         assertEquals(32L, response.first { it.first == "DISABLED" }.second)
         assertEquals(1L, response.first { it.first == "BLOCKLISTED" }.second)
+    }
+
+    @Test
+    fun `should count all subscribers by tags`() {
+        runBlocking {
+            val response = subscriberRepository.countByTag(organizationId).toList()
+            assertEquals(3, response.size)
+            assertEquals(478_289L, response.first { it.first == "tag1" }.second)
+            assertEquals(32L, response.first { it.first == "tag2" }.second)
+            assertEquals(1L, response.first { it.first == "tag3" }.second)
+        }
     }
 
     @Test
@@ -343,6 +372,9 @@ internal class SubscriberR2dbcRepositoryTest {
                 )
             } returns CursorPageResponse(
                 data = subscribers.map { it.toEntity() },
+                prevPageCursor = TimestampCursor(
+                    subscribers.first().createdAt,
+                ).serialize(),
                 nextPageCursor = TimestampCursor(
                     subscribers.last().createdAt,
                 ).serialize(),

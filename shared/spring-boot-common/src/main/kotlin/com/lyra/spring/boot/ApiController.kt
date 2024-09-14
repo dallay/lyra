@@ -41,7 +41,7 @@ abstract class ApiController(
      * @throws QueryHandlerExecutionError if an error occurs while handling the query.
      */
     @Throws(QueryHandlerExecutionError::class)
-    protected suspend fun <TResponse : Response> ask(query: Query<TResponse>): Response = mediator.send(query)
+    protected suspend fun <TResponse : Response> ask(query: Query<TResponse>): TResponse = mediator.send(query)
 
     /**
      * Retrieves the current authentication information.

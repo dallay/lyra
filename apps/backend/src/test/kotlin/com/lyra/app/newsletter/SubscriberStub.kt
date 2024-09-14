@@ -4,6 +4,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.lyra.app.GeneralStub.getTimestampCursorPage
 import com.lyra.app.newsletter.application.SubscriberResponse
+import com.lyra.app.newsletter.domain.Attributes
 import com.lyra.app.newsletter.domain.FirstName
 import com.lyra.app.newsletter.domain.LastName
 import com.lyra.app.newsletter.domain.Name
@@ -30,15 +31,16 @@ object SubscriberStub {
         firstname: String = faker.name().firstName(),
         lastname: String = faker.name().lastName(),
         status: SubscriberStatus = SubscriberStatus.ENABLED,
-        organizationId: String = UUID.randomUUID().toString()
+        organizationId: String = UUID.randomUUID().toString(),
+        attributes: Attributes = Attributes(tags = listOf("tag1", "tag2"))
     ): Subscriber = Subscriber(
         id = SubscriberId(id),
         email = Email(email),
         name = Name(FirstName(firstname), LastName(lastname)),
         status = status,
         organizationId = OrganizationId(organizationId),
+        attributes = attributes,
     )
-
     fun dummyRandomSubscribersList(size: Int = 10): List<Subscriber> {
         return (1..size).map {
             create()
@@ -50,19 +52,21 @@ object SubscriberStub {
 
     fun dummyRandomSubscribersPageResponse(size: Int = 10): CursorPageResponse<Subscriber> {
         val data = dummyRandomSubscribersList(size)
-        val cursor = TimestampCursor(data.last().createdAt).serialize()
+        val (previousCursor, nextCursor) = getStartAndEndTimestampCursorPage(data.map { SubscriberResponse.from(it) })
         return CursorPageResponse(
             data = data,
-            nextPageCursor = cursor,
+            prevPageCursor = previousCursor,
+            nextPageCursor = nextCursor,
         )
     }
 
     fun dummyRandomSubscriberPageResponse(size: Int = 10): CursorPageResponse<SubscriberResponse> {
         val data = dummyRandomSubscribersList(size).map { SubscriberResponse.from(it) }
-        val (_, cursor) = getStartAndEndTimestampCursorPage(data)
+        val (previousCursor, nextCursor) = getStartAndEndTimestampCursorPage(data)
         return CursorPageResponse(
             data = data,
-            nextPageCursor = cursor,
+            prevPageCursor = previousCursor,
+            nextPageCursor = nextCursor,
         )
     }
 

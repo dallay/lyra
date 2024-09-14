@@ -5,7 +5,8 @@ import type {PageResponse} from "@lyra/shared";
 import {OrganizationId} from "~/domain/organization";
 import {
   type Subscriber,
-  SubscriberCountByStatusResponse,
+  type SubscriberCountByStatusResponse,
+  type SubscriberCountByTagsResponse,
   SubscriberId,
   type SubscriberRequest
 } from "~/domain/subscriber";
@@ -54,6 +55,24 @@ class SubscriberModule extends SecureFetchFactory {
     return this.call<SubscriberCountByStatusResponse>({
       method: 'GET',
       url: `${this.RESOURCE.CountByStatus(organizationId)}`,
+      fetchOptions: {
+        headers: {
+          ...headers,
+          ...(this.accessToken
+            ? {
+              Authorization: `Bearer ${this.accessToken}`,
+            }
+            : {}),
+        },
+      },
+    });
+  }
+
+  async countByTags(organizationId: OrganizationId) {
+    const headers = await this.buildHeaders();
+    return this.call<SubscriberCountByTagsResponse>({
+      method: 'GET',
+      url: `${this.RESOURCE.CountByTags(organizationId)}`,
       fetchOptions: {
         headers: {
           ...headers,

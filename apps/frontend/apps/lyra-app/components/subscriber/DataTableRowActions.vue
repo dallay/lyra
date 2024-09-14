@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Row } from '@tanstack/vue-table'
-import { computed } from 'vue'
-import { tags } from './data/data'
+import { computed, onMounted } from 'vue'
 import {type Subscriber, subscriberSchema} from '@/domain/subscriber';
 import {DotsHorizontalIcon} from '@radix-icons/vue'
 
@@ -19,6 +18,9 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { useSubscriberStore } from "~/store/subscriber.store";
+import { storeToRefs } from "pinia";
+const router = useRouter();
 
 interface DataTableRowActionsProps {
   row: Row<Subscriber>
@@ -26,6 +28,29 @@ interface DataTableRowActionsProps {
 const props = defineProps<DataTableRowActionsProps>()
 
 const subscriber = computed(() => subscriberSchema.parse(props.row.original))
+
+const navigateToSubscriber = (action: 'view' | 'edit') => {
+  if (action === 'view') {
+    router.push(`/subscribers/${subscriber.value.id}`)
+  } else {
+    router.push(`/subscribers/${subscriber.value.id}?edit=true`)
+  }
+}
+// const shortcutKey = ref('')
+
+// onMounted(() => {
+//   const userAgent = navigator.userAgent;
+
+//   if (userAgent.indexOf('Mac') !== -1) {
+//     shortcutKey.value= '⌘ + ⌫';
+//   } else if (userAgent.indexOf('Win') !== -1) {
+//     shortcutKey.value= 'Ctrl + Del';
+//   } else if (userAgent.indexOf('Linux') !== -1) {
+//     shortcutKey.value= 'Ctrl + Del';
+//   } else {
+//     shortcutKey.value= 'Del';
+//   }
+// })
 </script>
 
 <template>
@@ -40,25 +65,13 @@ const subscriber = computed(() => subscriberSchema.parse(props.row.original))
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end" class="w-[160px]">
-      <DropdownMenuItem>Edit</DropdownMenuItem>
-      <DropdownMenuItem>Make a copy</DropdownMenuItem>
-      <DropdownMenuItem>Favorite</DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuSub>
-        <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-        <DropdownMenuSubContent>
-          <DropdownMenuRadioGroup :value="subscriber.attributes?.tags">
-            <DropdownMenuRadioItem v-for="label in tags" :key="label.value" :value="label.value">
-              {{ label.label }}
-            </DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
-        </DropdownMenuSubContent>
-      </DropdownMenuSub>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem>
+      <DropdownMenuItem @click="navigateToSubscriber('view')">View</DropdownMenuItem>
+      <DropdownMenuItem @click="navigateToSubscriber('edit')">Edit</DropdownMenuItem>
+      <!-- <DropdownMenuSeparator /> -->
+      <!-- <DropdownMenuItem>
         Delete
-        <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-      </DropdownMenuItem>
+        <DropdownMenuShortcut>{{shortcutKey}}</DropdownMenuShortcut>
+      </DropdownMenuItem> -->
     </DropdownMenuContent>
   </DropdownMenu>
 </template>

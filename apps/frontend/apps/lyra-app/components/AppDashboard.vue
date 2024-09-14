@@ -17,6 +17,10 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs'
+import type { DateRange } from 'radix-vue'
+const updateDateRange = async (newRange: DateRange) => {
+  console.log(newRange)
+}
 </script>
 
 <template>
@@ -27,7 +31,11 @@ import {
           Dashboard
         </h2>
         <div class="flex items-center space-x-2">
-          <DateRangePicker />
+          <DateRangePicker
+          :startDate="offsetDate(-1)"
+          :endDate="offsetDate(1)"
+          @update:dateRange="updateDateRange"
+          />
           <Button>Download</Button>
         </div>
       </div>

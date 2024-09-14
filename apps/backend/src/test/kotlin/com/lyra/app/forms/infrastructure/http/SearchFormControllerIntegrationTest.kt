@@ -317,4 +317,61 @@ internal class SearchFormControllerIntegrationTest : ControllerIntegrationTest()
                 }
         }
     }
+
+    @Test
+    @Sql(
+        "/db/form/form-batch.sql",
+    )
+    @Sql(
+        "/db/form/clean.sql",
+        executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD,
+    )
+    fun `should backward pagination by cursor`() {
+        webTestClient.run {
+            get()
+                .uri { uriBuilder ->
+                    uriBuilder
+                        .path("/api/organization/$organizationId/form")
+                        .queryParam("size", 3)
+                        .build()
+                }
+                .exchange()
+                .expectStatus().isOk
+                .expectBody(typeRef)
+                .consumeWith { response ->
+                    val cursor = response.responseBody?.nextPageCursor
+                    assertNotNull(cursor)
+                    get()
+                        .uri { uriBuilder ->
+                            uriBuilder
+                                .path("/api/organization/$organizationId/form")
+                                .queryParam("size", 3)
+                                .queryParam("cursor", cursor)
+                                .build()
+                        }
+                        .exchange()
+                        .expectStatus().isOk
+                        .expectBody(typeRef)
+                        .consumeWith { response2 ->
+                            val cursor2 = response2.responseBody?.prevPageCursor
+                            assertNotNull(cursor2)
+                            get()
+                                .uri { uriBuilder ->
+                                    uriBuilder
+                                        .path("/api/organization/$organizationId/form")
+                                        .queryParam("size", 3)
+                                        .queryParam("cursor", cursor2)
+                                        .build()
+                                }
+                                .exchange()
+                                .expectStatus().isOk
+                                .expectBody(typeRef)
+                                .consumeWith { response3 ->
+                                    val cursor3 = response3.responseBody?.prevPageCursor
+                                    assertNull(cursor3)
+                                }
+                        }
+                }
+        }
+    }
 }

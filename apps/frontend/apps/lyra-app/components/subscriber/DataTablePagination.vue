@@ -10,12 +10,32 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui/select';
+import { useSubscriberStore } from '~/store/subscriber.store';
+import { useSubscriberFilterStore } from '~/store/subscriber.filter.store';
+const subscriberStore = useSubscriberStore();
+const subscriberFilterStore = useSubscriberFilterStore();
+const { fetchAllSubscriber, previousPage, nextPage } = subscriberStore;
+const { subscriberFilterOptions, cursorPage } = storeToRefs(subscriberFilterStore);
 
 interface DataTablePaginationProps {
-  table: Table<Subscriber>
+  table: Table<Subscriber>;
 }
-defineProps<DataTablePaginationProps>()
+const props = defineProps<DataTablePaginationProps>();
+
+const hasNextPage = computed(() => cursorPage.value.next !== null && cursorPage.value.next !== undefined);
+const hasPreviousPage = computed(() => cursorPage.value.previous !== null && cursorPage.value.previous !== undefined);
+
+const setPageSize = async (value: string) => {
+  const pageSize = Number(value);
+  subscriberFilterOptions.value.size = pageSize;
+  await fetchAllSubscriber();
+  props.table.setPageSize(pageSize);
+};
+
+onMounted(async () => {
+  props.table.setPageSize(subscriberFilterOptions.value.size);
+});
 </script>
 
 <template>
@@ -31,37 +51,25 @@ defineProps<DataTablePaginationProps>()
         </p>
         <Select
           :model-value="`${table.getState().pagination.pageSize}`"
-          @update:model-value="table.setPageSize"
+          @update:model-value="setPageSize"
         >
           <SelectTrigger class="h-8 w-[70px]">
             <SelectValue :placeholder="`${table.getState().pagination.pageSize}`" />
           </SelectTrigger>
           <SelectContent side="top">
-            <SelectItem v-for="pageSize in [10, 20, 30, 40, 50]" :key="pageSize" :value="`${pageSize}`">
+            <SelectItem v-for="pageSize in [10, 20, 30]" :key="pageSize" :value="`${pageSize}`">
               {{ pageSize }}
             </SelectItem>
           </SelectContent>
         </Select>
       </div>
-      <div class="flex w-[100px] items-center justify-center text-sm font-medium">
-        Page {{ table.getState().pagination.pageIndex + 1 }} of
-        {{ table.getPageCount() }}
-      </div>
+
       <div class="flex items-center space-x-2">
         <Button
           variant="outline"
-          class="hidden h-8 w-8 p-0 lg:flex"
-          :disabled="!table.getCanPreviousPage()"
-          @click="table.setPageIndex(0)"
-        >
-          <span class="sr-only">Go to first page</span>
-          <DoubleArrowLeftIcon class="h-4 w-4" />
-        </Button>
-        <Button
-          variant="outline"
           class="h-8 w-8 p-0"
-          :disabled="!table.getCanPreviousPage()"
-          @click="table.previousPage()"
+          :disabled="!hasPreviousPage"
+          @click="previousPage"
         >
           <span class="sr-only">Go to previous page</span>
           <ChevronLeftIcon class="h-4 w-4" />
@@ -69,20 +77,11 @@ defineProps<DataTablePaginationProps>()
         <Button
           variant="outline"
           class="h-8 w-8 p-0"
-          :disabled="!table.getCanNextPage()"
-          @click="table.nextPage()"
+          :disabled="!hasNextPage"
+          @click="nextPage"
         >
           <span class="sr-only">Go to next page</span>
           <ChevronRightIcon class="h-4 w-4" />
-        </Button>
-        <Button
-          variant="outline"
-          class="hidden h-8 w-8 p-0 lg:flex"
-          :disabled="!table.getCanNextPage()"
-          @click="table.setPageIndex(table.getPageCount() - 1)"
-        >
-          <span class="sr-only">Go to last page</span>
-          <DoubleArrowRightIcon class="h-4 w-4" />
         </Button>
       </div>
     </div>

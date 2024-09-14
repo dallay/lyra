@@ -2,8 +2,8 @@ package com.lyra.app.newsletter.infrastructure.http
 
 import com.lyra.app.AppConstants.Paths.API
 import com.lyra.app.AppConstants.Paths.SUBSCRIBER
-import com.lyra.app.newsletter.application.count.bystatus.CountByStatusQuery
-import com.lyra.app.newsletter.application.count.bystatus.SubscriberCountByStatusResponse
+import com.lyra.app.newsletter.application.count.bytags.CountByTagsQuery
+import com.lyra.app.newsletter.application.count.bytags.SubscriberCountByTagsResponse
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.spring.boot.ApiController
 import io.swagger.v3.oas.annotations.Operation
@@ -19,28 +19,27 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping(value = [API], produces = ["application/vnd.api.v1+json"])
-class SubscriberCountByStatusController(
+class SubscriberCountByTagsController(
     mediator: Mediator
 ) : ApiController(mediator) {
-
-    @Operation(summary = "Count subscribers by status")
+    @Operation(summary = "Count subscribers by tags")
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "Success"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
-    @GetMapping("$SUBSCRIBER/count-by-status")
+    @GetMapping("$SUBSCRIBER/count-by-tags")
     @ResponseBody
-    suspend fun countByStatus(
+    suspend fun countByTags(
         @PathVariable organizationId: String
-    ): ResponseEntity<SubscriberCountByStatusResponse> {
-        log.debug("Counting subscribers by status: {}", sanitizeAndJoinPathVariables(organizationId))
+    ): ResponseEntity<SubscriberCountByTagsResponse> {
+        log.debug("Counting subscribers by tags: {}", sanitizeAndJoinPathVariables(organizationId))
         val response = ask(
-            CountByStatusQuery(organizationId),
+            CountByTagsQuery(organizationId),
         )
         return ResponseEntity.ok(response)
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(SubscriberCountByStatusController::class.java)
+        private val log = LoggerFactory.getLogger(SubscriberCountByTagsController::class.java)
     }
 }

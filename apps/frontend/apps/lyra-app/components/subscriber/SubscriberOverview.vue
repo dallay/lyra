@@ -4,13 +4,24 @@ import DataTable from '~/components/subscriber/DataTable.vue'
 import { columns } from '~/components/subscriber/columns'
 import {Button} from "~/components/ui/button";
 import { useSubscriberStore } from "~/store/subscriber.store";
+import { useSubscriberFilterStore } from '~/store/subscriber.filter.store';
 import {storeToRefs, onMounted} from "#imports";
 
 const store = useSubscriberStore();
 const { subscribers } = storeToRefs(store);
-const { fetchAllSubscriber } = store;
+const { fetchAllSubscriber, clearCursor } = store;
+const filterStore = useSubscriberFilterStore();
+const {resetFilterDateRange, resetSubscriberFilterOptions, cleanSubscriberCursor} = filterStore;
+
+const importSubscriber = () => {
+  alert('Importing subscribers');
+}
 
 onMounted(async () => {
+  await clearCursor();
+  await resetFilterDateRange();
+  await resetSubscriberFilterOptions();
+  await cleanSubscriberCursor();
  await fetchAllSubscriber();
 })
 </script>
@@ -26,7 +37,7 @@ onMounted(async () => {
           Manage your subscribers here. You can import subscribers from a CSV file.
         </p>
       </div>
-      <Button>
+      <Button @click="importSubscriber">
         <Icon name="ph:users" color="black" class="h-4 w-4 mr-1"/>
         Import Subscribers
       </Button>

@@ -22,11 +22,12 @@ import {Separator} from '@/components/ui/separator'
 import {cn} from '@/lib/utils'
 import type {CriteriaParam, CriteriaParamValue} from "~/domain/criteria";
 import {useSubscriberStore} from "~/store/subscriber.store";
-import {storeToRefs} from 'pinia';
+import { useSubscriberFilterStore } from '~/store/subscriber.filter.store';
 
 const subscriberStore = useSubscriberStore();
-const { statuses } = storeToRefs(subscriberStore);
-const { fetchAllSubscriber, addAllSubscriberFilterCriteria } = subscriberStore;
+const subscriberFilterStore = useSubscriberFilterStore();
+const { fetchAllSubscriber } = subscriberStore;
+const { addAllSubscriberFilterCriteria } = subscriberFilterStore;
 
 type FilterOption = {
 	label: string;
@@ -57,8 +58,6 @@ const facets = computed(() => {
 			}
 		}
 	});
-
-	console.log('🧪 FACEEETS', facetsMap);
 	return facetsMap;
 });
 
@@ -110,7 +109,7 @@ async function clearFilter() {
 <template>
   <Popover>
     <PopoverTrigger as-child>
-      <Button variant="outline" size="sm" class="h-8 border-dashed">
+      <Button variant="outline" size="sm" class="h-8 border-dashed capitalize">
         <PlusCircledIcon class="mr-2 h-4 w-4" />
         {{ title }}
         <template v-if="selectedValues.size > 0">
@@ -136,7 +135,7 @@ async function clearFilter() {
                   .filter((option) => selectedValues.has(option.value))"
                 :key="option.value"
                 variant="secondary"
-                class="rounded-sm px-1 font-normal"
+                class="rounded-sm px-1 font-normal capitalize"
               >
                 {{ option.label }}
               </Badge>
@@ -161,7 +160,7 @@ async function clearFilter() {
             >
               <div
                 :class="cn(
-                  'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
+                  'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary capitalize',
                   selectedValues.has(option.value)
                     ? 'bg-primary text-primary-foreground'
                     : 'opacity-50 [&_svg]:invisible',
@@ -170,7 +169,7 @@ async function clearFilter() {
                 <CheckIcon :class="cn('h-4 w-4')" />
               </div>
               <component :is="option.icon" v-if="option.icon" class="mr-2 h-4 w-4 text-muted-foreground" />
-              <span>{{ option.label }}</span>
+              <span class="capitalize">{{ option.label }}</span>
               <span v-if="facets.get(option.value)" class="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
                 {{ facets.get(option.value) }}
               </span>

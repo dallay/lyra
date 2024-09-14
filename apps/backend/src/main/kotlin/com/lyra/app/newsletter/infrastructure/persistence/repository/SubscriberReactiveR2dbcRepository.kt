@@ -2,6 +2,7 @@ package com.lyra.app.newsletter.infrastructure.persistence.repository
 
 import com.lyra.app.newsletter.domain.SubscriberStatus
 import com.lyra.app.newsletter.infrastructure.persistence.entity.CountByStatusEntity
+import com.lyra.app.newsletter.infrastructure.persistence.entity.CountByTagsEntity
 import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntity
 import com.lyra.spring.boot.repository.ReactiveSearchRepository
 import java.util.*
@@ -20,8 +21,21 @@ interface SubscriberReactiveR2dbcRepository :
         """
         SELECT s.status, COUNT(s.id)
         FROM subscribers s
+        WHERE  organization_id = :organizationId
         GROUP BY s.status
     """,
     )
-    fun countByStatus(): Flow<CountByStatusEntity>
+    fun countByStatus(organizationId: UUID): Flow<CountByStatusEntity>
+    @Query(
+        """
+            SELECT tag, COUNT(*)
+            FROM (
+                SELECT json_array_elements_text(attributes->'tags') AS tag
+                FROM subscribers
+                 WHERE  organization_id = :organizationId
+            ) AS tags
+            GROUP BY tag;
+        """,
+    )
+    fun countByTag(organizationId: UUID): Flow<CountByTagsEntity>
 }

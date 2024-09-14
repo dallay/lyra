@@ -16,14 +16,15 @@ import kotlin.reflect.full.declaredMemberProperties
  * @property direction The direction of the cursor. Default is [Direction.ASC].
  */
 data class TimestampCursor(
-    val createdAt: LocalDateTime
+    val createdAt: LocalDateTime,
+    override val direction: Direction = Direction.ASC
 ) : Cursor {
     /**
      * Returns the cursor as a formatted string.
      *
      * @return The cursor as a string.
      */
-    override fun getCursor(): String = String.format(CURSOR_FORMAT, createdAt, Direction.ASC)
+    override fun getCursor(): String = String.format(CURSOR_FORMAT, createdAt, direction)
 
     /**
      * Returns the sort object for the cursor.
@@ -34,17 +35,21 @@ data class TimestampCursor(
 
     /**
      * Returns the criteria object for the cursor.
-     * The criteria is a greater than condition on the createdAt field.
+     * The criteria is a greater than or less than comparison based on the direction.
      *
      * @return The criteria object.
      */
-    override fun getCriteria(): Criteria = Criteria.GreaterThan(CREATED_AT, createdAt)
+    override fun getCriteria(): Criteria = if (direction == Direction.ASC) {
+        Criteria.GreaterThan(CREATED_AT, createdAt)
+    } else {
+        Criteria.LessThan(CREATED_AT, createdAt)
+    }
 
-    override fun <T : Any> serialize(it: T): String {
+    override fun <T : Any> serialize(it: T, direction: Direction): String {
         val createdAtProperty = it::class.declaredMemberProperties.find { it.name == CREATED_AT }
         val createdAtValue = createdAtProperty?.getter?.call(it)
             ?: throw IllegalArgumentException("Invalid cursor object")
-        return encode(String.format(CURSOR_FORMAT, createdAtValue, Direction.ASC))
+        return encode(String.format(CURSOR_FORMAT, createdAtValue, direction))
     }
 
     override fun isDefault(): Boolean = this == DEFAULT_CURSOR
@@ -93,7 +98,8 @@ data class TimestampCursor(
             val decoded = decode(serializedData)
             val parts = decoded.split(SEPARATOR)
             val createdAt = LocalDateTime.parse(parts[0].trim())
-            return TimestampCursor(createdAt)
+            val direction = Direction.valueOf(parts[1].trim())
+            return TimestampCursor(createdAt, direction)
         }
     }
 }

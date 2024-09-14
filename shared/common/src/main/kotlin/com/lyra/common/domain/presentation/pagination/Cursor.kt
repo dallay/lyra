@@ -1,6 +1,7 @@
 package com.lyra.common.domain.presentation.pagination
 
 import com.lyra.common.domain.criteria.Criteria
+import com.lyra.common.domain.presentation.sort.Direction
 import com.lyra.common.domain.presentation.sort.Sort
 
 /**
@@ -11,6 +12,8 @@ import com.lyra.common.domain.presentation.sort.Sort
  * @created 12/2/24
  */
 interface Cursor {
+    val direction: Direction get() = Direction.ASC
+
     /**
      * Returns the cursor as a string.
      *
@@ -38,7 +41,7 @@ interface Cursor {
      * @return The serialized cursor.
      */
     fun serialize(): String = encode(getCursor())
-    fun <T : Any> serialize(it: T): String
+    fun <T : Any> serialize(it: T, direction: Direction = Direction.ASC): String
     fun isDefault(): Boolean
 
     companion object {

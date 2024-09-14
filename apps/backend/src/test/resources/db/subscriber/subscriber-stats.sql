@@ -10,48 +10,48 @@ VALUES ('bbf25966-6f2d-4cc5-a6da-19e79dbaba1e', 'boethius@test.com', 'Boethius',
         '1b423df9-d6fc-4fd9-904b-4bb40dc88aeb', '2023-02-18 15:44:03.616085+01',
         '2023-12-22 15:28:55.736027+01',
         '{
-             "tags": ["tag1", "tag2"]
+             "tags": ["tag1", "tag6"]
            }'),
        ('15a3f1bf-6236-40bd-83d4-69a9539ab1ea', 'jean-paul.sartre@test.com', 'Jean-Paul', 'Sartre',
         'ENABLED', '1b423df9-d6fc-4fd9-904b-4bb40dc88aeb', '2023-02-22 15:44:03.616085+01',
         '2024-01-22 15:28:55.736027+01',
         '{
-          "tags": ["tag1", "tag2"]
+          "tags": ["tag18", "tag61","tag21", "tag63","tag14", "tag51","tag41", "tag46"]
         }'),
        ('5616e0ed-2305-4d6f-88f2-9ef3d6d72a69', 'jean-francois.lyotard@test.com', 'Jean-François',
         'Lyotard', 'ENABLED', '1b423df9-d6fc-4fd9-904b-4bb40dc88aeb',
         '2023-03-02 15:44:03.616085+01', '2023-11-20 15:28:55.736027+01',
         '{
-          "tags": ["tag1", "tag2"]
+          "tags": ["tag89", "tag99"]
         }'),
        ('30b14a48-ddf4-413d-a638-1d26beb52ae2', 'franz.brentano@test.com', 'Franz', 'Brentano',
         'ENABLED', '1b423df9-d6fc-4fd9-904b-4bb40dc88aeb', '2023-03-11 15:44:03.616085+01',
         '2023-05-10 15:28:55.736027+02',
         '{
-          "tags": ["tag1", "tag2"]
+          "tags": ["tag1", "tag3"]
         }'),
        ('7b868e1e-d2d1-4b8a-9949-59bc4b775d0f', 'bonaventure@test.com', 'Bonaventure', '',
         'ENABLED', '1b423df9-d6fc-4fd9-904b-4bb40dc88aeb', '2023-03-04 15:44:03.616085+01',
         '2024-01-13 15:28:55.736027+01',
         '{
-             "tags": ["tag1", "tag2"]
+             "tags": ["tag3", "tag2"]
            }'),
        ('a72d3adb-7f07-4837-b592-0be854d20a67', 'maurice.henry@test.com', 'Maurice',
         'Henry', 'ENABLED', '1b423df9-d6fc-4fd9-904b-4bb40dc88aeb', '2023-03-13 15:44:03.616085+01',
         '2024-02-14 15:28:55.736027+01', '{
-         "tags": ["tag1", "tag2"]
+         "tags": ["tag1", "tag5"]
        }'),
        ('dd3ff9d4-aee0-4a89-930f-bdd020845f92', 'emmanuel.henry@test.com', 'Emmanuel', 'Henry',
         'ENABLED', '1b423df9-d6fc-4fd9-904b-4bb40dc88aeb', '2023-03-02 15:44:04.616085+01',
         '2024-01-03 15:28:55.736027+01',
         '{
-          "tags": ["tag1", "tag2"]
+          "tags": ["tag1", "tag6"]
         }'),
        ('b88f202b-964d-4f44-b080-3aaa6ef03052', 'rene.descartes@test.com', 'Rene', 'Descartes',
         'ENABLED', '1b423df9-d6fc-4fd9-904b-4bb40dc88aeb', '2023-02-28 15:44:03.616085+01',
         '2023-11-25 15:28:55.736027+01',
         '{
-          "tags": ["tag1", "tag2"]
+          "tags": ["tag1", "tag7"]
         }'),
        ('b8f2317a-686f-4ace-a218-5c98a05cb88a', 'ralph.waldo.emerson@test.com', 'Ralph',
         'Waldo Emerson', 'ENABLED', '1b423df9-d6fc-4fd9-904b-4bb40dc88aeb',
@@ -63,7 +63,7 @@ VALUES ('bbf25966-6f2d-4cc5-a6da-19e79dbaba1e', 'boethius@test.com', 'Boethius',
         'ENABLED', '1b423df9-d6fc-4fd9-904b-4bb40dc88aeb', '2023-02-22 15:44:03.616085+01',
         '2023-12-09 15:28:55.736027+01',
         '{
-          "tags": ["tag1", "tag2"]
+          "tags": ["tag4", "tag5"]
         }');
 INSERT INTO subscribers (id, email, firstname, lastname, status, organization_id, created_at,
                          updated_at,
@@ -72,13 +72,13 @@ VALUES ('a4053f51-ddee-4abc-bf5d-767d7588b711', 'michel.henry@test.com', 'Michel
         'ENABLED', '1b423df9-d6fc-4fd9-904b-4bb40dc88aeb', '2023-03-16 15:44:03.616085+01',
         '2023-10-26 15:28:55.736027+02',
         '{
-          "tags": ["tag1", "tag2"]
+          "tags": ["tag11", "tag25"]
         }'),
        ('96bd3f93-7be8-4ac6-9e68-1d2a50650cc6', 'maimonides@test.com', 'Maimonides', '', 'ENABLED',
         '1b423df9-d6fc-4fd9-904b-4bb40dc88aeb', '2023-03-14 15:44:03.616085+01',
         '2024-01-04 15:28:55.736027+01',
         '{
-          "tags": ["tag1", "tag2"]
+          "tags": ["tag5", "tag5"]
         }');
 INSERT INTO subscribers (id, email, firstname, lastname, status, organization_id, created_at, updated_at, attributes)
 VALUES

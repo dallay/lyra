@@ -1,5 +1,6 @@
 package com.lyra.app.newsletter.domain
 
+import com.lyra.app.organization.domain.OrganizationId
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -17,7 +18,19 @@ interface SubscriberStatsRepository {
      * This method returns a flow of pairs, where each pair consists of a status
      * (as a string) and the count of subscribers with that status (as an integer).
      *
+     * @param organizationId The ID of the organization to count subscribers for.
      * @return Flow<Pair<String, Long>> A flow emitting pairs of status and count.
      */
-    suspend fun countByStatus(): Flow<Pair<String, Long>>
+    suspend fun countByStatus(organizationId: OrganizationId): Flow<Pair<String, Long>>
+
+    /**
+     * Count subscribers by tags.
+     *
+     * This method returns a flow of pairs, where each pair consists of a tag
+     * (as a string) and the count of subscribers with that tag (as an integer).
+     *
+     * @param organizationId The ID of the organization to count subscribers for.
+     * @return Flow<Pair<String, Long>> A flow emitting pairs of tag and count.
+     */
+    suspend fun countByTag(organizationId: OrganizationId): Flow<Pair<String, Long>>
 }

@@ -3,7 +3,6 @@ import { Routes } from './routes.server'
 import { defineEventHandler, proxyRequest, useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
-  console.log('🧪 [event] 🧪', event)
   const config = useRuntimeConfig();
   const coreUrl = config.apiUrl
   const anotherUrl = config.backendUrl

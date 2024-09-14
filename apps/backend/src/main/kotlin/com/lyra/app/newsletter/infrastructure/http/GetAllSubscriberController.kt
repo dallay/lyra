@@ -2,12 +2,13 @@ package com.lyra.app.newsletter.infrastructure.http
 
 import com.lyra.app.AppConstants.Paths.API
 import com.lyra.app.AppConstants.Paths.SUBSCRIBER
+import com.lyra.app.newsletter.application.SubscriberResponse
 import com.lyra.app.newsletter.application.search.all.SearchAllSubscribersQuery
 import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntity
 import com.lyra.common.domain.bus.Mediator
-import com.lyra.common.domain.bus.query.Response
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.criteria.and
+import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import com.lyra.common.domain.presentation.pagination.CursorRequestPageable
 import com.lyra.common.domain.presentation.pagination.FilterCondition
 import com.lyra.common.domain.presentation.pagination.LogicalOperator
@@ -17,10 +18,10 @@ import com.lyra.spring.boot.presentation.sort.SortParserFactory
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
-import java.util.*
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
 import org.slf4j.LoggerFactory
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -47,7 +48,7 @@ class GetAllSubscriberController(
     suspend fun findAll(
         @PathVariable organizationId: String,
         cursorRequestPageable: CursorRequestPageable
-    ): Response {
+    ): ResponseEntity<CursorPageResponse<SubscriberResponse>> {
         log.debug(
             "Get all subscribers with cursor: {}",
             sanitizeAndJoinPathVariables(organizationId, cursorRequestPageable.toString()),
@@ -63,7 +64,7 @@ class GetAllSubscriberController(
                 cursorRequestPageable.sort?.let { if (it.isEmpty()) null else sortParser.parse(it) },
             ),
         )
-        return response
+        return ResponseEntity.ok(response)
     }
 
     /**
@@ -138,10 +139,11 @@ class GetAllSubscriberController(
     }
 
     /**
-     * Creates a list of search queries from the given search string.
+     * Creates a list of search queries from the search string.
+     * The search string is split by spaces and each part is used to filter the email, firstname and
+     * lastname fields.
+     * The search query is used to filter the results.
      * The search query is used to filter the email, firstname and lastname fields.
-     * The search query is created from the given search string and its lowercase, uppercase and titlecase
-     * versions.
      *
      * @param search The search string.
      * @return The list of search queries.

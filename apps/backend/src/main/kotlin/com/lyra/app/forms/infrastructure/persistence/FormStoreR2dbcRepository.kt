@@ -153,7 +153,7 @@ class FormStoreR2dbcRepository(
             cursor ?: TimestampCursor.DEFAULT_CURSOR,
         )
         val content = pageResponse.data.map { it.toDomain() }
-        return CursorPageResponse(content, pageResponse.nextPageCursor)
+        return CursorPageResponse(content, pageResponse.prevPageCursor, pageResponse.nextPageCursor)
     }
 
     /**

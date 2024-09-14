@@ -44,10 +44,11 @@ object TeamStub {
 
     fun dummyRandomTeamPageResponse(size: Int): CursorPageResponse<TeamResponse> {
         val data = (1..size).map { TeamResponse.from(create()) }
-        val (_, cursor) = getStartAndEndTimestampCursorPage(data)
+        val (prevCursor, nextCursor) = getStartAndEndTimestampCursorPage(data)
         return CursorPageResponse(
             data = data,
-            nextPageCursor = cursor,
+            prevPageCursor = prevCursor,
+            nextPageCursor = nextCursor,
         )
     }
 
@@ -61,10 +62,12 @@ object TeamStub {
 
     fun dummyRandomTeamsPageResponse(size: Int): CursorPageResponse<Team> {
         val data = (1..size).map { create() }
-        val cursor = TimestampCursor(data.last().createdAt).serialize()
+        val nextCursor = TimestampCursor(data.last().createdAt).serialize()
+        val prevCursor = TimestampCursor(data.first().createdAt).serialize()
         return CursorPageResponse(
             data = data,
-            nextPageCursor = cursor,
+            prevPageCursor = prevCursor,
+            nextPageCursor = nextCursor,
         )
     }
 

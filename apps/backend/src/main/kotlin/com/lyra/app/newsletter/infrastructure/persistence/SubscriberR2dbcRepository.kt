@@ -9,6 +9,7 @@ import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntit
 import com.lyra.app.newsletter.infrastructure.persistence.mapper.SubscriberMapper.toDomain
 import com.lyra.app.newsletter.infrastructure.persistence.mapper.SubscriberMapper.toEntity
 import com.lyra.app.newsletter.infrastructure.persistence.repository.SubscriberReactiveR2dbcRepository
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.pagination.Cursor
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
@@ -98,7 +99,7 @@ class SubscriberR2dbcRepository(
         )
 
         val content = pageResponse.data.map { it.toDomain() }
-        return CursorPageResponse(content, pageResponse.nextPageCursor)
+        return CursorPageResponse(content, pageResponse.prevPageCursor, pageResponse.nextPageCursor)
     }
 
     override suspend fun searchActive(): Flow<Subscriber> {
@@ -114,10 +115,25 @@ class SubscriberR2dbcRepository(
      *
      * @return Flow<Pair<String, Long>> A flow emitting pairs of status and count.
      */
-    override suspend fun countByStatus(): Flow<Pair<String, Long>> =
-        subscriberReactiveR2DbcRepository.countByStatus().map { (status, count) ->
+    override suspend fun countByStatus(organizationId: OrganizationId): Flow<Pair<String, Long>> =
+        subscriberReactiveR2DbcRepository.countByStatus(organizationId.value).map { (status, count) ->
             status to count
         }
+
+    /**
+     * Count subscribers by tags.
+     *
+     * This method returns a flow of pairs, where each pair consists of a tag
+     * (as a string) and the count of subscribers with that tag (as an integer).
+     *
+     * @param organizationId The ID of the organization to count subscribers for.
+     * @return Flow<Pair<String, Long>> A flow emitting pairs of tag and count.
+     */
+    override suspend fun countByTag(organizationId: OrganizationId): Flow<Pair<String, Long>> {
+        return subscriberReactiveR2DbcRepository.countByTag(organizationId.value).map { (tag, count) ->
+            tag to count
+        }
+    }
 
     companion object {
         private val log = LoggerFactory.getLogger(SubscriberR2dbcRepository::class.java)

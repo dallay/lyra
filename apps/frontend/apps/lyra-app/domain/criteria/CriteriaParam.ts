@@ -1,4 +1,5 @@
 import type { SortParam } from "./SortParam";
+import {ArrayStack, type Stack} from "@lyra/shared";
 
 /**
  * Type representing the possible operators for criteria.
@@ -22,7 +23,11 @@ export interface CriteriaParam {
   logicalOperator?: LogicalOperator;
   values: CriteriaParamValue[];
 }
-
+export interface Cursor {
+  currentPageCursor: string | null,
+  prevPageCursor: string | null,
+  nextPageCursor: string | null,
+}
 /**
  * Interface representing the query parameters for criteria.
  */
@@ -31,7 +36,7 @@ export interface CriteriaQueryParams {
   search?: string;
   sortCriteria?: Set<SortParam>;
   size: number;
-  cursor?: string;
+  cursor?: string | null;
 }
 
 /** Default page size for query parameters. */
@@ -77,7 +82,7 @@ export function toQueryParams(
         : `${logicalOpPrefix}${value}`;
     });
   };
-
+  console.log("BEFORE ADD THE FILTER CRITERIA", filterCriteria)
   addCriteriaToParams(filterCriteria, "filter");
   if (search) {
     params["search"] = search;

@@ -1,6 +1,7 @@
 package com.lyra.app.newsletter.application.count.bystatus
 
 import com.lyra.app.newsletter.domain.SubscriberStatsRepository
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.Service
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
@@ -24,11 +25,12 @@ class SubscriberCountByStatus(private val repository: SubscriberStatsRepository)
      * maps the results to [SubscriberCountByStatusResponse] objects, and returns
      * them as a list.
      *
+     * @param organizationId The ID of the organization to count subscribers for.
      * @return A list of subscriber counts by status `List<SubscriberCountByStatusData>`.
      */
-    suspend fun count(): List<SubscriberCountByStatusData> {
-        log.debug("Counting subscribers by status")
-        return repository.countByStatus().map { (status, count) ->
+    suspend fun count(organizationId: String): List<SubscriberCountByStatusData> {
+        log.debug("Counting subscribers by status for organization {}", organizationId)
+        return repository.countByStatus(OrganizationId(organizationId)).map { (status, count) ->
             SubscriberCountByStatusData(status, count)
         }.toList()
     }

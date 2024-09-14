@@ -3,72 +3,84 @@
     "id": "bbf25966-6f2d-4cc5-a6da-19e79dbaba1e",
     "email": "boethius@test.com",
     "name": "Boethius",
-    "status": "ENABLED"
+    "status": "ENABLED",
+    "organizationId": "1b423df9-d6fc-4fd9-904b-4bb40dc88aeb"
   },
   {
     "id": "b8f2317a-686f-4ace-a218-5c98a05cb88a",
     "email": "ralph.waldo.emerson@test.com",
     "name": "Ralph Waldo Emerson",
-    "status": "ENABLED"
+    "status": "ENABLED",
+    "organizationId": "1b423df9-d6fc-4fd9-904b-4bb40dc88aeb"
   },
   {
     "id": "15a3f1bf-6236-40bd-83d4-69a9539ab1ea",
     "email": "jean-paul.sartre@test.com",
     "name": "Jean-Paul Sartre",
-    "status": "ENABLED"
+    "status": "ENABLED",
+    "organizationId": "1b423df9-d6fc-4fd9-904b-4bb40dc88aeb"
   },
   {
     "id": "e3839fed-f18f-4461-9e86-5bf2d5868ead",
     "email": "bertrand.russell@test.com",
     "name": "Bertrand Russell",
-    "status": "ENABLED"
+    "status": "ENABLED",
+    "organizationId": "1b423df9-d6fc-4fd9-904b-4bb40dc88aeb"
   },
   {
     "id": "b88f202b-964d-4f44-b080-3aaa6ef03052",
     "email": "rene.descartes@test.com",
     "name": "Rene Descartes",
-    "status": "ENABLED"
+    "status": "ENABLED",
+    "organizationId": "1b423df9-d6fc-4fd9-904b-4bb40dc88aeb"
   },
   {
     "id": "5616e0ed-2305-4d6f-88f2-9ef3d6d72a69",
     "email": "jean-francois.lyotard@test.com",
     "name": "Jean-François Lyotard",
-    "status": "ENABLED"
+    "status": "ENABLED",
+    "organizationId": "1b423df9-d6fc-4fd9-904b-4bb40dc88aeb"
   },
   {
     "id": "dd3ff9d4-aee0-4a89-930f-bdd020845f92",
     "email": "emmanuel.henry@test.com",
     "name": "Emmanuel Henry",
-    "status": "ENABLED"
+    "status": "ENABLED",
+    "organizationId": "1b423df9-d6fc-4fd9-904b-4bb40dc88aeb"
   },
   {
     "id": "7b868e1e-d2d1-4b8a-9949-59bc4b775d0f",
     "email": "bonaventure@test.com",
     "name": "Bonaventure",
-    "status": "ENABLED"
+    "status": "ENABLED",
+    "organizationId": "1b423df9-d6fc-4fd9-904b-4bb40dc88aeb"
   },
   {
     "id": "30b14a48-ddf4-413d-a638-1d26beb52ae2",
     "email": "franz.brentano@test.com",
     "name": "Franz Brentano",
-    "status": "ENABLED"
+    "status": "ENABLED",
+    "organizationId": "1b423df9-d6fc-4fd9-904b-4bb40dc88aeb"
   },
   {
     "id": "a72d3adb-7f07-4837-b592-0be854d20a67",
     "email": "maurice.henry@test.com",
     "name": "Maurice Henry",
-    "status": "ENABLED"
+    "status": "ENABLED",
+    "organizationId": "1b423df9-d6fc-4fd9-904b-4bb40dc88aeb"
   },
   {
     "id": "96bd3f93-7be8-4ac6-9e68-1d2a50650cc6",
     "email": "maimonides@test.com",
     "name": "Maimonides",
-    "status": "ENABLED"
+    "status": "ENABLED",
+    "organizationId": "1b423df9-d6fc-4fd9-904b-4bb40dc88aeb"
   },
   {
     "id": "a4053f51-ddee-4abc-bf5d-767d7588b711",
     "email": "michel.henry@test.com",
     "name": "Michel Henry",
-    "status": "ENABLED"
+    "status": "ENABLED",
+    "organizationId": "1b423df9-d6fc-4fd9-904b-4bb40dc88aeb"
   }
 ]

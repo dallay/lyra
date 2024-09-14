@@ -90,10 +90,11 @@ object FormStub {
 
     fun dummyRandomFormPageResponse(size: Int): CursorPageResponse<FormResponse> {
         val data = (1..size).map { FormResponse.from(create(id = FormId.create())) }
-        val (_, cursor) = getStartAndEndTimestampCursorPage(data)
+        val (startCursor, endCursor) = getStartAndEndTimestampCursorPage(data)
         return CursorPageResponse(
             data = data,
-            nextPageCursor = cursor,
+            prevPageCursor = startCursor,
+            nextPageCursor = endCursor,
         )
     }
 
@@ -109,10 +110,12 @@ object FormStub {
 
     fun dummyRandomFormsPageResponse(size: Int): CursorPageResponse<Form> {
         val data = (1..size).map { generateRandomForm() }
-        val cursor = TimestampCursor(data.last().createdAt).serialize()
+        val nextCursor = TimestampCursor(data.last().createdAt).serialize()
+        val prevCursor = TimestampCursor(data.first().createdAt).serialize()
         return CursorPageResponse(
             data = data,
-            nextPageCursor = cursor,
+            prevPageCursor = prevCursor,
+            nextPageCursor = nextCursor,
         )
     }
 

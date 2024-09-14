@@ -12,6 +12,8 @@ import InvalidArgumentError from '~/domain/vo/InvalidArgumentError.ts';
 import StringValueObject from '~/domain/vo/StringValueObject.ts';
 import UUIDValueObject from '~/domain/vo/UUIDValueObject.ts';
 
+export * from './collection';
+
 export type {
 	Query,
 	QueryHandler,

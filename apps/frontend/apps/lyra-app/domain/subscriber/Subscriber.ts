@@ -7,8 +7,7 @@ export interface Attributes {
 export interface Subscriber {
 	readonly id: string;
 	readonly email: string;
-	readonly firstname?: string;
-	readonly lastname?: string;
+	readonly name?: string;
 	readonly status: SubscriberStatus;
 	readonly attributes?: Attributes;
 	readonly organizationId: string;
@@ -29,8 +28,7 @@ export enum SubscriberStatus {
 export const subscriberSchema = z.object({
 	id: z.string(),
 	email: z.string(),
-	firstname: z.string().optional(),
-	lastname: z.string().optional(),
+	name: z.string().optional(),
 	status: z.nativeEnum(SubscriberStatus),
 	attributes: z
 		.record(z.union([z.string(), z.array(z.string()), z.number(), z.boolean()]))

@@ -1,7 +1,7 @@
 import {useNuxtApp} from "#app";
 import {ref} from "vue";
 import {defineStore} from "pinia";
-import type {IOrganization} from "@lyra/domain";
+import type {IOrganization} from "~/domain/organization";
 
 export const useOrganizationStore = defineStore("organization", () => {
     const {$api} = useNuxtApp();

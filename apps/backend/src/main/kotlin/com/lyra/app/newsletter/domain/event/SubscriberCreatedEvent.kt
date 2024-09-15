@@ -1,5 +1,6 @@
 package com.lyra.app.newsletter.domain.event
 
+import com.lyra.app.newsletter.domain.Attributes
 import com.lyra.common.domain.bus.event.BaseDomainEvent
 
 /**
@@ -9,6 +10,7 @@ import com.lyra.common.domain.bus.event.BaseDomainEvent
  * @property email The email address of the subscriber.
  * @property name The name of the subscriber.
  * @property status The status of the subscriber.
+ * @property attributes The attributes of the subscriber.
  * @property organizationId The identifier of the organization the subscriber belongs to.
  */
 data class SubscriberCreatedEvent(
@@ -16,5 +18,6 @@ data class SubscriberCreatedEvent(
     val email: String,
     val name: String,
     val status: String,
+    val attributes: Attributes?,
     val organizationId: String,
 ) : BaseDomainEvent()

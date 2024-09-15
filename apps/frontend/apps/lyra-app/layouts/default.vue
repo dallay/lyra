@@ -53,7 +53,7 @@ function onExpand() {
         :class="cn(isCollapsed && 'min-w-[50px] transition-all duration-300 ease-in-out')"
         @expand="onExpand"
         @collapse="onCollapse"
-      >
+        class="sticky top-0 h-screen">
         <div class="flex flex-col h-full">
           <div
             :class="cn('flex h-[52px] items-center justify-center', isCollapsed ? 'h-[52px]' : 'px-2')">
@@ -89,15 +89,15 @@ function onExpand() {
           <Nav
             :is-collapsed="isCollapsed"
             :links="[
-                {
-                  title: 'Settings',
-                  label: '972',
-                  icon: 'lucide:settings',
-                  variant: 'ghost',
-                },
-            ]"
-          />
-        </div>
+                  {
+                    title: 'Settings',
+                    label: '972',
+                    icon: 'lucide:settings',
+                    variant: 'ghost',
+                  },
+              ]"
+            />
+          </div>
       </ResizablePanel>
       <ResizableHandle id="resize-handle-1" with-handle/>
       <ResizablePanel id="resize-panel-2" :default-size="defaultLayout[1]" :min-size="30">
@@ -111,7 +111,7 @@ function onExpand() {
             </div>
           </div>
         </div>
-        <div class="h-screen">
+        <div class="h-screen max-h-screen overflow-auto p-2">
           <slot/>
         </div>
       </ResizablePanel>

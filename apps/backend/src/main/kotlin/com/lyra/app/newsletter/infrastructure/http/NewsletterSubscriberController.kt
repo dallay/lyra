@@ -45,6 +45,7 @@ class NewsletterSubscriberController(
                 request.email,
                 request.firstname,
                 request.lastname,
+                request.attributes,
                 organizationId,
             ),
         )

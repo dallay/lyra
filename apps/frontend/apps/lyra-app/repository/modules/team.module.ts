@@ -1,7 +1,8 @@
 import Routes from "../routes.client";
 import type {ResponseData} from "@lyra/shared";
-import type {ITeam, OrganizationId,TeamId} from "@lyra/domain";
 import SecureFetchFactory from "~/repository/secure.factory";
+import {OrganizationId} from "~/domain/organization";
+import {type ITeam, TeamId} from "~/domain/team";
 
 export interface CreateTeamRequest {
   organizationId: OrganizationId;

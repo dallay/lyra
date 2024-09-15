@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
-class RuntimeCriteriaParserTest {
+internal class RuntimeCriteriaParserTest {
     data class TestData(
         var name: String? = null,
         var age: Int? = null,
@@ -214,6 +214,21 @@ class RuntimeCriteriaParserTest {
         ),
         TestCase(
             query = where("invalid").notLike("%test%"),
+            expectTrue = listOf(),
+            expectFalse = listOf(TestData()),
+        ),
+        // ilike tests
+        TestCase(
+            query = where(TestData::name).ilike("%test%"),
+            expectTrue = listOf(TestData(name = "IneedTotestThis")),
+            expectFalse = listOf(
+                TestData(name = "any"),
+                TestData(name = null),
+                TestData(name = "TESTTESTTEST"),
+            ),
+        ),
+        TestCase(
+            query = where("invalid").ilike("%test%"),
             expectTrue = listOf(),
             expectFalse = listOf(TestData()),
         ),

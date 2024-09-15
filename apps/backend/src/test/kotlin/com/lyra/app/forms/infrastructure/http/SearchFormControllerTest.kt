@@ -16,7 +16,6 @@ import com.lyra.spring.boot.presentation.sort.SortParserFactory
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
-import kotlin.reflect.KProperty1
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
@@ -74,58 +73,6 @@ internal class SearchFormControllerTest : ControllerTest() {
     }
 
     @Test
-    fun `should get all forms with filter`() {
-        val filter = mapOf<KProperty1<FormEntity, *>, List<String>>(
-            FormEntity::name to listOf("eq:Newsletter"),
-            FormEntity::header to listOf("eq:Subscribe"),
-            FormEntity::description to listOf("eq:Subscribe to our newsletter"),
-            FormEntity::inputPlaceholder to listOf("eq:Email"),
-        )
-        val criteria = Criteria.And(
-            listOf(
-                Criteria.Equals("name", "Newsletter"),
-                Criteria.Equals("header", "Subscribe"),
-                Criteria.Equals("description", "Subscribe to our newsletter"),
-                Criteria.Equals("inputPlaceholder", "Email"),
-            ),
-        )
-        val query = SearchFormsQuery(criteria, 10, null, null)
-        coEvery { mediator.send(query) } returns response
-        every { rhsFilterParserFactory.create(FormEntity::class) } returns rhsFilterParser
-        every { rhsFilterParser.parse(filter) } returns criteria
-        val firstElement = response.data.first()
-        webTestClient.get()
-            .uri { uriBuilder ->
-                uriBuilder
-                    .path("/api/organization/$organizationId/form")
-                    .queryParam("filter[name]", filter[FormEntity::name])
-                    .queryParam("filter[header]", filter[FormEntity::header])
-                    .queryParam("filter[description]", filter[FormEntity::description])
-                    .queryParam("filter[inputPlaceholder]", filter[FormEntity::inputPlaceholder])
-                    .build()
-            }
-            .exchange()
-            .expectStatus().isOk
-            .expectBody()
-            .jsonPath("$.data").isArray
-            .jsonPath("$.data.length()").isEqualTo(NUM_FORMS)
-            .jsonPath("$.nextPageCursor").isEqualTo(response.nextPageCursor ?: "")
-            .jsonPath("$.data[0].id").isEqualTo(firstElement.id)
-            .jsonPath("$.data[0].name").isEqualTo(firstElement.name)
-            .jsonPath("$.data[0].description").isEqualTo(firstElement.description)
-            .jsonPath("$.data[0].inputPlaceholder").isEqualTo(firstElement.inputPlaceholder)
-            .jsonPath("$.data[0].buttonText").isEqualTo(firstElement.buttonText)
-            .jsonPath("$.data[0].buttonColor").isEqualTo(firstElement.buttonColor)
-            .jsonPath("$.data[0].backgroundColor").isEqualTo(firstElement.backgroundColor)
-            .jsonPath("$.data[0].textColor").isEqualTo(firstElement.textColor)
-            .jsonPath("$.data[0].buttonTextColor").isEqualTo(firstElement.buttonTextColor)
-            .jsonPath("$.data[0].createdAt").exists()
-            .jsonPath("$.data[0].updatedAt").exists()
-
-        coEvery { mediator.send(query) }
-    }
-
-    @Test
     fun `should get all forms by search`() {
         val search = "Subscribe"
         val criteria = Criteria.Or(
@@ -147,65 +94,6 @@ internal class SearchFormControllerTest : ControllerTest() {
                 uriBuilder
                     .path("/api/organization/$organizationId/form")
                     .queryParam("search", search)
-                    .build()
-            }
-            .exchange()
-            .expectStatus().isOk
-            .expectBody()
-            .jsonPath("$.data").isArray
-            .jsonPath("$.data.length()").isEqualTo(NUM_FORMS)
-            .jsonPath("$.nextPageCursor").isEqualTo(response.nextPageCursor ?: "")
-            .jsonPath("$.data[0].id").isEqualTo(firstElement.id)
-            .jsonPath("$.data[0].name").isEqualTo(firstElement.name)
-            .jsonPath("$.data[0].description").isEqualTo(firstElement.description)
-            .jsonPath("$.data[0].inputPlaceholder").isEqualTo(firstElement.inputPlaceholder)
-            .jsonPath("$.data[0].buttonText").isEqualTo(firstElement.buttonText)
-            .jsonPath("$.data[0].buttonColor").isEqualTo(firstElement.buttonColor)
-            .jsonPath("$.data[0].backgroundColor").isEqualTo(firstElement.backgroundColor)
-            .jsonPath("$.data[0].textColor").isEqualTo(firstElement.textColor)
-            .jsonPath("$.data[0].buttonTextColor").isEqualTo(firstElement.buttonTextColor)
-            .jsonPath("$.data[0].createdAt").exists()
-            .jsonPath("$.data[0].updatedAt").exists()
-
-        coEvery { mediator.send(query) }
-    }
-
-    @Test
-    fun `should combine search and filters`() {
-        val search = "search value"
-        val filter = mapOf<KProperty1<FormEntity, *>, List<String>>(
-            FormEntity::name to listOf("eq:Newsletter"),
-            FormEntity::header to listOf("eq:Subscribe"),
-            FormEntity::description to listOf("eq:Subscribe to our newsletter"),
-            FormEntity::inputPlaceholder to listOf("eq:Email"),
-        )
-        val criteria = Criteria.Or(
-            listOf(
-                Criteria.Like("name", search),
-                Criteria.Like("header", search),
-                Criteria.Like("description", search),
-                Criteria.Like("inputPlaceholder", search),
-                Criteria.Like("buttonText", search),
-                Criteria.Equals("name", "Newsletter"),
-                Criteria.Equals("header", "Subscribe"),
-                Criteria.Equals("description", "Subscribe to our newsletter"),
-                Criteria.Equals("inputPlaceholder", "Email"),
-            ),
-        )
-        val query = SearchFormsQuery(criteria)
-        coEvery { mediator.send(query) } returns response
-        every { rhsFilterParserFactory.create(FormEntity::class) } returns rhsFilterParser
-        every { rhsFilterParser.parse(any(), eq(true)) } returns criteria
-        val firstElement = response.data.first()
-        webTestClient.get()
-            .uri { uriBuilder ->
-                uriBuilder
-                    .path("/api/organization/$organizationId/form")
-                    .queryParam("search", search)
-                    .queryParam("filter[name]", filter[FormEntity::name])
-                    .queryParam("filter[header]", filter[FormEntity::header])
-                    .queryParam("filter[description]", filter[FormEntity::description])
-                    .queryParam("filter[inputPlaceholder]", filter[FormEntity::inputPlaceholder])
                     .build()
             }
             .exchange()

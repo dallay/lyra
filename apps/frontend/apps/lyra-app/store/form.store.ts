@@ -1,14 +1,10 @@
 import {useNuxtApp} from "#app";
 import {ref} from "vue";
 import {defineStore} from "pinia";
-import {
-  type CreateFormRequest,
-  type UpdateFormRequest,
-  Form,
-  FormId,
-  OrganizationId
-} from "@lyra/domain";
+
 import {useWorkspaceStore} from "./workspace.store";
+import {CreateFormRequest, Form, FormId, UpdateFormRequest} from "~/domain/forms";
+import {OrganizationId} from "~/domain/organization";
 
 export const useFormStore = defineStore("forms", () => {
 	const { $api } = useNuxtApp();

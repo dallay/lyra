@@ -6,8 +6,13 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.memberProperties
 
 /**
+ * This class is a parser for criteria that are evaluated at runtime.
+ * It uses reflection to parse the criteria and return a lambda function that can be used to evaluate the criteria.
  *
- * @created 10/1/24
+ * @param T The type of the object to evaluate the criteria.
+ * @property clazz The class of the object to evaluate the criteria.
+ * @property properties A map of the properties of the class.
+ * @constructor Creates a new RuntimeCriteriaParser.
  */
 @Suppress("MethodOverloading")
 class RuntimeCriteriaParser<T : Any>(
@@ -31,7 +36,7 @@ class RuntimeCriteriaParser<T : Any>(
             is Criteria.GreaterThanEquals -> parse(criteria)
             is Criteria.IsNull -> parse(criteria)
             is Criteria.IsNotNull -> parse(criteria)
-            is Criteria.Like -> parse(criteria)
+            is CriteriaLike -> parse(criteria)
             is Criteria.NotLike -> parse(criteria)
             is Criteria.Regexp -> parse(criteria)
             is Criteria.NotRegexp -> parse(criteria)
@@ -62,7 +67,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.let { property ->
                 property.get(it) == criteria.value
-            } ?: false
+            } == true
         }
     }
 
@@ -70,7 +75,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.let { property ->
                 property.get(it) != criteria.value
-            } ?: false
+            } == true
         }
     }
 
@@ -85,8 +90,8 @@ class RuntimeCriteriaParser<T : Any>(
                     } else {
                         false
                     }
-                } ?: false
-            } ?: false
+                } == true
+            } == true
         }
     }
 
@@ -101,8 +106,8 @@ class RuntimeCriteriaParser<T : Any>(
                     } else {
                         false
                     }
-                } ?: true
-            } ?: false
+                } != false
+            } == true
         }
     }
 
@@ -117,8 +122,8 @@ class RuntimeCriteriaParser<T : Any>(
                     } else {
                         false
                     }
-                } ?: false
-            } ?: false
+                } == true
+            } == true
         }
     }
 
@@ -133,8 +138,8 @@ class RuntimeCriteriaParser<T : Any>(
                     } else {
                         false
                     }
-                } ?: false
-            } ?: false
+                } == true
+            } == true
         }
     }
 
@@ -149,8 +154,8 @@ class RuntimeCriteriaParser<T : Any>(
                     } else {
                         false
                     }
-                } ?: false
-            } ?: false
+                } == true
+            } == true
         }
     }
 
@@ -165,8 +170,8 @@ class RuntimeCriteriaParser<T : Any>(
                     } else {
                         false
                     }
-                } ?: false
-            } ?: false
+                } == true
+            } == true
         }
     }
 
@@ -174,7 +179,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.let { property ->
                 property.get(it) == null
-            } ?: false
+            } == true
         }
     }
 
@@ -182,12 +187,14 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.let { property ->
                 property.get(it) != null
-            } ?: false
+            } == true
         }
     }
 
-    private fun parse(criteria: Criteria.Like): (T) -> Boolean {
-        val pattern = Pattern.compile(SqlLikeTranspiler.toRegEx(criteria.value))
+    private fun parse(criteria: CriteriaLike, ignoreCase: Boolean = false): (T) -> Boolean {
+        val regexFlags = if (ignoreCase) Pattern.CASE_INSENSITIVE else 0
+        val pattern = Pattern.compile(SqlLikeTranspiler.toRegEx(criteria.value), regexFlags)
+
         return {
             properties[criteria.key]?.get(it)?.let { value ->
                 if (value is CharSequence) {
@@ -195,9 +202,12 @@ class RuntimeCriteriaParser<T : Any>(
                 } else {
                     false
                 }
-            } ?: false
+            } == true
         }
     }
+
+    private fun parse(criteria: Criteria.Like): (T) -> Boolean = parse(criteria, ignoreCase = false)
+    private fun parse(criteria: Criteria.Ilike): (T) -> Boolean = parse(criteria, ignoreCase = true)
 
     private fun parse(criteria: Criteria.NotLike): (T) -> Boolean {
         val pattern = Pattern.compile(SqlLikeTranspiler.toRegEx(criteria.value))
@@ -208,7 +218,7 @@ class RuntimeCriteriaParser<T : Any>(
                 } else {
                     false
                 }
-            } ?: false
+            } == true
         }
     }
 
@@ -220,7 +230,7 @@ class RuntimeCriteriaParser<T : Any>(
                 } else {
                     false
                 }
-            } ?: false
+            } == true
         }
     }
 
@@ -232,7 +242,7 @@ class RuntimeCriteriaParser<T : Any>(
                 } else {
                     false
                 }
-            } ?: false
+            } == true
         }
     }
 
@@ -240,7 +250,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.get(it)?.let { value ->
                 criteria.value.contains(value)
-            } ?: false
+            } == true
         }
     }
 
@@ -248,7 +258,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.get(it)?.let { value ->
                 !criteria.value.contains(value)
-            } ?: false
+            } == true
         }
     }
 
@@ -256,7 +266,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.get(it)?.let { value ->
                 value == true
-            } ?: false
+            } == true
         }
     }
 
@@ -264,7 +274,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.get(it)?.let { value ->
                 value == false
-            } ?: false
+            } == true
         }
     }
 }

@@ -3,6 +3,7 @@ package com.lyra.common.domain.presentation.sort
 enum class Direction {
     ASC, DESC;
     fun fromString(direction: String): Direction = Direction.fromString(direction)
+    fun reversed(): Direction = if (this == ASC) DESC else ASC
     companion object {
         fun fromString(direction: String): Direction {
             return when (direction) {

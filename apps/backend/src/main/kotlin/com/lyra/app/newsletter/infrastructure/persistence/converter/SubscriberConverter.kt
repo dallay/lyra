@@ -1,5 +1,8 @@
 package com.lyra.app.newsletter.infrastructure.persistence.converter
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import com.lyra.app.newsletter.domain.Attributes
 import com.lyra.app.newsletter.domain.SubscriberStatus
 import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntity
 import io.r2dbc.spi.Row
@@ -13,6 +16,7 @@ import org.springframework.data.convert.ReadingConverter
  */
 @ReadingConverter
 class SubscriberConverter : Converter<Row, SubscriberEntity> {
+    private val objectMapper = jacksonObjectMapper()
     /**
      * Convert the source object of type `S` to target type `T`.
      * @param source the source object to convert, which must be an instance of `S` (never `null`)
@@ -25,15 +29,17 @@ class SubscriberConverter : Converter<Row, SubscriberEntity> {
         val sourceFirstname = source.get("firstname", String::class.java)
         val sourceLastname = source.get("lastname", String::class.java)
         val sourceStatus = source.get("status", SubscriberStatus::class.java)
+        val attributes = source.get("attributes", String::class.java)?.let { objectMapper.readValue<Attributes>(it) }
         val organizationId = source.get("organization_id", UUID::class.java)
         val sourceCreatedAt = source.get("created_at", LocalDateTime::class.java)
         val sourceUpdatedAt = source.get("updated_at", LocalDateTime::class.java)
         return SubscriberEntity(
             id = sourceId!!,
             email = sourceEmail!!,
-            firstname = sourceFirstname!!,
-            lastname = sourceLastname!!,
+            firstname = sourceFirstname,
+            lastname = sourceLastname,
             status = sourceStatus!!,
+            attributes = attributes,
             organizationId = organizationId!!,
             createdAt = sourceCreatedAt!!,
             updatedAt = sourceUpdatedAt!!,

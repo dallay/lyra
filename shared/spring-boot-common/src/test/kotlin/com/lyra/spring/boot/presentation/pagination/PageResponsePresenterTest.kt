@@ -18,7 +18,7 @@ import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 
 @Suppress("ReactiveStreamsUnusedPublisher")
-class PageResponsePresenterTest {
+internal class PageResponsePresenterTest {
     private val objectMapper = ObjectMapper().registerModule(
         KotlinModule.Builder()
             .withReflectionCacheSize(512)

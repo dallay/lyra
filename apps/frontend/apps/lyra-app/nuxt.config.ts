@@ -25,7 +25,8 @@ export default defineNuxtConfig({
       },
     ],
     "@nuxt/image",
-    "@nuxt/scripts"
+    "@nuxt/scripts",
+    '@nuxt/test-utils/module'
   ],
   shadcn: {
     prefix: '',

@@ -3,7 +3,7 @@ import type { FetchResponse, ResponseType } from 'ofetch';
 import FormModule from '~/repository/modules/form.module';
 import AuthModule from '~/repository/modules/auth.module';
 import CommonModule from '~/repository/modules/common.module';
-import type { AccessToken } from '@lyra/domain';
+import type { AccessToken } from '@/domain/authentication';
 import OrganizationModule from "~/repository/modules/organization.module";
 import TeamModule from "~/repository/modules/team.module";
 import TeamMemberModule from "~/repository/modules/team-member.module";

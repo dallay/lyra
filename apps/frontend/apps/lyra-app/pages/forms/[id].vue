@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute } from '#app';
-import { FormResponse, FormId } from '@lyra/domain';
+import { FormResponse, FormId } from '@/domain/forms';
 import { useFormStore } from "~/store/form.store";
 import { Skeleton } from '@/components/ui/skeleton'
 import { definePageMeta } from '#imports'

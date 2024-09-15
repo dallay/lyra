@@ -1,5 +1,6 @@
 package com.lyra.app.newsletter.application
 
+import com.lyra.app.newsletter.domain.Attributes
 import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.SubscriberRepository
 import com.lyra.app.newsletter.domain.event.SubscriberCreatedEvent
@@ -33,6 +34,7 @@ class SubscriberRegistrator(
      * @param email The email address of the subscriber.
      * @param firstName The first name of the subscriber.
      * @param lastName The last name of the subscriber. This can be null.
+     * @param attributes Additional attributes associated with the subscriber.
      * @param organizationId The identifier of the organization the subscriber belongs to.
      */
     suspend fun register(
@@ -40,11 +42,19 @@ class SubscriberRegistrator(
         email: String,
         firstName: String? = null,
         lastName: String? = null,
+        attributes: Attributes?,
         organizationId: UUID
     ) {
         log.debug("Registering subscriber with email: $email")
 
-        val subscriber = Subscriber.create(id, email, firstName, lastName, organizationId = organizationId)
+        val subscriber = Subscriber.create(
+            id,
+            email,
+            firstName,
+            lastName,
+            attributes = attributes,
+            organizationId = organizationId,
+        )
         subscriberRepository.create(subscriber)
         val domainEvents = subscriber.pullDomainEvents()
 

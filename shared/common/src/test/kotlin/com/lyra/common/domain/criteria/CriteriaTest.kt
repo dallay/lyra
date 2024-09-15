@@ -4,7 +4,7 @@ import java.util.regex.Pattern
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class CriteriaTest {
+internal class CriteriaTest {
     @Test
     fun equals() {
         val a = Criteria.And(
@@ -148,6 +148,12 @@ class CriteriaTest {
     fun testLikeCriteria() {
         val criteria = Criteria.Like("name", "%John%")
         assertEquals("name LIKE %John%", criteria.toString())
+    }
+
+    @Test
+    fun testIlikeCriteria() {
+        val criteria = Criteria.Ilike("name", "%John%")
+        assertEquals("name ILIKE %John%", criteria.toString())
     }
 
     @Test

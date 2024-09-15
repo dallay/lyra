@@ -2,7 +2,12 @@
 /*
 * Prefix /api for api server
 */
-import type {FormId, OrganizationId, SubscriberId, TeamId} from "@lyra/domain";
+
+
+import {OrganizationId} from "~/domain/organization";
+import {SubscriberId} from "~/domain/subscriber";
+import {FormId} from "~/domain/forms";
+import {TeamId} from "~/domain/team";
 
 const prefix : string = '/api';
 
@@ -21,6 +26,12 @@ const Routes = {
     CreateSubscriber: (organizationId: OrganizationId,
                        subscribeId: SubscriberId) =>
       `${prefix}/organization/${organizationId.value}/newsletter/subscriber/${subscribeId.value}`,
+    FetchAll: (organizationId: OrganizationId) =>
+      `${prefix}/organization/${organizationId.value}/newsletter/subscriber`,
+    CountByStatus: (organizationId: OrganizationId) =>
+      `${prefix}/organization/${organizationId.value}/newsletter/subscriber/count-by-status`,
+    CountByTags: (organizationId: OrganizationId) =>
+      `${prefix}/organization/${organizationId.value}/newsletter/subscriber/count-by-tags`,
   },
   Form:{
     FetchAll:(organizationId: OrganizationId)  => `${prefix}/organization/${organizationId.value}/form`,

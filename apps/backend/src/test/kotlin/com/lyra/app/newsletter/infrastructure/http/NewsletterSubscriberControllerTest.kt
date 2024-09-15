@@ -19,7 +19,8 @@ internal class NewsletterSubscriberControllerTest {
     private val email = "john.doe@example.com"
     private val firstname = "John"
     private val lastname = "Doe"
-    private val command = SubscribeNewsletterCommand(id, email, firstname, lastname, organizationId)
+    private val command =
+        SubscribeNewsletterCommand(id, email, firstname, lastname, organizationId = organizationId)
     private val controller = NewsletterSubscriberController(mediator)
     private val webTestClient = WebTestClient.bindToController(controller).build()
 

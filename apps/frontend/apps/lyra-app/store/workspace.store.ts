@@ -1,10 +1,10 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import type { OrganizationTeamMember } from "@lyra/domain";
 import { useAuthStore } from "~/store/auth.store";
 import { useRouter } from "#imports";
 import { useNuxtApp } from "#app";
 import type { ResponseData } from "@lyra/shared";
+import {OrganizationId, type OrganizationTeamMember} from "~/domain/organization";
 
 export type WorkspaceTeam = {
   teamId: string;
@@ -94,5 +94,9 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     return getWorkspaceByTeamId(selectedTeam.value?.teamId ?? '');
   }
 
-  return { groupedWorkspace, fetchWorkspaces, selectedTeam, setSelectedTeam, getWorkspaceByTeamId, getCurrentWorkspace };
+const getCurrentOrganizationId = () => {
+  const currentOrgId = getCurrentWorkspace()?.organizationId;
+  return currentOrgId ? OrganizationId.create(currentOrgId) : undefined;
+}
+  return { groupedWorkspace, fetchWorkspaces, selectedTeam, setSelectedTeam, getWorkspaceByTeamId, getCurrentWorkspace, getCurrentOrganizationId };
 });

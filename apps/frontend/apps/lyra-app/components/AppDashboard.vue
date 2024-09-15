@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import Overview from '@/components/Overview.vue'
 import DateRangePicker from '@/components/DateRangePicker.vue'
-import MainNav from '@/components/nav/MainNav.vue'
 import RecentSales from '@/components/RecentSales.vue'
-import Search from '@/components/Search.vue'
-import OrganizationSwitcher from '~/components/OrganizationSwitcher.vue'
-import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
-import UserNav from '@/components/nav/UserNav.vue'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -22,6 +17,10 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs'
+import type { DateRange } from 'radix-vue'
+const updateDateRange = async (newRange: DateRange) => {
+  console.log(newRange)
+}
 </script>
 
 <template>
@@ -32,7 +31,11 @@ import {
           Dashboard
         </h2>
         <div class="flex items-center space-x-2">
-          <DateRangePicker />
+          <DateRangePicker
+          :startDate="offsetDate(-1)"
+          :endDate="offsetDate(1)"
+          @update:dateRange="updateDateRange"
+          />
           <Button>Download</Button>
         </div>
       </div>

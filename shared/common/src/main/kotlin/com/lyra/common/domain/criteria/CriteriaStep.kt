@@ -29,6 +29,7 @@ data class CriteriaStep(
     fun isNotNull() = Criteria.IsNotNull(key)
 
     fun like(value: String) = Criteria.Like(key, value)
+    fun ilike(value: String) = Criteria.Ilike(key, value)
     fun notLike(value: String) = Criteria.NotLike(key, value)
 
     fun regexp(value: Pattern) = Criteria.Regexp(key, value)

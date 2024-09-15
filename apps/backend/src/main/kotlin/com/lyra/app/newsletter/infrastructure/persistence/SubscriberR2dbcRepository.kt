@@ -2,12 +2,14 @@ package com.lyra.app.newsletter.infrastructure.persistence
 
 import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.app.newsletter.domain.SubscriberRepository
+import com.lyra.app.newsletter.domain.SubscriberStatsRepository
 import com.lyra.app.newsletter.domain.SubscriberStatus
 import com.lyra.app.newsletter.domain.exceptions.SubscriberException
 import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntity
 import com.lyra.app.newsletter.infrastructure.persistence.mapper.SubscriberMapper.toDomain
 import com.lyra.app.newsletter.infrastructure.persistence.mapper.SubscriberMapper.toEntity
-import com.lyra.app.newsletter.infrastructure.persistence.repository.SubscriberRegistratorR2dbcRepository
+import com.lyra.app.newsletter.infrastructure.persistence.repository.SubscriberReactiveR2dbcRepository
+import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.pagination.Cursor
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
@@ -28,12 +30,12 @@ private const val DEFAULT_LIMIT = 10
 
 @Repository
 class SubscriberR2dbcRepository(
-    private val subscriberRegistratorR2dbcRepository: SubscriberRegistratorR2dbcRepository,
-) : SubscriberRepository {
+    private val subscriberReactiveR2DbcRepository: SubscriberReactiveR2dbcRepository,
+) : SubscriberRepository, SubscriberStatsRepository {
     private val criteriaParser = R2DBCCriteriaParser(SubscriberEntity::class)
     override suspend fun create(subscriber: Subscriber) {
         try {
-            subscriberRegistratorR2dbcRepository.save(subscriber.toEntity())
+            subscriberReactiveR2DbcRepository.save(subscriber.toEntity())
         } catch (e: DuplicateKeyException) {
             log.error("Form already exists in the database: ${subscriber.id.value}")
             throw SubscriberException("Error creating subscriber", e)
@@ -58,7 +60,7 @@ class SubscriberR2dbcRepository(
 
         val pageable = PageRequest.of(page ?: 0, size ?: DEFAULT_LIMIT, sortCriteria)
 
-        val pageEntity = subscriberRegistratorR2dbcRepository.findAll(
+        val pageEntity = subscriberReactiveR2DbcRepository.findAll(
             criteriaParsed,
             pageable,
             SubscriberEntity::class,
@@ -88,7 +90,7 @@ class SubscriberR2dbcRepository(
         )
         val criteriaParsed = criteriaParser.parse(criteria ?: Criteria.Empty)
         val springSort = sort?.toSpringSort() ?: SpringSort.unsorted()
-        val pageResponse = subscriberRegistratorR2dbcRepository.findAllByCursor(
+        val pageResponse = subscriberReactiveR2DbcRepository.findAllByCursor(
             criteriaParsed,
             size ?: DEFAULT_LIMIT,
             SubscriberEntity::class,
@@ -97,12 +99,40 @@ class SubscriberR2dbcRepository(
         )
 
         val content = pageResponse.data.map { it.toDomain() }
-        return CursorPageResponse(content, pageResponse.nextPageCursor)
+        return CursorPageResponse(content, pageResponse.prevPageCursor, pageResponse.nextPageCursor)
     }
 
     override suspend fun searchActive(): Flow<Subscriber> {
-        return subscriberRegistratorR2dbcRepository.findAllByStatus(SubscriberStatus.ENABLED)
+        return subscriberReactiveR2DbcRepository.findAllByStatus(SubscriberStatus.ENABLED)
             .map { it.toDomain() }
+    }
+
+    /**
+     * Count subscribers by their status.
+     *
+     * This method returns a flow of pairs, where each pair consists of a status
+     * (as a string) and the count of subscribers with that status (as an integer).
+     *
+     * @return Flow<Pair<String, Long>> A flow emitting pairs of status and count.
+     */
+    override suspend fun countByStatus(organizationId: OrganizationId): Flow<Pair<String, Long>> =
+        subscriberReactiveR2DbcRepository.countByStatus(organizationId.value).map { (status, count) ->
+            status to count
+        }
+
+    /**
+     * Count subscribers by tags.
+     *
+     * This method returns a flow of pairs, where each pair consists of a tag
+     * (as a string) and the count of subscribers with that tag (as an integer).
+     *
+     * @param organizationId The ID of the organization to count subscribers for.
+     * @return Flow<Pair<String, Long>> A flow emitting pairs of tag and count.
+     */
+    override suspend fun countByTag(organizationId: OrganizationId): Flow<Pair<String, Long>> {
+        return subscriberReactiveR2DbcRepository.countByTag(organizationId.value).map { (tag, count) ->
+            tag to count
+        }
     }
 
     companion object {

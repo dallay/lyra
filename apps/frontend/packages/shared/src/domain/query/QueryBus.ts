@@ -1,5 +1,5 @@
 import type Query from './Query';
-import type Response from '../Response.ts';
+import type ApiResponse from '../ApiResponse.ts';
 export default interface QueryBus {
-	ask<R extends Response>(query: Query): Promise<R>;
+	ask<R extends ApiResponse>(query: Query): Promise<R>;
 }

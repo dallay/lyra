@@ -31,27 +31,27 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.2",
+    "@astrojs/check": "^0.9.3",
     "@astrojs/vue": "^4.5.0",
-    "@fontsource-variable/onest": "^5.0.4",
-    "@iconify-json/mdi": "^1.1.68",
-    "@iconify-json/ph": "^1.1.14",
-    "@iconify-json/simple-icons": "^1.1.113",
-    "@iconify/json": "^2.2.237",
+    "@fontsource-variable/onest": "^5.0.5",
+    "@iconify-json/mdi": "^1.2.0",
+    "@iconify-json/ph": "^1.2.0",
+    "@iconify-json/simple-icons": "^1.2.1",
+    "@iconify/json": "^2.2.244",
     "@lyra/utilities": "0.0.1",
-    "astro": "^4.14.0",
+    "astro": "^4.15.2",
     "typescript": "^5.5.4",
-    "vue": "^3.4.38"
+    "vue": "^3.5.5"
   },
   "devDependencies": {
     "@lyra/config": "0.0.1",
     "@lyra/tsconfig": "0.0.1",
     "@types/canvas-confetti": "^1.6.4",
-    "@unocss/postcss": "^0.62.1",
-    "@unocss/reset": "^0.62.1",
-    "astro-icon": "^1.1.0",
+    "@unocss/postcss": "^0.62.3",
+    "@unocss/reset": "^0.62.3",
+    "astro-icon": "^1.1.1",
     "canvas-confetti": "^1.9.3",
-    "sharp": "^0.33.4"
+    "sharp": "^0.33.5"
   },
   "packageManager": "pnpm@9.1.4"
 }

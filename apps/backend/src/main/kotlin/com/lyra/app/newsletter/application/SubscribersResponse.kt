@@ -1,5 +1,6 @@
 package com.lyra.app.newsletter.application
 
+import com.lyra.app.newsletter.domain.Attributes
 import com.lyra.app.newsletter.domain.Subscriber
 import com.lyra.common.domain.bus.query.Response
 
@@ -10,6 +11,8 @@ data class SubscriberResponse(
     val email: String,
     val name: String,
     val status: String,
+    val attributes: Attributes? = null,
+    val organizationId: String,
     val createdAt: String? = null,
     val updatedAt: String? = null,
 ) : Response {
@@ -19,6 +22,8 @@ data class SubscriberResponse(
             email = subscriber.email.value,
             name = subscriber.name.fullName(),
             status = subscriber.status.name,
+            attributes = subscriber.attributes,
+            organizationId = subscriber.organizationId.value.toString(),
             createdAt = subscriber.createdAt.toString(),
             updatedAt = subscriber.updatedAt?.toString(),
         )

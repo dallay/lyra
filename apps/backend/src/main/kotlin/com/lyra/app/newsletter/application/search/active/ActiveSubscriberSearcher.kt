@@ -27,6 +27,10 @@ class ActiveSubscriberSearcher(private val repository: SubscriberRepository) {
                     it.email.value,
                     it.name.fullName(),
                     it.status.name,
+                    it.attributes,
+                    it.organizationId.toString(),
+                    it.createdAt.toString(),
+                    it.updatedAt?.toString(),
                 )
             }.toList(),
         )

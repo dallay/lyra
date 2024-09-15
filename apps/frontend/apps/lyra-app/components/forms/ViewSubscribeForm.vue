@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed, defineEmits, defineProps, ref} from 'vue';
-import {FormId, type FormResponse} from '@lyra/domain';
+import {FormId, type FormResponse} from '@/domain/forms';
 import {Separator} from '~/components/ui/separator';
 import {cn} from '~/lib/utils';
 import {useFormStore} from '~/store/form.store';

@@ -91,6 +91,8 @@ class RHSFilterParser<T : Any>(
             "ne" -> Criteria.NotEquals(property.name, value)
             "eq" -> Criteria.Equals(property.name, value)
             "lk" -> Criteria.Like(property.name, value as String)
+            "ilk" -> Criteria.Ilike(property.name, value as String)
+            "nl" -> Criteria.NotLike(property.name, value as String)
             "gt" -> Criteria.GreaterThan(property.name, value as Comparable<Any?>)
             "gte" -> Criteria.GreaterThanEquals(property.name, value as Comparable<Any?>)
             "lt" -> Criteria.LessThan(property.name, value as Comparable<Any?>)

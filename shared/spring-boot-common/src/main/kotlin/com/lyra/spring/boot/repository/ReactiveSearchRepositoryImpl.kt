@@ -2,6 +2,8 @@ package com.lyra.spring.boot.repository
 
 import com.lyra.common.domain.presentation.pagination.Cursor
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
+import com.lyra.common.domain.presentation.pagination.TimestampCursor
+import com.lyra.common.domain.presentation.sort.Direction
 import com.lyra.spring.boot.presentation.sort.toSpringSort
 import kotlin.reflect.KClass
 import kotlinx.coroutines.Dispatchers
@@ -55,8 +57,6 @@ class ReactiveSearchRepositoryImpl<T : Any>(
 
         val list = listDeferred.await()
         val count = countDeferred.await()
-        println("\uD83D\uDFE2 list: $list")
-        println("\uD83D\uDFE2 count: $count")
         PageImpl(list, pageable, count)
     }
 
@@ -101,18 +101,65 @@ class ReactiveSearchRepositoryImpl<T : Any>(
         val pageSize = size + 1
         val cursorCriteriaParsed = R2DBCCriteriaParser(domainType).parse(cursor.getCriteria())
         val criteriaSpringSort = cursor.getSort().toSpringSort()
-        // Combine the criteria separately
+
         val combinedCriteria = Criteria.empty()
             .and(criteria)
             .and(cursorCriteriaParsed)
+
         val query = query(combinedCriteria)
             .with(PageRequest.of(0, pageSize, sort.and(criteriaSpringSort)))
-        val list: List<T> =
-            r2dbcTemplate.select(domainType.java).matching(query).all().collectList().awaitFirstOrNull()
-                ?: emptyList()
+
+        val list: List<T> = r2dbcTemplate.select(domainType.java)
+            .matching(query)
+            .all()
+            .collectList()
+            .awaitFirstOrNull() ?: emptyList()
+
+        return processContent(list, size, cursor)
+    }
+
+    private fun processContent(
+        list: List<T>,
+        size: Int,
+        cursor: Cursor
+    ): CursorPageResponse<T> {
         val content = list.take(size)
         val hasNextPage = list.size > size
+
+        val (nextCursor, prevCursor) = if (cursor.direction == Direction.ASC) {
+            getCursorsForAsc(content, hasNextPage, cursor)
+        } else {
+            getCursorsForDesc(content, hasNextPage, cursor)
+        }
+
+        return CursorPageResponse(content, prevCursor, nextCursor)
+    }
+
+    private fun getCursorsForAsc(
+        content: List<T>,
+        hasNextPage: Boolean,
+        cursor: Cursor
+    ): Pair<String?, String?> {
         val nextCursor = if (hasNextPage) cursor.serialize(content.last()) else null
-        return CursorPageResponse(content, nextCursor)
+        val prevCursor = if (cursor != TimestampCursor.DEFAULT_CURSOR && content.isNotEmpty()) {
+            cursor.serialize(content.first(), cursor.direction.reversed())
+        } else {
+            null
+        }
+        return Pair(nextCursor, prevCursor)
+    }
+
+    private fun getCursorsForDesc(
+        content: List<T>,
+        hasNextPage: Boolean,
+        cursor: Cursor
+    ): Pair<String?, String?> {
+        val nextCursor = if (content.isNotEmpty()) {
+            cursor.serialize(content.first(), cursor.direction.reversed())
+        } else {
+            null
+        }
+        val prevCursor = if (hasNextPage) cursor.serialize(content.last()) else null
+        return Pair(nextCursor, prevCursor)
     }
 }

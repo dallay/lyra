@@ -8,6 +8,7 @@ import com.lyra.app.newsletter.infrastructure.persistence.entity.SubscriberEntit
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.criteria.and
+import com.lyra.common.domain.error.InvalidFilterOperator
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import com.lyra.common.domain.presentation.pagination.CursorRequestPageable
 import com.lyra.common.domain.presentation.pagination.FilterCondition
@@ -130,7 +131,7 @@ class GetAllSubscriberController(
                     useOr = false,
                 )
 
-                else -> throw IllegalArgumentException("Unsupported operator: ${condition.operator}")
+                else -> throw InvalidFilterOperator("Unsupported operator: ${condition.operator}")
             }
             if (criteria !is Criteria.Empty) {
                 filterCriteriaList.add(criteria)

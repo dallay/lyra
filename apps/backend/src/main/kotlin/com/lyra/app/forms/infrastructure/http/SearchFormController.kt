@@ -8,6 +8,7 @@ import com.lyra.common.domain.bus.Mediator
 import com.lyra.common.domain.bus.query.Response
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.criteria.and
+import com.lyra.common.domain.error.InvalidFilterOperator
 import com.lyra.common.domain.presentation.pagination.CursorRequestPageable
 import com.lyra.common.domain.presentation.pagination.FilterCondition
 import com.lyra.common.domain.presentation.pagination.LogicalOperator
@@ -17,7 +18,6 @@ import com.lyra.spring.boot.presentation.sort.SortParserFactory
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
-import java.util.*
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
 import org.slf4j.LoggerFactory
@@ -134,7 +134,7 @@ class SearchFormController(
                     useOr = false,
                 )
 
-                else -> throw IllegalArgumentException("Unsupported operator: ${condition.operator}")
+                else -> throw InvalidFilterOperator("Unsupported operator: ${condition.operator}")
             }
             if (criteria !is Criteria.Empty) {
                 filterCriteriaList.add(criteria)
@@ -154,14 +154,7 @@ class SearchFormController(
     private fun getSearchQuery(search: String): List<String> {
         val trimQuery = search.trim()
         val searchQuery = listOf(
-            "lk:$trimQuery",
-            "lk:${trimQuery.lowercase()}",
-            "lk:${trimQuery.uppercase()}",
-            "lk:${
-                trimQuery.replaceFirstChar {
-                    if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
-                }
-            }",
+            "ilk:%$trimQuery%",
         )
         return searchQuery
     }

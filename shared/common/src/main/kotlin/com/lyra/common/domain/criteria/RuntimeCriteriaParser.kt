@@ -6,8 +6,13 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.memberProperties
 
 /**
+ * This class is a parser for criteria that are evaluated at runtime.
+ * It uses reflection to parse the criteria and return a lambda function that can be used to evaluate the criteria.
  *
- * @created 10/1/24
+ * @param T The type of the object to evaluate the criteria.
+ * @property clazz The class of the object to evaluate the criteria.
+ * @property properties A map of the properties of the class.
+ * @constructor Creates a new RuntimeCriteriaParser.
  */
 @Suppress("MethodOverloading")
 class RuntimeCriteriaParser<T : Any>(
@@ -31,8 +36,6 @@ class RuntimeCriteriaParser<T : Any>(
             is Criteria.GreaterThanEquals -> parse(criteria)
             is Criteria.IsNull -> parse(criteria)
             is Criteria.IsNotNull -> parse(criteria)
-//            is Criteria.Like -> parse(criteria)
-//            is Criteria.Ilike -> parse(criteria)
             is CriteriaLike -> parse(criteria)
             is Criteria.NotLike -> parse(criteria)
             is Criteria.Regexp -> parse(criteria)
@@ -64,7 +67,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.let { property ->
                 property.get(it) == criteria.value
-            } ?: false
+            } == true
         }
     }
 
@@ -72,7 +75,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.let { property ->
                 property.get(it) != criteria.value
-            } ?: false
+            } == true
         }
     }
 
@@ -87,8 +90,8 @@ class RuntimeCriteriaParser<T : Any>(
                     } else {
                         false
                     }
-                } ?: false
-            } ?: false
+                } == true
+            } == true
         }
     }
 
@@ -103,8 +106,8 @@ class RuntimeCriteriaParser<T : Any>(
                     } else {
                         false
                     }
-                } ?: true
-            } ?: false
+                } != false
+            } == true
         }
     }
 
@@ -119,8 +122,8 @@ class RuntimeCriteriaParser<T : Any>(
                     } else {
                         false
                     }
-                } ?: false
-            } ?: false
+                } == true
+            } == true
         }
     }
 
@@ -135,8 +138,8 @@ class RuntimeCriteriaParser<T : Any>(
                     } else {
                         false
                     }
-                } ?: false
-            } ?: false
+                } == true
+            } == true
         }
     }
 
@@ -151,8 +154,8 @@ class RuntimeCriteriaParser<T : Any>(
                     } else {
                         false
                     }
-                } ?: false
-            } ?: false
+                } == true
+            } == true
         }
     }
 
@@ -167,8 +170,8 @@ class RuntimeCriteriaParser<T : Any>(
                     } else {
                         false
                     }
-                } ?: false
-            } ?: false
+                } == true
+            } == true
         }
     }
 
@@ -176,7 +179,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.let { property ->
                 property.get(it) == null
-            } ?: false
+            } == true
         }
     }
 
@@ -184,7 +187,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.let { property ->
                 property.get(it) != null
-            } ?: false
+            } == true
         }
     }
 
@@ -199,11 +202,10 @@ class RuntimeCriteriaParser<T : Any>(
                 } else {
                     false
                 }
-            } ?: false
+            } == true
         }
     }
 
-    // Puedes definir las funciones parse para LIKE e ILIKE
     private fun parse(criteria: Criteria.Like): (T) -> Boolean = parse(criteria, ignoreCase = false)
     private fun parse(criteria: Criteria.Ilike): (T) -> Boolean = parse(criteria, ignoreCase = true)
 
@@ -216,7 +218,7 @@ class RuntimeCriteriaParser<T : Any>(
                 } else {
                     false
                 }
-            } ?: false
+            } == true
         }
     }
 
@@ -228,7 +230,7 @@ class RuntimeCriteriaParser<T : Any>(
                 } else {
                     false
                 }
-            } ?: false
+            } == true
         }
     }
 
@@ -240,7 +242,7 @@ class RuntimeCriteriaParser<T : Any>(
                 } else {
                     false
                 }
-            } ?: false
+            } == true
         }
     }
 
@@ -248,7 +250,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.get(it)?.let { value ->
                 criteria.value.contains(value)
-            } ?: false
+            } == true
         }
     }
 
@@ -256,7 +258,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.get(it)?.let { value ->
                 !criteria.value.contains(value)
-            } ?: false
+            } == true
         }
     }
 
@@ -264,7 +266,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.get(it)?.let { value ->
                 value == true
-            } ?: false
+            } == true
         }
     }
 
@@ -272,7 +274,7 @@ class RuntimeCriteriaParser<T : Any>(
         return {
             properties[criteria.key]?.get(it)?.let { value ->
                 value == false
-            } ?: false
+            } == true
         }
     }
 }

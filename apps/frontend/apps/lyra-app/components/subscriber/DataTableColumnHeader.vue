@@ -12,13 +12,30 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { useSubscriberStore} from "~/store/subscriber.store";
+import { useSubscriberFilterStore } from "~/store/subscriber.filter.store";
+
+const subscriberFilterStore = useSubscriberFilterStore();
+const { setSubscriberFilterSort, cleanSubscriberCursor } = subscriberFilterStore;
+const subscriberStore = useSubscriberStore();
+const { fetchAllSubscriber } = subscriberStore;
+
 
 interface DataTableColumnHeaderProps {
-  column: Column<Subscriber, any>
+  column: Column<Subscriber, unknown>
   title: string
 }
 
-defineProps<DataTableColumnHeaderProps>()
+const props = defineProps<DataTableColumnHeaderProps>()
+const sortColumn = async (direction: 'asc' | 'desc') => {
+  await cleanSubscriberCursor();
+  setSubscriberFilterSort({ field: props.column.id, direction });
+  await fetchAllSubscriber();
+  props.column.toggleSorting(direction === 'desc');
+};
+
+const sortAscending = () => sortColumn('asc');
+const sortDescending = () => sortColumn('desc');
 </script>
 
 <script lang="ts">
@@ -43,16 +60,16 @@ export default {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
-        <DropdownMenuItem @click="column.toggleSorting(false)">
+        <DropdownMenuItem @click="sortAscending">
           <ArrowUpIcon class="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
           Asc
         </DropdownMenuItem>
-        <DropdownMenuItem @click="column.toggleSorting(true)">
+        <DropdownMenuItem @click="sortDescending">
           <ArrowDownIcon class="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
           Desc
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem @click="column.toggleVisibility(false)">
+        <DropdownMenuSeparator v-if="column.getCanHide()" />
+        <DropdownMenuItem v-if="column.getCanHide()" @click="column.toggleVisibility(false)">
           <EyeNoneIcon class="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
           Hide
         </DropdownMenuItem>

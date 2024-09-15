@@ -1,5 +1,4 @@
 import type { SortParam } from "./SortParam";
-import {ArrayStack, type Stack} from "@lyra/shared";
 
 /**
  * Type representing the possible operators for criteria.
@@ -82,7 +81,6 @@ export function toQueryParams(
         : `${logicalOpPrefix}${value}`;
     });
   };
-  console.log("BEFORE ADD THE FILTER CRITERIA", filterCriteria)
   addCriteriaToParams(filterCriteria, "filter");
   if (search) {
     params["search"] = search;

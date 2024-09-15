@@ -143,12 +143,10 @@ export const useSubscriberFilterStore = defineStore("subscriberFilter", () => {
   };
 
   const resetFilterDateRange = () => {
-    console.log("RESET FILTER DATE RANGE");
     filtersDateRange.value = defaultFilterDateRange;
   };
 
   const cleanSubscriberCursor = async () => {
-    console.log("CLEANING SUBSCRIBER CURSOR");
     subscriberFilterOptions.value.cursor = null;
     cursorPage.value = { previous: null, next: null };
   }

@@ -1,4 +1,3 @@
-import { columns } from './columns';
 import type { ColumnDef } from "@tanstack/vue-table";
 import { h } from "vue";
 

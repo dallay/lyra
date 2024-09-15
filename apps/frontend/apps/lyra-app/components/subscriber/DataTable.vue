@@ -31,7 +31,7 @@ import {
 } from '@/components/ui/table'
 
 interface DataTableProps {
-  columns: ColumnDef<Subscriber, any>[]
+  columns: ColumnDef<Subscriber, unknown>[]
   data: Subscriber[]
 }
 const props = defineProps<DataTableProps>()

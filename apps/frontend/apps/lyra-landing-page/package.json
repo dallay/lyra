@@ -41,7 +41,7 @@
     "@lyra/utilities": "0.0.1",
     "astro": "^4.15.2",
     "typescript": "^5.5.4",
-    "vue": "^3.5.1"
+    "vue": "^3.5.5"
   },
   "devDependencies": {
     "@lyra/config": "0.0.1",

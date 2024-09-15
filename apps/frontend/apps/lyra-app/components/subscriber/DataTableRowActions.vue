@@ -1,25 +1,18 @@
 <script setup lang="ts">
 import type { Row } from '@tanstack/vue-table'
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import {type Subscriber, subscriberSchema} from '@/domain/subscriber';
 import {DotsHorizontalIcon} from '@radix-icons/vue'
+import { useRouter } from '#app'
 
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useSubscriberStore } from "~/store/subscriber.store";
-import { storeToRefs } from "pinia";
+
 const router = useRouter();
 
 interface DataTableRowActionsProps {

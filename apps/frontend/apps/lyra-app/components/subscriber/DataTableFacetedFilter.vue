@@ -37,7 +37,7 @@ type FilterOption = {
 };
 
 interface DataTableFacetedFilter {
-	column?: Column<Subscriber, any>;
+	column?: Column<Subscriber, unknown>;
 	title?: string;
 	options: FilterOption[];
 }

@@ -34,11 +34,11 @@ const resetColumnFilters = async () => {
   await fetchAllSubscriber();
 };
 
-const debounce = (func: Function, wait: number) => {
+const debounce = (func: (event: Event) => void, wait: number) => {
   let timeout: number;
-  return (...args: any[]) => {
+  return (event: Event) => {
     clearTimeout(timeout);
-    timeout = window.setTimeout(() => func.apply(this, args), wait);
+    timeout = window.setTimeout(() => func(event), wait);
   };
 };
 

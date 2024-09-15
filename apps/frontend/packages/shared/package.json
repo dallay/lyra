@@ -55,7 +55,7 @@
     "@lyra/config": "0.0.1",
     "@lyra/tsconfig": "0.0.1",
     "typescript": "^5.5.4",
-    "vite-plugin-dts": "^4.1.0",
+    "vite-plugin-dts": "^4.2.1",
     "vitest": "^2.0.5"
   }
 }

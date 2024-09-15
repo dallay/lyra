@@ -87,7 +87,7 @@ internal class GetAllSubscriberControllerIntegrationTest : ControllerIntegration
                 uriBuilder
                     .path("/api/organization/$organizationId/newsletter/subscriber")
                     .queryParam("filter[email]", listOf("eq:jana.doe@test.com"))
-                    .queryParam("filter[status]", listOf("eq:ENABLED"))
+                    .queryParam("filter[status]", listOf("OR:eq:ENABLED,eq:DISABLED"))
                     .build()
             }
             .exchange()

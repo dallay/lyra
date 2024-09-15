@@ -92,6 +92,7 @@ internal class SearchFormControllerIntegrationTest : ControllerIntegrationTest()
                         .path("/api/organization/$organizationId/form")
                         .queryParam("size", 10)
                         .queryParam("filter[name]", listOf("eq:Programming newsletter"))
+                        .queryParam("filter[textColor]", listOf("OR:eq:222222"))
                         .build()
                 }
                 .exchange()

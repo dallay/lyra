@@ -13,6 +13,8 @@ import {
 } from '@/components/ui/select';
 import { useSubscriberStore } from '~/store/subscriber.store';
 import { useSubscriberFilterStore } from '~/store/subscriber.filter.store';
+import { computed, defineProps, onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
 const subscriberStore = useSubscriberStore();
 const subscriberFilterStore = useSubscriberFilterStore();
 const { fetchAllSubscriber, previousPage, nextPage } = subscriberStore;

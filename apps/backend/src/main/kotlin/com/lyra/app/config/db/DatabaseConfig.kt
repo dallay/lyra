@@ -1,9 +1,9 @@
 package com.lyra.app.config.db
 
-import com.lyra.app.newsletter.domain.SubscriberStatus
-import com.lyra.app.newsletter.infrastructure.persistence.converter.SubscriberAttributesWriterConverter
-import com.lyra.app.newsletter.infrastructure.persistence.converter.SubscriberConverter
-import com.lyra.app.newsletter.infrastructure.persistence.converter.SubscriberStatusWriterConverter
+import com.lyra.app.newsletter.subscriber.domain.SubscriberStatus
+import com.lyra.app.newsletter.subscriber.infrastructure.persistence.converter.SubscriberAttributesWriterConverter
+import com.lyra.app.newsletter.subscriber.infrastructure.persistence.converter.SubscriberConverter
+import com.lyra.app.newsletter.subscriber.infrastructure.persistence.converter.SubscriberStatusWriterConverter
 import io.r2dbc.postgresql.codec.EnumCodec
 import io.r2dbc.postgresql.codec.EnumCodec.Builder.RegistrationPriority
 import io.r2dbc.spi.ConnectionFactoryOptions

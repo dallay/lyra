@@ -1,7 +1,6 @@
 package com.lyra.app.forms.infrastructure.http
 
 import com.lyra.ControllerTest
-import com.lyra.UnitTest
 import com.lyra.app.forms.FormStub
 import com.lyra.app.forms.application.CreateFormCommand
 import com.lyra.app.forms.infrastructure.http.request.CreateFormRequest
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
 
-@UnitTest
 internal class CreateFormControllerTest : ControllerTest() {
     private val formId = UUID.randomUUID().toString()
     private val organizationId = UUID.randomUUID().toString()

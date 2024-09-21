@@ -2,7 +2,7 @@ package com.lyra.app.newsletter.subscriber.application.search.active
 
 import com.lyra.UnitTest
 import com.lyra.app.newsletter.subscriber.SubscriberStub
-import com.lyra.app.newsletter.subscriber.domain.SubscriberRepository
+import com.lyra.app.newsletter.subscriber.domain.SubscriberSearchRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test
 
 @UnitTest
 internal class SearchAllActiveSubscribersQueryHandlerTest {
-    private lateinit var repository: SubscriberRepository
+    private lateinit var repository: SubscriberSearchRepository
     private lateinit var searcher: ActiveSubscriberSearcher
     private lateinit var searchAllActiveSubscribersQueryHandler: SearchAllActiveSubscribersQueryHandler
 

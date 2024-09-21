@@ -10,6 +10,7 @@ import TeamMemberModule from "~/repository/modules/team-member.module";
 import SecureFetchFactory from '~/repository/secure.factory';
 import type FetchFactory from "~/repository/factory";
 import SubscriberModule from "~/repository/modules/subscriber.module";
+import TagModule from "~/repository/modules/tag.module";
 
 /**
  * Interface representing the API instance with different modules.
@@ -22,6 +23,7 @@ export interface IApiInstance {
   team: TeamModule;
   teamMember: TeamMemberModule;
   subscriber: SubscriberModule;
+  tag: TagModule;
 }
 
 /**
@@ -115,6 +117,7 @@ export default defineNuxtPlugin(async (_) => {
   const teamModule = new TeamModule(apiFetcher);
   const teamMemberModule = new TeamMemberModule(apiFetcher);
   const subscriberModule = new SubscriberModule(apiFetcher);
+  const tagModule = new TagModule(apiFetcher);
 
   const modules: IApiInstance = {
     form: formModule,
@@ -124,6 +127,7 @@ export default defineNuxtPlugin(async (_) => {
     team: teamModule,
     teamMember: teamMemberModule,
     subscriber: subscriberModule,
+    tag: tagModule,
   };
 
   if (import.meta.client) {

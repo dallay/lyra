@@ -8,12 +8,14 @@ import {OrganizationId} from "~/domain/organization";
 import {SubscriberId} from "~/domain/subscriber";
 import {FormId} from "~/domain/forms";
 import {TeamId} from "~/domain/team";
+import type TagId from "~/domain/tag/TagId";
 
 const prefix : string = '/api';
 
 /*
 * Prefix /api/another for another server
-* */
+*
+*/
 // const anotherPrefix : string = '/api/another'
 
 const Routes = {
@@ -32,6 +34,10 @@ const Routes = {
       `${prefix}/organization/${organizationId.value}/newsletter/subscriber/count-by-status`,
     CountByTags: (organizationId: OrganizationId) =>
       `${prefix}/organization/${organizationId.value}/newsletter/subscriber/count-by-tags`,
+  },
+  Tag: {
+    CreateTag: (organizationId: OrganizationId, tagId: TagId) =>
+      `${prefix}/organization/${organizationId.value}/tag/${tagId.value}`,
   },
   Form:{
     FetchAll:(organizationId: OrganizationId)  => `${prefix}/organization/${organizationId.value}/form`,

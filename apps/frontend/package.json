@@ -54,11 +54,11 @@
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.0",
+    "@biomejs/biome": "1.9.2",
     "@lyra/config": "0.0.1",
     "@lyra/scripts": "0.0.1",
-    "@playwright/test": "^1.47.1",
-    "@types/bun": "^1.1.9",
+    "@playwright/test": "^1.47.2",
+    "@types/bun": "^1.1.10",
     "@types/node": "^22.5.5",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "@vitest/coverage-v8": "^2.1.1",
@@ -71,8 +71,8 @@
     "stylelint": "^16.9.0",
     "stylelint-config-standard": "^36.0.1",
     "syncpack": "13.0.0",
-    "unocss": "^0.62.3",
-    "vite": "^5.4.5",
+    "unocss": "^0.62.4",
+    "vite": "^5.4.7",
     "vitest": "^2.0.5",
     "vitest-fetch-mock": "^0.3.0",
     "zod": "^3.23.8"

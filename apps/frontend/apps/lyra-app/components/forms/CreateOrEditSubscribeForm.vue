@@ -20,7 +20,7 @@ import {cn} from "~/lib/utils";
 import {useFormStore} from "~/store/form.store";
 import {useWorkspaceStore} from "~/store/workspace.store";
 import {storeToRefs} from "pinia";
-import {FormId, FormResponse} from "~/domain/forms";
+import {CreateFormRequest, FormId, FormResponse} from "~/domain/forms";
 
 const formStore = useFormStore()
 const workspaceStore = useWorkspaceStore()
@@ -75,7 +75,7 @@ const onSubmit = handleSubmit(async (values) => {
 
   const formAction: Promise<void> = props.form
     ? formStore.updateForm(FormId.create(props.form.id), {...values, organizationId})
-    : formStore.createForm({ ...values, id: crypto.randomUUID(), organizationId });
+    : formStore.createForm({ ...values, id: crypto.randomUUID(), organizationId } as CreateFormRequest);
 
   formAction
     .then(() => {

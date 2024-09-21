@@ -49,6 +49,7 @@
     "happy-dom": "^15.7.4",
     "playwright-core": "^1.47.1",
     "typescript": "^5.5.4",
-    "vitest": "^2.0.5"
+    "vitest": "^2.0.5",
+    "@tailwindcss/typography": "^0.5.15"
   }
 }

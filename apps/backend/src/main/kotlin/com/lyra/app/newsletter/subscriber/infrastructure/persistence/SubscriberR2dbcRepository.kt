@@ -2,6 +2,7 @@ package com.lyra.app.newsletter.subscriber.infrastructure.persistence
 
 import com.lyra.app.newsletter.subscriber.domain.Subscriber
 import com.lyra.app.newsletter.subscriber.domain.SubscriberRepository
+import com.lyra.app.newsletter.subscriber.domain.SubscriberSearchRepository
 import com.lyra.app.newsletter.subscriber.domain.SubscriberStatsRepository
 import com.lyra.app.newsletter.subscriber.domain.SubscriberStatus
 import com.lyra.app.newsletter.subscriber.domain.exceptions.SubscriberException
@@ -31,8 +32,9 @@ private const val DEFAULT_LIMIT = 10
 @Repository
 class SubscriberR2dbcRepository(
     private val subscriberReactiveR2DbcRepository: SubscriberReactiveR2dbcRepository,
-) : SubscriberRepository, SubscriberStatsRepository {
+) : SubscriberRepository, SubscriberSearchRepository, SubscriberStatsRepository {
     private val criteriaParser = R2DBCCriteriaParser(SubscriberEntity::class)
+
     override suspend fun create(subscriber: Subscriber) {
         try {
             subscriberReactiveR2DbcRepository.save(subscriber.toEntity())
@@ -105,6 +107,20 @@ class SubscriberR2dbcRepository(
     override suspend fun searchActive(): Flow<Subscriber> {
         return subscriberReactiveR2DbcRepository.findAllByStatus(SubscriberStatus.ENABLED)
             .map { it.toDomain() }
+    }
+
+    /**
+     * Search all the subscribers in the list of emails.
+     * @param emails The list of emails to search for.
+     * @param organizationId The identifier of the organization the subscribers belong to.
+     * @return A Flow of subscribers.
+     */
+    override suspend fun searchAllByEmails(
+        organizationId: OrganizationId,
+        emails: List<String>
+    ): Flow<Subscriber> {
+        log.debug("Searching all subscribers by emails: {} for organization: {}", emails, organizationId)
+        return subscriberReactiveR2DbcRepository.findAllByEmails(organizationId.value, emails).map { it.toDomain() }
     }
 
     /**

@@ -85,7 +85,7 @@ export const useSubscriberStore = defineStore("subscriber", () => {
     criteria: CriteriaQueryParams = subscriberFilterStore.subscriberFilterOptions
   ): Promise<PageResponse<Subscriber>> => {
     try {
-      const organizationId = await workspaceStore.getCurrentOrganizationId();
+      const organizationId = workspaceStore.getCurrentOrganizationId();
       if (!organizationId) return defaultPageResponse;
 
       const response = await $api.subscriber.fetchAll(organizationId, criteria);
@@ -103,7 +103,7 @@ export const useSubscriberStore = defineStore("subscriber", () => {
   };
 
   const subscriberCountByStatus = async (): Promise<SubscriberCountByStatusResponse> => {
-    const organizationId = await workspaceStore.getCurrentOrganizationId();
+    const organizationId = workspaceStore.getCurrentOrganizationId();
     if (!organizationId) return defaultSubscriberCountByStatus;
 
     try {
@@ -117,7 +117,7 @@ export const useSubscriberStore = defineStore("subscriber", () => {
   };
 
   const subscriberCountByTags = async (): Promise<SubscriberCountByTagsResponse> => {
-    const organizationId = await workspaceStore.getCurrentOrganizationId();
+    const organizationId = workspaceStore.getCurrentOrganizationId();
     if (!organizationId) return defaultSubscriberCountByTag;
 
     try {

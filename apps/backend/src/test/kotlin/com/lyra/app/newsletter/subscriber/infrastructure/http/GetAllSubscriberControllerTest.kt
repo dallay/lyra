@@ -1,12 +1,11 @@
 package com.lyra.app.newsletter.subscriber.infrastructure.http
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.lyra.UnitTest
+import com.lyra.ControllerTest
 import com.lyra.app.newsletter.subscriber.SubscriberStub
 import com.lyra.app.newsletter.subscriber.application.SubscriberResponse
 import com.lyra.app.newsletter.subscriber.application.search.all.SearchAllSubscribersQuery
 import com.lyra.app.newsletter.subscriber.infrastructure.persistence.entity.SubscriberEntity
-import com.lyra.common.domain.bus.Mediator
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.filter.RHSFilterParser
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
@@ -22,9 +21,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 private const val NUM_SUBSCRIBER = 14
 
-@UnitTest
-internal class GetAllSubscriberControllerTest {
-    private val mediator = mockk<Mediator>()
+internal class GetAllSubscriberControllerTest : ControllerTest() {
     private val rhsFilterParserFactory = mockk<RHSFilterParserFactory>()
     private val response = SubscriberStub.dummyRandomSubscriberPageResponse(
         NUM_SUBSCRIBER,
@@ -32,11 +29,11 @@ internal class GetAllSubscriberControllerTest {
     private val rhsFilterParser = mockk<RHSFilterParser<SubscriberEntity>>()
 
     private lateinit var controller: GetAllSubscriberController
-    private lateinit var webTestClient: WebTestClient
+    override lateinit var webTestClient: WebTestClient
     private val organizationId = "a0654720-35dc-49d0-b508-1f7df5d915f1"
 
     @BeforeEach
-    fun setUp() {
+    override fun setUp() {
         every { rhsFilterParserFactory.create(SubscriberEntity::class) } returns rhsFilterParser
         every { rhsFilterParser.parse(any()) } returns Criteria.Empty
         every { rhsFilterParser.parse(any(), any()) } returns Criteria.Empty

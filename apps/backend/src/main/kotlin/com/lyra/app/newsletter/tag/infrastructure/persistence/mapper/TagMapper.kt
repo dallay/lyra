@@ -4,6 +4,7 @@ import com.lyra.app.newsletter.tag.domain.Tag
 import com.lyra.app.newsletter.tag.domain.TagColor
 import com.lyra.app.newsletter.tag.domain.TagId
 import com.lyra.app.newsletter.tag.infrastructure.persistence.entity.TagEntity
+import com.lyra.app.organization.domain.OrganizationId
 
 /**
  * Mapper object for converting between Tag domain objects and TagEntity persistence objects.
@@ -19,6 +20,7 @@ object TagMapper {
         id = id.value,
         name = name,
         color = color.value,
+        organizationId = organizationId.value,
         createdAt = createdAt,
         updatedAt = updatedAt,
     )
@@ -32,6 +34,7 @@ object TagMapper {
         id = TagId(id),
         name = name,
         color = TagColor.fromString(color),
+        organizationId = OrganizationId(organizationId),
         createdAt = createdAt,
         updatedAt = updatedAt,
     )

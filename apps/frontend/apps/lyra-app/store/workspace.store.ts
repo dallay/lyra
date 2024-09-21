@@ -3,8 +3,8 @@ import { defineStore } from "pinia";
 import { useAuthStore } from "~/store/auth.store";
 import { useRouter } from "#imports";
 import { useNuxtApp } from "#app";
-import type { ResponseData } from "@lyra/shared";
 import {OrganizationId, type OrganizationTeamMember} from "~/domain/organization";
+import type { PageResponse } from "@lyra/shared";
 
 export type WorkspaceTeam = {
   teamId: string;
@@ -49,7 +49,7 @@ export const useWorkspaceStore = defineStore("workspace", () => {
       }
       const { $api } = useNuxtApp();
 
-      const response: ResponseData<OrganizationTeamMember> =
+      const response: PageResponse<OrganizationTeamMember> =
         await $api.teamMember.fetchAll();
       const organizationTeamMembers = response.data;
 

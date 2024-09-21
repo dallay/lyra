@@ -45,18 +45,21 @@ class CreateTagController(
     )
     @PutMapping("$TAG/{tagId}")
     suspend fun create(
+        @PathVariable organizationId: String,
         @PathVariable tagId: String,
         @Validated @RequestBody request: CreateTagRequest
     ): ResponseEntity<String> {
         log.debug(
             "Creating tag with data: {}",
-            sanitizeAndJoinPathVariables(tagId, request.toString()),
+            sanitizeAndJoinPathVariables(organizationId, tagId, request.toString()),
         )
         dispatch(
             CreateTagCommand(
                 tagId,
                 request.name,
                 request.color ?: TagColor.DEFAULT.value,
+                organizationId,
+                request.subscribers,
             ),
         )
 
@@ -64,8 +67,8 @@ class CreateTagController(
             URI.create(
                 "/api${
                     TAG.replace(
-                        "{tagId}",
-                        tagId,
+                        "{organizationId}",
+                        organizationId,
                     )
                 }",
             ),

@@ -14,7 +14,7 @@ import com.lyra.common.domain.presentation.sort.Sort
  * @property cursor The cursor to paginate through the subscribers. It can be null.
  * @property sort The sort order for the subscribers. It can be null.
  */
-class SearchAllSubscribersQuery(
+data class SearchAllSubscribersQuery(
     val criteria: Criteria? = null,
     val size: Int? = null,
     val cursor: String? = null,

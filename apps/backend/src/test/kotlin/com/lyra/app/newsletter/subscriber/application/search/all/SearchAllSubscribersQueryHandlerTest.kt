@@ -3,7 +3,7 @@ package com.lyra.app.newsletter.subscriber.application.search.all
 import com.lyra.UnitTest
 import com.lyra.app.GeneralStub.getTimestampCursorPage
 import com.lyra.app.newsletter.subscriber.SubscriberStub
-import com.lyra.app.newsletter.subscriber.domain.SubscriberRepository
+import com.lyra.app.newsletter.subscriber.domain.SubscriberSearchRepository
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.sort.Sort
 import io.mockk.coEvery
@@ -20,13 +20,13 @@ private const val NUM_SUBSCRIBER = 100
 
 @UnitTest
 internal class SearchAllSubscribersQueryHandlerTest {
-    private lateinit var repository: SubscriberRepository
+    private lateinit var repository: SubscriberSearchRepository
     private lateinit var searcher: SearchAllSubscriberSearcher
     private lateinit var searchAllSubscribersQueryHandler: SearchAllSubscribersQueryHandler
 
     @BeforeEach
     fun setUp() {
-        repository = mockkClass(SubscriberRepository::class)
+        repository = mockkClass(SubscriberSearchRepository::class)
         searcher = SearchAllSubscriberSearcher(repository)
         searchAllSubscribersQueryHandler = SearchAllSubscribersQueryHandler(searcher)
 

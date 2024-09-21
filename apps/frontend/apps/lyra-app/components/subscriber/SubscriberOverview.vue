@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import DataTable from '~/components/subscriber/DataTable.vue'
+import SubscriberTags from './tag/SubscriberTags.vue';
 import { columns } from '~/components/subscriber/columns'
 import {Button} from "~/components/ui/button";
 import { useSubscriberStore } from "~/store/subscriber.store";
@@ -18,9 +19,9 @@ const importSubscriber = () => {
 }
 
 onMounted(async () => {
-  await clearCursor();
-  await resetFilterDateRange();
-  await resetSubscriberFilterOptions();
+  clearCursor();
+  resetFilterDateRange();
+  resetSubscriberFilterOptions();
   await cleanSubscriberCursor();
  await fetchAllSubscriber();
 })
@@ -55,7 +56,7 @@ onMounted(async () => {
         <DataTable :data="subscribers" :columns="columns" />
       </TabsContent>
       <TabsContent value="tags">
-        Tags component here.
+        <SubscriberTags />
       </TabsContent>
     </Tabs>
   </div>

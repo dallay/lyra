@@ -1,7 +1,7 @@
 package com.lyra.app.newsletter.subscriber.application.search.all
 
 import com.lyra.app.newsletter.subscriber.application.SubscriberResponse
-import com.lyra.app.newsletter.subscriber.domain.SubscriberRepository
+import com.lyra.app.newsletter.subscriber.domain.SubscriberSearchRepository
 import com.lyra.common.domain.Service
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
@@ -13,10 +13,10 @@ import org.slf4j.LoggerFactory
 /**
  * This class represents a service to search all subscribers.
  *
- * @property repository The [SubscriberRepository] to fetch subscribers from.
+ * @property repository The [SubscriberSearchRepository] to fetch subscribers from.
  */
 @Service
-class SearchAllSubscriberSearcher(private val repository: SubscriberRepository) {
+class SearchAllSubscriberSearcher(private val repository: SubscriberSearchRepository) {
 
     /**
      * Searches for subscribers based on the given criteria, size, cursor, and sort.

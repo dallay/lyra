@@ -6,4 +6,5 @@ data class TagCreatedEvent(
     val tagId: String,
     val name: String,
     val color: String,
+    val organizationId: String,
 ) : BaseDomainEvent()

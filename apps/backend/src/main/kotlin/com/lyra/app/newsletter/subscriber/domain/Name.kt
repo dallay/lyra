@@ -19,4 +19,6 @@ data class Name(val firstName: FirstName?, val lastName: LastName?) : Comparable
      * if it's greater than [other].
      */
     override operator fun compareTo(other: Name): Int = fullName().compareTo(other.fullName())
+
+    override fun toString(): String = fullName()
 }

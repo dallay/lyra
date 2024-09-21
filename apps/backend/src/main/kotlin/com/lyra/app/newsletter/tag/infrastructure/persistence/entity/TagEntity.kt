@@ -10,6 +10,7 @@ data class TagEntity(
     val id: UUID,
     val name: String,
     val color: String,
+    val organizationId: UUID,
     override var createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime? = LocalDateTime.now(),
 ) : AuditableEntity() {
@@ -19,6 +20,7 @@ data class TagEntity(
             id: UUID,
             name: String,
             color: String,
+            organizationId: UUID,
             createdAt: LocalDateTime,
             updatedAt: LocalDateTime?,
         ): TagEntity {
@@ -26,6 +28,7 @@ data class TagEntity(
                 id = id,
                 name = name,
                 color = color,
+                organizationId = organizationId,
                 createdAt = createdAt,
                 updatedAt = updatedAt,
             )

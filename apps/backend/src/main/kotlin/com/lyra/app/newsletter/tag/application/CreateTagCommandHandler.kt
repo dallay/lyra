@@ -22,10 +22,16 @@ class CreateTagCommandHandler(
      * @param command The command containing the tag details.
      */
     override suspend fun handle(command: CreateTagCommand) {
-        log.debug("Creating tag with id {} and name {}", command.id, command.name)
+        log.debug(
+            "Creating tag with id {} and name {} for organization {}",
+            command.id,
+            command.name,
+            command.organizationId,
+        )
         val tagId = UUID.fromString(command.id)
         val color = TagColor.fromString(command.color)
-        tagCreator.create(tagId, command.name, color)
+        val organizationId = UUID.fromString(command.organizationId)
+        tagCreator.create(tagId, command.name, color, organizationId, command.subscribers)
     }
 
     companion object {

@@ -10,8 +10,10 @@ import kotlinx.coroutines.flow.Flow
 import org.springframework.data.r2dbc.repository.Query
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 
 @Repository
+@Transactional(readOnly = true)
 interface SubscriberReactiveR2dbcRepository :
     CoroutineCrudRepository<SubscriberEntity, UUID>,
     ReactiveSearchRepository<SubscriberEntity> {
@@ -38,4 +40,14 @@ interface SubscriberReactiveR2dbcRepository :
         """,
     )
     fun countByTag(organizationId: UUID): Flow<CountByTagsEntity>
+
+    @Query(
+        """
+        SELECT *
+        FROM subscribers
+        WHERE  organization_id = :organizationId
+        AND email IN (:emails)
+        """,
+    )
+    fun findAllByEmails(organizationId: UUID, emails: List<String>): Flow<SubscriberEntity>
 }

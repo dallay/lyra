@@ -77,11 +77,13 @@ runs:
       shell: bash
 
     - name: OCI image vulnerability scanning
-      uses: aquasecurity/trivy-action@master
+      uses: aquasecurity/trivy-action@0.20.0
       with:
         image-ref: ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
         format: 'sarif'
         output: 'trivy-results-oci-image.sarif'
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
 
     - name: Upload vulnerability report
       uses: github/codeql-action/upload-sarif@v3

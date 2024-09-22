@@ -19,8 +19,6 @@ import java.io.FileNotFoundException
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import net.datafaker.Faker
 
 object SubscriberStub {
@@ -46,9 +44,6 @@ object SubscriberStub {
             create()
         }
     }
-
-    fun dummyRandomSubscribersFlow(size: Int = 10): Flow<Subscriber> =
-        dummyRandomSubscribersList(size).asFlow()
 
     fun dummyRandomSubscribersPageResponse(size: Int = 10): CursorPageResponse<Subscriber> {
         val data = dummyRandomSubscribersList(size)

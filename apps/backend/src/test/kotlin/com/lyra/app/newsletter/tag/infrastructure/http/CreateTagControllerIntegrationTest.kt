@@ -1,4 +1,4 @@
-package com.lyra.app.newsletter.tag.infrastructure
+package com.lyra.app.newsletter.tag.infrastructure.http
 
 import com.lyra.ControllerIntegrationTest
 import com.lyra.app.newsletter.tag.TagStub

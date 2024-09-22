@@ -5,9 +5,6 @@ import com.lyra.app.newsletter.subscriber.application.SubscribersResponse
 import com.lyra.app.newsletter.subscriber.domain.SubscriberSearchRepository
 import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.Service
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
 import org.slf4j.LoggerFactory
 
 /**
@@ -30,9 +27,9 @@ class GetAllSubscribersByEmailService(private val repository: SubscriberSearchRe
     suspend fun searchAllByEmails(organizationId: String, emails: List<String>): SubscribersResponse {
         log.debug("Searching all subscribers by emails: {} for organization: {}", emails, organizationId)
         val organizationId = OrganizationId(organizationId)
-        val response: Flow<SubscriberResponse> =
+        val response: List<SubscriberResponse> =
             repository.searchAllByEmails(organizationId, emails).map { SubscriberResponse.from(it) }
-        return SubscribersResponse(response.toList())
+        return SubscribersResponse(response)
     }
 
     companion object {

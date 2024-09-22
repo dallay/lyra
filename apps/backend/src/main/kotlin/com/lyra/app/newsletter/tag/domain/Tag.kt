@@ -3,6 +3,7 @@ package com.lyra.app.newsletter.tag.domain
 import com.lyra.app.newsletter.tag.domain.event.TagCreatedEvent
 import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.BaseEntity
+import com.lyra.common.domain.vo.email.Email
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -13,6 +14,7 @@ import java.util.UUID
  * @property name The name of the tag.
  * @property color The color of the tag.
  * @property organizationId The identifier of the organization the tag belongs to.
+ * @property subscribers The set of email addresses subscribed to the tag.
  * @property createdAt The timestamp when the tag was created.
  * @property updatedAt The timestamp when the tag was last updated.
  */
@@ -21,6 +23,7 @@ data class Tag(
     val name: String,
     val color: TagColor,
     val organizationId: OrganizationId,
+    val subscribers: MutableSet<Email>? = mutableSetOf(),
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime? = null,
 ) : BaseEntity<TagId>() {
@@ -34,6 +37,22 @@ data class Tag(
      */
     fun update(name: String, color: TagColor): Tag =
         this.copy(name = name, color = color, updatedAt = LocalDateTime.now())
+
+    /**
+     * Number of subscribers tagged with this tag.
+     *
+     * @return The number of subscribers tagged with this tag.
+     */
+    fun numberOfSubscribers(): Int = subscribers?.size ?: 0
+
+    /**
+     * Adds a new subscribers to the tag.
+     *
+     * @param emails The set of email addresses to add as subscribers.
+     */
+    fun addSubscriberEmails(emails: Set<Email>) {
+        subscribers?.addAll(emails)
+    }
 
     companion object {
         /**
@@ -61,6 +80,7 @@ data class Tag(
                     name,
                     color,
                     OrganizationId(organizationId),
+                    mutableSetOf(),
                     createdAt,
                     updatedAt,
                 )

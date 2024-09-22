@@ -7,7 +7,6 @@ import io.kotest.common.runBlocking
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.flow.asFlow
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -17,7 +16,7 @@ internal class CountByTagsQueryHandlerTest {
     private val repository = mockk<SubscriberStatsRepository>()
     private val counter = SubscriberCountByTags(repository)
     private val handler = CountByTagsQueryHandler(counter)
-    private val tags = listOf("tag1" to 10L, "tag2" to 5L, "tag3" to 98L).asFlow()
+    private val tags = listOf("tag1" to 10L, "tag2" to 5L, "tag3" to 98L)
     private val orgId = "27172d5a-b88e-451c-9787-312706f4570d"
     private val organizationId = OrganizationId(orgId)
 

@@ -6,7 +6,6 @@ import com.lyra.common.domain.presentation.pagination.Cursor
 import com.lyra.common.domain.presentation.pagination.CursorPageResponse
 import com.lyra.common.domain.presentation.pagination.OffsetPageResponse
 import com.lyra.common.domain.presentation.sort.Sort
-import kotlinx.coroutines.flow.Flow
 
 /**
  * This is an interface for a repository that handles subscriber data.
@@ -55,15 +54,15 @@ interface SubscriberSearchRepository {
      * It is a suspending function, meaning it can be paused and resumed at a later time.
      * This makes it suitable for use in a coroutine context, where it can be used for non-blocking IO operations.
      *
-     * @return A Flow of active subscribers.
+     * @return A List of active subscribers.
      */
-    suspend fun searchActive(): Flow<Subscriber>
+    suspend fun searchActive(): List<Subscriber>
 
     /**
      * Search all the subscribers in the list of emails.
      * @param emails The list of emails to search for.
      * @param organizationId The identifier of the organization the subscribers belong to.
-     * @return A Flow of subscribers.
+     * @return A List of subscribers.
      */
-    suspend fun searchAllByEmails(organizationId: OrganizationId, emails: List<String>): Flow<Subscriber>
+    suspend fun searchAllByEmails(organizationId: OrganizationId, emails: List<String>): List<Subscriber>
 }

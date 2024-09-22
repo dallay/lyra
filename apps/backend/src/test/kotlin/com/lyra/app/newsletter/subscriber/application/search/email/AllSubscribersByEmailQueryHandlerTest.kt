@@ -9,7 +9,6 @@ import io.kotest.common.runBlocking
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.flow.asFlow
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -32,7 +31,7 @@ internal class AllSubscribersByEmailQueryHandlerTest {
                 organizationId,
                 emails,
             )
-        } returns subscribers.asFlow()
+        } returns subscribers
     }
 
     @Test

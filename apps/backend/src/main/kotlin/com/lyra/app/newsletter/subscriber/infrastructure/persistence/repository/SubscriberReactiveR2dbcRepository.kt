@@ -5,8 +5,7 @@ import com.lyra.app.newsletter.subscriber.infrastructure.persistence.entity.Coun
 import com.lyra.app.newsletter.subscriber.infrastructure.persistence.entity.CountByTagsEntity
 import com.lyra.app.newsletter.subscriber.infrastructure.persistence.entity.SubscriberEntity
 import com.lyra.spring.boot.repository.ReactiveSearchRepository
-import java.util.*
-import kotlinx.coroutines.flow.Flow
+import java.util.UUID
 import org.springframework.data.r2dbc.repository.Query
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.stereotype.Repository
@@ -17,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional
 interface SubscriberReactiveR2dbcRepository :
     CoroutineCrudRepository<SubscriberEntity, UUID>,
     ReactiveSearchRepository<SubscriberEntity> {
-    fun findAllByStatus(status: SubscriberStatus): Flow<SubscriberEntity>
+    suspend fun findAllByStatus(status: SubscriberStatus): List<SubscriberEntity>
 
     @Query(
         """
@@ -27,7 +26,7 @@ interface SubscriberReactiveR2dbcRepository :
         GROUP BY s.status
     """,
     )
-    fun countByStatus(organizationId: UUID): Flow<CountByStatusEntity>
+    suspend fun countByStatus(organizationId: UUID): List<CountByStatusEntity>
     @Query(
         """
             SELECT tag, COUNT(*)
@@ -39,7 +38,7 @@ interface SubscriberReactiveR2dbcRepository :
             GROUP BY tag;
         """,
     )
-    fun countByTag(organizationId: UUID): Flow<CountByTagsEntity>
+    suspend fun countByTag(organizationId: UUID): List<CountByTagsEntity>
 
     @Query(
         """
@@ -49,5 +48,5 @@ interface SubscriberReactiveR2dbcRepository :
         AND email IN (:emails)
         """,
     )
-    fun findAllByEmails(organizationId: UUID, emails: List<String>): Flow<SubscriberEntity>
+    suspend fun findAllByEmails(organizationId: UUID, emails: List<String>): List<SubscriberEntity>
 }

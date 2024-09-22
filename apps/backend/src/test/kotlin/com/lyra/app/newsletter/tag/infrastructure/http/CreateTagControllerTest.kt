@@ -1,10 +1,9 @@
-package com.lyra.app.newsletter.tag.infrastructure
+package com.lyra.app.newsletter.tag.infrastructure.http
 
 import com.lyra.ControllerTest
 import com.lyra.app.newsletter.tag.TagStub
 import com.lyra.app.newsletter.tag.application.CreateTagCommand
 import com.lyra.app.newsletter.tag.domain.Tag
-import com.lyra.app.newsletter.tag.infrastructure.http.CreateTagController
 import com.lyra.app.newsletter.tag.infrastructure.http.request.CreateTagRequest
 import io.mockk.coEvery
 import io.mockk.coVerify

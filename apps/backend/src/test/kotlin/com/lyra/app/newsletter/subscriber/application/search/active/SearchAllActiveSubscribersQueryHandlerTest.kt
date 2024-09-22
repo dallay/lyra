@@ -24,7 +24,7 @@ internal class SearchAllActiveSubscribersQueryHandlerTest {
         searcher = ActiveSubscriberSearcher(repository)
         searchAllActiveSubscribersQueryHandler = SearchAllActiveSubscribersQueryHandler(searcher)
 
-        coEvery { repository.searchActive() } returns SubscriberStub.dummyRandomSubscribersFlow()
+        coEvery { repository.searchActive() } returns SubscriberStub.dummyRandomSubscribersList()
     }
 
     @Test

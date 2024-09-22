@@ -3,8 +3,6 @@ package com.lyra.app.newsletter.subscriber.application.count.bytags
 import com.lyra.app.newsletter.subscriber.domain.SubscriberStatsRepository
 import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.Service
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
 import org.slf4j.LoggerFactory
 
 /**
@@ -32,7 +30,7 @@ class SubscriberCountByTags(private val repository: SubscriberStatsRepository) {
         log.debug("Counting subscribers by tag for organization {}", organizationId)
         return repository.countByTag(OrganizationId(organizationId)).map { (tag, count) ->
             SubscriberCountByTagsData(tag, count)
-        }.toList()
+        }
     }
 
     companion object {

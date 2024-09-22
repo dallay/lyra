@@ -19,8 +19,6 @@ import com.lyra.common.domain.presentation.pagination.TimestampCursor
 import com.lyra.common.domain.presentation.sort.Sort
 import com.lyra.spring.boot.presentation.sort.toSpringSort
 import com.lyra.spring.boot.repository.R2DBCCriteriaParser
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import org.slf4j.LoggerFactory
 import org.springframework.dao.DuplicateKeyException
 import org.springframework.data.domain.PageRequest
@@ -104,7 +102,7 @@ class SubscriberR2dbcRepository(
         return CursorPageResponse(content, pageResponse.prevPageCursor, pageResponse.nextPageCursor)
     }
 
-    override suspend fun searchActive(): Flow<Subscriber> {
+    override suspend fun searchActive(): List<Subscriber> {
         return subscriberReactiveR2DbcRepository.findAllByStatus(SubscriberStatus.ENABLED)
             .map { it.toDomain() }
     }
@@ -113,12 +111,12 @@ class SubscriberR2dbcRepository(
      * Search all the subscribers in the list of emails.
      * @param emails The list of emails to search for.
      * @param organizationId The identifier of the organization the subscribers belong to.
-     * @return A Flow of subscribers.
+     * @return A List of subscribers.
      */
     override suspend fun searchAllByEmails(
         organizationId: OrganizationId,
         emails: List<String>
-    ): Flow<Subscriber> {
+    ): List<Subscriber> {
         log.debug("Searching all subscribers by emails: {} for organization: {}", emails, organizationId)
         return subscriberReactiveR2DbcRepository.findAllByEmails(organizationId.value, emails).map { it.toDomain() }
     }
@@ -129,9 +127,9 @@ class SubscriberR2dbcRepository(
      * This method returns a flow of pairs, where each pair consists of a status
      * (as a string) and the count of subscribers with that status (as an integer).
      *
-     * @return Flow<Pair<String, Long>> A flow emitting pairs of status and count.
+     * @return List<Pair<String, Long>> A flow emitting pairs of status and count.
      */
-    override suspend fun countByStatus(organizationId: OrganizationId): Flow<Pair<String, Long>> =
+    override suspend fun countByStatus(organizationId: OrganizationId): List<Pair<String, Long>> =
         subscriberReactiveR2DbcRepository.countByStatus(organizationId.value).map { (status, count) ->
             status to count
         }
@@ -143,9 +141,9 @@ class SubscriberR2dbcRepository(
      * (as a string) and the count of subscribers with that tag (as an integer).
      *
      * @param organizationId The ID of the organization to count subscribers for.
-     * @return Flow<Pair<String, Long>> A flow emitting pairs of tag and count.
+     * @return List<Pair<String, Long>> A flow emitting pairs of tag and count.
      */
-    override suspend fun countByTag(organizationId: OrganizationId): Flow<Pair<String, Long>> {
+    override suspend fun countByTag(organizationId: OrganizationId): List<Pair<String, Long>> {
         return subscriberReactiveR2DbcRepository.countByTag(organizationId.value).map { (tag, count) ->
             tag to count
         }

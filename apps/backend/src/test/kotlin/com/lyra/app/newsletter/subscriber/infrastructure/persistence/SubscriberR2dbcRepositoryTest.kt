@@ -22,7 +22,6 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -43,7 +42,7 @@ internal class SubscriberR2dbcRepositoryTest {
 
     @BeforeEach
     fun setUp() {
-        subscribers = runBlocking { SubscriberStub.dummyRandomSubscribersFlow(10).toList() }
+        subscribers = runBlocking { SubscriberStub.dummyRandomSubscribersList(10) }
         val subscribersEntities = subscribers.map { it.toEntity() }.toList()
         coEvery { subscriberReactiveR2DbcRepository.save(any()) } returns subscribersEntities.first()
         coEvery { subscriberReactiveR2DbcRepository.findAll() } returns subscribersEntities.asFlow()
@@ -76,7 +75,7 @@ internal class SubscriberR2dbcRepositoryTest {
                 ).serialize(),
             )
 
-        coEvery { subscriberReactiveR2DbcRepository.findAllByStatus(any()) } returns subscribersEntities.asFlow()
+        coEvery { subscriberReactiveR2DbcRepository.findAllByStatus(any()) } returns subscribersEntities
         coEvery {
             subscriberReactiveR2DbcRepository
                 .countByStatus(organizationId.value)
@@ -84,7 +83,7 @@ internal class SubscriberR2dbcRepositoryTest {
             CountByStatusEntity("ENABLED", 478_289L),
             CountByStatusEntity("DISABLED", 32L),
             CountByStatusEntity("BLOCKLISTED", 1L),
-        ).asFlow()
+        )
 
         coEvery {
             subscriberReactiveR2DbcRepository
@@ -93,7 +92,7 @@ internal class SubscriberR2dbcRepositoryTest {
             CountByTagsEntity("tag1", 478_289L),
             CountByTagsEntity("tag2", 32L),
             CountByTagsEntity("tag3", 1L),
-        ).asFlow()
+        )
     }
 
     @Test
@@ -242,36 +241,38 @@ internal class SubscriberR2dbcRepositoryTest {
         }
 
     @Test
-    fun `should search all DISABLED subscribers by criteria using offset pagination`() = runBlocking {
-        val criteria = Criteria.Equals("status", "DISABLED")
+    fun `should search all DISABLED subscribers by criteria using offset pagination`() =
+        runBlocking {
+            val criteria = Criteria.Equals("status", "DISABLED")
 
-        val response = subscriberRepository.searchAllByOffset(criteria)
-        assertEquals(subscribers, response.data.toList())
-        coVerify(exactly = 1) {
-            subscriberReactiveR2DbcRepository.findAll(
-                any(org.springframework.data.relational.core.query.Criteria::class),
-                any(Pageable::class),
-                eq(SubscriberEntity::class),
-            )
+            val response = subscriberRepository.searchAllByOffset(criteria)
+            assertEquals(subscribers, response.data.toList())
+            coVerify(exactly = 1) {
+                subscriberReactiveR2DbcRepository.findAll(
+                    any(org.springframework.data.relational.core.query.Criteria::class),
+                    any(Pageable::class),
+                    eq(SubscriberEntity::class),
+                )
+            }
         }
-    }
 
     @Test
-    fun `should search all DISABLED subscribers by criteria using cursor pagination`() = runBlocking {
-        val criteria = Criteria.Equals("status", "DISABLED")
+    fun `should search all DISABLED subscribers by criteria using cursor pagination`() =
+        runBlocking {
+            val criteria = Criteria.Equals("status", "DISABLED")
 
-        val response = subscriberRepository.searchAllByCursor(criteria)
-        assertEquals(subscribers, response.data.toList())
-        coVerify(exactly = 1) {
-            subscriberReactiveR2DbcRepository.findAllByCursor(
-                any(org.springframework.data.relational.core.query.Criteria::class),
-                any(Int::class),
-                eq(SubscriberEntity::class),
-                any(org.springframework.data.domain.Sort::class),
-                any(Cursor::class),
-            )
+            val response = subscriberRepository.searchAllByCursor(criteria)
+            assertEquals(subscribers, response.data.toList())
+            coVerify(exactly = 1) {
+                subscriberReactiveR2DbcRepository.findAllByCursor(
+                    any(org.springframework.data.relational.core.query.Criteria::class),
+                    any(Int::class),
+                    eq(SubscriberEntity::class),
+                    any(org.springframework.data.domain.Sort::class),
+                    any(Cursor::class),
+                )
+            }
         }
-    }
 
     @Test
     fun `should search by criteria with multiple filters using offset pagination`() = runBlocking {

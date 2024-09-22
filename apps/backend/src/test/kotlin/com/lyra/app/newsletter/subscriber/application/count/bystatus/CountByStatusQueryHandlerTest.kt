@@ -6,7 +6,6 @@ import com.lyra.app.organization.domain.OrganizationId
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -17,7 +16,7 @@ internal class CountByStatusQueryHandlerTest {
     private val repository = mockk<SubscriberStatsRepository>()
     private val counter = SubscriberCountByStatus(repository)
     private val handler = CountByStatusQueryHandler(counter)
-    private val statuses = listOf("ENABLED" to 10L, "DISABLED" to 5L, "BLOCKLISTED" to 98L).asFlow()
+    private val statuses = listOf("ENABLED" to 10L, "DISABLED" to 5L, "BLOCKLISTED" to 98L)
     private val orgId = "27172d5a-b88e-451c-9787-312706f4570d"
     private val organizationId = OrganizationId(orgId)
 

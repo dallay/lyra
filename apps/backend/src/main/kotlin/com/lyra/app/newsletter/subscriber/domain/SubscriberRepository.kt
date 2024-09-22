@@ -5,7 +5,7 @@ package com.lyra.app.newsletter.subscriber.domain
  * It has five functions, create, searchAllByOffset, searchAllByCursor,
  * and searchActive, which are all suspending functions.
  */
-interface SubscriberRepository {
+fun interface SubscriberRepository {
     /**
      * This function is used to create a new subscriber.
      * It is a suspending function, meaning it can be paused and resumed at a later time.

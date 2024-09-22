@@ -1,12 +1,12 @@
 package com.lyra.common.domain.presentation.pagination
 
-import com.lyra.common.domain.bus.query.Response
+import com.lyra.common.domain.presentation.PageResponse
 
 data class CursorPageResponse<T>(
-    val data: Collection<T>,
+    override val data: Collection<T>,
     val prevPageCursor: String?,
     val nextPageCursor: String?,
-) : Response
+) : PageResponse<T>(data)
 
 inline fun <T, U> CursorPageResponse<T>.map(
     func: (Collection<T>) -> Collection<U>

@@ -2,9 +2,12 @@ package com.lyra.app.newsletter.tag.infrastructure.persistence
 
 import com.lyra.app.newsletter.tag.domain.Tag
 import com.lyra.app.newsletter.tag.domain.TagRepository
+import com.lyra.app.newsletter.tag.domain.TagSearchRepository
 import com.lyra.app.newsletter.tag.domain.exceptions.TagException
+import com.lyra.app.newsletter.tag.infrastructure.persistence.mapper.TagMapper.toDomain
 import com.lyra.app.newsletter.tag.infrastructure.persistence.mapper.TagMapper.toEntity
 import com.lyra.app.newsletter.tag.infrastructure.persistence.repository.TagReactiveR2dbcRepository
+import com.lyra.app.organization.domain.OrganizationId
 import org.slf4j.LoggerFactory
 import org.springframework.dao.DuplicateKeyException
 import org.springframework.stereotype.Repository
@@ -17,7 +20,7 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 class TagR2dbcRepository(private val tagReactiveR2dbcRepository: TagReactiveR2dbcRepository) :
-    TagRepository {
+    TagRepository, TagSearchRepository {
     /**
      * Creates a new tag in the repository.
      *
@@ -32,6 +35,12 @@ class TagR2dbcRepository(private val tagReactiveR2dbcRepository: TagReactiveR2db
             log.error("Tag already exists in the database: ${tag.id.value}")
             throw TagException("Error creating tag", e)
         }
+    }
+
+    override suspend fun findAllTagsByOrganizationId(organizationId: OrganizationId): List<Tag> {
+        log.debug("Searching all tags for organization {}", organizationId.value)
+        return tagReactiveR2dbcRepository.findAllTagsByOrganizationId(organizationId.value)
+            .map { it.toDomain() }
     }
 
     companion object {

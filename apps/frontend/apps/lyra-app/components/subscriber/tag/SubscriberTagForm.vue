@@ -88,10 +88,12 @@ const onSubmit = form.handleSubmit(async (values) => {
 		? tagStore.updateTag(organizationId, {
       name: tag.name,
       color: tag.color,
+      subscribers: tag.subscribers,
     })
 		: tagStore.createTag(organizationId, {
       name: tag.name,
       color: tag.color,
+      subscribers: tag.subscribers,
     });
 
 	tagAction

@@ -16,7 +16,6 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import java.util.UUID
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.runBlocking
 import net.datafaker.Faker
 import org.junit.jupiter.api.BeforeEach
@@ -57,7 +56,12 @@ internal class CreateTagCommandHandlerTest {
 
         coEvery { tagRepository.create(any(Tag::class)) } returns Unit
         coEvery { subscriberTagRepository.create(any()) } returns Unit
-        coEvery { subscriberSearchRepository.searchAllByEmails(organizationId, emails) } returns subscribers.asFlow()
+        coEvery {
+            subscriberSearchRepository.searchAllByEmails(
+                organizationId,
+                emails,
+            )
+        } returns subscribers
         coEvery { eventPublisher.publish(any(TagCreatedEvent::class)) } returns Unit
         coEvery { subscriberTaggedEventPublisher.publish(any(SubscriberTaggedEvent::class)) } returns Unit
     }

@@ -1,6 +1,9 @@
 package com.lyra.app.newsletter.tag.domain
 
 import com.lyra.app.newsletter.tag.domain.event.TagCreatedEvent
+import com.lyra.app.newsletter.tag.domain.event.TagSubscriberDeletedEvent
+import com.lyra.app.newsletter.tag.domain.event.TagSubscriberUpdatedEvent
+import com.lyra.app.newsletter.tag.domain.event.TagUpdatedEvent
 import com.lyra.app.organization.domain.OrganizationId
 import com.lyra.common.domain.BaseEntity
 import com.lyra.common.domain.vo.email.Email
@@ -25,7 +28,7 @@ data class Tag(
     val organizationId: OrganizationId,
     val subscribers: MutableSet<Email>? = mutableSetOf(),
     override val createdAt: LocalDateTime = LocalDateTime.now(),
-    override var updatedAt: LocalDateTime? = null,
+    override var updatedAt: LocalDateTime? = createdAt,
 ) : BaseEntity<TagId>() {
 
     /**
@@ -35,8 +38,21 @@ data class Tag(
      * @param color The new color of the tag.
      * @return A new Tag instance with updated values.
      */
-    fun update(name: String, color: TagColor): Tag =
-        this.copy(name = name, color = color, updatedAt = LocalDateTime.now())
+    fun update(name: String?, color: TagColor?): Tag =
+        this.copy(
+            name = name ?: this.name,
+            color = color ?: this.color,
+            updatedAt = LocalDateTime.now(),
+        ).apply {
+            record(
+                TagUpdatedEvent(
+                    id.value.toString(),
+                    this.name,
+                    this.color.value,
+                    organizationId.value.toString(),
+                ),
+            )
+        }
 
     /**
      * Number of subscribers tagged with this tag.
@@ -52,6 +68,33 @@ data class Tag(
      */
     fun addSubscriberEmails(emails: Set<Email>) {
         subscribers?.addAll(emails)
+        record(
+            TagSubscriberUpdatedEvent(
+                emails.map { it.value }.toSet(),
+                id.value.toString(),
+                name,
+                color.value,
+                organizationId.value.toString(),
+            ),
+        )
+    }
+
+    /**
+     * Removes subscribers from the tag.
+     *
+     * @param emails The set of email addresses to remove from the subscribers.
+     */
+    fun removeSubscriberEmails(emails: Set<Email>) {
+        subscribers?.removeAll(emails)
+        record(
+            TagSubscriberDeletedEvent(
+                emails.map { it.value }.toSet(),
+                id.value.toString(),
+                name,
+                color.value,
+                organizationId.value.toString(),
+            ),
+        )
     }
 
     companion object {
@@ -72,7 +115,7 @@ data class Tag(
             color: TagColor,
             organizationId: UUID,
             createdAt: LocalDateTime = LocalDateTime.now(),
-            updatedAt: LocalDateTime? = null
+            updatedAt: LocalDateTime? = createdAt,
         ): Tag {
             val tag =
                 Tag(

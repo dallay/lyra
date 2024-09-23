@@ -24,7 +24,7 @@ data class TeamMemberEntity(
     val role: String,
     override var createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime? = createdAt,
-) : AuditableEntity(), Persistable<UUID> {
+) : AuditableEntity(createdAt, updatedAt), Persistable<UUID> {
     /**
      * This method returns the unique identifier of the team member.
      *

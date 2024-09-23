@@ -10,4 +10,11 @@ interface SubscriberTagRepository {
      * @param tag The SubscriberTag entity to be created.
      */
     suspend fun create(tag: SubscriberTag)
+
+    /**
+     * Deletes a tag from the repository.
+     *
+     * @param tag The SubscriberTag entity to be deleted.
+     */
+    suspend fun delete(tag: SubscriberTag)
 }

@@ -27,15 +27,26 @@ export const useTagStore = defineStore("tag", () => {
     try {
       const orgId = organizationId || workspaceStore.getCurrentOrganizationId();
       // await $api.tag.updateTag(orgId, tagId, request);
-      alert(`🧪 TODO: updateTag: ${orgId}, ${request}`);
+      alert(`🧪 TODO: updateTag: ${orgId}, ${JSON.stringify(request)}`);
     } catch (error) {
       console.error(`updateTag error:${error}`);
     }
   }
 
+  const fetchTags = async (organizationId: OrganizationId) => {
+    try {
+      const orgId = organizationId || workspaceStore.getCurrentOrganizationId();
+      const response = await $api.tag.fetchAllTags(orgId);
+      tags.value = response.data;
+    } catch (error) {
+      console.error(`fetchTags error:${error}`);
+    }
+  };
+
   return {
     tags,
     createTag,
     updateTag,
+    fetchTags,
   };
 })

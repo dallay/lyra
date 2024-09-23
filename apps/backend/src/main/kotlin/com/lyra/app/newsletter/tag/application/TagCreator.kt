@@ -41,14 +41,14 @@ class TagCreator(
      * @param name The name of the tag.
      * @param color The color of the tag. Defaults to [TagColor.DEFAULT].
      * @param organizationId The identifier of the organization the tag belongs to.
-     * @param subscribers The list of emails subscribed to the tag.
+     * @param subscribers The set of emails subscribed to the tag.
      */
     suspend fun create(
         id: UUID,
         name: String,
         color: TagColor = TagColor.DEFAULT,
         organizationId: UUID,
-        subscribers: List<String>?
+        subscribers: Set<String>?
     ) {
         log.debug("Creating tag with name {} for organization {}", name, organizationId)
         val subscriberByEmails = subscribers?.let {

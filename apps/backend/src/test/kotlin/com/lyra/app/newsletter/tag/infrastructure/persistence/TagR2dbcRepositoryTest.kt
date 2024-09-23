@@ -15,18 +15,21 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.dao.DuplicateKeyException
+import org.springframework.dao.TransientDataAccessResourceException
 
 @UnitTest
 internal class TagR2dbcRepositoryTest {
     private val tagReactiveR2dbcRepository: TagReactiveR2dbcRepository = mockk()
     private val tagR2dbcRepository = TagR2dbcRepository(tagReactiveR2dbcRepository)
     private lateinit var tags: List<Tag>
+
     @BeforeEach
     fun setUp() {
         tags = TagStub.randomTagsList()
         val tagEntities = tags.map { it.toEntity() }
         coEvery { tagReactiveR2dbcRepository.save(any()) } returns tagEntities.first()
     }
+
     @Test
     fun `should create a new tag`() = runBlocking {
         val tag = tags.first()
@@ -67,5 +70,56 @@ internal class TagR2dbcRepositoryTest {
         val result = tagR2dbcRepository.findAllTagsByOrganizationId(organizationId)
 
         assertEquals(0, result.size)
+    }
+
+    @Test
+    fun `should update an existing tag`() = runBlocking {
+        val tag = tags.first()
+        coEvery { tagReactiveR2dbcRepository.save(any()) } returns tag.toEntity()
+
+        tagR2dbcRepository.update(tag)
+
+        coVerify(exactly = 1) { tagReactiveR2dbcRepository.save(tag.toEntity()) }
+    }
+
+    @Test
+    fun `should throw TagException when updating a tag fails`() = runBlocking {
+        val tag = tags.first()
+        coEvery { tagReactiveR2dbcRepository.save(any()) } throws TransientDataAccessResourceException(
+            "Transient error",
+        )
+
+        val exception = org.junit.jupiter.api.assertThrows<TagException> {
+            tagR2dbcRepository.update(tag)
+        }
+
+        assertEquals("Error updating tag", exception.message)
+        coVerify(exactly = 1) { tagReactiveR2dbcRepository.save(tag.toEntity()) }
+    }
+
+    @Test
+    fun `should find tag by id`() = runBlocking {
+        val tag = tags.first()
+        coEvery {
+            tagReactiveR2dbcRepository.findByIdWithSubscribers(
+                any(),
+                any(),
+            )
+        } returns tag.toEntityWithSubscribers()
+
+        val result = tagR2dbcRepository.findById(tag.organizationId, tag.id)
+
+        assertEquals(tag.id, result?.id)
+        assertEquals(tag.name, result?.name)
+    }
+
+    @Test
+    fun `should return null when tag not found by id`() = runBlocking {
+        val tag = tags.first()
+        coEvery { tagReactiveR2dbcRepository.findByIdWithSubscribers(any(), any()) } returns null
+
+        val result = tagR2dbcRepository.findById(tag.organizationId, tag.id)
+
+        assertEquals(null, result)
     }
 }

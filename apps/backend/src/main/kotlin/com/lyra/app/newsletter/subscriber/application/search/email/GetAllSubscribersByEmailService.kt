@@ -20,12 +20,15 @@ class GetAllSubscribersByEmailService(private val repository: SubscriberSearchRe
     /**
      * Searches for all subscribers by their email addresses.
      *
-     * @param emails The list of email addresses to search for.
+     * @param emails The set of email addresses to search for.
      * @param organizationId The identifier of the organization the subscribers belong to.
      * @return A response containing the list of [SubscriberResponse] objects representing the subscribers found.
      */
-    suspend fun searchAllByEmails(organizationId: String, emails: List<String>): SubscribersResponse {
+    suspend fun searchAllByEmails(organizationId: String, emails: Set<String>): SubscribersResponse {
         log.debug("Searching all subscribers by emails: {} for organization: {}", emails, organizationId)
+        if (emails.isEmpty()) {
+            return SubscribersResponse(emptyList())
+        }
         val organizationId = OrganizationId(organizationId)
         val response: List<SubscriberResponse> =
             repository.searchAllByEmails(organizationId, emails).map { SubscriberResponse.from(it) }

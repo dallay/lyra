@@ -22,7 +22,7 @@ internal class CreateTagControllerIntegrationTest : ControllerIntegrationTest() 
     )
     @Test
     fun `should create a new tag`() {
-        val request = TagStub.generateRequest()
+        val request = TagStub.generateTagRequest()
         webTestClient.mutateWith(csrf()).put()
             .uri(url)
             .contentType(MediaType.APPLICATION_JSON)
@@ -58,7 +58,7 @@ internal class CreateTagControllerIntegrationTest : ControllerIntegrationTest() 
     )
     @Test
     fun `should not create a new tag if name is empty`() {
-        val request = TagStub.generateRequest(name = "")
+        val request = TagStub.generateTagRequest(name = "")
         webTestClient.mutateWith(csrf()).put()
             .uri(url)
             .contentType(MediaType.APPLICATION_JSON)

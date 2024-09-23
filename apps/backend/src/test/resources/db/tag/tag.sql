@@ -19,6 +19,12 @@ VALUES ('331afd9a-b3b4-47b3-83cf-3fcb3ab9f926'::uuid, 'Test: Premium', 'red',
         'a0654720-35dc-49d0-b508-1f7df5d915f1'::uuid, '2024-09-18 00:14:13.156',
         '2024-09-18 00:14:13.176');
 
+INSERT INTO tags
+(id, name, color, organization_id, created_at, updated_at)
+VALUES ('1e50f6bb-9d83-4047-8643-74d4ea2e2411'::uuid, 'Test: Default', 'default',
+        'a0654720-35dc-49d0-b508-1f7df5d915f1'::uuid, '2024-09-18 00:14:14.156',
+        '2024-09-18 00:14:14.176');
+
 -- Insert subscriber tags
 INSERT INTO subscriber_tags
 (tag_id, subscriber_id, created_at, updated_at)

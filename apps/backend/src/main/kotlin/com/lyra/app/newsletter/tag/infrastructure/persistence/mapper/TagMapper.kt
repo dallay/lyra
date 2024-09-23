@@ -18,7 +18,7 @@ object TagMapper {
      *
      * @return The TagEntity representation of the Tag.
      */
-    fun Tag.toEntity() = TagEntity.create(
+    fun Tag.toEntity() = TagEntity(
         id = id.value,
         name = name,
         color = color.value,

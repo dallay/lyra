@@ -7,9 +7,21 @@ import com.lyra.common.domain.error.BusinessRuleValidationException
  *
  * @property message The detail message string of the exception.
  * @property cause The cause of the exception, which can be null.
- * @created 15/9/24
+ * @constructor Creates a new instance of TagException.
  */
-data class TagException(
+open class TagException(
     override val message: String,
     override val cause: Throwable? = null
 ) : BusinessRuleValidationException(message, cause)
+
+/**
+ * Exception class for handling cases where a tag is not found.
+ *
+ * @property message The detail message string of the exception.
+ * @property cause The cause of the exception, which can be null.
+ * @constructor Creates a new instance of TagNotFoundException.
+ */
+data class TagNotFoundException(
+    override val message: String,
+    override val cause: Throwable? = null
+) : TagException(message, cause)

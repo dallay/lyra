@@ -46,13 +46,13 @@ internal class CreateTagCommandHandlerTest {
     private val organizationId = OrganizationId(UUID.randomUUID())
     private lateinit var color: String
     private lateinit var subscribers: List<Subscriber>
-    private lateinit var emails: List<String>
+    private lateinit var emails: Set<String>
 
     @BeforeEach
     fun setUp() {
         color = allColorSupported.random()
         subscribers = SubscriberStub.dummyRandomSubscribersList(20)
-        emails = subscribers.map { it.email.value }
+        emails = subscribers.map { it.email.value }.toSet()
 
         coEvery { tagRepository.create(any(Tag::class)) } returns Unit
         coEvery { subscriberTagRepository.create(any()) } returns Unit

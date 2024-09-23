@@ -48,5 +48,5 @@ interface SubscriberReactiveR2dbcRepository :
         AND email IN (:emails)
         """,
     )
-    suspend fun findAllByEmails(organizationId: UUID, emails: List<String>): List<SubscriberEntity>
+    suspend fun findAllByEmails(organizationId: UUID, emails: Set<String>): List<SubscriberEntity>
 }

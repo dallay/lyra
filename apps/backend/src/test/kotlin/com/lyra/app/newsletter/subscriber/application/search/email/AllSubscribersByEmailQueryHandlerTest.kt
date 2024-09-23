@@ -21,11 +21,11 @@ internal class AllSubscribersByEmailQueryHandlerTest {
     private val orgId = "27172d5a-b88e-451c-9787-312706f4570d"
     private val organizationId = OrganizationId(orgId)
     private val subscribers = SubscriberStub.dummyRandomSubscribersList(30)
-    private lateinit var emails: List<String>
+    private lateinit var emails: Set<String>
 
     @BeforeEach
     fun setUp() {
-        emails = subscribers.map { it.email.value }
+        emails = subscribers.map { it.email.value }.toSet()
         coEvery {
             repository.searchAllByEmails(
                 organizationId,

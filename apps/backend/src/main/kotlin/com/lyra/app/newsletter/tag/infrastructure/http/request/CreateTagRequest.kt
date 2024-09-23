@@ -15,5 +15,5 @@ data class CreateTagRequest(
     @field:NotBlank(message = "Name is required")
     val name: String,
     val color: String? = null,
-    val subscribers: List<@Email(message = "Invalid email address") String>? = null
+    val subscribers: Set<@Email(message = "Invalid email address") String>? = null
 )

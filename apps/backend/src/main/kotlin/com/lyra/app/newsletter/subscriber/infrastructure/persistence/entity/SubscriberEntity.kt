@@ -22,7 +22,7 @@ data class SubscriberEntity(
     val organizationId: UUID,
     override var createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime? = LocalDateTime.now(),
-) : AuditableEntity() {
+) : AuditableEntity(createdAt, updatedAt) {
 
     companion object {
         fun create(

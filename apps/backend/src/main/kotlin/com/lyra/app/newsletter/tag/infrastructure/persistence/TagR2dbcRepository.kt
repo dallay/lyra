@@ -1,6 +1,7 @@
 package com.lyra.app.newsletter.tag.infrastructure.persistence
 
 import com.lyra.app.newsletter.tag.domain.Tag
+import com.lyra.app.newsletter.tag.domain.TagId
 import com.lyra.app.newsletter.tag.domain.TagRepository
 import com.lyra.app.newsletter.tag.domain.TagSearchRepository
 import com.lyra.app.newsletter.tag.domain.exceptions.TagException
@@ -37,10 +38,27 @@ class TagR2dbcRepository(private val tagReactiveR2dbcRepository: TagReactiveR2db
         }
     }
 
+    override suspend fun update(tag: Tag) {
+        log.debug("Updating tag with id {}", tag.id)
+        try {
+            tagReactiveR2dbcRepository.save(tag.toEntity())
+        } catch (e: org.springframework.dao.TransientDataAccessResourceException) {
+            log.error("Error updating tag with id: ${tag.id.value}")
+            throw TagException("Error updating tag", e)
+        }
+    }
+
     override suspend fun findAllTagsByOrganizationId(organizationId: OrganizationId): List<Tag> {
         log.debug("Searching all tags for organization {}", organizationId.value)
         return tagReactiveR2dbcRepository.findAllTagsByOrganizationId(organizationId.value)
             .map { it.toDomain() }
+    }
+
+    override suspend fun findById(organizationId: OrganizationId, id: TagId): Tag? {
+        log.debug("Searching tag with id {} for organization {}", id.value, organizationId.value)
+        return tagReactiveR2dbcRepository.findByIdWithSubscribers(
+            organizationId.value, id.value,
+        )?.toDomain()
     }
 
     companion object {

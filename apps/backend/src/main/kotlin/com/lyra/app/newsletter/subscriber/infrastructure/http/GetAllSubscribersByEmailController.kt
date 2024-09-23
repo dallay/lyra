@@ -37,7 +37,7 @@ class GetAllSubscribersByEmailController(
     @ResponseBody
     suspend fun getAllByEmail(
         @PathVariable organizationId: String,
-        @RequestParam @Valid emails: List<@Email(message = "Invalid email format") String>
+        @RequestParam @Valid emails: Set<@Email(message = "Invalid email format") String>
     ): ResponseEntity<SubscribersResponse> {
         log.debug(
             "Getting all subscribers by emails: {}",

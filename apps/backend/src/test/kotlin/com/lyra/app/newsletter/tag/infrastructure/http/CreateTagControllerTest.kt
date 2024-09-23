@@ -16,7 +16,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 internal class CreateTagControllerTest : ControllerTest() {
     private val controller = CreateTagController(mediator)
     override val webTestClient: WebTestClient = buildWebTestClient(controller)
-    private val subscriberEmails = listOf("newSubscriber@example.com")
+    private val subscriberEmails = setOf("newSubscriber@example.com")
 
     private val tag: Tag = TagStub.create()
     private val uri = "/api/organization/${tag.organizationId.value}/tag/${tag.id.value}"

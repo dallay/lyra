@@ -38,6 +38,8 @@ const Routes = {
   Tag: {
     CreateTag: (organizationId: OrganizationId, tagId: TagId) =>
       `${prefix}/organization/${organizationId.value}/tag/${tagId.value}`,
+    FetchAll: (organizationId: OrganizationId) =>
+      `${prefix}/organization/${organizationId.value}/tag`,
   },
   Form:{
     FetchAll:(organizationId: OrganizationId)  => `${prefix}/organization/${organizationId.value}/form`,

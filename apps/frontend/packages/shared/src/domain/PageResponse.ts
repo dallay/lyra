@@ -1,7 +1,6 @@
-import type ApiResponse from './ApiResponse.ts'
+import type DataResponse from './DataResponse.ts'
 
-export default interface PageResponse<T> extends ApiResponse {
-  readonly data: T[],
+export default interface PageResponse<T> extends DataResponse<T> {
   readonly prevPageCursor: string | undefined | null,
   readonly nextPageCursor: string | undefined | null,
 }

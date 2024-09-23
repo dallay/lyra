@@ -25,13 +25,31 @@ interface TagReactiveR2dbcRepository :
      */
     @Query(
         """
-        SELECT t.id, t.name, t.color, t.organization_id, array_agg(s.email) AS subscribers, t.created_at, t.updated_at
-        FROM tags t
-        JOIN subscriber_tags st ON t.id = st.tag_id
-        JOIN subscribers s ON st.subscriber_id = s.id
-        WHERE t.organization_id = :organizationId
-        GROUP BY t.id, t.name, t.color, t.organization_id, t.created_at, t.updated_at
+            SELECT t.id, t.name, t.color, t.organization_id,
+                   COALESCE(array_agg(s.email) FILTER (WHERE s.email IS NOT NULL), '{}') AS subscribers,
+                   t.created_at, t.updated_at
+            FROM tags t
+            LEFT JOIN subscriber_tags st ON t.id = st.tag_id
+            LEFT JOIN subscribers s ON st.subscriber_id = s.id
+            WHERE t.organization_id = :organizationId
+            GROUP BY t.id, t.name, t.color, t.organization_id, t.created_at, t.updated_at
+            ORDER BY t.created_at DESC
         """,
     )
     suspend fun findAllTagsByOrganizationId(organizationId: UUID): List<TagWithSubscribersEntity>
+
+    @Query(
+        """
+            SELECT t.id, t.name, t.color, t.organization_id,
+                   COALESCE(array_agg(s.email) FILTER (WHERE s.email IS NOT NULL), '{}') AS subscribers,
+                   t.created_at, t.updated_at
+            FROM tags t
+            LEFT JOIN subscriber_tags st ON t.id = st.tag_id
+            LEFT JOIN subscribers s ON st.subscriber_id = s.id
+            WHERE t.organization_id = :organizationId AND t.id = :tagId
+            GROUP BY t.id, t.name, t.color, t.organization_id, t.created_at, t.updated_at
+            ORDER BY t.created_at DESC
+        """,
+    )
+    suspend fun findByIdWithSubscribers(organizationId: UUID, tagId: UUID): TagWithSubscribersEntity?
 }

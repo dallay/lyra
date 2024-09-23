@@ -42,7 +42,7 @@ internal class TagMapperTest {
 
     @Test
     fun convertTagEntityToDomain() {
-        val tagEntity = TagEntity.create(
+        val tagEntity = TagEntity(
             id = UUID.randomUUID(),
             name = "Test Tag",
             color = "red",

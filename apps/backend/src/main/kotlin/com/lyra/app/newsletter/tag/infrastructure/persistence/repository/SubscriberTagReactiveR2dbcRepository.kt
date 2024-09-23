@@ -37,4 +37,20 @@ interface SubscriberTagReactiveR2dbcRepository :
         """,
     )
     suspend fun upsert(entity: SubscriberTagEntity): Int
+
+    /**
+     * Deletes a subscriber tag by its composite key.
+     *
+     * @param subscriberId The ID of the subscriber.
+     * @param tagId The ID of the tag.
+     */
+    @Transactional
+    @Modifying
+    @Query(
+        """
+            DELETE FROM subscriber_tags
+            WHERE subscriber_id = :#{#id.subscriberId} AND tag_id = :#{#id.tagId};
+        """,
+    )
+    suspend fun deleteSubscriberTagById(id: SubscriberTagEntityId): Int
 }

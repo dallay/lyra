@@ -21,14 +21,20 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { TagColors, Tag } from "~/domain/tag";
-import { tags } from "./data";
-
+import { useTagStore } from "~/store/tag.store";
+import { useWorkspaceStore } from "~/store/workspace.store";
+import { storeToRefs } from "pinia";
+const tagStore = useTagStore();
+const { tags } = storeToRefs(tagStore);
+const { fetchTags } = tagStore;
+const workspaceStore = useWorkspaceStore();
 
 const openSheet = ref(false);
 const currentTag: Ref<Tag | null> = ref(null);
 
 const alphabeticalTags = computed(() => {
-  return tags.sort((a, b) => a.name.localeCompare(b.name));
+  return tags.value.sort((a, b) => a.name.localeCompare(b.name))
+  .map((tag) => Tag.fromResponse(tag));
 });
 
 const createTag = () => {
@@ -36,22 +42,29 @@ const createTag = () => {
 };
 
 const editTag = (id: string) => {
-  currentTag.value = tags.find((tag) => tag.id === id) || null;
-  console.log(" --- currentTag.value --- ");
-  console.log(currentTag.value);
+  const tagResponse = tags.value.find((tag) => tag.id === id);
+  if (tagResponse) {
+    currentTag.value = Tag.fromResponse(tagResponse) || null;
+  }
   openSheet.value = true;
 };
 
 const deleteTag = (id: string) => {
-  const tag = tags.find((tag) => tag.id === id);
+  const tag = tags.value.find((tag) => tag.id === id);
   if (!tag) return;
-  const index = tags.indexOf(tag);
-  tags.splice(index, 1);
+  const index = tags.value.indexOf(tag);
+  tags.value.splice(index, 1);
 };
 
 const close = () => {
   openSheet.value = false;
 };
+
+onMounted(async() => {
+  const organizationId = workspaceStore.getCurrentOrganizationId();
+  if (!organizationId) return;
+  await fetchTags(organizationId);
+});
 </script>
 
 <template>

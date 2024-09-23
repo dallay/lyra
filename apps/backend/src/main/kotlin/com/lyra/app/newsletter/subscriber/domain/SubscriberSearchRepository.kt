@@ -60,9 +60,9 @@ interface SubscriberSearchRepository {
 
     /**
      * Search all the subscribers in the list of emails.
-     * @param emails The list of emails to search for.
+     * @param emails The set of emails to search for.
      * @param organizationId The identifier of the organization the subscribers belong to.
      * @return A List of subscribers.
      */
-    suspend fun searchAllByEmails(organizationId: OrganizationId, emails: List<String>): List<Subscriber>
+    suspend fun searchAllByEmails(organizationId: OrganizationId, emails: Set<String>): List<Subscriber>
 }

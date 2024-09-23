@@ -109,13 +109,13 @@ class SubscriberR2dbcRepository(
 
     /**
      * Search all the subscribers in the list of emails.
-     * @param emails The list of emails to search for.
+     * @param emails The set of emails to search for.
      * @param organizationId The identifier of the organization the subscribers belong to.
      * @return A List of subscribers.
      */
     override suspend fun searchAllByEmails(
         organizationId: OrganizationId,
-        emails: List<String>
+        emails: Set<String>
     ): List<Subscriber> {
         log.debug("Searching all subscribers by emails: {} for organization: {}", emails, organizationId)
         return subscriberReactiveR2DbcRepository.findAllByEmails(organizationId.value, emails).map { it.toDomain() }

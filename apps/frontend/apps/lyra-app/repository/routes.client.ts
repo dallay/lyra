@@ -40,6 +40,8 @@ const Routes = {
       `${prefix}/organization/${organizationId.value}/tag/${tagId.value}`,
     FetchAll: (organizationId: OrganizationId) =>
       `${prefix}/organization/${organizationId.value}/tag`,
+    UpdateTag: (organizationId: OrganizationId, tagId: TagId) =>
+      `${prefix}/organization/${organizationId.value}/tag/${tagId.value}/update`,
   },
   Form:{
     FetchAll:(organizationId: OrganizationId)  => `${prefix}/organization/${organizationId.value}/form`,

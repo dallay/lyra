@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import { useWorkspaceStore } from "~/store/workspace.store";
 import { OrganizationId } from "~/domain/organization";
-import type { TagRequest } from "~/domain/tag";
+import type {CreateTagRequest, UpdateTagRequest} from "~/domain/tag";
 import type { TagResponse } from "~/domain/tag/TagResponse"; // Adjust the path if necessary
 import TagId from "~/domain/tag/TagId";
 
@@ -13,7 +13,7 @@ export const useTagStore = defineStore("tag", () => {
 
   const workspaceStore = useWorkspaceStore();
 
-  const createTag = async (organizationId: OrganizationId, request: TagRequest) => {
+  const createTag = async (organizationId: OrganizationId, request: CreateTagRequest) => {
     try {
       const tagId = TagId.random();
       const orgId = organizationId || workspaceStore.getCurrentOrganizationId();
@@ -23,11 +23,10 @@ export const useTagStore = defineStore("tag", () => {
     }
   };
 
-  const updateTag = async (organizationId: OrganizationId, request: TagRequest) => {
+  const updateTag = async (organizationId: OrganizationId,tagId: TagId, request: UpdateTagRequest) => {
     try {
       const orgId = organizationId || workspaceStore.getCurrentOrganizationId();
-      // await $api.tag.updateTag(orgId, tagId, request);
-      alert(`🧪 TODO: updateTag: ${orgId}, ${JSON.stringify(request)}`);
+      await $api.tag.updateTag(orgId, tagId, request);
     } catch (error) {
       console.error(`updateTag error:${error}`);
     }

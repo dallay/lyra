@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, type Ref } from "vue";
+import { ref, computed, type Ref, onMounted } from "vue";
 import { MoreVertical, Plus } from "lucide-vue-next";
 import { MagnifyingGlassIcon } from "@radix-icons/vue";
 import { Button } from "@/components/ui/button";
@@ -59,11 +59,14 @@ const deleteTag = (id: string) => {
 const close = () => {
   openSheet.value = false;
 };
-
-onMounted(async() => {
+ const fetchOrganizationTags = async () => {
   const organizationId = workspaceStore.getCurrentOrganizationId();
   if (!organizationId) return;
   await fetchTags(organizationId);
+}
+
+onMounted(async() => {
+  await fetchOrganizationTags();
 });
 </script>
 
@@ -154,7 +157,7 @@ onMounted(async() => {
             {{ currentTag ? "Edit" : "Create" }} a tag for your subscribers.
           </SheetDescription>
         </SheetHeader>
-        <SubscriberTagForm :currentTag="currentTag" @close="close" />
+        <SubscriberTagForm :currentTag="currentTag" @close="close" @update="fetchOrganizationTags"/>
       </SheetContent>
     </Sheet>
   </div>

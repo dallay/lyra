@@ -4,7 +4,7 @@ import SecureFetchFactory from "~/repository/secure.factory";
 import type {DataResponse} from "@lyra/shared";
 import {OrganizationId} from "~/domain/organization";
 import type TagId from "~/domain/tag/TagId";
-import type {TagRequest} from "~/domain/tag";
+import type {CreateTagRequest, UpdateTagRequest} from "~/domain/tag";
 import type { TagResponse } from "~/domain/tag/TagResponse";
 
 class TagModule extends SecureFetchFactory {
@@ -13,7 +13,7 @@ class TagModule extends SecureFetchFactory {
   async createTag(
     organizationId: OrganizationId,
     tagId: TagId,
-    request: TagRequest,
+    request: CreateTagRequest,
   ) {
     const headers = await this.buildHeaders();
     return this.call<void>({
@@ -38,6 +38,29 @@ class TagModule extends SecureFetchFactory {
     return this.call<DataResponse<TagResponse>>({
       method: 'GET',
       url: `${this.RESOURCE.FetchAll(organizationId)}`,
+      fetchOptions: {
+        headers: {
+          ...headers,
+          ...(this.accessToken
+            ? {
+              Authorization: `Bearer ${this.accessToken}`,
+            }
+            : {}),
+        },
+      },
+    });
+  }
+
+  async updateTag(
+    organizationId: OrganizationId,
+    tagId: TagId,
+    request: UpdateTagRequest,
+  ) {
+    const headers = await this.buildHeaders();
+    return this.call<void>({
+      method: 'PUT',
+      url: `${this.RESOURCE.UpdateTag(organizationId, tagId)}`,
+      body: request,
       fetchOptions: {
         headers: {
           ...headers,

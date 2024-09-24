@@ -26,7 +26,7 @@ import {toast} from '~/components/ui/toast';
 import {vAutoAnimate} from '@formkit/auto-animate/vue';
 import {useForm} from 'vee-validate';
 import {toTypedSchema} from '@vee-validate/zod';
-import {defineEmits} from 'vue';
+import {defineEmits, ref} from 'vue';
 import * as z from 'zod';
 import type {TagResponse} from '~/domain/tag/TagResponse';
 import TagId from '~/domain/tag/TagId';
@@ -51,6 +51,7 @@ interface SubscriberTagFormProps {
 const loading = ref(false);
 const props = defineProps<SubscriberTagFormProps>();
 const emit = defineEmits<{
+  (evt: 'update'): void;
 	(evt: 'close'): void;
 }>();
 const tagId = TagId.random();
@@ -85,15 +86,17 @@ const onSubmit = form.handleSubmit(async (values) => {
 	if (!organizationId) return;
 
 	const tagAction: Promise<void> = props.currentTag
-		? tagStore.updateTag(organizationId, {
+		? tagStore.updateTag(organizationId,
+    TagId.create(tag.id),
+    {
       name: tag.name,
       color: tag.color,
-      subscribers: tag.subscribers,
+      subscribers: Array.isArray(tag.subscribers) ? tag.subscribers : [],
     })
 		: tagStore.createTag(organizationId, {
       name: tag.name,
       color: tag.color,
-      subscribers: tag.subscribers,
+      subscribers: Array.isArray(tag.subscribers) ? tag.subscribers : [],
     });
 
 	tagAction
@@ -106,6 +109,7 @@ const onSubmit = form.handleSubmit(async (values) => {
 		})
 		.finally(() => {
 			loading.value = false;
+      emit('update');
 		});
 });
 </script>

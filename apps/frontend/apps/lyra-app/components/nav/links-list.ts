@@ -1,13 +1,11 @@
-
 export interface LinkProp {
-  title: string
-  label?: string
-  to?: string
-  icon?: string
-  variant: 'default' | 'ghost'
-  sub?: LinkProp[]
+  title: string;
+  label?: string;
+  to?: string;
+  icon?: string;
+  variant: 'default' | 'ghost';
+  sub?: LinkProp[];
 }
-
 
 const links: LinkProp[] = [
   {
@@ -32,8 +30,8 @@ const links: LinkProp[] = [
         to: '/forms/subscribe',
         icon: 'material-symbols-light:dynamic-form-outline-rounded',
         variant: 'ghost',
-      }
-    ]
+      },
+    ],
   },
   {
     title: 'Sent',
@@ -63,7 +61,7 @@ const links: LinkProp[] = [
     title: 'Without Icon',
     variant: 'ghost',
   },
-]
+];
 
 const links2: LinkProp[] = [
   {
@@ -119,10 +117,10 @@ const links2: LinkProp[] = [
             label: '22',
             icon: 'lucide:shopping-cart',
             variant: 'ghost',
-          }
-        ]
-      }
-    ]
+          },
+        ],
+      },
+    ],
   },
   {
     title: 'Another Test Embedded',
@@ -144,11 +142,11 @@ const links2: LinkProp[] = [
             label: '🟢',
             icon: 'lucide:shopping-cart',
             variant: 'ghost',
-          }
-        ]
-      }
-    ]
-  }
-]
+          },
+        ],
+      },
+    ],
+  },
+];
 
-export { links, links2 }
+export { links, links2 };

@@ -41,11 +41,11 @@
     "@saithodev/semantic-release-backmerge": "^4.0.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "@types/node": "^22.5.5",
+    "@types/node": "^22.6.1",
     "gradle-semantic-release-plugin": "1.10.1",
     "npm-run-all2": "^6.2.3",
     "rimraf": "^6.0.1",
-    "semantic-release": "^24.1.0"
+    "semantic-release": "^24.1.1"
   },
   "engines": {
     "node": ">=18.14.1",

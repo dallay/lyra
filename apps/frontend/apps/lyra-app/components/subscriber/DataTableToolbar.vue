@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
-import type { Table } from "@tanstack/vue-table";
-import type { Subscriber } from "@/domain/subscriber";
-import DataTableFacetedFilter from "./DataTableFacetedFilter.vue";
-import DataTableViewOptions from "./DataTableViewOptions.vue";
-import DataTableAdvanceFilterOptions from "./DataTableAdvanceFilterOptions.vue";
-import { Cross2Icon, MixerVerticalIcon } from "@radix-icons/vue";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useSubscriberStore } from "~/store/subscriber.store";
-import { useSubscriberFilterStore } from "~/store/subscriber.filter.store";
-import { storeToRefs } from "pinia";
+import { computed, onMounted } from 'vue';
+import type { Table } from '@tanstack/vue-table';
+import type { Subscriber } from '@/domain/subscriber';
+import DataTableFacetedFilter from './DataTableFacetedFilter.vue';
+import DataTableViewOptions from './DataTableViewOptions.vue';
+import DataTableAdvanceFilterOptions from './DataTableAdvanceFilterOptions.vue';
+import { Cross2Icon, MixerVerticalIcon } from '@radix-icons/vue';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useSubscriberStore } from '~/store/subscriber.store';
+import { useSubscriberFilterStore } from '~/store/subscriber.filter.store';
+import { storeToRefs } from 'pinia';
 
 const subscriberStore = useSubscriberStore();
 const { statuses, tags } = storeToRefs(subscriberStore);
@@ -25,9 +25,7 @@ interface DataTableToolbarProps {
 
 const props = defineProps<DataTableToolbarProps>();
 
-const isFiltered = computed(
-  () => props.table.getState().columnFilters.length > 0
-);
+const isFiltered = computed(() => props.table.getState().columnFilters.length > 0);
 
 const resetColumnFilters = async () => {
   props.table.resetColumnFilters();
@@ -45,7 +43,7 @@ const debounce = (func: (event: Event) => void, wait: number) => {
 const setEmailFilterValue = debounce(async (event: Event) => {
   const target = event.target as HTMLInputElement;
   await fetchAllSubscriber();
-  props.table.getColumn("email")?.setFilterValue(target.value);
+  props.table.getColumn('email')?.setFilterValue(target.value);
 }, 300);
 
 onMounted(async () => {

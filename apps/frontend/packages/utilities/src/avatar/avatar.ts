@@ -8,5 +8,5 @@ import gravatarUrl from 'gravatar-url';
  * @returns {string} The Gravatar URL for the given email and size.
  */
 export default function (email: string, size: number = 100): string {
-  return gravatarUrl(email, {size});
+  return gravatarUrl(email, { size });
 }

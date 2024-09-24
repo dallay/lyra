@@ -6,23 +6,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useScriptNpm } from '#imports'
+import { ref } from 'vue';
+import { useScriptNpm } from '#imports';
 
 export interface JSConfettiApi {
   JSConfetti: {
     new (): {
-      addConfetti: (options?: { emojis: string[] }) => void
-    }
-  }
+      addConfetti: (options?: { emojis: string[] }) => void;
+    };
+  };
 }
 
 declare global {
   interface Window extends JSConfettiApi {}
 }
 
-
-const triggerEl = ref<HTMLElement>()
+const triggerEl = ref<HTMLElement>();
 
 // Load the js-confetti script
 const { $script } = useScriptNpm<JSConfettiApi>({
@@ -31,17 +30,16 @@ const { $script } = useScriptNpm<JSConfettiApi>({
   version: '0.12.0',
   scriptOptions: {
     use() {
-      return { JSConfetti: window.JSConfetti }
+      return { JSConfetti: window.JSConfetti };
     },
     bundle: true,
   },
-})
-
+});
 
 const triggerConfetti = () => {
   $script.then(({ JSConfetti }) => {
-    const confetti = new JSConfetti()
-    confetti.addConfetti({ emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'] })
-  })
-}
+    const confetti = new JSConfetti();
+    confetti.addConfetti({ emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'] });
+  });
+};
 </script>

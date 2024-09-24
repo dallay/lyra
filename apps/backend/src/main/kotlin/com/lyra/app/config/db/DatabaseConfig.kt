@@ -1,9 +1,9 @@
 package com.lyra.app.config.db
 
-import com.lyra.app.newsletter.domain.SubscriberStatus
-import com.lyra.app.newsletter.infrastructure.persistence.converter.SubscriberAttributesWriterConverter
-import com.lyra.app.newsletter.infrastructure.persistence.converter.SubscriberConverter
-import com.lyra.app.newsletter.infrastructure.persistence.converter.SubscriberStatusWriterConverter
+import com.lyra.app.newsletter.subscriber.domain.SubscriberStatus
+import com.lyra.app.newsletter.subscriber.infrastructure.persistence.converter.SubscriberAttributesWriterConverter
+import com.lyra.app.newsletter.subscriber.infrastructure.persistence.converter.SubscriberConverter
+import com.lyra.app.newsletter.subscriber.infrastructure.persistence.converter.SubscriberStatusWriterConverter
 import io.r2dbc.postgresql.codec.EnumCodec
 import io.r2dbc.postgresql.codec.EnumCodec.Builder.RegistrationPriority
 import io.r2dbc.spi.ConnectionFactoryOptions
@@ -24,12 +24,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 @EnableTransactionManagement
 @EnableR2dbcRepositories(basePackages = ["com.lyra.*"])
 @EnableR2dbcAuditing
-open class DatabaseConfig {
+class DatabaseConfig {
     /**
      * Use the customizer to add EnumCodec to R2DBC
      */
     @Bean
-    open fun connectionFactoryOptionsBuilderCustomizer(): ConnectionFactoryOptionsBuilderCustomizer {
+    fun connectionFactoryOptionsBuilderCustomizer(): ConnectionFactoryOptionsBuilderCustomizer {
         log.debug("Adding EnumCodec to R2DBC")
         return ConnectionFactoryOptionsBuilderCustomizer { builder: ConnectionFactoryOptions.Builder ->
             builder.option(
@@ -48,7 +48,7 @@ open class DatabaseConfig {
      * Register converter to make sure Spring data treat enum correctly
      */
     @Bean
-    open fun r2dbcCustomConversions(databaseClient: DatabaseClient): R2dbcCustomConversions {
+    fun r2dbcCustomConversions(databaseClient: DatabaseClient): R2dbcCustomConversions {
         log.debug("Registering custom converters to R2DBC")
         val dialect = DialectResolver.getDialect(databaseClient.connectionFactory)
         val converters: MutableList<Any?> = ArrayList(dialect.converters)

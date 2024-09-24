@@ -1,5 +1,5 @@
 import StringValueObject from './StringValueObject';
-import InvalidArgumentError from "~/domain/vo/InvalidArgumentError.ts";
+import InvalidArgumentError from '~/domain/vo/InvalidArgumentError.ts';
 
 export default abstract class UUIDValueObject extends StringValueObject {
   protected constructor(value: string) {

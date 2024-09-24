@@ -18,7 +18,7 @@ function findMonorepoRoot(startDir) {
   const checkFiles = ['.env', '.env.example', 'pnpm-workspace.yaml', '.git'];
 
   while (currentDir !== root) {
-    if (checkFiles.some(file => fs.existsSync(path.join(currentDir, file)))) {
+    if (checkFiles.some((file) => fs.existsSync(path.join(currentDir, file)))) {
       return currentDir;
     }
     currentDir = path.resolve(currentDir, '..');
@@ -34,7 +34,7 @@ const envPath = path.resolve(monorepoRoot, '.env');
 if (fs.existsSync(envPath)) {
   console.log('🟣 [.env file found]');
   process.loadEnvFile(envPath);
-} else{
+} else {
   console.log('🔴 [.env file not found]');
 }
 

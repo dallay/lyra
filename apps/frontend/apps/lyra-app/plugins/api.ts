@@ -4,12 +4,13 @@ import FormModule from '~/repository/modules/form.module';
 import AuthModule from '~/repository/modules/auth.module';
 import CommonModule from '~/repository/modules/common.module';
 import type { AccessToken } from '@/domain/authentication';
-import OrganizationModule from "~/repository/modules/organization.module";
-import TeamModule from "~/repository/modules/team.module";
-import TeamMemberModule from "~/repository/modules/team-member.module";
+import OrganizationModule from '~/repository/modules/organization.module';
+import TeamModule from '~/repository/modules/team.module';
+import TeamMemberModule from '~/repository/modules/team-member.module';
 import SecureFetchFactory from '~/repository/secure.factory';
-import type FetchFactory from "~/repository/factory";
-import SubscriberModule from "~/repository/modules/subscriber.module";
+import type FetchFactory from '~/repository/factory';
+import SubscriberModule from '~/repository/modules/subscriber.module';
+import TagModule from '~/repository/modules/tag.module';
 
 /**
  * Interface representing the API instance with different modules.
@@ -22,6 +23,7 @@ export interface IApiInstance {
   team: TeamModule;
   teamMember: TeamMemberModule;
   subscriber: SubscriberModule;
+  tag: TagModule;
 }
 
 /**
@@ -30,7 +32,10 @@ export interface IApiInstance {
  * @param {Record<string, string>} headers - The headers to be added or updated.
  * @returns {Request} - The updated request with new headers.
  */
-function createRequestWithHeaders(request: Request | string, headers: Record<string, string>): Request {
+function createRequestWithHeaders(
+  request: Request | string,
+  headers: Record<string, string>,
+): Request {
   if (typeof request === 'string') {
     return new Request(request, { headers });
   }
@@ -45,8 +50,10 @@ function createRequestWithHeaders(request: Request | string, headers: Record<str
  * @returns {Promise<FetchResponse<any> & FetchResponse<ResponseType>>} - The response of the retried request.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: The response type is not known
-async  function retryRequest(request: Request | string, newAccessToken: AccessToken): Promise<FetchResponse<any> & FetchResponse<ResponseType>> {
+async function retryRequest(
+  request: Request | string,
+  newAccessToken: AccessToken,
+): Promise<FetchResponse<unknown> & FetchResponse<ResponseType>> {
   const headers = { Authorization: `Bearer ${newAccessToken}` };
   const updatedRequest = createRequestWithHeaders(request, headers);
   // biome-ignore lint/correctness/noUndeclaredVariables: fetch is a global function in nuxt
@@ -115,6 +122,7 @@ export default defineNuxtPlugin(async (_) => {
   const teamModule = new TeamModule(apiFetcher);
   const teamMemberModule = new TeamMemberModule(apiFetcher);
   const subscriberModule = new SubscriberModule(apiFetcher);
+  const tagModule = new TagModule(apiFetcher);
 
   const modules: IApiInstance = {
     form: formModule,
@@ -124,6 +132,7 @@ export default defineNuxtPlugin(async (_) => {
     team: teamModule,
     teamMember: teamMemberModule,
     subscriber: subscriberModule,
+    tag: tagModule,
   };
 
   if (import.meta.client) {

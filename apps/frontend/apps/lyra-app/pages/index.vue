@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppDashboard from "~/components/AppDashboard.vue";
+import AppDashboard from '~/components/AppDashboard.vue';
 </script>
 
 <template>

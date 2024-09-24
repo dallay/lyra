@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
-import  { useCookie } from "#app";
+import { useCookie } from '#app';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth.store';
 import { cn } from '@/lib/utils';
@@ -25,10 +25,12 @@ const store = useAuthStore();
 const { authenticateUser, refreshToken } = store;
 const router = useRouter();
 
-const formSchema = toTypedSchema(z.object({
-  identifier: z.string().min(2, 'Identifier must be at least 2 characters long.').max(100),
-  password: z.string().min(8, 'Password must be at least 8 characters long.').max(250),
-}));
+const formSchema = toTypedSchema(
+  z.object({
+    identifier: z.string().min(2, 'Identifier must be at least 2 characters long.').max(100),
+    password: z.string().min(8, 'Password must be at least 8 characters long.').max(250),
+  }),
+);
 
 const form = useForm({
   validationSchema: formSchema,

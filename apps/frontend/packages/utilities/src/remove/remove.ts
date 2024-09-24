@@ -14,12 +14,12 @@
  * console.log(removed); // Output: [2, 4]
  */
 export function remove<T>(
-	array: T[],
-	predicate: (value: T, index: number, array: T[]) => boolean
+  array: T[],
+  predicate: (value: T, index: number, array: T[]) => boolean,
 ): T[] {
-	const removed = array.filter((value, index, arr) => predicate(value, index, arr));
-	const remaining = array.filter((value, index, arr) => !predicate(value, index, arr));
-	array.length = 0;
-	array.push(...remaining);
-	return removed;
+  const removed = array.filter((value, index, arr) => predicate(value, index, arr));
+  const remaining = array.filter((value, index, arr) => !predicate(value, index, arr));
+  array.length = 0;
+  array.push(...remaining);
+  return removed;
 }

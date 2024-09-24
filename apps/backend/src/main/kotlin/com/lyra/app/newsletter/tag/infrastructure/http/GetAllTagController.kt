@@ -43,7 +43,7 @@ class GetAllTagController(
     suspend fun getAllTags(
         @PathVariable organizationId: String
     ): ResponseEntity<PageResponse<TagResponse>> {
-        log.debug("Getting all tags for organization $organizationId")
+        log.debug("Getting all tags for organization with id: {}", sanitizePathVariable(organizationId))
         val query = GetAllTagsQuery(organizationId)
         val response = ask(query)
         return ResponseEntity.ok(response)

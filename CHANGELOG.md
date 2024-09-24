@@ -1,3 +1,12 @@
+# [1.12.0](https://github.com/dallay/lyra/compare/v1.11.0...v1.12.0) (2024-09-24)
+
+
+### Features
+
+* [TASK-134] subscribers crud view ([#321](https://github.com/dallay/lyra/issues/321)) ([ce62076](https://github.com/dallay/lyra/commit/ce620767d0b8fc621b3aa20d7a08b1466ade9f76))
+* tags screen and model ([#325](https://github.com/dallay/lyra/issues/325)) ([4cd48b6](https://github.com/dallay/lyra/commit/4cd48b6ff0811a1fb5ebff7cf864a5e28fc58c02))
+* Update dependabot.yml ([#323](https://github.com/dallay/lyra/issues/323)) ([af3a43a](https://github.com/dallay/lyra/commit/af3a43a4942a3f5c8593c6221e1ba3574ac40e15))
+
 # [1.11.0](https://github.com/dallay/lyra/compare/v1.10.0...v1.11.0) (2024-08-30)
 
 

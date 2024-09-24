@@ -85,14 +85,11 @@ runs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
 
-    - name: Inspect SARIF file
-      run: cat trivy-results-oci-image.sarif
-      shell: bash
-
     - name: 🟢 Upload vulnerability report
       uses: github/codeql-action/upload-sarif@v3
       if: success() || failure()
       with:
+        token: ${{ inputs.ci_github_token }}
         sarif_file: 'trivy-results-oci-image.sarif'
 
     - name: Log into container registry GHCR

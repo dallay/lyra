@@ -72,7 +72,7 @@ spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-star
 spring-security-test = { module = "org.springframework.security:spring-security-test", version="6.3.0" }
 reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.6" }
 cucumber-java = { module = "io.cucumber:cucumber-java", version.ref = "cucumber" }
-mockk = { module = "io.mockk:mockk", version = "1.13.11" }
+mockk = { module = "io.mockk:mockk", version = "1.13.12" }
 faker = { module = "net.datafaker:datafaker", version = "2.2.2" }
 assertj = { module ="org.assertj:assertj-core", version = "3.26.0" }
 kotest-assertions-core-jvm = { module = "io.kotest:kotest-assertions-core-jvm", version.ref = "kotest" }

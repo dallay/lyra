@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { Table } from '@tanstack/vue-table'
-import { computed, onMounted } from 'vue'
-import type {Subscriber} from '@/domain/subscriber';
-import {MixerHorizontalIcon} from '@radix-icons/vue'
+import type { Table } from '@tanstack/vue-table';
+import { computed, onMounted } from 'vue';
+import type { Subscriber } from '@/domain/subscriber';
+import { MixerHorizontalIcon } from '@radix-icons/vue';
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -12,29 +12,29 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@/components/ui/dropdown-menu';
 
 interface DataTableViewOptionsProps {
-  table: Table<Subscriber>
+  table: Table<Subscriber>;
 }
 
-const props = defineProps<DataTableViewOptionsProps>()
+const props = defineProps<DataTableViewOptionsProps>();
 
-const columns = computed(() => props.table.getAllColumns()
-  .filter(
-    column =>
-      typeof column.accessorFn !== 'undefined' && column.getCanHide(),
-  ))
+const columns = computed(() =>
+  props.table
+    .getAllColumns()
+    .filter((column) => typeof column.accessorFn !== 'undefined' && column.getCanHide()),
+);
 
-  onMounted(() => {
-    const startHiddenColumns = ['tags']
-    startHiddenColumns.forEach((columnId) => {
-      const column = props.table.getColumn(columnId)
-      if (column) {
-        column.toggleVisibility(false)
-      }
-    })
-  })
+onMounted(() => {
+  const startHiddenColumns = ['tags'];
+  startHiddenColumns.forEach((columnId) => {
+    const column = props.table.getColumn(columnId);
+    if (column) {
+      column.toggleVisibility(false);
+    }
+  });
+});
 </script>
 
 <template>

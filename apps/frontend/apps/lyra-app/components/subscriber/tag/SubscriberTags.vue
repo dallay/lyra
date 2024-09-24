@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { ref, computed, type Ref, onMounted } from "vue";
-import { MoreVertical, Plus } from "lucide-vue-next";
-import { MagnifyingGlassIcon } from "@radix-icons/vue";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { ref, computed, type Ref, onMounted } from 'vue';
+import { MoreVertical, Plus } from 'lucide-vue-next';
+import { MagnifyingGlassIcon } from '@radix-icons/vue';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 import {
   Sheet,
   SheetContent,
@@ -19,12 +19,12 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { TagColors, Tag } from "~/domain/tag";
-import { useTagStore } from "~/store/tag.store";
-import { useWorkspaceStore } from "~/store/workspace.store";
-import { storeToRefs } from "pinia";
-import TagId from "~/domain/tag/TagId";
+} from '@/components/ui/sheet';
+import { TagColors, Tag } from '~/domain/tag';
+import { useTagStore } from '~/store/tag.store';
+import { useWorkspaceStore } from '~/store/workspace.store';
+import { storeToRefs } from 'pinia';
+import TagId from '~/domain/tag/TagId';
 const tagStore = useTagStore();
 const { tags } = storeToRefs(tagStore);
 const { fetchTags, deleteTag } = tagStore;
@@ -34,8 +34,9 @@ const openSheet = ref(false);
 const currentTag: Ref<Tag | null> = ref(null);
 
 const alphabeticalTags = computed(() => {
-  return tags.value.sort((a, b) => a.name.localeCompare(b.name))
-  .map((tag) => Tag.fromResponse(tag));
+  return tags.value
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((tag) => Tag.fromResponse(tag));
 });
 
 const createTag = () => {
@@ -51,7 +52,7 @@ const editTag = (id: string) => {
 };
 
 const deleteTagById = async (tag: Tag) => {
-  const tagId = TagId.create(tag.id)
+  const tagId = TagId.create(tag.id);
   const organizationId = workspaceStore.getCurrentOrganizationId();
   if (!organizationId) return;
 
@@ -62,13 +63,13 @@ const deleteTagById = async (tag: Tag) => {
 const close = () => {
   openSheet.value = false;
 };
- const fetchOrganizationTags = async () => {
+const fetchOrganizationTags = async () => {
   const organizationId = workspaceStore.getCurrentOrganizationId();
   if (!organizationId) return;
   await fetchTags(organizationId);
-}
+};
 
-onMounted(async() => {
+onMounted(async () => {
   await fetchOrganizationTags();
 });
 </script>

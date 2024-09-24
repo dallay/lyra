@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import { useNuxtApp, useRuntimeConfig } from '#imports';
-import { jwtDecode, type JwtPayload } from "jwt-decode";
-import {AccessToken} from "~/domain/authentication";
-import type {IUser} from "~/domain/user";
+import { jwtDecode, type JwtPayload } from 'jwt-decode';
+import { AccessToken } from '~/domain/authentication';
+import type { IUser } from '~/domain/user';
 
 interface UserPayloadInterface {
   identifier: string;
@@ -29,18 +29,18 @@ function convertJwtToUser(jwt: JwtDecodePayload): IUser | null {
     name: jwt.name,
     username: jwt.preferred_username,
     email: jwt.email,
-    roles: jwt.realm_access?.roles || []
+    roles: jwt.realm_access?.roles || [],
   };
 }
 
 export const useAuthStore = defineStore('auth', {
   state: (): AuthStoreInterface => {
     const config = useRuntimeConfig();
-    return ({
+    return {
       apiUrl: config.public.apiUrl,
       accessToken: null,
       loading: false,
-    });
+    };
   },
   getters: {
     isAuthenticated: (state) => state.accessToken !== null,
@@ -49,13 +49,12 @@ export const useAuthStore = defineStore('auth', {
     async authenticateUser({ identifier, password }: UserPayloadInterface) {
       this.loading = true;
       try {
-        const {$api, $updateModulesAccessToken} = useNuxtApp();
+        const { $api, $updateModulesAccessToken } = useNuxtApp();
 
         const accessToken = await $api.auth.authenticate(identifier, password);
         $updateModulesAccessToken($api, accessToken);
 
         this.accessToken = accessToken || null;
-
       } catch (error) {
         console.error(error);
       } finally {
@@ -65,7 +64,7 @@ export const useAuthStore = defineStore('auth', {
     async refreshToken() {
       this.loading = true;
       try {
-        const {$api, $updateModulesAccessToken} = useNuxtApp();
+        const { $api, $updateModulesAccessToken } = useNuxtApp();
         const accessToken = await $api.auth.refreshToken();
         $updateModulesAccessToken($api, accessToken);
         this.accessToken = accessToken || null;
@@ -83,7 +82,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async logUserOut() {
       this.accessToken = null;
-      const {$api} = useNuxtApp();
+      const { $api } = useNuxtApp();
       await $api.auth.logout();
     },
   },

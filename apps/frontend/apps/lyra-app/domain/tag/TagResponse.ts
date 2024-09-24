@@ -1,4 +1,4 @@
-import type { TagColors } from "./Tag";
+import type { TagColors } from './Tag';
 
 /**
  * Interface representing a Tag object.

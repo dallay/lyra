@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {SubscriberId} from "~/domain/subscriber";
+import { SubscriberId } from '~/domain/subscriber';
 import { useRoute } from '#app';
 const route = useRoute();
 const id = route.params.id;

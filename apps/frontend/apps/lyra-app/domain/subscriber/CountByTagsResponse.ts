@@ -1,4 +1,4 @@
-export interface CountByTagsResponse{
+export interface CountByTagsResponse {
   count: number;
   tag: string;
 }

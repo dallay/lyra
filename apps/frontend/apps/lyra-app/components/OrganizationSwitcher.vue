@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {onMounted, ref} from 'vue';
-import {storeToRefs} from 'pinia';
-import {useWorkspaceStore} from '~/store/workspace.store';
-import { useTeamStore} from "~/store/team.store";
-import {cn} from '@/lib/utils';
-import {Avatar, AvatarFallback, AvatarImage,} from '@/components/ui/avatar';
-import {Button} from '@/components/ui/button';
+import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useWorkspaceStore } from '~/store/workspace.store';
+import { useTeamStore } from '~/store/team.store';
+import { cn } from '@/lib/utils';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   Command,
   CommandEmpty,
@@ -13,21 +13,21 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator
+  CommandSeparator,
 } from '@/components/ui/command';
-import {Popover, PopoverContent, PopoverTrigger,} from '@/components/ui/popover';
-import {generateRandomWords, initials} from '#imports'
-import { toTypedSchema } from '@vee-validate/zod'
-import * as z from 'zod'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { generateRandomWords, initials } from '#imports';
+import { toTypedSchema } from '@vee-validate/zod';
+import * as z from 'zod';
 import {
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
-} from '@/components/ui/form'
-import {toast} from "~/components/ui/toast";
+  FormMessage,
+} from '@/components/ui/form';
+import { toast } from '~/components/ui/toast';
 import {
   Dialog,
   DialogContent,
@@ -38,32 +38,31 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import {OrganizationId} from "~/domain/organization";
-import {TeamId} from "~/domain/team";
+import { OrganizationId } from '~/domain/organization';
+import { TeamId } from '~/domain/team';
 
 interface OrganizationSwitcherProps {
-  isCollapsed: boolean
+  isCollapsed: boolean;
 }
 
 const props = withDefaults(defineProps<OrganizationSwitcherProps>(), {
   isCollapsed: false,
-})
+});
 
 const formSchema = toTypedSchema(
   z.object({
     name: z.string().min(2).max(50).default(generateRandomWords()),
-  })
+  }),
 );
 
 const store = useWorkspaceStore();
-const {fetchWorkspaces, setSelectedTeam, getWorkspaceByTeamId} = store;
+const { fetchWorkspaces, setSelectedTeam, getWorkspaceByTeamId } = store;
 const { groupedWorkspace, selectedTeam } = storeToRefs(store);
 const teamStore = useTeamStore();
 const { createTeam } = teamStore;
 
 const open = ref(false);
 const showNewTeamDialog = ref(false);
-
 
 const onSubmit = async (values: { name: string }) => {
   try {
@@ -95,7 +94,10 @@ const onSubmit = async (values: { name: string }) => {
   } catch (error) {
     toast({
       title: 'Error',
-      description: error instanceof Error ? error.message : 'An unexpected error occurred while creating the team.',
+      description:
+        error instanceof Error
+          ? error.message
+          : 'An unexpected error occurred while creating the team.',
       duration: 5000,
       variant: 'destructive',
     });

@@ -2,12 +2,12 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from '#app';
 import { FormResponse, FormId } from '@/domain/forms';
-import { useFormStore } from "~/store/form.store";
-import { Skeleton } from '@/components/ui/skeleton'
-import { definePageMeta } from '#imports'
+import { useFormStore } from '~/store/form.store';
+import { Skeleton } from '@/components/ui/skeleton';
+import { definePageMeta } from '#imports';
 definePageMeta({
-  layout: 'simple'
-})
+  layout: 'simple',
+});
 
 const formStore = useFormStore();
 const route = useRoute();

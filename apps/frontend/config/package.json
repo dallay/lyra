@@ -10,11 +10,7 @@
     "url": "www.yunielacosta.com"
   },
   "license": "MIT",
-  "files": [
-    "index.css",
-    "stylelint.config.cjs",
-    "uno.config.mjs"
-  ],
+  "files": ["index.css", "stylelint.config.cjs", "uno.config.mjs"],
   "repository": {
     "type": "git",
     "url": "https://github.com/dallay/lyra.git",

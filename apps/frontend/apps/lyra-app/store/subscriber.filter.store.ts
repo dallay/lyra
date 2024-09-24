@@ -1,17 +1,13 @@
-import { ref } from "vue";
-import { defineStore } from "pinia";
-import {
-  type DateValue,
-  getLocalTimeZone,
-  today,
-} from "@internationalized/date";
+import { ref } from 'vue';
+import { defineStore } from 'pinia';
+import { type DateValue, getLocalTimeZone, today } from '@internationalized/date';
 import {
   DEFAULT_PAGE_SIZE,
   type CriteriaParam,
   type CriteriaQueryParams,
   type SortParam,
-} from "~/domain/criteria";
-import type { DateRange } from "radix-vue";
+} from '~/domain/criteria';
+import type { DateRange } from 'radix-vue';
 
 type CursorPage = {
   previous: string | null | undefined;
@@ -23,7 +19,7 @@ const defaultCriteria: CriteriaQueryParams = {
   cursor: null,
 };
 
-export const useSubscriberFilterStore = defineStore("subscriberFilter", () => {
+export const useSubscriberFilterStore = defineStore('subscriberFilter', () => {
   const subscriberFilterOptions = ref<CriteriaQueryParams>(defaultCriteria);
   const cursorPage = ref<CursorPage>({ previous: null, next: null });
   const localTimeZone = getLocalTimeZone();
@@ -44,14 +40,14 @@ export const useSubscriberFilterStore = defineStore("subscriberFilter", () => {
     };
     subscriberFilterOptions.value.cursor = null;
     const createdAtCriteria: CriteriaParam = {
-      column: "createdAt",
+      column: 'createdAt',
       values: [
         {
-          operator: "gte",
+          operator: 'gte',
           value: filtersDateRange.value.start,
         },
         {
-          operator: "lt",
+          operator: 'lt',
           value: filtersDateRange.value.end,
         },
       ],
@@ -83,9 +79,7 @@ export const useSubscriberFilterStore = defineStore("subscriberFilter", () => {
     const criteriaSet: Set<CriteriaParam> =
       subscriberFilterOptions.value.filterCriteria ?? new Set<CriteriaParam>();
 
-    const existingCriteria = Array.from(criteriaSet).find(
-      (c) => c.column === criteria.column
-    );
+    const existingCriteria = Array.from(criteriaSet).find((c) => c.column === criteria.column);
 
     if (existingCriteria) {
       criteriaSet.delete(existingCriteria);
@@ -101,8 +95,7 @@ export const useSubscriberFilterStore = defineStore("subscriberFilter", () => {
    * @param {CriteriaParam[]} criteria - The criteria to set.
    */
   const addAllSubscriberFilterCriteria = (criteria: CriteriaParam[]) => {
-    const criteriaSet =
-      subscriberFilterOptions.value.filterCriteria ?? new Set<CriteriaParam>();
+    const criteriaSet = subscriberFilterOptions.value.filterCriteria ?? new Set<CriteriaParam>();
     criteriaSet.clear();
     subscriberFilterOptions.value.cursor = null;
     criteria.forEach((c) => criteriaSet.add(c));
@@ -149,7 +142,7 @@ export const useSubscriberFilterStore = defineStore("subscriberFilter", () => {
   const cleanSubscriberCursor = async () => {
     subscriberFilterOptions.value.cursor = null;
     cursorPage.value = { previous: null, next: null };
-  }
+  };
 
   return {
     updateValuesToFilterDateRange,
@@ -166,6 +159,6 @@ export const useSubscriberFilterStore = defineStore("subscriberFilter", () => {
     resetSubscriberFilterOptions,
     setSubscriberFilterSort,
     resetFilterDateRange,
-    cleanSubscriberCursor
+    cleanSubscriberCursor,
   };
 });

@@ -16,11 +16,11 @@ export type Order = 'asc' | 'desc';
  * // Returns: [{name: 'banana', type: 'fruit'}, {name: 'apple', type: 'fruit'}]
  */
 export function orderBy<T>(array: T[], keys: (keyof T)[], orders: Order[]): T[] {
-	return [...array].sort((a, b) => {
-		for (let i = 0; i < keys.length; i++) {
-			if (a[keys[i]] > b[keys[i]]) return orders[i] === 'asc' ? 1 : -1;
-			if (a[keys[i]] < b[keys[i]]) return orders[i] === 'asc' ? -1 : 1;
-		}
-		return 0;
-	});
+  return [...array].sort((a, b) => {
+    for (let i = 0; i < keys.length; i++) {
+      if (a[keys[i]] > b[keys[i]]) return orders[i] === 'asc' ? 1 : -1;
+      if (a[keys[i]] < b[keys[i]]) return orders[i] === 'asc' ? -1 : 1;
+    }
+    return 0;
+  });
 }

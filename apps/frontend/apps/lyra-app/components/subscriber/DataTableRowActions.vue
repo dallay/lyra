@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import type { Row } from '@tanstack/vue-table'
-import { computed } from 'vue'
-import {type Subscriber, subscriberSchema} from '@/domain/subscriber';
-import {DotsHorizontalIcon} from '@radix-icons/vue'
-import { useRouter } from '#app'
+import type { Row } from '@tanstack/vue-table';
+import { computed } from 'vue';
+import { type Subscriber, subscriberSchema } from '@/domain/subscriber';
+import { DotsHorizontalIcon } from '@radix-icons/vue';
+import { useRouter } from '#app';
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@/components/ui/dropdown-menu';
 
 const router = useRouter();
 
 interface DataTableRowActionsProps {
-  row: Row<Subscriber>
+  row: Row<Subscriber>;
 }
-const props = defineProps<DataTableRowActionsProps>()
+const props = defineProps<DataTableRowActionsProps>();
 
-const subscriber = computed(() => subscriberSchema.parse(props.row.original))
+const subscriber = computed(() => subscriberSchema.parse(props.row.original));
 
 const navigateToSubscriber = (action: 'view' | 'edit') => {
   if (action === 'view') {
-    router.push(`/subscribers/${subscriber.value.id}`)
+    router.push(`/subscribers/${subscriber.value.id}`);
   } else {
-    router.push(`/subscribers/${subscriber.value.id}?edit=true`)
+    router.push(`/subscribers/${subscriber.value.id}?edit=true`);
   }
-}
+};
 // const shortcutKey = ref('')
 
 // onMounted(() => {

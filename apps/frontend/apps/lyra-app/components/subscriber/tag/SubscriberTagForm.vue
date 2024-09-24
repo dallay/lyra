@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {colorClasses, Tag, TagColors} from '~/domain/tag';
-import {cn} from '~/lib/utils';
+import { colorClasses, Tag, TagColors } from '~/domain/tag';
+import { cn } from '~/lib/utils';
 import {
   Select,
   SelectContent,
@@ -18,99 +18,97 @@ import {
   FormLabel,
   FormMessage,
 } from '~/components/ui/form';
-import {Button} from '~/components/ui/button';
-import {Textarea} from '~/components/ui/textarea';
-import {Badge} from '~/components/ui/badge';
-import {Input} from '~/components/ui/input';
-import {toast} from '~/components/ui/toast';
-import {vAutoAnimate} from '@formkit/auto-animate/vue';
-import {useForm} from 'vee-validate';
-import {toTypedSchema} from '@vee-validate/zod';
-import {defineEmits, ref} from 'vue';
+import { Button } from '~/components/ui/button';
+import { Textarea } from '~/components/ui/textarea';
+import { Badge } from '~/components/ui/badge';
+import { Input } from '~/components/ui/input';
+import { toast } from '~/components/ui/toast';
+import { vAutoAnimate } from '@formkit/auto-animate/vue';
+import { useForm } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/zod';
+import { defineEmits, ref } from 'vue';
 import * as z from 'zod';
-import type {TagResponse} from '~/domain/tag/TagResponse';
+import type { TagResponse } from '~/domain/tag/TagResponse';
 import TagId from '~/domain/tag/TagId';
-import {useTagStore} from '~/store/tag.store';
-import {useWorkspaceStore} from '~/store/workspace.store';
+import { useTagStore } from '~/store/tag.store';
+import { useWorkspaceStore } from '~/store/workspace.store';
 
 const tagStore = useTagStore();
 const workspaceStore = useWorkspaceStore();
 
 const tagSchema = z.object({
-	id: z.string().min(1),
-	name: z.string().min(2).max(50),
-	color: z.nativeEnum(TagColors).default(TagColors.Default),
-	subscribers: z.string(),
+  id: z.string().min(1),
+  name: z.string().min(2).max(50),
+  color: z.nativeEnum(TagColors).default(TagColors.Default),
+  subscribers: z.string(),
 });
 
 const tagTypedSchema = toTypedSchema(tagSchema);
 
 interface SubscriberTagFormProps {
-	currentTag: Tag | null;
+  currentTag: Tag | null;
 }
 const loading = ref(false);
 const props = defineProps<SubscriberTagFormProps>();
 const emit = defineEmits<{
   (evt: 'update'): void;
-	(evt: 'close'): void;
+  (evt: 'close'): void;
 }>();
 const tagId = TagId.random();
 const defaultTag: TagResponse = {
-	id: tagId.value,
-	name: '',
-	color: TagColors.Default,
-	subscribers: [],
+  id: tagId.value,
+  name: '',
+  color: TagColors.Default,
+  subscribers: [],
 };
 const form = useForm({
-	validationSchema: tagTypedSchema,
-	initialValues: {
-		id: props.currentTag?.id || defaultTag.id,
-		name: props.currentTag?.name || defaultTag.name,
-		color: (props.currentTag?.color as TagColors) || defaultTag.color,
-		subscribers: Array.isArray(props.currentTag?.subscribers)
-			? props.currentTag.subscribers.join(',')
-			: defaultTag.subscribers.join(','),
-	},
+  validationSchema: tagTypedSchema,
+  initialValues: {
+    id: props.currentTag?.id || defaultTag.id,
+    name: props.currentTag?.name || defaultTag.name,
+    color: (props.currentTag?.color as TagColors) || defaultTag.color,
+    subscribers: Array.isArray(props.currentTag?.subscribers)
+      ? props.currentTag.subscribers.join(',')
+      : defaultTag.subscribers.join(','),
+  },
 });
 
 const onSubmit = form.handleSubmit(async (values) => {
-	loading.value = true;
-	workspaceStore.getCurrentOrganizationId();
-	const tag = Tag.fromResponse({
-		id: values.id,
-		name: values.name,
-		color: values.color,
-		subscribers: values.subscribers.split(',').map((email) => email.trim()),
-	});
-	const organizationId = workspaceStore.getCurrentOrganizationId();
-	if (!organizationId) return;
+  loading.value = true;
+  workspaceStore.getCurrentOrganizationId();
+  const tag = Tag.fromResponse({
+    id: values.id,
+    name: values.name,
+    color: values.color,
+    subscribers: values.subscribers.split(',').map((email) => email.trim()),
+  });
+  const organizationId = workspaceStore.getCurrentOrganizationId();
+  if (!organizationId) return;
 
-	const tagAction: Promise<void> = props.currentTag
-		? tagStore.updateTag(organizationId,
-    TagId.create(tag.id),
-    {
-      name: tag.name,
-      color: tag.color,
-      subscribers: Array.isArray(tag.subscribers) ? tag.subscribers : [],
+  const tagAction: Promise<void> = props.currentTag
+    ? tagStore.updateTag(organizationId, TagId.create(tag.id), {
+        name: tag.name,
+        color: tag.color,
+        subscribers: Array.isArray(tag.subscribers) ? tag.subscribers : [],
+      })
+    : tagStore.createTag(organizationId, {
+        name: tag.name,
+        color: tag.color,
+        subscribers: Array.isArray(tag.subscribers) ? tag.subscribers : [],
+      });
+
+  tagAction
+    .then(() => {
+      toast({ title: 'Tag created', description: 'The tag has been created successfully.' });
+      emit('close');
     })
-		: tagStore.createTag(organizationId, {
-      name: tag.name,
-      color: tag.color,
-      subscribers: Array.isArray(tag.subscribers) ? tag.subscribers : [],
-    });
-
-	tagAction
-		.then(() => {
-			toast({ title: 'Tag created', description: 'The tag has been created successfully.' });
-			emit('close');
-		})
-		.catch((error) => {
-			toast({ title: 'Error', description: error.message });
-		})
-		.finally(() => {
-			loading.value = false;
+    .catch((error) => {
+      toast({ title: 'Error', description: error.message });
+    })
+    .finally(() => {
+      loading.value = false;
       emit('update');
-		});
+    });
 });
 </script>
 

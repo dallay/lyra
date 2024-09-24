@@ -16,16 +16,16 @@ import UUIDValueObject from '~/domain/vo/UUIDValueObject.ts';
 export * from './collection';
 
 export type {
-	Query,
-	QueryHandler,
-	QueryBus,
-	ApiResponse,
+  Query,
+  QueryHandler,
+  QueryBus,
+  ApiResponse,
   PageResponse,
   DataResponse,
-	Command,
-	CommandHandler,
-	CommandBus,
-	Primitives,
+  Command,
+  CommandHandler,
+  CommandBus,
+  Primitives,
 };
 
-export { ValueObject, StringValueObject,UUIDValueObject, InvalidArgumentError };
+export { ValueObject, StringValueObject, UUIDValueObject, InvalidArgumentError };

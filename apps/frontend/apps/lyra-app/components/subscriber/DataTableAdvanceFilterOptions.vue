@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import {defineProps, ref} from 'vue';
-import type {Table} from '@tanstack/vue-table';
-import type {Subscriber} from '@/domain/subscriber';
-import {Separator} from '@/components/ui/separator';
-import {Checkbox} from '@/components/ui/checkbox';
-import {useSubscriberStore} from '~/store/subscriber.store';
-import {useSubscriberFilterStore} from '~/store/subscriber.filter.store';
-import {storeToRefs} from 'pinia';
+import { defineProps, ref } from 'vue';
+import type { Table } from '@tanstack/vue-table';
+import type { Subscriber } from '@/domain/subscriber';
+import { Separator } from '@/components/ui/separator';
+import { Checkbox } from '@/components/ui/checkbox';
+import { useSubscriberStore } from '~/store/subscriber.store';
+import { useSubscriberFilterStore } from '~/store/subscriber.filter.store';
+import { storeToRefs } from 'pinia';
 import DateRangePicker from '~/components/DateRangePicker.vue';
-import type {DateRange} from 'radix-vue';
-import {parseDateTime} from '@internationalized/date';
+import type { DateRange } from 'radix-vue';
+import { parseDateTime } from '@internationalized/date';
 
 const subscriberStore = useSubscriberStore();
 const { fetchAllSubscriber } = subscriberStore;
@@ -17,22 +17,25 @@ const { fetchAllSubscriber } = subscriberStore;
 const subscriberFilterStore = useSubscriberFilterStore();
 const { filtersDateRange, showAdvancedFilters } = storeToRefs(subscriberFilterStore);
 const { updateValuesToFilterDateRange, resetFilterDateRange, cleanSubscriberCursor } =
-	subscriberFilterStore;
+  subscriberFilterStore;
 
 interface DataTableViewOptionsProps {
-	table: Table<Subscriber>;
+  table: Table<Subscriber>;
 }
 
 const props = defineProps<DataTableViewOptionsProps>();
 const updateDateRange = async (newRange: DateRange) => {
-	updateValuesToFilterDateRange(newRange);
-	await fetchAllSubscriber();
+  updateValuesToFilterDateRange(newRange);
+  await fetchAllSubscriber();
 };
 
 const showSubscriberWhere = ref(false);
 
-const  shouldShowSubscribersWhere = async () => {
-  console.log('[DataTableAdvanceFilterOptions.vue] showSubscriberWhere.value:', showSubscriberWhere.value);
+const shouldShowSubscribersWhere = async () => {
+  console.log(
+    '[DataTableAdvanceFilterOptions.vue] showSubscriberWhere.value:',
+    showSubscriberWhere.value,
+  );
   await cleanSubscriberCursor();
   if (!showSubscriberWhere.value) {
     resetFilterDateRange();
@@ -44,7 +47,8 @@ const  shouldShowSubscribersWhere = async () => {
     await updateDateRange(dateRange);
   }
   showSubscriberWhere.value = !showSubscriberWhere.value;
-}</script>
+};
+</script>
 
 <template>
   <div class="w-full" v-if="showAdvancedFilters">

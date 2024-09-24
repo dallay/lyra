@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import DataTable from '~/components/subscriber/DataTable.vue'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import DataTable from '~/components/subscriber/DataTable.vue';
 import SubscriberTags from './tag/SubscriberTags.vue';
-import { columns } from '~/components/subscriber/columns'
-import {Button} from "~/components/ui/button";
-import { useSubscriberStore } from "~/store/subscriber.store";
+import { columns } from '~/components/subscriber/columns';
+import { Button } from '~/components/ui/button';
+import { useSubscriberStore } from '~/store/subscriber.store';
 import { useSubscriberFilterStore } from '~/store/subscriber.filter.store';
-import {storeToRefs, onMounted} from "#imports";
+import { storeToRefs, onMounted } from '#imports';
 
 const store = useSubscriberStore();
 const { subscribers } = storeToRefs(store);
 const { fetchAllSubscriber, clearCursor } = store;
 const filterStore = useSubscriberFilterStore();
-const {resetFilterDateRange, resetSubscriberFilterOptions, cleanSubscriberCursor} = filterStore;
+const { resetFilterDateRange, resetSubscriberFilterOptions, cleanSubscriberCursor } = filterStore;
 
 const importSubscriber = () => {
   alert('Importing subscribers');
-}
+};
 
 onMounted(async () => {
   clearCursor();
   resetFilterDateRange();
   resetSubscriberFilterOptions();
   await cleanSubscriberCursor();
- await fetchAllSubscriber();
-})
+  await fetchAllSubscriber();
+});
 </script>
 
 <template>

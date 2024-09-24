@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useColorMode } from '#imports'
-import { Button } from '@/components/ui/button'
-const colorMode = useColorMode()
+import { useColorMode } from '#imports';
+import { Button } from '@/components/ui/button';
+const colorMode = useColorMode();
 
 const toggleDark = () => {
-  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-}
+  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark';
+};
 </script>
 
 <template>

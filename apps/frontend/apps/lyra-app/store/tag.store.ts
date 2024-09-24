@@ -1,13 +1,13 @@
-import { useNuxtApp } from "#app";
-import { ref } from "vue";
-import { defineStore } from "pinia";
-import { useWorkspaceStore } from "~/store/workspace.store";
-import { OrganizationId } from "~/domain/organization";
-import type {CreateTagRequest, UpdateTagRequest} from "~/domain/tag";
-import type { TagResponse } from "~/domain/tag/TagResponse"; // Adjust the path if necessary
-import TagId from "~/domain/tag/TagId";
+import { useNuxtApp } from '#app';
+import { ref } from 'vue';
+import { defineStore } from 'pinia';
+import { useWorkspaceStore } from '~/store/workspace.store';
+import { OrganizationId } from '~/domain/organization';
+import type { CreateTagRequest, UpdateTagRequest } from '~/domain/tag';
+import type { TagResponse } from '~/domain/tag/TagResponse'; // Adjust the path if necessary
+import TagId from '~/domain/tag/TagId';
 
-export const useTagStore = defineStore("tag", () => {
+export const useTagStore = defineStore('tag', () => {
   const { $api } = useNuxtApp();
   const tags = ref<TagResponse[]>([]);
 
@@ -23,14 +23,18 @@ export const useTagStore = defineStore("tag", () => {
     }
   };
 
-  const updateTag = async (organizationId: OrganizationId,tagId: TagId, request: UpdateTagRequest) => {
+  const updateTag = async (
+    organizationId: OrganizationId,
+    tagId: TagId,
+    request: UpdateTagRequest,
+  ) => {
     try {
       const orgId = organizationId || workspaceStore.getCurrentOrganizationId();
       await $api.tag.updateTag(orgId, tagId, request);
     } catch (error) {
       console.error(`updateTag error:${error}`);
     }
-  }
+  };
 
   const fetchTags = async (organizationId: OrganizationId) => {
     try {
@@ -49,13 +53,13 @@ export const useTagStore = defineStore("tag", () => {
     } catch (error) {
       console.error(`deleteTag error:${error}`);
     }
-  }
+  };
 
   return {
     tags,
     createTag,
     updateTag,
     fetchTags,
-    deleteTag
+    deleteTag,
   };
-})
+});

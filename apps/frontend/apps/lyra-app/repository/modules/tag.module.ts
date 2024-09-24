@@ -1,20 +1,16 @@
-import Routes from "../routes.client";
+import Routes from '../routes.client';
 
-import SecureFetchFactory from "~/repository/secure.factory";
-import type {DataResponse} from "@lyra/shared";
-import {OrganizationId} from "~/domain/organization";
-import type TagId from "~/domain/tag/TagId";
-import type {CreateTagRequest, UpdateTagRequest} from "~/domain/tag";
-import type { TagResponse } from "~/domain/tag/TagResponse";
+import SecureFetchFactory from '~/repository/secure.factory';
+import type { DataResponse } from '@lyra/shared';
+import { OrganizationId } from '~/domain/organization';
+import type TagId from '~/domain/tag/TagId';
+import type { CreateTagRequest, UpdateTagRequest } from '~/domain/tag';
+import type { TagResponse } from '~/domain/tag/TagResponse';
 
 class TagModule extends SecureFetchFactory {
   private readonly RESOURCE = Routes.Tag;
 
-  async createTag(
-    organizationId: OrganizationId,
-    tagId: TagId,
-    request: CreateTagRequest,
-  ) {
+  async createTag(organizationId: OrganizationId, tagId: TagId, request: CreateTagRequest) {
     const headers = await this.buildHeaders();
     return this.call<void>({
       method: 'PUT',
@@ -25,15 +21,15 @@ class TagModule extends SecureFetchFactory {
           ...headers,
           ...(this.accessToken
             ? {
-              Authorization: `Bearer ${this.accessToken}`,
-            }
+                Authorization: `Bearer ${this.accessToken}`,
+              }
             : {}),
         },
       },
     });
   }
 
-  async fetchAllTags(organizationId: OrganizationId) : Promise<DataResponse<TagResponse>> {
+  async fetchAllTags(organizationId: OrganizationId): Promise<DataResponse<TagResponse>> {
     const headers = await this.buildHeaders();
     return this.call<DataResponse<TagResponse>>({
       method: 'GET',
@@ -43,19 +39,15 @@ class TagModule extends SecureFetchFactory {
           ...headers,
           ...(this.accessToken
             ? {
-              Authorization: `Bearer ${this.accessToken}`,
-            }
+                Authorization: `Bearer ${this.accessToken}`,
+              }
             : {}),
         },
       },
     });
   }
 
-  async updateTag(
-    organizationId: OrganizationId,
-    tagId: TagId,
-    request: UpdateTagRequest,
-  ) {
+  async updateTag(organizationId: OrganizationId, tagId: TagId, request: UpdateTagRequest) {
     const headers = await this.buildHeaders();
     return this.call<void>({
       method: 'PUT',
@@ -66,8 +58,8 @@ class TagModule extends SecureFetchFactory {
           ...headers,
           ...(this.accessToken
             ? {
-              Authorization: `Bearer ${this.accessToken}`,
-            }
+                Authorization: `Bearer ${this.accessToken}`,
+              }
             : {}),
         },
       },
@@ -84,8 +76,8 @@ class TagModule extends SecureFetchFactory {
           ...headers,
           ...(this.accessToken
             ? {
-              Authorization: `Bearer ${this.accessToken}`,
-            }
+                Authorization: `Bearer ${this.accessToken}`,
+              }
             : {}),
         },
       },

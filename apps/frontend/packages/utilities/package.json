@@ -22,14 +22,8 @@
       }
     }
   },
-  "files": [
-    "package.json",
-    "dist"
-  ],
-  "keywords": [
-    "lyra",
-    "utilities"
-  ],
+  "files": ["package.json", "dist"],
+  "keywords": ["lyra", "utilities"],
   "repository": {
     "type": "git",
     "url": "https://github.com/dallay/lyra.git",

@@ -1,32 +1,31 @@
 <script setup lang="ts">
-import type { Column } from '@tanstack/vue-table'
-import type {Subscriber} from '@/domain/subscriber';
-import {ArrowDownIcon, ArrowUpIcon, CaretSortIcon, EyeNoneIcon} from '@radix-icons/vue'
+import type { Column } from '@tanstack/vue-table';
+import type { Subscriber } from '@/domain/subscriber';
+import { ArrowDownIcon, ArrowUpIcon, CaretSortIcon, EyeNoneIcon } from '@radix-icons/vue';
 
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { useSubscriberStore} from "~/store/subscriber.store";
-import { useSubscriberFilterStore } from "~/store/subscriber.filter.store";
+} from '@/components/ui/dropdown-menu';
+import { useSubscriberStore } from '~/store/subscriber.store';
+import { useSubscriberFilterStore } from '~/store/subscriber.filter.store';
 
 const subscriberFilterStore = useSubscriberFilterStore();
 const { setSubscriberFilterSort, cleanSubscriberCursor } = subscriberFilterStore;
 const subscriberStore = useSubscriberStore();
 const { fetchAllSubscriber } = subscriberStore;
 
-
 interface DataTableColumnHeaderProps {
-  column: Column<Subscriber, unknown>
-  title: string
+  column: Column<Subscriber, unknown>;
+  title: string;
 }
 
-const props = defineProps<DataTableColumnHeaderProps>()
+const props = defineProps<DataTableColumnHeaderProps>();
 const sortColumn = async (direction: 'asc' | 'desc') => {
   await cleanSubscriberCursor();
   setSubscriberFilterSort({ field: props.column.id, direction });

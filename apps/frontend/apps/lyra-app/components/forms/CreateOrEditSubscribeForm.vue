@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {defineEmits, defineProps, ref} from 'vue'
-import {useForm} from 'vee-validate'
-import {toTypedSchema} from '@vee-validate/zod'
-import * as z from 'zod'
-import {vAutoAnimate} from '@formkit/auto-animate/vue'
-import {Button} from '~/components/ui/button'
+import { defineEmits, defineProps, ref } from 'vue';
+import { useForm } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/zod';
+import * as z from 'zod';
+import { vAutoAnimate } from '@formkit/auto-animate/vue';
+import { Button } from '~/components/ui/button';
 import {
   FormControl,
   FormDescription,
@@ -12,27 +12,27 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '~/components/ui/form'
-import {Input} from '~/components/ui/input'
-import {toast} from '~/components/ui/toast'
-import {Separator} from '~/components/ui/separator'
-import {cn} from "~/lib/utils";
-import {useFormStore} from "~/store/form.store";
-import {useWorkspaceStore} from "~/store/workspace.store";
-import {storeToRefs} from "pinia";
-import {CreateFormRequest, FormId, FormResponse} from "~/domain/forms";
+} from '~/components/ui/form';
+import { Input } from '~/components/ui/input';
+import { toast } from '~/components/ui/toast';
+import { Separator } from '~/components/ui/separator';
+import { cn } from '~/lib/utils';
+import { useFormStore } from '~/store/form.store';
+import { useWorkspaceStore } from '~/store/workspace.store';
+import { storeToRefs } from 'pinia';
+import { CreateFormRequest, FormId, FormResponse } from '~/domain/forms';
 
-const formStore = useFormStore()
-const workspaceStore = useWorkspaceStore()
-const {selectedTeam} = storeToRefs(workspaceStore)
+const formStore = useFormStore();
+const workspaceStore = useWorkspaceStore();
+const { selectedTeam } = storeToRefs(workspaceStore);
 
 interface SubscribeFormProps {
-  form: FormResponse | null
+  form: FormResponse | null;
 }
 
 const props = defineProps<SubscribeFormProps>();
 const emit = defineEmits<{
-  (evt: 'close'): void
+  (evt: 'close'): void;
 }>();
 
 const defaultsConfig = {
@@ -45,37 +45,71 @@ const defaultsConfig = {
   backgroundColor: '#d7d516',
   textColor: '#000000',
   buttonTextColor: '#ffffff',
-}
+};
 
-const formSchema = toTypedSchema(z.object({
-  name: z.string().min(2).max(50).default(props.form?.name || ''),
-  header: z.string().max(100).default(props.form?.header || defaultsConfig.header),
-  description: z.string().max(200).default(props.form?.description || defaultsConfig.description),
-  inputPlaceholder: z.string().max(50).default(props.form?.inputPlaceholder || defaultsConfig.inputPlaceholder),
-  buttonText: z.string().max(50).default(props.form?.buttonText || defaultsConfig.buttonText),
-  buttonColor: z.string().max(50).default(props.form?.buttonColor || defaultsConfig.buttonColor),
-  backgroundColor: z.string().max(50).default(props.form?.backgroundColor || defaultsConfig.backgroundColor),
-  textColor: z.string().max(50).default(props.form?.textColor || defaultsConfig.textColor),
-  buttonTextColor: z.string().max(50).default(props.form?.buttonTextColor || defaultsConfig.buttonTextColor),
-}))
+const formSchema = toTypedSchema(
+  z.object({
+    name: z
+      .string()
+      .min(2)
+      .max(50)
+      .default(props.form?.name || ''),
+    header: z
+      .string()
+      .max(100)
+      .default(props.form?.header || defaultsConfig.header),
+    description: z
+      .string()
+      .max(200)
+      .default(props.form?.description || defaultsConfig.description),
+    inputPlaceholder: z
+      .string()
+      .max(50)
+      .default(props.form?.inputPlaceholder || defaultsConfig.inputPlaceholder),
+    buttonText: z
+      .string()
+      .max(50)
+      .default(props.form?.buttonText || defaultsConfig.buttonText),
+    buttonColor: z
+      .string()
+      .max(50)
+      .default(props.form?.buttonColor || defaultsConfig.buttonColor),
+    backgroundColor: z
+      .string()
+      .max(50)
+      .default(props.form?.backgroundColor || defaultsConfig.backgroundColor),
+    textColor: z
+      .string()
+      .max(50)
+      .default(props.form?.textColor || defaultsConfig.textColor),
+    buttonTextColor: z
+      .string()
+      .max(50)
+      .default(props.form?.buttonTextColor || defaultsConfig.buttonTextColor),
+  }),
+);
 
-const {isFieldDirty, handleSubmit} = useForm({
+const { isFieldDirty, handleSubmit } = useForm({
   validationSchema: formSchema,
-})
+});
 
-const loading = ref(false)
+const loading = ref(false);
 
 const onSubmit = handleSubmit(async (values) => {
   loading.value = true;
   const teamId = selectedTeam.value?.teamId;
-  const workspace  = workspaceStore.getWorkspaceByTeamId(teamId ?? '');
+  const workspace = workspaceStore.getWorkspaceByTeamId(teamId ?? '');
   const organizationId = workspace?.organizationId;
 
   if (!organizationId) return;
 
   const formAction: Promise<void> = props.form
-    ? formStore.updateForm(FormId.create(props.form.id), {...values, organizationId})
-    : formStore.createForm({ ...values, id: crypto.randomUUID(), organizationId } as CreateFormRequest);
+    ? formStore.updateForm(FormId.create(props.form.id), { ...values, organizationId })
+    : formStore.createForm({
+        ...values,
+        id: crypto.randomUUID(),
+        organizationId,
+      } as CreateFormRequest);
 
   formAction
     .then(() => {

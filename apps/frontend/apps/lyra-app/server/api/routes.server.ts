@@ -1,10 +1,10 @@
 export const Routes = {
-  another:{
-    name:'/api/another',
-    regex:/^\/api\/another$/
+  another: {
+    name: '/api/another',
+    regex: /^\/api\/another$/,
   },
-  core:{
-    name:'/api',
-    regex:/^\/api\//
-  }
-}
+  core: {
+    name: '/api',
+    regex: /^\/api\//,
+  },
+};

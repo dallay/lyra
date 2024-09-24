@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.dao.DuplicateKeyException
+import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.dao.TransientDataAccessResourceException
 
 @UnitTest
@@ -121,5 +122,50 @@ internal class TagR2dbcRepositoryTest {
         val result = tagR2dbcRepository.findById(tag.organizationId, tag.id)
 
         assertEquals(null, result)
+    }
+
+    @Test
+    fun `should delete a tag successfully`() = runBlocking {
+        val organizationId = tags.first().organizationId
+        val tagId = tags.first().id
+        coEvery {
+            tagReactiveR2dbcRepository.deleteByOrganizationIdAndId(
+                any(),
+                any(),
+            )
+        } returns Unit
+
+        tagR2dbcRepository.delete(organizationId, tagId)
+
+        coVerify(exactly = 1) {
+            tagReactiveR2dbcRepository.deleteByOrganizationIdAndId(
+                organizationId.value,
+                tagId.value,
+            )
+        }
+    }
+
+    @Test
+    fun `should throw TagException when deleting a tag fails`() = runBlocking {
+        val organizationId = tags.first().organizationId
+        val tagId = tags.first().id
+        coEvery {
+            tagReactiveR2dbcRepository.deleteByOrganizationIdAndId(
+                any(),
+                any(),
+            )
+        } throws EmptyResultDataAccessException(1)
+
+        val exception = org.junit.jupiter.api.assertThrows<TagException> {
+            tagR2dbcRepository.delete(organizationId, tagId)
+        }
+
+        assertEquals("Error deleting tag", exception.message)
+        coVerify(exactly = 1) {
+            tagReactiveR2dbcRepository.deleteByOrganizationIdAndId(
+                organizationId.value,
+                tagId.value,
+            )
+        }
     }
 }

@@ -51,5 +51,10 @@ interface TagReactiveR2dbcRepository :
             ORDER BY t.created_at DESC
         """,
     )
-    suspend fun findByIdWithSubscribers(organizationId: UUID, tagId: UUID): TagWithSubscribersEntity?
+    suspend fun findByIdWithSubscribers(
+        organizationId: UUID,
+        tagId: UUID
+    ): TagWithSubscribersEntity?
+
+    suspend fun deleteByOrganizationIdAndId(organizationId: UUID, tagId: UUID)
 }

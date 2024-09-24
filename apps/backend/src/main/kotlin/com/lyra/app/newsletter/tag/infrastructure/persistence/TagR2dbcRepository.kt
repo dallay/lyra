@@ -38,6 +38,10 @@ class TagR2dbcRepository(private val tagReactiveR2dbcRepository: TagReactiveR2db
         }
     }
 
+    /**
+     * Updates a tag in the repository.
+     * @param tag The Tag entity to be updated.
+     */
     override suspend fun update(tag: Tag) {
         log.debug("Updating tag with id {}", tag.id)
         try {
@@ -45,6 +49,22 @@ class TagR2dbcRepository(private val tagReactiveR2dbcRepository: TagReactiveR2db
         } catch (e: org.springframework.dao.TransientDataAccessResourceException) {
             log.error("Error updating tag with id: ${tag.id.value}")
             throw TagException("Error updating tag", e)
+        }
+    }
+
+    /**
+     * Deletes a tag from the repository.
+     *
+     * @param organizationId The ID of the organization to which the tag belongs.
+     * @param tagId The ID of the Tag entity to be deleted.
+     */
+    override suspend fun delete(organizationId: OrganizationId, tagId: TagId) {
+        log.debug("Deleting tag with id {} for organization {}", tagId.value, organizationId.value)
+        try {
+            tagReactiveR2dbcRepository.deleteByOrganizationIdAndId(organizationId.value, tagId.value)
+        } catch (e: org.springframework.dao.EmptyResultDataAccessException) {
+            log.error("Error deleting tag with id: ${tagId.value}")
+            throw TagException("Error deleting tag", e)
         }
     }
 

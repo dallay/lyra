@@ -42,10 +42,20 @@ export const useTagStore = defineStore("tag", () => {
     }
   };
 
+  const deleteTag = async (organizationId: OrganizationId, tagId: TagId) => {
+    try {
+      const orgId = organizationId || workspaceStore.getCurrentOrganizationId();
+      await $api.tag.deleteTag(orgId, tagId);
+    } catch (error) {
+      console.error(`deleteTag error:${error}`);
+    }
+  }
+
   return {
     tags,
     createTag,
     updateTag,
     fetchTags,
+    deleteTag
   };
 })

@@ -73,6 +73,24 @@ class TagModule extends SecureFetchFactory {
       },
     });
   }
+
+  async deleteTag(organizationId: OrganizationId, tagId: TagId) {
+    const headers = await this.buildHeaders();
+    return this.call<void>({
+      method: 'DELETE',
+      url: `${this.RESOURCE.DeleteTag(organizationId, tagId)}`,
+      fetchOptions: {
+        headers: {
+          ...headers,
+          ...(this.accessToken
+            ? {
+              Authorization: `Bearer ${this.accessToken}`,
+            }
+            : {}),
+        },
+      },
+    });
+  }
 }
 
 export default TagModule;

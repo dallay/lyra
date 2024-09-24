@@ -24,9 +24,10 @@ import { TagColors, Tag } from "~/domain/tag";
 import { useTagStore } from "~/store/tag.store";
 import { useWorkspaceStore } from "~/store/workspace.store";
 import { storeToRefs } from "pinia";
+import TagId from "~/domain/tag/TagId";
 const tagStore = useTagStore();
 const { tags } = storeToRefs(tagStore);
-const { fetchTags } = tagStore;
+const { fetchTags, deleteTag } = tagStore;
 const workspaceStore = useWorkspaceStore();
 
 const openSheet = ref(false);
@@ -49,11 +50,13 @@ const editTag = (id: string) => {
   openSheet.value = true;
 };
 
-const deleteTag = (id: string) => {
-  const tag = tags.value.find((tag) => tag.id === id);
-  if (!tag) return;
-  const index = tags.value.indexOf(tag);
-  tags.value.splice(index, 1);
+const deleteTagById = async (tag: Tag) => {
+  const tagId = TagId.create(tag.id)
+  const organizationId = workspaceStore.getCurrentOrganizationId();
+  if (!organizationId) return;
+
+  await deleteTag(organizationId, tagId);
+  await fetchOrganizationTags();
 };
 
 const close = () => {
@@ -136,7 +139,7 @@ onMounted(async() => {
                       <DropdownMenuItem @click="editTag(tag.id)">
                         Edit
                       </DropdownMenuItem>
-                      <DropdownMenuItem @click="deleteTag(tag.id)">
+                      <DropdownMenuItem @click="deleteTagById(tag)">
                         Delete
                       </DropdownMenuItem>
                     </DropdownMenuContent>

@@ -188,9 +188,6 @@ const onSubmit = form.handleSubmit(async (values) => {
         <FormMessage />
       </FormItem>
     </FormField>
-    {{ currentTag }}
-    <br />
-    {{ form.values }}
     <div class="absolute bottom-2 right-2 w-full space-y-3">
       <Separator />
       <div class="flex justify-end space-x-2">

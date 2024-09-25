@@ -89,7 +89,6 @@ runs:
       uses: github/codeql-action/upload-sarif@v3
       if: success() || failure()
       with:
-        token: ${{ inputs.ci_github_token }}
         sarif_file: 'trivy-results-oci-image.sarif'
         category: container-scanning
 

@@ -85,12 +85,6 @@ runs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
 
-    - name: 🟢 Upload vulnerability report as artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: trivy-results-oci-image
-        path: trivy-results-oci-image.sarif
-
     - name: 🟢 Upload vulnerability report
       uses: github/codeql-action/upload-sarif@v3
       if: success() || failure()

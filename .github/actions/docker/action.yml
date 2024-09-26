@@ -76,6 +76,31 @@ runs:
         ./gradlew bootBuildImage --imageName ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
       shell: bash
 
+    - name: Build Docker image for lyra-app
+      run: |
+        docker build . --target lyra-app \
+          --cache-from=type=registry,ref=${{ inputs.registry }}/${{ inputs.image_name }}-app:${{ inputs.version }} \
+          --tag ${{ inputs.registry }}/${{ inputs.image_name }}-app:${{ inputs.version }}
+        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}-app:${{ inputs.version }} \
+          ${{ inputs.registry }}/${{ inputs.image_name }}-app:latest
+      shell: bash
+
+    - name: Build Docker image for lyra-landing-page
+      run: |
+        docker build . --target lyra-landing-page \
+          --cache-from=type=registry,ref=${{ inputs.registry }}/${{ inputs.image_name }}-landing-page:${{ inputs.version }} \
+          --tag ${{ inputs.registry }}/${{ inputs.image_name }}-landing-page:${{ inputs.version }}
+        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}-landing-page:${{ inputs.version }} \
+          ${{ inputs.registry }}/${{ inputs.image_name }}-landing-page:latest
+      shell: bash
+
+    - name: Log in to container registries
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ inputs.registry }}
+        username: ${{ github.actor }}
+        password: ${{ inputs.ci_github_token }}
+
     - name: OCI image vulnerability scanning
       uses: aquasecurity/trivy-action@0.20.0
       with:
@@ -92,52 +117,44 @@ runs:
         sarif_file: 'trivy-results-oci-image.sarif'
         category: container-scanning
 
-    - name: Log into container registry GHCR
-      uses: docker/login-action@v3
-      with:
-        registry: ${{ inputs.registry }}
-        username: ${{ github.actor }}
-        password: ${{ inputs.ci_github_token }}
-
     - name: Publish container image to GHCR
       if: ${{ inputs.deliver }}
       run: |
-        docker push ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
-        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} \
-            ${{ inputs.registry }}/${{ inputs.image_name }}:latest
-          docker push ${{ inputs.registry }}/${{ inputs.image_name }}:latest
+        APP_IMAGE=${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
+        LATEST_IMAGE=${{ inputs.registry }}/${{ inputs.image_name }}:latest
+        docker push $APP_IMAGE
+        docker tag $APP_IMAGE $LATEST_IMAGE
+        docker push $LATEST_IMAGE
       shell: bash
 
     - name: Publish non-production container image to container registry
       if: ${{ !inputs.deliver }}
       run: |
-        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} \
-                    ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.non_prod_tag }}
-                  docker push ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.non_prod_tag }}
+        APP_IMAGE=${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
+        NON_PROD_IMAGE=${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.non_prod_tag }}
+        docker tag $APP_IMAGE $NON_PROD_IMAGE
+        docker push $NON_PROD_IMAGE
       shell: bash
-
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ inputs.docker_username }}
-        password: ${{ inputs.docker_password }}
 
     - name: Publish container image to Docker Hub
       if: ${{ inputs.deliver }}
       run: |
-        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:${{ inputs.version }}
-        docker push ${{ inputs.docker_hub_image}}:${{ inputs.version }}
-        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:latest
-        docker push ${{ inputs.docker_hub_image}}:latest
+        APP_IMAGE=${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
+        HUB_IMAGE=${{ inputs.docker_hub_image }}:${{ inputs.version }}
+        LATEST_HUB_IMAGE=${{ inputs.docker_hub_image }}:latest
+        docker tag $APP_IMAGE $HUB_IMAGE
+        docker push $HUB_IMAGE
+        docker tag $APP_IMAGE $LATEST_HUB_IMAGE
+        docker push $LATEST_HUB_IMAGE
       shell: bash
 
     - name: Publish non-production container image to Docker Hub
       if: ${{ !inputs.deliver }}
       run: |
-        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:${{ inputs.version }}
-        docker push ${{ inputs.docker_hub_image}}:${{ inputs.version }}
-        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:${{ inputs.non_prod_tag }}
-        docker push ${{ inputs.docker_hub_image}}:${{ inputs.non_prod_tag }}
+        APP_IMAGE=${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
+        NON_PROD_HUB_IMAGE=${{ inputs.docker_hub_image }}:${{ inputs.non_prod_tag }}
+        docker tag $APP_IMAGE $NON_PROD_HUB_IMAGE
+        docker push $NON_PROD_HUB_IMAGE
       shell: bash
 
     - name: Deliver application to production

@@ -87,7 +87,7 @@ runs:
         github-token: ${{ inputs.ci_github_token }}
         cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image_name }}-app:cache
         cache-to: type=inline
-        push: true
+        push: ${{ github.event_name != 'pull_request' }}
         tags: |
           ${{ inputs.registry }}/${{ inputs.image_name }}-app:${{ inputs.version }}
           ${{ inputs.registry }}/${{ inputs.image_name }}-app:latest
@@ -102,7 +102,7 @@ runs:
         github-token: ${{ inputs.ci_github_token }}
         cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image_name }}-landing-page:cache
         cache-to: type=inline
-        push: true
+        push: ${{ github.event_name != 'pull_request' }}
         tags: |
           ${{ inputs.registry }}/${{ inputs.image_name }}-landing-page:${{ inputs.version }}
           ${{ inputs.registry }}/${{ inputs.image_name }}-landing-page:latest

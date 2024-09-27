@@ -12,7 +12,6 @@ env:
   CI: CI
   NATIVE_IMAGE_ENABLED: enabled
   CI_GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
-  DEPLOY_REPO: ${{ github.event.repository.name }}
   NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
 
 permissions:
@@ -147,7 +146,6 @@ jobs:
           image_name: ${{ env.IMAGE_NAME }}
           version: ${{ github.sha }}
           ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
-          deploy_repo: ${{ env.DEPLOY_REPO }}
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}

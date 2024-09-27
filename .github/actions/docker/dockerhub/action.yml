@@ -27,6 +27,9 @@ inputs:
     description: 'Non production docker image tag'
     required: false
     default: 'nightly'
+  tag:
+    description: 'Tag from metadata action'
+    required: true
 
 runs:
   using: composite
@@ -37,20 +40,16 @@ runs:
         username: ${{ inputs.docker_username }}
         password: ${{ inputs.docker_password }}
 
-    - name: Publish container image to Docker Hub
-      if: ${{ inputs.deliver }}
+    - name: Push container image to Docker Hub
       run: |
-        docker tag docker.io/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:${{ inputs.version }}
-        docker push ${{ inputs.docker_hub_image}}:${{ inputs.version }}
-        docker tag docker.io/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:latest
-        docker push ${{ inputs.docker_hub_image}}:latest
+        docker tag base/${{ inputs.image_name }}:latest docker.io/${{ inputs.docker_hub_image }}:${{ inputs.tag }}
+        docker push docker.io/${{ inputs.docker_hub_image }}:${{ inputs.tag }}
       shell: bash
 
-    - name: Publish non-production container image to Docker Hub
+    - name: Push non-production container image to Docker Hub
       if: ${{ !inputs.deliver }}
       run: |
-        docker tag docker.io/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:${{ inputs.version }}
-        docker push ${{ inputs.docker_hub_image}}:${{ inputs.version }}
-        docker tag docker.io/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:${{ inputs.non_prod_tag }}
-        docker push ${{ inputs.docker_hub_image}}:${{ inputs.non_prod_tag }}
+        docker tag base/${{ inputs.image_name }}:latest \
+                    docker.io/${{ inputs.docker_hub_image }}:${{ inputs.non_prod_tag }}
+        docker push docker.io/${{ inputs.docker_hub_image }}:${{ inputs.non_prod_tag }}
       shell: bash

@@ -16,13 +16,13 @@ inputs:
   ci_github_token:
     description: 'GITHUB_TOKEN with permissions to push to the container registry'
     required: true
-  deploy_repo:
-    description: 'The name of the repository to deploy the application to'
-    required: true
   non_prod_tag:
     description: 'Non production docker image tag'
     required: false
     default: 'nightly'
+  tag:
+    description: 'Tag from metadata action'
+    required: true
 
 runs:
   using: composite
@@ -30,7 +30,7 @@ runs:
     - name: OCI image vulnerability scanning
       uses: aquasecurity/trivy-action@0.20.0
       with:
-        image-ref: ghcr.io/${{ inputs.image_name }}:${{ inputs.version }}
+        image-ref: ghcr.io/${{ inputs.image_name }}:${{ inputs.tag }}
         format: 'sarif'
         output: 'trivy-results-oci-image.sarif'
         vuln-type: 'os,library'
@@ -38,7 +38,6 @@ runs:
 
     - name: Upload vulnerability report
       uses: github/codeql-action/upload-sarif@v3
-      if: success() || failure()
       with:
         sarif_file: 'trivy-results-oci-image.sarif'
 
@@ -49,32 +48,16 @@ runs:
         username: ${{ github.actor }}
         password: ${{ inputs.ci_github_token }}
 
-    - name: Publish container image to GHCR
-      if: ${{ inputs.deliver }}
+    - name: Push container image to GHCR
       run: |
-        docker push ghcr.io/${{ inputs.image_name }}:${{ inputs.version }}
-        docker tag ghcr.io/${{ inputs.image_name }}:${{ inputs.version }} \
-            ghcr.io/${{ inputs.image_name }}:latest
-        docker push ghcr.io/${{ inputs.image_name }}:latest
+        docker tag base/${{ inputs.image_name }}:latest ghcr.io/${{ inputs.image_name }}:${{ inputs.tag }}
+        docker push ghcr.io/${{ inputs.image_name }}:${{ inputs.tag }}
       shell: bash
 
-    - name: Publish non-production container image to GHCR ${{ github.repository }}
+    - name: Push non-production container image to GHCR
       if: ${{ !inputs.deliver }}
       run: |
-        docker tag ghcr.io/${{ inputs.image_name }}:${{ inputs.version }} \
+        docker tag base/${{ inputs.image_name }}:latest \
                     ghcr.io/${{ inputs.image_name }}:${{ inputs.non_prod_tag }}
         docker push ghcr.io/${{ inputs.image_name }}:${{ inputs.non_prod_tag }}
       shell: bash
-
-    - name: Deliver application to production ${{ github.repository }}
-      if: ${{ inputs.deliver }}
-      uses: peter-evans/repository-dispatch@v3
-      with:
-        token: ${{ inputs.ci_github_token }}
-        repository: ${{ github.repository }}
-        event-type: app_delivery
-        client-payload: '{
-          "app_image": "ghcr.io/${{ github.repository }}",
-          "app_name": "${{ inputs.app_repo }}",
-          "app_version": "${{ inputs.version }}"
-        }'

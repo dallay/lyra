@@ -1,18 +1,7 @@
 name: Package and Publish 📦
 description: |
   This workflow is responsible for packaging and publishing the application
-  to the container registry.
-
-  It also performs vulnerability scanning on the OCI image.
-
-  The workflow is triggered after the build stage.
-
-  The workflow is responsible for the following:
-  - Install Java Tools & Dependencies
-  - Execute Gradle build
-  - OCI image vulnerability scanning
-  - Upload vulnerability report
-  - Log in to Docker Hub
+  to the container registry. It also performs vulnerability scanning.
 
 inputs:
   deliver:
@@ -41,9 +30,6 @@ inputs:
   gradle-encryption-key:
     description: 'The encryption key to use for the gradle cache'
     required: true
-  deploy_repo:
-    description: 'The name of the repository to deploy the application to'
-    required: true
   docker_hub_image:
     description: 'Docker hub image name'
     required: false
@@ -52,7 +38,6 @@ inputs:
     description: 'Non production docker image tag'
     required: false
     default: 'nightly'
-
 
 runs:
   using: composite
@@ -67,48 +52,28 @@ runs:
       run: |
         chmod +x gradlew
         ./gradlew assemble
-        ./gradlew bootBuildImage --imageName ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
+        ./gradlew bootBuildImage --imageName base/${{ inputs.image_name }}:latest
       shell: bash
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Build the ${{ github.repository }}" Docker image
+    - name: Authenticate and Log into Registries
       run: |
-        echo $CR_PAT | docker login ghcr.io -u dallay --password-stdin
-      env:
-        CR_PAT: ${{ inputs.ci_github_token }}
+        echo ${{ inputs.ci_github_token }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        echo ${{ inputs.docker_password }} | docker login docker.io -u ${{ inputs.docker_username }} --password-stdin
       shell: bash
 
-    - name: Build and push Docker image for lyra-app
-      uses: docker/build-push-action@v6
+    - name: Extract Docker Metadata
+      uses: docker/metadata-action@v5
+      id: meta
       with:
-        context: .
-        target: lyra-app
-        github-token: ${{ inputs.ci_github_token }}
-        cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image_name }}-app:cache
-        cache-to: type=inline
-        push: ${{ github.event_name != 'pull_request' }}
+        images: |
+          ghcr.io/${{ inputs.image_name }}
+          docker.io/${{ inputs.docker_hub_image }}
         tags: |
-          ${{ inputs.registry }}/${{ inputs.image_name }}-app:${{ inputs.version }}
-          ${{ inputs.registry }}/${{ inputs.image_name }}-app:latest
-        secrets: |
-          GIT_AUTH_TOKEN=${{ inputs.ci_github_token }}
-
-    - name: Build and push Docker image for lyra-landing-page
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        target: lyra-landing-page
-        github-token: ${{ inputs.ci_github_token }}
-        cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image_name }}-landing-page:cache
-        cache-to: type=inline
-        push: ${{ github.event_name != 'pull_request' }}
-        tags: |
-          ${{ inputs.registry }}/${{ inputs.image_name }}-landing-page:${{ inputs.version }}
-          ${{ inputs.registry }}/${{ inputs.image_name }}-landing-page:latest
-        secrets: |
-          GIT_AUTH_TOKEN=${{ inputs.ci_github_token }}
+          type=semver,pattern={{version}}
+          type=ref,event=branch,pattern={{sha}}
 
     - name: Publish to GHCR 📦
       uses: ./.github/actions/docker/ghcr
@@ -117,8 +82,8 @@ runs:
         image_name: ${{ inputs.image_name }}
         version: ${{ inputs.version }}
         ci_github_token: ${{ inputs.ci_github_token }}
-        deploy_repo: ${{ inputs.deploy_repo }}
         non_prod_tag: ${{ inputs.non_prod_tag }}
+        tag: ${{ steps.meta.outputs.tags }}
 
     - name: Publish to Docker Hub 📦
       uses: ./.github/actions/docker/dockerhub
@@ -130,3 +95,4 @@ runs:
         version: ${{ inputs.version }}
         docker_hub_image: ${{ inputs.docker_hub_image }}
         non_prod_tag: ${{ inputs.non_prod_tag }}
+        tag: ${{ steps.meta.outputs.tags }}

@@ -84,6 +84,7 @@ runs:
       with:
         context: .
         target: lyra-app
+        github-token: ${{ inputs.ci_github_token }}
         cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image_name }}-app:cache
         cache-to: type=inline
         push: true
@@ -96,6 +97,7 @@ runs:
       with:
         context: .
         target: lyra-landing-page
+        github-token: ${{ inputs.ci_github_token }}
         cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image_name }}-landing-page:cache
         cache-to: type=inline
         push: true

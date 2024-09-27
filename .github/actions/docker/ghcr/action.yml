@@ -51,7 +51,11 @@ runs:
     - name: Push container image to GHCR
       run: |
         docker tag base/${{ inputs.image_name }}:latest ghcr.io/${{ inputs.image_name }}:${{ inputs.tag }}
+        docker tag lyra-app:latest ghcr.io/${{ inputs.image_name }}-app:${{ inputs.tag }}
+        docker tag lyra-landing-page:latest ghcr.io/${{ inputs.image_name }}-landing-page:${{ inputs.tag }}
         docker push ghcr.io/${{ inputs.image_name }}:${{ inputs.tag }}
+        docker push ghcr.io/${{ inputs.image_name }}-app:${{ inputs.tag }}
+        docker push ghcr.io/${{ inputs.image_name }}-landing-page:${{ inputs.tag }}
       shell: bash
 
     - name: Push non-production container image to GHCR
@@ -59,5 +63,9 @@ runs:
       run: |
         docker tag base/${{ inputs.image_name }}:latest \
                     ghcr.io/${{ inputs.image_name }}:${{ inputs.non_prod_tag }}
+        docker tag lyra-app:latest ghcr.io/${{ inputs.image_name }}-app:${{ inputs.non_prod_tag }}
+        docker tag lyra-landing-page:latest ghcr.io/${{ inputs.image_name }}-landing-page:${{ inputs.non_prod_tag }}
         docker push ghcr.io/${{ inputs.image_name }}:${{ inputs.non_prod_tag }}
+        docker push ghcr.io/${{ inputs.image_name }}-app:${{ inputs.non_prod_tag }}
+        docker push ghcr.io/${{ inputs.image_name }}-landing-page:${{ inputs.non_prod_tag }}
       shell: bash

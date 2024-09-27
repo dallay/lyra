@@ -62,6 +62,8 @@ runs:
       run: |
         echo ${{ inputs.ci_github_token }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
         echo ${{ inputs.docker_password }} | docker login docker.io -u ${{ inputs.docker_username }} --password-stdin
+        docker build . --target lyra-app --tag lyra-app:latest
+        docker build . --target lyra-landing-page --tag lyra-landing-page:latest
       shell: bash
 
     - name: Extract Docker Metadata

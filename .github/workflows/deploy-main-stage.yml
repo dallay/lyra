@@ -10,7 +10,6 @@ env:
   CI: CI
   NATIVE_IMAGE_ENABLED: enabled
   CI_GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
-  DOCKER_CI_GITHUB_TOKEN: ${{ secrets.DOCKER_CI_GITHUB_TOKEN }}
   OWNER: ${{ github.repository_owner }}
   DEPLOY_REPO: ${{ github.event.repository.name }}
   NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
@@ -218,7 +217,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           image_name: ${{ env.IMAGE_NAME }}
           version: ${{ github.sha }}
-          ci_github_token: ${{ env.DOCKER_CI_GITHUB_TOKEN }}
+          ci_github_token: ${{ secrets.CI_GITHUB_TOKEN }}
           owner: ${{ env.OWNER }}
           app_repo: ${{ github.repository }}
           deploy_repo: ${{ env.DEPLOY_REPO }}

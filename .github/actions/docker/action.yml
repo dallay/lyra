@@ -18,7 +18,7 @@ inputs:
   deliver:
     description: 'Deliver application to production'
     required: true
-    default: true
+    default: 'true'
   registry:
     description: 'The container registry to push the image to'
     required: true
@@ -91,6 +91,8 @@ runs:
         tags: |
           ${{ inputs.registry }}/${{ inputs.image_name }}-app:${{ inputs.version }}
           ${{ inputs.registry }}/${{ inputs.image_name }}-app:latest
+        secrets: |
+          GIT_AUTH_TOKEN=${{ inputs.ci_github_token }}
 
     - name: Build and push Docker image for lyra-landing-page
       uses: docker/build-push-action@v6
@@ -104,6 +106,8 @@ runs:
         tags: |
           ${{ inputs.registry }}/${{ inputs.image_name }}-landing-page:${{ inputs.version }}
           ${{ inputs.registry }}/${{ inputs.image_name }}-landing-page:latest
+        secrets: |
+          GIT_AUTH_TOKEN=${{ inputs.ci_github_token }}
 
     - name: Publish to GHCR 📦
       uses: ./.github/actions/docker/ghcr

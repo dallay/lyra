@@ -83,7 +83,7 @@ runs:
       uses: docker/login-action@v3
       with:
         registry: ${{ inputs.registry }}
-        username: ${{ github.actor }}
+        username: ${{ inputs.docker_username }}
         password: ${{ inputs.ci_github_token }}
 
     - name: Build and push Docker image for lyra-app

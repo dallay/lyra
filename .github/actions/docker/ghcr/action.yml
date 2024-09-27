@@ -16,12 +16,6 @@ inputs:
   ci_github_token:
     description: 'GITHUB_TOKEN with permissions to push to the container registry'
     required: true
-  owner:
-    description: 'The owner of the repository'
-    required: true
-  app_repo:
-    description: 'The name of the application repository'
-    required: true
   deploy_repo:
     description: 'The name of the repository to deploy the application to'
     required: true
@@ -64,7 +58,7 @@ runs:
         docker push ghcr.io/${{ inputs.image_name }}:latest
       shell: bash
 
-    - name: Publish non-production container image to GHCR
+    - name: Publish non-production container image to GHCR ${{ github.repository }}
       if: ${{ !inputs.deliver }}
       run: |
         docker tag ghcr.io/${{ inputs.image_name }}:${{ inputs.version }} \
@@ -72,15 +66,15 @@ runs:
         docker push ghcr.io/${{ inputs.image_name }}:${{ inputs.non_prod_tag }}
       shell: bash
 
-    - name: Deliver application to production
+    - name: Deliver application to production ${{ github.repository }}
       if: ${{ inputs.deliver }}
       uses: peter-evans/repository-dispatch@v3
       with:
         token: ${{ inputs.ci_github_token }}
-        repository: ${{ inputs.owner }}/${{ inputs.deploy_repo }}
+        repository: ${{ github.repository }}
         event-type: app_delivery
         client-payload: '{
-          "app_image": "ghcr.io/${{ inputs.owner }}/${{ inputs.app_repo }}",
+          "app_image": "ghcr.io/${{ github.repository }}",
           "app_name": "${{ inputs.app_repo }}",
           "app_version": "${{ inputs.version }}"
         }'

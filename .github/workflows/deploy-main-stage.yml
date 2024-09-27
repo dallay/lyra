@@ -221,7 +221,6 @@ jobs:
           image_name: ${{ env.IMAGE_NAME }}
           version: ${{ github.sha }}
           ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
-          deploy_repo: ${{ env.DEPLOY_REPO }}
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}

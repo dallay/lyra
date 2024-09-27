@@ -79,6 +79,13 @@ runs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
+    - name: Build the hello-world Docker image
+      run: |
+        echo $CR_PAT | docker login ghcr.io -u dallay --password-stdin
+      env:
+        CR_PAT: ${{ inputs.ci_github_token }}
+      shell: bash
+
     - name: Build and push Docker image for lyra-app
       uses: docker/build-push-action@v6
       with:

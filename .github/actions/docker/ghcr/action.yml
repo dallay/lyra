@@ -20,9 +20,6 @@ inputs:
     description: 'Non production docker image tag'
     required: false
     default: 'nightly'
-  tags:
-    description: 'Tags from metadata action'
-    required: true
 
 runs:
   using: composite
@@ -51,18 +48,12 @@ runs:
     - name: Push container image to GHCR
       if: ${{ inputs.deliver }}
       run: |
-        for tag in ${{ inputs.tags }}; do
-          if [[ $tag == *"lyra-app"* ]]; then
-            docker tag lyra-app:latest ghcr.io/$tag
-            docker push ghcr.io/$tag
-          elif [[ $tag == *"lyra-landing-page"* ]]; then
-            docker tag lyra-landing-page:latest ghcr.io/$tag
-            docker push ghcr.io/$tag
-          elif [[ $tag == *"base"* ]]; then
-            docker tag base/${{ inputs.image_name }}:latest ghcr.io/$tag
-            docker push ghcr.io/$tag
-          fi
-        done
+        docker tag base/${{ inputs.image_name }}:latest ghcr.io/${{ inputs.image_name }}:${{ inputs.version }}
+        docker tag lyra-app:latest ghcr.io/${{ inputs.image_name }}-app:${{ inputs.version }}
+        docker tag lyra-landing-page:latest ghcr.io/${{ inputs.image_name }}-landing-page:${{ inputs.version }}
+        docker push ghcr.io/${{ inputs.image_name }}:${{ inputs.version }}
+        docker push ghcr.io/${{ inputs.image_name }}-app:${{ inputs.version }}
+        docker push ghcr.io/${{ inputs.image_name }}-landing-page:${{ inputs.version }}
       shell: bash
 
     - name: Push non-production container image to GHCR

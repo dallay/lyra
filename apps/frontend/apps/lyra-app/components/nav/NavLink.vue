@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type {LinkProp} from "./links-list";
-import {computed, defineProps, ref, withDefaults} from 'vue';
-import {cn} from '@/lib/utils';
-import {buttonVariants} from '@/components/ui/button';
-import {Collapsible, CollapsibleContent, CollapsibleTrigger} from '@/components/ui/collapsible';
-import {useRoute} from 'vue-router';
-import NavLinkContent from "~/components/nav/NavLinkContent.vue";
+import type { LinkProp } from './links-list';
+import { computed, defineProps, ref, withDefaults } from 'vue';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { useRoute } from 'vue-router';
+import NavLinkContent from '~/components/nav/NavLinkContent.vue';
 import { usePermissionCheck } from '@/composables/usePermissionCheck';
 
 const props = withDefaults(
@@ -30,7 +30,7 @@ const props = withDefaults(
     level: 0,
     open: false,
     isCollapsed: false,
-  }
+  },
 );
 
 const route = useRoute();
@@ -44,28 +44,26 @@ const isActiveLink = computed(() => {
 
 const computedClasses = computed(() => {
   const baseClasses = cn(
-    buttonVariants({variant: props.variant, size: props.isCollapsed ? 'icon' : 'sm'}),
-    'justify-start flex items-center'
+    buttonVariants({ variant: props.variant, size: props.isCollapsed ? 'icon' : 'sm' }),
+    'justify-start flex items-center',
   );
 
-  const variantClasses = props.variant === 'default'
-    ? 'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white'
-    : '';
+  const variantClasses =
+    props.variant === 'default'
+      ? 'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white'
+      : '';
 
   const stateClasses = isActiveLink.value
     ? 'font-bold text-primary-500 dark:text-primary-200 bg-muted'
     : '';
 
-
-  const collapsedClasses = props.isCollapsed
-    ? 'h-9 w-9 justify-center space-y-2'
-    : '';
+  const collapsedClasses = props.isCollapsed ? 'h-9 w-9 justify-center space-y-2' : '';
 
   return `${baseClasses} ${variantClasses} ${stateClasses} ${collapsedClasses}`.trim();
 });
 
 const paddingLeftStyle = computed(() => {
-  return !props.isCollapsed ? {paddingLeft: `${props.level}rem`} : undefined;
+  return !props.isCollapsed ? { paddingLeft: `${props.level}rem` } : undefined;
 });
 </script>
 

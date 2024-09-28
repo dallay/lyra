@@ -19,39 +19,38 @@
     "url": "https://github.com/dallay/lyra/issues"
   },
   "scripts": {
-    "dev": "print \"DEV: [🟢] Starting ${npm_package_name} in dev mode\" && astro dev",
-    "start": "print \"DEV: [🟢] Starting ${npm_package_name} in dev mode\" && astro dev",
-    "check": "print \"CHECK: [✅] Checking ${npm_package_name}\" && run-s build:utilities check:astro",
+    "dev": "print \"DEV: [🟢] Starting  in dev mode\" && astro dev",
+    "start": "print \"DEV: [🟢] Starting  in dev mode\" && astro dev",
+    "check": "print \"CHECK: [✅] Checking \" && run-s build:utilities check:astro",
     "check:astro": "astro check",
     "build:utilities": "pnpm --filter packages/utilities build",
     "build:astro": "astro build",
-    "build:all": "print \"BUILD: [🟢] Building ${npm_package_name}\" && run-s build:utilities build:astro",
+    "build:all": "print \"BUILD: [🟢] Building \" && run-s build:utilities build:astro",
     "build": "run-s check build:all",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
-    "@astrojs/vue": "^4.5.0",
-    "@fontsource-variable/onest": "^5.0.5",
+    "@astrojs/node": "^8.3.4",
+    "@fontsource-variable/onest": "^5.1.0",
     "@iconify-json/mdi": "^1.2.0",
     "@iconify-json/ph": "^1.2.0",
-    "@iconify-json/simple-icons": "^1.2.1",
-    "@iconify/json": "^2.2.244",
-    "@lyra/utilities": "0.0.1",
-    "astro": "^4.15.2",
-    "typescript": "^5.5.4",
-    "vue": "^3.5.5"
+    "@iconify-json/simple-icons": "^1.2.4",
+    "@iconify/json": "^2.2.253",
+    "astro": "^4.15.9",
+    "typescript": "^5.6.2"
   },
   "devDependencies": {
-    "@lyra/config": "0.0.1",
-    "@lyra/tsconfig": "0.0.1",
+    "@lyra/config": "workspace:*",
+    "@lyra/tsconfig": "workspace:*",
+    "@lyra/utilities": "workspace:*",
     "@types/canvas-confetti": "^1.6.4",
-    "@unocss/postcss": "^0.62.3",
-    "@unocss/reset": "^0.62.3",
+    "@unocss/postcss": "^0.62.4",
+    "@unocss/reset": "^0.62.4",
     "astro-icon": "^1.1.1",
     "canvas-confetti": "^1.9.3",
     "sharp": "^0.33.5"
   },
-  "packageManager": "pnpm@9.1.4"
+  "packageManager": "pnpm@9.11.0"
 }

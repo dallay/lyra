@@ -21,45 +21,40 @@
   "homepage": "lyra-nwhm.onrender.com",
   "scripts": {
     "update-deps": "pnpm update -i -r --latest",
-    "preinstall": "print \"PREINSTALL: [🟣] Preinstalling ${npm_package_name}\" && npx only-allow pnpm",
+    "preinstall": "print \"PREINSTALL: [🟣] Preinstalling \" && npx only-allow pnpm",
     "setup": "pnpm install && pnpm exec playwright install",
-    "postinstall": "print \"POSTINSTALL: [🟣] Postinstalling ${npm_package_name}\" && syncpack fix-mismatches",
-    "dev": "print \"DEV: [🟢] Starting ${npm_package_name} in dev mode\" && loadEnv && pnpm --if-present --recursive --aggregate-output --parallel --stream run dev",
+    "postinstall": "print \"POSTINSTALL: [🟣] Postinstalling \" && syncpack fix-mismatches",
+    "dev": "print \"DEV: [🟢] Starting  in dev mode\" && loadEnv && pnpm --if-present --recursive --aggregate-output --parallel --stream run dev",
     "build:utilities": "pnpm --filter \"./packages/utilities\" build",
     "build:ui": "pnpm --filter \"./packages/ui\" build",
     "build:shared": "pnpm --filter \"./packages/shared\" build",
     "build:api-services": "pnpm --filter \"./packages/api-services\" build",
     "build:packages": "run-s build:utilities build:shared build:api-services build:ui",
     "build:apps": "pnpm --filter \"./apps/**\" --if-present --recursive --aggregate-output --parallel --stream run build",
-    "build": "print \"BUILD: [🏗️]  Building ${npm_package_name}\" info && loadEnv && run-s build:packages build:apps",
-    "clean": "print \"CLEAN: [🧹] Cleaning ${npm_package_name}\" info && pnpm --if-present --recursive --aggregate-output --parallel --stream run clean",
+    "build": "print \"BUILD: [🏗️]  Building \" info && loadEnv && run-s build:packages build:apps",
+    "clean": "print \"CLEAN: [🧹] Cleaning \" info && pnpm --if-present --recursive --aggregate-output --parallel --stream run clean",
     "preview": "pnpm --if-present --recursive --aggregate-output --parallel --stream run preview",
-    "check": "print \"CHECK: [✅] Checking ${npm_package_name}\" && run-s lint build:packages check:projects",
+    "check": "print \"CHECK: [✅] Checking \" && run-s lint build:packages check:projects",
     "check:projects": "pnpm --if-present --recursive --aggregate-output --parallel --stream run check",
-    "format": "print \"FORMAT: [🖌️] Formatting ${npm_package_name}\" && pnpm biome format --write .",
-    "lint": "print \"LINT: [🚨] Linting ${npm_package_name}\" && run-p lint:biome lint:stylelint",
+    "format": "print \"FORMAT: [🖌️] Formatting \" && pnpm biome format --write .",
+    "lint": "print \"LINT: [🚨] Linting \" && run-p lint:biome lint:stylelint",
     "lint:biome": "pnpm biome lint --write .",
     "lint:stylelint": "stylelint --fix \"**/*.{css,scss,sass}\" --allow-empty-input --config config/stylelint.config.cjs",
-    "test": "print \"TEST: [🧪] Testing ${npm_package_name}\" && loadEnv && pnpm --if-present --recursive --aggregate-output --parallel --stream run test",
-    "test:watch": "print \"TEST: [🧪] Watching ${npm_package_name}\" && loadEnv && pnpm --if-present --recursive --aggregate-output --parallel --stream run test:watch"
+    "test": "print \"TEST: [🧪] Testing \" && loadEnv && pnpm --if-present --recursive --aggregate-output --parallel --stream run test",
+    "test:watch": "print \"TEST: [🧪] Watching \" && loadEnv && pnpm --if-present --recursive --aggregate-output --parallel --stream run test:watch"
   },
-  "workspaces": [
-    "packages/*",
-    "apps/*",
-    "mock",
-    "config"
-  ],
+  "workspaces": ["packages/*", "apps/*", "mock", "config"],
   "dependencies": {
     "inversify": "^6.0.2",
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.0",
-    "@lyra/config": "0.0.1",
-    "@lyra/scripts": "0.0.1",
-    "@playwright/test": "^1.47.1",
-    "@types/bun": "^1.1.9",
-    "@types/node": "^22.5.5",
+    "@biomejs/biome": "1.9.2",
+    "@lyra/config": "workspace:*",
+    "@lyra/scripts": "workspace:*",
+    "@playwright/test": "^1.47.2",
+    "@types/bun": "^1.1.10",
+    "@types/node": "^22.7.0",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "@vitest/coverage-v8": "^2.1.1",
     "flowbite": "^2.5.1",
@@ -71,9 +66,9 @@
     "stylelint": "^16.9.0",
     "stylelint-config-standard": "^36.0.1",
     "syncpack": "13.0.0",
-    "unocss": "^0.62.3",
-    "vite": "^5.4.5",
-    "vitest": "^2.0.5",
+    "unocss": "^0.62.4",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.1",
     "vitest-fetch-mock": "^0.3.0",
     "zod": "^3.23.8"
   },
@@ -81,5 +76,5 @@
     "node": ">=18.14.1",
     "pnpm": ">=8.6.12"
   },
-  "packageManager": "pnpm@9.1.4"
+  "packageManager": "pnpm@9.11.0"
 }

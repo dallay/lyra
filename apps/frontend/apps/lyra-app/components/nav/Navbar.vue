@@ -1,17 +1,13 @@
 <script lang="ts" setup>
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import type { LinkProp } from "./links-list";
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import type { LinkProp } from './links-list';
 
 interface NavProps {
-  isCollapsed: boolean
-  links: LinkProp[]
+  isCollapsed: boolean;
+  links: LinkProp[];
 }
 
-defineProps<NavProps>()
+defineProps<NavProps>();
 </script>
 
 <template>

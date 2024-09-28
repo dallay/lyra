@@ -1,38 +1,38 @@
 <script lang="ts" setup>
-import {cn} from '@/lib/utils'
-import {ref} from 'vue'
-import {refDebounced} from '@vueuse/core'
-import {Separator} from '@/components/ui/separator'
-import {TooltipProvider} from '@/components/ui/tooltip'
-import {ResizableHandle, ResizablePanel, ResizablePanelGroup} from '@/components/ui/resizable'
-import Nav from "~/components/nav/Navbar.vue";
-import UserNav from "~/components/nav/UserNav.vue";
-import OrganizationSwitcher from "~/components/OrganizationSwitcher.vue";
-import MainNav from "~/components/nav/MainNav.vue";
-import ThemeSwitcher from "~/components/ThemeSwitcher.vue";
-import {links, links2} from "~/components/nav/links-list";
+import { cn } from '@/lib/utils';
+import { ref } from 'vue';
+import { refDebounced } from '@vueuse/core';
+import { Separator } from '@/components/ui/separator';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
+import Nav from '~/components/nav/Navbar.vue';
+import UserNav from '~/components/nav/UserNav.vue';
+import OrganizationSwitcher from '~/components/OrganizationSwitcher.vue';
+import MainNav from '~/components/nav/MainNav.vue';
+import ThemeSwitcher from '~/components/ThemeSwitcher.vue';
+import { links, links2 } from '~/components/nav/links-list';
 
 interface DefaultLayoutProps {
-  defaultLayout?: number[]
-  defaultCollapsed?: boolean
-  navCollapsedSize: number
+  defaultLayout?: number[];
+  defaultCollapsed?: boolean;
+  navCollapsedSize: number;
 }
 
 const props = withDefaults(defineProps<DefaultLayoutProps>(), {
   defaultCollapsed: false,
   defaultLayout: () => [265, 1095],
-})
+});
 
-const isCollapsed = ref(props.defaultCollapsed)
-const searchValue = ref('')
-const debouncedSearch = refDebounced(searchValue, 250)
+const isCollapsed = ref(props.defaultCollapsed);
+const searchValue = ref('');
+const debouncedSearch = refDebounced(searchValue, 250);
 
 function onCollapse() {
-  isCollapsed.value = true
+  isCollapsed.value = true;
 }
 
 function onExpand() {
-  isCollapsed.value = false
+  isCollapsed.value = false;
 }
 </script>
 

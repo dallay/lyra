@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import {useRouter, onMounted, ref, randomNumber, avatar, navigateTo, watchEffect} from '#imports';
+import { useRouter, onMounted, ref, randomNumber, avatar, navigateTo, watchEffect } from '#imports';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth.store';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,15 +13,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import type {IUser} from "@/domain/user";
+} from '@/components/ui/dropdown-menu';
+import type { IUser } from '@/domain/user';
 
 const router = useRouter();
 const { isAuthenticated } = storeToRefs(useAuthStore());
 const { getUser, logUserOut } = useAuthStore();
-const user = ref<IUser|null>(await getUser());
-const defaultAvatar = `/avatars/0${randomNumber(1,5)}.png`;
-const userAvatar = user?.value?.email? avatar(user?.value.email) : defaultAvatar;
+const user = ref<IUser | null>(await getUser());
+const defaultAvatar = `/avatars/0${randomNumber(1, 5)}.png`;
+const userAvatar = user?.value?.email ? avatar(user?.value.email) : defaultAvatar;
 
 const logout = async () => {
   await logUserOut();
@@ -39,9 +35,9 @@ onMounted(() => {
 });
 watchEffect(() => {
   if (!user.value) {
-    navigateTo('/login')
+    navigateTo('/login');
   }
-})
+});
 </script>
 
 <template>

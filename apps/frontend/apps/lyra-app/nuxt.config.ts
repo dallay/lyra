@@ -1,11 +1,10 @@
-import { defineNuxtConfig } from 'nuxt/config'
+import { defineNuxtConfig } from 'nuxt/config';
 const { API_URL, BACKEND_URL, APP_CLIENT_URL } = process.env;
 const defaultServer = 'http://localhost:8080';
 const defaultClient = 'https://localhost:4000';
 const backendUrl = BACKEND_URL || defaultServer;
 const apiUrl = API_URL || defaultServer;
 const appClientUrl = APP_CLIENT_URL || defaultClient;
-
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -19,21 +18,19 @@ export default defineNuxtConfig({
     [
       '@pinia/nuxt',
       {
-        autoImports: [
-          'defineStore',
-        ],
+        autoImports: ['defineStore'],
       },
     ],
-    "@nuxt/image",
-    "@nuxt/scripts",
-    '@nuxt/test-utils/module'
+    '@nuxt/image',
+    '@nuxt/scripts',
+    '@nuxt/test-utils/module',
   ],
   shadcn: {
     prefix: '',
     componentDir: './components/ui',
   },
   routeRules: {
-    '/': { prerender: true }
+    '/': { prerender: true },
   },
   colorMode: {
     classSuffix: '',

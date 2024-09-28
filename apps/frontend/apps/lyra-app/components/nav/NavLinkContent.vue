@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cn } from '@/lib/utils';
-import type {LinkProp} from "~/components/nav/links-list";
+import type { LinkProp } from '~/components/nav/links-list';
 
 interface NavLinkContentProps {
   icon: string;

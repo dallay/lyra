@@ -1,4 +1,4 @@
-import FetchFactory from "~/repository/factory";
+import FetchFactory from '~/repository/factory';
 
 export default class SecureFetchFactory extends FetchFactory {
   protected accessToken = '';

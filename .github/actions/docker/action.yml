@@ -1,24 +1,13 @@
 name: Package and Publish 📦
 description: |
   This workflow is responsible for packaging and publishing the application
-  to the container registry.
-
-  It also performs vulnerability scanning on the OCI image.
-
-  The workflow is triggered after the build stage.
-
-  The workflow is responsible for the following:
-  - Install Java Tools & Dependencies
-  - Execute Gradle build
-  - OCI image vulnerability scanning
-  - Upload vulnerability report
-  - Log in to Docker Hub
+  to the container registry. It also performs vulnerability scanning.
 
 inputs:
   deliver:
     description: 'Deliver application to production'
     required: true
-    default: true
+    default: 'true'
   registry:
     description: 'The container registry to push the image to'
     required: true
@@ -38,17 +27,8 @@ inputs:
   ci_github_token:
     description: 'GITHUB_TOKEN with permissions to push to the container registry'
     required: true
-  owner:
-    description: 'The owner of the repository'
-    required: true
-  app_repo:
-    description: 'The name of the application repository'
-    required: true
   gradle-encryption-key:
     description: 'The encryption key to use for the gradle cache'
-    required: true
-  deploy_repo:
-    description: 'The name of the repository to deploy the application to'
     required: true
   docker_hub_image:
     description: 'Docker hub image name'
@@ -58,7 +38,6 @@ inputs:
     description: 'Non production docker image tag'
     required: false
     default: 'nightly'
-
 
 runs:
   using: composite
@@ -73,81 +52,36 @@ runs:
       run: |
         chmod +x gradlew
         ./gradlew assemble
-        ./gradlew bootBuildImage --imageName ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
+        ./gradlew bootBuildImage --imageName base/${{ inputs.image_name }}:latest
       shell: bash
 
-    - name: OCI image vulnerability scanning
-      uses: aquasecurity/trivy-action@0.20.0
-      with:
-        image-ref: ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
-        format: 'sarif'
-        output: 'trivy-results-oci-image.sarif'
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
 
-    - name: Upload vulnerability report
-      uses: github/codeql-action/upload-sarif@v3
-      if: success() || failure()
-      with:
-        sarif_file: 'trivy-results-oci-image.sarif'
-
-    - name: Log into container registry GHCR
-      uses: docker/login-action@v3
-      with:
-        registry: ${{ inputs.registry }}
-        username: ${{ github.actor }}
-        password: ${{ inputs.ci_github_token }}
-
-    - name: Publish container image to GHCR
-      if: ${{ inputs.deliver }}
+    - name: Authenticate and Log into Registries
       run: |
-        docker push ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }}
-        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} \
-            ${{ inputs.registry }}/${{ inputs.image_name }}:latest
-          docker push ${{ inputs.registry }}/${{ inputs.image_name }}:latest
+        echo ${{ inputs.ci_github_token }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        echo ${{ inputs.docker_password }} | docker login docker.io -u ${{ inputs.docker_username }} --password-stdin
+        docker build . --target lyra-app --tag lyra-app:latest
+        docker build . --target lyra-landing-page --tag lyra-landing-page:latest
       shell: bash
 
-    - name: Publish non-production container image to container registry
-      if: ${{ !inputs.deliver }}
-      run: |
-        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} \
-                    ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.non_prod_tag }}
-                  docker push ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.non_prod_tag }}
-      shell: bash
-
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v3
+    - name: Publish to GHCR 📦
+      uses: ./.github/actions/docker/ghcr
       with:
-        username: ${{ inputs.docker_username }}
-        password: ${{ inputs.docker_password }}
+        deliver: ${{ inputs.deliver }}
+        image_name: ${{ inputs.image_name }}
+        version: ${{ inputs.version }}
+        ci_github_token: ${{ inputs.ci_github_token }}
+        non_prod_tag: ${{ inputs.non_prod_tag }}
 
-    - name: Publish container image to Docker Hub
-      if: ${{ inputs.deliver }}
-      run: |
-        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:${{ inputs.version }}
-        docker push ${{ inputs.docker_hub_image}}:${{ inputs.version }}
-        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:latest
-        docker push ${{ inputs.docker_hub_image}}:latest
-      shell: bash
-
-    - name: Publish non-production container image to Docker Hub
-      if: ${{ !inputs.deliver }}
-      run: |
-        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:${{ inputs.version }}
-        docker push ${{ inputs.docker_hub_image}}:${{ inputs.version }}
-        docker tag ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.version }} ${{ inputs.docker_hub_image}}:${{ inputs.non_prod_tag }}
-        docker push ${{ inputs.docker_hub_image}}:${{ inputs.non_prod_tag }}
-      shell: bash
-
-    - name: Deliver application to production
-      if: ${{ inputs.deliver }}
-      uses: peter-evans/repository-dispatch@v3
+    - name: Publish to Docker Hub 📦
+      uses: ./.github/actions/docker/dockerhub
       with:
-        token: ${{ inputs.ci_github_token }}
-        repository: ${{ inputs.owner }}/${{ inputs.deploy_repo }}
-        event-type: app_delivery
-        client-payload: '{
-          "app_image": "${{ inputs.registry }}/${{ inputs.owner }}/${{ inputs.app_repo }}",
-          "app_name": "${{ inputs.app_repo }}",
-          "app_version": "${{ inputs.version }}"
-        }'
+        deliver: ${{ inputs.deliver }}
+        docker_username: ${{ inputs.docker_username }}
+        docker_password: ${{ inputs.docker_password }}
+        image_name: ${{ inputs.image_name }}
+        version: ${{ inputs.version }}
+        docker_hub_image: ${{ inputs.docker_hub_image }}
+        non_prod_tag: ${{ inputs.non_prod_tag }}

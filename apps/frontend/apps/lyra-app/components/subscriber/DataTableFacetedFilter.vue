@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type {Column} from '@tanstack/vue-table'
-import type {Component} from 'vue'
-import {computed} from 'vue'
-import type {Subscriber} from '@/domain/subscriber';
-import {CheckIcon, PlusCircledIcon} from '@radix-icons/vue'
+import type { Column } from '@tanstack/vue-table';
+import type { Component } from 'vue';
+import { computed } from 'vue';
+import type { Subscriber } from '@/domain/subscriber';
+import { CheckIcon, PlusCircledIcon } from '@radix-icons/vue';
 
-import {Badge} from '@/components/ui/badge'
-import {Button} from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   Command,
   CommandEmpty,
@@ -14,14 +14,14 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator
-} from '@/components/ui/command'
+  CommandSeparator,
+} from '@/components/ui/command';
 
-import {Popover, PopoverContent, PopoverTrigger,} from '@/components/ui/popover'
-import {Separator} from '@/components/ui/separator'
-import {cn} from '@/lib/utils'
-import type {CriteriaParam, CriteriaParamValue} from "~/domain/criteria";
-import {useSubscriberStore} from "~/store/subscriber.store";
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
+import type { CriteriaParam, CriteriaParamValue } from '~/domain/criteria';
+import { useSubscriberStore } from '~/store/subscriber.store';
 import { useSubscriberFilterStore } from '~/store/subscriber.filter.store';
 
 const subscriberStore = useSubscriberStore();
@@ -30,79 +30,79 @@ const { fetchAllSubscriber } = subscriberStore;
 const { addAllSubscriberFilterCriteria } = subscriberFilterStore;
 
 type FilterOption = {
-	label: string;
-	value: string;
-	count?: number;
-	icon?: Component;
+  label: string;
+  value: string;
+  count?: number;
+  icon?: Component;
 };
 
 interface DataTableFacetedFilter {
-	column?: Column<Subscriber, unknown>;
-	title?: string;
-	options: FilterOption[];
+  column?: Column<Subscriber, unknown>;
+  title?: string;
+  options: FilterOption[];
 }
 
 const props = defineProps<DataTableFacetedFilter>();
 
 const facets = computed(() => {
-	const uniqueValues = props.column?.getFacetedUniqueValues() || new Map();
-	const facetsMap = new Map<string, number>();
+  const uniqueValues = props.column?.getFacetedUniqueValues() || new Map();
+  const facetsMap = new Map<string, number>();
 
-	props.options.forEach((option) => {
-		if (option.count !== undefined && option.count !== null) {
-			facetsMap.set(option.value, option.count);
-		} else {
-			const uniqueValueCount = uniqueValues.get(option.value);
-			if (uniqueValueCount !== undefined) {
-				facetsMap.set(option.value, uniqueValueCount);
-			}
-		}
-	});
-	return facetsMap;
+  props.options.forEach((option) => {
+    if (option.count !== undefined && option.count !== null) {
+      facetsMap.set(option.value, option.count);
+    } else {
+      const uniqueValueCount = uniqueValues.get(option.value);
+      if (uniqueValueCount !== undefined) {
+        facetsMap.set(option.value, uniqueValueCount);
+      }
+    }
+  });
+  return facetsMap;
 });
 
 const selectedValues = computed(() => new Set(props.column?.getFilterValue() as string[]));
 
 async function toggleSelection(option: FilterOption) {
-	const columnId = props.column?.id;
-	if (!columnId) return;
+  const columnId = props.column?.id;
+  if (!columnId) return;
 
-	const isSelected = selectedValues.value.has(option.value);
+  const isSelected = selectedValues.value.has(option.value);
 
-	if (isSelected) {
-		selectedValues.value.delete(option.value);
-	} else {
-		selectedValues.value.add(option.value);
-	}
+  if (isSelected) {
+    selectedValues.value.delete(option.value);
+  } else {
+    selectedValues.value.add(option.value);
+  }
 
-	if (selectedValues.value.size > 0) {
-		const allCriteriaValue: CriteriaParamValue[] = Array.from(selectedValues.value).map(
-			(value) => ({
-				operator: 'eq',
-				value: value,
-			}),
-		);
-		const allCriteria: CriteriaParam = {
-			column: columnId,
-			logicalOperator: 'OR',
-			values: allCriteriaValue,
-		};
+  if (selectedValues.value.size > 0) {
+    const allCriteriaValue: CriteriaParamValue[] = Array.from(selectedValues.value).map(
+      (value) => ({
+        operator: 'eq',
+        value: value,
+      }),
+    );
+    const allCriteria: CriteriaParam = {
+      column: columnId,
+      logicalOperator: 'OR',
+      values: allCriteriaValue,
+    };
 
-		addAllSubscriberFilterCriteria([allCriteria]);
-	} else {
-		addAllSubscriberFilterCriteria([]);
-	}
-	await fetchAllSubscriber();
+    addAllSubscriberFilterCriteria([allCriteria]);
+  } else {
+    addAllSubscriberFilterCriteria([]);
+  }
+  await fetchAllSubscriber();
 
-	const filterValues = Array.from(selectedValues.value);
-	props.column?.setFilterValue(filterValues.length ? filterValues : undefined);
+  const filterValues = Array.from(selectedValues.value);
+  props.column?.setFilterValue(filterValues.length ? filterValues : undefined);
 }
 
 async function clearFilter() {
-	props.column?.setFilterValue(undefined);
-	selectedValues.value.clear();
-	addAllSubscriberFilterCriteria([]);
-	await fetchAllSubscriber();
+  props.column?.setFilterValue(undefined);
+  selectedValues.value.clear();
+  addAllSubscriberFilterCriteria([]);
+  await fetchAllSubscriber();
 }
 </script>
 

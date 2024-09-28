@@ -17,11 +17,11 @@
  * range(0, 5, 1); // Returns: [0, 1, 2, 3, 4]
  */
 export function range(start: number, end?: number, step: number = 1): number[] {
-	if (end === undefined) {
-		end = start;
-		start = 0;
-	}
+  if (end === undefined) {
+    end = start;
+    start = 0;
+  }
 
-	const length = Math.max(Math.ceil((end - start) / step), 0);
-	return Array.from({ length }, (_, i) => start + i * step);
+  const length = Math.max(Math.ceil((end - start) / step), 0);
+  return Array.from({ length }, (_, i) => start + i * step);
 }

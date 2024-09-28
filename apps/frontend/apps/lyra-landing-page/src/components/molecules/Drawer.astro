@@ -2,16 +2,16 @@
 import HamMenu from '../atoms/HamMenu.astro';
 
 interface Props {
-	id: string;
-	// tabindex: number | string
-	ariaLabelledby: string;
+  id: string;
+  // tabindex: number | string
+  ariaLabelledby: string;
 }
 
 const {
-	id = 'drawer-top-example',
-	ariaLabelledby = 'drawer-top-label',
+  id = 'drawer-top-example',
+  ariaLabelledby = 'drawer-top-label',
 
-	...attributes
+  ...attributes
 } = Astro.props;
 
 const triggerId = `ham-menu-drawer-${id}`;

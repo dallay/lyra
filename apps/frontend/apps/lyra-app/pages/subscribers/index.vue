@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SubscriberOverview from "~/components/subscriber/SubscriberOverview.vue";
+import SubscriberOverview from '~/components/subscriber/SubscriberOverview.vue';
 </script>
 
 <template>

@@ -1,6 +1,7 @@
 import type Query from '~/domain/query/Query.ts';
 import type QueryHandler from '~/domain/query/QueryHandler.ts';
 import type QueryBus from '~/domain/query/QueryBus.ts';
+import type DataResponse from '~/domain/DataResponse.ts';
 import type PageResponse from '~/domain/PageResponse.ts';
 import type ApiResponse from '~/domain/ApiResponse.ts';
 import type Command from '~/domain/command/Command.ts';
@@ -15,15 +16,16 @@ import UUIDValueObject from '~/domain/vo/UUIDValueObject.ts';
 export * from './collection';
 
 export type {
-	Query,
-	QueryHandler,
-	QueryBus,
-	ApiResponse,
+  Query,
+  QueryHandler,
+  QueryBus,
+  ApiResponse,
   PageResponse,
-	Command,
-	CommandHandler,
-	CommandBus,
-	Primitives,
+  DataResponse,
+  Command,
+  CommandHandler,
+  CommandBus,
+  Primitives,
 };
 
-export { ValueObject, StringValueObject,UUIDValueObject, InvalidArgumentError };
+export { ValueObject, StringValueObject, UUIDValueObject, InvalidArgumentError };

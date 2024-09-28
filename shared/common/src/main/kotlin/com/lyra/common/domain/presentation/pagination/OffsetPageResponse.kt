@@ -1,14 +1,14 @@
 package com.lyra.common.domain.presentation.pagination
 
-import com.lyra.common.domain.bus.query.Response
+import com.lyra.common.domain.presentation.PageResponse
 
 data class OffsetPageResponse<T>(
-    val data: Collection<T>,
+    override val data: Collection<T>,
     val total: Long? = null,
     val perPage: Int,
     val page: Int? = null,
     val totalPages: Int? = null,
-) : Response
+) : PageResponse<T>(data)
 
 inline fun <T, U> OffsetPageResponse<T>.map(
     func: (Collection<T>) -> Collection<U>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref, computed} from 'vue'
+import { onMounted, ref, computed } from 'vue';
 import {
   Table,
   TableBody,
@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from '@/components/ui/table';
 import {
   Sheet,
   SheetContent,
@@ -16,62 +16,62 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet'
-import {Button} from "@/components/ui/button";
-import {useFormStore} from "~/store/form.store";
-import {storeToRefs} from '#imports';
-import { useTeamWatcher} from "~/composables/useTeamWatcher";
-import {type Form, FormResponse} from "@/domain/forms";
-import CreateOrEditSubscribeForm from "~/components/forms/CreateOrEditSubscribeForm.vue";
-import ViewSubscribeForm from "~/components/forms/ViewSubscribeForm.vue";
+} from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+import { useFormStore } from '~/store/form.store';
+import { storeToRefs } from '#imports';
+import { useTeamWatcher } from '~/composables/useTeamWatcher';
+import { type Form, FormResponse } from '@/domain/forms';
+import CreateOrEditSubscribeForm from '~/components/forms/CreateOrEditSubscribeForm.vue';
+import ViewSubscribeForm from '~/components/forms/ViewSubscribeForm.vue';
 
 const store = useFormStore();
-const {formList} = storeToRefs(store)
-const {fetchFormList} = store
+const { formList } = storeToRefs(store);
+const { fetchFormList } = store;
 
-const newOrEditForm = ref<FormResponse | null>(null)
-const openSheet = ref(false)
+const newOrEditForm = ref<FormResponse | null>(null);
+const openSheet = ref(false);
 
 const subscribeFormTitle = computed(() => {
-  return newOrEditForm.value ? 'Edit Subscribe Form' : 'Create Subscribe Form'
-})
+  return newOrEditForm.value ? 'Edit Subscribe Form' : 'Create Subscribe Form';
+});
 const subscribeFormDescription = computed(() => {
   return newOrEditForm.value
     ? 'You are currently editing an existing subscribe form. Make the necessary changes to update the form and ensure it meets your requirements.'
     : 'You are in the process of creating a new subscribe form. Fill out the fields below to set up your form and begin collecting subscriptions from your audience.';
-})
+});
 
 const handleClose = async () => {
-  newOrEditForm.value = null
-  openSheet.value = false
+  newOrEditForm.value = null;
+  openSheet.value = false;
   if (formEditOrViewOperation.value === 'edit') {
-    await fetchFormList()
+    await fetchFormList();
   }
-}
+};
 
-const formEditOrViewOperation = ref<'edit' | 'view' | 'create'>('view')
+const formEditOrViewOperation = ref<'edit' | 'view' | 'create'>('view');
 
 const createForm = async () => {
-  formEditOrViewOperation.value = 'create'
-  newOrEditForm.value = null
-}
+  formEditOrViewOperation.value = 'create';
+  newOrEditForm.value = null;
+};
 
 const editForm = async (form: Form) => {
-  formEditOrViewOperation.value = 'edit'
-  newOrEditForm.value = FormResponse.from(form)
-  openSheet.value = true
-}
+  formEditOrViewOperation.value = 'edit';
+  newOrEditForm.value = FormResponse.from(form);
+  openSheet.value = true;
+};
 const viewForm = async (form: Form) => {
-  formEditOrViewOperation.value = 'view'
-  newOrEditForm.value = FormResponse.from(form)
-  openSheet.value = true
-}
+  formEditOrViewOperation.value = 'view';
+  newOrEditForm.value = FormResponse.from(form);
+  openSheet.value = true;
+};
 
 useTeamWatcher(fetchFormList);
 
 onMounted(async () => {
-  await fetchFormList()
-})
+  await fetchFormList();
+});
 </script>
 
 <template>

@@ -38,7 +38,7 @@ class DeleteFormController(
     @Operation(summary = "Delete a form")
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "Form deleted successfully"),
-        ApiResponse(responseCode = "404", description = "Organization not found"),
+        ApiResponse(responseCode = "404", description = "Form not found"),
         ApiResponse(responseCode = "500", description = "Internal server error"),
     )
     @DeleteMapping(FORMS_ID)

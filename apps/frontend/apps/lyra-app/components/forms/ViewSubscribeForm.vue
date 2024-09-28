@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {computed, defineEmits, defineProps, ref} from 'vue';
-import {FormId, type FormResponse} from '@/domain/forms';
-import {Separator} from '~/components/ui/separator';
-import {cn} from '~/lib/utils';
-import {useFormStore} from '~/store/form.store';
-import {SheetHeader, SheetTitle} from '~/components/ui/sheet';
-import {Button} from '~/components/ui/button';
-import {toast} from '~/components/ui/toast';
+import { computed, defineEmits, defineProps, ref } from 'vue';
+import { FormId, type FormResponse } from '@/domain/forms';
+import { Separator } from '~/components/ui/separator';
+import { cn } from '~/lib/utils';
+import { useFormStore } from '~/store/form.store';
+import { SheetHeader, SheetTitle } from '~/components/ui/sheet';
+import { Button } from '~/components/ui/button';
+import { toast } from '~/components/ui/toast';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,8 +17,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
-import {useRuntimeConfig} from '#app';
+} from '@/components/ui/alert-dialog';
+import { useRuntimeConfig } from '#app';
 
 const config = useRuntimeConfig();
 const appClientUrl = config.public.appClientUrl;
@@ -54,23 +54,28 @@ const sectionCodes: Record<string, SectionCode> = {
     height: '220px',
     frameborder: '0',
     scrolling: 'no',
-    style: 'border-radius: 4px; border: 2px solid #e5e7eb; margin: 0; background-color: transparent;',
-    paragraph: 'Embed this code directly in-line within your website, and it will expand to the full width of its surrounding container.',
+    style:
+      'border-radius: 4px; border: 2px solid #e5e7eb; margin: 0; background-color: transparent;',
+    paragraph:
+      'Embed this code directly in-line within your website, and it will expand to the full width of its surrounding container.',
   },
   fixed: {
     width: '320px',
     height: '220px',
     frameborder: '0',
     scrolling: 'no',
-    style: 'border-radius: 4px; border: 2px solid #e5e7eb; margin: 0; background-color: transparent;',
-    paragraph: 'Embed this code directly in-line with your website, and it will expand to the specified maximum width.',
+    style:
+      'border-radius: 4px; border: 2px solid #e5e7eb; margin: 0; background-color: transparent;',
+    paragraph:
+      'Embed this code directly in-line with your website, and it will expand to the specified maximum width.',
   },
   slim: {
     height: '52px',
     frameborder: '0',
     scrolling: 'no',
     style: 'margin: 0; border-radius: 0px !important; background-color: transparent;',
-    paragraph: 'This offers the most control with placement without providing a background, header, or description.',
+    paragraph:
+      'This offers the most control with placement without providing a background, header, or description.',
   },
 };
 
@@ -88,8 +93,8 @@ const sectionCode = computed(() =>
         }" scrolling="${value.scrolling}" style="${value.style}"></iframe>`,
         paragraph: value.paragraph,
       },
-    ])
-  )
+    ]),
+  ),
 );
 
 const onSubmit = async () => {
@@ -113,17 +118,20 @@ const onSubmit = async () => {
 const clipboardIcon = ref('lucide:clipboard');
 
 const copyToClipboard = (iframeCode: string) => {
-  navigator.clipboard.writeText(iframeCode).then(() => {
-    clipboardIcon.value = 'lucide:clipboard-check';
-    toast({
-      description: 'Copied to clipboard!',
+  navigator.clipboard
+    .writeText(iframeCode)
+    .then(() => {
+      clipboardIcon.value = 'lucide:clipboard-check';
+      toast({
+        description: 'Copied to clipboard!',
+      });
+      setTimeout(() => {
+        clipboardIcon.value = 'lucide:clipboard';
+      }, 1000);
+    })
+    .catch((err) => {
+      console.error('Failed to copy: ', err);
     });
-    setTimeout(() => {
-      clipboardIcon.value = 'lucide:clipboard';
-    }, 1000);
-  }).catch(err => {
-    console.error('Failed to copy: ', err);
-  });
 };
 </script>
 

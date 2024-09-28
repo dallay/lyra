@@ -7,3 +7,9 @@
     <NuxtPage />
   </NuxtLayout>
 </template>
+
+<style>
+button {
+  user-select: none;
+}
+</style>

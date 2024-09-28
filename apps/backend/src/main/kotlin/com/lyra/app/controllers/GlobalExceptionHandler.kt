@@ -103,7 +103,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         e: MissingCookieException,
         response: ServerHttpResponse
     ): ProblemDetail {
-        response.setStatusCode(HttpStatus.BAD_REQUEST)
+        response.statusCode = HttpStatus.BAD_REQUEST
         val problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.message)
         problemDetail.title = "Missing cookie"
         problemDetail.setType(URI.create("$ERROR_PAGE/missing-cookie"))

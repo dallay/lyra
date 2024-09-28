@@ -1,6 +1,6 @@
 package com.lyra.app.notifications.domain
 
-import com.lyra.app.newsletter.application.SubscriberResponse
+import com.lyra.app.newsletter.subscriber.application.SubscriberResponse
 import com.lyra.app.notifications.domain.event.NewContentNewsletterEmailSent
 import com.lyra.common.domain.Generated
 import com.lyra.common.domain.vo.email.Email

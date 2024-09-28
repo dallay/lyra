@@ -11,7 +11,7 @@
  * chunk(['a', 'b', 'c', 'd'], 3); // Returns: [['a', 'b', 'c'], ['d']]
  */
 export function chunk<T>(input: T[], size: number): T[][] {
-	return input.reduce<T[][]>((arr, item, idx) => {
-		return idx % size === 0 ? [...arr, [item]] : [...arr.slice(0, -1), [...arr.slice(-1)[0], item]];
-	}, []);
+  return input.reduce<T[][]>((arr, item, idx) => {
+    return idx % size === 0 ? [...arr, [item]] : [...arr.slice(0, -1), [...arr.slice(-1)[0], item]];
+  }, []);
 }

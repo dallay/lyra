@@ -3,7 +3,7 @@ const DARK_THEME = 'dark';
 const LIGHT_THEME = 'light';
 
 export interface ThemeChangedEventDetail {
-	isDark: boolean;
+  isDark: boolean;
 }
 /**
  * Checks whether dark mode is enabled or not.
@@ -12,14 +12,14 @@ export interface ThemeChangedEventDetail {
  * @returns {boolean} - Returns true if dark mode is enabled, otherwise returns false. If the theme is not set in localStorage, it will use the system preference.
  */
 export const isDarkMode = (
-	key: string = DEFAULT_KEY,
-	darkThemeClass: string = DARK_THEME
+  key: string = DEFAULT_KEY,
+  darkThemeClass: string = DARK_THEME,
 ): boolean => {
-	const theme = localStorage.getItem(key);
-	return (
-		theme === darkThemeClass ||
-		(!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
-	);
+  const theme = localStorage.getItem(key);
+  return (
+    theme === darkThemeClass ||
+    (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  );
 };
 const themeChanged = 'theme-changed';
 /**
@@ -33,29 +33,29 @@ const themeChanged = 'theme-changed';
  * @returns void
  */
 export const loadTheme = (
-	key: string = DEFAULT_KEY,
-	darkThemeClass: string = DARK_THEME,
-	lightThemeClass: string = LIGHT_THEME
+  key: string = DEFAULT_KEY,
+  darkThemeClass: string = DARK_THEME,
+  lightThemeClass: string = LIGHT_THEME,
 ): void => {
-	const theme = localStorage.getItem(key);
-	if (
-		theme === darkThemeClass ||
-		(!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
-	) {
-		document.documentElement.classList.add(darkThemeClass);
-		localStorage.setItem(key, darkThemeClass);
-	} else {
-		document.documentElement.classList.add(lightThemeClass);
-		localStorage.setItem(key, lightThemeClass);
-	}
+  const theme = localStorage.getItem(key);
+  if (
+    theme === darkThemeClass ||
+    (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  ) {
+    document.documentElement.classList.add(darkThemeClass);
+    localStorage.setItem(key, darkThemeClass);
+  } else {
+    document.documentElement.classList.add(lightThemeClass);
+    localStorage.setItem(key, lightThemeClass);
+  }
 
-	// Listen for theme change events
-	document.addEventListener(themeChanged, ((event: CustomEvent<ThemeChangedEventDetail>) => {
-		console.log('🚨 Theme changed', event.detail.isDark);
-		const isDark = event.detail.isDark;
-		document.documentElement.classList.toggle(darkThemeClass, isDark);
-		localStorage.setItem(key, isDark ? darkThemeClass : lightThemeClass);
-	}) as EventListener);
+  // Listen for theme change events
+  document.addEventListener(themeChanged, ((event: CustomEvent<ThemeChangedEventDetail>) => {
+    console.log('🚨 Theme changed', event.detail.isDark);
+    const isDark = event.detail.isDark;
+    document.documentElement.classList.toggle(darkThemeClass, isDark);
+    localStorage.setItem(key, isDark ? darkThemeClass : lightThemeClass);
+  }) as EventListener);
 };
 
 /**
@@ -66,13 +66,13 @@ export const loadTheme = (
  * @returns void
  */
 export const toggleTheme = (
-	key: string = DEFAULT_KEY,
-	darkThemeClass: string = DARK_THEME,
-	lightThemeClass: string = LIGHT_THEME
+  key: string = DEFAULT_KEY,
+  darkThemeClass: string = DARK_THEME,
+  lightThemeClass: string = LIGHT_THEME,
 ): void => {
-	const isDark = isDarkMode(key, darkThemeClass);
-	document.documentElement.classList.toggle(darkThemeClass, !isDark);
-	localStorage.setItem(key, !isDark ? darkThemeClass : lightThemeClass);
-	// publish event to notify other components that the theme has changed (dark/light)
-	document.dispatchEvent(new CustomEvent(themeChanged, { detail: { isDark: !isDark } }));
+  const isDark = isDarkMode(key, darkThemeClass);
+  document.documentElement.classList.toggle(darkThemeClass, !isDark);
+  localStorage.setItem(key, !isDark ? darkThemeClass : lightThemeClass);
+  // publish event to notify other components that the theme has changed (dark/light)
+  document.dispatchEvent(new CustomEvent(themeChanged, { detail: { isDark: !isDark } }));
 };

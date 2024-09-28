@@ -11,6 +11,15 @@ import org.junit.jupiter.api.Test
 internal class ArchTest {
 
     private lateinit var importedClasses: JavaClasses
+    private val boundedContexts = listOf(
+        "forms",
+        "newsletter.subscriber",
+        "newsletter.tag",
+        "notifications",
+        "organization",
+        "team",
+        "users",
+    )
 
     @BeforeEach
     fun setUp() {
@@ -21,7 +30,6 @@ internal class ArchTest {
 
     @Test
     fun domainShouldNotDependOnApplicationOrInfrastructure() {
-        val boundedContexts = listOf("forms", "newsletter", "notifications", "organization", "team", "users")
 
         boundedContexts.forEach { context ->
             noClasses()
@@ -33,14 +41,13 @@ internal class ArchTest {
                     "com.lyra.app.$context.application..",
                     "com.lyra.app.$context.infrastructure..",
                 )
-                .because("El paquete 'domain' en '$context' no debería depender de 'application' ni 'infrastructure'")
+                .because("The 'domain' package in '$context' should not depend on 'application' or 'infrastructure'")
                 .check(importedClasses)
         }
     }
 
     @Test
     fun applicationShouldNotDependOnInfrastructure() {
-        val boundedContexts = listOf("forms", "newsletter", "notifications", "organization", "team", "users")
 
         boundedContexts.forEach { context ->
             noClasses()
@@ -49,7 +56,7 @@ internal class ArchTest {
                 .should()
                 .dependOnClassesThat()
                 .resideInAnyPackage("com.lyra.app.$context.infrastructure..")
-                .because("El paquete 'application' en '$context' no debería depender de 'infrastructure'")
+                .because("The 'application' package in '$context' should not depend on 'infrastructure'")
                 .check(importedClasses)
         }
     }

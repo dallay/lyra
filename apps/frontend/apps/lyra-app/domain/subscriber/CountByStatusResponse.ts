@@ -1,4 +1,4 @@
-export interface CountByStatusResponse{
+export interface CountByStatusResponse {
   count: number;
   status: string;
 }

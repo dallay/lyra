@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
     id("app.spring.boot.convention")
@@ -89,7 +90,17 @@ tasks.named("build") {
     dependsOn(processFrontendResources)
 }
 
-tasks.named("bootBuildImage").configure {
+tasks.named<BootBuildImage>("bootBuildImage") {
+    buildCache {
+        volume {
+            name.set("cache-${rootProject.name}.build")
+        }
+    }
+    launchCache {
+        volume {
+            name.set("cache-${rootProject.name}.launch")
+        }
+    }
     dependsOn("build")
 }
 

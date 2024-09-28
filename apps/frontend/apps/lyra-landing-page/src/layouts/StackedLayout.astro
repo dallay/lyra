@@ -7,10 +7,9 @@ import Layout from './CommonLayout.astro';
 import pkg from '../../package.json' assert { type: 'json' };
 
 interface Props {
-	title: string;
-	description?: string;
+  title: string;
+  description?: string;
 }
-
 
 const { title = 'Lyra', description = pkg.description } = Astro.props;
 ---

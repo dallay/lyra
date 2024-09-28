@@ -24,7 +24,7 @@ data class FormEntity(
     val organizationId: UUID,
     override var createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime? = createdAt,
-) : AuditableEntity(), Persistable<UUID> {
+) : AuditableEntity(createdAt, updatedAt), Persistable<UUID> {
     override fun getId(): UUID = id
 
     override fun isNew(): Boolean = createdAt == updatedAt

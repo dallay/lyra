@@ -255,14 +255,7 @@
   },
   "overrides": [
     {
-      "include": [
-        ".*",
-        "*.json",
-        "*.md",
-        "*.mdx",
-        "*.toml",
-        "*.yml"
-      ],
+      "include": [".*", "*.json", "*.md", "*.mdx", "*.toml", "*.yml"],
       "formatter": {
         "indentStyle": "space"
       }

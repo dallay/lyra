@@ -14,17 +14,17 @@
  */
 
 // biome-ignore lint/suspicious/noExplicitAny: we are using any to allow any key type
-export  function groupBy<T, K extends keyof any>(
-	list: T[],
-	keyGetter: (input: T) => K
+export function groupBy<T, K extends keyof any>(
+  list: T[],
+  keyGetter: (input: T) => K,
 ): Record<K, T[]> {
-	return list.reduce(
-		(previous, currentItem) => {
-			const group = keyGetter(currentItem);
-			if (!previous[group]) previous[group] = [];
-			previous[group].push(currentItem);
-			return previous;
-		},
-		{} as Record<K, T[]>
-	);
+  return list.reduce(
+    (previous, currentItem) => {
+      const group = keyGetter(currentItem);
+      if (!previous[group]) previous[group] = [];
+      previous[group].push(currentItem);
+      return previous;
+    },
+    {} as Record<K, T[]>,
+  );
 }

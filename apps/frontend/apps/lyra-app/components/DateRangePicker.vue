@@ -1,45 +1,53 @@
 <script setup lang="ts">
-import {watch, ref, type Ref, defineProps, defineEmits, type HTMLAttributes} from 'vue'
-import { Calendar as CalendarIcon } from 'lucide-vue-next'
-import type { DateRange } from 'radix-vue'
-import { CalendarDateTime, DateFormatter, getLocalTimeZone, parseDateTime, type DateValue } from '@internationalized/date'
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
-import { RangeCalendar } from '@/components/ui/range-calendar'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { watch, ref, type Ref, defineProps, defineEmits, type HTMLAttributes } from 'vue';
+import { Calendar as CalendarIcon } from 'lucide-vue-next';
+import type { DateRange } from 'radix-vue';
+import {
+  CalendarDateTime,
+  DateFormatter,
+  getLocalTimeZone,
+  parseDateTime,
+  type DateValue,
+} from '@internationalized/date';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { RangeCalendar } from '@/components/ui/range-calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
-const df = new DateFormatter('en-US', { dateStyle: 'medium' })
+const df = new DateFormatter('en-US', { dateStyle: 'medium' });
 
 interface DateRangePickerProps {
-  startDate: string
-  endDate: string
+  startDate: string;
+  endDate: string;
 }
 
-const props = defineProps<DateRangePickerProps & { class?: HTMLAttributes['class'], disabled?: boolean }>()
-const emit = defineEmits(['update:startDate', 'update:endDate', 'update:dateRange'])
+const props = defineProps<
+  DateRangePickerProps & { class?: HTMLAttributes['class']; disabled?: boolean }
+>();
+const emit = defineEmits(['update:startDate', 'update:endDate', 'update:dateRange']);
 
-const calendarStartDate: CalendarDateTime = parseDateTime(props.startDate)
-const calendarEndDate: CalendarDateTime = parseDateTime(props.endDate)
+const calendarStartDate: CalendarDateTime = parseDateTime(props.startDate);
+const calendarEndDate: CalendarDateTime = parseDateTime(props.endDate);
 
 const value = ref({
   start: calendarStartDate,
   end: calendarEndDate,
-}) as Ref<DateRange>
+}) as Ref<DateRange>;
 
 const updateStartValue = (startDate: DateValue | undefined) => {
   if (startDate) {
-    emit('update:startDate', startDate.toString())
+    emit('update:startDate', startDate.toString());
   }
-}
+};
 
 watch(value, (newValue) => {
   if (newValue.start && newValue.end) {
     emit('update:dateRange', {
       start: newValue.start.toString(),
       end: newValue.end.toString(),
-    })
+    });
   }
-})
+});
 </script>
 
 <template>

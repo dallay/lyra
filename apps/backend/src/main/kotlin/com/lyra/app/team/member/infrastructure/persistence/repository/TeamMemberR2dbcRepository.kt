@@ -8,6 +8,7 @@ import org.springframework.data.r2dbc.repository.Modifying
 import org.springframework.data.r2dbc.repository.Query
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 
 /**
  * This interface provides methods to interact with the team member repository.
@@ -28,6 +29,7 @@ interface TeamMemberR2dbcRepository :
      *
      */
     @Modifying
+    @Transactional
     @Query(
         """
     INSERT INTO team_members (team_id, user_id, role, created_at, updated_at)
@@ -43,6 +45,7 @@ interface TeamMemberR2dbcRepository :
      * @param teamId The team id.
      * @param userId The user id.
      */
+    @Transactional
     @Modifying
     @Query(
         """

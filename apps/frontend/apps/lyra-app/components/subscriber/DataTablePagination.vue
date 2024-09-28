@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import type { Table } from '@tanstack/vue-table'
-import type {Subscriber} from '@/domain/subscriber';
-import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-icons/vue'
+import type { Table } from '@tanstack/vue-table';
+import type { Subscriber } from '@/domain/subscriber';
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  DoubleArrowLeftIcon,
+  DoubleArrowRightIcon,
+} from '@radix-icons/vue';
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -25,8 +30,12 @@ interface DataTablePaginationProps {
 }
 const props = defineProps<DataTablePaginationProps>();
 
-const hasNextPage = computed(() => cursorPage.value.next !== null && cursorPage.value.next !== undefined);
-const hasPreviousPage = computed(() => cursorPage.value.previous !== null && cursorPage.value.previous !== undefined);
+const hasNextPage = computed(
+  () => cursorPage.value.next !== null && cursorPage.value.next !== undefined,
+);
+const hasPreviousPage = computed(
+  () => cursorPage.value.previous !== null && cursorPage.value.previous !== undefined,
+);
 
 const setPageSize = async (value: string) => {
   const pageSize = Number(value);

@@ -27,7 +27,7 @@ internal class DeleteFormControllerIntegrationTest : ControllerIntegrationTest()
     }
 
     @Test
-    fun `should return OK when form is not found`(): Unit = runBlocking {
+    fun `should not delete form when form is not found`(): Unit = runBlocking {
         val formId = "94be1a32-cf2e-4dfc-892d-bdd8ac7ad354"
         webTestClient.mutateWith(csrf()).delete()
             .uri("/api/organization/$organizationId/form/$formId")

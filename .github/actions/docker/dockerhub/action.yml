@@ -1,0 +1,63 @@
+name: Publish to Docker Hub 📦
+description: |
+  This workflow packages and publishes the application to Docker Hub.
+
+inputs:
+  deliver:
+    description: 'Deliver application to production'
+    required: true
+    default: true
+  docker_username:
+    description: 'The username for Docker Hub'
+    required: true
+  docker_password:
+    description: 'The password for Docker Hub'
+    required: true
+  image_name:
+    description: 'The name of the image to be published'
+    required: true
+  version:
+    description: 'The version of the application'
+    required: true
+  docker_hub_image:
+    description: 'Docker hub image name'
+    required: false
+    default: 'n4t5u/lyra'
+  non_prod_tag:
+    description: 'Non production docker image tag'
+    required: false
+    default: 'nightly'
+
+runs:
+  using: composite
+  steps:
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ inputs.docker_username }}
+        password: ${{ inputs.docker_password }}
+
+    - name: Push container image to Docker Hub
+      if: ${{ inputs.deliver }}
+      run: |
+        docker tag base/${{ inputs.image_name }}:latest docker.io/${{ inputs.docker_hub_image }}:${{ inputs.version }}
+        docker tag lyra-app:latest docker.io/${{ inputs.docker_hub_image }}-app:${{ inputs.version }}
+        docker tag lyra-landing-page:latest docker.io/${{ inputs.docker_hub_image }}-landing-page:${{ inputs.version }}
+        docker push docker.io/${{ inputs.docker_hub_image }}:${{ inputs.version }}
+        docker push docker.io/${{ inputs.docker_hub_image }}-app:${{ inputs.version }}
+        docker push docker.io/${{ inputs.docker_hub_image }}-landing-page:${{ inputs.version }}
+      shell: bash
+
+    - name: Push non-production container image to Docker Hub
+      if: ${{ !inputs.deliver }}
+      run: |
+        docker tag base/${{ inputs.image_name }}:latest \
+                    docker.io/${{ inputs.docker_hub_image }}:${{ inputs.non_prod_tag }}
+        docker tag lyra-app:latest \
+                    docker.io/${{ inputs.image_name }}-app:${{ inputs.non_prod_tag }}
+        docker tag lyra-landing-page:latest \
+                    docker.io/${{ inputs.image_name }}-landing-page:${{ inputs.non_prod_tag }}
+        docker push docker.io/${{ inputs.docker_hub_image }}:${{ inputs.non_prod_tag }}
+        docker push docker.io/${{ inputs.image_name }}-app:${{ inputs.non_prod_tag }}
+        docker push docker.io/${{ inputs.image_name }}-landing-page:${{ inputs.non_prod_tag }}
+      shell: bash

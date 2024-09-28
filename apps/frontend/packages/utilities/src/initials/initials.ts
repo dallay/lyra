@@ -8,5 +8,8 @@ export default function (fullName: string): string {
   if (!fullName || fullName.length === 0) {
     return '';
   }
-  return fullName.split(' ').map((n) => n[0]).join('');
+  return fullName
+    .split(' ')
+    .map((n) => n[0])
+    .join('');
 }

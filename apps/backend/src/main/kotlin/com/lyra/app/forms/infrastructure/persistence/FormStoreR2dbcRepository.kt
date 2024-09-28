@@ -36,13 +36,6 @@ class FormStoreR2dbcRepository(
      *
      * @param form The form to create.
      */
-    /**
-     * This function is used to create a new form.
-     * It is a suspending function, meaning it can be paused and resumed at a later time.
-     * This makes it suitable for use in a coroutine context, where it can be used for non-blocking IO operations.
-     *
-     * @param form The form to create.
-     */
     override suspend fun create(form: Form) {
         try {
             formR2dbcRepository.save(form.toEntity())
@@ -51,14 +44,6 @@ class FormStoreR2dbcRepository(
             throw FormException("Error creating form", e)
         }
     }
-
-    /**
-     * This function is used to update an existing form.
-     * It is a suspending function, meaning it can be paused and resumed at a later time.
-     * This makes it suitable for use in a coroutine context, where it can be used for non-blocking IO operations.
-     *
-     * @param form The form to update.
-     */
 
     /**
      * This function is used to update an existing form.
@@ -85,15 +70,6 @@ class FormStoreR2dbcRepository(
      * @param id The id of the form to find.
      * @return The form if found, or null if not found.
      */
-
-    /**
-     * This function is used to find a form by its id.
-     * It is a suspending function, meaning it can be paused and resumed at a later time.
-     * This makes it suitable for use in a coroutine context, where it can be used for non-blocking IO operations.
-     *
-     * @param id The id of the form to find.
-     * @return The form if found, or null if not found.
-     */
     override suspend fun findById(id: FormId): Form? =
         formR2dbcRepository.findById(id.value)?.toDomain()
 
@@ -110,16 +86,6 @@ class FormStoreR2dbcRepository(
         val entity = formR2dbcRepository.findByIdAndOrganizationId(formId.value, organizationId.value)
         return entity?.toDomain()
     }
-
-    /**
-     * This function is used to search all [Form] by cursor.
-     *
-     * @param criteria The criteria to use for the search.
-     * @param size The size of the page to return.
-     * @param sort The sort order to use for the results.
-     * @param cursor The cursor to use for the search.
-     * @return A CursorPageResponse containing the search results.
-     */
 
     /**
      * This function is used to search all [Form] by cursor.

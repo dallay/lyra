@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/dallay/lyra/compare/v1.12.0...v1.13.0) (2024-09-28)
+
+
+### Features
+
+* docker build frontend ([#336](https://github.com/dallay/lyra/issues/336)) ([873fbe3](https://github.com/dallay/lyra/commit/873fbe3f96a254bdaf0f84b2c9f2258f7e8a9298))
+
 # [1.12.0](https://github.com/dallay/lyra/compare/v1.11.0...v1.12.0) (2024-09-24)
 
 

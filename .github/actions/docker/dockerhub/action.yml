@@ -27,8 +27,8 @@ inputs:
     description: 'Non production docker image tag'
     required: false
     default: 'nightly'
-  tag:
-    description: 'Tag from metadata action'
+  tags:
+    description: 'Tags from metadata action'
     required: true
 
 runs:
@@ -42,12 +42,14 @@ runs:
 
     - name: Push container image to Docker Hub
       run: |
-        docker tag base/${{ inputs.image_name }}:latest docker.io/${{ inputs.docker_hub_image }}:${{ inputs.tag }}
-        docker tag lyra-app:latest docker.io/${{ inputs.image_name }}-app:${{ inputs.tag }}
-        docker tag lyra-landing-page:latest docker.io/${{ inputs.image_name }}-landing-page:${{ inputs.tag }}
-        docker push docker.io/${{ inputs.docker_hub_image }}:${{ inputs.tag }}
-        docker push docker.io/${{ inputs.image_name }}-app:${{ inputs.tag }}
-        docker push docker.io/${{ inputs.image_name }}-landing-page:${{ inputs.tag }}
+        for tag in ${{ inputs.tags }}; do
+          docker tag base/${{ inputs.image_name }}:latest docker.io/${{ inputs.docker_hub_image }}:$tag
+          docker tag lyra-app:latest docker.io/${{ inputs.image_name }}-app:$tag
+          docker tag lyra-landing-page:latest docker.io/${{ inputs.image_name }}-landing-page:$tag
+          docker push docker.io/${{ inputs.docker_hub_image }}:$tag
+          docker push docker.io/${{ inputs.image_name }}-app:$tag
+          docker push docker.io/${{ inputs.image_name }}-landing-page:$tag
+        done
       shell: bash
 
     - name: Push non-production container image to Docker Hub

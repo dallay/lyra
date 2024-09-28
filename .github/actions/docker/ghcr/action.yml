@@ -30,7 +30,7 @@ runs:
     - name: OCI image vulnerability scanning
       uses: aquasecurity/trivy-action@0.20.0
       with:
-        image-ref: ghcr.io/${{ inputs.image_name }}:${{ inputs.tag }}
+        image-ref: base/${{ inputs.image_name }}:latest
         format: 'sarif'
         output: 'trivy-results-oci-image.sarif'
         vuln-type: 'os,library'

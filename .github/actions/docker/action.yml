@@ -71,12 +71,13 @@ runs:
       id: meta
       with:
         images: |
-          base/${{ inputs.image_name }}:latest
-          lyra-app:latest
-          lyra-landing-page:latest
+          base/${{ inputs.image_name }}
+          lyra-app
+          lyra-landing-page
         tags: |
           type=semver,pattern={{version}}
           type=ref,event=branch,pattern={{sha}}
+          type=ref,event=tag,pattern={{tag}}
 
     - name: Publish to GHCR 📦
       uses: ./.github/actions/docker/ghcr

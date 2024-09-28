@@ -41,14 +41,19 @@ runs:
         password: ${{ inputs.docker_password }}
 
     - name: Push container image to Docker Hub
+      if: ${{ inputs.deliver }}
       run: |
         for tag in ${{ inputs.tags }}; do
-          docker tag base/${{ inputs.image_name }}:latest docker.io/${{ inputs.docker_hub_image }}:$tag
-          docker tag lyra-app:latest docker.io/${{ inputs.image_name }}-app:$tag
-          docker tag lyra-landing-page:latest docker.io/${{ inputs.image_name }}-landing-page:$tag
-          docker push docker.io/${{ inputs.docker_hub_image }}:$tag
-          docker push docker.io/${{ inputs.image_name }}-app:$tag
-          docker push docker.io/${{ inputs.image_name }}-landing-page:$tag
+          if [[ $tag == *"lyra-app"* ]]; then
+            docker tag lyra-app:latest docker.io/$tag
+            docker push docker.io/$tag
+          elif [[ $tag == *"lyra-landing-page"* ]]; then
+            docker tag lyra-landing-page:latest docker.io/$tag
+            docker push docker.io/$tag
+          elif [[ $tag == *"base"* ]]; then
+            docker tag base/${{ inputs.image_name }}:latest docker.io/$tag
+            docker push docker.io/$tag
+          fi
         done
       shell: bash
 

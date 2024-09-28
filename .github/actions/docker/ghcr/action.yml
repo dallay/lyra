@@ -49,14 +49,19 @@ runs:
         password: ${{ inputs.ci_github_token }}
 
     - name: Push container image to GHCR
+      if: ${{ inputs.deliver }}
       run: |
         for tag in ${{ inputs.tags }}; do
-          docker tag base/${{ inputs.image_name }}:latest ghcr.io/${{ inputs.image_name }}:$tag
-          docker tag lyra-app:latest ghcr.io/${{ inputs.image_name }}-app:$tag
-          docker tag lyra-landing-page:latest ghcr.io/${{ inputs.image_name }}-landing-page:$tag
-          docker push ghcr.io/${{ inputs.image_name }}:$tag
-          docker push ghcr.io/${{ inputs.image_name }}-app:$tag
-          docker push ghcr.io/${{ inputs.image_name }}-landing-page:$tag
+          if [[ $tag == *"lyra-app"* ]]; then
+            docker tag lyra-app:latest ghcr.io/$tag
+            docker push ghcr.io/$tag
+          elif [[ $tag == *"lyra-landing-page"* ]]; then
+            docker tag lyra-landing-page:latest ghcr.io/$tag
+            docker push ghcr.io/$tag
+          elif [[ $tag == *"base"* ]]; then
+            docker tag base/${{ inputs.image_name }}:latest ghcr.io/$tag
+            docker push ghcr.io/$tag
+          fi
         done
       shell: bash
 

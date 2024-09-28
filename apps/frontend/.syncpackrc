@@ -1,0 +1,10 @@
+{
+  "versionGroups": [
+    {
+      "packages": ["**"],
+      "dependencies": ["$LOCAL"],
+      "dependencyTypes": ["dev"],
+      "pinVersion": "workspace:*"
+    }
+  ]
+}

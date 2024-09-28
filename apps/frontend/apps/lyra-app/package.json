@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "lyra-app",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,13 +7,12 @@
     "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 nuxt dev --https --ssl-cert ../../../../infra/ssl/cert.pem --ssl-key ../../../../infra/ssl/key.pem",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "start": "nuxt start"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
     "@internationalized/date": "^3.5.5",
-    "@lyra/shared": "0.0.1",
-    "@lyra/utilities": "0.0.1",
     "@nuxt/icon": "^1.5.1",
     "@nuxt/image": "^1.8.0",
     "@nuxt/scripts": "^0.9.3",
@@ -27,7 +26,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "jwt-decode": "^4.0.0",
-    "lucide-vue-next": "^0.445.0",
+    "lucide-vue-next": "^0.446.0",
     "nuxt": "^3.13.2",
     "pinia": "^2.2.2",
     "radix-vue": "^1.9.6",
@@ -39,7 +38,9 @@
     "vue": "^3.5.8"
   },
   "devDependencies": {
-    "@lyra/config": "0.0.1",
+    "@lyra/config": "workspace:*",
+    "@lyra/shared": "workspace:*",
+    "@lyra/utilities": "workspace:*",
     "@nuxt/test-utils": "^3.14.2",
     "@nuxtjs/color-mode": "^3.5.1",
     "@nuxtjs/tailwindcss": "^6.12.1",

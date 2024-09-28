@@ -219,7 +219,7 @@ jobs:
           deliver: true
           registry: ${{ env.REGISTRY }}
           image_name: ${{ env.IMAGE_NAME }}
-          version: ${{ github.sha }}
+          version: ${{ steps.get_data.outputs.version || github.sha }}
           ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}

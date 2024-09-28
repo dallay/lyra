@@ -27,9 +27,6 @@ inputs:
     description: 'Non production docker image tag'
     required: false
     default: 'nightly'
-  tags:
-    description: 'Tags from metadata action'
-    required: true
 
 runs:
   using: composite

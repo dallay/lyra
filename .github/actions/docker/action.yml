@@ -74,7 +74,6 @@ runs:
         version: ${{ inputs.version }}
         ci_github_token: ${{ inputs.ci_github_token }}
         non_prod_tag: ${{ inputs.non_prod_tag }}
-        tags: ${{ steps.meta.outputs.tags }}
 
     - name: Publish to Docker Hub 📦
       uses: ./.github/actions/docker/dockerhub
@@ -86,4 +85,3 @@ runs:
         version: ${{ inputs.version }}
         docker_hub_image: ${{ inputs.docker_hub_image }}
         non_prod_tag: ${{ inputs.non_prod_tag }}
-        tags: ${{ steps.meta.outputs.tags }}

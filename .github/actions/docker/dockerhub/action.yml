@@ -41,11 +41,11 @@ runs:
       if: ${{ inputs.deliver }}
       run: |
         docker tag base/${{ inputs.image_name }}:latest docker.io/${{ inputs.docker_hub_image }}:${{ inputs.version }}
-        docker tag lyra-app:latest docker.io/${{ inputs.image_name }}-app:${{ inputs.version }}
-        docker tag lyra-landing-page:latest docker.io/${{ inputs.image_name }}-landing-page:${{ inputs.version }}
+        docker tag lyra-app:latest docker.io/${{ inputs.docker_hub_image }}-app:${{ inputs.version }}
+        docker tag lyra-landing-page:latest docker.io/${{ inputs.docker_hub_image }}-landing-page:${{ inputs.version }}
         docker push docker.io/${{ inputs.docker_hub_image }}:${{ inputs.version }}
-        docker push docker.io/${{ inputs.image_name }}-app:${{ inputs.version }}
-        docker push docker.io/${{ inputs.image_name }}-landing-page:${{ inputs.version }}
+        docker push docker.io/${{ inputs.docker_hub_image }}-app:${{ inputs.version }}
+        docker push docker.io/${{ inputs.docker_hub_image }}-landing-page:${{ inputs.version }}
       shell: bash
 
     - name: Push non-production container image to Docker Hub

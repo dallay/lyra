@@ -1,5 +1,6 @@
 package com.lyra
 
+import com.lyra.app.controllers.GlobalExceptionHandler
 import com.lyra.common.domain.bus.Mediator
 import com.lyra.spring.boot.ApiController
 import io.mockk.every
@@ -40,6 +41,7 @@ abstract class ControllerTest {
         mockSecurity(jwtAuthenticationToken)
 
         return WebTestClient.bindToController(controller)
+            .controllerAdvice(GlobalExceptionHandler()) // Attach the global exception handler
             .apply {
                 csrf()
             }.apply {

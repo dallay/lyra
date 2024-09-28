@@ -2,9 +2,7 @@ import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth.store';
 import { defineNuxtRouteMiddleware, navigateTo, useCookie } from '#imports';
 
-const publicRoutePatterns = [
-  /^\/forms\/[a-zA-Z0-9-]+$/
-];
+const publicRoutePatterns = [/^\/forms\/[a-zA-Z0-9-]+$/];
 
 export default defineNuxtRouteMiddleware((to, _) => {
   const { accessToken } = storeToRefs(useAuthStore());

@@ -1,9 +1,9 @@
 package com.lyra.app.notifications.application
 
-import com.lyra.app.newsletter.SubscriberStub
-import com.lyra.app.newsletter.application.SubscriberResponse
-import com.lyra.app.newsletter.application.SubscribersResponse
-import com.lyra.app.newsletter.application.search.active.SearchAllActiveSubscribersQuery
+import com.lyra.app.newsletter.subscriber.SubscriberStub
+import com.lyra.app.newsletter.subscriber.application.SubscriberResponse
+import com.lyra.app.newsletter.subscriber.application.SubscribersResponse
+import com.lyra.app.newsletter.subscriber.application.search.active.SearchAllActiveSubscribersQuery
 import com.lyra.app.notifications.domain.EmailSender
 import com.lyra.app.notifications.domain.event.NewContentNewsletterEmailSent
 import com.lyra.common.domain.bus.Mediator

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { definePageMeta } from '#imports'
+import { definePageMeta } from '#imports';
 definePageMeta({
-  layout: 'simple'
-})
-import UserAuthForm from '@/components/UserAuthForm.vue'
+  layout: 'simple',
+});
+import UserAuthForm from '@/components/UserAuthForm.vue';
 
 const onError = async (event: Event) => {
   const target = event.target as HTMLImageElement;
   target.src = '/placeholder.svg';
-}
+};
 </script>
 
 <template>

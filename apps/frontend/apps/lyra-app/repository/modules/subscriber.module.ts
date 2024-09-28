@@ -1,16 +1,16 @@
-import Routes from "../routes.client";
+import Routes from '../routes.client';
 
-import SecureFetchFactory from "~/repository/secure.factory";
-import type {PageResponse} from "@lyra/shared";
-import {OrganizationId} from "~/domain/organization";
+import SecureFetchFactory from '~/repository/secure.factory';
+import type { PageResponse } from '@lyra/shared';
+import { OrganizationId } from '~/domain/organization';
 import {
   type Subscriber,
   type SubscriberCountByStatusResponse,
   type SubscriberCountByTagsResponse,
   SubscriberId,
-  type SubscriberRequest
-} from "~/domain/subscriber";
-import {type CriteriaQueryParams, toQueryParams} from "~/domain/criteria";
+  type SubscriberRequest,
+} from '~/domain/subscriber';
+import { type CriteriaQueryParams, toQueryParams } from '~/domain/criteria';
 
 class SubscriberModule extends SecureFetchFactory {
   private readonly RESOURCE = Routes.Subscriber;
@@ -27,12 +27,9 @@ class SubscriberModule extends SecureFetchFactory {
     });
   }
 
-  async fetchAll(
-    organizationId: OrganizationId,
-    criteria: CriteriaQueryParams
-  ) {
+  async fetchAll(organizationId: OrganizationId, criteria: CriteriaQueryParams) {
     const headers = await this.buildHeaders();
-    const params = toQueryParams(criteria)
+    const params = toQueryParams(criteria);
     return this.call<PageResponse<Subscriber>>({
       method: 'GET',
       url: `${this.RESOURCE.FetchAll(organizationId)}`,
@@ -42,8 +39,8 @@ class SubscriberModule extends SecureFetchFactory {
           ...headers,
           ...(this.accessToken
             ? {
-              Authorization: `Bearer ${this.accessToken}`,
-            }
+                Authorization: `Bearer ${this.accessToken}`,
+              }
             : {}),
         },
       },
@@ -60,8 +57,8 @@ class SubscriberModule extends SecureFetchFactory {
           ...headers,
           ...(this.accessToken
             ? {
-              Authorization: `Bearer ${this.accessToken}`,
-            }
+                Authorization: `Bearer ${this.accessToken}`,
+              }
             : {}),
         },
       },
@@ -78,8 +75,8 @@ class SubscriberModule extends SecureFetchFactory {
           ...headers,
           ...(this.accessToken
             ? {
-              Authorization: `Bearer ${this.accessToken}`,
-            }
+                Authorization: `Bearer ${this.accessToken}`,
+              }
             : {}),
         },
       },

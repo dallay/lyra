@@ -1,4 +1,4 @@
-import type AccessToken from "./AccessToken";
+import type AccessToken from './AccessToken';
 
 /**
  * Interface representing an authentication service.

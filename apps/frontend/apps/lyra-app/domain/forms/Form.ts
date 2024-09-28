@@ -34,7 +34,7 @@ export default class Form {
     readonly buttonTextColor: HexColor,
     readonly organizationId: string,
     readonly createdAt: Date,
-    readonly updatedAt: Date
+    readonly updatedAt: Date,
   ) {
     this.id = id;
   }
@@ -81,7 +81,7 @@ export default class Form {
       HexColor.create(plainData.buttonTextColor),
       plainData.organizationId,
       new Date(),
-      new Date()
+      new Date(),
     );
   }
 

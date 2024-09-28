@@ -10,8 +10,6 @@ env:
   CI: CI
   NATIVE_IMAGE_ENABLED: enabled
   CI_GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
-  DOCKER_CI_GITHUB_TOKEN: ${{ secrets.DOCKER_CI_GITHUB_TOKEN }}
-  OWNER: ${{ github.repository_owner }}
   DEPLOY_REPO: ${{ github.event.repository.name }}
   NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
 
@@ -22,6 +20,10 @@ permissions:
   contents: write
   issues: write
   pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validation:
@@ -218,10 +220,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           image_name: ${{ env.IMAGE_NAME }}
           version: ${{ github.sha }}
-          ci_github_token: ${{ env.DOCKER_CI_GITHUB_TOKEN }}
-          owner: ${{ env.OWNER }}
-          app_repo: ${{ github.repository }}
-          deploy_repo: ${{ env.DEPLOY_REPO }}
+          ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}

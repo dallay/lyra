@@ -1,11 +1,10 @@
 package com.lyra.app.forms.infrastructure.http
 
+import com.lyra.ControllerTest
 import com.lyra.UnitTest
 import com.lyra.app.forms.application.delete.DeleteFormCommand
-import com.lyra.common.domain.bus.Mediator
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.mockk
 import io.mockk.slot
 import java.util.*
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -14,10 +13,9 @@ import org.junit.jupiter.api.Test
 import org.springframework.test.web.reactive.server.WebTestClient
 
 @UnitTest
-internal class DeleteFormControllerTest {
-    private val mediator: Mediator = mockk()
+internal class DeleteFormControllerTest : ControllerTest() {
     private lateinit var controller: DeleteFormController
-    private lateinit var webTestClient: WebTestClient
+    override lateinit var webTestClient: WebTestClient
     private val formId = UUID.randomUUID().toString()
     private val organizationId = UUID.randomUUID().toString()
 

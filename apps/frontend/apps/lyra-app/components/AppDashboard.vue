@@ -1,26 +1,15 @@
 <script setup lang="ts">
-import Overview from '@/components/Overview.vue'
-import DateRangePicker from '@/components/DateRangePicker.vue'
-import RecentSales from '@/components/RecentSales.vue'
+import Overview from '@/components/Overview.vue';
+import DateRangePicker from '@/components/DateRangePicker.vue';
+import RecentSales from '@/components/RecentSales.vue';
 
-import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs'
-import type { DateRange } from 'radix-vue'
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import type { DateRange } from 'radix-vue';
 const updateDateRange = async (newRange: DateRange) => {
-  console.log(newRange)
-}
+  console.log(newRange);
+};
 </script>
 
 <template>

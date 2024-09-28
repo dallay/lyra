@@ -14,28 +14,28 @@
  * @returns {boolean} - Returns `true` if the values are equivalent, else `false`.
  */
 export function isEqual(value: unknown, other: unknown): boolean {
-	if (value === other) return true;
+  if (value === other) return true;
 
-	if (typeof value !== 'object' || value === null || typeof other !== 'object' || other === null) {
-		return false;
-	}
+  if (typeof value !== 'object' || value === null || typeof other !== 'object' || other === null) {
+    return false;
+  }
 
-	const keysA = Object.keys(value as object),
-		keysB = Object.keys(other as object);
+  const keysA = Object.keys(value as object),
+    keysB = Object.keys(other as object);
 
-	if (keysA.length !== keysB.length) return false;
+  if (keysA.length !== keysB.length) return false;
 
-	for (const key of keysA) {
-		if (!keysB.includes(key)) return false;
-		// biome-ignore lint/suspicious/noExplicitAny: this is a known object comparison
-		if (typeof (value as any)[key] === 'object' && typeof (other as any)[key] === 'object') {
+  for (const key of keysA) {
+    if (!keysB.includes(key)) return false;
+    // biome-ignore lint/suspicious/noExplicitAny: this is a known object comparison
+    if (typeof (value as any)[key] === 'object' && typeof (other as any)[key] === 'object') {
       // biome-ignore lint/suspicious/noExplicitAny: this is a known object comparison
-			if (!isEqual((value as any)[key], (other as any)[key])) return false;
-		} else {
+      if (!isEqual((value as any)[key], (other as any)[key])) return false;
+    } else {
       // biome-ignore lint/suspicious/noExplicitAny: this is a known object comparison
-			if ((value as any)[key] !== (other as any)[key]) return false;
-		}
-	}
+      if ((value as any)[key] !== (other as any)[key]) return false;
+    }
+  }
 
-	return true;
+  return true;
 }

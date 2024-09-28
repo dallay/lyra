@@ -1,9 +1,9 @@
 .light {
-	scrollbar-color: lightcyan lightslategrey;
-	scrollbar-width: thin;
+  scrollbar-color: lightcyan lightslategrey;
+  scrollbar-width: thin;
 }
 
 .dark {
-	scrollbar-color: #1e293b lightblue;
-	scrollbar-width: thin;
+  scrollbar-color: #1e293b lightblue;
+  scrollbar-width: thin;
 }

@@ -14,13 +14,13 @@
  */
 
 // biome-ignore lint/suspicious/noExplicitAny: sort function is a known object comparison
-export  function sortBy<T>(array: T[], keyOrGetter: keyof T | ((item: T) => any)): T[] {
-	const keyGetter =
-		typeof keyOrGetter === 'function' ? keyOrGetter : (item: T) => item[keyOrGetter as keyof T];
+export function sortBy<T>(array: T[], keyOrGetter: keyof T | ((item: T) => any)): T[] {
+  const keyGetter =
+    typeof keyOrGetter === 'function' ? keyOrGetter : (item: T) => item[keyOrGetter as keyof T];
 
-	return [...array].sort((a, b) => {
-		const keyA = keyGetter(a);
-		const keyB = keyGetter(b);
-		return keyA > keyB ? 1 : keyA < keyB ? -1 : 0;
-	});
+  return [...array].sort((a, b) => {
+    const keyA = keyGetter(a);
+    const keyB = keyGetter(b);
+    return keyA > keyB ? 1 : keyA < keyB ? -1 : 0;
+  });
 }

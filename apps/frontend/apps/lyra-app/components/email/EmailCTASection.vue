@@ -27,9 +27,8 @@ const props = withDefaults(
     backgroundColor: '#111827',
     textColor: '#9BA3AF',
     uppercase: false,
-  }
+  },
 );
-
 
 const identifier = ref(crypto.randomUUID());
 </script>

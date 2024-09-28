@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/dallay/lyra/compare/v1.13.0...v1.13.1) (2024-09-28)
+
+
+### Bug Fixes
+
+* **deploy:** handle missing version in deploy workflow ([facbb08](https://github.com/dallay/lyra/commit/facbb08ca8c466b73dee8d81e001b133f7ad0fe4))
+
 # [1.13.0](https://github.com/dallay/lyra/compare/v1.12.0...v1.13.0) (2024-09-28)
 
 

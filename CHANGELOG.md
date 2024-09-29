@@ -1,3 +1,10 @@
+## [1.13.4](https://github.com/dallay/lyra/compare/v1.13.3...v1.13.4) (2024-09-29)
+
+
+### Bug Fixes
+
+* **deploy:** SSL certificates env variables for location ([ce9ad41](https://github.com/dallay/lyra/commit/ce9ad4116927b38227d4d189bd5644259401933c))
+
 ## [1.13.3](https://github.com/dallay/lyra/compare/v1.13.2...v1.13.3) (2024-09-29)
 
 

@@ -37,18 +37,24 @@ runs:
         username: ${{ inputs.docker_username }}
         password: ${{ inputs.docker_password }}
 
-    - name: Push container image to Docker Hub
+    - name: Push container image to Docker Hub ${{ inputs.version }}
       if: ${{ inputs.deliver }}
       run: |
         docker tag base/${{ inputs.image_name }}:latest docker.io/${{ inputs.docker_hub_image }}:${{ inputs.version }}
+        docker tag base/${{ inputs.image_name }}:latest docker.io/${{ inputs.docker_hub_image }}:latest
         docker tag lyra-app:latest docker.io/${{ inputs.docker_hub_image }}-app:${{ inputs.version }}
+        docker tag lyra-app:latest docker.io/${{ inputs.docker_hub_image }}-app:latest
         docker tag lyra-landing-page:latest docker.io/${{ inputs.docker_hub_image }}-landing-page:${{ inputs.version }}
+        docker tag lyra-landing-page:latest docker.io/${{ inputs.docker_hub_image }}-landing-page:latest
         docker push docker.io/${{ inputs.docker_hub_image }}:${{ inputs.version }}
+        docker push docker.io/${{ inputs.docker_hub_image }}:latest
         docker push docker.io/${{ inputs.docker_hub_image }}-app:${{ inputs.version }}
+        docker push docker.io/${{ inputs.docker_hub_image }}-app:latest
         docker push docker.io/${{ inputs.docker_hub_image }}-landing-page:${{ inputs.version }}
+        docker push docker.io/${{ inputs.docker_hub_image }}-landing-page:latest
       shell: bash
 
-    - name: Push non-production container image to Docker Hub
+    - name: Push non-production container image to Docker Hub ${{ inputs.non_prod_tag }}
       if: ${{ !inputs.deliver }}
       run: |
         docker tag base/${{ inputs.image_name }}:latest \

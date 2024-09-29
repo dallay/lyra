@@ -26,14 +26,14 @@ spring:
         keycloak:
           reload-on-update: true
           truststore:
-            certificate: file:infra/ssl/cert.pem
+            certificate: ${SSL_CERTIFICATE:file:infra/ssl/cert.pem}
       jks:
         web-server:
           key:
             alias: "server"
             password: ${SSL_KEYSTORE_PASSWORD:changeme}
           keystore:
-            location: file:infra/ssl/keystore.jks
+            location: ${SSL_KEYSTORE_LOCATION:file:infra/ssl/keystore.jks}
             password: ${SSL_KEYSTORE_PASSWORD:changeme}
   security:
     oauth2:
@@ -63,7 +63,7 @@ spring:
     hibernate.ddl-auto: none
 application:
   name: lyra
-  description: Lyra is the take note of the future. It's a note taking app that uses AI to help you take notes.
+  description: Lyra is the future of newsletter creation and social media management. It's an app that uses AI to help you create newsletters and manage social media.
   version: 0.0.1-SNAPSHOT
   security:
     oauth2:

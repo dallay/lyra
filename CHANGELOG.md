@@ -1,3 +1,11 @@
+## [1.13.3](https://github.com/dallay/lyra/compare/v1.13.2...v1.13.3) (2024-09-29)
+
+
+### Bug Fixes
+
+* **deploy:** approval depends of the code coverage ([5555dfe](https://github.com/dallay/lyra/commit/5555dfe5f094c762bf836ae6c4203de127441b71))
+* **deploy:** semantic version ([5edd8c4](https://github.com/dallay/lyra/commit/5edd8c4c2ceb3064e8afb6510757ce53a3de4665))
+
 ## [1.13.2](https://github.com/dallay/lyra/compare/v1.13.1...v1.13.2) (2024-09-29)
 
 

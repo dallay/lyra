@@ -19,6 +19,7 @@ inputs:
   version:
     description: 'The version of the application'
     required: true
+    default: ${{ github.sha }}
   docker_hub_image:
     description: 'Docker hub image name'
     required: false

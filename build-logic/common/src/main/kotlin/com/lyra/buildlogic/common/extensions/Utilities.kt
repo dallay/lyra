@@ -13,12 +13,16 @@ fun Project.registerCopyEnvFileTask(locations: List<String>) {
     tasks.register("copyEnvFile") {
         doLast {
             val rootEnvFile = project.rootDir.resolve(".env").toPath()
-            locations.forEach { location ->
-                val targetPath = project.rootDir.resolve(location).resolve(".env").toPath()
-                if (Files.exists(targetPath)) {
-                    Files.delete(targetPath)
+            if (Files.exists(rootEnvFile)) {
+                locations.forEach { location ->
+                    val targetPath = project.rootDir.resolve(location).resolve(".env").toPath()
+                    if (Files.exists(targetPath)) {
+                        Files.delete(targetPath)
+                    }
+                    Files.createSymbolicLink(targetPath, rootEnvFile)
                 }
-                Files.createSymbolicLink(targetPath, rootEnvFile)
+            } else {
+                println("↠ ⚠\uFE0F ⚠\uFE0E Warning: .env file not found at $rootEnvFile")
             }
         }
     }

@@ -20,7 +20,7 @@
     "@radix-icons/vue": "^1.0.0",
     "@tanstack/vue-table": "^8.20.5",
     "@unovis/ts": "1.4.4-beta.2",
-    "@unovis/vue": "1.4.4-beta.2",
+    "@unovis/vue": "1.4.4",
     "@vee-validate/zod": "^4.13.2",
     "@vueuse/core": "^11.1.0",
     "class-variance-authority": "^0.7.0",

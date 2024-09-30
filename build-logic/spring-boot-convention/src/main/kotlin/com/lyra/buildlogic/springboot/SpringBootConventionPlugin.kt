@@ -5,6 +5,7 @@ import com.lyra.buildlogic.common.extensions.catalogBundle
 import com.lyra.buildlogic.common.extensions.catalogPlugin
 import com.lyra.buildlogic.common.extensions.commonExtensions
 import com.lyra.buildlogic.common.extensions.commonTasks
+import com.lyra.buildlogic.common.extensions.registerCopyEnvFileTask
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
@@ -20,6 +21,13 @@ class SpringBootConventionPlugin : ConventionPlugin {
 
         with(extensions) {
             commonExtensions()
+            registerCopyEnvFileTask(
+                listOf(
+                    "apps/frontend",
+                    "apps/frontend/apps/lyra-app",
+                    "apps/frontend/apps/lyra-landing-page",
+                ),
+            )
         }
 
         tasks.commonTasks()

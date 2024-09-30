@@ -8,6 +8,7 @@ import com.lyra.app.users.infrastructure.http.request.RegisterUserRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import org.apache.commons.text.StringEscapeUtils
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -30,7 +31,7 @@ class UserRegisterController(private val userRegistrator: UserRegistrator) {
     @PostMapping("/register")
     suspend fun registerUser(@Validated @RequestBody registerUserRequest: RegisterUserRequest):
         ResponseEntity<ApiDataResponse<UserResponse>> {
-        log.info("Registering new user with email: {}", registerUserRequest.email)
+        log.info("Registering new user with email: {}", StringEscapeUtils.escapeJava(registerUserRequest.email))
         return try {
             val response = userRegistrator.registerNewUser(registerUserRequest.toRegisterUserCommand())
             mapRegistrationResult(response)

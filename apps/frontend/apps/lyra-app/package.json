@@ -16,7 +16,7 @@
     "@nuxt/icon": "^1.5.2",
     "@nuxt/image": "^1.8.0",
     "@nuxt/scripts": "^0.9.4",
-    "@pinia/nuxt": "^0.5.4",
+    "@pinia/nuxt": "^0.5.5",
     "@radix-icons/vue": "^1.0.0",
     "@tanstack/vue-table": "^8.20.5",
     "@unovis/ts": "1.4.4-beta.2",

@@ -10,6 +10,7 @@ import com.lyra.common.domain.Service
 import com.lyra.common.domain.bus.event.EventBroadcaster
 import com.lyra.common.domain.bus.event.EventPublisher
 import com.lyra.common.domain.error.BusinessRuleValidationException
+import org.apache.commons.text.StringEscapeUtils
 import org.slf4j.LoggerFactory
 
 @Service
@@ -24,8 +25,10 @@ class UserRegistrator(
     }
 
     suspend fun registerNewUser(registerUserCommand: RegisterUserCommand): ApiDataResponse<UserResponse> {
-        val sanitizedEmail = sanitizeInput(registerUserCommand.email)
-        log.info("Registering new user with email: {}", sanitizedEmail)
+        log.info(
+            "Registering new user with email: {}",
+            StringEscapeUtils.escapeJava(registerUserCommand.email),
+        )
         return try {
             val user = registerUserCommand.toUser()
             val createdUser = userCreator.create(user)
@@ -62,9 +65,5 @@ class UserRegistrator(
 
     companion object {
         private val log = LoggerFactory.getLogger(UserRegistrator::class.java)
-
-        private fun sanitizeInput(input: String): String {
-            return input.replace("\n", "").replace("\r", "")
-        }
     }
 }

@@ -28,7 +28,7 @@
     "jwt-decode": "^4.0.0",
     "lucide-vue-next": "^0.446.0",
     "nuxt": "^3.13.2",
-    "pinia": "^2.2.2",
+    "pinia": "^2.2.3",
     "radix-vue": "^1.9.6",
     "shadcn-nuxt": "^0.10.4",
     "tailwind-merge": "^2.5.2",

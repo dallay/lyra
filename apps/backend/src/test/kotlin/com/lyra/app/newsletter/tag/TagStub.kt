@@ -44,25 +44,16 @@ object TagStub {
     fun generateTagRequest(
         name: String = faker.lorem().word(),
         color: String = allColorSupported.random(),
-        subscriberEmails: Set<String> = (0 until 10).map { faker.internet().emailAddress() }
-            .toSet(),
+        subscriberEmails: Set<String> = (0 until 10).map { faker.internet().emailAddress() }.toSet(),
         isUpdate: Boolean = false
-    ): String {
-        val request = if (isUpdate) {
-            UpdateTagRequest(
-                name = name,
-                color = color,
-                subscribers = subscriberEmails,
-            )
-        } else {
-            CreateTagRequest(
-                name = name,
-                color = color,
-                subscribers = subscriberEmails,
-            )
-        }
-        return objectMapper.writeValueAsString(request)
-    }
+    ): String =
+        objectMapper.writeValueAsString(
+            if (isUpdate) {
+                UpdateTagRequest(name, color, subscriberEmails)
+            } else {
+                CreateTagRequest(name, color, subscriberEmails)
+            },
+        )
 
     fun randomTagsList(size: Int = 10): List<Tag> = (0 until size).map { create() }
 }

@@ -1,8 +1,8 @@
 plugins {
     id("app.frontend")
 }
-
-tasks.register<Copy>("processFrontendResources") {
+val processFrontendResources = "processFrontendResources"
+tasks.register<Copy>(processFrontendResources) {
     // Get the project directory
     val projectDir = project.projectDir
     println("Project directory: $projectDir")
@@ -43,6 +43,12 @@ tasks.register<Copy>("processFrontendResources") {
     }
 }
 
+tasks.named("assemble") {
+    dependsOn(processFrontendResources)
+    dependsOn("copyEnvFile")
+}
+
 tasks.named("build") {
-    dependsOn("processFrontendResources")
+    dependsOn(processFrontendResources)
+    dependsOn("copyEnvFile")
 }

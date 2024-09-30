@@ -25,6 +25,21 @@ inputs:
 runs:
   using: composite
   steps:
+    # Trivy cache setup
+    - name: Set up Trivy cache directory
+      run: |
+        mkdir -p ~/.cache/trivy
+      shell: bash
+
+    - name: Cache Trivy DB
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/trivy
+        key: ${{ runner.os }}-trivy-db
+        restore-keys: |
+          ${{ runner.os }}-trivy-db
+
+    # Vulnerability scanning
     - name: OCI image vulnerability scanning
       uses: aquasecurity/trivy-action@0.20.0
       with:

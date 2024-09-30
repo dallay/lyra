@@ -16,8 +16,8 @@ import jakarta.validation.constraints.Size
  * @property email The email of the user. It must not be blank, must be a valid email address,
  * and must be less than 255 characters.
  * @property password The password of the user. It must not be blank and must be between 8 and 100 characters.
- * @property firstname The firstname of the user. It must not be blank and must be between 3 and 100 characters.
- * @property lastname The lastname of the user. It must not be blank and must be between 3 and 100 characters.
+ * @property firstname The firstname of the user. It must not be blank and must be between 1 and 100 characters.
+ * @property lastname The lastname of the user. It must not be blank and must be between 1 and 100 characters.
  */
 data class RegisterUserRequest(
     @field:NotBlank(message = "Email cannot be blank")
@@ -28,10 +28,10 @@ data class RegisterUserRequest(
     @field:Size(min = 8, max = 100, message = "Password must be between 8 and 100 characters")
     val password: String,
     @field:NotBlank(message = "Firstname cannot be blank")
-    @field:Size(min = 3, max = 100, message = "Firstname must be between 3 and 100 characters")
+    @field:Size(min = 1, max = 100, message = "Firstname must be between 3 and 100 characters")
     val firstname: String,
     @field:NotBlank(message = "Lastname cannot be blank")
-    @field:Size(min = 3, max = 100, message = "Lastname must be between 3 and 100 characters")
+    @field:Size(min = 1, max = 100, message = "Lastname must be between 3 and 100 characters")
     val lastname: String
 ) {
     /**

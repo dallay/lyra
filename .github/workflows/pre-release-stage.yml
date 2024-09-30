@@ -69,7 +69,7 @@ jobs:
           severity: 'CRITICAL'
 
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-results.sarif'
           category: source-code
@@ -116,7 +116,7 @@ jobs:
           retention-days: 1
 
       - name: Analyze detekt report
-        uses: github/codeql-action/upload-sarif@v3.25.6
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: build/reports/detekt/detekt.sarif
           checkout_path: ${{ github.workspace }}

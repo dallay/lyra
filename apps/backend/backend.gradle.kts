@@ -88,6 +88,12 @@ tasks.named<Task>("processResources") {
 
 tasks.named("build") {
     dependsOn(processFrontendResources)
+    dependsOn("copyEnvFile")
+}
+
+tasks.named("assemble") {
+    dependsOn(processFrontendResources)
+    dependsOn("copyEnvFile")
 }
 
 tasks.named<BootBuildImage>("bootBuildImage") {

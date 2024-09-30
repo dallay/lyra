@@ -30,7 +30,7 @@ class UserRegisterController(private val userRegistrator: UserRegistrator) {
     @PostMapping("/register")
     suspend fun registerUser(@Validated @RequestBody registerUserRequest: RegisterUserRequest):
         ResponseEntity<ApiDataResponse<UserResponse>> {
-        val sanitizedEmail = registerUserRequest.email.replace(Regex("[\\r\\n]"), "")
+        val sanitizedEmail = registerUserRequest.email.replace(Regex("[^a-zA-Z0-9@._-]"), "")
         log.info("Registering new user with email: {}", sanitizedEmail)
         return try {
             val response = userRegistrator.registerNewUser(registerUserRequest.toRegisterUserCommand())

@@ -74,7 +74,7 @@ reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.6" }
 cucumber-java = { module = "io.cucumber:cucumber-java", version.ref = "cucumber" }
 mockk = { module = "io.mockk:mockk", version = "1.13.12" }
 faker = { module = "net.datafaker:datafaker", version = "2.2.2" }
-assertj = { module ="org.assertj:assertj-core", version = "3.26.0" }
+assertj = { module ="org.assertj:assertj-core", version = "3.26.3" }
 kotest-assertions-core-jvm = { module = "io.kotest:kotest-assertions-core-jvm", version.ref = "kotest" }
 kotest-assertions-json = { module = "io.kotest:kotest-assertions-json", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }

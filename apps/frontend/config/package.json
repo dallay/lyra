@@ -25,7 +25,7 @@
   },
   "homepage": "lyra-nwhm.onrender.com",
   "devDependencies": {
-    "@codecov/vite-plugin": "1.0.1",
+    "@codecov/vite-plugin": "1.2.0",
     "@julr/unocss-preset-flowbite": "^0.0.2",
     "@lyra/tsconfig": "workspace:*",
     "@unocss/reset": "^0.63.1",

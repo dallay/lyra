@@ -187,7 +187,7 @@ internal class UserRegisterControllerIntegrationTest : InfrastructureTestContain
                 {
                     "email": "${faker.internet().emailAddress()}",
                     "password": "${Credential.generateRandomCredentialPassword()}",
-                    "firstname": "a",
+                    "firstname": "",
                     "lastname": "${faker.name().lastName()}"
                 }
                 """.trimIndent(),
@@ -213,7 +213,7 @@ internal class UserRegisterControllerIntegrationTest : InfrastructureTestContain
                     "email": "${faker.internet().emailAddress()}",
                     "password": "${Credential.generateRandomCredentialPassword()}",
                     "firstname": "${faker.name().firstName()}",
-                    "lastname": "a"
+                    "lastname": ""
                 }
                 """.trimIndent(),
             )

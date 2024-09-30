@@ -47,12 +47,9 @@ runs:
         docker tag lyra-app:latest docker.io/${{ inputs.docker_hub_image }}-app:latest
         docker tag lyra-landing-page:latest docker.io/${{ inputs.docker_hub_image }}-landing-page:${{ inputs.version }}
         docker tag lyra-landing-page:latest docker.io/${{ inputs.docker_hub_image }}-landing-page:latest
-        docker push docker.io/${{ inputs.docker_hub_image }}:${{ inputs.version }}
-        docker push docker.io/${{ inputs.docker_hub_image }}:latest
-        docker push docker.io/${{ inputs.docker_hub_image }}-app:${{ inputs.version }}
-        docker push docker.io/${{ inputs.docker_hub_image }}-app:latest
-        docker push docker.io/${{ inputs.docker_hub_image }}-landing-page:${{ inputs.version }}
-        docker push docker.io/${{ inputs.docker_hub_image }}-landing-page:latest
+        docker push --all-tags docker.io/${{ inputs.docker_hub_image }}
+        docker push --all-tags docker.io/${{ inputs.docker_hub_image }}-app
+        docker push --all-tags docker.io/${{ inputs.docker_hub_image }}-landing-page
       shell: bash
 
     - name: Push non-production container image to Docker Hub ${{ inputs.non_prod_tag }}
@@ -64,7 +61,7 @@ runs:
                     docker.io/${{ inputs.image_name }}-app:${{ inputs.non_prod_tag }}
         docker tag lyra-landing-page:latest \
                     docker.io/${{ inputs.image_name }}-landing-page:${{ inputs.non_prod_tag }}
-        docker push docker.io/${{ inputs.docker_hub_image }}:${{ inputs.non_prod_tag }}
-        docker push docker.io/${{ inputs.image_name }}-app:${{ inputs.non_prod_tag }}
-        docker push docker.io/${{ inputs.image_name }}-landing-page:${{ inputs.non_prod_tag }}
+        docker push --all-tags docker.io/${{ inputs.docker_hub_image }}
+        docker push --all-tags docker.io/${{ inputs.image_name }}-app
+        docker push --all-tags docker.io/${{ inputs.image_name }}-landing-page
       shell: bash

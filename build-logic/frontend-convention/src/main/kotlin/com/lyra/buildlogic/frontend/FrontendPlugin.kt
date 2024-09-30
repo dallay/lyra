@@ -1,6 +1,7 @@
 package com.lyra.buildlogic.frontend
 
 import com.lyra.buildlogic.common.ConventionPlugin
+import com.lyra.buildlogic.common.extensions.registerCopyEnvFileTask
 import java.nio.file.Files
 import kotlin.io.path.Path
 import org.gradle.api.Project
@@ -18,6 +19,13 @@ internal class FrontendPlugin : ConventionPlugin {
         apply(plugin = "org.siouan.frontend-jdk17")
         with(extensions) {
             configure<FrontendExtension> { configure(project) }
+            registerCopyEnvFileTask(
+                listOf(
+                    "apps/frontend",
+                    "apps/frontend/apps/lyra-app",
+                    "apps/frontend/apps/lyra-landing-page",
+                ),
+            )
         }
         tasks.named<InstallFrontendTask>("installFrontend") {
             val ciPlatformPresent = providers.environmentVariable("CI").isPresent

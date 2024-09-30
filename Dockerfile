@@ -1,4 +1,4 @@
-FROM node:21-slim AS base
+FROM node:21-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -22,20 +22,20 @@ COPY --from=build /prod/lyra-app /prod/lyra-app-dev
 WORKDIR /prod/lyra-app-dev
 
 # Expose port for Nuxt server
-EXPOSE 8000
+EXPOSE 3000
 
 # Start the Nuxt server
 CMD [ "pnpm", "run", "start" ]
 
 # Application image for lyra-app (Nuxt)
-FROM base AS lyra-app
+FROM gcr.io/distroless/nodejs22-debian12 AS lyra-app
 COPY --from=build /usr/src/app/apps/frontend/apps/lyra-app/.output /prod/lyra-app
 WORKDIR /prod/lyra-app
 # Expose port for Nuxt server
-EXPOSE 7628
+EXPOSE 3000/tcp
 
 # Start node server
-CMD [ "node", "./server/index.mjs" ]
+CMD [ "./server/index.mjs" ]
 
 # Application image for lyra-landing-page-dev (Astro)
 FROM base AS lyra-landing-page-dev
@@ -50,7 +50,7 @@ EXPOSE 4321
 CMD [ "pnpm", "run", "start" ]
 
 # Application image for lyra-landing-page (Astro)
-FROM base AS lyra-landing-page
+FROM gcr.io/distroless/nodejs22-debian12 AS lyra-landing-page
 COPY --from=build /usr/src/app/apps/frontend/apps/lyra-landing-page/dist /prod/lyra-landing-page
 WORKDIR /prod/lyra-landing-page
 
@@ -59,5 +59,4 @@ ENV PORT=4321
 EXPOSE 4321
 
 # Start node server
-#CMD ["node", "./server/entry.mjs"]
-CMD ["node", "./server/entry.mjs"]
+CMD ["./server/entry.mjs"]

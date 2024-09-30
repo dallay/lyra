@@ -24,7 +24,8 @@ class UserRegistrator(
     }
 
     suspend fun registerNewUser(registerUserCommand: RegisterUserCommand): ApiDataResponse<UserResponse> {
-        log.info("Registering new user with email: {}", registerUserCommand.email)
+        val sanitizedEmail = sanitizeInput(registerUserCommand.email)
+        log.info("Registering new user with email: {}", sanitizedEmail)
         return try {
             val user = registerUserCommand.toUser()
             val createdUser = userCreator.create(user)
@@ -61,5 +62,9 @@ class UserRegistrator(
 
     companion object {
         private val log = LoggerFactory.getLogger(UserRegistrator::class.java)
+
+        private fun sanitizeInput(input: String): String {
+            return input.replace("\n", "").replace("\r", "")
+        }
     }
 }

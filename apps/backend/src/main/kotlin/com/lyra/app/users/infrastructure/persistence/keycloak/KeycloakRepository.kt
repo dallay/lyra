@@ -30,7 +30,7 @@ class KeycloakRepository(
     }
 
     override suspend fun create(user: User): User {
-        log.info("Saving user with email: {}", user.email.value)
+        log.info("Saving user with email: {}", user.email.value.replace("\n", "").replace("\r", ""))
 
         val message = "Error creating user with email: ${user.email.value}"
 
@@ -51,8 +51,8 @@ class KeycloakRepository(
                 } else {
                     log.debug(
                         "Trying to create user with email: {} and username: {}",
-                        user.email.value,
-                        user.username.value,
+                        user.email.value.replace("\n", "").replace("\r", ""),
+                        user.username.value.replace("\n", "").replace("\r", ""),
                     )
                     val userRepresentation = getUserRepresentation(user, credentialRepresentation)
                     userRepresentation.username = user.username.value
@@ -63,8 +63,8 @@ class KeycloakRepository(
             } catch (exception: BusinessRuleValidationException) {
                 log.error(
                     "Error creating user with email: {} and username: {}",
-                    user.email.value,
-                    user.username.value,
+                    user.email.value.replace("\n", "").replace("\r", ""),
+                    user.username.value.replace("\n", "").replace("\r", ""),
                     exception,
                 )
                 when (exception) {
@@ -74,7 +74,11 @@ class KeycloakRepository(
                     else -> throw UserStoreException(message, exception)
                 }
             } catch (exception: ClientErrorException) {
-                log.error("Error creating user with email: {}", user.email.value, exception)
+                log.error(
+                    "Error creating user with email: {}",
+                    user.email.value.replace("\n", "").replace("\r", ""),
+                    exception,
+                )
                 throw UserStoreException(message, exception)
             }
         }

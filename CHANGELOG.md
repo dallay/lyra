@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/dallay/lyra/compare/v1.13.4...v1.14.0) (2024-09-30)
+
+
+### Features
+
+* **workflow:** [TASK-222] add step to save version for reuse in Package and Publish ([#348](https://github.com/dallay/lyra/issues/348)) ([1c3ee6c](https://github.com/dallay/lyra/commit/1c3ee6c9e37d62db862d2e2efee29dd7224dbaca))
+
 ## [1.13.4](https://github.com/dallay/lyra/compare/v1.13.3...v1.13.4) (2024-09-29)
 
 

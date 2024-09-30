@@ -66,6 +66,20 @@ runs:
         docker build . --target lyra-landing-page --tag lyra-landing-page:latest
       shell: bash
 
+    # Cache for Trivy
+    - name: Set up Trivy cache directory
+      run: |
+        mkdir -p ~/.cache/trivy
+      shell: bash
+
+    - name: Cache Trivy DB
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/trivy
+        key: ${{ runner.os }}-trivy-db
+        restore-keys: |
+          ${{ runner.os }}-trivy-db
+
     - name: Publish to GHCR 📦
       uses: ./.github/actions/docker/ghcr
       with:

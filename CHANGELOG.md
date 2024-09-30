@@ -1,3 +1,13 @@
+## [1.14.1](https://github.com/dallay/lyra/compare/v1.14.0...v1.14.1) (2024-09-30)
+
+
+### Bug Fixes
+
+* code scanning alert no. 173: Log Injection [#351](https://github.com/dallay/lyra/issues/351) ([f527add](https://github.com/dallay/lyra/commit/f527add96eb65a926a714e0946dab82e1258dac3))
+* code scanning alert no. 174: Log Injection [#352](https://github.com/dallay/lyra/issues/352) ([b4a1013](https://github.com/dallay/lyra/commit/b4a1013e20eaedf13968e0b007f34d1ddd7e6b94))
+* code scanning alert no. 175: Log Injection ([#347](https://github.com/dallay/lyra/issues/347)) ([05a2c01](https://github.com/dallay/lyra/commit/05a2c01fa2cd54bf9f9dc6f348e63e3bc05fbf50))
+* code scanning alert no. 317: Log Injection ([4537476](https://github.com/dallay/lyra/commit/45374762bbb7e2f4a10f806e9ce5798627a055cf))
+
 # [1.14.0](https://github.com/dallay/lyra/compare/v1.13.4...v1.14.0) (2024-09-30)
 
 

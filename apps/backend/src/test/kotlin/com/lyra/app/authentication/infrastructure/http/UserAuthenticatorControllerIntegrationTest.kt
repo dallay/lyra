@@ -27,7 +27,7 @@ private const val ERROR_CATEGORY = "AUTHENTICATION"
 
 @Suppress("MultilineRawStringIndentation")
 @AutoConfigureWebTestClient
-class UserAuthenticatorControllerIntegrationTest : InfrastructureTestContainers() {
+internal class UserAuthenticatorControllerIntegrationTest : InfrastructureTestContainers() {
     // this user is created by default in Keycloak container (see demo-realm-test.json)
     private val email = "john.doe@lyra.com"
     private val username = "john.doe"
@@ -190,7 +190,7 @@ class UserAuthenticatorControllerIntegrationTest : InfrastructureTestContainers(
             .bodyValue(
                 """
                 {
-                    "username": "${user.email}",
+                    "username": "${user.email.value}",
                     "password": "$randomPassword"
                 }
                 """.trimIndent(),

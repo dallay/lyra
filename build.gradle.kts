@@ -19,7 +19,6 @@ repositories {
 idea {
     module.isDownloadJavadoc = true
     module.isDownloadSources = true
-    // exclude node_modules from indexing
     module.excludeDirs.add(file("**/node_modules"))
 }
 

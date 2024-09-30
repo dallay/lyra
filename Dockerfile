@@ -32,7 +32,7 @@ FROM base AS lyra-app
 COPY --from=build /usr/src/app/apps/frontend/apps/lyra-app/.output /prod/lyra-app
 WORKDIR /prod/lyra-app
 # Expose port for Nuxt server
-EXPOSE 7628
+EXPOSE 3000
 
 # Start node server
 CMD [ "node", "./server/index.mjs" ]

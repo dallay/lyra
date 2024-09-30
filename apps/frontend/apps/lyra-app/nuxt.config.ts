@@ -1,10 +1,4 @@
 import { defineNuxtConfig } from 'nuxt/config';
-const { API_URL, BACKEND_URL, APP_CLIENT_URL } = process.env;
-const defaultServer = 'http://localhost:8080';
-const defaultClient = 'https://localhost:4000';
-const backendUrl = BACKEND_URL || defaultServer;
-const apiUrl = API_URL || defaultServer;
-const appClientUrl = APP_CLIENT_URL || defaultClient;
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -37,11 +31,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      backendUrl,
-      apiUrl,
-      appClientUrl,
+      backendUrl: 'https://localhost:8443',
+      apiUrl: 'https://localhost:8443',
+      appClientUrl: 'https://localhost:3000',
     },
-    backendUrl,
-    apiUrl,
   },
 });

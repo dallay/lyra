@@ -1,3 +1,40 @@
+## [1.13.4](https://github.com/dallay/lyra/compare/v1.13.3...v1.13.4) (2024-09-29)
+
+
+### Bug Fixes
+
+* **deploy:** SSL certificates env variables for location ([ce9ad41](https://github.com/dallay/lyra/commit/ce9ad4116927b38227d4d189bd5644259401933c))
+
+## [1.13.3](https://github.com/dallay/lyra/compare/v1.13.2...v1.13.3) (2024-09-29)
+
+
+### Bug Fixes
+
+* **deploy:** approval depends of the code coverage ([5555dfe](https://github.com/dallay/lyra/commit/5555dfe5f094c762bf836ae6c4203de127441b71))
+* **deploy:** semantic version ([5edd8c4](https://github.com/dallay/lyra/commit/5edd8c4c2ceb3064e8afb6510757ce53a3de4665))
+
+## [1.13.2](https://github.com/dallay/lyra/compare/v1.13.1...v1.13.2) (2024-09-29)
+
+
+### Bug Fixes
+
+* **deploy:** handle missing version in deploy workflow ([c0407f0](https://github.com/dallay/lyra/commit/c0407f0dcb2377f92020102381256244a990b60f))
+* **deploy:** handle missing version in deploy workflow ([75523c2](https://github.com/dallay/lyra/commit/75523c2697c0a23c6fcc7fe539115f0609eed801))
+
+## [1.13.1](https://github.com/dallay/lyra/compare/v1.13.0...v1.13.1) (2024-09-28)
+
+
+### Bug Fixes
+
+* **deploy:** handle missing version in deploy workflow ([facbb08](https://github.com/dallay/lyra/commit/facbb08ca8c466b73dee8d81e001b133f7ad0fe4))
+
+# [1.13.0](https://github.com/dallay/lyra/compare/v1.12.0...v1.13.0) (2024-09-28)
+
+
+### Features
+
+* docker build frontend ([#336](https://github.com/dallay/lyra/issues/336)) ([873fbe3](https://github.com/dallay/lyra/commit/873fbe3f96a254bdaf0f84b2c9f2258f7e8a9298))
+
 # [1.12.0](https://github.com/dallay/lyra/compare/v1.11.0...v1.12.0) (2024-09-24)
 
 

@@ -13,6 +13,7 @@ inputs:
   version:
     description: 'The version of the application'
     required: true
+    default: ${{ github.sha }}
   ci_github_token:
     description: 'GITHUB_TOKEN with permissions to push to the container registry'
     required: true
@@ -45,18 +46,24 @@ runs:
         username: ${{ github.actor }}
         password: ${{ inputs.ci_github_token }}
 
-    - name: Push container image to GHCR
+    - name: Push container image to GHCR ${{ inputs.version }}
       if: ${{ inputs.deliver }}
       run: |
         docker tag base/${{ inputs.image_name }}:latest ghcr.io/${{ inputs.image_name }}:${{ inputs.version }}
+        docker tag base/${{ inputs.image_name }}:latest ghcr.io/${{ inputs.image_name }}:latest
         docker tag lyra-app:latest ghcr.io/${{ inputs.image_name }}-app:${{ inputs.version }}
+        docker tag lyra-app:latest ghcr.io/${{ inputs.image_name }}-app:latest
         docker tag lyra-landing-page:latest ghcr.io/${{ inputs.image_name }}-landing-page:${{ inputs.version }}
+        docker tag lyra-landing-page:latest ghcr.io/${{ inputs.image_name }}-landing-page:latest
         docker push ghcr.io/${{ inputs.image_name }}:${{ inputs.version }}
+        docker push ghcr.io/${{ inputs.image_name }}:latest
         docker push ghcr.io/${{ inputs.image_name }}-app:${{ inputs.version }}
+        docker push ghcr.io/${{ inputs.image_name }}-app:latest
         docker push ghcr.io/${{ inputs.image_name }}-landing-page:${{ inputs.version }}
+        docker push ghcr.io/${{ inputs.image_name }}-landing-page:latest
       shell: bash
 
-    - name: Push non-production container image to GHCR
+    - name: Push non-production container image to GHCR ${{ inputs.non_prod_tag }}
       if: ${{ !inputs.deliver }}
       run: |
         docker tag base/${{ inputs.image_name }}:latest \

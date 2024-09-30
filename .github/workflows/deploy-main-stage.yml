@@ -65,7 +65,7 @@ jobs:
           github_token: ${{ env.CI_GITHUB_TOKEN }}
 
       - name: Source code vulnerability scanning
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.24.0
         with:
           scan-type: 'fs'
           ignore-unfixed: true
@@ -152,7 +152,7 @@ jobs:
   approval:
     name: Deploy Approval 💫
     runs-on: ubuntu-latest
-    needs: [ functional, performance, security ]
+    needs: [ functional, performance, security, code-coverage ]
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -213,13 +213,13 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Package, Publish and Deploy
+      - name: Package, Publish and Deploy ${{ github.repository }} version ${{ steps.get_data.outputs.version }}
         uses: ./.github/actions/docker
         with:
           deliver: true
           registry: ${{ env.REGISTRY }}
           image_name: ${{ env.IMAGE_NAME }}
-          version: ${{ github.sha }}
+          version: ${{ steps.get_data.outputs.version != '' && steps.get_data.outputs.version || github.sha }}
           ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}

@@ -115,7 +115,13 @@ open class SecurityConfiguration(
             .csrf {
                     csrf ->
                 csrf
-                    .csrfTokenRepository(CookieServerCsrfTokenRepository.withHttpOnlyFalse())
+                    .csrfTokenRepository(
+                        CookieServerCsrfTokenRepository.withHttpOnlyFalse().apply {
+                            if (applicationSecurityProperties.domain.isNotEmpty()) {
+                                setCookieCustomizer { it.domain(applicationSecurityProperties.domain) }
+                            }
+                        },
+                    )
                     .csrfTokenRequestHandler(ServerCsrfTokenRequestAttributeHandler())
             }
             .cors {

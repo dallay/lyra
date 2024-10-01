@@ -87,6 +87,7 @@ application:
       exposed-headers: ${CORS_EXPOSED_HEADERS:Access-Control-Allow-Origin,Access-Control-Allow-Credentials}
       allow-credentials: ${CORS_ALLOW_CREDENTIALS:true}
       max-age: ${CORS_MAX_AGE:3600}
+    domain: ${HOSTNAME:localhost}
 
 management:
   endpoints:

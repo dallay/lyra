@@ -1,6 +1,7 @@
 package com.lyra.app.authentication.infrastructure
 
 import com.lyra.app.authentication.domain.Role
+import com.lyra.app.authentication.infrastructure.csrf.SpaCsrfTokenRequestHandler
 import com.lyra.app.authentication.infrastructure.filter.CookieCsrfFilter
 import com.lyra.common.domain.Generated
 import java.time.Duration
@@ -37,7 +38,6 @@ import org.springframework.security.oauth2.server.resource.authentication.Reacti
 import org.springframework.security.web.server.SecurityWebFilterChain
 import org.springframework.security.web.server.csrf.CookieServerCsrfTokenRepository
 import org.springframework.security.web.server.csrf.CsrfServerLogoutHandler
-import org.springframework.security.web.server.csrf.ServerCsrfTokenRequestAttributeHandler
 import org.springframework.security.web.server.header.ReferrerPolicyServerHttpHeadersWriter
 import org.springframework.security.web.server.util.matcher.NegatedServerWebExchangeMatcher
 import org.springframework.security.web.server.util.matcher.OrServerWebExchangeMatcher
@@ -122,7 +122,7 @@ class SecurityConfiguration(
                             }
                         },
                     )
-                    .csrfTokenRequestHandler(ServerCsrfTokenRequestAttributeHandler())
+                    .csrfTokenRequestHandler(SpaCsrfTokenRequestHandler())
             }
             .cors {
                     cors ->

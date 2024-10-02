@@ -202,7 +202,7 @@ jobs:
         id: semantic-release
         run: |
           npx semantic-release
-          echo "VERSION=$(cat gradle.properties | grep "version =" | cut -d'=' -f2)" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=$(cat gradle.properties | grep "version =" | cut -d'=' -f2)" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ env.CI_GITHUB_TOKEN }}
 
@@ -215,13 +215,13 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Package, Publish and Deploy ${{ github.repository }} version ${{ env.VERSION }}
+      - name: Package, Publish and Deploy ${{ github.repository }} version ${{ env.RELEASE_VERSION || env.VERSION }}
         uses: ./.github/actions/docker
         with:
           deliver: true
           registry: ${{ env.REGISTRY }}
           image_name: ${{ env.IMAGE_NAME }}
-          version: ${{ env.VERSION }}
+          version: ${{ env.RELEASE_VERSION || env.VERSION }}
           ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}

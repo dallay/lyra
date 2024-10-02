@@ -202,7 +202,7 @@ jobs:
         id: semantic-release
         run: |
           npx semantic-release
-          echo "RELEASE_VERSION=$(cat gradle.properties | grep "version =" | cut -d'=' -f2)" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=$(cat gradle.properties | grep "version =" | cut -d'=' -f2)" >> "$GITHUB_ENV"
         env:
           GITHUB_TOKEN: ${{ env.CI_GITHUB_TOKEN }}
 

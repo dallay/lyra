@@ -81,7 +81,7 @@ abstract class InfrastructureTestContainers {
 
         @JvmStatic
         private val keycloakContainer: KeycloakContainer =
-            KeycloakContainer("keycloak/keycloak:22.0.2")
+            KeycloakContainer("keycloak/keycloak:24.0")
                 .withRealmImportFile("keycloak/demo-realm-test.json")
                 .withAdminUsername(ADMIN_USER)
                 .withAdminPassword(ADMIN_PASSWORD)

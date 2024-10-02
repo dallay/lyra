@@ -3,14 +3,13 @@ package com.lyra.common.domain.presentation.pagination
 import com.lyra.common.domain.criteria.Criteria
 import com.lyra.common.domain.presentation.sort.Direction
 import java.time.LocalDateTime
-import java.time.format.DateTimeParseException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 private const val CURSOR_SEPARATOR = "<—>"
 
-class TimestampCursorTest {
+internal class TimestampCursorTest {
 
     @Test
     fun `getCursor returns formatted string`() {
@@ -52,7 +51,7 @@ class TimestampCursorTest {
     @Test
     fun `deserialize throws exception for invalid serialized string`() {
         val serialized = "invalidSerializedString"
-        assertThrows<DateTimeParseException> {
+        assertThrows<InvalidCursor> {
             TimestampCursor.deserialize(serialized)
         }
     }

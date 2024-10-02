@@ -72,7 +72,7 @@ private const val POLICY =
 @Configuration
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
-open class SecurityConfiguration(
+class SecurityConfiguration(
     val applicationSecurityProperties: ApplicationSecurityProperties
 ) {
     @Value("\${spring.security.oauth2.client.provider.oidc.issuer-uri}")
@@ -86,7 +86,7 @@ open class SecurityConfiguration(
      * @return A [CorsConfigurationSource] object that is configured based on the applicationSecurityProperties.
      */
     @Bean
-    open fun corsConfigurationSource(): CorsConfigurationSource {
+    fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
         configuration.allowedOrigins = applicationSecurityProperties.cors.allowedOrigins
         configuration.allowedMethods = applicationSecurityProperties.cors.allowedMethods
@@ -106,7 +106,7 @@ open class SecurityConfiguration(
      * @return The configured SecurityWebFilterChain.
      */
     @Bean
-    open fun filterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
+    fun filterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
         // @formatter:off
         return http
             .securityMatcher(
@@ -115,7 +115,13 @@ open class SecurityConfiguration(
             .csrf {
                     csrf ->
                 csrf
-                    .csrfTokenRepository(CookieServerCsrfTokenRepository.withHttpOnlyFalse())
+                    .csrfTokenRepository(
+                        CookieServerCsrfTokenRepository.withHttpOnlyFalse().apply {
+                            if (applicationSecurityProperties.domain.isNotEmpty()) {
+                                setCookieCustomizer { it.domain(applicationSecurityProperties.domain) }
+                            }
+                        },
+                    )
                     .csrfTokenRequestHandler(ServerCsrfTokenRequestAttributeHandler())
             }
             .cors {
@@ -230,7 +236,7 @@ open class SecurityConfiguration(
      * @return a [GrantedAuthoritiesMapper] that maps groups from the IdP to Spring Security Authorities.
      */
     @Bean
-    open fun userAuthoritiesMapper(): GrantedAuthoritiesMapper {
+    fun userAuthoritiesMapper(): GrantedAuthoritiesMapper {
         return GrantedAuthoritiesMapper { authorities ->
             val mappedAuthorities = HashSet<GrantedAuthority>()
 
@@ -253,7 +259,7 @@ open class SecurityConfiguration(
      */
     @Bean
     @Generated(reason = "Only called with a valid client registration repository")
-    open fun jwtDecoder(
+    fun jwtDecoder(
         clientRegistrationRepository: ReactiveClientRegistrationRepository,
         ssl: WebClientSsl
     ): ReactiveJwtDecoder {

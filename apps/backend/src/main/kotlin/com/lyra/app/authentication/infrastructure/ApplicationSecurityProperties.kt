@@ -17,7 +17,9 @@ import org.springframework.validation.annotation.Validated
  *
  * Properties:
  * - oauth2: The OAuth2 configuration properties. It is an instance of the inner [OAuth2] class.
+ * - cors: The CORS configuration properties. It is an instance of the inner [CorsProperties] class.
  * - contentSecurityPolicy: The Content Security Policy for the application.
+ * - domain: The domain for the application.
  *
  * Inner Class:
  * - [OAuth2]: Configuration properties for OAuth2 authentication.
@@ -48,7 +50,8 @@ import org.springframework.validation.annotation.Validated
 data class ApplicationSecurityProperties(
     val oauth2: OAuth2 = OAuth2(),
     val cors: CorsProperties = CorsProperties(),
-    val contentSecurityPolicy: String = CONTENT_SECURITY_POLICY
+    val contentSecurityPolicy: String = CONTENT_SECURITY_POLICY,
+    val domain: String = ""
 ) {
     data class OAuth2(
         val baseUrl: String = "",

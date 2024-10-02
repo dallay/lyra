@@ -16,6 +16,7 @@ internal class ApplicationSecurityPropertiesTest {
         .withProperty("application.security.cors.allowedOrigins", "testAllowedOrigins")
         .withProperty("application.security.cors.allowedMethods", "testAllowedMethods")
         .withProperty("application.security.contentSecurityPolicy", "testContentSecurityPolicy")
+        .withProperty("application.security.domain", "testDomain")
     private val binder: Binder = Binder.get(environment)
 
     @Test
@@ -48,5 +49,15 @@ internal class ApplicationSecurityPropertiesTest {
         val properties = result.get()
 
         assertEquals("testContentSecurityPolicy", properties.contentSecurityPolicy)
+    }
+
+    @Test
+    fun `should bind domain property correctly`() {
+        val result: BindResult<ApplicationSecurityProperties> =
+            binder.bind("application.security", ApplicationSecurityProperties::class.java)
+
+        val properties = result.get()
+
+        assertEquals("testDomain", properties.domain)
     }
 }

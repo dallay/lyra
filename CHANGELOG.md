@@ -1,3 +1,10 @@
+## [1.14.2](https://github.com/dallay/lyra/compare/v1.14.1...v1.14.2) (2024-10-02)
+
+
+### Bug Fixes
+
+* **security:** configure CSRF token repository with domain customization ([#368](https://github.com/dallay/lyra/issues/368)) ([c904291](https://github.com/dallay/lyra/commit/c90429144325831153f2c6480f33bd293de4bdd6))
+
 ## [1.14.1](https://github.com/dallay/lyra/compare/v1.14.0...v1.14.1) (2024-09-30)
 
 

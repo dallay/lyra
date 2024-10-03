@@ -4,7 +4,6 @@ import com.lyra.buildlogic.common.ConventionPlugin
 import com.lyra.buildlogic.common.extensions.isRelease
 import com.lyra.buildlogic.common.extensions.kover
 import kotlinx.kover.gradle.plugin.dsl.KoverProjectExtension
-import kotlinx.kover.gradle.plugin.dsl.KoverReportExtension
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.apply
@@ -35,7 +34,6 @@ internal class AppKoverPlugin : ConventionPlugin {
 
         with(extensions) {
             configure<KoverProjectExtension> { configure(project) }
-            configure<KoverReportExtension> { configure() }
         }
 
         dependencies {
@@ -49,20 +47,20 @@ internal class AppKoverPlugin : ConventionPlugin {
         project.tasks.withType<Test> {
             if (isRelease) disable()
         }
-    }
 
-    private fun KoverReportExtension.configure() {
-        filters {
-            includes { packages(packagesIncludes) }
-            excludes {
-                annotatedBy(
-                    "androidx.compose.runtime.Composable",
-                    "androidx.compose.ui.tooling.preview.Preview",
-                    "com.lyra.common.domain.Generated",
-                )
-                classes(classesExcludes)
-                packages(packagesExcludes)
-                annotatedBy("*Generated*")
+        reports {
+            filters {
+                includes { packages(packagesIncludes) }
+                excludes {
+                    annotatedBy(
+                        "androidx.compose.runtime.Composable",
+                        "androidx.compose.ui.tooling.preview.Preview",
+                        "com.lyra.common.domain.Generated",
+                    )
+                    classes(classesExcludes)
+                    packages(packagesExcludes)
+                    annotatedBy("*Generated*")
+                }
             }
         }
     }

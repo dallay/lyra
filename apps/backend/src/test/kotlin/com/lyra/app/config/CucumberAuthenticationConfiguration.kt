@@ -16,14 +16,14 @@ class CucumberAuthenticationConfiguration {
     @Bean
     @Primary
     fun jwtDecoder(): JwtDecoder {
-        val decoder = Jwts.parserBuilder().setSigningKey(JWT_KEY).build()
+        val decoder = Jwts.parser().verifyWith(JWT_KEY).build()
         return JwtDecoder { token: String? ->
             Jwt(
                 "token",
                 Instant.now(),
                 Instant.now().plusSeconds(120),
                 mapOf("issuer" to "http://dev"),
-                decoder.parseClaimsJws(token).body,
+                decoder.parseSignedClaims(token).payload,
             )
         }
     }

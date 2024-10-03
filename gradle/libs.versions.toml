@@ -1,23 +1,24 @@
 [versions]
-kotlin = "2.0.0"
+kotlin = "2.0.20"
 springBoot = "3.3.4"
-springdoc = "2.5.0"
-junit = "5.10.2"
+springdoc = "2.6.0"
+junit = "5.11.1"
 klint-plugin = "12.1.1"
-detekt = "1.23.6"
+detekt = "1.23.7"
 owasp = "10.0.3"
 asciidoctor = "4.0.2"
 dokka = "1.9.20"
 frontend-gradle-plugin = "8.0.0"
-springManagement = "1.1.5"
+springManagement = "1.1.6"
 reflections = "0.10.2"
-keycloak-admin-client = "24.0.4"
+keycloak-admin-client = "25.0.6"
 kotest = "5.9.1"
-testcontainers = "1.20.1"
-testcontainers-keycloak = "3.3.1"
-jsonwebtoken = "0.11.5"
-cucumber = "7.18.0"
+testcontainers = "1.20.2"
+testcontainers-keycloak = "3.4.0"
+jsonwebtoken = "0.12.6"
+cucumber = "7.19.0"
 apacheCommon = "1.12.0"
+jackson = "2.18.0"
 
 [libraries]
 # Gradle Plugins
@@ -29,10 +30,10 @@ gradle-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref
 # Utils
 gradle-updates = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.51.0" }
 gradle-owasp-depcheck = { module = "org.owasp:dependency-check-gradle", version.ref = "owasp" }
-gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.7.6" }
+gradle-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.8.3" }
 gradle-asciidoctor = { module = "org.asciidoctor:asciidoctor-gradle-jvm", version.ref = "asciidoctor" }
 spring-dotenv = 'me.paulschwarz:spring-dotenv:4.0.0'
-sendgrid = 'com.sendgrid:sendgrid-java:4.10.2'
+sendgrid = 'com.sendgrid:sendgrid-java:4.10.3'
 
 # Frontend
 gradle-frontend = { module = "org.siouan:frontend-jdk17", version.ref = "frontend-gradle-plugin" }
@@ -40,7 +41,7 @@ gradle-frontend = { module = "org.siouan:frontend-jdk17", version.ref = "fronten
 # Detekt
 gradle-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.4.12" }
-detekt-compose2 = { module = "ru.kode:detekt-rules-compose", version = "1.3.0" }
+detekt-compose2 = { module = "ru.kode:detekt-rules-compose", version = "1.4.0" }
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 
 # Spring Boot
@@ -57,11 +58,14 @@ spring-boot-starter-data-r2dbc = { module = "org.springframework.boot:spring-boo
 # SSO & Keycloak
 keycloak-admin-client = { module = "org.keycloak:keycloak-admin-client", version.ref = "keycloak-admin-client" }
 # Kotlin Libraries
-jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version = "2.17.1" }
-reactor-kotlin-extensions = { module = "io.projectreactor.kotlin:reactor-kotlin-extensions", version = "1.2.2" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
+reactor-kotlin-extensions = { module = "io.projectreactor.kotlin:reactor-kotlin-extensions", version = "1.2.3" }
 reflections = { module = "org.reflections:reflections", version.ref = "reflections" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
-kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version = "1.8.1" }
+kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version = "1.9.0" }
 # Apache Commons
 commons-text = { module = "org.apache.commons:commons-text", version.ref = "apacheCommon" }
 
@@ -69,12 +73,12 @@ commons-text = { module = "org.apache.commons:commons-text", version.ref = "apac
 # Testing
 junit = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
-spring-security-test = { module = "org.springframework.security:spring-security-test", version="6.3.0" }
-reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.6" }
+spring-security-test = { module = "org.springframework.security:spring-security-test", version="6.3.3" }
+reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.10" }
 cucumber-java = { module = "io.cucumber:cucumber-java", version.ref = "cucumber" }
 mockk = { module = "io.mockk:mockk", version = "1.13.12" }
-faker = { module = "net.datafaker:datafaker", version = "2.2.2" }
-assertj = { module ="org.assertj:assertj-core", version = "3.26.0" }
+faker = { module = "net.datafaker:datafaker", version = "2.4.0" }
+assertj = { module ="org.assertj:assertj-core", version = "3.26.3" }
 kotest-assertions-core-jvm = { module = "io.kotest:kotest-assertions-core-jvm", version.ref = "kotest" }
 kotest-assertions-json = { module = "io.kotest:kotest-assertions-json", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
@@ -105,8 +109,8 @@ spring-boot = [
 ]
 spring-boot-dev = ["spring-boot-devtools", "spring-boot-docker-compose"]
 spring-boot-test = ["spring-boot-starter-test", "spring-security-test", "reactor-test", "cucumber-java"]
-kotlin-jvm = ["kotlin-reflect", "kotlinx-coroutines-reactor", "jackson-module-kotlin",
-  "reactor-kotlin-extensions", "reflections"]
+jackson = ["jackson-annotations", "jackson-core", "jackson-databind", "jackson-module-kotlin"]
+kotlin-jvm = ["kotlin-reflect", "kotlinx-coroutines-reactor", "reactor-kotlin-extensions", "reflections"]
 keycloak = [ "keycloak-admin-client"]
 kotest = ["kotest-assertions-core-jvm", "kotest-assertions-json", "kotest-runner-junit5", "kotest-testcontainers"]
 tetscontainers = ["testcontainers", "testcontainers-junit-jupiter", "testcontainers-keycloak"]

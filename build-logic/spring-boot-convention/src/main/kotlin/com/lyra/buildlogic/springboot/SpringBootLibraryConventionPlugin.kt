@@ -9,6 +9,8 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 
+private const val IMPLEMENTATION = "implementation"
+
 class SpringBootLibraryConventionPlugin : ConventionPlugin {
     override fun Project.configure() {
         apply(plugin = catalogPlugin("kotlin-jvm").get().pluginId)
@@ -21,9 +23,11 @@ class SpringBootLibraryConventionPlugin : ConventionPlugin {
         tasks.commonTasks()
 
         dependencies {
-            add("implementation", catalogBundle("spring-boot"))
+            add(IMPLEMENTATION, catalogBundle("spring-boot"))
 
-            add("implementation", catalogBundle("kotlin-jvm"))
+            add(IMPLEMENTATION, catalogBundle("kotlin-jvm"))
+
+            add(IMPLEMENTATION, catalogBundle("jackson"))
 
             add("testImplementation", catalogBundle("spring-boot-test"))
         }

@@ -18,6 +18,7 @@ testcontainers-keycloak = "3.4.0"
 jsonwebtoken = "0.12.6"
 cucumber = "7.19.0"
 apacheCommon = "1.12.0"
+jackson = "2.18.0"
 
 [libraries]
 # Gradle Plugins
@@ -57,7 +58,10 @@ spring-boot-starter-data-r2dbc = { module = "org.springframework.boot:spring-boo
 # SSO & Keycloak
 keycloak-admin-client = { module = "org.keycloak:keycloak-admin-client", version.ref = "keycloak-admin-client" }
 # Kotlin Libraries
-jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version = "2.18.0" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
 reactor-kotlin-extensions = { module = "io.projectreactor.kotlin:reactor-kotlin-extensions", version = "1.2.3" }
 reflections = { module = "org.reflections:reflections", version.ref = "reflections" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
@@ -105,8 +109,8 @@ spring-boot = [
 ]
 spring-boot-dev = ["spring-boot-devtools", "spring-boot-docker-compose"]
 spring-boot-test = ["spring-boot-starter-test", "spring-security-test", "reactor-test", "cucumber-java"]
-kotlin-jvm = ["kotlin-reflect", "kotlinx-coroutines-reactor", "jackson-module-kotlin",
-  "reactor-kotlin-extensions", "reflections"]
+jackson = ["jackson-annotations", "jackson-core", "jackson-databind", "jackson-module-kotlin"]
+kotlin-jvm = ["kotlin-reflect", "kotlinx-coroutines-reactor", "reactor-kotlin-extensions", "reflections"]
 keycloak = [ "keycloak-admin-client"]
 kotest = ["kotest-assertions-core-jvm", "kotest-assertions-json", "kotest-runner-junit5", "kotest-testcontainers"]
 tetscontainers = ["testcontainers", "testcontainers-junit-jupiter", "testcontainers-keycloak"]

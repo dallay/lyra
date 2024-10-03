@@ -12,6 +12,8 @@ import org.gradle.kotlin.dsl.dependencies
 
 private const val TEST_IMPLEMENTATION = "testImplementation"
 
+private const val IMPLEMENTATION = "implementation"
+
 class SpringBootConventionPlugin : ConventionPlugin {
     override fun Project.configure() {
         apply(plugin = catalogPlugin("kotlin-jvm").get().pluginId)
@@ -33,9 +35,10 @@ class SpringBootConventionPlugin : ConventionPlugin {
         tasks.commonTasks()
 
         dependencies {
-            add("implementation", catalogBundle("spring-boot"))
+            add(IMPLEMENTATION, catalogBundle("spring-boot"))
 
-            add("implementation", catalogBundle("kotlin-jvm"))
+            add(IMPLEMENTATION, catalogBundle("kotlin-jvm"))
+            add(IMPLEMENTATION, catalogBundle("jackson"))
 
             add("developmentOnly", catalogBundle("spring-boot-dev"))
 

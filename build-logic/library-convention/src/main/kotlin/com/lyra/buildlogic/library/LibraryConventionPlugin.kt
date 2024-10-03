@@ -22,6 +22,7 @@ class LibraryConventionPlugin : ConventionPlugin {
         dependencies {
 
             add("implementation", catalogBundle("kotlin-jvm"))
+            add("implementation", catalogBundle("jackson"))
         }
 
 //      testing {

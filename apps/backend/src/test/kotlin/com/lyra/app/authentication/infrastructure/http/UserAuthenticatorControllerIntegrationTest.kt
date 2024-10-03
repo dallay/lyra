@@ -176,7 +176,7 @@ internal class UserAuthenticatorControllerIntegrationTest : InfrastructureTestCo
 
     @Test
     fun `should throw exception when user is not verified`(): Unit = runBlocking {
-        val randomEmail = faker.internet().emailAddress()
+        val randomEmail = "yap@example.com"
         val randomPassword = faker.internet().password(8, 100, true, true, true) + "1Aa@"
         val user = createUser(email = randomEmail, password = randomPassword)
             .also {

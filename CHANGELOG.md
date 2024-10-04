@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/dallay/lyra/compare/v1.14.2...v1.15.0) (2024-10-04)
+
+
+### Features
+
+* **security:** new csrf token handler and filter ([c44e113](https://github.com/dallay/lyra/commit/c44e113e147aa665b08981e8a0e0c23ef55c5bea))
+
 ## [1.14.2](https://github.com/dallay/lyra/compare/v1.14.1...v1.14.2) (2024-10-02)
 
 

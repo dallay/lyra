@@ -1,5 +1,6 @@
 package com.lyra.app.authentication.infrastructure.filter
 
+import com.lyra.app.authentication.infrastructure.ApplicationSecurityProperties
 import java.util.*
 import org.springframework.http.ResponseCookie
 import org.springframework.http.server.reactive.ServerHttpRequest
@@ -11,7 +12,9 @@ import org.springframework.web.server.WebFilterChain
 import reactor.core.publisher.Mono
 import reactor.core.scheduler.Schedulers
 
-class CookieCsrfFilter : WebFilter {
+class CookieCsrfFilter(
+    val applicationSecurityProperties: ApplicationSecurityProperties
+) : WebFilter {
     /** {@inheritDoc}  */
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
         return if (exchange.request.cookies[CSRF_COOKIE_NAME] != null) {
@@ -31,6 +34,13 @@ class CookieCsrfFilter : WebFilter {
                             .maxAge(-1)
                             .httpOnly(false)
                             .path(getRequestContext(exchange.request))
+                            .domain(
+                                if (applicationSecurityProperties.domain.startsWith(".")) {
+                                    applicationSecurityProperties.domain
+                                } else {
+                                    "." + applicationSecurityProperties.domain
+                                },
+                            )
                             .secure(Optional.ofNullable(exchange.request.sslInfo).isPresent)
                             .build()
                     exchange.response.cookies.add(CSRF_COOKIE_NAME, cookie)

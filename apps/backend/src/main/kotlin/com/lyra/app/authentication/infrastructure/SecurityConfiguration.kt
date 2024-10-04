@@ -118,7 +118,15 @@ class SecurityConfiguration(
                     .csrfTokenRepository(
                         CookieServerCsrfTokenRepository.withHttpOnlyFalse().apply {
                             if (applicationSecurityProperties.domain.isNotEmpty()) {
-                                setCookieCustomizer { it.domain(applicationSecurityProperties.domain) }
+                                setCookieCustomizer {
+                                    it.domain(
+                                        if (applicationSecurityProperties.domain.startsWith(".")) {
+                                            applicationSecurityProperties.domain
+                                        } else {
+                                            "." + applicationSecurityProperties.domain
+                                        },
+                                    )
+                                }
                             }
                         },
                     )
@@ -128,7 +136,7 @@ class SecurityConfiguration(
                     cors ->
                 cors.configurationSource(corsConfigurationSource())
             }
-            .addFilterAt(CookieCsrfFilter(), SecurityWebFiltersOrder.REACTOR_CONTEXT)
+            .addFilterAt(CookieCsrfFilter(applicationSecurityProperties), SecurityWebFiltersOrder.REACTOR_CONTEXT)
 //            .addFilterAfter(SpaWebFilter(), SecurityWebFiltersOrder.HTTPS_REDIRECT)
             .redirectToHttps {
                     httpsRedirect ->
@@ -267,7 +275,8 @@ class SecurityConfiguration(
         val audienceValidator: OAuth2TokenValidator<Jwt> =
             AudienceValidator(applicationSecurityProperties.oauth2.audience)
         val withIssuer = JwtValidators.createDefaultWithIssuer(issuerUri)
-        val withAudience: OAuth2TokenValidator<Jwt> = DelegatingOAuth2TokenValidator(withIssuer, audienceValidator)
+        val withAudience: OAuth2TokenValidator<Jwt> =
+            DelegatingOAuth2TokenValidator(withIssuer, audienceValidator)
         jwtDecoder.setJwtValidator(withAudience)
 
         val sslCertificate = ssl.fromBundle("keycloak")
@@ -280,7 +289,8 @@ class SecurityConfiguration(
                                 .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                                 .clientConnector(
                                     ReactorClientHttpConnector(
-                                        HttpClient.create().responseTimeout(Duration.ofMillis(TIMEOUT.toLong())),
+                                        HttpClient.create()
+                                            .responseTimeout(Duration.ofMillis(TIMEOUT.toLong())),
                                     ),
                                 )
                                 .baseUrl(it!!.providerDetails.issuerUri)
@@ -298,6 +308,7 @@ class SecurityConfiguration(
                 }
         }
     }
+
     companion object {
         private const val TIMEOUT = 2000
     }

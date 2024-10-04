@@ -1,5 +1,6 @@
 package com.lyra.app.authentication.infrastructure.csrf
 
+import org.slf4j.LoggerFactory
 import org.springframework.security.web.server.csrf.CsrfToken
 import org.springframework.security.web.server.csrf.ServerCsrfTokenRequestAttributeHandler
 import org.springframework.security.web.server.csrf.ServerCsrfTokenRequestHandler
@@ -12,6 +13,11 @@ class SpaCsrfTokenRequestHandler(
 ) : ServerCsrfTokenRequestAttributeHandler() {
 
     override fun handle(exchange: ServerWebExchange, csrfToken: Mono<CsrfToken>) {
+        log.debug(
+            "Handling CsrfToken request: {} {}",
+            exchange,
+            csrfToken,
+        )
         /*
          * Always use XorCsrfTokenRequestAttributeHandler to provide BREACH protection of
          * the CsrfToken when it is rendered in the response body.
@@ -20,6 +26,7 @@ class SpaCsrfTokenRequestHandler(
     }
 
     override fun resolveCsrfTokenValue(exchange: ServerWebExchange, csrfToken: CsrfToken): Mono<String> {
+        log.debug("Resolving CsrfToken value: {} {}", exchange, csrfToken)
         /*
          * If the request contains a request header, use CsrfTokenRequestAttributeHandler
          * to resolve the CsrfToken. This applies when a single-page application includes
@@ -37,5 +44,8 @@ class SpaCsrfTokenRequestHandler(
              */
             delegate.resolveCsrfTokenValue(exchange, csrfToken)
         }
+    }
+    companion object {
+        private val log = LoggerFactory.getLogger(SpaCsrfTokenRequestHandler::class.java)
     }
 }

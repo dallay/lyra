@@ -107,6 +107,7 @@ tasks.named<BootBuildImage>("bootBuildImage") {
             name.set("cache-${rootProject.name}.launch")
         }
     }
+    createdDate = "now"
     dependsOn("build")
 }
 

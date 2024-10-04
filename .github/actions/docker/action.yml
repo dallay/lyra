@@ -58,15 +58,26 @@ runs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Authenticate and Log into Registries
+    - name: Authenticate to Docker Hub and GHCR
       run: |
         echo ${{ inputs.ci_github_token }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
         echo ${{ inputs.docker_password }} | docker login docker.io -u ${{ inputs.docker_username }} --password-stdin
-        docker build . --target lyra-app --tag lyra-app:latest
-        docker build . --target lyra-landing-page --tag lyra-landing-page:latest
       shell: bash
 
-    # Cache for Trivy
+    - name: Build and Push Docker images (multi-platform)
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ghcr.io/${{ inputs.image_name }}:${{ inputs.version }},
+          ghcr.io/${{ inputs.image_name }}:latest,
+          docker.io/${{ inputs.docker_hub_image }}:${{ inputs.version }},
+          docker.io/${{ inputs.docker_hub_image }}:latest
+        cache-from: type=registry,ref=ghcr.io/${{ inputs.image_name }}:cache
+        cache-to: type=inline
+
     - name: Set up Trivy cache directory
       run: |
         mkdir -p ~/.cache/trivy

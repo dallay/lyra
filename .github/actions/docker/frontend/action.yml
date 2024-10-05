@@ -68,7 +68,7 @@ runs:
         output: trivy-${{ inputs.target }}-report.sarif
         severity: HIGH,CRITICAL
         ignore-unfixed: true
-        cache-dir: /tmp/trivy-cache
+        cache-dir: /tmp/trivy-cache-${{ inputs.target }}
 
     - name: ⇪ Upload Trivy Scan Report
       uses: actions/upload-artifact@v3

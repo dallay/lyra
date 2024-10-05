@@ -58,7 +58,7 @@ runs:
         output: trivy-lyra-report.sarif
         severity: HIGH,CRITICAL
         ignore-unfixed: true
-        cache-dir: /tmp/trivy-cache
+        cache-dir: /tmp/trivy-cache-lyra
 
     - name: ⇪ Upload Trivy Scan Report
       uses: actions/upload-artifact@v3

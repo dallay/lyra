@@ -235,7 +235,7 @@ jobs:
     permissions: write-all
     strategy:
       matrix:
-        target: [ lyra-app, lyra-landing-page ]
+        target: [lyra-app,lyra-landing-page]
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -244,7 +244,7 @@ jobs:
         run: |
           echo "version=$(cat gradle.properties | grep "version =" | cut -d'=' -f2 | sed 's/^ *//;s/ *$//')" >> $GITHUB_OUTPUT
 
-      - name: Build and Push Docker images for the frontend application
+      - name: 🏗️ Build and Push Docker images for the frontend application ${{ matrix.target }}
         uses: ./.github/actions/docker/frontend
         with:
           deliver: true

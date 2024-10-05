@@ -63,7 +63,7 @@ runs:
     - name: 🪄 Scan Docker images for vulnerabilities
       uses: aquasecurity/trivy-action@0.20.0
       with:
-        image-ref: ghcr.io/dallay/${{ inputs.target }}:${{ inputs.version }}
+        image-ref: ghcr.io/dallay/${{ inputs.target }}:latest
         format: sarif
         output: trivy-${{ inputs.target }}-report.sarif
         severity: HIGH,CRITICAL

@@ -205,14 +205,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ env.CI_GITHUB_TOKEN }}
 
-  package:
-    name: Package and Publish 📦
+  package-backend:
+    name: Package and Publish 📦 (Backend application)
     needs: [ semantic-release ]
     runs-on: ubuntu-latest
     permissions: write-all
-    strategy:
-      matrix:
-        target: [ lyra-app, lyra-landing-page ]
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -229,6 +226,23 @@ jobs:
           version: ${{ steps.get_version.outputs.version }}
           ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+
+  package-frontend:
+    name: Package and Publish 📦 (Frontend application)
+    needs: [ semantic-release ]
+    runs-on: ubuntu-latest
+    permissions: write-all
+    strategy:
+      matrix:
+        target: [ lyra-app, lyra-landing-page ]
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - id: get_version
+        run: |
+          echo "version=$(cat gradle.properties | grep "version =" | cut -d'=' -f2)" >> $GITHUB_OUTPUT
 
       - name: Build and Push Docker images for the frontend application
         uses: ./.github/actions/docker/frontend

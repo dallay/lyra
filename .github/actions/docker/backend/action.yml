@@ -50,12 +50,23 @@ runs:
         ./gradlew bootBuildImage -x test
       shell: bash
 
-    - name: Scan Docker images for vulnerabilities
+    - name: 🪄 Scan Docker images for vulnerabilities
       uses: aquasecurity/trivy-action@0.20.0
       with:
         image-ref: ghcr.io/dallay/lyra:latest
+        format: sarif
+        output: trivy-lyra-report.sarif
+        severity: HIGH,CRITICAL
+        ignore-unfixed: true
+        cache-dir: /tmp/trivy-cache
 
-    - name: Authenticate to Docker Hub and GHCR
+    - name: ⇪ Upload Trivy Scan Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: trivy-lyra-report
+        path: trivy-lyra-report.sarif
+
+    - name: 🐳 Authenticate to Docker Hub and GHCR
       run: |
         echo ${{ inputs.ci_github_token }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
         echo ${{ inputs.docker_password }} | docker login docker.io -u ${{ inputs.docker_username }} --password-stdin

@@ -1,6 +1,6 @@
 name: Package and Publish Frontend 📦
 description: |
-  This workflow is responsible for packaging and publishing the frontend application
+  This composite action packages and publishes the frontend application
   (lyra-app and lyra-landing-page) to the container registry. It also performs vulnerability scanning.
 
 inputs:
@@ -21,7 +21,7 @@ inputs:
     description: 'GITHUB_TOKEN with permissions to push to the container registry'
     required: true
   target:
-    description: 'The target image to build'
+    description: 'The target image to build (lyra-app, lyra-landing-page)'
     required: true
 
 runs:
@@ -45,7 +45,7 @@ runs:
         restore-keys: |
           ${{ runner.os }}-buildx-
 
-    - name: Build and Push Docker images (lyra-app and lyra-landing-page)
+    - name: Build and Push Docker images
       uses: docker/build-push-action@v5
       with:
         context: .
@@ -57,13 +57,13 @@ runs:
           ghcr.io/dallay/${{ inputs.target }}:latest,
           docker.io/${{ inputs.target }}:${{ inputs.version }},
           docker.io/${{ inputs.target }}:latest
-        cache-from: type=local,src=/tmp/.buildx-cache
-        cache-to: type=local,dest=/tmp/.buildx-cache
+        cache-from: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache
+        cache-to: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache,mode=max
 
     - name: 🪄 Scan Docker images for vulnerabilities
       uses: aquasecurity/trivy-action@0.20.0
       with:
-        image-ref: ghcr.io/dallay/${{ inputs.target }}:latest
+        image-ref: ghcr.io/dallay/${{ inputs.target }}:${{ inputs.version }}
         format: sarif
         output: trivy-${{ inputs.target }}-report.sarif
         severity: HIGH,CRITICAL

@@ -64,6 +64,6 @@ runs:
     - name: 🐳 Push Docker image to GHCR and Docker Hub
       if: ${{ inputs.deliver }}
       run: |
-        docker push --all-tags ${{ inputs.docker_username }}/lyra:latest
-        docker push --all-tags ghcr.io/dallay/lyra:latest
+        docker push --all-tags ${{ inputs.docker_username }}/lyra
+        docker push --all-tags ghcr.io/dallay/lyra
       shell: bash

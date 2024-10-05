@@ -46,9 +46,6 @@ WORKDIR /prod/lyra-app
 # Copy only the production build output from the build stage
 COPY --from=build-frontend /usr/src/app/apps/frontend/apps/lyra-app/.output /prod/lyra-app
 
-# Add non-root user for security
-USER nobody:nogroup
-
 # Expose port for Nuxt server in production
 EXPOSE 3000/tcp
 
@@ -82,9 +79,6 @@ COPY --from=build-frontend /usr/src/app/apps/frontend/apps/lyra-landing-page/dis
 # Set environment variables for Astro production
 ENV HOST=0.0.0.0
 ENV PORT=4321
-
-# Add non-root user for security
-USER nobody:nogroup
 
 # Expose port for Astro server in production
 EXPOSE 4321

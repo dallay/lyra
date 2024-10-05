@@ -29,9 +29,9 @@ class GetAllSubscribersByEmailService(private val repository: SubscriberSearchRe
         if (emails.isEmpty()) {
             return SubscribersResponse(emptyList())
         }
-        val organizationId = OrganizationId(organizationId)
+        val orgId = OrganizationId(organizationId)
         val response: List<SubscriberResponse> =
-            repository.searchAllByEmails(organizationId, emails).map { SubscriberResponse.from(it) }
+            repository.searchAllByEmails(orgId, emails).map { SubscriberResponse.from(it) }
         return SubscribersResponse(response)
     }
 

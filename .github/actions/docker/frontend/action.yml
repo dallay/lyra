@@ -36,6 +36,15 @@ runs:
         echo ${{ inputs.docker_password }} | docker login docker.io -u ${{ inputs.docker_username }} --password-stdin
       shell: bash
 
+    - name: Cache Docker layers
+      id: cache
+      uses: actions/cache@v3
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+
     - name: Build and Push Docker images (lyra-app and lyra-landing-page)
       uses: docker/build-push-action@v5
       with:
@@ -48,8 +57,8 @@ runs:
           ghcr.io/${{ inputs.target }}:latest,
           docker.io/${{ inputs.target }}:${{ inputs.version }},
           docker.io/${{ inputs.target }}:latest
-        cache-from: type=registry,ref=ghcr.io/${{ inputs.target }}:cache
-        cache-to: type=inline
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache
 
     - name: Scan Docker images for vulnerabilities
       uses: aquasecurity/trivy-action@0.20.0

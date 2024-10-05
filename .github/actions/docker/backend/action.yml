@@ -50,9 +50,6 @@ runs:
         ./gradlew bootBuildImage -x test
       shell: bash
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
     - name: Scan Docker images for vulnerabilities
       uses: aquasecurity/trivy-action@0.20.0
       with:

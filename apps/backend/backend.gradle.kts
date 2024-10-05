@@ -99,15 +99,27 @@ tasks.named("assemble") {
 tasks.named<BootBuildImage>("bootBuildImage") {
     buildCache {
         volume {
-            name.set("cache-${rootProject.name}.build")
+            name.set("cache-${rootProject.name}-deps")
         }
     }
+
     launchCache {
         volume {
-            name.set("cache-${rootProject.name}.launch")
+            name.set("launch-cache-${rootProject.name}")
         }
     }
+
+    imageName = "lyra"
     createdDate = "now"
+
+    tags = listOf(
+        "lyra:${project.version}",
+        "ghcr.io/dallay/lyra:latest",
+        "ghcr.io/dallay/lyra:${project.version}",
+        "docker.io/n4t5u/lyra:latest",
+        "docker.io/n4t5u/lyra:${project.version}",
+    )
+
     dependsOn("build")
 }
 

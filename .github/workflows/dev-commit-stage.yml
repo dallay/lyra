@@ -134,18 +134,32 @@ jobs:
     needs: [ build ]
     runs-on: ubuntu-latest
     permissions: write-all
+    strategy:
+      matrix:
+        target: [ lyra-app, lyra-landing-page ]
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Package docker image
-        uses: ./.github/actions/docker
+      - id: get_version
+        run: |
+          echo "version=$(cat gradle.properties | grep "version =" | cut -d'=' -f2)" >> $GITHUB_OUTPUT
+      - name: Build and Push Docker images for the backend application
+        uses: ./.github/actions/docker/backend
         with:
           deliver: false
-          registry: ${{ env.REGISTRY }}
-          image_name: ${{ env.IMAGE_NAME }}
-          version: ${{ github.sha }}
-          ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
+          version: ${{ steps.get_version.outputs.version }}
+          ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: Build and Push Docker images for the frontend application
+        uses: ./.github/actions/docker/frontend
+        with:
+          deliver: false
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}
+          version: ${{ steps.get_version.outputs.version }}
+          ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
+          target: ${{ matrix.target }}

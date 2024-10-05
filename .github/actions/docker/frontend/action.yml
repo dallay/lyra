@@ -1,0 +1,57 @@
+name: Package and Publish Frontend 📦
+description: |
+  This workflow is responsible for packaging and publishing the frontend application
+  (lyra-app and lyra-landing-page) to the container registry. It also performs vulnerability scanning.
+
+inputs:
+  deliver:
+    description: 'Deliver frontend to production'
+    required: true
+    default: 'true'
+  docker_username:
+    description: 'The username for Docker Hub'
+    required: true
+  docker_password:
+    description: 'The password for Docker Hub'
+    required: true
+  version:
+    description: 'The version of the frontend'
+    required: true
+  ci_github_token:
+    description: 'GITHUB_TOKEN with permissions to push to the container registry'
+    required: true
+  target:
+    description: 'The target image to build'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Authenticate to Docker Hub and GHCR
+      run: |
+        echo ${{ inputs.ci_github_token }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        echo ${{ inputs.docker_password }} | docker login docker.io -u ${{ inputs.docker_username }} --password-stdin
+      shell: bash
+
+    - name: Build and Push Docker images (lyra-app and lyra-landing-page)
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm64
+        target: ${{ inputs.target }}
+        push: ${{ inputs.deliver }}
+        tags: |
+          ghcr.io/${{ inputs.target }}:${{ inputs.version }},
+          ghcr.io/${{ inputs.target }}:latest,
+          docker.io/${{ inputs.target }}:${{ inputs.version }},
+          docker.io/${{ inputs.target }}:latest
+        cache-from: type=registry,ref=ghcr.io/${{ inputs.target }}:cache
+        cache-to: type=inline
+
+    - name: Scan Docker images for vulnerabilities
+      uses: aquasecurity/trivy-action@0.20.0
+      with:
+        image-ref: ghcr.io/${{ inputs.target }}:${{ inputs.version }}

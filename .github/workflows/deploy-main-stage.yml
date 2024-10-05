@@ -202,7 +202,6 @@ jobs:
         id: semantic_release
         run: |
           npx semantic-release
-          echo "RELEASE_VERSION=$(cat gradle.properties | grep "version =" | cut -d'=' -f2)" >> "$GITHUB_OUTPUT"
         env:
           GITHUB_TOKEN: ${{ env.CI_GITHUB_TOKEN }}
 
@@ -211,18 +210,32 @@ jobs:
     needs: [ semantic-release ]
     runs-on: ubuntu-latest
     permissions: write-all
+    strategy:
+      matrix:
+        target: [ lyra-app, lyra-landing-page ]
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Package, Publish and Deploy ${{ github.repository }} version ${{ steps.semantic_release.outputs.RELEASE_VERSION || env.VERSION }}
-        uses: ./.github/actions/docker
+      - id: get_version
+        run: |
+          echo "version=$(cat gradle.properties | grep "version =" | cut -d'=' -f2)" >> $GITHUB_OUTPUT
+      - name: Build and Push Docker images for the backend application
+        uses: ./.github/actions/docker/backend
         with:
           deliver: true
-          registry: ${{ env.REGISTRY }}
-          image_name: ${{ env.IMAGE_NAME }}
-          version: ${{ steps.semantic_release.outputs.RELEASE_VERSION || env.VERSION }}
-          ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
+          version: ${{ steps.get_version.outputs.version }}
+          ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: Build and Push Docker images for the frontend application
+        uses: ./.github/actions/docker/frontend
+        with:
+          deliver: true
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}
+          version: ${{ steps.get_version.outputs.version }}
+          ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
+          target: ${{ matrix.target }}

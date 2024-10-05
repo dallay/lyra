@@ -53,8 +53,8 @@ runs:
         target: ${{ inputs.target }}
         push: ${{ inputs.deliver }}
         tags: |
-          ghcr.io/${{ inputs.target }}:${{ inputs.version }},
-          ghcr.io/${{ inputs.target }}:latest,
+          ghcr.io/dallay/${{ inputs.target }}:${{ inputs.version }},
+          ghcr.io/dallay/${{ inputs.target }}:latest,
           docker.io/${{ inputs.target }}:${{ inputs.version }},
           docker.io/${{ inputs.target }}:latest
         cache-from: type=local,src=/tmp/.buildx-cache
@@ -63,4 +63,4 @@ runs:
     - name: Scan Docker images for vulnerabilities
       uses: aquasecurity/trivy-action@0.20.0
       with:
-        image-ref: ghcr.io/${{ inputs.target }}:${{ inputs.version }}
+        image-ref: ghcr.io/dallay/${{ inputs.target }}:${{ inputs.version }}

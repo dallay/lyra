@@ -53,7 +53,7 @@ runs:
     - name: Scan Docker images for vulnerabilities
       uses: aquasecurity/trivy-action@0.20.0
       with:
-        image-ref: ghcr.io/lyra:latest
+        image-ref: ghcr.io/dallay/lyra:latest
 
     - name: Authenticate to Docker Hub and GHCR
       run: |
@@ -65,5 +65,5 @@ runs:
       if: ${{ inputs.deliver }}
       run: |
         docker push --all-tags ${{ inputs.docker_username }}/lyra:latest
-        docker push --all-tags ghcr.io/lyra:latest
+        docker push --all-tags ghcr.io/dallay/lyra:latest
       shell: bash

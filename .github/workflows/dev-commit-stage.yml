@@ -140,7 +140,7 @@ jobs:
 
       - id: get_version
         run: |
-          echo "version=$(cat gradle.properties | grep "version =" | cut -d'=' -f2)" >> $GITHUB_OUTPUT
+          echo "version=$(cat gradle.properties | grep "version =" | cut -d'=' -f2 | sed 's/^ *//;s/ *$//')" >> $GITHUB_OUTPUT
       - name: Build and Push Docker images for the backend application
         uses: ./.github/actions/docker/backend
         with:
@@ -166,7 +166,7 @@ jobs:
 
       - id: get_version
         run: |
-          echo "version=$(cat gradle.properties | grep "version =" | cut -d'=' -f2)" >> $GITHUB_OUTPUT
+          echo "version=$(cat gradle.properties | grep "version =" | cut -d'=' -f2 | sed 's/^ *//;s/ *$//')" >> $GITHUB_OUTPUT
 
       - name: Build and Push Docker images for the frontend application
         uses: ./.github/actions/docker/frontend

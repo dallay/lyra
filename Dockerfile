@@ -85,6 +85,3 @@ EXPOSE 4321
 
 # Start the Astro static file server in production mode
 CMD ["./server/entry.mjs"]
-
-# Optional: Clean up unnecessary files (if needed)
-RUN rm -rf /usr/src/app/node_modules /usr/src/app/.pnpm-store

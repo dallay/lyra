@@ -34,11 +34,21 @@ runs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Authenticate to Docker Hub and GHCR
-      run: |
-        echo ${{ inputs.ci_github_token }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-        echo ${{ inputs.docker_password }} | docker login docker.io -u ${{ inputs.docker_username }} --password-stdin
-      shell: bash
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ inputs.docker_username }}
+        password: ${{ inputs.docker_password }}
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ inputs.ci_github_token }}
 
     - name: Cache Docker layers
       id: cache
@@ -49,8 +59,7 @@ runs:
         restore-keys: |
           ${{ runner.os }}-buildx-
 
-    - name: Build and Push Docker images (Production)
-      if: ${{ inputs.deliver }}
+    - name: Build and Push Docker images
       uses: docker/build-push-action@v5
       with:
         context: .
@@ -58,57 +67,25 @@ runs:
         target: ${{ inputs.target }}
         push: true
         tags: |
-          ghcr.io/dallay/${{ inputs.target }}:${{ inputs.version }},
-          ghcr.io/dallay/${{ inputs.target }}:latest,
-          docker.io/n4t5u/${{ inputs.target }}:${{ inputs.version }},
-          docker.io/n4t5u/${{ inputs.target }}:latest
+          ghcr.io/dallay/${{ inputs.target }}:${{ inputs.deliver == 'true' ? inputs.version : inputs.non_prod_tag }},
+          ghcr.io/dallay/${{ inputs.target }}:${{ inputs.deliver == 'true' ? 'latest' : inputs.non_prod_tag }},
+          docker.io/n4t5u/${{ inputs.target }}:${{ inputs.deliver == 'true' ? inputs.version : inputs.non_prod_tag }},
+          docker.io/n4t5u/${{ inputs.target }}:${{ inputs.deliver == 'true' ? 'latest' : inputs.non_prod_tag }}
         cache-from: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache
         cache-to: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache,mode=max
 
     - name: 🪄 Scan Docker images for vulnerabilities
       uses: aquasecurity/trivy-action@0.20.0
       with:
-        image-ref: ghcr.io/dallay/${{ inputs.target }}:latest
+        image-ref: ghcr.io/dallay/${{ inputs.target }}:${{ inputs.deliver == 'true' ? 'latest' : inputs.non_prod_tag }}
         format: sarif
-        output: trivy-${{ inputs.target }}-report.sarif
+        output: trivy-${{ inputs.target }}-report-${{ inputs.deliver == 'true' ? 'latest' : inputs.non_prod_tag }}.sarif
         severity: HIGH,CRITICAL
         ignore-unfixed: true
-        cache-dir: /tmp/trivy-cache-${{ inputs.target }}
+        cache-dir: /tmp/trivy-cache-${{ inputs.target }}-${{ inputs.deliver == 'true' ? 'latest' : inputs.non_prod_tag }}
 
     - name: ⇪ Upload Trivy Scan Report
       uses: actions/upload-artifact@v3
       with:
-        name: trivy-${{ inputs.target }}-report
-        path: trivy-${{ inputs.target }}-report.sarif
-
-    - name: Build and Push Docker images (Non-Production)
-      if: ${{ !inputs.deliver }}
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        platforms: linux/amd64,linux/arm64
-        target: ${{ inputs.target }}
-        push: true
-        tags: |
-          ghcr.io/dallay/${{ inputs.target }}:${{ inputs.non_prod_tag }},
-          docker.io/n4t5u/${{ inputs.target }}:${{ inputs.non_prod_tag }}
-        cache-from: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache
-        cache-to: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache,mode=max
-
-    - name: 🪄 Scan Docker images for vulnerabilities (Non-Production)
-      if: ${{ !inputs.deliver }}
-      uses: aquasecurity/trivy-action@0.20.0
-      with:
-          image-ref: ghcr.io/dallay/${{ inputs.target }}:${{ inputs.non_prod_tag }}
-          format: sarif
-          output: trivy-${{ inputs.target }}-report-${{ inputs.non_prod_tag }}.sarif
-          severity: HIGH,CRITICAL
-          ignore-unfixed: true
-          cache-dir: /tmp/trivy-cache-${{ inputs.target }}-${{ inputs.non_prod_tag }}
-
-    - name: ⇪ Upload Trivy Scan Report (Non-Production)
-      if: ${{ !inputs.deliver }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: trivy-${{ inputs.target }}-report-${{ inputs.non_prod_tag }}
-        path: trivy-${{ inputs.target }}-report-${{ inputs.non_prod_tag }}.sarif
+        name: trivy-${{ inputs.target }}-report-${{ inputs.deliver == 'true' ? 'latest' : inputs.non_prod_tag }}
+        path: trivy-${{ inputs.target }}-report-${{ inputs.deliver == 'true' ? 'latest' : inputs.non_prod_tag }}.sarif

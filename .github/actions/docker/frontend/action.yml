@@ -31,11 +31,11 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
 
     - name: Login to Docker Hub
       uses: docker/login-action@v3
@@ -64,24 +64,21 @@ runs:
       if: ${{ inputs.deliver == 'true' }}
       uses: docker/build-push-action@v5
       with:
-        context: .
         platforms: linux/amd64,linux/arm64
         target: ${{ inputs.target }}
         push: true
         tags: |
-          ghcr.io/dallay/${{ inputs.target }}:${{ inputs.version }},
-          ghcr.io/dallay/${{ inputs.target }}:latest,
-          docker.io/n4t5u/${{ inputs.target }}:${{ inputs.version }},
-          docker.io/n4t5u/${{ inputs.target }}:latest
-        cache-from: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache
-        cache-to: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache,mode=max
+          n4t5u/${{ inputs.target }}:${{ inputs.version }},
+          n4t5u/${{ inputs.target }}:latest
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,src=/tmp/.buildx-cache,mode=max
 
     # Scan production image
     - name: 🪄 Scan Docker images for vulnerabilities (Production)
       if: ${{ inputs.deliver == 'true' }}
       uses: aquasecurity/trivy-action@0.20.0
       with:
-        image-ref: ghcr.io/dallay/${{ inputs.target }}:latest
+        image-ref: n4t5u/${{ inputs.target }}:${{ inputs.version }}
         format: sarif
         output: trivy-${{ inputs.target }}-report.sarif
         severity: HIGH,CRITICAL
@@ -95,6 +92,15 @@ runs:
         name: trivy-${{ inputs.target }}-report
         path: trivy-${{ inputs.target }}-report.sarif
 
+    - name: Push image to GHCR with latest tag (Production)
+      if: ${{ inputs.deliver == 'true' }}
+      run: |
+        docker buildx imagetools create \
+          --tag ghcr.io/dallay/${{ inputs.target }}:${{ inputs.version }} \
+          --tag ghcr.io/dallay/${{ inputs.target }}:latest \
+        n4t5u/${{ inputs.target }}:latest
+      shell: bash
+
     # Build and push non-production images
     - name: Build and Push Docker images (Non-Production)
       if: ${{ inputs.deliver == 'false' }}
@@ -105,17 +111,16 @@ runs:
         target: ${{ inputs.target }}
         push: true
         tags: |
-          ghcr.io/dallay/${{ inputs.target }}:${{ inputs.non_prod_tag }},
-          docker.io/n4t5u/${{ inputs.target }}:${{ inputs.non_prod_tag }}
-        cache-from: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache
-        cache-to: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache,mode=max
+          n4t5u/${{ inputs.target }}:${{ inputs.non_prod_tag }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,src=/tmp/.buildx-cache,mode=max
 
     # Scan non-production image
     - name: 🪄 Scan Docker images for vulnerabilities (Non-Production)
       if: ${{ inputs.deliver == 'false' }}
       uses: aquasecurity/trivy-action@0.20.0
       with:
-        image-ref: ghcr.io/dallay/${{ inputs.target }}:${{ inputs.non_prod_tag }}
+        image-ref: n4t5u/${{ inputs.target }}:${{ inputs.non_prod_tag }}
         format: sarif
         output: trivy-${{ inputs.target }}-report-${{ inputs.non_prod_tag }}.sarif
         severity: HIGH,CRITICAL
@@ -128,3 +133,11 @@ runs:
       with:
         name: trivy-${{ inputs.target }}-report-${{ inputs.non_prod_tag }}
         path: trivy-${{ inputs.target }}-report-${{ inputs.non_prod_tag }}.sarif
+
+    - name: Push image to GHCR with latest tag (Non-Production)
+      if: ${{ inputs.deliver == 'false' }}
+      run: |
+          docker buildx imagetools create \
+          --tag ghcr.io/dallay/${{ inputs.target }}:${{ inputs.non_prod_tag }} \
+          n4t5u/${{ inputs.target }}:${{ inputs.non_prod_tag }}
+      shell: bash

@@ -60,8 +60,8 @@ runs:
         tags: |
           ghcr.io/dallay/${{ inputs.target }}:${{ inputs.version }},
           ghcr.io/dallay/${{ inputs.target }}:latest,
-          docker.io/${{ inputs.target }}:${{ inputs.version }},
-          docker.io/${{ inputs.target }}:latest
+          docker.io/n4t5u/${{ inputs.target }}:${{ inputs.version }},
+          docker.io/n4t5u/${{ inputs.target }}:latest
         cache-from: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache
         cache-to: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache,mode=max
 
@@ -91,7 +91,7 @@ runs:
         push: true
         tags: |
           ghcr.io/dallay/${{ inputs.target }}:${{ inputs.non_prod_tag }},
-          docker.io/${{ inputs.target }}:${{ inputs.non_prod_tag }}
+          docker.io/n4t5u/${{ inputs.target }}:${{ inputs.non_prod_tag }}
         cache-from: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache
         cache-to: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache,mode=max
 

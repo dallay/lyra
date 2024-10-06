@@ -19,26 +19,26 @@
     "url": "https://github.com/dallay/lyra/issues"
   },
   "scripts": {
-    "dev": "print \"DEV: [🟢] Starting  in dev mode\" && astro dev",
-    "start": "print \"DEV: [🟢] Starting  in dev mode\" && astro dev",
-    "check": "print \"CHECK: [✅] Checking \" && run-s build:utilities check:astro",
+    "dev": "astro dev",
+    "start": "astro dev",
+    "check": "run-s build:utilities check:astro",
     "check:astro": "astro check",
     "build:utilities": "pnpm --filter packages/utilities build",
     "build:astro": "astro build",
-    "build:all": "print \"BUILD: [🟢] Building \" && run-s build:utilities build:astro",
+    "build:all": "run-s build:utilities build:astro",
     "build": "run-s check build:all",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.3",
+    "@astrojs/check": "^0.9.4",
     "@astrojs/node": "^8.3.4",
     "@fontsource-variable/onest": "^5.1.0",
     "@iconify-json/mdi": "^1.2.0",
     "@iconify-json/ph": "^1.2.0",
     "@iconify-json/simple-icons": "^1.2.5",
-    "@iconify/json": "^2.2.255",
-    "astro": "^4.15.10",
+    "@iconify/json": "^2.2.256",
+    "astro": "^4.15.11",
     "typescript": "^5.6.2"
   },
   "devDependencies": {
@@ -46,11 +46,11 @@
     "@lyra/tsconfig": "workspace:*",
     "@lyra/utilities": "workspace:*",
     "@types/canvas-confetti": "^1.6.4",
-    "@unocss/postcss": "^0.63.2",
-    "@unocss/reset": "^0.63.2",
+    "@unocss/postcss": "^0.63.3",
+    "@unocss/reset": "^0.63.3",
     "astro-icon": "^1.1.1",
     "canvas-confetti": "^1.9.3",
     "sharp": "^0.33.5"
   },
-  "packageManager": "pnpm@9.11.0"
+  "packageManager": "pnpm@9.12.0"
 }

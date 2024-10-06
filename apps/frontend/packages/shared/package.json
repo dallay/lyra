@@ -34,22 +34,22 @@
     "url": "https://github.com/dallay/lyra/issues"
   },
   "scripts": {
-    "dev": "print \"DEV: [🟢] Starting  in dev mode\" && vite build -- --watch",
+    "dev": "vite build -- --watch",
     "build:types": "tsc --build",
     "build:vite": "vite build",
     "build:all": "run-s build:types build:vite",
-    "build": "print \"BUILD: [🟢] Building \" && run-s build:all",
+    "build": "run-s build:all",
     "preview": "vite preview",
-    "check": "print \"CHECK: [✅] Checking \" && tsc --noEmit --skipLibCheck",
-    "clean": "print \"CLEAN: [🧹] Cleaning \" info && rimraf dist coverage",
-    "test": "print \"TEST: [🧪] Testing \" && vitest --coverage --run",
-    "test:watch": "print \"TEST: [🧪] Watching \" && vitest --watch"
+    "check": "tsc --noEmit --skipLibCheck",
+    "clean": "rimraf dist coverage",
+    "test": "vitest --coverage --run",
+    "test:watch": "vitest --watch"
   },
   "devDependencies": {
     "@lyra/config": "workspace:*",
     "@lyra/tsconfig": "workspace:*",
     "typescript": "^5.6.2",
     "vite-plugin-dts": "^4.2.3",
-    "vitest": "^2.1.1"
+    "vitest": "^2.1.2"
   }
 }

@@ -13,8 +13,8 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
     "@internationalized/date": "^3.5.6",
-    "@nuxt/icon": "^1.5.2",
-    "@nuxt/image": "^1.8.0",
+    "@nuxt/icon": "^1.5.4",
+    "@nuxt/image": "^1.8.1",
     "@nuxt/scripts": "^0.9.4",
     "@pinia/nuxt": "^0.5.5",
     "@radix-icons/vue": "^1.0.0",
@@ -31,11 +31,11 @@
     "pinia": "^2.2.4",
     "radix-vue": "^1.9.6",
     "shadcn-nuxt": "^0.10.4",
-    "tailwind-merge": "^2.5.2",
+    "tailwind-merge": "^2.5.3",
     "tailwindcss-animate": "^1.0.7",
     "ufo": "^1.5.4",
     "vee-validate": "^4.13.2",
-    "vue": "^3.5.10"
+    "vue": "^3.5.11"
   },
   "devDependencies": {
     "@lyra/config": "workspace:*",
@@ -50,7 +50,7 @@
     "happy-dom": "^15.7.4",
     "playwright-core": "^1.47.2",
     "typescript": "^5.6.2",
-    "vitest": "^2.1.1",
+    "vitest": "^2.1.2",
     "@tailwindcss/typography": "^0.5.15"
   }
 }

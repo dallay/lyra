@@ -60,6 +60,11 @@ runs:
         cache-from: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache
         cache-to: type=registry,ref=ghcr.io/dallay/${{ inputs.target }}:cache,mode=max
 
+    - name: 🔴 Temporal list all images
+      run: |
+        docker images
+      shell: bash
+
     - name: 🪄 Scan Docker images for vulnerabilities
       uses: aquasecurity/trivy-action@0.20.0
       with:

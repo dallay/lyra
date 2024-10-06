@@ -12,5 +12,6 @@
       "layouts:*": ["src/layouts/*.astro"]
     },
     "jsx": "preserve"
-  }
+  },
+  "exclude": ["node_modules", "dist", "public"]
 }

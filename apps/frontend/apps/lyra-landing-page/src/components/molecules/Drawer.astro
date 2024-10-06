@@ -49,7 +49,7 @@ const navMenuDrawer = `nav-menu-drawer-${id}`;
 	<slot />
 </div>
 
-<script define:vars={{ id }}>
+<script define:vars={{ id }} is:inline>
 	// Function to observe changes in visibility
 	const observeDrawerVisibility = (targetNodeId) => {
 		const targetNode = document.getElementById(targetNodeId);

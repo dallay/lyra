@@ -60,7 +60,7 @@ jobs:
         with:
           java-version: 21
           gradle-encription-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-          gradle-arguments: build --scan --no-daemon --stacktrace
+          gradle-arguments: build koverXmlReport --scan --no-daemon --stacktrace
           github_token: ${{ env.CI_GITHUB_TOKEN }}
 
       - name: Source code vulnerability scanning
@@ -78,30 +78,7 @@ jobs:
           sarif_file: 'trivy-results.sarif'
           category: source-code
 
-  code-coverage:
-    name: Code Coverage 📊
-    needs: [ build ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4
-        with:
-          token: ${{ env.CI_GITHUB_TOKEN }}
-
-      - name: Install Java Tools & Dependencies
-        uses: ./.github/actions/install/java
-        with:
-          java-version: 21
-          gradle-encription-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-
-      - name: Install Tools & Dependencies
-        uses: ./.github/actions/install/node
-
-      - name: Run Code Coverage
-        run: |
-          ./gradlew koverXmlReport --no-daemon --stacktrace
-
-      - name: Upload coverage reports
+      - name: 📊 Upload coverage reports
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -129,7 +106,7 @@ jobs:
         with:
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
-  package:
+  package-backend:
     name: Package and Publish 📦
     needs: [ build ]
     runs-on: ubuntu-latest
@@ -138,14 +115,42 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Package docker image
-        uses: ./.github/actions/docker
+      - id: get_version
+        run: |
+          echo "version=$(cat gradle.properties | grep "version =" | cut -d'=' -f2 | sed 's/^ *//;s/ *$//')" >> $GITHUB_OUTPUT
+      - name: Build and Push Docker images for the backend application
+        uses: ./.github/actions/docker/backend
         with:
           deliver: false
-          registry: ${{ env.REGISTRY }}
-          image_name: ${{ env.IMAGE_NAME }}
-          version: ${{ github.sha }}
-          ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
+          version: ${{ steps.get_version.outputs.version }}
+          ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+
+  package-frontend:
+    name: Package and Publish 📦 (Frontend application)
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    permissions: write-all
+    strategy:
+      matrix:
+        target: [lyra-app,lyra-landing-page]
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - id: get_version
+        run: |
+          echo "version=$(cat gradle.properties | grep "version =" | cut -d'=' -f2 | sed 's/^ *//;s/ *$//')" >> $GITHUB_OUTPUT
+
+      - name: 🏗️ Build and Push Docker images for the frontend application ${{ matrix.target }}
+        uses: ./.github/actions/docker/frontend
+        with:
+          deliver: false
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}
+          version: ${{ steps.get_version.outputs.version }}
+          ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
+          target: ${{ matrix.target }}

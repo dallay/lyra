@@ -70,10 +70,10 @@ class AuthenticationSteps {
 
         fun token(): String {
             return Jwts.builder()
-                .setSubject("authentication")
+                .subject("authentication")
                 .signWith(CucumberAuthenticationConfiguration.JWT_KEY)
-                .setClaims(claims)
-                .setExpiration(Date.from(Instant.now().plusSeconds(300)))
+                .claims(claims)
+                .expiration(Date.from(Instant.now().plusSeconds(300)))
                 .compact()
         }
     }

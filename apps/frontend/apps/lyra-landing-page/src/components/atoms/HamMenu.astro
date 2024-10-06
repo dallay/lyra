@@ -22,7 +22,7 @@ const { id = 'ham-menu', ...attrs } = Astro.props;
 		></path>
 	</svg>
 </button>
-<script define:vars={{ id }}>
+<script define:vars={{ id }} is:inline>
 	const hamMenu = document.getElementById(id);
 	const openMenu = document.getElementById(`open-menu-${id}`);
 

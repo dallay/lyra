@@ -71,7 +71,7 @@ runs:
           n4t5u/${{ inputs.target }}:${{ inputs.version }},
           n4t5u/${{ inputs.target }}:latest
         cache-from: type=local,src=/tmp/.buildx-cache
-        cache-to: type=local,src=/tmp/.buildx-cache,mode=max
+        cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 
     # Scan production image
     - name: 🪄 Scan Docker images for vulnerabilities (Production)
@@ -113,7 +113,7 @@ runs:
         tags: |
           n4t5u/${{ inputs.target }}:${{ inputs.non_prod_tag }}
         cache-from: type=local,src=/tmp/.buildx-cache
-        cache-to: type=local,src=/tmp/.buildx-cache,mode=max
+        cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 
     # Scan non-production image
     - name: 🪄 Scan Docker images for vulnerabilities (Non-Production)

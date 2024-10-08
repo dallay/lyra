@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LinkProp } from './links-list';
+import type { LinkProp } from './LinkProp';
 import { computed, defineProps, ref, withDefaults } from 'vue';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';

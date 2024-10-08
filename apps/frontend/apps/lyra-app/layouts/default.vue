@@ -15,7 +15,7 @@ import OrganizationSwitcher from "~/components/OrganizationSwitcher.vue";
 import MainNav from "~/components/nav/MainNav.vue";
 import ThemeSwitcher from "~/components/ThemeSwitcher.vue";
 import StartWriting from "~/components/nav/StartWriting.vue";
-import { links, links2 } from "~/components/nav/links-list";
+import { navigationLinks } from "~/components/nav/links-list";
 
 interface DefaultLayoutProps {
   defaultLayout?: number[];
@@ -72,13 +72,11 @@ function onExpand() {
             <OrganizationSwitcher :is-collapsed="isCollapsed" />
           </div>
           <Separator />
-          <Nav :is-collapsed="isCollapsed" :links="links">
+          <Nav :is-collapsed="isCollapsed" :links="navigationLinks">
             <template #start-writing="{ link, isCollapsed }">
               <StartWriting />
             </template>
           </Nav>
-          <Separator />
-          <Nav :is-collapsed="isCollapsed" :links="links2" />
 
           <div class="mt-auto p-4" v-if="!isCollapsed">
             <Card>

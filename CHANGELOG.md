@@ -1,3 +1,10 @@
+## [1.15.1](https://github.com/dallay/lyra/compare/v1.15.0...v1.15.1) (2024-10-08)
+
+
+### Bug Fixes
+
+* Delete codecov.yml ([#389](https://github.com/dallay/lyra/issues/389)) ([fc7dbbf](https://github.com/dallay/lyra/commit/fc7dbbfbe35ded079f68a2d12d2c2d5abe56f75e))
+
 # [1.15.0](https://github.com/dallay/lyra/compare/v1.14.2...v1.15.0) (2024-10-04)
 
 

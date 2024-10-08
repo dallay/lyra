@@ -21,7 +21,7 @@ const props = withDefaults(
     isCollapsed?: boolean;
   }>(),
   {
-    icon: 'lucide:file',
+    icon: 'ph:dot-thin',
     title: '',
     to: '',
     label: '',
@@ -39,7 +39,9 @@ const { hasPermission } = usePermissionCheck(props.to);
 
 const isActiveLink = computed(() => {
   if (!props.to) return false;
-  return route.path === props.to || route.path.startsWith(props.to);
+  if (route.path === props.to) return true;
+  if (props.to === '/') return route.path === '/';
+  return route.path.startsWith(props.to);
 });
 
 const computedClasses = computed(() => {

@@ -10,14 +10,14 @@ const navigationLinks: LinkProp[] = [
     title: 'Dashboard',
     to: '/',
     icon: 'lucide:layout-dashboard',
-    variant: 'default',
+    variant: 'ghost',
   },
   {
     id: generateId('Start Writing'),
     title: 'Start Writing',
-    to: '/',
+    to: '/posts',
     icon: 'lucide:layout-dashboard',
-    variant: 'default',
+    variant: 'ghost',
   },
   {
     id: generateId('Posts'),

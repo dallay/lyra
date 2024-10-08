@@ -41,6 +41,12 @@ const isDropdownOpen = ref(false);
 const toggleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
 };
+
+const handleDropdownClose = (open:boolean) => {
+  if (!open) {
+    isDropdownOpen.value = false;
+  }
+};
 </script>
 
 <template>
@@ -62,7 +68,7 @@ const toggleDropdown = () => {
       </router-link>
     </Button>
 
-    <DropdownMenu>
+    <DropdownMenu @update:open="handleDropdownClose">
       <DropdownMenuTrigger as-child @click="toggleDropdown">
         <Button
           :variant="variant"
@@ -75,14 +81,16 @@ const toggleDropdown = () => {
           />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent @close="isDropdownOpen = false">
+      <DropdownMenuContent>
         <DropdownMenuItem v-for="(option, index) in options" :key="index" asChild>
-            <div class="flex items-center justify-start">
-          <router-link :to="option.href" class="flex flex-col items-start">
+          <div class="flex items-center justify-start">
+            <router-link :to="option.href" class="flex flex-col items-start">
               <span class="text-left">{{ option.label }}</span>
-              <span v-if="option.description" class="text-sm text-gray-500 text-left">{{ option.description }}</span>
-          </router-link>
-            </div>
+              <span v-if="option.description" class="text-sm text-gray-500 text-left">{{
+                option.description
+              }}</span>
+            </router-link>
+          </div>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

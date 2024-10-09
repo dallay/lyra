@@ -36,8 +36,8 @@
     "@fontsource-variable/onest": "^5.1.0",
     "@iconify-json/mdi": "^1.2.0",
     "@iconify-json/ph": "^1.2.0",
-    "@iconify-json/simple-icons": "^1.2.5",
-    "@iconify/json": "^2.2.256",
+    "@iconify-json/simple-icons": "^1.2.6",
+    "@iconify/json": "^2.2.257",
     "astro": "^4.15.11",
     "typescript": "^5.6.2"
   },

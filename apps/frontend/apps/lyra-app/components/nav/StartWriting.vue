@@ -12,12 +12,16 @@ const writeOption = [
     description: "Create a draft using a custom template",
   },
 ];
+
+const identifier = computed(() => {
+  return crypto.randomUUID();
+});
 </script>
 
 <template>
   <MenuButton
     mainText="Start Writing"
-    mainHref="/write"
+    :mainHref="`/posts/${identifier}/edit`"
     :options="writeOption"
     variant="outline"
   />

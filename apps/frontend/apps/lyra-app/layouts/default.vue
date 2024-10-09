@@ -108,14 +108,16 @@ function onExpand() {
       <ResizableHandle id="resize-handle-1" with-handle />
       <ResizablePanel id="resize-panel-2" :default-size="defaultLayout[1]" :min-size="30">
         <div class="border-b">
-          <div class="flex h-16 items-center px-4">
-            <MainNav class="mx-6" />
-            <div class="ml-auto flex items-center space-x-4">
-              <Search />
-              <ThemeSwitcher />
-              <UserNav />
+          <slot name="header">
+            <div class="flex h-16 items-center px-4">
+              <MainNav class="mx-6" />
+              <div class="ml-auto flex items-center space-x-4">
+                <Search />
+                <ThemeSwitcher />
+                <UserNav />
+              </div>
             </div>
-          </div>
+          </slot>
         </div>
         <div class="h-screen max-h-screen overflow-auto p-2">
           <slot />

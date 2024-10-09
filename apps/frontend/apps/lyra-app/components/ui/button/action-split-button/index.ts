@@ -1,8 +1,8 @@
 import { type VariantProps, cva } from 'class-variance-authority'
 
-export { default as MenuButton } from './MenuButton.vue'
+export { default as ActionSplitButton } from './ActionSplitButton.vue'
 
-export const menuButtonVariants = cva(
+export const actionSplitButtonVariants = cva(
   'relative z-0 inline-flex shadow-sm rounded-md w-full',
   {
     variants: {
@@ -26,4 +26,4 @@ export const menuButtonVariants = cva(
   },
 )
 
-export type MenuButtonVariants = VariantProps<typeof menuButtonVariants>
+export type ActionSplitButtonVariants = VariantProps<typeof actionSplitButtonVariants>

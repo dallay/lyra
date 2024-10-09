@@ -62,7 +62,7 @@ class SpringDocConfiguration(private val applicationSecurityProperties: Applicat
     }
 
     private fun swaggerInfo(): Info {
-        val contact = Contact().name("Yuniel Acosta").url("www.yunielacosta.com").email("ylaz@gft.com")
+        val contact = Contact().name("Yuniel Acosta").url("https://www.yunielacosta.com").email("ylaz@gft.com")
         return Info().title("${name?.uppercase()} API").description(description).version(version)
             .contact(contact)
             .license(License().name("No license").url(""))

@@ -74,7 +74,7 @@ function onExpand() {
           <Separator />
           <Nav :is-collapsed="isCollapsed" :links="navigationLinks">
             <template #start-writing="{ link, isCollapsed }">
-              <StartWriting />
+              <StartWriting :isCollapsed="isCollapsed"/>
             </template>
           </Nav>
 

@@ -15,6 +15,13 @@ const writeOption = [
     description: "Create a draft using a custom template",
   },
 ];
+interface StartWritingProps {
+  isCollapsed?: boolean;
+}
+
+const props = withDefaults(defineProps<StartWritingProps>(), {
+  isCollapsed: false,
+});
 
 const identifier = computed(() => {
   return crypto.randomUUID();
@@ -24,12 +31,17 @@ const identifier = computed(() => {
 <template>
   <ActionSplitButton variant="outline">
     <router-link
+      v-if="!props.isCollapsed"
       :to="`/posts/${identifier}/edit`"
       class="flex items-center w-full"
     >
       <Edit class="mr-2 h-4 w-4" />
       Start Writing
     </router-link>
+
+    <template v-if="props.isCollapsed" #icon>
+      <Edit class="h-4 w-4 transition ease-out transform duration-100" />
+    </template>
 
     <template #options>
       <DropdownMenuItem

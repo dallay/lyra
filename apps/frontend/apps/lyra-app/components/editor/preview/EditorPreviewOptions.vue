@@ -57,7 +57,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -69,7 +69,7 @@ import { Copy, Link } from "lucide-vue-next";
 const draftLink = ref("https://yap.lyra.com/p/new-post?...")
 
 const testEmail = ref(false)
-const selectedSubscriber = ref(null)
+const selectedSubscriber = ref<string | undefined>("")
 
 const resetLink = () => {
   console.log("Link reset")

@@ -18,7 +18,16 @@
           </div>
           <div class="flex items-center space-x-4">
             <Button size="sm" class="flex items-center"> Next </Button>
-            <PreviewButton />
+            <ActionSplitButton variant="outline">
+              <router-link to="/preview" class="flex items-center space-x-2">
+                <Icon name="lucide:expand" class="mr-2 size-4" />
+                Preview
+              </router-link>
+
+              <template #options>
+                <EditorPreviewOptions />
+              </template>
+            </ActionSplitButton>
           </div>
         </div>
       </div>
@@ -29,7 +38,8 @@
 <script setup lang="ts">
 import {Button} from "~/components/ui/button";
 import PostEditorSteps from "./PostEditorSteps.vue";
-import PreviewButton from "./preview/PreviewButton.vue";
+import EditorPreviewOptions from "./preview/EditorPreviewOptions.vue";
+import {ActionSplitButton} from "~/components/ui/button/action-split-button";
 </script>
 
 <style scoped>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { definePageMeta } from "#imports";
 import EditorTopBar from "~/components/editor/EditorTopBar.vue";
 import { useRoute } from "vue-router";
 import PostsEditor from "~/components/editor/PostsEditor.vue";
@@ -13,7 +14,7 @@ definePageMeta({
   <div>
     <NuxtLayout name="default">
       <template #header>
-        <EditorTopBar />
+        <EditorTopBar :postId="postId"/>
       </template>
 
       <client-only>

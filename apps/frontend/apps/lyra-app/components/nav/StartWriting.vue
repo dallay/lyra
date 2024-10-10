@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import { Edit } from "lucide-vue-next";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import ActionSplitButton from "~/components/ui/button/action-split-button/ActionSplitButton.vue";

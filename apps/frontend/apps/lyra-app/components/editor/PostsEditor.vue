@@ -1,49 +1,21 @@
 <template>
-      <EditorContent v-if="editor" :editor="editor" />
+  <div class="mx-auto p-4">
+    <StatusBar />
+    <AddOptions />
+    <TitleEditor />
+    <AuthorTags />
+    <ContentEditor />
+  </div>
 </template>
 
-
 <script setup lang="ts">
-import { ref, watch, onMounted, onBeforeUnmount, defineProps, withDefaults, defineEmits } from 'vue'
-import { Editor, EditorContent } from '@tiptap/vue-3'
-import StarterKit from '@tiptap/starter-kit'
-
-const emit = defineEmits<{
-  (e: 'input', value: string): void
-}>()
-
-const props = withDefaults(defineProps<{
-  content?: string
-}>(), {
-  content: ''
-})
-
-const editor = ref<Editor | null>(null)
-
-onMounted(() => {
-  editor.value = new Editor({
-    content: props.content,
-    extensions: [StarterKit],
-    onUpdate: () => {
-      emit('input', editor.value?.getHTML() || '')
-    },
-  })
-})
-
-watch(() => props.content, (newContent) => {
-  if (editor.value) {
-    const isSame = editor.value.getHTML() === newContent
-
-    if (!isSame) {
-      editor.value.commands.setContent(newContent, false)
-    }
-  }
-})
-
-onBeforeUnmount(() => {
-  editor.value?.destroy()
-})
+import StatusBar from './StatusBar.vue'
+import AddOptions from './AddOptions.vue'
+import TitleEditor from './TitleEditor.vue'
+import AuthorTags from './AuthorTags.vue'
+import ContentEditor from './ContentEditor.vue'
 </script>
+
 
 <style lang="scss">
 /* Basic editor styles */

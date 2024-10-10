@@ -8,12 +8,10 @@ import {
 	transformerDirectives,
 } from 'unocss';
 import tailwindColors from 'tailwindcss/colors';
-import { presetFlowbite } from '@julr/unocss-preset-flowbite';
 
 export default defineConfig({
 	presets: [
 		presetUno(),
-		presetFlowbite(),
 		presetAttributify(),
 		presetIcons({
 			scale: 1.2,

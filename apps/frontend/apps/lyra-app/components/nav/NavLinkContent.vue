@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cn } from '@/lib/utils';
-import type { LinkProp } from '~/components/nav/links-list';
+import type { LinkProp } from './LinkProp';
 
 interface NavLinkContentProps {
   icon: string;
@@ -15,7 +15,7 @@ const props = defineProps<NavLinkContentProps>();
 </script>
 
 <template>
-  <Icon v-if="icon" :name="icon" color="black" :class="cn('size-4', !isCollapsed && 'mx-2')"/>
+  <Icon v-if="icon" :name="icon" color="black" :class="cn('size-4', !isCollapsed && 'mx-3')"/>
   <template v-if="!isCollapsed">
     {{ title }}
     <span v-if="label"

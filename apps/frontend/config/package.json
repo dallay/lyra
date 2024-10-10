@@ -7,7 +7,7 @@
   "author": {
     "name": "Yuniel Acosta Pérez",
     "email": "yunielacosta738@gmail.com",
-    "url": "www.yunielacosta.com"
+    "url": "https://www.yunielacosta.com"
   },
   "license": "MIT",
   "files": ["index.css", "stylelint.config.cjs", "uno.config.mjs"],
@@ -26,21 +26,19 @@
   "homepage": "lyra-nwhm.onrender.com",
   "devDependencies": {
     "@codecov/vite-plugin": "1.2.0",
-    "@julr/unocss-preset-flowbite": "^0.0.2",
     "@lyra/tsconfig": "workspace:*",
-    "@unocss/reset": "^0.63.3",
+    "@unocss/reset": "^0.63.4",
     "postcss": "^8.4.47",
     "stylelint": "^16.9.0",
-    "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard-scss": "^13.1.0",
     "stylelint-order": "^6.0.4",
     "tailwindcss": "^3.4.13",
-    "unocss": "^0.63.3",
+    "unocss": "^0.63.4",
     "vite-tsconfig-paths": "^5.0.1",
     "vitest": "^2.1.2"
   },
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "pnpm@9.12.0"
+  "packageManager": "pnpm@9.12.1"
 }

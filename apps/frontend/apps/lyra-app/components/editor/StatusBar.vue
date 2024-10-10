@@ -19,8 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import { Badge } from '@/components/ui/badge'
-import UserAvatar from '@/components/nav/UserAvatar.vue'
-import { Button } from '@/components/ui/button'
-import { Undo, Redo, Search, MessageSquare, Clock, Printer, Zap, Info } from 'lucide-vue-next'
+import { Badge } from '@/components/ui/badge';
+import UserAvatar from '@/components/nav/UserAvatar.vue';
+import { Button } from '@/components/ui/button';
+import { Undo, Redo, Search, MessageSquare, Clock, Printer, Zap, Info } from 'lucide-vue-next';
 </script>

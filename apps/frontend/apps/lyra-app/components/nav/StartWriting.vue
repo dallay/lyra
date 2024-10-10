@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { Edit } from "lucide-vue-next";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import ActionSplitButton from "~/components/ui/button/action-split-button/ActionSplitButton.vue";
+import { computed } from 'vue';
+import { Edit } from 'lucide-vue-next';
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import ActionSplitButton from '~/components/ui/button/action-split-button/ActionSplitButton.vue';
 const writeOption = [
   {
-    label: "Blank draft",
-    href: "/new-post",
-    description: "Create a blank draft from scratch",
+    label: 'Blank draft',
+    href: '/new-post',
+    description: 'Create a blank draft from scratch',
   },
   {
-    label: "Use template",
-    href: "/new-template",
-    description: "Create a draft using a custom template",
+    label: 'Use template',
+    href: '/new-template',
+    description: 'Create a draft using a custom template',
   },
 ];
 interface StartWritingProps {

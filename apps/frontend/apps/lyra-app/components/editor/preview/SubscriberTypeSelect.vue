@@ -11,11 +11,17 @@
 </template>
 
 <script setup lang="ts">
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { defineModel } from 'vue'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { defineModel } from 'vue';
 
 const subscriberType = defineModel('subscriberType', {
   type: String,
-  default: 'free'
-})
+  default: 'free',
+});
 </script>

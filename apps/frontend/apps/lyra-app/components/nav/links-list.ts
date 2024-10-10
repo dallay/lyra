@@ -1,4 +1,4 @@
-import type { LinkProp } from "./LinkProp";
+import type { LinkProp } from './LinkProp';
 
 const generateId = (title: string): string => {
   return title.toLowerCase().replace(/\s+/g, '-');
@@ -113,9 +113,9 @@ const navigationLinks: LinkProp[] = [
         title: 'Clicks Report',
         to: '/analyze/clicks-report',
         variant: 'ghost',
-      }
+      },
     ],
   },
 ];
 
-export { navigationLinks  };
+export { navigationLinks };

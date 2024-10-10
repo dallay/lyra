@@ -8,11 +8,11 @@
 </template>
 
 <script setup lang="ts">
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { defineModel } from 'vue'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { defineModel } from 'vue';
 
 const deviceType = defineModel('deviceType', {
   type: String,
-  default: 'desktop'
-})
+  default: 'desktop',
+});
 </script>

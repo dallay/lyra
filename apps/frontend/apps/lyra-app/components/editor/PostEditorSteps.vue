@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { CheckIcon, CircleIcon, DotIcon } from '@radix-icons/vue'
-import { Stepper, StepperItem, StepperSeparator, StepperTitle, StepperTrigger } from '@/components/ui/stepper'
+import { CheckIcon, CircleIcon, DotIcon } from '@radix-icons/vue';
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { Button } from '@/components/ui/button'
+  Stepper,
+  StepperItem,
+  StepperSeparator,
+  StepperTitle,
+  StepperTrigger,
+} from '@/components/ui/stepper';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Button } from '@/components/ui/button';
 
 const steps = [
   {
@@ -35,7 +36,7 @@ const steps = [
     title: 'Review',
     description: 'Review and finalize your setup',
   },
-]
+];
 </script>
 
 <template>

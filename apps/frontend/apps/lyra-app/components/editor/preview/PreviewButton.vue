@@ -45,22 +45,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import ActionSplitButton from "~/components/ui/button/action-split-button/ActionSplitButton.vue";
-import EditorPreviewOptions from "./EditorPreviewOptions.vue";
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { ref } from 'vue';
+import ActionSplitButton from '~/components/ui/button/action-split-button/ActionSplitButton.vue';
+import EditorPreviewOptions from './EditorPreviewOptions.vue';
+import { Dialog, DialogContent, DialogHeader } from '@/components/ui/dialog';
 
-import ViewTypeTabs from "./ViewTypeTabs.vue";
-import DeviceTypeTabs from "./DeviceTypeTabs.vue";
-import SubscriberTypeSelect from "./SubscriberTypeSelect.vue";
-import BrowserFrame from "./BrowserFrame.vue";
-import EmailFrame from "./EmailFrame.vue";
-import NewsletterContent from "./NewsletterContent.vue";
+import ViewTypeTabs from './ViewTypeTabs.vue';
+import DeviceTypeTabs from './DeviceTypeTabs.vue';
+import SubscriberTypeSelect from './SubscriberTypeSelect.vue';
+import BrowserFrame from './BrowserFrame.vue';
+import EmailFrame from './EmailFrame.vue';
+import NewsletterContent from './NewsletterContent.vue';
 
 const open = ref(false);
-const viewType = ref("web");
-const deviceType = ref("desktop");
-const subscriberType = ref("free");
+const viewType = ref('web');
+const deviceType = ref('desktop');
+const subscriberType = ref('free');
 </script>
 
 <style scoped>

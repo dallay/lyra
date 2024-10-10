@@ -9,11 +9,11 @@
 </template>
 
 <script setup lang="ts">
-import StatusBar from './StatusBar.vue'
-import AddOptions from './AddOptions.vue'
-import TitleEditor from './TitleEditor.vue'
-import AuthorTags from './AuthorTags.vue'
-import ContentEditor from './ContentEditor.vue'
+import StatusBar from './StatusBar.vue';
+import AddOptions from './AddOptions.vue';
+import TitleEditor from './TitleEditor.vue';
+import AuthorTags from './AuthorTags.vue';
+import ContentEditor from './ContentEditor.vue';
 </script>
 
 

@@ -8,11 +8,11 @@
 </template>
 
 <script setup lang="ts">
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { defineModel } from 'vue'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { defineModel } from 'vue';
 
 const viewType = defineModel('viewType', {
   type: String,
-  default: 'web'
-})
+  default: 'web',
+});
 </script>

@@ -27,15 +27,14 @@
 </template>
 
 <script setup lang="ts">
-import {Button} from "~/components/ui/button";
-import PostEditorSteps from "./PostEditorSteps.vue";
-import PreviewButton from "./preview/PreviewButton.vue";
+import { Button } from '~/components/ui/button';
+import PostEditorSteps from './PostEditorSteps.vue';
+import PreviewButton from './preview/PreviewButton.vue';
 
 interface EditorTopBarProps {
   postId: string;
 }
 const props = defineProps<EditorTopBarProps>();
-
 </script>
 
 <style scoped>

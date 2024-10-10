@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { useAuthStore } from "~/store/auth.store";
-import type { IUser } from "@/domain/user";
-import { useUserAvatar } from "@/composables/useUserAvatar";
+import { ref } from 'vue';
+import { useAuthStore } from '~/store/auth.store';
+import type { IUser } from '@/domain/user';
+import { useUserAvatar } from '@/composables/useUserAvatar';
 const { getUser } = useAuthStore();
 const user = ref<IUser | null>(await getUser());
 const { userAvatar } = useUserAvatar(user.value);

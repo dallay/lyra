@@ -58,24 +58,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Label } from '@/components/ui/label'
-import { Copy, Link } from "lucide-vue-next";
+import { ref } from 'vue';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { Copy, Link } from 'lucide-vue-next';
 
-const draftLink = ref("https://yap.lyra.com/p/new-post?...")
+const draftLink = ref('https://yap.lyra.com/p/new-post?...');
 
-const testEmail = ref(false)
-const selectedSubscriber = ref<string | undefined>("")
+const testEmail = ref(false);
+const selectedSubscriber = ref<string | undefined>('');
 
 const resetLink = () => {
-  console.log("Link reset")
-}
+  console.log('Link reset');
+};
 
 const sendTestEmail = () => {
-  console.log("Test email sent to:", selectedSubscriber.value)
-}
+  console.log('Test email sent to:', selectedSubscriber.value);
+};
 </script>

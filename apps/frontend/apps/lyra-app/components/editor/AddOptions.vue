@@ -12,6 +12,6 @@
 </template>
 
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
-import { Image, Tag } from 'lucide-vue-next'
+import { Button } from '@/components/ui/button';
+import { Image, Tag } from 'lucide-vue-next';
 </script>

@@ -36,10 +36,10 @@
 </template>
 
 <script setup lang="ts">
-import {Button} from "~/components/ui/button";
-import PostEditorSteps from "./PostEditorSteps.vue";
-import EditorPreviewOptions from "./preview/EditorPreviewOptions.vue";
-import {ActionSplitButton} from "~/components/ui/button/action-split-button";
+import { Button } from '~/components/ui/button';
+import PostEditorSteps from './PostEditorSteps.vue';
+import EditorPreviewOptions from './preview/EditorPreviewOptions.vue';
+import { ActionSplitButton } from '~/components/ui/button/action-split-button';
 </script>
 
 <style scoped>

@@ -45,7 +45,7 @@ interface EmailFrameProps {
 
 const props = withDefaults(defineProps<EmailFrameProps>(), {
   from: '"Yuniel Acosta Pérez" <yap@mail.beehiiv.com>',
-  subject: "Subject Line",
-  previewText: "Preview Text"
+  subject: 'Subject Line',
+  previewText: 'Preview Text',
 });
 </script>

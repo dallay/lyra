@@ -41,12 +41,7 @@
     "test": "loadEnv && pnpm --if-present --recursive --aggregate-output --parallel --stream run test",
     "test:watch": "loadEnv && pnpm --if-present --recursive --aggregate-output --parallel --stream run test:watch"
   },
-  "workspaces": [
-    "packages/*",
-    "apps/*",
-    "mock",
-    "config"
-  ],
+  "workspaces": ["packages/*", "apps/*", "mock", "config"],
   "dependencies": {
     "inversify": "^6.0.2",
     "reflect-metadata": "^0.2.2"

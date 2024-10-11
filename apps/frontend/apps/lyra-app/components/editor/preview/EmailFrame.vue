@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-3 items-start self-stretch px-6 p-3 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+  <div class="flex flex-col gap-3 items-start self-stretch px-6 p-3 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 w-full h-full">
     <div class="w-full grid grid-cols-12">
       <div class="col-span-2">
         <span class="text-sm text-gray-500 dark:text-gray-400 font-normal">From:</span>

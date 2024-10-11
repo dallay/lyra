@@ -1,10 +1,14 @@
 <template>
   <div class="mx-auto p-4">
     <StatusBar />
-    <AddOptions />
-    <TitleEditor />
-    <AuthorTags />
-    <ContentEditor />
+    <div class="flex justify-center">
+      <div class="w-full max-w-3xl">
+        <AddOptions />
+        <TitleEditor />
+        <AuthorTags />
+        <ContentEditor />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,7 +19,6 @@ import TitleEditor from './TitleEditor.vue';
 import AuthorTags from './AuthorTags.vue';
 import ContentEditor from './ContentEditor.vue';
 </script>
-
 
 <style lang="scss">
 /* Basic editor styles */

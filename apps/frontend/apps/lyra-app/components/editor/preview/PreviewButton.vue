@@ -12,7 +12,7 @@
       </template>
     </ActionSplitButton>
 
-    <DialogContent class="sm:max-w-[90vw] sm:max-h-[90vh] overflow-y-auto">
+    <DialogContent class="sm:max-w-[90vw] sm:max-h-[90vh] overflow-y-auto w-full h-full">
       <DialogHeader>
         <div
           class="flex flex-col sm:flex-row items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-4 mb-4"
@@ -32,9 +32,10 @@
             <iframe
               src="https://www.yunielacosta.com/posts/understanding-cors-in-web-development/"
               width="100%"
-              height="500px"
+              height="100%"
               frameborder="0"
               allowfullscreen
+              style="height: 100vh;"
             >
             </iframe>
           </NewsletterContent>

@@ -2,7 +2,7 @@
   <div class="mx-auto p-4">
     <StatusBar />
     <div class="flex justify-center">
-      <div class="w-full max-w-3xl">
+      <div class="w-full max-w-3xl mx-auto">
         <AddOptions />
         <TitleEditor />
         <AuthorTags />

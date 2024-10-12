@@ -29,6 +29,7 @@
     "@tiptap/extension-typography": "^2.8.0",
     "@tiptap/pm": "^2.8.0",
     "@tiptap/starter-kit": "^2.8.0",
+    "@tiptap/suggestion": "^2.8.0",
     "@tiptap/vue-3": "^2.8.0",
     "@unovis/ts": "1.4.4",
     "@unovis/vue": "1.4.4",
@@ -44,6 +45,7 @@
     "shadcn-nuxt": "^0.10.4",
     "tailwind-merge": "^2.5.3",
     "tailwindcss-animate": "^1.0.7",
+    "tippy.js": "^6.3.7",
     "ufo": "^1.5.4",
     "vee-validate": "^4.13.2",
     "vue": "^3.5.11"

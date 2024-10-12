@@ -16,10 +16,7 @@ definePageMeta({
       <template #header>
         <EditorTopBar :postId="postId"/>
       </template>
-
-      <client-only>
-        <posts-editor />
-      </client-only>
+      <posts-editor />
     </NuxtLayout>
   </div>
 </template>

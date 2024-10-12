@@ -34,10 +34,6 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/node": "^8.3.4",
     "@fontsource-variable/onest": "^5.1.0",
-    "@iconify-json/mdi": "^1.2.1",
-    "@iconify-json/ph": "^1.2.1",
-    "@iconify-json/simple-icons": "^1.2.7",
-    "@iconify/json": "^2.2.258",
     "astro": "^4.15.12",
     "typescript": "^5.6.3"
   },

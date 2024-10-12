@@ -6,7 +6,9 @@
         <AddOptions />
         <TitleEditor />
         <AuthorTags />
-        <ContentEditor />
+        <client-only>
+          <ContentEditor />
+        </client-only>
       </div>
     </div>
   </div>

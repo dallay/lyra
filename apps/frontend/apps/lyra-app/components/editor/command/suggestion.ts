@@ -43,7 +43,7 @@ export default {
             description: 'Create a bullet list',
             icon: 'lucide:list',
             command: ({ editor, range }: CommandProps) => {
-              editor.chain().focus().toggleBulletList().run()
+              editor.chain().focus().deleteRange(range).toggleBulletList().run();
             },
           },
           {
@@ -51,7 +51,7 @@ export default {
             description: 'Create an ordered list',
             icon: 'lucide:list-ordered',
             command: ({ editor, range }: CommandProps) => {
-              editor.chain().focus().toggleOrderedList().run()
+              editor.chain().focus().deleteRange(range).toggleOrderedList().run();
             },
           },
           {
@@ -59,7 +59,7 @@ export default {
             description: 'Create a blockquote',
             icon: 'lucide:quote',
             command: ({ editor, range }: CommandProps) => {
-              editor.chain().focus().toggleBlockquote().run()
+              editor.chain().focus().deleteRange(range).toggleBlockquote().run();
             },
           },
           {
@@ -67,7 +67,7 @@ export default {
             description: 'Create a code block',
             icon: 'lucide:code',
             command: ({ editor, range }: CommandProps) => {
-              editor.chain().focus().toggleCodeBlock().run()
+              editor.chain().focus().deleteRange(range).toggleCodeBlock().run();
             },
           },
           {
@@ -75,7 +75,7 @@ export default {
             description: 'Create a divider',
             icon: 'lucide:minus',
             command: ({ editor, range }: CommandProps) => {
-              editor.chain().focus().setHorizontalRule().run()
+              editor.chain().focus().deleteRange(range).setHorizontalRule().run();
             },
           },
           {
@@ -83,7 +83,7 @@ export default {
             description: 'Insert an image',
             icon: 'lucide:image',
             command: ({ editor, range }: CommandProps) => {
-              // Lógica para insertar imagen
+              alert('This feature is not implemented yet');
             },
           },
           {
@@ -91,9 +91,9 @@ export default {
             description: 'Insert a table',
             icon: 'lucide:table',
             command: ({ editor, range }: CommandProps) => {
-              // Lógica para insertar tabla
+              alert('This feature is not implemented yet');
             },
-          }
+          },
         ],
       },
       {
@@ -104,12 +104,7 @@ export default {
             description: 'Large title text',
             icon: Heading1,
             command: ({ editor, range }: CommandProps) => {
-              editor
-                .chain()
-                .focus()
-                .deleteRange(range)
-                .setNode('heading', { level: 1 })
-                .run();
+              editor.chain().focus().deleteRange(range).setNode('heading', { level: 1 }).run();
             },
           },
           {
@@ -117,12 +112,7 @@ export default {
             description: 'Medium title text',
             icon: Heading2,
             command: ({ editor, range }: CommandProps) => {
-              editor
-                .chain()
-                .focus()
-                .deleteRange(range)
-                .setNode('heading', { level: 2 })
-                .run();
+              editor.chain().focus().deleteRange(range).setNode('heading', { level: 2 }).run();
             },
           },
           {
@@ -130,12 +120,7 @@ export default {
             description: 'Small title text',
             icon: Heading3,
             command: ({ editor, range }: CommandProps) => {
-              editor
-                .chain()
-                .focus()
-                .deleteRange(range)
-                .setNode('heading', { level: 3 })
-                .run();
+              editor.chain().focus().deleteRange(range).setNode('heading', { level: 3 }).run();
             },
           },
           {
@@ -143,12 +128,7 @@ export default {
             description: 'Extra small title text',
             icon: Heading4,
             command: ({ editor, range }: CommandProps) => {
-              editor
-                .chain()
-                .focus()
-                .deleteRange(range)
-                .setNode('heading', { level: 4 })
-                .run();
+              editor.chain().focus().deleteRange(range).setNode('heading', { level: 4 }).run();
             },
           },
           {
@@ -156,12 +136,7 @@ export default {
             description: 'Extra small title text',
             icon: Heading5,
             command: ({ editor, range }: CommandProps) => {
-              editor
-                .chain()
-                .focus()
-                .deleteRange(range)
-                .setNode('heading', { level: 5 })
-                .run();
+              editor.chain().focus().deleteRange(range).setNode('heading', { level: 5 }).run();
             },
           },
           {
@@ -169,14 +144,9 @@ export default {
             description: 'Extra small title text',
             icon: Heading6,
             command: ({ editor, range }: CommandProps) => {
-              editor
-                .chain()
-                .focus()
-                .deleteRange(range)
-                .setNode('heading', { level: 6 })
-                .run();
+              editor.chain().focus().deleteRange(range).setNode('heading', { level: 6 }).run();
             },
-          }
+          },
         ],
       },
       {
@@ -187,7 +157,7 @@ export default {
             description: 'Embed a hyperlink',
             icon: Link,
             command: ({ editor, range }: CommandProps) => {
-              // Lógica para Embed Link
+              alert('This feature is not implemented yet');
             },
           },
           {
@@ -195,22 +165,21 @@ export default {
             description: 'Embed a YouTube video',
             icon: 'si:youtube-fill',
             command: ({ editor, range }: CommandProps) => {
-              // Lógica para YouTube
+              alert('This feature is not implemented yet');
             },
           },
-          // Otros embeds...
         ],
       },
     ];
 
     return allItems
-      .map(category => ({
+      .map((category) => ({
         ...category,
-        items: category.items.filter(item =>
-          item.title.toLowerCase().includes(query.toLowerCase())
+        items: category.items.filter((item) =>
+          item.title.toLowerCase().includes(query.toLowerCase()),
         ),
       }))
-      .filter(category => category.items.length > 0);
+      .filter((category) => category.items.length > 0);
   },
 
   render: () => {

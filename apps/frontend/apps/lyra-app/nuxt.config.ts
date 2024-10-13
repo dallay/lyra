@@ -21,11 +21,11 @@ export default defineNuxtConfig({
   ],
   icon: {
     clientBundle: {
-      scan: true, // Scan components for icons
+      scan: true,
     },
     serverBundle: {
       collections: ['uil', 'mdi', 'lucide'],
-    }
+    },
   },
   shadcn: {
     prefix: '',

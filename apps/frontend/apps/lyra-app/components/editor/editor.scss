@@ -7,6 +7,17 @@
   --editor-purple-light: #e9d5ff; /* Tailwind CSS purple-200 */
   --editor-black: #000000;
   --editor-white: #ffffff;
+
+  /* Font size variables */
+  --editor-font-size-p: 0.8rem;
+  --editor-font-size-h1: 1.4rem;
+  --editor-font-size-h2: 1.2rem;
+  --editor-font-size-h3: 1.1rem;
+  --editor-font-size-h4: 1rem;
+  --editor-font-size-h5: 1rem;
+  --editor-font-size-h6: 1rem;
+  --editor-line-height: 1.6;
+  --editor-placeholder-color: #9ca3af; /* Tailwind CSS gray-400 */
 }
 
 [data-theme="dark"] {
@@ -23,6 +34,16 @@
 .tiptap {
   :first-child {
     margin-top: 0;
+  }
+
+  min-height: calc(100vh - 2rem);
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  > * + * {
+    margin-top: 0.75em;
   }
 
   /* List styles */
@@ -56,21 +77,29 @@
   }
 
   h1 {
-    font-size: 1.4rem;
+    font-size: var(--editor-font-size-h1);
   }
 
   h2 {
-    font-size: 1.2rem;
+    font-size: var(--editor-font-size-h2);
   }
 
   h3 {
-    font-size: 1.1rem;
+    font-size: var(--editor-font-size-h3);
   }
 
   h4,
   h5,
   h6 {
-    font-size: 1rem;
+    font-size: var(--editor-font-size-h4);
+  }
+
+  /* Paragraph styles */
+  p {
+    margin: 1rem 0;
+    line-height: var(--editor-line-height);
+    font-size: var(--editor-font-size-p);
+    color: var(--editor-color);
   }
 
   /* Code and preformatted text styles */
@@ -131,9 +160,10 @@
 
 /* Placeholder (at the top) */
 .is-empty::before {
-  color: #9ca3af; /* Tailwind CSS gray-400 */
+  color: var(--editor-placeholder-color);
   content: attr(data-placeholder);
   float: left;
+  font-size: var(--editor-font-size-p);
   height: 0;
   pointer-events: none;
   font-style: italic; /* Optional: to make the placeholder text italic */

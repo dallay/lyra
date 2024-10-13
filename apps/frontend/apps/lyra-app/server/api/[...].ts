@@ -16,9 +16,9 @@ export default defineEventHandler(async (event) => {
     path = event.path.replace(Routes.core.name, '');
     target = joinURL(coreUrl, path);
   } else if (event.path.startsWith(Routes.another.name)) {
-  /*
-   * Case: /api/another
-   * */
+    /*
+     * Case: /api/another
+     * */
     path = event.path.replace(Routes.another.regex, '');
     target = joinURL(anotherUrl, path);
   }

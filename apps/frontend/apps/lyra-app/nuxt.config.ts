@@ -19,6 +19,14 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxt/test-utils/module',
   ],
+  icon: {
+    clientBundle: {
+      scan: true,
+    },
+    serverBundle: {
+      collections: ['uil', 'mdi', 'lucide'],
+    },
+  },
   shadcn: {
     prefix: '',
     componentDir: './components/ui',

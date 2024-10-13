@@ -20,17 +20,21 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import ConfirmationAlertDialog from '@/components/ConfirmationAlertDialog.vue';
 import { TagColors, Tag } from '~/domain/tag';
 import { useTagStore } from '~/store/tag.store';
 import { useWorkspaceStore } from '~/store/workspace.store';
 import { storeToRefs } from 'pinia';
 import TagId from '~/domain/tag/TagId';
+
 const tagStore = useTagStore();
 const { tags } = storeToRefs(tagStore);
 const { fetchTags, deleteTag } = tagStore;
 const workspaceStore = useWorkspaceStore();
 
 const openSheet = ref(false);
+const showDeleteDialog = ref(false);
+const tagToDelete = ref<Tag | null>(null);
 const currentTag: Ref<Tag | null> = ref(null);
 
 const alphabeticalTags = computed(() => {
@@ -58,6 +62,14 @@ const deleteTagById = async (tag: Tag) => {
 
   await deleteTag(organizationId, tagId);
   await fetchOrganizationTags();
+};
+
+const confirmDeleteTag = async () => {
+  if (tagToDelete.value) {
+    await deleteTagById(tagToDelete.value as Tag);
+    tagToDelete.value = null;
+    showDeleteDialog.value = false;
+  }
 };
 
 const close = () => {
@@ -140,7 +152,10 @@ onMounted(async () => {
                       <DropdownMenuItem @click="editTag(tag.id)">
                         Edit
                       </DropdownMenuItem>
-                      <DropdownMenuItem @click="deleteTagById(tag)">
+                      <DropdownMenuItem
+                        class="text-red-600"
+                        @select="() => { tagToDelete = tag; showDeleteDialog = true; }"
+                      >
                         Delete
                       </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -161,8 +176,18 @@ onMounted(async () => {
             {{ currentTag ? "Edit" : "Create" }} a tag for your subscribers.
           </SheetDescription>
         </SheetHeader>
-        <SubscriberTagForm :currentTag="currentTag" @close="close" @update="fetchOrganizationTags"/>
+        <SubscriberTagForm
+          :currentTag="currentTag"
+          @close="close"
+          @update="fetchOrganizationTags"
+        />
       </SheetContent>
     </Sheet>
+    <ConfirmationAlertDialog
+      v-model:open="showDeleteDialog"
+      title="Are you sure you want to delete this tag?"
+      description="This action cannot be undone. This will permanently delete the tag."
+      :onConfirm="confirmDeleteTag"
+    />
   </div>
 </template>

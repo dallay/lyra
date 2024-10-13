@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useRouter, onMounted, ref, randomNumber, avatar, navigateTo, watchEffect } from '#imports';
+import { useRouter, onMounted, ref, navigateTo, watchEffect } from '#imports';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth.store';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import UserAvatar from './UserAvatar.vue';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -20,8 +20,6 @@ const router = useRouter();
 const { isAuthenticated } = storeToRefs(useAuthStore());
 const { getUser, logUserOut } = useAuthStore();
 const user = ref<IUser | null>(await getUser());
-const defaultAvatar = `/avatars/0${randomNumber(1, 5)}.png`;
-const userAvatar = user?.value?.email ? avatar(user?.value.email) : defaultAvatar;
 
 const logout = async () => {
   await logUserOut();
@@ -44,10 +42,7 @@ watchEffect(() => {
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
       <Button variant="ghost" class="relative h-8 w-8 rounded-full">
-        <Avatar class="h-8 w-8">
-          <AvatarImage :src="userAvatar" alt="@shadcn" />
-          <AvatarFallback>{{ initials(user?.name ?? 'Y A P') }}</AvatarFallback>
-        </Avatar>
+        <UserAvatar />
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent class="w-56" align="end">

@@ -47,12 +47,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, defineProps, type Component, Suspense } from "vue";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import type { Editor } from "@tiptap/vue-3";
-import { LoaderCircle } from "lucide-vue-next";
+import { ref, watch, defineProps, type Component, Suspense } from 'vue';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import type { Editor } from '@tiptap/vue-3';
+import { LoaderCircle } from 'lucide-vue-next';
 
 interface CommandItem {
   title: string;
@@ -79,7 +79,7 @@ watch(
   () => props.items,
   () => {
     selectedIndex.value = { category: 0, item: 0 };
-  }
+  },
 );
 
 const selectItem = (categoryIndex: number, itemIndex: number) => {
@@ -120,8 +120,7 @@ const upHandler = () => {
     selectedIndex.value.item = prevItem;
   } else if (category > 0) {
     selectedIndex.value.category--;
-    selectedIndex.value.item =
-      props.items[selectedIndex.value.category].items.length - 1;
+    selectedIndex.value.item = props.items[selectedIndex.value.category].items.length - 1;
   }
 };
 
@@ -142,8 +141,7 @@ const leftHandler = () => {
     selectedIndex.value.item--;
   } else if (category > 0) {
     selectedIndex.value.category--;
-    selectedIndex.value.item =
-      props.items[selectedIndex.value.category].items.length - 1;
+    selectedIndex.value.item = props.items[selectedIndex.value.category].items.length - 1;
   }
 };
 
@@ -153,19 +151,19 @@ const enterHandler = () => {
 };
 
 const onKeyDown = (event: KeyboardEvent): boolean => {
-  if (event.key === "ArrowDown") {
+  if (event.key === 'ArrowDown') {
     downHandler();
     return true;
-  } else if (event.key === "ArrowUp") {
+  } else if (event.key === 'ArrowUp') {
     upHandler();
     return true;
-  } else if (event.key === "ArrowRight") {
+  } else if (event.key === 'ArrowRight') {
     rightHandler();
     return true;
-  } else if (event.key === "ArrowLeft") {
+  } else if (event.key === 'ArrowLeft') {
     leftHandler();
     return true;
-  } else if (event.key === "Enter") {
+  } else if (event.key === 'Enter') {
     enterHandler();
     return true;
   }

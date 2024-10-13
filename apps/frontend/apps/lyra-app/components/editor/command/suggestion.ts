@@ -83,7 +83,10 @@ export default {
             description: 'Insert an image',
             icon: 'lucide:image',
             command: ({ editor, range }: CommandProps) => {
-              alert('This feature is not implemented yet');
+              const url = prompt('Enter the image URL');
+              if (url) {
+                editor.chain().focus().deleteRange(range).setImage({ src: url }).run();
+              }
             },
           },
           {

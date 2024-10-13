@@ -12,6 +12,8 @@ import Highlight from '@tiptap/extension-highlight';
 import Typography from '@tiptap/extension-typography';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
+import Image from '@tiptap/extension-image'
+import Dropcursor from '@tiptap/extension-dropcursor'
 import Code from '@tiptap/extension-code';
 import Document from '@tiptap/extension-document';
 import Paragraph from '@tiptap/extension-paragraph';
@@ -32,6 +34,8 @@ const editor = useEditor({
     Text,
     Highlight,
     Typography,
+    Image,
+    Dropcursor,
     Placeholder.configure({
       placeholder: ({ node }) => {
         if (node.type.name === 'paragraph' && node.textContent === '') {

@@ -89,11 +89,23 @@ const selectItem = (categoryIndex: number, itemIndex: number) => {
   }
 };
 
+const getColumns = () => {
+  if (window.innerWidth >= 768) {
+    return 3; // md and above
+  } else if (window.innerWidth >= 640) {
+    return 2; // sm
+  } else {
+    return 1; // default
+  }
+};
+
 const downHandler = () => {
   const { category, item } = selectedIndex.value;
   const currentCategory = props.items[category];
-  if (item < currentCategory.items.length - 1) {
-    selectedIndex.value.item++;
+  const columns = getColumns();
+  const nextItem = item + columns;
+  if (nextItem < currentCategory.items.length) {
+    selectedIndex.value.item = nextItem;
   } else if (category < props.items.length - 1) {
     selectedIndex.value.category++;
     selectedIndex.value.item = 0;
@@ -102,8 +114,10 @@ const downHandler = () => {
 
 const upHandler = () => {
   const { category, item } = selectedIndex.value;
-  if (item > 0) {
-    selectedIndex.value.item--;
+  const columns = getColumns();
+  const prevItem = item - columns;
+  if (prevItem >= 0) {
+    selectedIndex.value.item = prevItem;
   } else if (category > 0) {
     selectedIndex.value.category--;
     selectedIndex.value.item =

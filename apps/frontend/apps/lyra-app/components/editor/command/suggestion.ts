@@ -231,7 +231,7 @@ export default {
           return true;
         }
 
-        return component?.ref?.onKeyDown(props) ?? false;
+        return component?.ref?.onKeyDown(props.event) ?? false;
       },
 
       onExit() {

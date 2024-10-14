@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3';
-import { Input } from "@/components/ui/input";
+import { Input } from '@/components/ui/input';
 import { LoaderCircle } from 'lucide-vue-next';
 
 // Props destructuring

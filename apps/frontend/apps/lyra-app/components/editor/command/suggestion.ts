@@ -88,12 +88,12 @@ export default {
               }).run();
             },
           },
-          {
+                    {
             title: 'Table',
             description: 'Insert a table',
             icon: 'lucide:table',
             command: ({ editor, range }: CommandProps) => {
-              alert('This feature is not implemented yet');
+              editor.chain().focus().deleteRange(range).insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
             },
           },
         ],

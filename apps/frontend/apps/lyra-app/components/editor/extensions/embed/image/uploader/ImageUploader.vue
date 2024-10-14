@@ -92,10 +92,10 @@ const onDrop = (event: DragEvent) => {
 };
 
 const mockLibraryImages = [
-  "/placeholder.svg?height=100&width=100",
-  "/placeholder.svg?height=100&width=100",
-  "/placeholder.svg?height=100&width=100",
-  "/placeholder.svg?height=100&width=100",
+  '/placeholder.svg?height=100&width=100',
+  '/placeholder.svg?height=100&width=100',
+  '/placeholder.svg?height=100&width=100',
+  '/placeholder.svg?height=100&width=100',
 ];
 
 const openFileSelector = () => {

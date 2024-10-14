@@ -83,17 +83,27 @@ export default {
             description: 'Insert an image',
             icon: 'lucide:image',
             command: ({ editor, range }: CommandProps) => {
-              editor.chain().focus().deleteRange(range).insertContent({
-                type: 'image-uploader',
-              }).run();
+              editor
+                .chain()
+                .focus()
+                .deleteRange(range)
+                .insertContent({
+                  type: 'image-uploader',
+                })
+                .run();
             },
           },
-                    {
+          {
             title: 'Table',
             description: 'Insert a table',
             icon: 'lucide:table',
             command: ({ editor, range }: CommandProps) => {
-              editor.chain().focus().deleteRange(range).insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+              editor
+                .chain()
+                .focus()
+                .deleteRange(range)
+                .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+                .run();
             },
           },
         ],
@@ -167,7 +177,14 @@ export default {
             description: 'Embed a YouTube video',
             icon: 'si:youtube-fill',
             command: ({ editor, range }: CommandProps) => {
-              alert('This feature is not implemented yet');
+              editor
+                .chain()
+                .focus()
+                .deleteRange(range)
+                .insertContent({
+                  type: 'youtube-uploader',
+                })
+                .run();
             },
           },
         ],

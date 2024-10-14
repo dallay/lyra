@@ -25,6 +25,8 @@ import { SmilieReplacer } from './extensions/SmilieReplacer';
 import Commands from './command/commands';
 import suggestion from './command/suggestion';
 
+import ImageUploader from './image/uploader/ImageUploader';
+
 const editor = useEditor({
   extensions: [
     StarterKit,
@@ -35,6 +37,7 @@ const editor = useEditor({
     Highlight,
     Typography,
     Image,
+    ImageUploader,
     Dropcursor,
     Placeholder.configure({
       placeholder: ({ node }) => {
@@ -50,7 +53,7 @@ const editor = useEditor({
       suggestion,
     }),
   ],
-  content: '<p></p>',
+  content: `<p></p>`,
   editorProps: {
     attributes: {
       class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl focus:outline-none',

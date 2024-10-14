@@ -83,10 +83,9 @@ export default {
             description: 'Insert an image',
             icon: 'lucide:image',
             command: ({ editor, range }: CommandProps) => {
-              const url = prompt('Enter the image URL');
-              if (url) {
-                editor.chain().focus().deleteRange(range).setImage({ src: url }).run();
-              }
+              editor.chain().focus().deleteRange(range).insertContent({
+                type: 'image-uploader',
+              }).run();
             },
           },
           {

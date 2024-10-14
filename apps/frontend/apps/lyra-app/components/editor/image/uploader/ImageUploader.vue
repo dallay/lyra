@@ -20,12 +20,16 @@
         <p class="mt-2 text-sm text-gray-500">Drag and drop or</p>
       </div>
       <div class="mt-4 flex justify-center space-x-2">
-        <Button @click.prevent="openFileSelector">
+        <Button @click.prevent="openFileSelector" variant="outline">
+          <CloudUpload class="h-5 w-5 mr-2" />
           Upload an image
         </Button>
         <Dialog v-model:open="isModalOpen">
           <DialogTrigger asChild>
-            <Button variant="outline">Use from library</Button>
+            <Button variant="outline">
+              <Images class="h-5 w-5 mr-2" />
+            Use from library
+            </Button>
           </DialogTrigger>
           <DialogContent class="sm:max-w-[425px]">
             <div class="grid grid-cols-2 gap-4">
@@ -50,7 +54,7 @@ import { ref } from 'vue';
 import { nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { Image as ImageIcon } from 'lucide-vue-next';
+import { Image as ImageIcon, CloudUpload, Images } from 'lucide-vue-next';
 
 // Props destructuring
 const props = defineProps(nodeViewProps);

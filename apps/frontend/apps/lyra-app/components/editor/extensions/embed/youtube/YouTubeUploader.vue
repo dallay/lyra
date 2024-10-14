@@ -1,35 +1,44 @@
 <template>
-  <node-view-wrapper class="w-full mx-auto p-6">
-    <div class="border-2 border-dashed rounded-lg p-8 text-center transition-colors">
-      <Input
-        v-model="url"
-        placeholder="Enter YouTube URL"
-        class="border p-2 rounded w-full"
-      />
-      <div class="mt-4 flex justify-center space-x-2">
-        <Button @click.prevent="embedVideo" variant="outline">
-          Embed Video
-        </Button>
-      </div>
-    </div>
+  <node-view-wrapper class="relative w-full items-center">
+    <Input
+      v-model="url"
+      id="youtube"
+      type="text"
+      placeholder="Paste or type a YouTube URL"
+      class="pl-10"
+      @input="embedVideo"
+    />
+    <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
+      <Suspense>
+        <Icon name="si:youtube-fill" class="size-6 text-muted-foreground" />
+        <template #fallback>
+          <LoaderCircle class="size-6 text-muted-foreground animate-spin" />
+        </template>
+      </Suspense>
+    </span>
   </node-view-wrapper>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Input } from "@/components/ui/input";
+import { LoaderCircle } from 'lucide-vue-next';
 
 // Props destructuring
 const props = defineProps(nodeViewProps);
 const { editor } = props;
-
 const url = ref<string>('');
 
+// Embed video on input change
 const embedVideo = () => {
   if (url.value) {
     editor.chain().focus().setYoutubeVideo({ src: url.value }).run();
   }
 };
+
+// Watch for changes in the URL input
+watch(url, (newUrl) => {
+  embedVideo();
+});
 </script>

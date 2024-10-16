@@ -1,6 +1,6 @@
 <template>
   <div
-    class="prose prose-sm sm:prose lg:prose-lg xl:prose-2xl focus:outline-none mx-2"
+    class="prose prose-zinc dark:prose-invert focus:outline-none mx-2"
   >
     <EditorContent :editor="editor" />
   </div>
@@ -24,6 +24,8 @@ import TableHeader from '@tiptap/extension-table-header';
 import TableRow from '@tiptap/extension-table-row';
 import Youtube from '@tiptap/extension-youtube';
 
+import Link from '@tiptap/extension-link';
+
 import { ColorHighlighter } from './extensions/ColorHighlighter';
 import { SmilieReplacer } from './extensions/SmilieReplacer';
 
@@ -32,13 +34,12 @@ import suggestion from './command/suggestion';
 
 import ImageUploader from './extensions/embed/image/uploader/ImageUploader';
 import YouTubeUploader from './extensions/embed/youtube/YouTubeUploader';
+import EmbedLink from './extensions/embed/link/EmbedLink';
+
 const CustomTableCell = TableCell.extend({
   addAttributes() {
     return {
-      // extend the existing attributes …
       ...this.parent?.(),
-
-      // and add a new one …
       backgroundColor: {
         default: null,
         parseHTML: (element) => element.getAttribute('data-background-color'),
@@ -70,9 +71,6 @@ const editor = useEditor({
     }),
     TableRow,
     TableHeader,
-    // Default TableCell
-    // TableCell,
-    // Custom TableCell with backgroundColor attribute
     CustomTableCell,
     Placeholder.configure({
       placeholder: ({ node }) => {
@@ -92,11 +90,13 @@ const editor = useEditor({
       nocookie: true,
     }),
     YouTubeUploader,
+    EmbedLink,
+    Link,
   ],
   content: `<p></p>`,
   editorProps: {
     attributes: {
-      class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl focus:outline-none',
+      class: 'prose prose-zinc dark:prose-invert focus:outline-none',
     },
   },
 });

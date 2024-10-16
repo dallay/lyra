@@ -32,112 +32,6 @@
 
 /* Basic editor styles */
 .tiptap {
-  :first-child {
-    margin-top: 0;
-  }
-
-  min-height: calc(100vh - 2rem);
-
-  &:focus-visible {
-    outline: none;
-  }
-
-  > * + * {
-    margin-top: 0.75em;
-  }
-
-  /* List styles */
-  ul,
-  ol {
-    padding: 0 1rem;
-    margin: 1.25rem 1rem 1.25rem 0.4rem;
-
-    li p {
-      margin-top: 0.25em;
-      margin-bottom: 0.25em;
-    }
-  }
-
-  /* Heading styles */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    line-height: 1.1;
-    margin-top: 2.5rem;
-    text-wrap: pretty;
-  }
-
-  h1,
-  h2 {
-    margin-top: 3.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  h1 {
-    font-size: var(--editor-font-size-h1);
-  }
-
-  h2 {
-    font-size: var(--editor-font-size-h2);
-  }
-
-  h3 {
-    font-size: var(--editor-font-size-h3);
-  }
-
-  h4,
-  h5,
-  h6 {
-    font-size: var(--editor-font-size-h4);
-  }
-
-  /* Paragraph styles */
-  p {
-    margin: 1rem 0;
-    line-height: var(--editor-line-height);
-    font-size: var(--editor-font-size-p);
-    color: var(--editor-color);
-  }
-
-  /* Code and preformatted text styles */
-  code {
-    background-color: var(--editor-purple-light);
-    border-radius: 0.4rem;
-    color: var(--editor-black);
-    font-size: 0.85rem;
-    padding: 0.25em 0.3em;
-  }
-
-  pre {
-    background: var(--editor-black);
-    border-radius: 0.5rem;
-    color: var(--editor-white);
-    font-family: 'JetBrainsMono', monospace;
-    margin: 1.5rem 0;
-    padding: 0.75rem 1rem;
-
-    code {
-      background: none;
-      color: inherit;
-      font-size: 0.8rem;
-      padding: 0;
-    }
-  }
-
-  /* Image styles */
-  img {
-    display: block;
-    height: auto;
-    margin: 1.5rem 0;
-    max-width: 100%;
-
-    &.ProseMirror-selectednode {
-      outline: 3px solid var(--editor-purple-light);
-    }
-  }
 
   /* Color swatches */
   .color {
@@ -155,18 +49,6 @@
       vertical-align: middle;
       width: 1em;
     }
-  }
-
-  blockquote {
-    border-left: 3px solid var(--editor-gray-3);
-    margin: 1.5rem 0;
-    padding-left: 1rem;
-  }
-
-  hr {
-    border: none;
-    border-top: 1px solid var(--editor-gray-2);
-    margin: 2rem 0;
   }
 
   /* Table-specific styling */
@@ -230,10 +112,8 @@
 
 /* Placeholder (at the top) */
 .is-empty::before {
-  color: var(--editor-placeholder-color);
   content: attr(data-placeholder);
   float: left;
-  font-size: var(--editor-font-size-p);
   height: 0;
   pointer-events: none;
   font-style: italic; /* Optional: to make the placeholder text italic */

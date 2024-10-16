@@ -12,6 +12,7 @@ import { orderBy } from './order-by/order-by';
 import { remove } from './remove/remove';
 import { isEqual } from './is-equal/is-equal';
 import { isDarkMode, loadTheme, toggleTheme } from './theme/color-theme';
+import { debounce } from './debounce/debounce';
 
 export {
   avatar,
@@ -30,4 +31,5 @@ export {
   isDarkMode,
   loadTheme,
   toggleTheme,
+  debounce,
 };

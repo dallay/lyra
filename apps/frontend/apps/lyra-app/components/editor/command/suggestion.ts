@@ -164,12 +164,14 @@ export default {
       {
         category: 'Embeds',
         items: [
-          {
+                    {
             title: 'Embed Link',
             description: 'Embed a hyperlink',
             icon: Link,
             command: ({ editor, range }: CommandProps) => {
-              alert('This feature is not implemented yet');
+              editor.chain().focus().deleteRange(range).insertContent({
+                type: 'embed-link',
+              }).run();
             },
           },
           {

@@ -35,6 +35,8 @@ dependencies {
     implementation("org.liquibase:liquibase-core")
     implementation("org.springframework:spring-r2dbc")
     implementation("org.springframework.data:spring-data-r2dbc")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
+    implementation("com.github.ben-manes.caffeine:caffeine")
     implementation("org.postgresql:r2dbc-postgresql")
     runtimeOnly("org.postgresql:postgresql:42.7.3")
 
@@ -46,6 +48,7 @@ dependencies {
     implementation(libs.spring.dotenv)
     implementation(libs.sendgrid)
     implementation(libs.bundles.keycloak)
+    implementation(libs.jsoup)
 
     testImplementation(libs.faker)
     testImplementation(libs.mockk)

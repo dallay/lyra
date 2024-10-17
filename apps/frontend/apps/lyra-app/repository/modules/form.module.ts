@@ -1,5 +1,5 @@
 import Routes from '../routes.client';
-import type { ResponseData } from '@lyra/shared';
+import type { DataResponse } from '@lyra/shared';
 import SecureFetchFactory from '~/repository/secure.factory';
 import { ACCEPT_HEADER } from '~/repository/factory';
 import { OrganizationId } from '~/domain/organization';
@@ -9,7 +9,7 @@ class FormModule extends SecureFetchFactory {
   private readonly RESOURCE = Routes.Form;
 
   async fetchAll(organizationId: OrganizationId) {
-    return this.call<ResponseData<FormResponse>>({
+    return this.call<DataResponse<FormResponse>>({
       method: 'GET',
       url: `${this.RESOURCE.FetchAll(organizationId)}`,
       fetchOptions: {

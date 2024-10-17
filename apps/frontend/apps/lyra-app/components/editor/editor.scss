@@ -32,7 +32,15 @@
 
 /* Basic editor styles */
 .tiptap {
+  :first-child {
+    margin-top: 0;
+  }
 
+  min-height: calc(100vh - 2rem);
+
+  &:focus-visible {
+    outline: none;
+  }
   /* Color swatches */
   .color {
     white-space: nowrap;

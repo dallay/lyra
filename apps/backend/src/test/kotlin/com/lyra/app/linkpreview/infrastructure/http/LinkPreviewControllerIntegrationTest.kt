@@ -31,7 +31,7 @@ internal class LinkPreviewControllerIntegrationTest : ControllerIntegrationTest(
                         result?.description,
                     )
                     assertEquals("/uploads/me.webp", result?.imageUrl)
-                    assertEquals("https://www.yunielacosta.com/", result?.url)
+                    assertEquals("https://yunielacosta.com/", result?.url)
                 }
         }
     }

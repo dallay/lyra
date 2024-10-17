@@ -29,9 +29,9 @@
       :href="url"
       target="_blank"
       rel="noopener noreferrer"
-      class="relative flex bg-clip-border rounded-xl bg-white text-gray-700 shadow-md w-full h-full flex-row dark:bg-gray-800 dark:text-gray-300"
+      class="relative h-auto flex bg-clip-border rounded-xl bg-white text-gray-700 shadow-md w-full flex-row dark:bg-gray-800 dark:text-gray-300"
     >
-      <div class="relative w-2/5 h-full m-0 overflow-hidden text-gray-700 bg-white rounded-r-none bg-clip-border rounded-xl shrink-0 dark:bg-gray-700">
+      <div class="relative w-2/5 m-0 overflow-hidden text-gray-700 bg-white rounded-r-none bg-clip-border rounded-xl shrink-0 dark:bg-gray-700">
         <NuxtImg
           :src="metadata.image"
           :alt="metadata.title"
@@ -39,13 +39,13 @@
         />
       </div>
       <div class="p-6">
-        <h5 class="block mb-2 font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 dark:text-white">
+        <h5 class="line-clamp-1 block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 dark:text-white">
           {{ metadata.title }}
         </h5>
-        <p class="block mb-8 font-sans text-base antialiased font-normal leading-relaxed text-gray-700 dark:text-gray-400">
+        <p class="line-clamp-2 block mb-8 font-sans text-base antialiased font-normal leading-relaxed text-gray-700 dark:text-gray-400">
           {{ metadata.description }}
         </p>
-        <a :href="url" class="block text-xs font-sans hover:underline overflow-hidden dark:text-blue-400">
+        <a :href="url" class="line-clamp-1 block text-xs font-sans hover:underline overflow-hidden dark:text-blue-400">
           {{ url }}
         </a>
       </div>
@@ -59,7 +59,7 @@ import { nodeViewProps, NodeViewWrapper } from "@tiptap/vue-3";
 import { Input } from "@/components/ui/input";
 import { LoaderCircle } from "lucide-vue-next";
 import { debounce } from "@lyra/utilities";
-
+const { $api } = useNuxtApp();
 // Props destructuring
 const props = defineProps(nodeViewProps);
 const { editor } = props;
@@ -76,14 +76,11 @@ const loading = ref<boolean>(false);
 const fetchMetadata = async (url: string) => {
   loading.value = true;
   try {
-    const response = await fetch(
-      `https://api.linkpreview.net/?key=eec452f48a5ba95dcabdf3a853ee7048&q=${url}`
-    );
-    const data = await response.json();
+    const response = await $api.linkPreview.fetchLinkPreview(url);
     metadata.value = {
-      image: data.image,
-      title: data.title,
-      description: data.description,
+      image: response.imageUrl || '',
+      title: response.title,
+      description: response.description,
     };
   } catch (error) {
     console.error("Error fetching metadata:", error);

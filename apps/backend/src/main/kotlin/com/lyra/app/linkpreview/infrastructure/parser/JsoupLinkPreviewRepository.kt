@@ -29,14 +29,18 @@ class JsoupLinkPreviewRepository : LinkPreviewRepository {
         log.info("Fetching preview for URL: {}", url)
         val doc = Jsoup.connect(url.toString()).get()
 
-        val title = doc.title()
-        val description = doc.select("meta[name=description]").attr(CONTENT)
+        val title = doc.select("meta[property=og:title]").attr(CONTENT)
+            .ifBlank { doc.title() }
+        val description = doc.select("meta[property=og:description]").attr(CONTENT)
+            .ifBlank { doc.select("meta[name=description]").attr(CONTENT) }
+            .ifBlank { "No description available" }
         val imageUrl = doc.select("meta[property=og:image]").attr(CONTENT)
-        val siteUrl = doc.location().ifBlank { doc.baseUri() }
+        val siteUrl = doc.select("meta[property=og:url]").attr(CONTENT)
+            .ifBlank { doc.location().ifBlank { doc.baseUri() } }
 
         val linkPreview = LinkPreview(
-            title = title.ifBlank { doc.title() },
-            description = description.ifBlank { "No description available" },
+            title = title,
+            description = description,
             imageUrl = imageUrl,
             url = siteUrl,
         )

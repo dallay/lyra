@@ -49,7 +49,8 @@
 
 ## 🛠️ Stack
 
-- [**Astro**](https://astro.build/) - The web framework for content-driven websites.
+- [**Astro**](https://astro.build/) - The web framework for content-driven websites (used for the landing page).
+- [**Nuxt**](https://nuxt.com/) - The web framework for the app frontend.
 - [**Typescript**](https://www.typescriptlang.org/) - JavaScript with syntax for types.
 - [**Tailwindcss**](https://tailwindcss.com/) - A utility-first CSS framework for rapidly building custom designs.
 - [**tailwindcss-animated**](https://github.com/new-data-services/tailwindcss-animated) - Extended animation utilities for Tailwind CSS.

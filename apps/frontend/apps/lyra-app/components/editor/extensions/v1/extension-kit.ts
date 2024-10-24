@@ -143,9 +143,7 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps): AnyExtension[] =>
   }),
   Subscript,
   Superscript,
-  Table.configure({
-    resizable: true,
-  }),
+  Table,
   TableCell,
   TableHeader,
   TableRow,

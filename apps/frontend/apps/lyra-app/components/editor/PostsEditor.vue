@@ -8,8 +8,6 @@
         <AuthorTags />
         <client-only>
           <ContentEditor :ydoc="ydoc" :provider="provider" userId="user-id" userName="user-name" />
-          <!-- <ContentEditor :ydoc="ydoc" :provider="provider" userId="user-id" userName="user-name" /> -->
-          <!-- <ContentEditor  /> -->
         </client-only>
       </div>
     </div>
@@ -24,10 +22,7 @@ import StatusBar from './StatusBar.vue';
 import AddOptions from './AddOptions.vue';
 import TitleEditor from './TitleEditor.vue';
 import AuthorTags from './AuthorTags.vue';
-// import ContentEditor from './ContentEditor.vue';
 import ContentEditor from './ContentEditor.vue';
-// import ContentEditor from './ContentEditorV0.vue';
-// import ContentEditor from './ContentEditorV2.vue';
 import { useRuntimeConfig } from '#imports';
 
 const config = useRuntimeConfig();

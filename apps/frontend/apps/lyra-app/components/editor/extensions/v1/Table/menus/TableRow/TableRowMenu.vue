@@ -22,7 +22,7 @@ const isHeaderRowActive = computed((): boolean => {
   if (table) {
     const firstRow = table.node.firstChild;
     if (firstRow) {
-      return firstRow.firstChild?.type.name === 'tableHeader';
+      return Array.from({ length: firstRow.childCount }).every((_, index) => firstRow.child(index).type.name === 'tableHeader');
     }
   }
 

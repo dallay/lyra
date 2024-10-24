@@ -106,6 +106,21 @@ export default {
                 .run();
             },
           },
+          {
+            title: 'Button',
+            description: 'Insert a button',
+            icon: 'ic:sharp-smart-button',
+            command: ({ editor, range }: CommandProps) => {
+              editor
+              .chain()
+              .focus()
+              .deleteRange(range)
+              .insertContent({
+                type: 'editor-button',
+              })
+              .run();
+            },
+          },
         ],
       },
       {

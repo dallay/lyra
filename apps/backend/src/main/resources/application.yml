@@ -61,6 +61,11 @@ spring:
   jpa:
     show-sql: true
     hibernate.ddl-auto: none
+  cache:
+    caffeine:
+      caches:
+        linkPreviews:
+          spec: maximumSize=500,expireAfterWrite=5m
 application:
   name: lyra
   description: Lyra is the future of newsletter creation and social media management. It's an app that uses AI to help you create newsletters and manage social media.

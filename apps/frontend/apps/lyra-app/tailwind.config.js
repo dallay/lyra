@@ -4,7 +4,7 @@ const typography = require("@tailwindcss/typography")
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  safelist: ["dark"],
+  safelist: ["dark", "ProseMirror"],
   prefix: "",
 
   theme: {

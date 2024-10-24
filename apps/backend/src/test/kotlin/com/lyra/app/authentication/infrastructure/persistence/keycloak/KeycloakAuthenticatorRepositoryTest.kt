@@ -113,7 +113,8 @@ class KeycloakAuthenticatorRepositoryTest {
     fun `should authenticate user and return access token on success`(): Unit = runBlocking {
         // Arrange
         val username = Username(faker.internet().emailAddress())
-        val password = CredentialGenerator.generate(faker.internet().password(8, 80, true, true, true))
+        val password1 = faker.internet().password(8, 80, true, true, true) + "*71Aa"
+        val password = CredentialGenerator.generate(password1)
 
         val usernameSlot = slot<String>()
         val passwordSlot = slot<String>()

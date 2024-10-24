@@ -66,6 +66,9 @@ const Routes = {
   TeamMember: {
     FetchAll: () => `${prefix}/team/member`,
   },
+  LinkPreview: {
+    Preview: (url: string) => `${prefix}/linkpreview?url=${url}`,
+  }
 };
 
 export default Routes;

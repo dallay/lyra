@@ -69,3 +69,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+::-webkit-scrollbar {
+  @apply w-1 h-1 bg-neutral-500/20;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-neutral-500/50 rounded-full;
+}

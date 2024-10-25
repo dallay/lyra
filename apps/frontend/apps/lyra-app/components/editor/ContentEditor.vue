@@ -1,7 +1,7 @@
 <template>
-  <div ref="menuContainerRef" class="relative prose prose-zinc dark:prose-invert focus:outline-none mx-2">
-    <TableColumnMenu v-if="editor" :editor="editor" :appendTo="menuContainerRef" />
-    <TableRowMenu v-if="editor" :editor="editor" :appendTo="menuContainerRef" />
+  <div class="relative prose prose-zinc dark:prose-invert focus:outline-none mx-2">
+    <TableColumnMenu v-if="editor" :editor="editor" />
+    <TableRowMenu v-if="editor" :editor="editor" />
     <EditorContent :editor="editor" class="relative flex-1"/>
   </div>
 </template>
@@ -13,17 +13,14 @@ import type { TiptapCollabProvider } from '@hocuspocus/provider';
 import type { Doc as YDoc } from 'yjs';
 import { TableColumnMenu, TableRowMenu } from '@/components/editor/extensions/v1/Table/menus';
 
-interface ContentEditorV1Props {
+interface ContentEditorProps {
   ydoc: YDoc;
   provider?: TiptapCollabProvider | null;
   userId?: string;
   userName?: string;
 }
 
-const props = defineProps<ContentEditorV1Props>();
-import type { Ref } from 'vue';
-
-const menuContainerRef: Ref<any>= ref(null)
+const props = defineProps<ContentEditorProps>();
 
 const { editor, users, collabState } = useBlockEditor({
   ydoc: props.ydoc,

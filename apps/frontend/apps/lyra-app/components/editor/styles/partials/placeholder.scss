@@ -4,7 +4,7 @@
     @apply text-black/40 dark:text-white/40 float-left h-0 pointer-events-none w-full;
   }
 
-  &.ProseMirror-focused {
+  &.tiptap-focused {
     /* Slashmenu Placeholder */
     > p.has-focus.is-empty::before {
       content: 'Type  /  to browse options';

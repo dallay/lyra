@@ -1,8 +1,8 @@
 <template>
-  <div ref="menuContainerRef" class="prose prose-zinc dark:prose-invert focus:outline-none mx-2">
-    <EditorContent :editor="editor" class="flex-1 overflow-y-auto"/>
+  <div ref="menuContainerRef" class="relative prose prose-zinc dark:prose-invert focus:outline-none mx-2">
     <TableColumnMenu v-if="editor" :editor="editor" :appendTo="menuContainerRef" />
     <TableRowMenu v-if="editor" :editor="editor" :appendTo="menuContainerRef" />
+    <EditorContent :editor="editor" class="relative flex-1"/>
   </div>
 </template>
 

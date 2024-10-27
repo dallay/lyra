@@ -19,14 +19,14 @@
           <div
             :class="
               cn(
-                'flex-grow justify-center items-center',
+                'flex justify-center items-center',
                 props.node.attrs.layout === 'top'
                   ? 'w-full p-2'
-                  : 'w-full md:w-1/3 p-0 h-full'
+                  : 'w-full md:w-1/3 p-0'
               )
             "
           >
-            <AspectRatio :ratio="16 / 9" class="bg-muted h-full">
+            <AspectRatio :ratio="16 / 9" class="bg-muted w-full h-full">
               <NuxtImg
                 :src="props.node.attrs.image"
                 :alt="props.node.attrs.title"
@@ -37,16 +37,14 @@
               />
             </AspectRatio>
           </div>
-          <div
-            :class="
+          <CardContent :class="
               cn(
+                'flex flex-col',
                 props.node.attrs.layout === 'top'
                   ? 'w-full'
-                  : 'w-full md:w-1/2'
+                  : 'w-full md:w-2/3'
               )
-            "
-          >
-            <CardContent>
+            ">
               <h3 class="line-clamp-1">{{ props.node.attrs.title }}</h3>
               <p class="line-clamp-2">{{ props.node.attrs.description }}</p>
               <a
@@ -58,7 +56,6 @@
                 {{ props.node.attrs.url }}
               </a>
             </CardContent>
-          </div>
         </div>
       </Card>
     </div>

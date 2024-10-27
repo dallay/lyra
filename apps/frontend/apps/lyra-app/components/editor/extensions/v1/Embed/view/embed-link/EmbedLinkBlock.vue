@@ -26,7 +26,7 @@
               )
             "
           >
-            <AspectRatio :ratio="16 / 9" class="bg-muted w-full h-full">
+            <AspectRatio :ratio="16 / 9" class="flex p-1 justify-center items-center w-full h-full">
               <NuxtImg
                 :src="props.node.attrs.image"
                 :alt="props.node.attrs.title"

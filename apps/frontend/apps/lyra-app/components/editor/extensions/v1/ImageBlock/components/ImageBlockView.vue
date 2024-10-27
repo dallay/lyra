@@ -19,13 +19,13 @@ interface ImageBlockViewProps {
 
 const props = defineProps<ImageBlockViewProps>()
 const imageWrapperRef = ref<HTMLDivElement | null>(null)
-const { src, align, width } = props.node.attrs
 
 const wrapperClassName = computed(() =>
   cn(
-    align === 'left' ? 'ml-0' : 'ml-auto',
-    align === 'right' ? 'mr-0' : 'mr-auto',
-    align === 'center' && 'mx-auto'
+    'node-imageBlock',
+    props.node.attrs.align === 'left' ? 'ml-0' : 'ml-auto',
+    props.node.attrs.align === 'right' ? 'mr-0' : 'mr-auto',
+    props.node.attrs.align === 'center' && 'mx-auto'
   )
 )
 
@@ -38,7 +38,7 @@ const onClick = () => {
   <NodeViewWrapper>
     <div :class="wrapperClassName" :style="{ width: props.node.attrs.width }">
       <div contenteditable="false" ref="imageWrapperRef">
-        <img class="block" :src="src" alt="" @click="onClick" />
+        <img class="block" :src="props.node.attrs.src" :alt="props.node.attrs.alt" @click="onClick" />
       </div>
     </div>
   </NodeViewWrapper>

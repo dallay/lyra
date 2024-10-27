@@ -41,20 +41,20 @@ export const useBlockEditor = ({
   const editor = useEditor({
     content: initialContent,
     autofocus: true,
-    // onCreate: ctx => {
-    //   if (provider && !provider.isSynced) {
-    //     provider.on('synced', () => {
-    //       setTimeout(() => {
-    //         if (ctx.editor.isEmpty) {
-    //           ctx.editor.commands.setContent(initialContent)
-    //         }
-    //       }, 0)
-    //     })
-    //   } else if (ctx.editor.isEmpty) {
-    //     ctx.editor.commands.setContent(initialContent)
-    //     ctx.editor.commands.focus('start', { scrollIntoView: true })
-    //   }
-    // },
+    onCreate: ctx => {
+      if (provider && !provider.isSynced) {
+        provider.on('synced', () => {
+          setTimeout(() => {
+            if (ctx.editor.isEmpty) {
+              ctx.editor.commands.setContent(initialContent)
+            }
+          }, 0)
+        })
+      } else if (ctx.editor.isEmpty) {
+        ctx.editor.commands.setContent(initialContent)
+        ctx.editor.commands.focus('start', { scrollIntoView: true })
+      }
+    },
     extensions: [
       ...ExtensionKit({
         provider,
@@ -79,7 +79,7 @@ export const useBlockEditor = ({
         autocomplete: 'off',
         autocorrect: 'off',
         autocapitalize: 'off',
-        class: 'prose prose-zinc dark:prose-invert focus:outline-none',
+        class: 'min-h-full prose prose-zinc dark:prose-invert focus:outline-none',
       },
     },
   })

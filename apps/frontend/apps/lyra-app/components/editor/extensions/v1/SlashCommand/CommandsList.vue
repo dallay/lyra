@@ -2,7 +2,7 @@
   <Card
     class="w-full max-w-2xl sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto min-w-full"
   >
-    <ScrollArea class="p-1 w-full">
+    <ScrollArea class="p-2 w-full">
       <div class="space-y-2">
         <div v-for="(group, groupIndex) in items" :key="groupIndex">
           <h2 class="mb-1 px-1 text-base font-semibold tracking-tight">

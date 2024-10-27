@@ -24,10 +24,10 @@
                 variant="ghost"
                 class="flex"
                 :active="isImageLeft"
-                @click="onAlignImageLeft"
+                @click="onLayoutImageLeft"
               >
-                <Icon name="AlignHorizontalDistributeStart" />
-                <span class="sr-only">Align Left</span>
+                <Icon name="lucide:layout-panel-left" />
+                <span class="sr-only">Layout Image Left / Text Right</span>
               </Button>
             </TooltipTrigger>
             <TooltipContent>
@@ -41,10 +41,10 @@
                 variant="ghost"
                 class="flex"
                 :active="isImageCenter"
-                @click="onAlignImageCenter"
+                @click="onLayoutImageCenter"
               >
-                <Icon name="AlignHorizontalDistributeCenter" />
-                <span class="sr-only">Align Center</span>
+                <Icon name="lucide:layout-panel-top" />
+                <span class="sr-only">Layout Image Top / Text Bottom</span>
               </Button>
             </TooltipTrigger>
             <TooltipContent>
@@ -58,10 +58,10 @@
                 variant="ghost"
                 class="flex"
                 :active="isImageRight"
-                @click="onAlignImageRight"
+                @click="onLayoutImageRight"
               >
-                <Icon name="AlignHorizontalDistributeEnd" />
-                <span class="sr-only">Align Right</span>
+                <Icon name="lucide:layout-panel-left" class="transform rotate-180" />
+                <span class="sr-only">Layout Image Right / Text Left</span>
               </Button>
             </TooltipTrigger>
             <TooltipContent>
@@ -69,11 +69,6 @@
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-
-        <div class="w-36">
-          <Separator orientation="vertical" class="h-full" />
-          <ImageBlockWidth :onChange="onWidthChange" :value="width" />
-        </div>
       </div>
     </Card>
   </BaseBubbleMenu>
@@ -87,8 +82,7 @@ import { Card } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import ImageBlockWidth from "./ImageBlockWidth.vue";
-import type { MenuProps } from "../../menus/types";
+import type { MenuProps } from "../types";
 import {
   Tooltip,
   TooltipContent,
@@ -98,54 +92,35 @@ import {
 
 const props = defineProps<MenuProps>();
 const tippyInstance = ref<Instance | null>(null);
-const pluginKey = computed(() => `imageBlockMenu-${crypto.randomUUID()}`);
+const pluginKey = computed(() => `linkMenu-${crypto.randomUUID()}`);
 
 const shouldShow = () => {
-  return props.editor.isActive("imageBlock");
+  const isActive = props.editor.isActive("link") || props.editor.isActive("embedLink");
+  return isActive;
 };
 
-const onAlignImageLeft = () => {
-  props.editor
-    .chain()
-    .focus(undefined, { scrollIntoView: false })
-    .setImageBlockAlign("left")
-    .run();
+const onLayoutImageLeft = () => {
+  console.log('onLayoutImageLeft');
+  props.editor.chain().focus().setEmbedLinkLayout('left').run();
 };
 
-const onAlignImageCenter = () => {
-  props.editor
-    .chain()
-    .focus(undefined, { scrollIntoView: false })
-    .setImageBlockAlign("center")
-    .run();
+const onLayoutImageCenter = () => {
+  console.log('onLayoutImageCenter');
+  props.editor.chain().focus().setEmbedLinkLayout('top').run();
 };
 
-const onAlignImageRight = () => {
-  props.editor
-    .chain()
-    .focus(undefined, { scrollIntoView: false })
-    .setImageBlockAlign("right")
-    .run();
-};
-
-const onWidthChange = (value: number) => {
-  props.editor
-    .chain()
-    .focus(undefined, { scrollIntoView: false })
-    .setImageBlockWidth(value)
-    .run();
+const onLayoutImageRight = () => {
+  console.log('onLayoutImageRight');
+  props.editor.chain().focus().setEmbedLinkLayout('right').run();
 };
 
 const isImageLeft = computed(() =>
-  props.editor.isActive("imageBlock", { align: "left" })
+ props.editor.isActive("embedLink", { layout: "left" })
 );
 const isImageCenter = computed(() =>
-  props.editor.isActive("imageBlock", { align: "center" })
+ props.editor.isActive("embedLink", { layout: "top" })
 );
 const isImageRight = computed(() =>
-  props.editor.isActive("imageBlock", { align: "right" })
-);
-const width = computed(() =>
-  parseInt(props.editor.getAttributes("imageBlock")?.width || 0)
+ props.editor.isActive("embedLink", { layout: "right" })
 );
 </script>

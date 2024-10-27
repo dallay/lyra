@@ -21,6 +21,8 @@ import {
   HorizontalRule,
   ImageBlock,
   Link,
+  EmbedNode,
+  EmbedLinkBlock,
   Placeholder,
   Selection,
   SlashCommand,
@@ -101,14 +103,13 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps): AnyExtension[] =>
   Link.configure({
     openOnClick: false,
   }),
+  EmbedNode,
+  EmbedLinkBlock,
   Highlight.configure({ multicolor: true }),
   Underline,
   CharacterCount.configure({ limit: 50000 }),
   // TableOfContents,
   // TableOfContentsNode,
-  // ImageUploader.configure({
-  //   clientId: provider?.document?.clientID,
-  // }),
   ImageUpload.configure({
     clientId: provider?.document?.clientID,
   }),

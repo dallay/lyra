@@ -187,7 +187,7 @@ export const GROUPS: Group[] = [
         iconName: 'lucide:link',
         action: ({ editor, range }: CommandActionProps) => {
           editor.chain().focus().deleteRange(range).insertContent({
-            type: 'embed-link',
+            type: 'embed',
           }).run();
         },
       },

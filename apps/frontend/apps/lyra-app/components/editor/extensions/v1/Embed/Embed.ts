@@ -2,12 +2,20 @@ import { type Component } from 'vue';
 import { mergeAttributes, Node, type NodeConfig, type NodeViewProps } from '@tiptap/core';
 import { VueNodeViewRenderer } from '@tiptap/vue-3';
 
-import EmbedLink from './EmbedLink.vue';
+import EmbedComponent from './Embed.vue';
 
-export default Node.create({
-  name: 'embed-link',
+export const EmbedNode = Node.create({
+  name: 'embed',
+
+  isolating: true,
+
+  defining: true,
 
   group: 'block',
+
+  draggable: true,
+
+  selectable: true,
 
   atom: true,
 
@@ -22,16 +30,18 @@ export default Node.create({
   parseHTML() {
     return [
       {
-        tag: 'embed-link',
+        tag: 'embed',
       },
     ];
   },
 
   renderHTML({ HTMLAttributes }: { HTMLAttributes: Record<string, any> }) {
-    return ['embed-link', mergeAttributes(HTMLAttributes)];
+    return ['embed', mergeAttributes(HTMLAttributes)];
   },
 
   addNodeView() {
-    return VueNodeViewRenderer(EmbedLink as unknown as Component<NodeViewProps>);
+    return VueNodeViewRenderer(EmbedComponent as unknown as Component<NodeViewProps>);
   },
 } as NodeConfig);
+
+export default EmbedNode;

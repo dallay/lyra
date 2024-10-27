@@ -2,7 +2,7 @@ import { type Component } from 'vue';
 import { mergeAttributes, Node, type NodeConfig, type NodeViewProps } from '@tiptap/core';
 import { VueNodeViewRenderer } from '@tiptap/vue-3';
 
-import EmbedLinkBlockComponent from './EmbedLinkBlockV1.vue';
+import EmbedLinkBlockComponent from './EmbedLinkBlock.vue';
 import type { EmbedMetadata } from '../../types';
 
 type LayoutOption = 'right' | 'left' | 'top'

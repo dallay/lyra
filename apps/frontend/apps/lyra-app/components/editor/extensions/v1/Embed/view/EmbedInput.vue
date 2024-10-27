@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!metadata"  class="relative w-full items-center">
+  <div v-if="isEmbedInputVisible"  class="relative w-full items-center">
     <Input ref="inputRef" v-model="url" :id="embedInputId" type="text" placeholder="Paste or type a URL"
       class="pl-10 dark:bg-gray-800 dark:text-white" @input="debouncedEmbedLink" />
     <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
@@ -34,6 +34,11 @@ const loading = ref<boolean>(false);
 const props = defineProps<EmbedInputProps>();
 const metadata = ref<EmbedMetadata | null>(null);
 
+const done = ref<boolean>(false);
+const isEmbedInputVisible = computed(() => {
+  return !metadata.value && !done.value;
+});
+
 const fetchMetadata = async (url: string) => {
   loading.value = true;
   try {
@@ -55,8 +60,8 @@ const fetchMetadata = async (url: string) => {
 const embedLink = async () => {
   if (url.value) {
     if (url.value.includes("youtube.com") || url.value.includes("youtu.be")) {
-      // editor.chain().focus().setYoutubeVideo({ src: url.value }).run();
-      alert("Youtube videos are not supported yet.");
+      props.editor.chain().focus().setYoutubeVideo({ src: url.value }).run();
+      done.value = true;
     } else {
       await fetchMetadata(url.value);
       if(metadata.value)

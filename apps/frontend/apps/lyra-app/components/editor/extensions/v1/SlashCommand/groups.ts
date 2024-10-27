@@ -201,7 +201,7 @@ export const GROUPS: Group[] = [
             .chain()
             .focus().deleteRange(range)
             .insertContent({
-              type: 'youtube-uploader',
+              type: 'youtubeUploader',
             })
             .run();
         },

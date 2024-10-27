@@ -60,13 +60,6 @@ export const GROUPS: Group[] = [
         aliases: ['img'],
         iconName: 'lucide:image',
         action: ({ editor, range }: CommandActionProps) => {
-          // editor
-          //   .chain()
-          //   .focus().deleteRange(range)
-          //   .insertContent({
-          //     type: 'image-uploader',
-          //   })
-          //   .run();
           editor.chain().focus().deleteRange(range).setImageUpload().run()
         },
       },
@@ -80,21 +73,21 @@ export const GROUPS: Group[] = [
           editor.chain().focus().deleteRange(range).insertTable({ rows: 3, cols: 3, withHeaderRow: false }).run();
         },
       },
-      {
-        name: 'button',
-        label: 'Button',
-        description: 'Insert a button',
-        iconName: 'ic:sharp-smart-button',
-        action: ({ editor, range }: CommandActionProps) => {
-          editor
-          .chain()
-          .focus().deleteRange(range)
-          .insertContent({
-            type: 'editor-button',
-          })
-          .run();
-        },
-      },
+      // {
+      //   name: 'button',
+      //   label: 'Button',
+      //   description: 'Insert a button',
+      //   iconName: 'ic:sharp-smart-button',
+      //   action: ({ editor, range }: CommandActionProps) => {
+      //     editor
+      //     .chain()
+      //     .focus().deleteRange(range)
+      //     .insertContent({
+      //       type: 'editor-button',
+      //     })
+      //     .run();
+      //   },
+      // },
      {
         name: 'columns',
         label: 'Columns',

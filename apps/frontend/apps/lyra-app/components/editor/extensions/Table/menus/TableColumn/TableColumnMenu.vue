@@ -10,7 +10,7 @@ import { cn } from "~/lib/utils";
 import type {
   MenuProps,
   ShouldShowProps,
-} from "@/components/editor/extensions/v1/menus/types";
+} from "~/components/editor/extensions/menus/types";
 import {isColumnGripSelected} from "./utils";
 import { TableMap } from "@tiptap/pm/tables";
 

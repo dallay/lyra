@@ -1,7 +1,7 @@
 <template>
-  <div v-if="isEmbedInputVisible"  class="relative w-full items-center">
+  <div v-if="isEmbedInputVisible" class="relative w-full items-center">
     <Input ref="inputRef" v-model="url" :id="embedInputId" type="text" placeholder="Paste or type a URL"
-      class="pl-10 dark:bg-gray-800 dark:text-white" @input="debouncedEmbedLink" />
+      class="pl-10 dark:bg-gray-800 dark:text-white" @input="debouncedEmbedLink" autocomplete="on" />
     <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
       <Suspense>
         <Icon name="lucide:link-2" class="size-6 text-muted-foreground dark:text-gray-400" />
@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { Input } from "@/components/ui/input";
 import { LoaderCircle } from "lucide-vue-next";
 import { debounce } from "@lyra/utilities";
@@ -64,20 +64,22 @@ const embedLink = async () => {
       done.value = true;
     } else {
       await fetchMetadata(url.value);
-      if(metadata.value)
-      props.editor
-      .chain()
-      .setEmbedLinkBlock({...metadata.value, layout: 'right'})
-      .deleteRange({ from: props.getPos(), to: props.getPos() })
-      .focus()
-      .run()
+      if (metadata.value) {
+        props.editor
+          .chain()
+          .setEmbedLinkBlock({ ...metadata.value, layout: 'right' })
+          .deleteRange({ from: props.getPos(), to: props.getPos() })
+          .focus()
+          .run();
+        done.value = true;
+      }
     }
   }
 };
 
 const debouncedEmbedLink = debounce(embedLink, 300);
 
-watch(url, (newUrl) => {
+watch(url, () => {
   debouncedEmbedLink();
 });
 </script>

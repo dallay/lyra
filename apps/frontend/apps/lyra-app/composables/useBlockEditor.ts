@@ -11,7 +11,7 @@ import CollaborationCursor from '@tiptap/extension-collaboration-cursor'
 import { TiptapCollabProvider, WebSocketStatus } from '@hocuspocus/provider'
 import type { Doc as YDoc } from 'yjs'
 
-import { ExtensionKit } from '@/components/editor/extensions/v1/extension-kit'
+import { ExtensionKit } from '~/components/editor/extensions/extension-kit'
 import { userColors, userNames } from '@/components/editor/lib/constants'
 import { randomElement } from '@lyra/utilities'
 import { initialContent } from '~/components/editor/lib/initialContent'

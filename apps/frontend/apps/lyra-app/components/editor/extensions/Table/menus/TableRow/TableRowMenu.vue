@@ -10,7 +10,7 @@ import { cn } from "~/lib/utils";
 import type {
   MenuProps,
   ShouldShowProps,
-} from "@/components/editor/extensions/v1/menus/types";
+} from "~/components/editor/extensions/menus/types";
 import isRowGripSelected from "./utils";
 
 const props = defineProps<MenuProps>();

@@ -13,9 +13,9 @@ import { ref, onBeforeUnmount, defineProps } from 'vue';
 import { EditorContent } from '@tiptap/vue-3';
 import type { TiptapCollabProvider } from '@hocuspocus/provider';
 import type { Doc as YDoc } from 'yjs';
-import { TableColumnMenu, TableRowMenu } from '@/components/editor/extensions/v1/Table/menus';
-import ImageBlockMenu from './extensions/v1/ImageBlock/components/ImageBlockMenu.vue';
-import { LinkMenu } from './extensions/v1/menus';
+import { TableColumnMenu, TableRowMenu } from '~/components/editor/extensions/Table/menus';
+import ImageBlockMenu from './extensions/ImageBlock/components/ImageBlockMenu.vue';
+import { LinkMenu } from './extensions/menus';
 
 interface ContentEditorProps {
   ydoc: YDoc;

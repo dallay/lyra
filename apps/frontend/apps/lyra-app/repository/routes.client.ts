@@ -68,6 +68,9 @@ const Routes = {
   },
   LinkPreview: {
     Preview: (url: string) => `${prefix}/linkpreview?url=${url}`,
+  },
+  Bucket:{
+    Upload: () => `${prefix}/image/upload`
   }
 };
 

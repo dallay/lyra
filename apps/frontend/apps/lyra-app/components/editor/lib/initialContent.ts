@@ -1,4 +1,13 @@
-export const initialContent = ` <h3>
+export const initialContent = `
+      <figure data-type="capturedImage">
+          <figcaption>
+            Image caption
+          </figcaption>
+          <img src="https://placehold.co/800x400/black/white" alt="Random photo of something" title="Who’s dat?">
+        </figure>
+        <p>Some text</p>
+        <img src="https://placehold.co/800x400">
+      <h3>
           Have you seen our tables? They are amazing!
         </h3>
         <ul>

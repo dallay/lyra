@@ -1,20 +1,19 @@
 <template>
-  <div class="flex items-center gap-2">
-    <input
-      class="h-2 bg-neutral-200 border-0 rounded appearance-none fill-neutral-300"
-      type="range"
-      min="25"
-      max="100"
-      step="25"
-      @input="handleChange"
-      :value="currentValue"
+  <div class="flex items-center gap-2 w-full">
+    <Slider
+      v-model="currentValue"
+      :min="25"
+      :max="100"
+      :step="25"
+      @update:model-value="handleChange"
     />
-    <span class="text-xs font-semibold text-neutral-500 select-none">{{ value }}%</span>
+    <span class="text-xs font-semibold text-neutral-500 select-none">{{ currentValue[0] }}%</span>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, defineProps } from 'vue';
+import { Slider } from '@/components/ui/slider';
 
 interface ImageBlockWidthProps {
   value: number;
@@ -23,16 +22,17 @@ interface ImageBlockWidthProps {
 
 const props = defineProps<ImageBlockWidthProps>();
 
-const currentValue = ref(props.value);
+const currentValue = ref([props.value]);
 
 watch(() => props.value, (newValue) => {
-  currentValue.value = newValue;
+  currentValue.value = [newValue];
 });
 
-const handleChange = (e: Event) => {
-  const target = e.target as HTMLInputElement;
-  const nextValue = parseInt(target.value);
-  props.onChange(nextValue);
-  currentValue.value = nextValue;
+const handleChange = (value: number[] | undefined) => {
+  if (value && value.length > 0) {
+    const nextValue = value[0];
+    props.onChange(nextValue);
+    currentValue.value = [nextValue];
+  }
 };
 </script>

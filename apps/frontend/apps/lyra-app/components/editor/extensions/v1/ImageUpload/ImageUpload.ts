@@ -1,8 +1,6 @@
-import { type Component } from 'vue';
-import { mergeAttributes, Node, type NodeConfig, type NodeViewProps } from '@tiptap/core';
-import { VueNodeViewRenderer } from '@tiptap/vue-3';
+import { Node, VueNodeViewRenderer, type NodeViewProps } from '@tiptap/vue-3'
+import ImageUploadComponent from './view/ImageUpload.vue'
 
-import ImageUploaderComponent from './ImageUploader.vue';
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     imageUpload: {
@@ -11,8 +9,8 @@ declare module '@tiptap/core' {
   }
 }
 
-export const ImageUploader = Node.create({
-  name: 'image-uploader',
+export const ImageUpload = Node.create({
+  name: 'imageUpload',
 
   isolating: true,
 
@@ -48,9 +46,8 @@ export const ImageUploader = Node.create({
   },
 
   addNodeView() {
-    return VueNodeViewRenderer(ImageUploaderComponent as unknown as Component<NodeViewProps>);
+    return VueNodeViewRenderer(ImageUploadComponent as unknown as Component<NodeViewProps>)
   },
-} as NodeConfig);
+})
 
-export default ImageUploader
-;
+export default ImageUpload

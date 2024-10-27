@@ -12,6 +12,7 @@ import type FetchFactory from '~/repository/factory';
 import SubscriberModule from '~/repository/modules/subscriber.module';
 import TagModule from '~/repository/modules/tag.module';
 import LinkPreviewModule from '~/repository/modules/link-preview.module';
+import BucketModule from '~/repository/modules/bucket.module';
 
 /**
  * Interface representing the API instance with different modules.
@@ -26,6 +27,7 @@ export interface IApiInstance {
   subscriber: SubscriberModule;
   tag: TagModule;
   linkPreview: LinkPreviewModule;
+  bucket: BucketModule;
 }
 
 /**
@@ -126,6 +128,7 @@ export default defineNuxtPlugin(async (_) => {
   const subscriberModule = new SubscriberModule(apiFetcher);
   const tagModule = new TagModule(apiFetcher);
   const linkPreviewModule = new LinkPreviewModule(apiFetcher);
+  const bucketModule = new BucketModule(apiFetcher);
 
   const modules: IApiInstance = {
     form: formModule,
@@ -137,6 +140,7 @@ export default defineNuxtPlugin(async (_) => {
     subscriber: subscriberModule,
     tag: tagModule,
     linkPreview: linkPreviewModule,
+    bucket: bucketModule,
   };
 
   if (import.meta.client) {

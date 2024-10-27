@@ -43,7 +43,8 @@ import {
   Column,
   TaskItem,
   TaskList,
-  ImageUploader
+  // ImageUploader,
+  ImageUpload
   // UniqueID,
 } from '.'
 
@@ -105,7 +106,10 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps): AnyExtension[] =>
   CharacterCount.configure({ limit: 50000 }),
   // TableOfContents,
   // TableOfContentsNode,
-  ImageUploader.configure({
+  // ImageUploader.configure({
+  //   clientId: provider?.document?.clientID,
+  // }),
+  ImageUpload.configure({
     clientId: provider?.document?.clientID,
   }),
   ImageBlock,

@@ -1,8 +1,9 @@
 <template>
   <div class="relative prose prose-zinc dark:prose-invert focus:outline-none mx-2">
+    <EditorContent :editor="editor" class="relative flex-1"/>
     <TableColumnMenu v-if="editor" :editor="editor" />
     <TableRowMenu v-if="editor" :editor="editor" />
-    <EditorContent :editor="editor" class="relative flex-1"/>
+    <ImageBlockMenu v-if="editor" :editor="editor" />
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import { EditorContent } from '@tiptap/vue-3';
 import type { TiptapCollabProvider } from '@hocuspocus/provider';
 import type { Doc as YDoc } from 'yjs';
 import { TableColumnMenu, TableRowMenu } from '@/components/editor/extensions/v1/Table/menus';
+import ImageBlockMenu from './extensions/v1/ImageBlock/components/ImageBlockMenu.vue';
 
 interface ContentEditorProps {
   ydoc: YDoc;

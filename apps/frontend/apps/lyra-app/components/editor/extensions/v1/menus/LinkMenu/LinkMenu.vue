@@ -23,7 +23,7 @@
               <Button
                 variant="ghost"
                 class="flex"
-                :active="isImageLeft"
+                :active="isLayoutImageLeft"
                 @click="onLayoutImageLeft"
               >
                 <Icon name="lucide:layout-panel-left" />
@@ -31,7 +31,7 @@
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Align Left</p>
+              <p>Layout Image Left / Text Right</p>
             </TooltipContent>
           </Tooltip>
 
@@ -40,15 +40,15 @@
               <Button
                 variant="ghost"
                 class="flex"
-                :active="isImageCenter"
-                @click="onLayoutImageCenter"
+                :active="isLayoutImageCenter"
+                @click="onLayoutImageTop"
               >
                 <Icon name="lucide:layout-panel-top" />
                 <span class="sr-only">Layout Image Top / Text Bottom</span>
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Align Center</p>
+              <p>Layout Image Top / Text Bottom</p>
             </TooltipContent>
           </Tooltip>
 
@@ -57,7 +57,7 @@
               <Button
                 variant="ghost"
                 class="flex"
-                :active="isImageRight"
+                :active="isLayoutImageRight"
                 @click="onLayoutImageRight"
               >
                 <Icon name="lucide:layout-panel-left" class="transform rotate-180" />
@@ -65,7 +65,24 @@
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Align Right</p>
+              <p>Layout Image Right / Text Left</p>
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                variant="ghost"
+                class="flex"
+                :active="isLayoutOnlyText"
+                @click="onLayoutOnlyText"
+              >
+                <Icon name="lucide:text" />
+                <span class="sr-only">Layout Only Text</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Layout Only Text</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -75,13 +92,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineProps, watch } from "vue";
-import { BubbleMenu as BaseBubbleMenu, useEditor } from "@tiptap/vue-3";
+import { ref, computed, defineProps } from "vue";
+import { BubbleMenu as BaseBubbleMenu } from "@tiptap/vue-3";
 import { sticky, type Instance } from "tippy.js";
 import { Card } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import type { MenuProps } from "../types";
 import {
   Tooltip,
@@ -94,33 +110,26 @@ const props = defineProps<MenuProps>();
 const tippyInstance = ref<Instance | null>(null);
 const pluginKey = computed(() => `linkMenu-${crypto.randomUUID()}`);
 
-const shouldShow = () => {
-  const isActive = props.editor.isActive("link") || props.editor.isActive("embedLink");
-  return isActive;
-};
+const shouldShow = () => props.editor.isActive("link") || props.editor.isActive("embedLink");
 
-const onLayoutImageLeft = () => {
-  console.log('onLayoutImageLeft');
-  props.editor.chain().focus().setEmbedLinkLayout('left').run();
-};
+const onLayoutImageLeft = () =>  props.editor.chain().focus().setEmbedLinkLayout('left').run();
 
-const onLayoutImageCenter = () => {
-  console.log('onLayoutImageCenter');
-  props.editor.chain().focus().setEmbedLinkLayout('top').run();
-};
+const onLayoutImageTop = () =>  props.editor.chain().focus().setEmbedLinkLayout('top').run();
 
-const onLayoutImageRight = () => {
-  console.log('onLayoutImageRight');
-  props.editor.chain().focus().setEmbedLinkLayout('right').run();
-};
+const onLayoutImageRight = () => props.editor.chain().focus().setEmbedLinkLayout('right').run();
 
-const isImageLeft = computed(() =>
+const onLayoutOnlyText = () => props.editor.chain().focus().setEmbedLinkLayout('text').run();
+
+const isLayoutImageLeft = computed(() =>
  props.editor.isActive("embedLink", { layout: "left" })
 );
-const isImageCenter = computed(() =>
+const isLayoutImageCenter = computed(() =>
  props.editor.isActive("embedLink", { layout: "top" })
 );
-const isImageRight = computed(() =>
+const isLayoutImageRight = computed(() =>
  props.editor.isActive("embedLink", { layout: "right" })
+);
+const isLayoutOnlyText = computed(() =>
+ props.editor.isActive("embedLink", { layout: "text" })
 );
 </script>

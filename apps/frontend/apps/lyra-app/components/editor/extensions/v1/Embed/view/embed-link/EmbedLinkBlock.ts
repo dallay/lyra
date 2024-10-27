@@ -5,7 +5,7 @@ import { VueNodeViewRenderer } from '@tiptap/vue-3';
 import EmbedLinkBlockComponent from './EmbedLinkBlock.vue';
 import type { EmbedMetadata } from '../../types';
 
-type LayoutOption = 'right' | 'left' | 'top'
+type LayoutOption = 'right' | 'left' | 'top' | 'text';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {

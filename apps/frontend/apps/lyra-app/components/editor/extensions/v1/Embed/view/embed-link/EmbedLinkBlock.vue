@@ -17,6 +17,7 @@
           "
         >
           <div
+            v-if="props.node.attrs.layout !== 'text'"
             :class="
               cn(
                 'flex justify-center items-center',
@@ -41,6 +42,8 @@
               cn(
                 'flex flex-col',
                 props.node.attrs.layout === 'top'
+                  ? 'w-full'
+                  : props.node.attrs.layout === 'text'
                   ? 'w-full'
                   : 'w-full md:w-2/3'
               )

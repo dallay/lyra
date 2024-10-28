@@ -4,3 +4,5 @@ export interface EmbedMetadata{
     title: string;
     description: string;
 }
+
+export type SupportedEmbeds = "youtube" | "link";

@@ -23,7 +23,6 @@ import {
   Link,
   EmbedNode,
   EmbedLinkBlock,
-  YouTubeUploader,
   YouTube,
   Placeholder,
   Selection,
@@ -107,7 +106,6 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps): AnyExtension[] =>
   }),
   EmbedNode,
   EmbedLinkBlock,
-  YouTubeUploader,
   YouTube.configure({
     controls: false,
     nocookie: true,

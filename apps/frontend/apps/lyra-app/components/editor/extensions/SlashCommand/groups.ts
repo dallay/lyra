@@ -179,9 +179,9 @@ export const GROUPS: Group[] = [
         description: 'Embed a hyperlink',
         iconName: 'lucide:link',
         action: ({ editor, range }: CommandActionProps) => {
-          editor.chain().focus().deleteRange(range).insertContent({
-            type: 'embed',
-          }).run();
+          editor.chain().focus().deleteRange(range).setEmbed(
+            { url: '', embedType: 'link' }
+          ).run();
         },
       },
       {
@@ -191,12 +191,12 @@ export const GROUPS: Group[] = [
         iconName: 'si:youtube-fill',
         action: ({ editor, range }: CommandActionProps) => {
           editor
-            .chain()
-            .focus().deleteRange(range)
-            .insertContent({
-              type: 'youtubeUploader',
-            })
-            .run();
+          .chain()
+          .focus().deleteRange(range)
+          .setEmbed(
+            { url: '', embedType: 'youtube' }
+          )
+          .run();
         },
       },
     ],

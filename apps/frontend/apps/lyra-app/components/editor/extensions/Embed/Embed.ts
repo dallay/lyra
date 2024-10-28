@@ -3,6 +3,16 @@ import { mergeAttributes, Node, type NodeConfig, type NodeViewProps } from '@tip
 import { VueNodeViewRenderer } from '@tiptap/vue-3';
 
 import EmbedComponent from './Embed.vue';
+import type { SupportedEmbeds } from './types';
+
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    embedBlock: {
+      setEmbed: (attributes: {url: string, embedType: SupportedEmbeds}) => ReturnType,
+    }
+  }
+}
+
 
 export const EmbedNode = Node.create({
   name: 'embed',
@@ -24,6 +34,9 @@ export const EmbedNode = Node.create({
       url: {
         default: null,
       },
+      embedType: {
+        default: 'link',
+      },
     };
   },
 
@@ -37,6 +50,18 @@ export const EmbedNode = Node.create({
 
   renderHTML({ HTMLAttributes }: { HTMLAttributes: Record<string, any> }) {
     return ['embed', mergeAttributes(HTMLAttributes)];
+  },
+
+  addCommands() {
+    return {
+      setEmbed: attrs =>
+        ({ commands }) => {
+          return commands.insertContent({
+            type: this.name,
+            attrs,
+          });
+      },
+    };
   },
 
   addNodeView() {

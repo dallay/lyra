@@ -48,5 +48,5 @@
     "canvas-confetti": "^1.9.3",
     "sharp": "^0.33.5"
   },
-  "packageManager": "pnpm@9.12.2"
+  "packageManager": "pnpm@9.12.3"
 }

@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, type Ref } from 'vue';
 import { TiptapCollabProvider } from '@hocuspocus/provider';
 import { Doc as YDoc } from 'yjs';
 import StatusBar from './StatusBar.vue';

@@ -1,6 +1,6 @@
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import { mergeAttributes, type NodeViewProps, type Range } from '@tiptap/core'
-
+import type { Component } from 'vue'
 import ImageBlockView from './components/ImageBlockView.vue'
 import { Image } from '../Image'
 

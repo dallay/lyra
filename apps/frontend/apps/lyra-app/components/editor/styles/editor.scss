@@ -1,4 +1,11 @@
 /* Basic editor styles */
+@use './partials/blocks';
+@use './partials/code';
+@use './partials/collab';
+@use './partials/lists';
+@use './partials/placeholder';
+@use 'partials/table';
+
 .tiptap {
   .is-empty::before {
     @apply text-neutral-500 dark:text-neutral-400;
@@ -74,11 +81,3 @@
     @apply dark:text-neutral-400;
   }
 }
-
-
-@import './partials/blocks.scss';
-@import './partials/code.scss';
-@import './partials/collab.scss';
-@import './partials/lists.scss';
-@import './partials/placeholder.scss';
-@import 'partials/table';

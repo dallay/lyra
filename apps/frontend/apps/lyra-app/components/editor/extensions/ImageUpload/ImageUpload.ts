@@ -1,3 +1,4 @@
+import type { Component } from 'vue'
 import { Node, VueNodeViewRenderer, type NodeViewProps } from '@tiptap/vue-3'
 import ImageUploadComponent from './view/ImageUpload.vue'
 

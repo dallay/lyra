@@ -81,7 +81,9 @@ const fetchMetadata = async (url: string) => {
 
 const generateEmbed = async () => {
   if (url.value) {
-    if (url.value.includes("youtube.com") || url.value.includes("youtu.be")) {
+    const parsedUrl = new URL(url.value);
+    const allowedHosts = ["youtube.com", "www.youtube.com", "youtu.be"];
+    if (allowedHosts.includes(parsedUrl.host)) {
       props.editor.chain().focus().setYoutubeVideo({ src: url.value }).run();
       done.value = true;
     } else {

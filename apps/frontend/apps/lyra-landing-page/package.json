@@ -34,20 +34,20 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/node": "^8.3.4",
     "@fontsource-variable/onest": "^5.1.0",
-    "@iconify-json/mdi": "^1.2.0",
-    "@iconify-json/ph": "^1.2.0",
-    "@iconify-json/simple-icons": "^1.2.6",
-    "@iconify/json": "^2.2.257",
-    "astro": "^4.15.11",
-    "typescript": "^5.6.2"
+    "@iconify-json/mdi": "^1.2.1",
+    "@iconify-json/ph": "^1.2.1",
+    "@iconify-json/simple-icons": "^1.2.10",
+    "@iconify/json": "^2.2.265",
+    "astro": "^4.16.7",
+    "typescript": "^5.6.3"
   },
   "devDependencies": {
     "@lyra/config": "workspace:*",
     "@lyra/tsconfig": "workspace:*",
     "@lyra/utilities": "workspace:*",
     "@types/canvas-confetti": "^1.6.4",
-    "@unocss/postcss": "^0.63.3",
-    "@unocss/reset": "^0.63.3",
+    "@unocss/postcss": "^0.63.6",
+    "@unocss/reset": "^0.63.6",
     "astro-icon": "^1.1.1",
     "canvas-confetti": "^1.9.3",
     "sharp": "^0.33.5"

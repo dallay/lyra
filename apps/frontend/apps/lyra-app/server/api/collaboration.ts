@@ -2,7 +2,7 @@
 import { defineEventHandler, useRuntimeConfig } from '#imports';
 import jsonwebtoken from 'jsonwebtoken';
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (_event) => {
   const config = useRuntimeConfig();
   const tiptapCollabSecret = config.tiptapCollabSecret;
 

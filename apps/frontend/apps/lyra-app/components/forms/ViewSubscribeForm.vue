@@ -7,17 +7,6 @@ import { useFormStore } from '~/store/form.store';
 import { SheetHeader, SheetTitle } from '~/components/ui/sheet';
 import { Button } from '~/components/ui/button';
 import { toast } from '~/components/ui/toast';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import { useRuntimeConfig } from '#app';
 
 const config = useRuntimeConfig();
@@ -33,6 +22,7 @@ const props = defineProps<SubscribeFormProps>();
 const emit = defineEmits<{ (evt: 'close'): void }>();
 
 const loading = ref(false);
+const showDeleteDialog = ref(false);
 
 const embedsForm = computed(() => ({
   url: `${appClientUrl}/forms/${props.form?.id}`,
@@ -148,7 +138,7 @@ const copyToClipboard = (iframeCode: string) => {
     </p>
 
     <section v-for="(code, type) in sectionCode" :key="type">
-      <Separator :label="type.charAt(0).toUpperCase() + type.slice(1) + ' Width'"
+      <Separator :label="String(type).charAt(0).toUpperCase() + String(type).slice(1) + ' Width'"
                  :class="cn('[&>span]:text-lg my-4')"/>
       <p class="text-sm my-8">
         {{ code.paragraph }}
@@ -172,26 +162,19 @@ const copyToClipboard = (iframeCode: string) => {
     </section>
 
     <div class="flex justify-end mx-4 mt-4">
-      <AlertDialog>
-        <AlertDialogTrigger as-child>
-          <Button :disabled="!form?.id" type="button" :loading="loading" variant="outline"
-                  class="border-red-500 text-red-500 hover:bg-red-500 hover:text-white">
+      <Button :disabled="!form?.id" type="button" :loading="loading" variant="outline"
+                  class="border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+                  @click="showDeleteDialog = true"
+
+                  >
             Delete
           </Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the form.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction @click="onSubmit">Continue</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmationAlertDialog
+                    v-model:open="showDeleteDialog"
+                    title="Are you sure you want to delete this tag?"
+                    description="This action cannot be undone. This will permanently delete the tag."
+                    :onConfirm="onSubmit"
+                  />
     </div>
   </section>
 </template>

@@ -66,6 +66,12 @@ const Routes = {
   TeamMember: {
     FetchAll: () => `${prefix}/team/member`,
   },
+  LinkPreview: {
+    Preview: (url: string) => `${prefix}/linkpreview?url=${url}`,
+  },
+  Bucket:{
+    Upload: () => `${prefix}/image/upload`
+  }
 };
 
 export default Routes;

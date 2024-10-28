@@ -1,5 +1,5 @@
 import Routes from '../routes.client';
-import type { ResponseData } from '@lyra/shared';
+import type { DataResponse } from '@lyra/shared';
 import SecureFetchFactory from '~/repository/secure.factory';
 import { OrganizationId } from '~/domain/organization';
 import { type ITeam, TeamId } from '~/domain/team';
@@ -14,7 +14,7 @@ class TeamModule extends SecureFetchFactory {
   private readonly RESOURCE = Routes.Team;
 
   async fetchAll(id: OrganizationId) {
-    return this.call<ResponseData<ITeam>>({
+    return this.call<DataResponse<ITeam>>({
       method: 'GET',
       url: `${this.RESOURCE.FetchAll(id)}`,
       fetchOptions: {

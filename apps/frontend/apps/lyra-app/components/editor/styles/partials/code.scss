@@ -1,0 +1,84 @@
+.tiptap {
+  code,
+  pre {
+    @apply caret-white bg-gray-800 text-gray-100;
+  }
+
+  code {
+    @apply text-primary-foreground bg-primary/80 dark:bg-accent/80 dark:text-primary rounded-sm shadow-lg font-mono;
+
+    &::selection {
+      @apply bg-primary/40;
+    }
+  }
+
+  pre {
+    @apply rounded my-12 p-4 border border-gray-600;
+
+    *::selection {
+      @apply bg-gray-700;
+    }
+
+    code {
+      @apply bg-inherit text-inherit p-0 shadow-none;
+    }
+  }
+
+  .hljs-comment,
+  .hljs-quote {
+    @apply text-gray-400;
+  }
+
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-attribute,
+  .hljs-tag,
+  .hljs-name,
+  .hljs-regexp,
+  .hljs-link,
+  .hljs-selector-id,
+  .hljs-selector-class {
+    @apply text-red-400;
+  }
+
+  .hljs-number,
+  .hljs-meta,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-literal,
+  .hljs-type,
+  .hljs-params {
+    @apply text-orange-300;
+  }
+
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-bullet {
+    @apply text-green-400;
+  }
+
+  .hljs-title,
+  .hljs-section {
+    @apply text-yellow-300;
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag {
+    @apply text-teal-300;
+  }
+
+  .hljs-emphasis {
+    font-style: italic;
+  }
+
+  .hljs-strong {
+    font-weight: 700;
+  }
+}
+
+:global(.dark) .tiptap {
+  .hljs-comment,
+  .hljs-quote {
+    @apply text-gray-500;
+  }
+}

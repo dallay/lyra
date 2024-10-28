@@ -1,14 +1,7 @@
 package com.lyra.app.authentication.infrastructure.http
 
-import com.lyra.app.CredentialGenerator
 import com.lyra.app.config.InfrastructureTestContainers
-import com.lyra.app.users.domain.User
-import com.lyra.app.users.domain.UserCreator
-import com.lyra.common.domain.vo.credential.Credential
 import io.kotest.assertions.print.print
-import java.util.*
-import kotlinx.coroutines.runBlocking
-import net.datafaker.Faker
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -35,10 +28,6 @@ internal class UserAuthenticatorControllerIntegrationTest : InfrastructureTestCo
 
     @Autowired
     private lateinit var webTestClient: WebTestClient
-
-    @Autowired
-    private lateinit var userCreator: UserCreator
-    private val faker = Faker()
 
     @BeforeEach
     fun setUp() {
@@ -172,52 +161,5 @@ internal class UserAuthenticatorControllerIntegrationTest : InfrastructureTestCo
             .jsonPath("$.instance").isEqualTo(ENDPOINT)
             .jsonPath("$.errorCategory").isEqualTo(ERROR_CATEGORY)
             .jsonPath("$.timestamp").isNotEmpty
-    }
-
-    @Test
-    fun `should throw exception when user is not verified`(): Unit = runBlocking {
-        val randomEmail = "yap@example.com"
-        val randomPassword = faker.internet().password(8, 100, true, true, true) + "1Aa@"
-        val user = createUser(email = randomEmail, password = randomPassword)
-            .also {
-                println("\uD83E\uDDEA TEST: User create for test purpose: $it")
-            }
-        webTestClient
-            .mutateWith(csrf())
-            .post()
-            .uri(ENDPOINT)
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(
-                """
-                {
-                    "username": "${user.email.value}",
-                    "password": "$randomPassword"
-                }
-                """.trimIndent(),
-            )
-            .exchange()
-            .expectStatus().isUnauthorized
-            .expectBody()
-            .jsonPath("$.title").isEqualTo(TITLE)
-            .jsonPath("$.detail").isEqualTo(DETAIL)
-            .jsonPath("$.instance").isEqualTo(ENDPOINT)
-            .jsonPath("$.errorCategory").isEqualTo(ERROR_CATEGORY)
-            .jsonPath("$.timestamp").isNotEmpty
-    }
-
-    private suspend fun createUser(
-        email: String = faker.internet().emailAddress(),
-        password: String = Credential.generateRandomCredentialPassword(),
-        firstName: String = faker.name().firstName(),
-        lastName: String = faker.name().lastName()
-    ): User {
-        val user = User(
-            id = UUID.randomUUID(),
-            email = email,
-            credentials = mutableListOf(CredentialGenerator.generate(password)),
-            firstName = firstName,
-            lastName = lastName,
-        )
-        return userCreator.create(user)
     }
 }

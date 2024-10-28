@@ -1,6 +1,6 @@
 <template>
   <node-view-wrapper>
-    <EmbedInput :editor="editor" :get-pos="getPos"/>
+    <EmbedInput :editor="props.editor" :get-pos="props.getPos" :embedType="props.node.attrs.embedType" />
     <div v-if="loading" class="flex items-center justify-center w-full h-32">
       <LoaderCircle class="size-6 text-muted-foreground animate-spin dark:text-gray-400" />
     </div>
@@ -9,15 +9,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { Editor, NodeViewWrapper } from "@tiptap/vue-3";
+import { Editor, NodeViewWrapper, nodeViewProps } from "@tiptap/vue-3";
 import { LoaderCircle } from "lucide-vue-next";
 import EmbedInput from './view/EmbedInput.vue';
 
-interface EmbedProps {
-  getPos: () => number;
-  editor: Editor
-}
-
-const props = defineProps<EmbedProps>();
+const props = defineProps(nodeViewProps);
 const loading = ref<boolean>(false);
 </script>

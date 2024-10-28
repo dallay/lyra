@@ -1,6 +1,6 @@
 <template>
   <div v-if="isEmbedInputVisible" class="relative w-full items-center">
-    <Input ref="inputRef" v-model="url" :id="embedInputId" type="text" placeholder="Paste or type a URL"
+    <Input ref="inputRef" v-model="url" :id="embedInputId" type="text" :placeholder="placeholder"
       class="pl-10 dark:bg-gray-800 dark:text-white" @input="generateEmbedDebouncer" autocomplete="on" />
     <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
       <Suspense>
@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { LoaderCircle } from "lucide-vue-next";
 import { debounce } from "@lyra/utilities";
 import type { EmbedMetadata, SupportedEmbeds } from "../types";
-import type { Editor } from "@tiptap/vue-3";
+import type { Editor } from "@tiptap/core";
 const { $api } = useNuxtApp();
 
 interface EmbedInputProps {
@@ -42,6 +42,17 @@ const inputIcon = computed(() => {
       return "lucide:link-2";
     default:
       return "lucide:link-2";
+  }
+});
+
+const placeholder = computed(() => {
+  switch (props.embedType) {
+    case "youtube":
+      return "Paste a YouTube video URL";
+    case "link":
+      return "Paste or type a URL";
+    default:
+      return "Paste or type a URL";
   }
 });
 

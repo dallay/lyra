@@ -70,8 +70,8 @@
           </Tooltip>
         </TooltipProvider>
 
-        <div class="w-36">
-          <Separator orientation="vertical" class="h-full" />
+        <div class="flex w-36">
+          <Separator orientation="vertical" class="w-px h-6 mx-2"/>
           <ImageBlockWidth :onChange="onWidthChange" :value="width" />
         </div>
       </div>

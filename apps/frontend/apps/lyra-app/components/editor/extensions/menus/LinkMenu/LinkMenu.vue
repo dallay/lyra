@@ -20,83 +20,85 @@
     <Card>
       <div class="flex items-center gap-1 w-full p-1">
         <TooltipProvider v-if="!isEditing">
-          <Tooltip>
-            <TooltipTrigger>
-              <Button
-                variant="ghost"
-                class="flex"
-                :active="isLayoutImageLeft"
-                @click="onLayoutImageLeft"
-              >
-                <Icon name="lucide:layout-panel-left" />
-                <span class="sr-only">Layout Image Left / Text Right</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Layout Image Left / Text Right</p>
-            </TooltipContent>
-          </Tooltip>
+          <div v-if="isEmbedLink" class="flex items-center gap-1">
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  variant="ghost"
+                  class="flex"
+                  :active="isLayoutImageLeft"
+                  @click="onLayoutImageLeft"
+                >
+                  <Icon name="lucide:layout-panel-left" />
+                  <span class="sr-only">Layout Image Left / Text Right</span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Layout Image Left / Text Right</p>
+              </TooltipContent>
+            </Tooltip>
 
-          <Tooltip>
-            <TooltipTrigger>
-              <Button
-                variant="ghost"
-                class="flex"
-                :active="isLayoutImageCenter"
-                @click="onLayoutImageTop"
-              >
-                <Icon name="lucide:layout-panel-top" />
-                <span class="sr-only">Layout Image Top / Text Bottom</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Layout Image Top / Text Bottom</p>
-            </TooltipContent>
-          </Tooltip>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  variant="ghost"
+                  class="flex"
+                  :active="isLayoutImageCenter"
+                  @click="onLayoutImageTop"
+                >
+                  <Icon name="lucide:layout-panel-top" />
+                  <span class="sr-only">Layout Image Top / Text Bottom</span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Layout Image Top / Text Bottom</p>
+              </TooltipContent>
+            </Tooltip>
 
-          <Tooltip>
-            <TooltipTrigger>
-              <Button
-                variant="ghost"
-                class="flex"
-                :active="isLayoutImageRight"
-                @click="onLayoutImageRight"
-              >
-                <Icon
-                  name="lucide:layout-panel-left"
-                  class="transform rotate-180"
-                />
-                <span class="sr-only">Layout Image Right / Text Left</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Layout Image Right / Text Left</p>
-            </TooltipContent>
-          </Tooltip>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  variant="ghost"
+                  class="flex"
+                  :active="isLayoutImageRight"
+                  @click="onLayoutImageRight"
+                >
+                  <Icon
+                    name="lucide:layout-panel-left"
+                    class="transform rotate-180"
+                  />
+                  <span class="sr-only">Layout Image Right / Text Left</span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Layout Image Right / Text Left</p>
+              </TooltipContent>
+            </Tooltip>
 
-          <Tooltip>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  variant="ghost"
+                  class="flex"
+                  :active="isLayoutOnlyText"
+                  @click="onLayoutOnlyText"
+                >
+                  <Icon name="lucide:text" />
+                  <span class="sr-only">Layout Only Text</span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Layout Only Text</p>
+              </TooltipContent>
+            </Tooltip>
+            <Separator orientation="vertical" class="w-px h-6 mx-2" />
+          </div>
+
+          <Tooltip v-if="isValidLink">
             <TooltipTrigger>
               <Button
                 variant="ghost"
                 class="flex"
-                :active="isLayoutOnlyText"
-                @click="onLayoutOnlyText"
-              >
-                <Icon name="lucide:text" />
-                <span class="sr-only">Layout Only Text</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Layout Only Text</p>
-            </TooltipContent>
-          </Tooltip>
-          <Separator orientation="vertical" class="w-px h-6 mx-2" />
-          <Tooltip>
-            <TooltipTrigger>
-              <Button
-                variant="ghost"
-                class="flex"
-                :active="isValidLink"
                 @click="onEditLink"
               >
                 <Icon name="lucide:link" />
@@ -107,12 +109,12 @@
               <p>Edit Link</p>
             </TooltipContent>
           </Tooltip>
-          <Tooltip>
+
+          <Tooltip v-if="isValidLink">
             <TooltipTrigger>
               <Button
                 variant="ghost"
                 class="flex"
-                :active="isValidLink"
                 @click="openLink"
               >
                 <Icon name="lucide:external-link" />
@@ -123,13 +125,14 @@
               <p>Open Link</p>
             </TooltipContent>
           </Tooltip>
+
           <Separator orientation="vertical" class="w-px h-6 mx-2" />
-          <Tooltip>
+
+          <Tooltip v-if="isValidLink">
             <TooltipTrigger>
               <Button
                 variant="ghost"
                 class="flex"
-                :active="isValidLink"
                 @click="deleteLink"
               >
                 <Icon name="lucide:trash-2" />
@@ -141,6 +144,7 @@
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
+
         <div v-else class="flex items-center gap-1 w-full p-1">
           <Input
             v-model="newUrl"
@@ -267,7 +271,9 @@ const isLayoutImageRight = computed(() =>
 const isLayoutOnlyText = computed(() =>
   props.editor.isActive("embedLink", { layout: "text" })
 );
+const isLink = computed(() => props.editor.isActive("link"));
+const isEmbedLink = computed(() => props.editor.isActive("embedLink"));
 const isValidLink = computed(
-  () => props.editor.isActive("link") || props.editor.isActive("embedLink")
+  () => isLink.value || (isEmbedLink.value && props.editor.getAttributes("embedLink").url)
 );
 </script>

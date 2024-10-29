@@ -5,6 +5,8 @@
     :shouldShow="shouldShow"
     :updateDelay="0"
     :tippy-options="{
+      role: 'menu',
+      maxWidth: '800',
       popperOptions: {
           modifiers: [{ name: 'flip', enabled: false }],
       },
@@ -16,7 +18,7 @@
      }"
   >
     <Card>
-      <div class="flex items-center gap-1 w-full p-1 max-w-96">
+      <div class="flex items-center gap-1 w-full p-1">
         <TooltipProvider v-if="!isEditing">
           <Tooltip>
             <TooltipTrigger>
@@ -121,6 +123,23 @@
               <p>Open Link</p>
             </TooltipContent>
           </Tooltip>
+          <Separator orientation="vertical" class="w-px h-6 mx-2" />
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                variant="ghost"
+                class="flex"
+                :active="isValidLink"
+                @click="deleteLink"
+              >
+                <Icon name="lucide:trash-2" />
+                <span class="sr-only">Delete embed</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Delete embed</p>
+            </TooltipContent>
+          </Tooltip>
         </TooltipProvider>
         <div v-else class="flex items-center gap-1 w-full p-1">
           <Input
@@ -187,6 +206,11 @@ const openLink = () => {
     props.editor.getAttributes("embedLink").url ||
     "";
   window.open(url, "_blank");
+};
+
+const deleteLink = () => {
+  const { from, to } = props.editor.state.selection;
+  props.editor.chain().focus().deleteRange({from, to}).run();
 };
 
 const onEditLink = () => {

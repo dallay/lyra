@@ -94,7 +94,7 @@
               <Button
                 variant="ghost"
                 class="flex"
-                :active="isEditLink"
+                :active="isValidLink"
                 @click="onEditLink"
               >
                 <Icon name="lucide:link" />
@@ -103,6 +103,22 @@
             </TooltipTrigger>
             <TooltipContent>
               <p>Edit Link</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                variant="ghost"
+                class="flex"
+                :active="isValidLink"
+                @click="openLink"
+              >
+                <Icon name="lucide:external-link" />
+                <span class="sr-only">Open Link</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Open Link</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -165,6 +181,14 @@ const onLayoutImageRight = () =>
 const onLayoutOnlyText = () =>
   props.editor.chain().focus().setEmbedLinkLayout("text").run();
 
+const openLink = () => {
+  const url =
+    props.editor.getAttributes("link").href ||
+    props.editor.getAttributes("embedLink").url ||
+    "";
+  window.open(url, "_blank");
+};
+
 const onEditLink = () => {
   isEditing.value = true;
   newUrl.value =
@@ -219,7 +243,7 @@ const isLayoutImageRight = computed(() =>
 const isLayoutOnlyText = computed(() =>
   props.editor.isActive("embedLink", { layout: "text" })
 );
-const isEditLink = computed(
+const isValidLink = computed(
   () => props.editor.isActive("link") || props.editor.isActive("embedLink")
 );
 </script>

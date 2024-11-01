@@ -2,15 +2,15 @@
   <TooltipProvider>
     <Tooltip>
       <TooltipTrigger>
-        <Button
-          variant="ghost"
-          class="flex"
-          :active="isActive"
+        <Toggle
+          :arial-label="label"
+          v-model:pressed="isActive"
           @click="onClick"
+          class="flex items-center gap-1"
         >
           <Icon :name="icon" />
           <span class="sr-only">{{ label }}</span>
-        </Button>
+        </Toggle>
       </TooltipTrigger>
       <TooltipContent>
         <span class="flex items-center gap-0.5">
@@ -35,8 +35,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
+import { Toggle } from "~/components/ui/toggle";
 import ShortcutKey from "./ShortcutKey.vue";
 
 export interface MenuButtonProps {
@@ -48,7 +48,7 @@ export interface MenuButtonProps {
 }
 const props = defineProps<MenuButtonProps>();
 
-const isActive = computed(() =>
+const isActive = ref(
   typeof props.isActive === "function" ? props.isActive() : props.isActive ?? false
 );
 

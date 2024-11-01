@@ -25,6 +25,9 @@
 
 <script setup lang="ts">
 import { defineProps, defineEmits, type HTMLAttributes } from "vue";
+import { Button } from "~/components/ui/button";
+import { Icon } from "~/components/ui/icon";
+import { Popover, PopoverContent, PopoverTrigger } from "~/components/ui/popover";
 
 export type PickerOption = {
   key: string;

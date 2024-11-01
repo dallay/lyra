@@ -5,6 +5,7 @@
     <TableRowMenu v-if="editor" :editor="editor" />
     <ImageBlockMenu v-if="editor" :editor="editor" />
     <LinkMenu v-if="editor" :editor="editor" />
+    <TextMenu v-if="editor" :editor="editor" />
   </div>
 </template>
 
@@ -15,7 +16,7 @@ import type { TiptapCollabProvider } from '@hocuspocus/provider';
 import type { Doc as YDoc } from 'yjs';
 import { TableColumnMenu, TableRowMenu } from '~/components/editor/extensions/Table/menus';
 import ImageBlockMenu from './extensions/ImageBlock/components/ImageBlockMenu.vue';
-import { LinkMenu } from './extensions/menus';
+import { LinkMenu, TextMenu } from './extensions/menus';
 
 interface ContentEditorProps {
   ydoc: YDoc;

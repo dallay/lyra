@@ -6,7 +6,7 @@
     :updateDelay="0"
     :tippy-options="{
       role: 'menu',
-      maxWidth: '800',
+      maxWidth: 'calc(100vw - 16px)',
       popperOptions: {
           modifiers: [{ name: 'flip', enabled: false }],
       },
@@ -144,23 +144,13 @@
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-
-        <div v-else class="flex items-center gap-1 w-full p-1">
-          <Input
-            v-model="newUrl"
-            type="text"
-            class="border rounded p-1 w-full min-w-52"
-            placeholder="Enter new URL"
+        <template v-else>
+          <LinkEditorPanel
+            :initialUrl="newUrl"
+            @confirm="confirmEditLink"
+            @cancel="cancelEditLink"
           />
-          <Button variant="ghost" class="flex" @click="confirmEditLink">
-            <Icon name="lucide:check" />
-            <span class="sr-only">Confirm</span>
-          </Button>
-          <Button variant="ghost" class="flex" @click="cancelEditLink">
-            <Icon name="lucide:x" />
-            <span class="sr-only">Cancel</span>
-          </Button>
-        </div>
+        </template>
       </div>
     </Card>
   </BaseBubbleMenu>
@@ -176,6 +166,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import type { MenuProps } from "../types";
+import LinkEditorPanel from "./LinkEditorPanel.vue";
 import {
   Tooltip,
   TooltipContent,
@@ -225,7 +216,8 @@ const onEditLink = () => {
     "";
 };
 
-const confirmEditLink = async () => {
+const confirmEditLink = async (url: string) => {
+  newUrl.value = url;
   if (!newUrl.value) return;
 
   const editorChain = props.editor.chain().focus();

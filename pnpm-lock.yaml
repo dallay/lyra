@@ -126,6 +126,9 @@ importers:
 
   apps/frontend/apps/lyra-app:
     dependencies:
+      '@cyhnkckali/vue3-color-picker':
+        specifier: ^2.0.2
+        version: 2.0.2(vue@3.5.12(typescript@5.6.3))
       '@fontsource/inter':
         specifier: ^5.0.20
         version: 5.1.0
@@ -960,6 +963,11 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       postcss-selector-parser: ^7.0.0
+
+  '@cyhnkckali/vue3-color-picker@2.0.2':
+    resolution: {integrity: sha512-XfmaQ3r3xmPtfWUuO8gEw+oDXW6KjMJaF9xpnRDj3ZEhUTsS9EE2yCF1n7IrYQjk3Rybatvv2TMvFOc8tzdMDg==}
+    peerDependencies:
+      vue: ^3.3.8
 
   '@dual-bundle/import-meta-resolve@4.1.0':
     resolution: {integrity: sha512-+nxncfwHM5SgAtrVzgpzJOI1ol0PkumhVo469KCf9lUi21IGcY90G98VuHm9VRrUypmAzawAHO9bs6hqeADaVg==}
@@ -9927,6 +9935,10 @@ snapshots:
   '@csstools/selector-specificity@5.0.0(postcss-selector-parser@7.0.0)':
     dependencies:
       postcss-selector-parser: 7.0.0
+
+  '@cyhnkckali/vue3-color-picker@2.0.2(vue@3.5.12(typescript@5.6.3))':
+    dependencies:
+      vue: 3.5.12(typescript@5.6.3)
 
   '@dual-bundle/import-meta-resolve@4.1.0': {}
 

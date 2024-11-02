@@ -1,47 +1,5 @@
-<template>
-  <BaseBubbleMenu
-    :editor="editor"
-    :pluginKey="pluginKey"
-    :shouldShow="shouldShow"
-    :updateDelay="100"
-    :tippy-options="tippyOptions"
-  >
-    <Card>
-      <div class="flex items-center gap-1 w-full p-0">
-        <ContentTypePicker :options="blockOptions" />
-        <FontFamilyPicker :onChange="commands.onSetFont" :value="currentFont" />
-        <FontSizePicker
-          :onChange="commands.onSetFontSize"
-          :value="currentSize"
-        />
-        <Separator orientation="vertical" class="w-px h-6 mx-2" />
-        <MenuButtonGroup :buttons="stateMenus.buttons" />
-        <EditLinkPopover :onSetLink="commands.onLink" />
-        <ColorPickerPopover
-          icon="Highlighter"
-          label="Highlight"
-          :is-active="!!currentHighlight"
-          :color="currentHighlight"
-          :on-change="commands.onChangeHighlight"
-          :on-clear="commands.onClearHighlight"
-        />
-        <ColorPickerPopover
-          icon="Palette"
-          label="Text color"
-          :is-active="!!currentColor"
-          :color="currentColor"
-          :on-change="commands.onChangeColor"
-          :on-clear="commands.onClearColor"
-        />
-        <Separator orientation="vertical" class="w-px h-6 mx-2" />
-        <MenuButtonGroup :buttons="stateMenus2.buttons" />
-      </div>
-    </Card>
-  </BaseBubbleMenu>
-</template>
-
 <script setup lang="ts">
-import { computed, defineProps, reactive, watch } from "vue";
+import { computed, defineProps, reactive } from "vue";
 import { BubbleMenu as BaseBubbleMenu } from "@tiptap/vue-3";
 import { sticky, type Props } from "tippy.js";
 import { Card } from "@/components/ui/card";
@@ -63,33 +21,32 @@ const pluginKey = computed(() => `textMenu-${crypto.randomUUID()}`);
 const blockOptions = useTextMenuContentTypes(props.editor);
 const commands = useTextMenuCommands(props.editor);
 
-// Estados calculados para cada propiedad `isActive`
-const activeStates = computed(() => ({
-  bold: props.editor.isActive("bold"),
-  italic: props.editor.isActive("italic"),
-  strike: props.editor.isActive("strike"),
-  underline: props.editor.isActive("underline"),
-  code: props.editor.isActive("code"),
-  subscript: props.editor.isActive("subscript"),
-  superscript: props.editor.isActive("superscript"),
-  alignLeft: props.editor.isActive({ textAlign: "left" }),
-  alignCenter: props.editor.isActive({ textAlign: "center" }),
-  alignRight: props.editor.isActive({ textAlign: "right" }),
-  alignJustify: props.editor.isActive({ textAlign: "justify" }),
-}));
+const activeStates = computed(() => {
+  const editor = props.editor;
+  return {
+    bold: editor.isActive("bold"),
+    italic: editor.isActive("italic"),
+    strike: editor.isActive("strike"),
+    underline: editor.isActive("underline"),
+    code: editor.isActive("code"),
+    subscript: editor.isActive("subscript"),
+    superscript: editor.isActive("superscript"),
+    alignLeft: editor.isActive({ textAlign: "left" }),
+    alignCenter: editor.isActive({ textAlign: "center" }),
+    alignRight: editor.isActive({ textAlign: "right" }),
+    alignJustify: editor.isActive({ textAlign: "justify" }),
+  };
+});
 
-const currentColor = computed(
-  () => props.editor.getAttributes("textStyle")?.color
-);
-const currentHighlight = computed(
-  () => props.editor.getAttributes("highlight")?.color
-);
-const currentFont = computed(
-  () => props.editor.getAttributes("textStyle")?.fontFamily
-);
-const currentSize = computed(
-  () => props.editor.getAttributes("textStyle")?.fontSize
-);
+const currentAttributes = computed(() => {
+  const editor = props.editor;
+  return {
+    color: editor.getAttributes("textStyle")?.color,
+    highlight: editor.getAttributes("highlight")?.color,
+    font: editor.getAttributes("textStyle")?.fontFamily,
+    size: editor.getAttributes("textStyle")?.fontSize,
+  };
+});
 
 const stateMenus = reactive({
   buttons: [
@@ -226,3 +183,45 @@ const tippyOptions: Partial<Props> = {
   sticky: "popper",
 };
 </script>
+
+<template>
+  <BaseBubbleMenu
+    :editor="props.editor"
+    :pluginKey="pluginKey"
+    :shouldShow="shouldShow"
+    :updateDelay="100"
+    :tippy-options="tippyOptions"
+  >
+    <Card>
+      <div class="flex items-center gap-1 w-full p-0">
+        <ContentTypePicker :options="blockOptions" />
+        <FontFamilyPicker :onChange="commands.onSetFont" :value="currentAttributes.font" />
+        <FontSizePicker
+          :onChange="commands.onSetFontSize"
+          :value="currentAttributes.size"
+        />
+        <Separator orientation="vertical" class="w-px h-6 mx-2" />
+        <MenuButtonGroup :buttons="stateMenus.buttons" />
+        <EditLinkPopover :onSetLink="commands.onLink" />
+        <ColorPickerPopover
+          icon="Highlighter"
+          label="Highlight"
+          :is-active="!!currentAttributes.highlight"
+          :color="currentAttributes.highlight"
+          :on-change="commands.onChangeHighlight"
+          :on-clear="commands.onClearHighlight"
+        />
+        <ColorPickerPopover
+          icon="Palette"
+          label="Text color"
+          :is-active="!!currentAttributes.color"
+          :color="currentAttributes.color"
+          :on-change="commands.onChangeColor"
+          :on-clear="commands.onClearColor"
+        />
+        <Separator orientation="vertical" class="w-px h-6 mx-2" />
+        <MenuButtonGroup :buttons="stateMenus2.buttons" />
+      </div>
+    </Card>
+  </BaseBubbleMenu>
+</template>

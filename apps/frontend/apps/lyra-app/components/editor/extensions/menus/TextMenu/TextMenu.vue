@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineProps, reactive } from "vue";
+import { computed, defineProps } from "vue";
 import { BubbleMenu as BaseBubbleMenu } from "@tiptap/vue-3";
 import { sticky, type Props } from "tippy.js";
 import { Card } from "@/components/ui/card";
@@ -48,96 +48,95 @@ const currentAttributes = computed(() => {
   };
 });
 
-const stateMenus = reactive({
-  buttons: [
-    {
-      icon: "lucide:bold",
-      label: "Bold",
-      isActive: activeStates.value.bold,
-      onClick: commands.onBold,
-      shortcut: ["Mod", "B"],
-    },
-    {
-      icon: "lucide:italic",
-      label: "Italic",
-      isActive: activeStates.value.italic,
-      onClick: commands.onItalic,
-      shortcut: ["Mod", "I"],
-    },
-    {
-      icon: "lucide:underline",
-      label: "Underline",
-      isActive: activeStates.value.underline,
-      onClick: commands.onUnderline,
-      shortcut: ["Mod", "U"],
-    },
-    {
-      icon: "lucide:strikethrough",
-      label: "Strikethrough",
-      isActive: activeStates.value.strike,
-      onClick: commands.onStrike,
-      shortcut: ["Mod", "Shift", "S"],
-    },
-    {
-      icon: "lucide:code",
-      label: "Code",
-      isActive: activeStates.value.code,
-      onClick: commands.onCode,
-      shortcut: ["Mod", "E"],
-    },
-    {
-      icon: "lucide:file-code",
-      label: "Code block",
-      onClick: commands.onCodeBlock,
-    },
-  ],
-});
-
-const stateMenus2 = reactive({
-  buttons: [
-    {
-      icon: "lucide:subscript",
-      label: "Subscript",
-      isActive: activeStates.value.subscript,
-      onClick: commands.onSubscript,
-      shortcut: ["Mod", "."],
-    },
-    {
-      icon: "lucide:superscript",
-      label: "Superscript",
-      isActive: activeStates.value.superscript,
-      onClick: commands.onSuperscript,
-      shortcut: ["Mod", ","],
-    },
-    {
-      icon: "lucide:align-left",
-      label: "Align left",
-      isActive: activeStates.value.alignLeft,
-      onClick: commands.onAlignLeft,
-      shortcut: ["Shift", "Mod", "L"],
-    },
-    {
-      icon: "lucide:align-center",
-      label: "Align center",
-      isActive: activeStates.value.alignCenter,
-      onClick: commands.onAlignCenter,
-      shortcut: ["Shift", "Mod", "E"],
-    },
-    {
-      icon: "lucide:align-right",
-      label: "Align right",
-      isActive: activeStates.value.alignRight,
-      onClick: commands.onAlignRight,
-      shortcut: ["Shift", "Mod", "R"],
-    },
-    {
-      icon: "lucide:align-justify",
-      label: "Justify",
-      isActive: activeStates.value.alignJustify,
-      onClick: commands.onAlignJustify,
-      shortcut: ["Shift", "Mod", "J"],
-    },
-  ],
+const menuGroups = computed(() => {
+  return {
+    group1: [
+      {
+        icon: "lucide:bold",
+        label: "Bold",
+        isActive: activeStates.value.bold,
+        onClick: commands.onBold,
+        shortcut: ["Mod", "B"],
+      },
+      {
+        icon: "lucide:italic",
+        label: "Italic",
+        isActive: activeStates.value.italic,
+        onClick: commands.onItalic,
+        shortcut: ["Mod", "I"],
+      },
+      {
+        icon: "lucide:underline",
+        label: "Underline",
+        isActive: activeStates.value.underline,
+        onClick: commands.onUnderline,
+        shortcut: ["Mod", "U"],
+      },
+      {
+        icon: "lucide:strikethrough",
+        label: "Strikethrough",
+        isActive: activeStates.value.strike,
+        onClick: commands.onStrike,
+        shortcut: ["Mod", "Shift", "S"],
+      },
+      {
+        icon: "lucide:code",
+        label: "Code",
+        isActive: activeStates.value.code,
+        onClick: commands.onCode,
+        shortcut: ["Mod", "E"],
+      },
+      {
+        icon: "lucide:file-code",
+        label: "Code block",
+        onClick: commands.onCodeBlock,
+      },
+    ],
+    group2: [
+      {
+        icon: "lucide:subscript",
+        label: "Subscript",
+        isActive: activeStates.value.subscript,
+        onClick: commands.onSubscript,
+        shortcut: ["Mod", "."],
+      },
+      {
+        icon: "lucide:superscript",
+        label: "Superscript",
+        isActive: activeStates.value.superscript,
+        onClick: commands.onSuperscript,
+        shortcut: ["Mod", ","],
+      },
+      {
+        icon: "lucide:align-left",
+        label: "Align left",
+        isActive: activeStates.value.alignLeft,
+        onClick: commands.onAlignLeft,
+        shortcut: ["Shift", "Mod", "L"],
+      },
+      {
+        icon: "lucide:align-center",
+        label: "Align center",
+        isActive: activeStates.value.alignCenter,
+        onClick: commands.onAlignCenter,
+        shortcut: ["Shift", "Mod", "E"],
+      },
+      {
+        icon: "lucide:align-right",
+        label: "Align right",
+        isActive: activeStates.value.alignRight,
+        onClick: commands.onAlignRight,
+        shortcut: ["Shift", "Mod", "R"],
+      },
+      {
+        icon: "lucide:align-justify",
+        label: "Justify",
+        isActive: activeStates.value.alignJustify,
+        onClick: commands.onAlignJustify,
+        shortcut: ["Shift", "Mod", "J"],
+      },
+    ],
+  };
 });
 
 const shouldShow = ({ view, from }: { view: EditorView; from: number }) => {
@@ -201,7 +200,7 @@ const tippyOptions: Partial<Props> = {
           :value="currentAttributes.size"
         />
         <Separator orientation="vertical" class="w-px h-6 mx-2" />
-        <MenuButtonGroup :buttons="stateMenus.buttons" />
+        <MenuButtonGroup :buttons="menuGroups.group1" />
         <EditLinkPopover :onSetLink="commands.onLink" />
         <ColorPickerPopover
           icon="Highlighter"
@@ -220,7 +219,7 @@ const tippyOptions: Partial<Props> = {
           :on-clear="commands.onClearColor"
         />
         <Separator orientation="vertical" class="w-px h-6 mx-2" />
-        <MenuButtonGroup :buttons="stateMenus2.buttons" />
+        <MenuButtonGroup :buttons="menuGroups.group2" />
       </div>
     </Card>
   </BaseBubbleMenu>

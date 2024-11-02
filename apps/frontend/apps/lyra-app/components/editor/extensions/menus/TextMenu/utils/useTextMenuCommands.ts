@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { Editor } from '@tiptap/vue-3' // Ajusta según tu configuración de Tiptap y Vue
+import { Editor } from '@tiptap/vue-3'
 
 export function useTextMenuCommands(editor: Editor) {
   const onBold = () => editor.chain().focus().toggleBold().run()

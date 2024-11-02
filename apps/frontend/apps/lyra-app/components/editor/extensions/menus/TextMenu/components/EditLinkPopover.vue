@@ -40,7 +40,7 @@ const openEditLinkModal = () => {
     <PopoverTrigger>
       <MenuButton icon="Link" label="Link" :onClick="openEditLinkModal" />
     </PopoverTrigger>
-    <PopoverContent class="w-96 p-0">
+    <PopoverContent side="top" class="w-96 p-0">
       <LinkEditorPanel
         @confirm="confirmEditLink"
         @cancel="cancelEditLink"

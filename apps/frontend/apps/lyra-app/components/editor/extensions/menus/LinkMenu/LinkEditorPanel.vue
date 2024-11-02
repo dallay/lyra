@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center gap-1 w-full p-1">
+  <div class="flex items-center gap-1 w-full p-0.5">
     <div class="relative w-full max-w-sm items-center">
       <Input
         v-model="url"

@@ -16,14 +16,14 @@ export function useTextMenuCommands(editor: Editor) {
   const onAlignRight = () => editor.chain().focus().setTextAlign('right').run()
   const onAlignJustify = () => editor.chain().focus().setTextAlign('justify').run()
 
-  const onChangeColor = (color: HighlightOptions['color']) => editor.chain().focus().setColor(color).run()
+  const onChangeColor = (color: HighlightOptions['color']) => editor.chain().setColor(color).run()
   const onClearColor = () => editor.chain().focus().unsetColor().run()
 
   interface HighlightOptions {
     color: string;
   }
 
-  const onChangeHighlight = (color: HighlightOptions['color']) => editor.chain().focus().setHighlight({ color }).run();
+  const onChangeHighlight = (color: HighlightOptions['color']) => editor.chain().setHighlight({ color }).run();
   const onClearHighlight = () => editor.chain().focus().unsetHighlight().run()
 
   const onLink = (url: string, inNewTab = false) => {

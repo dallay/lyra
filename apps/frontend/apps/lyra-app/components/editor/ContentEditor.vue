@@ -1,5 +1,6 @@
 <template>
   <div class="relative prose prose-zinc dark:prose-invert focus:outline-none mx-2">
+   <p>🟢 {{  editor?.isActive('bold')  }}</p>
     <EditorContent :editor="editor" class="relative flex-1"/>
     <TableColumnMenu v-if="editor" :editor="editor" />
     <TableRowMenu v-if="editor" :editor="editor" />

@@ -11,6 +11,7 @@
     "start": "nuxt start"
   },
   "dependencies": {
+    "@cyhnkckali/vue3-color-picker": "^2.0.2",
     "@fontsource/inter": "^5.0.20",
     "@fontsource/unifont": "5.1.0",
     "@formkit/auto-animate": "^0.8.2",
@@ -81,11 +82,11 @@
     "tailwindcss-animate": "^1.0.7",
     "tippy.js": "^6.3.7",
     "ufo": "^1.5.4",
+    "unifont": "0.1.5",
     "vee-validate": "^4.14.6",
     "vue": "^3.5.12",
     "y-prosemirror": "^1.2.12",
-    "yjs": "^13.6.20",
-    "unifont": "0.1.5"
+    "yjs": "^13.6.20"
   },
   "devDependencies": {
     "@lyra/config": "workspace:*",

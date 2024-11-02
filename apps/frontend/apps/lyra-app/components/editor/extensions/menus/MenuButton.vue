@@ -3,21 +3,23 @@
     <Tooltip>
       <TooltipTrigger>
         <Toggle
-          :arial-label="label"
-          v-model:pressed="isActive"
-          @click="onClick"
+          :aria-label="label"
+          :default-value="isActiveToggle"
+          role="button"
+          v-model:pressed="pressed"
+          @click="handleClick"
           class="flex items-center gap-1"
         >
           <Icon :name="icon" />
           <span class="sr-only">{{ label }}</span>
         </Toggle>
       </TooltipTrigger>
-      <TooltipContent>
+      <TooltipContent side="top">
         <span class="flex items-center gap-0.5">
           {{ label }}
           <ShortcutKey
-            v-if="shortcut"
-            v-for="shortcutKey in shortcut"
+            v-if="keyboardShortcut.length"
+            v-for="shortcutKey in keyboardShortcut"
             :key="shortcutKey"
             :children="shortcutKey"
           />
@@ -28,31 +30,47 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed } from "vue";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Icon } from "@/components/ui/icon";
-import { Toggle } from "~/components/ui/toggle";
-import ShortcutKey from "./ShortcutKey.vue";
+import { defineProps, computed, withDefaults, ref, watch, defineEmits } from 'vue';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Icon } from '@/components/ui/icon';
+import { Toggle } from '~/components/ui/toggle';
+import ShortcutKey from './ShortcutKey.vue';
 
 export interface MenuButtonProps {
-  icon: string;
-  label: string;
-  isActive?: boolean | (() => boolean);
-  shortcut?: string[] | (() => string[]);
-  onClick: () => void;
+	icon: string;
+	label: string;
+	isActive?: boolean | (() => boolean);
+	shortcut?: string[] | (() => string[]);
 }
-const props = defineProps<MenuButtonProps>();
 
-const isActive = ref(
-  typeof props.isActive === "function" ? props.isActive() : props.isActive ?? false
+const props = withDefaults(defineProps<MenuButtonProps>(), {
+	isActive: true,
+});
+const isActiveToggle = computed(() => {
+  return typeof props.isActive === 'function' ? props.isActive() : props.isActive;
+});
+const pressed = ref(isActiveToggle.value);
+
+const emit = defineEmits(['update:pressed', 'click']);
+
+const updatePressed = (value: boolean) => {
+	emit('update:pressed', value);
+};
+
+const handleClick = () => {
+	emit('click');
+};
+
+watch(
+	() => props.isActive,
+	(newVal) => {
+    pressed.value = typeof newVal === 'function' ? newVal() : newVal;
+	},
+	{ immediate: true },
 );
 
-const shortcut = computed(() =>
-  typeof props.shortcut === "function" ? props.shortcut() : props.shortcut ?? []
-);
+const keyboardShortcut = computed(() => {
+	const shortcut = typeof props.shortcut === 'function' ? props.shortcut() : (props.shortcut ?? []);
+	return shortcut;
+});
 </script>

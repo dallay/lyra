@@ -15,7 +15,7 @@ const props = defineProps<MenuProps>();
 const { menuGroups } = useTextMenuState(props.editor);
 
 const activeItem = computed(() =>
-  menuGroups.value.headings?.find(
+  menuGroups.value.lists?.find(
     (option) =>
       (typeof option.isActive === "function" && option.isActive()) ||
       option.isActive
@@ -27,8 +27,8 @@ const activeItem = computed(() =>
   <Popover>
     <PopoverTrigger asChild>
       <MenuButton
-        :icon="activeItem?.icon || 'Pilcrow'"
-        :label="activeItem?.label || 'Paragraph'"
+        :icon="activeItem?.icon || 'lucide:list-plus'"
+        :label="activeItem?.label || 'List'"
       >
         <template #icon-after>
           <Icon name="ChevronDown" class="w-2 h-2" />
@@ -40,7 +40,7 @@ const activeItem = computed(() =>
       :sideOffset="8"
       class="flex flex-col gap-0.5 p-0.5 w-full"
     >
-      <MenuButtonGroup :buttons="menuGroups.headings" />
+      <MenuButtonGroup :buttons="menuGroups.lists" />
     </PopoverContent>
   </Popover>
 </template>

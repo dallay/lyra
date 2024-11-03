@@ -4,13 +4,13 @@ import { BubbleMenu as BaseBubbleMenu } from "@tiptap/vue-3";
 import { sticky, type Props } from "tippy.js";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import ContentTypePicker from "./components/ContentTypePicker.vue";
 import FontFamilyPicker from "./components/FontFamilyPicker.vue";
 import FontSizePicker from "./components/FontSizePicker.vue";
 import EditLinkPopover from "./components/EditLinkPopover.vue";
 import ColorPickerPopover from "./components/ColorPickerPopover.vue";
+import HeadingsPicker from "./components/HeadingsPicker.vue";
+import ListPicker from "./components/ListPicker.vue";
 import MenuButtonGroup from "../MenuButtonGroup.vue";
-import { useTextMenuContentTypes } from "./utils/useTextMenuContentTypes";
 import type { MenuProps } from "../types";
 import type { EditorView } from "@tiptap/pm/view";
 import { isCustomNodeSelected, isTextSelected } from "@/components/editor/lib/";
@@ -18,7 +18,6 @@ import { useTextMenuState } from "./utils/useTextMenuStates";
 
 const props = defineProps<MenuProps>();
 const pluginKey = computed(() => `textMenu-${crypto.randomUUID()}`);
-const blockOptions = useTextMenuContentTypes(props.editor);
 const { menuGroups, commands } = useTextMenuState(props.editor);
 
 const currentAttributes = computed(() => {
@@ -84,7 +83,7 @@ const tippyOptions: Partial<Props> = {
     :tippy-options="tippyOptions"
   >
     <Card>
-      <div class="flex items-center gap-1 w-full p-0.5">
+      <div class="flex items-center gap-0.5 w-full p-0.5">
         <MenuButtonGroup :buttons="menuGroups.group1" />
         <ColorPickerPopover
           icon="Highlighter"
@@ -103,7 +102,8 @@ const tippyOptions: Partial<Props> = {
           :on-clear="commands.onClearColor"
         />
         <Separator orientation="vertical" class="w-px h-6 mx-2" />
-        <ContentTypePicker :options="blockOptions" />
+        <HeadingsPicker :editor="props.editor" />
+        <ListPicker :editor="props.editor" />
         <FontFamilyPicker :onChange="commands.onSetFont" :value="currentAttributes.font" />
         <FontSizePicker
           :onChange="commands.onSetFontSize"

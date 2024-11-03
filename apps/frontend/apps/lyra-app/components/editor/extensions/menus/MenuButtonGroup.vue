@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-2">
+  <div class="flex gap-0.5">
     <MenuButton
       v-for="(button, index) in props.buttons"
       :key="`menu-button-${button.label}-${index}`"

@@ -57,6 +57,15 @@ export function useTextMenuCommands(editor: Editor) {
     return editor.chain().focus().setFontSize(fontSize).run()
   }
 
+  const onParagraph = () =>
+    editor
+      .chain()
+      .focus()
+      .lift("taskItem")
+      .liftListItem("listItem")
+      .setParagraph()
+      .run()
+
   return {
     onBold,
     onItalic,
@@ -77,5 +86,6 @@ export function useTextMenuCommands(editor: Editor) {
     onSetFont,
     onSetFontSize,
     onLink,
+    onParagraph,
   }
 }

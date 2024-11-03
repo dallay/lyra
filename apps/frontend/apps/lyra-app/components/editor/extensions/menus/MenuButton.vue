@@ -1,6 +1,6 @@
 <template>
   <TooltipProvider>
-    <Tooltip>
+    <Tooltip :defaultOpen="false">
       <TooltipTrigger>
         <Toggle
           :aria-label="label"
@@ -12,6 +12,7 @@
         >
           <Icon :name="icon" />
           <span class="sr-only">{{ label }}</span>
+          <slot name="icon-after" />
         </Toggle>
       </TooltipTrigger>
       <TooltipContent side="top">

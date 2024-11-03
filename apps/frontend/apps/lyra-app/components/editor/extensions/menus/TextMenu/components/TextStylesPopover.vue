@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { cn } from "~/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "~/components/ui/popover";
 import { Card, CardContent } from "~/components/ui/card";
@@ -35,6 +35,7 @@ const fontSize = ref(props.fontSize || 'Default')
 const textColor = ref(props.textColor || defaultColor)
 const selectedColors = ref<string[]>([])
 const tempColor = ref(defaultColor)
+const fontFamilyFilter = ref('')
 
 const fontSizes = [
   { value: 'default', label: 'Default' },
@@ -50,6 +51,11 @@ const fontFamilies = [
   { value: 'Inter', label: 'Inter' },
   { value: 'Arial', label: 'Arial' },
 ]
+
+const filteredFontFamilies = computed(() => {
+  const filter = fontFamilyFilter.value.toLowerCase();
+  return fontFamilies.filter(font => font.label.toLowerCase().includes(filter));
+});
 
 const addSelectedColor = (color: string) => {
   if (!selectedColors.value.includes(color)) {
@@ -95,7 +101,11 @@ watch(fontSize, (newSize) => {
 watch(fontFamily, (newFamily) => {
   emit('update:fontFamily', newFamily);
 });
-</script>
+
+function showFontFamilyPanel() {
+  view.value = 'fontFamily'
+  fontFamilyFilter.value = ''
+}</script>
 
 <template>
   <Popover v-model:open="menuOpen" asChild>
@@ -112,7 +122,7 @@ watch(fontFamily, (newFamily) => {
           <ScrollArea class="min-h-72">
             <div v-if="view === 'main'" class="space-y-4 p-1">
               <div class="space-y-2">
-                <Button variant="ghost" class="w-full flex items-center justify-between text-sm text-gray-300" @click="view = 'fontFamily'">
+                <Button variant="ghost" class="w-full flex items-center justify-between text-sm" @click="showFontFamilyPanel();">
                   <span>Font family override</span>
                   <div class="flex items-center gap-2 text-gray-400">
                     <span>{{ fontFamily }}</span>
@@ -122,7 +132,7 @@ watch(fontFamily, (newFamily) => {
               </div>
 
               <div class="space-y-2">
-                <span class="text-sm text-gray-300">Font size</span>
+                <span class="text-sm">Font size</span>
                 <div class="grid grid-cols-3 gap-2">
                   <Button
                     v-for="size in fontSizes"
@@ -182,7 +192,7 @@ watch(fontFamily, (newFamily) => {
             <div v-else-if="view === 'colorPicker'" class="p-1">
               <Button variant="ghost" @click="view = 'main'" class="w-full flex items-center justify-start">
                   <Icon name="ChevronLeft" class="h-4 w-4" />
-                  <span class="text-sm text-gray-300">
+                  <span class="text-sm">
                     Text color
                   </span>
                 </Button>
@@ -201,17 +211,18 @@ watch(fontFamily, (newFamily) => {
               <div class="sticky top-0 z-10">
                 <Button variant="ghost" @click="view = 'main'" class="w-full flex items-center justify-start">
                   <Icon name="ChevronLeft" class="h-4 w-4" />
-                  <span class="text-sm text-gray-300">Font family</span>
+                  <span class="text-sm">Font family</span>
                 </Button>
                 <Separator class="my-1"/>
                 <Input
-                  class="bg-gray-800 border-gray-700 text-gray-300 mb-2"
+                  v-model="fontFamilyFilter"
+                  class="mb-2"
                   placeholder="Filter font family"
                 />
               </div>
               <div class="space-y-1">
                 <Button
-                  v-for="font in fontFamilies"
+                  v-for="font in filteredFontFamilies"
                   :key="font.value"
                   variant="ghost"
                   :class="cn('w-full flex items-center justify-start px-3 py-2 rounded-md text-sm',

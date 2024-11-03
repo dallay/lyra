@@ -4,8 +4,6 @@ import { BubbleMenu as BaseBubbleMenu } from "@tiptap/vue-3";
 import { sticky, type Props } from "tippy.js";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import FontFamilyPicker from "./components/FontFamilyPicker.vue";
-import FontSizePicker from "./components/FontSizePicker.vue";
 import EditLinkPopover from "./components/EditLinkPopover.vue";
 import ColorPickerPopover from "./components/ColorPickerPopover.vue";
 import HeadingsPopover from "./components/HeadingsPopover.vue";

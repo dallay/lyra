@@ -38,7 +38,6 @@ export function useTextMenuCommands(editor: Editor) {
   }
 
   const onSetFont = (font: FontOptions['font']) => {
-    console.log('font', font)
     if (!font || font.length === 0) {
       return editor.chain().focus().unsetFontFamily().run()
     }

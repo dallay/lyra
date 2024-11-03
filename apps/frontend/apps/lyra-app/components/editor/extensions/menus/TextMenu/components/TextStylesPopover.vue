@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { cn } from "~/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "~/components/ui/popover";
 import { Card, CardContent } from "~/components/ui/card";
@@ -16,9 +16,13 @@ type ViewStates = 'main' | 'fontFamily' | 'colorPicker'
 export interface TextStylesPopoverProps {
   icon: string;
   label: string;
+  textColor: string;
+  fontSize: string;
+  fontFamily: string;
 }
 
 const props = defineProps<TextStylesPopoverProps>();
+const emit = defineEmits(['update:textColor', 'update:fontSize', 'update:fontFamily']);
 const menuOpen = ref(false);
 
 const colorOptions = ['#FF00FF', '#FFFFFF', '#E0E0E0', '#808080', '#C0C0C0', '#F0F0F0']
@@ -26,9 +30,9 @@ const colorOptions = ['#FF00FF', '#FFFFFF', '#E0E0E0', '#808080', '#C0C0C0', '#F
 const defaultColor = colorOptions[0]
 
 const view = ref<ViewStates>('main')
-const fontFamily = ref('None')
-const fontSize = ref('Default')
-const textColor = ref(defaultColor)
+const fontFamily = ref(props.fontFamily || 'None')
+const fontSize = ref(props.fontSize || 'Default')
+const textColor = ref(props.textColor || defaultColor)
 const selectedColors = ref<string[]>([])
 const tempColor = ref(defaultColor)
 
@@ -43,13 +47,9 @@ const fontSizes = [
 
 const fontFamilies = [
   { value: 'none', label: 'None' },
-  { value: 'helvetica', label: 'Helvetica' },
-  { value: 'arial', label: 'Arial' },
-  { value: 'courier', label: 'Courier' },
-  { value: 'didot', label: 'Didot' },
-  { value: 'garamond', label: 'Garamond' }
+  { value: 'Inter', label: 'Inter' },
+  { value: 'Arial', label: 'Arial' },
 ]
-
 
 const addSelectedColor = (color: string) => {
   if (!selectedColors.value.includes(color)) {
@@ -83,6 +83,18 @@ const selectFontFamily = (font: { value: string, label: string }) => {
 const resetColors = () => {
   selectedColors.value = [];
 }
+
+watch(textColor, (newColor) => {
+  emit('update:textColor', newColor);
+});
+
+watch(fontSize, (newSize) => {
+  emit('update:fontSize', newSize);
+});
+
+watch(fontFamily, (newFamily) => {
+  emit('update:fontFamily', newFamily);
+});
 </script>
 
 <template>
@@ -181,7 +193,7 @@ const resetColors = () => {
               />
               <Separator class="my-1"/>
                 <Button v-if="tempColor !== textColor" variant="ghost" class="w-full flex items-center justify-start" @click="setColor">
-                Set Color - {{ tempColor }} - {{ textColor }}
+                Set Color
                 </Button>
             </div>
 

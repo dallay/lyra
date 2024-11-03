@@ -112,13 +112,13 @@ const tippyOptions: Partial<Props> = {
         <TextAlignmentPicker :editor="props.editor" />
         <TextStylesPopover icon="lucide:square-chart-gantt"
                            label="Text Styles"
+                           :font-family="currentAttributes.font"
+                           :font-size="currentAttributes.size"
+                           :text-color="currentAttributes.color"
+                           @update:font-family="commands.onSetFont"
+                           @update:font-size="commands.onSetFontSize"
+                           @update:text-color="commands.onChangeColor"
             />
-<!-- 
-        <FontFamilyPicker :onChange="commands.onSetFont" :value="currentAttributes.font" />
-        <FontSizePicker
-          :onChange="commands.onSetFontSize"
-          :value="currentAttributes.size"
-        /> -->
       </div>
     </Card>
   </BaseBubbleMenu>

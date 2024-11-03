@@ -13,10 +13,11 @@ export interface MenuItem {
 }
 
 export interface MenuGroups {
-  group1: MenuItem[];
-  group2: MenuItem[];
+  textFormatting: MenuItem[];
+  textAlignment: MenuItem[];
   headings: MenuItem[];
   lists: MenuItem[];
+  advancedTextOptions: MenuItem[];
 }
 
 export function useTextMenuState(editor: Editor) {
@@ -47,10 +48,11 @@ export function useTextMenuState(editor: Editor) {
     bulletList: editor.isActive("bulletList"),
     orderedList: editor.isActive("orderedList"),
     taskList: editor.isActive("taskList"),
+    blockquote: editor.isActive("blockquote"),
   }));
 
   const menuGroups = computed<MenuGroups>(() => ({
-    group1: [
+    textFormatting: [
       {
         icon: "lucide:bold",
         label: "Bold",
@@ -107,14 +109,8 @@ export function useTextMenuState(editor: Editor) {
         shortcut: ["Mod", ","],
         id: "superscript",
       },
-      {
-        icon: "lucide:file-code",
-        label: "Code block",
-        onClick: commands.onCodeBlock,
-        id: "codeBlock",
-      },
     ],
-    group2: [
+    textAlignment: [
       {
         icon: "lucide:align-left",
         label: "Align left",
@@ -290,6 +286,22 @@ export function useTextMenuState(editor: Editor) {
         label: "Todo list",
         shortcut: ["Mod", "Shift", "9"],
       },
+    ],
+    advancedTextOptions:[
+      {
+        id: "blockquote",
+        icon: "lucide:quote",
+        label: "Blockquote",
+        onClick: commands.onBlockquote,
+        isActive: activeStates.value.blockquote,
+        shortcut: ["Mod", "Shift", "B"],
+      },
+      {
+        icon: "lucide:file-code",
+        label: "Code block",
+        onClick: commands.onCodeBlock,
+        id: "codeBlock",
+      }
     ]
   }));
 

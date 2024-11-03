@@ -1,4 +1,3 @@
-import { ref } from 'vue'
 import { Editor } from '@tiptap/vue-3'
 
 export function useTextMenuCommands(editor: Editor) {
@@ -66,6 +65,15 @@ export function useTextMenuCommands(editor: Editor) {
       .setParagraph()
       .run()
 
+  const onBlockquote = () =>
+    editor
+      .chain()
+      .focus()
+      .lift("taskItem")
+      .liftListItem("listItem")
+      .setBlockquote()
+      .run()
+
   return {
     onBold,
     onItalic,
@@ -87,5 +95,6 @@ export function useTextMenuCommands(editor: Editor) {
     onSetFontSize,
     onLink,
     onParagraph,
+    onBlockquote,
   }
 }

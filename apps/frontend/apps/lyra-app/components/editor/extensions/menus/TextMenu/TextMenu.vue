@@ -84,7 +84,7 @@ const tippyOptions: Partial<Props> = {
   >
     <Card>
       <div class="flex items-center gap-0.5 w-full p-0.5">
-        <MenuButtonGroup :buttons="menuGroups.group1" />
+        <MenuButtonGroup :buttons="menuGroups.textFormatting" />
         <ColorPickerPopover
           icon="Highlighter"
           label="Highlight"
@@ -104,6 +104,7 @@ const tippyOptions: Partial<Props> = {
         <Separator orientation="vertical" class="w-px h-6 mx-2" />
         <HeadingsPicker :editor="props.editor" />
         <ListPicker :editor="props.editor" />
+        <MenuButtonGroup :buttons="menuGroups.advancedTextOptions" />
         <FontFamilyPicker :onChange="commands.onSetFont" :value="currentAttributes.font" />
         <FontSizePicker
           :onChange="commands.onSetFontSize"
@@ -111,7 +112,7 @@ const tippyOptions: Partial<Props> = {
         />
         <EditLinkPopover :onSetLink="commands.onLink" />
         <Separator orientation="vertical" class="w-px h-6 mx-2" />
-        <MenuButtonGroup :buttons="menuGroups.group2" />
+        <MenuButtonGroup :buttons="menuGroups.textAlignment" />
       </div>
     </Card>
   </BaseBubbleMenu>

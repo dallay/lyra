@@ -8,7 +8,7 @@
           role="button"
           v-model:pressed="pressed"
           @click="handleClick"
-          class="flex items-center gap-1"
+          class="flex items-center gap-0.5"
           :disabled="isDisabled"
         >
           <Icon :name="icon" />

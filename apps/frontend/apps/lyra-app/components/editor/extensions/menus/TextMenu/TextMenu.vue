@@ -8,9 +8,10 @@ import FontFamilyPicker from "./components/FontFamilyPicker.vue";
 import FontSizePicker from "./components/FontSizePicker.vue";
 import EditLinkPopover from "./components/EditLinkPopover.vue";
 import ColorPickerPopover from "./components/ColorPickerPopover.vue";
-import HeadingsPicker from "./components/HeadingsPicker.vue";
-import ListPicker from "./components/ListPicker.vue";
+import HeadingsPopover from "./components/HeadingsPopover.vue";
+import ListPopover from "./components/ListPopover.vue";
 import TextAlignmentPicker from "./components/TextAlignmentPicker.vue";
+import TextStylesPopover from "./components/TextStylesPopover.vue";
 import MenuButtonGroup from "../MenuButtonGroup.vue";
 import type { MenuProps } from "../types";
 import type { EditorView } from "@tiptap/pm/view";
@@ -104,16 +105,20 @@ const tippyOptions: Partial<Props> = {
           :on-clear="commands.onClearColor"
         />
         <Separator orientation="vertical" class="w-px h-6 mx-2" />
-        <HeadingsPicker :editor="props.editor" />
-        <ListPicker :editor="props.editor" />
+        <HeadingsPopover :editor="props.editor" />
+        <ListPopover :editor="props.editor" />
         <MenuButtonGroup :buttons="menuGroups.advancedTextOptions" />
         <Separator orientation="vertical" class="w-px h-6 mx-2" />
         <TextAlignmentPicker :editor="props.editor" />
+        <TextStylesPopover icon="lucide:square-chart-gantt"
+                           label="Text Styles"
+            />
+<!-- 
         <FontFamilyPicker :onChange="commands.onSetFont" :value="currentAttributes.font" />
         <FontSizePicker
           :onChange="commands.onSetFontSize"
           :value="currentAttributes.size"
-        />
+        /> -->
       </div>
     </Card>
   </BaseBubbleMenu>

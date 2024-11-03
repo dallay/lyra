@@ -34,3 +34,15 @@ const theme = computed(() => {
     :theme="theme"
   />
 </template>
+
+<style lang="scss">
+:root {
+  --cp-container-bg: 0 0% 100%;
+  --cp-container-shadow: none;
+}
+
+.ck-cp-container[cp-theme="dark"]  {
+  --cp-container-bg: 222.2 84% 4.9%;
+  --cp-container-shadow: none;
+}
+</style>

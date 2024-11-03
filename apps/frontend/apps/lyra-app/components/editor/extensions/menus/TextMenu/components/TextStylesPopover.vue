@@ -25,7 +25,7 @@ const props = defineProps<TextStylesPopoverProps>();
 const emit = defineEmits(['update:textColor', 'update:fontSize', 'update:fontFamily']);
 const menuOpen = ref(false);
 
-const colorOptions = ['#FF00FF', '#FFFFFF', '#E0E0E0', '#808080', '#C0C0C0', '#F0F0F0']
+const colorOptions = ['#6E44FF', '#B892FF', '#FFC2E2', '#FF90B3', '#EF7A85', '#8d8c93']
 
 const defaultColor = colorOptions[0]
 
@@ -86,6 +86,11 @@ const selectFontFamily = (font: { value: string, label: string }) => {
   view.value = 'main'
 }
 
+const showFontFamilyPanel = () => {
+  view.value = 'fontFamily'
+  fontFamilyFilter.value = ''
+}
+
 const resetColors = () => {
   selectedColors.value = [];
 }
@@ -102,10 +107,7 @@ watch(fontFamily, (newFamily) => {
   emit('update:fontFamily', newFamily);
 });
 
-function showFontFamilyPanel() {
-  view.value = 'fontFamily'
-  fontFamilyFilter.value = ''
-}</script>
+</script>
 
 <template>
   <Popover v-model:open="menuOpen" asChild>
@@ -137,9 +139,10 @@ function showFontFamilyPanel() {
                   <Button
                     v-for="size in fontSizes"
                     :key="size.value"
+                    size="sm"
                     variant="ghost"
                     :class="cn('px-3 py-1 text-sm rounded-md',
-                      fontSize === size.label ? 'bg-gray-700 text-white': 'text-gray-400 hover:bg-gray-800',
+                      fontSize === size.label ? 'bg-accent-foreground text-accent' : ''
                     )"
                     @click="fontSize = size.label"
                   >
@@ -149,13 +152,13 @@ function showFontFamilyPanel() {
               </div>
 
               <div class="space-y-2">
-                <span class="text-sm text-gray-300">Text color</span>
+                <span class="text-sm">Text color</span>
                 <div class="grid grid-cols-6 gap-2">
                   <button
                     v-for="color in colorOptions"
                     :key="color"
                     :class="cn('size-5 rounded-full border-2',
-                      textColor === color ? 'border-white': 'border-transparent'
+                      textColor === color ? 'border-accent-foreground' : 'border-transparent'
                     )"
                     :style="{ backgroundColor: color }"
                     @click="textColor = color"
@@ -171,8 +174,7 @@ function showFontFamilyPanel() {
                     v-for="color in selectedColors"
                     :key="color"
                     :class="cn('size-5 rounded-full border-2',
-                      textColor === color ? 'border-white': '',
-                      textColor !== color ? 'border-transparent': '',
+                      textColor === color ? 'border-accent-foreground' : 'border-transparent'
                     )"
                     :style="{ backgroundColor: color }"
                     @click="textColor = color"
@@ -226,7 +228,7 @@ function showFontFamilyPanel() {
                   :key="font.value"
                   variant="ghost"
                   :class="cn('w-full flex items-center justify-start px-3 py-2 rounded-md text-sm',
-                    fontFamily === font.label ? 'bg-gray-700 text-white': 'text-gray-300 hover:bg-gray-800',
+                    fontFamily === font.label ? 'bg-accent-foreground text-accent' : '',
                   )"
                   @click="selectFontFamily(font)"
                 >

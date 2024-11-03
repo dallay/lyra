@@ -108,15 +108,16 @@ const tippyOptions: Partial<Props> = {
         <MenuButtonGroup :buttons="menuGroups.advancedTextOptions" />
         <Separator orientation="vertical" class="w-px h-6 mx-2" />
         <TextAlignmentPicker :editor="props.editor" />
-        <TextStylesPopover icon="lucide:square-chart-gantt"
-                           label="Text Styles"
-                           :font-family="currentAttributes.font"
-                           :font-size="currentAttributes.size"
-                           :text-color="currentAttributes.color"
-                           @update:font-family="commands.onSetFont"
-                           @update:font-size="commands.onSetFontSize"
-                           @update:text-color="commands.onChangeColor"
-            />
+        <TextStylesPopover
+          icon="lucide:square-chart-gantt"
+          label="Text Styles"
+          :font-family="currentAttributes.font"
+          :font-size="currentAttributes.size"
+          :text-color="currentAttributes.color"
+          @update:font-family="commands.onSetFont"
+          @update:font-size="commands.onSetFontSize"
+          @update:text-color="commands.onChangeColor"
+        />
       </div>
     </Card>
   </BaseBubbleMenu>

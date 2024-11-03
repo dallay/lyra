@@ -1,7 +1,7 @@
 <template>
   <TooltipProvider>
-    <Tooltip :defaultOpen="false">
-      <TooltipTrigger>
+    <Tooltip :defaultOpen="showTooltip">
+      <TooltipTrigger asChild>
         <Toggle
           :aria-label="label"
           :default-value="isActiveToggle"
@@ -32,55 +32,75 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed, withDefaults, ref, watch, defineEmits } from 'vue';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Icon } from '@/components/ui/icon';
-import { Toggle } from '~/components/ui/toggle';
-import ShortcutKey from './ShortcutKey.vue';
+import {
+  defineProps,
+  computed,
+  withDefaults,
+  ref,
+  watch,
+  defineEmits,
+} from "vue";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Icon } from "@/components/ui/icon";
+import { Toggle } from "~/components/ui/toggle";
+import ShortcutKey from "./ShortcutKey.vue";
 
 export interface MenuButtonProps {
-    icon: string;
-    label: string;
-    isActive?: boolean | (() => boolean);
-    disabled?: boolean | (() => boolean);
-    shortcut?: string[] | (() => string[]);
+  icon: string;
+  label: string;
+  isActive?: boolean | (() => boolean);
+  disabled?: boolean | (() => boolean);
+  shortcut?: string[] | (() => string[]);
 }
 
 const props = withDefaults(defineProps<MenuButtonProps>(), {
-    isActive: true,
+  isActive: false,
   disabled: false,
 });
 
 const isActiveToggle = computed(() => {
-  return typeof props.isActive === 'function' ? props.isActive() : props.isActive;
+  return typeof props.isActive === "function"
+    ? props.isActive()
+    : props.isActive;
 });
 
 const isDisabled = computed(() => {
-  return typeof props.disabled === 'function' ? props.disabled() : props.disabled;
+  return typeof props.disabled === "function"
+    ? props.disabled()
+    : props.disabled;
 });
 
 const pressed = ref(isActiveToggle.value);
+const showTooltip = ref(false);
 
-const emit = defineEmits(['update:pressed', 'click']);
+const emit = defineEmits(["update:pressed", "click"]);
 
 const updatePressed = (value: boolean) => {
-    emit('update:pressed', value);
+  emit("update:pressed", value);
 };
 
 const handleClick = () => {
-    emit('click');
+  emit("click");
 };
 
 watch(
-    () => props.isActive,
-    (newVal) => {
-    pressed.value = typeof newVal === 'function' ? newVal() : newVal;
-    },
-    { immediate: true },
+  () => props.isActive,
+  (newVal) => {
+    pressed.value = typeof newVal === "function" ? newVal() : newVal;
+  },
+  { immediate: true }
 );
 
 const keyboardShortcut = computed(() => {
-    const shortcut = typeof props.shortcut === 'function' ? props.shortcut() : (props.shortcut ?? []);
-    return shortcut;
+  const shortcut =
+    typeof props.shortcut === "function"
+      ? props.shortcut()
+      : props.shortcut ?? [];
+  return shortcut;
 });
 </script>

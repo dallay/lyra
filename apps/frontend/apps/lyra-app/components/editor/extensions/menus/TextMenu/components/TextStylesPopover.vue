@@ -21,16 +21,35 @@ export interface TextStylesPopoverProps {
 const props = defineProps<TextStylesPopoverProps>();
 const menuOpen = ref(false);
 
+const colorOptions = ['#FF00FF', '#FFFFFF', '#E0E0E0', '#808080', '#C0C0C0', '#F0F0F0']
+
+const defaultColor = colorOptions[0]
+
 const view = ref<ViewStates>('main')
 const fontFamily = ref('None')
 const fontSize = ref('Default')
-const textColor = ref('#FF00FF')
+const textColor = ref(defaultColor)
 const selectedColors = ref<string[]>([])
-const tempColor = ref('#FF00FF')
+const tempColor = ref(defaultColor)
 
-const fontSizes = ['Default', 'Small', 'Medium', 'Large', 'X-Large', 'Huge']
-const fontFamilies = ['None', 'Helvetica', 'Arial', 'Courier', 'Didot', 'Garamond']
-const colorOptions = ['#FF00FF', '#FFFFFF', '#E0E0E0', '#808080', '#C0C0C0', '#F0F0F0']
+const fontSizes = [
+  { value: 'default', label: 'Default' },
+  { value: 'small', label: 'Small' },
+  { value: 'medium', label: 'Medium' },
+  { value: 'large', label: 'Large' },
+  { value: 'x-large', label: 'X-Large' },
+  { value: 'huge', label: 'Huge' }
+]
+
+const fontFamilies = [
+  { value: 'none', label: 'None' },
+  { value: 'helvetica', label: 'Helvetica' },
+  { value: 'arial', label: 'Arial' },
+  { value: 'courier', label: 'Courier' },
+  { value: 'didot', label: 'Didot' },
+  { value: 'garamond', label: 'Garamond' }
+]
+
 
 const addSelectedColor = (color: string) => {
   if (!selectedColors.value.includes(color)) {
@@ -39,6 +58,11 @@ const addSelectedColor = (color: string) => {
     }
     selectedColors.value.push(color);
   }
+}
+
+const showColorPicker = () => {
+  view.value = 'colorPicker';
+  tempColor.value = textColor.value;
 }
 
 const onTextColorChange = (color: string) => {
@@ -51,8 +75,8 @@ const setColor = () => {
   view.value = 'main';
 }
 
-const selectFontFamily = (font: string) => {
-  fontFamily.value = font
+const selectFontFamily = (font: { value: string, label: string }) => {
+  fontFamily.value = font.label
   view.value = 'main'
 }
 
@@ -90,14 +114,14 @@ const resetColors = () => {
                 <div class="grid grid-cols-3 gap-2">
                   <Button
                     v-for="size in fontSizes"
-                    :key="size"
+                    :key="size.value"
                     variant="ghost"
                     :class="cn('px-3 py-1 text-sm rounded-md',
-                      fontSize === size ? 'bg-gray-700 text-white': 'text-gray-400 hover:bg-gray-800',
+                      fontSize === size.label ? 'bg-gray-700 text-white': 'text-gray-400 hover:bg-gray-800',
                     )"
-                    @click="fontSize = size"
+                    @click="fontSize = size.label"
                   >
-                    {{ size }}
+                    {{ size.label }}
                   </Button>
                 </div>
               </div>
@@ -119,7 +143,7 @@ const resetColors = () => {
                 <div class="grid grid-cols-6 gap-2">
                   <button
                     class="size-5 rounded-full bg-gradient-to-br from-pink-500 via-blue-500 to-green-500"
-                    @click="view = 'colorPicker'"
+                    @click="showColorPicker"
                   />
                   <button
                     v-for="color in selectedColors"
@@ -156,13 +180,13 @@ const resetColors = () => {
                 @update:color="onTextColorChange"
               />
               <Separator class="my-1"/>
-              <Button variant="ghost" class="w-full flex items-center justify-start" @click="setColor">
-                Set Color
-              </Button>
+                <Button v-if="tempColor !== textColor" variant="ghost" class="w-full flex items-center justify-start" @click="setColor">
+                Set Color - {{ tempColor }} - {{ textColor }}
+                </Button>
             </div>
 
             <div v-else class="p-1">
-              <div class="sticky top-0 bg-gray-800 z-10">
+              <div class="sticky top-0 z-10">
                 <Button variant="ghost" @click="view = 'main'" class="w-full flex items-center justify-start">
                   <Icon name="ChevronLeft" class="h-4 w-4" />
                   <span class="text-sm text-gray-300">Font family</span>
@@ -176,14 +200,14 @@ const resetColors = () => {
               <div class="space-y-1">
                 <Button
                   v-for="font in fontFamilies"
-                  :key="font"
+                  :key="font.value"
                   variant="ghost"
                   :class="cn('w-full flex items-center justify-start px-3 py-2 rounded-md text-sm',
-                    fontFamily === font ? 'bg-gray-700 text-white': 'text-gray-300 hover:bg-gray-800',
+                    fontFamily === font.label ? 'bg-gray-700 text-white': 'text-gray-300 hover:bg-gray-800',
                   )"
                   @click="selectFontFamily(font)"
                 >
-                  {{ font }}
+                  {{ font.label }}
                 </Button>
               </div>
             </div>

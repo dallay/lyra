@@ -10,6 +10,7 @@ import EditLinkPopover from "./components/EditLinkPopover.vue";
 import ColorPickerPopover from "./components/ColorPickerPopover.vue";
 import HeadingsPicker from "./components/HeadingsPicker.vue";
 import ListPicker from "./components/ListPicker.vue";
+import TextAlignmentPicker from "./components/TextAlignmentPicker.vue";
 import MenuButtonGroup from "../MenuButtonGroup.vue";
 import type { MenuProps } from "../types";
 import type { EditorView } from "@tiptap/pm/view";
@@ -85,6 +86,7 @@ const tippyOptions: Partial<Props> = {
     <Card>
       <div class="flex items-center gap-0.5 w-full p-0.5">
         <MenuButtonGroup :buttons="menuGroups.textFormatting" />
+        <EditLinkPopover :onSetLink="commands.onLink" />
         <ColorPickerPopover
           icon="Highlighter"
           label="Highlight"
@@ -105,14 +107,13 @@ const tippyOptions: Partial<Props> = {
         <HeadingsPicker :editor="props.editor" />
         <ListPicker :editor="props.editor" />
         <MenuButtonGroup :buttons="menuGroups.advancedTextOptions" />
+        <Separator orientation="vertical" class="w-px h-6 mx-2" />
+        <TextAlignmentPicker :editor="props.editor" />
         <FontFamilyPicker :onChange="commands.onSetFont" :value="currentAttributes.font" />
         <FontSizePicker
           :onChange="commands.onSetFontSize"
           :value="currentAttributes.size"
         />
-        <EditLinkPopover :onSetLink="commands.onLink" />
-        <Separator orientation="vertical" class="w-px h-6 mx-2" />
-        <MenuButtonGroup :buttons="menuGroups.textAlignment" />
       </div>
     </Card>
   </BaseBubbleMenu>

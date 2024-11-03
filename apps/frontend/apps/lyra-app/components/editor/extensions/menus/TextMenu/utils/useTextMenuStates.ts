@@ -290,7 +290,7 @@ export function useTextMenuState(editor: Editor) {
     advancedTextOptions:[
       {
         id: "blockquote",
-        icon: "lucide:quote",
+        icon: "lucide:text-quote",
         label: "Blockquote",
         onClick: commands.onBlockquote,
         isActive: activeStates.value.blockquote,

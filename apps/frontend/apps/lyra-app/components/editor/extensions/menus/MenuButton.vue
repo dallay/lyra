@@ -9,6 +9,7 @@
           v-model:pressed="pressed"
           @click="handleClick"
           class="flex items-center gap-1"
+          :disabled="isDisabled"
         >
           <Icon :name="icon" />
           <span class="sr-only">{{ label }}</span>
@@ -38,40 +39,48 @@ import { Toggle } from '~/components/ui/toggle';
 import ShortcutKey from './ShortcutKey.vue';
 
 export interface MenuButtonProps {
-	icon: string;
-	label: string;
-	isActive?: boolean | (() => boolean);
-	shortcut?: string[] | (() => string[]);
+    icon: string;
+    label: string;
+    isActive?: boolean | (() => boolean);
+    disabled?: boolean | (() => boolean);
+    shortcut?: string[] | (() => string[]);
 }
 
 const props = withDefaults(defineProps<MenuButtonProps>(), {
-	isActive: true,
+    isActive: true,
+  disabled: false,
 });
+
 const isActiveToggle = computed(() => {
   return typeof props.isActive === 'function' ? props.isActive() : props.isActive;
 });
+
+const isDisabled = computed(() => {
+  return typeof props.disabled === 'function' ? props.disabled() : props.disabled;
+});
+
 const pressed = ref(isActiveToggle.value);
 
 const emit = defineEmits(['update:pressed', 'click']);
 
 const updatePressed = (value: boolean) => {
-	emit('update:pressed', value);
+    emit('update:pressed', value);
 };
 
 const handleClick = () => {
-	emit('click');
+    emit('click');
 };
 
 watch(
-	() => props.isActive,
-	(newVal) => {
+    () => props.isActive,
+    (newVal) => {
     pressed.value = typeof newVal === 'function' ? newVal() : newVal;
-	},
-	{ immediate: true },
+    },
+    { immediate: true },
 );
 
 const keyboardShortcut = computed(() => {
-	const shortcut = typeof props.shortcut === 'function' ? props.shortcut() : (props.shortcut ?? []);
-	return shortcut;
+    const shortcut = typeof props.shortcut === 'function' ? props.shortcut() : (props.shortcut ?? []);
+    return shortcut;
 });
 </script>

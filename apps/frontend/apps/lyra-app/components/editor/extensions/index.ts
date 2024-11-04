@@ -13,12 +13,18 @@ export { default as Dropcursor } from "@tiptap/extension-dropcursor";
 export { default as CollaborationCursor } from "@tiptap/extension-collaboration-cursor";
 export { default as Subscript } from "@tiptap/extension-subscript";
 export { default as Superscript } from "@tiptap/extension-superscript";
+export { TableOfContents } from "@tiptap-pro/extension-table-of-contents";
 export { default as Paragraph } from "@tiptap/extension-paragraph";
 export { default as BulletList } from "@tiptap/extension-bullet-list";
 export { default as OrderedList } from "@tiptap/extension-ordered-list";
 export { default as Collaboration } from "@tiptap/extension-collaboration";
 export { default as TaskItem } from "@tiptap/extension-task-item";
 export { default as TaskList } from "@tiptap/extension-task-list";
+export { FileHandler } from '@tiptap-pro/extension-file-handler'
+export { Details } from '@tiptap-pro/extension-details'
+export { DetailsContent } from '@tiptap-pro/extension-details-content'
+export { DetailsSummary } from '@tiptap-pro/extension-details-summary'
+export { UniqueID } from '@tiptap-pro/extension-unique-id'
 
 export { Selection } from "./Selection";
 export { Table, TableCell, TableHeader, TableRow } from "./Table";

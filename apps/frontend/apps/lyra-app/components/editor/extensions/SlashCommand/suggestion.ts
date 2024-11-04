@@ -2,7 +2,6 @@ import { VueRenderer } from '@tiptap/vue-3';
 import tippy, { type Instance, type Props } from 'tippy.js';
 import { Editor, type Range } from '@tiptap/core';
 import CommandsList from './CommandsList.vue';
-import { type Component } from 'vue';
 import type { CommandActionProps, Group } from './types';
 
 import { GROUPS } from './groups'
@@ -18,19 +17,6 @@ interface SuggestionProps {
 
 export const SlashCommandSuggestion = {
   items: ({ query, editor }: { query: string, editor: Editor }): Group[] => {
-    // const allGroups: Group[] = GROUPS;
-
-    // return allGroups
-    //   .map((commandGroup) => ({
-    //     ...commandGroup,
-    //     items: commandGroup.commands.filter((commandItem) =>
-    //       commandItem.name.toLowerCase().includes(query.toLowerCase()) ||
-    //       commandItem.label.toLowerCase().includes(query.toLowerCase()) ||
-    //       (commandItem.aliases &&
-    //         commandItem.aliases.some((alias) => alias.toLowerCase().includes(query.toLowerCase()))),
-    //     ),
-    //   }))
-    //   .filter((group) => group.items.length > 0);
     const withFilteredCommands = GROUPS.map(group => ({
       ...group,
       commands: group.commands

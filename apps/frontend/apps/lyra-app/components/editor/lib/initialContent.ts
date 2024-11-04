@@ -1,4 +1,19 @@
 export const initialContent = `
+    <p>Look at these details</p>
+          <details>
+            <summary>This is a summary</summary>
+            <p>Surprise!</p>
+          </details>
+          <p>Nested details are also supported</p>
+          <details open>
+            <summary>This is another summary</summary>
+            <p>And there is even more.</p>
+            <details>
+              <summary>We need to go deeper</summary>
+              <p>Booya!</p>
+            </details>
+          </details>
+
       <figure data-type="capturedImage">
           <figcaption>
             Image caption

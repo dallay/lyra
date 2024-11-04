@@ -104,6 +104,32 @@ export const GROUPS: Group[] = [
             .run()
         },
       },
+      {
+        name: 'details',
+        label: 'Details',
+        iconName: 'lucide:list-tree',
+        description: 'Add a details element',
+        aliases: ['summary'],
+        shouldBeHidden: editor => editor.isActive('details'),
+        action: ({ editor, range }: CommandActionProps) => {
+          editor
+            .chain()
+            .focus().deleteRange(range)
+            .setDetails()
+            .run()
+        },
+      },
+      {
+        name: 'toc',
+        label: 'Table of Contents',
+        iconName: 'Book',
+        aliases: ['outline'],
+        description: 'Insert a table of contents',
+        shouldBeHidden: editor => editor.isActive('columns'),
+        action: ({ editor, range }: CommandActionProps) => {
+          editor.chain().focus().deleteRange(range).insertTableOfContents().run()
+        },
+      },
     ],
   },
   {

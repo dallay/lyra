@@ -25,17 +25,17 @@
   },
   "homepage": "lyra-nwhm.onrender.com",
   "devDependencies": {
-    "@codecov/vite-plugin": "1.2.0",
+    "@codecov/vite-plugin": "1.2.1",
     "@lyra/tsconfig": "workspace:*",
-    "@unocss/reset": "^0.63.4",
+    "@unocss/reset": "^0.63.6",
     "postcss": "^8.4.47",
     "stylelint": "^16.10.0",
     "stylelint-config-standard-scss": "^13.1.0",
     "stylelint-order": "^6.0.4",
-    "tailwindcss": "^3.4.13",
+    "tailwindcss": "^3.4.14",
     "unocss": "^0.63.6",
     "vite-tsconfig-paths": "^5.0.1",
-    "vitest": "^2.1.3"
+    "vitest": "^2.1.4"
   },
   "publishConfig": {
     "access": "public"

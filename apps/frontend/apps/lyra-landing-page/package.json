@@ -34,7 +34,7 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/node": "^8.3.4",
     "@fontsource-variable/onest": "^5.1.0",
-    "astro": "^4.15.12",
+    "astro": "^4.16.8",
     "typescript": "^5.6.3"
   },
   "devDependencies": {
@@ -42,8 +42,8 @@
     "@lyra/tsconfig": "workspace:*",
     "@lyra/utilities": "workspace:*",
     "@types/canvas-confetti": "^1.6.4",
-    "@unocss/postcss": "^0.63.4",
-    "@unocss/reset": "^0.63.4",
+    "@unocss/postcss": "^0.63.6",
+    "@unocss/reset": "^0.63.6",
     "astro-icon": "^1.1.1",
     "canvas-confetti": "^1.9.3",
     "sharp": "^0.33.5"

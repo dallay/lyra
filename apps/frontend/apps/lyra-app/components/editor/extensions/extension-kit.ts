@@ -10,7 +10,7 @@ import {
   DetailsSummary,
   Document,
   Dropcursor,
-  // Emoji,
+  Emoji,
   Figcaption,
   FileHandler,
   Focus,
@@ -41,7 +41,7 @@ import {
   TrailingNode,
   Typography,
   Underline,
-  // emojiSuggestion,
+  emojiSuggestion,
   Columns,
   Column,
   TaskItem,
@@ -140,10 +140,10 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps): AnyExtension[] =>
       })
     },
   }),
-  // Emoji.configure({
-  //   enableEmoticons: true,
-  //   suggestion: emojiSuggestion,
-  // }),
+  Emoji.configure({
+    enableEmoticons: true,
+    suggestion: emojiSuggestion,
+  }),
   TextAlign.extend({
     addKeyboardShortcuts() {
       return {}

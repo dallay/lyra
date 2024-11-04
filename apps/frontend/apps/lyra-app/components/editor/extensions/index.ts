@@ -3,6 +3,7 @@ export { default as Highlight } from "@tiptap/extension-highlight";
 export { default as CharacterCount } from "@tiptap/extension-character-count";
 export { default as Underline } from "@tiptap/extension-underline";
 export { default as Placeholder } from "@tiptap/extension-placeholder";
+export { Emoji, gitHubEmojis } from '@tiptap-pro/extension-emoji';
 export { default as TextAlign } from "@tiptap/extension-text-align";
 export { default as TextStyle } from "@tiptap/extension-text-style";
 export { default as FontFamily } from "@tiptap/extension-font-family";
@@ -46,4 +47,4 @@ export { YouTube } from './YouTube'
 export { ImageUpload } from './ImageUpload'
 export { ImageBlock } from './ImageBlock'
 export { Columns, Column } from './MultiColumn'
-// export { emojiSuggestion } from './EmojiSuggestion'
+export { emojiSuggestion } from './EmojiSuggestion'

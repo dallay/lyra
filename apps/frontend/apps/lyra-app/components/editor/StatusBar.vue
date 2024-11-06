@@ -17,6 +17,7 @@
       <Button variant="ghost" size="icon"><Printer class="h-4 w-4" /></Button>
       <Button variant="ghost" size="icon"><Zap class="h-4 w-4" /></Button>
       <Button variant="ghost" size="icon"><Info class="h-4 w-4" /></Button>
+      <ThemeSwitcher />
     </div>
   </div>
 </template>
@@ -27,4 +28,5 @@ import { Separator } from '@/components/ui/separator';
 import UserAvatar from '@/components/nav/UserAvatar.vue';
 import { Button } from '@/components/ui/button';
 import { Undo, Redo, Search, MessageSquare, Clock, Printer, Zap, Info } from 'lucide-vue-next';
+import ThemeSwitcher from "~/components/ThemeSwitcher.vue";
 </script>

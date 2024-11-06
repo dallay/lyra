@@ -4,6 +4,8 @@ export { default as CharacterCount } from "@tiptap/extension-character-count";
 export { default as Underline } from "@tiptap/extension-underline";
 export { default as Placeholder } from "@tiptap/extension-placeholder";
 export { Emoji, gitHubEmojis } from '@tiptap-pro/extension-emoji';
+export { default as Mathematics } from '@tiptap-pro/extension-mathematics';
+export { default as Gapcursor } from "@tiptap/extension-gapcursor";
 export { default as TextAlign } from "@tiptap/extension-text-align";
 export { default as TextStyle } from "@tiptap/extension-text-style";
 export { default as FontFamily } from "@tiptap/extension-font-family";

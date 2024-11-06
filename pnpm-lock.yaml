@@ -422,7 +422,7 @@ importers:
         specifier: ^2.4.6
         version: 2.4.6
       happy-dom:
-        specifier: ^15.8.3
+        specifier: ^15.10.1
         version: 15.10.1
       playwright-core:
         specifier: ^1.48.2

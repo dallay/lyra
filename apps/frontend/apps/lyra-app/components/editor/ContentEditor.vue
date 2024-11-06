@@ -1,7 +1,6 @@
 <template>
   <div class="relative prose prose-zinc dark:prose-invert focus:outline-none mx-2">
     <EditorContent :editor="editor" class="relative flex-1"/>
-    <ContentItemMenu v-if="editor" :editor="editor" />
     <TableColumnMenu v-if="editor" :editor="editor" />
     <TableRowMenu v-if="editor" :editor="editor" />
     <ImageBlockMenu v-if="editor" :editor="editor" />
@@ -18,7 +17,6 @@ import type { Doc as YDoc } from 'yjs';
 import { TableColumnMenu, TableRowMenu } from '~/components/editor/extensions/Table/menus';
 import ImageBlockMenu from './extensions/ImageBlock/components/ImageBlockMenu.vue';
 import { LinkMenu, TextMenu } from './extensions/menus';
-import {ContentItemMenu} from "~/components/editor/extensions/menus/ContentItemMenu";
 
 interface ContentEditorProps {
   ydoc: YDoc;

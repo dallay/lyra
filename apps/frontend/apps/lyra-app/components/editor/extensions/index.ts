@@ -27,6 +27,8 @@ export { DetailsContent } from '@tiptap-pro/extension-details-content'
 export { DetailsSummary } from '@tiptap-pro/extension-details-summary'
 export { UniqueID } from '@tiptap-pro/extension-unique-id'
 
+export {NodeRange} from '@tiptap-pro/extension-node-range'
+
 export { Selection } from "./Selection";
 export { Table, TableCell, TableHeader, TableRow } from "./Table";
 export { HorizontalRule } from './HorizontalRule'
@@ -48,3 +50,4 @@ export { ImageUpload } from './ImageUpload'
 export { ImageBlock } from './ImageBlock'
 export { Columns, Column } from './MultiColumn'
 export { emojiSuggestion } from './EmojiSuggestion'
+export { DragHandle } from './DragHandle'

@@ -48,6 +48,8 @@ import {
   TaskList,
   ImageUpload,
   UniqueID,
+  DragHandle,
+  NodeRange,
 } from '.'
 
 
@@ -173,6 +175,12 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps): AnyExtension[] =>
     width: 2,
     class: 'ProseMirror-dropcursor border-black',
   }),
+  NodeRange.configure({
+    // allow to select only on depth 0
+    // depth: 0,
+    key: null,
+  }),
+  DragHandle,
 ]
 
 export default ExtensionKit

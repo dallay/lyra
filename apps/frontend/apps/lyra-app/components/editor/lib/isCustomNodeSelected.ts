@@ -1,8 +1,7 @@
 import { Editor } from '@tiptap/vue-3'
 
-import { Figcaption, HorizontalRule, ImageBlock, ImageUpload, Link, CodeBlock } from '@/components/editor/extensions'
-// import { TableOfContentsNode } from '@/extensions/TableOfContentsNode'
-
+import { Figcaption, HorizontalRule, ImageBlock, ImageUpload, Link, CodeBlock, EmbedLinkBlock, EmbedNode } from '@/components/editor/extensions'
+import { TableOfContentsNode } from '../extensions/TableOfContentsNode'
 export const isTableGripSelected = (node: HTMLElement) => {
   let container = node
 
@@ -31,7 +30,9 @@ export const isCustomNodeSelected = (editor: Editor, node: HTMLElement) => {
     // AiWriter.name,
     // AiImage.name,
     Figcaption.name,
-    // TableOfContentsNode.name,
+    TableOfContentsNode.name,
+    EmbedNode.name,
+    EmbedLinkBlock.name,
   ]
 
   return customNodes.some(type => editor.isActive(type)) || isTableGripSelected(node)

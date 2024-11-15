@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
-import { useCookie } from '#app';
-import { storeToRefs } from 'pinia';
-import { useAuthStore } from '~/store/auth.store';
-import { cn } from '@/lib/utils';
-import { useRouter } from 'vue-router';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useForm } from 'vee-validate';
-import { toTypedSchema } from '@vee-validate/zod';
-import * as z from 'zod';
+import { ref, onMounted, watch } from "vue";
+import { useCookie } from "#app";
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "~/store/auth.store";
+import { cn } from "@/lib/utils";
+import { useRouter } from "vue-router";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useForm } from "vee-validate";
+import { toTypedSchema } from "@vee-validate/zod";
+import * as z from "zod";
 
 import {
   FormControl,
@@ -18,8 +18,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { toast } from '~/components/ui/toast';
+} from "@/components/ui/form";
+import { toast } from "~/components/ui/toast";
 
 const store = useAuthStore();
 const { authenticateUser, refreshToken } = store;
@@ -27,9 +27,15 @@ const router = useRouter();
 
 const formSchema = toTypedSchema(
   z.object({
-    identifier: z.string().min(2, 'Identifier must be at least 2 characters long.').max(100),
-    password: z.string().min(8, 'Password must be at least 8 characters long.').max(250),
-  }),
+    identifier: z
+      .string()
+      .min(2, "Identifier must be at least 2 characters long.")
+      .max(100),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters long.")
+      .max(250),
+  })
 );
 
 const form = useForm({
@@ -39,28 +45,31 @@ const form = useForm({
 const { accessToken, loading, isAuthenticated } = storeToRefs(store);
 const isLoading = ref(loading.value);
 
-const redirectCookie = useCookie('redirectPath');
+const redirectCookie = useCookie("redirectPath");
 
-const handleAuthentication = async (values: { identifier: string; password: string }) => {
+const handleAuthentication = async (values: {
+  identifier: string;
+  password: string;
+}) => {
   const { identifier, password } = values;
   await authenticateUser({ identifier, password });
 
   if (isAuthenticated.value) {
     toast({
-      title: 'Welcome back!',
+      title: "Welcome back!",
       description: `You are now authenticated.`,
       duration: 5000,
     });
 
-    const redirectPath = redirectCookie.value || '/';
+    const redirectPath = redirectCookie.value || "/";
     redirectCookie.value = null;
     await router.push(redirectPath);
   } else {
     toast({
-      title: 'Authentication failed!',
-      description: 'Please check your credentials and try again.',
+      title: "Authentication failed!",
+      description: "Please check your credentials and try again.",
       duration: 5000,
-      variant: 'destructive',
+      variant: "destructive",
     });
   }
 };
@@ -68,8 +77,8 @@ const handleAuthentication = async (values: { identifier: string; password: stri
 const onSubmit = form.handleSubmit(handleAuthentication);
 
 watch([isAuthenticated, accessToken], async ([isAuthenticated]) => {
-  if (isAuthenticated && router.currentRoute.value.name !== 'login') {
-    const redirectPath = redirectCookie.value || '/';
+  if (isAuthenticated && router.currentRoute.value.name !== "login") {
+    const redirectPath = redirectCookie.value || "/";
     redirectCookie.value = null;
     await router.push(redirectPath);
   }
@@ -87,23 +96,31 @@ onMounted(async () => {
     <form @submit="onSubmit">
       <div class="grid gap-2">
         <div class="grid gap-1">
-          <FormField v-slot="{ componentField }" name="identifier">
+            <FormField v-slot="{ componentField }" name="identifier">
             <FormItem>
               <FormLabel>Username or Email</FormLabel>
               <FormControl>
-                <Input type="text" placeholder="Username or Email" v-bind="componentField" />
+              <Input
+                type="text"
+                placeholder="Username or Email"
+                autocomplete="username"
+                v-bind="componentField"
+              />
               </FormControl>
-              <FormDescription>
-                Enter your username or email.
-              </FormDescription>
+              <FormDescription> Enter your username or email. </FormDescription>
               <FormMessage />
             </FormItem>
-          </FormField>
+            </FormField>
           <FormField v-slot="{ componentField }" name="password">
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Enter your password" v-bind="componentField" />
+                <Input
+                  type="password"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  v-bind="componentField"
+                />
               </FormControl>
               <FormDescription>
                 Password must be at least 8 characters long.
@@ -113,7 +130,12 @@ onMounted(async () => {
           </FormField>
         </div>
         <Button :disabled="isLoading" type="submit">
-          <Icon v-if="isLoading" name="tabler:loader-2" color="black" class="mr-2 h-4 w-4 animate-spin" />
+          <Icon
+            v-if="isLoading"
+            name="tabler:loader-2"
+            color="black"
+            class="mr-2 h-4 w-4 animate-spin"
+          />
           Sign In
         </Button>
       </div>
@@ -129,7 +151,12 @@ onMounted(async () => {
       </div>
     </div>
     <Button variant="outline" type="button" :disabled="isLoading">
-      <Icon v-if="isLoading" name="mdi:loading" color="black" class="mr-2 h-4 w-4 animate-spin" />
+      <Icon
+        v-if="isLoading"
+        name="mdi:loading"
+        color="black"
+        class="mr-2 h-4 w-4 animate-spin"
+      />
       <Icon v-else name="hugeicons:github" color="black" class="mr-2 h-4 w-4" />
       GitHub
     </Button>

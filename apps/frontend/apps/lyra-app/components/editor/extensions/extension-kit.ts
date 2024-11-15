@@ -48,7 +48,6 @@ import {
   TaskList,
   ImageUpload,
   UniqueID,
-  DragHandle,
   NodeRange,
   Mathematics,
 } from '.'
@@ -178,10 +177,9 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps): AnyExtension[] =>
   }),
   NodeRange.configure({
     // allow to select only on depth 0
-    depth: 2,
+    // depth: 0,
     key: null,
   }),
-  DragHandle,
   Mathematics
 ]
 

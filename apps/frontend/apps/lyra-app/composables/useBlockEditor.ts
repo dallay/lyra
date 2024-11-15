@@ -8,7 +8,7 @@ declare global {
 import { useEditor, type AnyExtension } from '@tiptap/vue-3'
 import Collaboration from '@tiptap/extension-collaboration'
 import CollaborationCursor from '@tiptap/extension-collaboration-cursor'
-import { TiptapCollabProvider, WebSocketStatus } from '@hocuspocus/provider'
+import { type TiptapCollabProvider, WebSocketStatus } from '@hocuspocus/provider'
 import type { Doc as YDoc } from 'yjs'
 
 import { ExtensionKit } from '~/components/editor/extensions/extension-kit'

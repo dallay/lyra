@@ -1,8 +1,7 @@
 import { ref } from 'vue'
-import { Editor } from '@tiptap/vue-3'
-import { Node } from '@tiptap/pm/model'
+import type { Node } from '@tiptap/pm/model'
 
-export function useData() {
+export default function useData() {
   const currentNode = ref<Node | null>(null)
   const lastNode = ref<Node>()
   const currentNodePos = ref<number>(-1)

@@ -28,4 +28,6 @@ runs:
 
     - name: Install dependencies
       run: pnpm install --no-frozen-lockfile
+      env:
+        TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
       shell: bash

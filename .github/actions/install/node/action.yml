@@ -18,6 +18,13 @@ runs:
         node-version: 'lts/*'
         cache: pnpm
 
+    - name: Create .npmrc for Tiptap Pro
+      shell: bash
+      run: |
+        echo "@tiptap-pro:registry=https://registry.tiptap.dev/" >> .npmrc
+        echo "//registry.tiptap.dev/:_authToken=${{ inputs.tiptap-pro-token }}" >> .npmrc
+        echo "Created .npmrc with private registry settings"
+
     - name: Get pnpm store directory
       shell: bash
       run: |
@@ -32,5 +39,5 @@ runs:
           ${{ runner.os }}-pnpm-store-
 
     - name: Install dependencies
-      run: TIPTAP_PRO_TOKEN=${{ inputs.tiptap-pro-token }} pnpm install --no-frozen-lockfile
+      run: pnpm install --no-frozen-lockfile
       shell: bash

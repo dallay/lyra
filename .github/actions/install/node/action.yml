@@ -32,7 +32,5 @@ runs:
           ${{ runner.os }}-pnpm-store-
 
     - name: Install dependencies
-      run: pnpm install --no-frozen-lockfile
-      env:
-        TIPTAP_PRO_TOKEN: ${{ inputs.tiptap-pro-token }}
+      run: TIPTAP_PRO_TOKEN=${{ inputs.tiptap-pro-token }} pnpm install --no-frozen-lockfile
       shell: bash

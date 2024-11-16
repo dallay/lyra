@@ -36,6 +36,8 @@ jobs:
           fetch-depth: 0
       - name: Check Project Integrity
         uses: ./.github/actions/analysis/check
+        with:
+          tiptap-pro-token: ${{ secrets.tiptap-pro-token }}
   build:
     name: Build and Test 🧪
     needs: [ validation ]
@@ -105,6 +107,7 @@ jobs:
       - name: Static Analysis Security
         uses: ./.github/actions/analysis/security
         with:
+          tiptap-pro-token: ${{ secrets.tiptap-pro-token }}
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
   functional:
@@ -174,7 +177,8 @@ jobs:
 
       - name: Install Tools & Dependencies
         uses: ./.github/actions/install/node
-
+        with:
+          tiptap-pro-token: ${{ secrets.tiptap-pro-token }}
       - name: Run Semantic Release
         id: semantic_release
         run: |

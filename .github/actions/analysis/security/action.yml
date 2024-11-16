@@ -10,6 +10,9 @@ inputs:
   gradle-encryption-key:
     description: 'The encryption key to use for the gradle cache'
     required: true
+  tiptap-pro-token:
+    description: 'The token to access the Tiptap Pro registry'
+    required: true
 
 runs:
   using: composite
@@ -22,6 +25,8 @@ runs:
 
     - name: Install Tools & Dependencies
       uses: ./.github/actions/install/node
+      with:
+        tiptap-pro-token: ${{ inputs.tiptap-pro-token }}
 
     - name: ♻︎ Restore Cache OWASP Dependency Check Data 🛡️
       id: cache-owasp-restore

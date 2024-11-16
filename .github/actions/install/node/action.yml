@@ -1,6 +1,11 @@
 name: Install Tools & Dependencies
 description: Installs pnpm, Node.js & package dependencies
 
+inputs:
+  tiptap-pro-token:
+    description: 'The token to access the Tiptap Pro registry'
+    required: true
+
 runs:
   using: composite
   steps:
@@ -29,5 +34,5 @@ runs:
     - name: Install dependencies
       run: pnpm install --no-frozen-lockfile
       env:
-        TIPTAP_PRO_TOKEN: ${{ secrets.TIPTAP_PRO_TOKEN }}
+        TIPTAP_PRO_TOKEN: ${{ inputs.tiptap-pro-token }}
       shell: bash

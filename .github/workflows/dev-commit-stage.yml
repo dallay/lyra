@@ -157,3 +157,4 @@ jobs:
           version: ${{ steps.get_version.outputs.version }}
           ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           target: ${{ matrix.target }}
+          tiptap-pro-token: ${{ secrets.TIPTAP_PRO_TOKEN }}

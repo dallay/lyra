@@ -27,6 +27,9 @@ inputs:
     description: 'Non production docker image tag'
     required: false
     default: 'nightly'
+  tiptap-pro-token:
+    description: 'The token to access the Tiptap Pro registry'
+    required: true
 
 runs:
   using: composite
@@ -72,6 +75,8 @@ runs:
           n4t5u/${{ inputs.target }}:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+        build-args: |
+          TIPTAP_PRO_TOKEN=${{ inputs.tiptap-pro-token }}
 
     # Scan production image
     - name: 🪄 Scan Docker images for vulnerabilities (Production)
@@ -98,6 +103,7 @@ runs:
         docker buildx imagetools create \
           --tag ghcr.io/dallay/${{ inputs.target }}:${{ inputs.version }} \
           --tag ghcr.io/dallay/${{ inputs.target }}:latest \
+          --build-arg TIPTAP_PRO_TOKEN=${{ inputs.tiptap-pro-token }} \
         n4t5u/${{ inputs.target }}:latest
       shell: bash
 
@@ -114,6 +120,8 @@ runs:
           n4t5u/${{ inputs.target }}:${{ inputs.non_prod_tag }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+        build-args: |
+          TIPTAP_PRO_TOKEN=${{ inputs.tiptap-pro-token }}
 
     # Scan non-production image
     - name: 🪄 Scan Docker images for vulnerabilities (Non-Production)
@@ -139,5 +147,6 @@ runs:
       run: |
           docker buildx imagetools create \
           --tag ghcr.io/dallay/${{ inputs.target }}:${{ inputs.non_prod_tag }} \
+          --build-arg TIPTAP_PRO_TOKEN=${{ inputs.tiptap-pro-token }} \
           n4t5u/${{ inputs.target }}:${{ inputs.non_prod_tag }}
       shell: bash

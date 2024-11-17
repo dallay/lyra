@@ -18,6 +18,10 @@ FROM base AS build-frontend
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
+# Set the environment variable for Tiptap Pro token
+ARG TIPTAP_PRO_TOKEN
+ENV TIPTAP_PRO_TOKEN=${TIPTAP_PRO_TOKEN}
+
 # Install dependencies and build frontend projects (Nuxt and Astro)
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build

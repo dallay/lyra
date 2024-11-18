@@ -11,7 +11,7 @@ export default defineFontProvider('custom', () => {
       }
       return {
         fonts: [
-          { src: [{ url: '/fonts/some-font.woff2', format: 'woff2' }] },
+          { src: [{ url: '/fonts/custom-font.woff2', format: 'woff2' }] },
         ],
       }
     },

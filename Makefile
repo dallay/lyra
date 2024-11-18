@@ -1,5 +1,5 @@
 # Description: Makefile for Lyra project
-# Author: Yuniel Acosta <https://twitter.com/yacosta738>
+# Author: Yuniel Acosta <https://x.com/yacosta738>
 
 GRADLE = ./gradlew
 

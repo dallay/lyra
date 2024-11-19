@@ -33,6 +33,13 @@ runs:
         restore-keys: |
           ${{ runner.os }}-pnpm-store-
 
+    - name: 'Setup: check tools'
+      shell: bash
+      run: |
+        node -v
+        pnpm -v
+        npm -v
+
     - name: Install dependencies
       run: pnpm install --no-frozen-lockfile
       shell: bash

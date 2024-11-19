@@ -33,6 +33,12 @@ runs:
         chmod +x gradlew
       shell: bash
 
+    - name: 'Setup: check tools'
+      shell: bash
+      run: |
+        java -version
+        ./gradlew -version
+
     - name: ⚙️ Setup Gradle 🐘
       uses: gradle/actions/setup-gradle@v4
       id: gradle

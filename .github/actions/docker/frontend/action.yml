@@ -98,8 +98,8 @@ runs:
         platforms: linux/amd64,linux/arm64
         target: ${{ inputs.target }}
         push: true
-        build-args: |
-          TIPTAP_PRO_TOKEN=${{ inputs.tiptap_pro_token }}
+        secrets: |
+          "tiptap_pro_token=${{ inputs.tiptap_pro_token }}"
         tags: |
           ${{ steps.calculate-outputs.outputs.repo_name }}:${{ steps.calculate-outputs.outputs.prod_tag }},
           ${{ steps.calculate-outputs.outputs.repo_name }}:latest

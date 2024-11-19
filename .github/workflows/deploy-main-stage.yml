@@ -228,10 +228,10 @@ jobs:
       - name: 🏗️ Build and Push Docker images for the frontend application ${{ matrix.target }}
         uses: ./.github/actions/docker/frontend
         with:
-          deliver: true
+          is_production: true
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
           version: ${{ steps.get_version.outputs.version }}
           ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           target: ${{ matrix.target }}
-          tiptap-pro-token: ${{ secrets.TIPTAP_PRO_TOKEN }}
+          tiptap_pro_token: ${{ secrets.TIPTAP_PRO_TOKEN }}

@@ -4,8 +4,8 @@ description: |
   (lyra-app and lyra-landing-page) to the container registry. It also performs vulnerability scanning.
 
 inputs:
-  deliver:
-    description: 'Deliver frontend to production'
+  is_production:
+    description: 'Indicates if the frontend should be delivered to production'
     required: true
     default: 'true'
   docker_username:
@@ -15,8 +15,8 @@ inputs:
     description: 'The password for Docker Hub'
     required: true
   version:
-    description: 'The version of the frontend'
-    required: true
+    description: 'The version of the frontend (for production builds)'
+    required: false
   ci_github_token:
     description: 'GITHUB_TOKEN with permissions to push to the container registry'
     required: true
@@ -24,16 +24,25 @@ inputs:
     description: 'The target image to build (lyra-app, lyra-landing-page)'
     required: true
   non_prod_tag:
-    description: 'Non production docker image tag'
+    description: 'Docker image tag for non-production builds'
     required: false
     default: 'nightly'
-  tiptap-pro-token:
+  tiptap_pro_token:
     description: 'The token to access the Tiptap Pro registry'
     required: true
 
 runs:
   using: composite
   steps:
+    - name: Validate Target Input
+      run: |
+        if [[ "${{ inputs.target }}" != "lyra-app" && "${{ inputs.target }}" != "lyra-landing-page" ]]; then
+          echo "Invalid target specified: '${{ inputs.target }}'."
+          exit 1
+        fi
+
+      shell: bash
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
 
@@ -53,106 +62,49 @@ runs:
         username: ${{ github.actor }}
         password: ${{ inputs.ci_github_token }}
 
-    - name: Cache Docker layers
-      id: cache
+    - name: Cache Docker Layers
       uses: actions/cache@v3
       with:
         path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.ref_name }}-${{ inputs.target }}
+        key: ${{ runner.os }}-buildx-${{ inputs.target }}-${{ inputs.prod_tag }}
         restore-keys: |
-          ${{ runner.os }}-buildx-${{ github.ref_name }}-
-          ${{ runner.os }}-buildx-
+          ${{ runner.os }}-buildx-${{ inputs.target }}-
 
-    - name: Validate cache
-      shell: bash
-      run: |
-        if [ ! -d "/tmp/.buildx-cache" ]; then
-          echo "Cache directory does not exist. Creating it now."
-          mkdir -p /tmp/.buildx-cache
-        fi
-        ls -la /tmp/.buildx-cache
-
-    # Build and push production images
-    - name: Build and Push Docker images (Production)
-      if: ${{ inputs.deliver == 'true' }}
+    - name: Build and Push Docker Images
       uses: docker/build-push-action@v5
       with:
         platforms: linux/amd64,linux/arm64
         target: ${{ inputs.target }}
         push: true
         build-args: |
-          TIPTAP_PRO_TOKEN=${{ inputs.tiptap-pro-token }}
+          TIPTAP_PRO_TOKEN=${{ inputs.tiptap_pro_token }}
         tags: |
-          n4t5u/${{ inputs.target }}:${{ inputs.version }},
-          n4t5u/${{ inputs.target }}:latest
+          ${{ outputs.repo_name }}:${{ outputs.prod_tag }},
+          ${{ outputs.repo_name }}:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
-    # Scan production image
-    - name: 🪄 Scan Docker images for vulnerabilities (Production)
-      if: ${{ inputs.deliver == 'true' }}
+
+    - name: 🪄 Scan Docker Images for Vulnerabilities
       uses: aquasecurity/trivy-action@0.20.0
       with:
-        image-ref: n4t5u/${{ inputs.target }}:${{ inputs.version }}
+        image-ref: ${{ outputs.repo_name }}:${{ outputs.prod_tag }}
         format: sarif
-        output: trivy-${{ inputs.target }}-report.sarif
+        output: trivy-${{ inputs.target }}-report-${{ outputs.prod_tag }}.sarif
         severity: HIGH,CRITICAL
         ignore-unfixed: true
         cache-dir: /tmp/trivy-cache-${{ inputs.target }}
 
-    - name: ⇪ Upload Trivy Scan Report (Production)
-      if: ${{ inputs.deliver == 'true' }}
+    - name: ⇪ Upload Trivy Scan Report
       uses: actions/upload-artifact@v3
       with:
-        name: trivy-${{ inputs.target }}-report
-        path: trivy-${{ inputs.target }}-report.sarif
+        name: trivy-${{ inputs.target }}-report-${{ outputs.prod_tag }}
+        path: trivy-${{ inputs.target }}-report-${{ outputs.prod_tag }}.sarif
+        retention-days: 7
 
-    - name: Push image to GHCR with latest tag (Production)
-      if: ${{ inputs.deliver == 'true' }}
+    - name: Push Image to GHCR
+      shell: bash
       run: |
         docker buildx imagetools create \
-          --tag ghcr.io/dallay/${{ inputs.target }}:${{ inputs.version }} \
-          --tag ghcr.io/dallay/${{ inputs.target }}:latest \
-        n4t5u/${{ inputs.target }}:latest
-      shell: bash
-
-    # Build and push non-production images
-    - name: Build and Push Docker images (Non-Production)
-      if: ${{ inputs.deliver == 'false' }}
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        platforms: linux/amd64,linux/arm64
-        target: ${{ inputs.target }}
-        build-args: |
-          TIPTAP_PRO_TOKEN=${{ inputs.tiptap-pro-token }}
-        push: true
-        tags: |
-          n4t5u/${{ inputs.target }}:${{ inputs.non_prod_tag }}
-        cache-from: type=local,src=/tmp/.buildx-cache
-        cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
-    # Scan non-production image
-    - name: 🪄 Scan Docker images for vulnerabilities (Non-Production)
-      if: ${{ inputs.deliver == 'false' }}
-      uses: aquasecurity/trivy-action@0.20.0
-      with:
-        image-ref: n4t5u/${{ inputs.target }}:${{ inputs.non_prod_tag }}
-        format: sarif
-        output: trivy-${{ inputs.target }}-report-${{ inputs.non_prod_tag }}.sarif
-        severity: HIGH,CRITICAL
-        ignore-unfixed: true
-        cache-dir: /tmp/trivy-cache-${{ inputs.target }}-${{ inputs.non_prod_tag }}
-
-    - name: ⇪ Upload Trivy Scan Report (Non-Production)
-      if: ${{ inputs.deliver == 'false' }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: trivy-${{ inputs.target }}-report-${{ inputs.non_prod_tag }}
-        path: trivy-${{ inputs.target }}-report-${{ inputs.non_prod_tag }}.sarif
-
-    - name: Push image to GHCR with latest tag (Non-Production)
-      if: ${{ inputs.deliver == 'false' }}
-      run: |
-          docker buildx imagetools create \
-          --tag ghcr.io/dallay/${{ inputs.target }}:${{ inputs.non_prod_tag }} \
-          n4t5u/${{ inputs.target }}:${{ inputs.non_prod_tag }}
-      shell: bash
+          --tag ${{ outputs.ghcr_repo }}:${{ outputs.prod_tag }} \
+          --tag ${{ outputs.ghcr_repo }}:latest \
+        ${{ outputs.repo_name }}:latest

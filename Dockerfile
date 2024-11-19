@@ -22,9 +22,6 @@ WORKDIR /usr/src/app
 ARG TIPTAP_PRO_TOKEN
 ENV TIPTAP_PRO_TOKEN=${TIPTAP_PRO_TOKEN}
 
-#Just for test purposes
-RUN ls -al /usr/src/app/apps/frontend/apps/lyra-app/components/ui/
-
 # Install dependencies and build frontend projects (Nuxt and Astro)
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build

@@ -58,9 +58,19 @@ runs:
       uses: actions/cache@v3
       with:
         path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        key: ${{ runner.os }}-buildx-${{ github.ref_name }}-${{ inputs.target }}
         restore-keys: |
+          ${{ runner.os }}-buildx-${{ github.ref_name }}-
           ${{ runner.os }}-buildx-
+
+    - name: Validate cache
+      shell: bash
+      run: |
+        if [ ! -d "/tmp/.buildx-cache" ]; then
+          echo "Cache directory does not exist. Creating it now."
+          mkdir -p /tmp/.buildx-cache
+        fi
+        ls -la /tmp/.buildx-cache
 
     # Build and push production images
     - name: Build and Push Docker images (Production)
@@ -70,14 +80,13 @@ runs:
         platforms: linux/amd64,linux/arm64
         target: ${{ inputs.target }}
         push: true
+        build-args: |
+          TIPTAP_PRO_TOKEN=${{ inputs.tiptap-pro-token }}
         tags: |
           n4t5u/${{ inputs.target }}:${{ inputs.version }},
           n4t5u/${{ inputs.target }}:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
-        build-args: |
-          TIPTAP_PRO_TOKEN=${{ inputs.tiptap-pro-token }}
-
     # Scan production image
     - name: 🪄 Scan Docker images for vulnerabilities (Production)
       if: ${{ inputs.deliver == 'true' }}
@@ -115,14 +124,13 @@ runs:
         context: .
         platforms: linux/amd64,linux/arm64
         target: ${{ inputs.target }}
+        build-args: |
+          TIPTAP_PRO_TOKEN=${{ inputs.tiptap-pro-token }}
         push: true
         tags: |
           n4t5u/${{ inputs.target }}:${{ inputs.non_prod_tag }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
-        build-args: |
-          TIPTAP_PRO_TOKEN=${{ inputs.tiptap-pro-token }}
-
     # Scan non-production image
     - name: 🪄 Scan Docker images for vulnerabilities (Non-Production)
       if: ${{ inputs.deliver == 'false' }}

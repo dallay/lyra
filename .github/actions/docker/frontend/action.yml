@@ -31,17 +31,39 @@ inputs:
     description: 'The token to access the Tiptap Pro registry'
     required: true
 
+outputs:
+  prod_tag:
+    description: 'The tag for the production or non-production image'
+    value: ${{ steps.calculate-outputs.outputs.prod_tag }}
+  repo_name:
+    description: 'Docker Hub repository name'
+    value: ${{ steps.calculate-outputs.outputs.repo_name }}
+  ghcr_repo:
+    description: 'GitHub Container Registry repository name'
+    value: ${{ steps.calculate-outputs.outputs.ghcr_repo }}
+
 runs:
   using: composite
   steps:
     - name: Validate Target Input
+      shell: bash
       run: |
         if [[ "${{ inputs.target }}" != "lyra-app" && "${{ inputs.target }}" != "lyra-landing-page" ]]; then
           echo "Invalid target specified: '${{ inputs.target }}'."
           exit 1
         fi
 
+    - name: Calculate Outputs
+      id: calculate-outputs
       shell: bash
+      run: |
+        if [[ "${{ inputs.is_production }}" == "true" ]]; then
+          echo "prod_tag=${{ inputs.version }}" >> $GITHUB_OUTPUT
+        else
+          echo "prod_tag=${{ inputs.non_prod_tag }}" >> $GITHUB_OUTPUT
+        fi
+        echo "repo_name=n4t5u/${{ inputs.target }}" >> $GITHUB_OUTPUT
+        echo "ghcr_repo=ghcr.io/dallay/${{ inputs.target }}" >> $GITHUB_OUTPUT
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -66,7 +88,7 @@ runs:
       uses: actions/cache@v3
       with:
         path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ inputs.target }}-${{ inputs.prod_tag }}
+        key: ${{ runner.os }}-buildx-${{ inputs.target }}-${{ steps.calculate-outputs.outputs.prod_tag }}
         restore-keys: |
           ${{ runner.os }}-buildx-${{ inputs.target }}-
 
@@ -79,17 +101,17 @@ runs:
         build-args: |
           TIPTAP_PRO_TOKEN=${{ inputs.tiptap_pro_token }}
         tags: |
-          ${{ outputs.repo_name }}:${{ outputs.prod_tag }},
-          ${{ outputs.repo_name }}:latest
+          ${{ steps.calculate-outputs.outputs.repo_name }}:${{ steps.calculate-outputs.outputs.prod_tag }},
+          ${{ steps.calculate-outputs.outputs.repo_name }}:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 
     - name: 🪄 Scan Docker Images for Vulnerabilities
       uses: aquasecurity/trivy-action@0.20.0
       with:
-        image-ref: ${{ outputs.repo_name }}:${{ outputs.prod_tag }}
+        image-ref: ${{ steps.calculate-outputs.outputs.repo_name }}:${{ steps.calculate-outputs.outputs.prod_tag }}
         format: sarif
-        output: trivy-${{ inputs.target }}-report-${{ outputs.prod_tag }}.sarif
+        output: trivy-${{ inputs.target }}-report-${{ steps.calculate-outputs.outputs.prod_tag }}.sarif
         severity: HIGH,CRITICAL
         ignore-unfixed: true
         cache-dir: /tmp/trivy-cache-${{ inputs.target }}
@@ -97,14 +119,14 @@ runs:
     - name: ⇪ Upload Trivy Scan Report
       uses: actions/upload-artifact@v3
       with:
-        name: trivy-${{ inputs.target }}-report-${{ outputs.prod_tag }}
-        path: trivy-${{ inputs.target }}-report-${{ outputs.prod_tag }}.sarif
+        name: trivy-${{ inputs.target }}-report-${{ steps.calculate-outputs.outputs.prod_tag }}
+        path: trivy-${{ inputs.target }}-report-${{ steps.calculate-outputs.outputs.prod_tag }}.sarif
         retention-days: 7
 
     - name: Push Image to GHCR
       shell: bash
       run: |
         docker buildx imagetools create \
-          --tag ${{ outputs.ghcr_repo }}:${{ outputs.prod_tag }} \
-          --tag ${{ outputs.ghcr_repo }}:latest \
-        ${{ outputs.repo_name }}:latest
+          --tag ${{ steps.calculate-outputs.outputs.ghcr_repo }}:${{ steps.calculate-outputs.outputs.prod_tag }} \
+          --tag ${{ steps.calculate-outputs.outputs.ghcr_repo }}:latest \
+        ${{ steps.calculate-outputs.outputs.repo_name }}:latest

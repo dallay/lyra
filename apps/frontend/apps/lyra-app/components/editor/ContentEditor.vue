@@ -49,6 +49,8 @@ onBeforeUnmount(() => {
 
 onMounted(() => {
   console.log("Menu container:", menuContainerRef.value);
+  console.log("Users:", users);
+  console.log("Collab state:", collabState);
 });
 </script>
 

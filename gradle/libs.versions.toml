@@ -1,8 +1,8 @@
 [versions]
-kotlin = "2.0.20"
-springBoot = "3.3.4"
+kotlin = "2.0.21"
+springBoot = "3.3.5"
 springdoc = "2.6.0"
-junit = "5.11.2"
+junit = "5.11.3"
 klint-plugin = "12.1.1"
 detekt = "1.23.7"
 owasp = "10.0.3"
@@ -11,14 +11,14 @@ dokka = "1.9.20"
 frontend-gradle-plugin = "8.0.0"
 springManagement = "1.1.6"
 reflections = "0.10.2"
-keycloak-admin-client = "26.0.0"
+keycloak-admin-client = "26.0.3"
 kotest = "5.9.1"
-testcontainers = "1.20.2"
-testcontainers-keycloak = "3.4.0"
+testcontainers = "1.20.3"
+testcontainers-keycloak = "3.5.1"
 jsonwebtoken = "0.12.6"
-cucumber = "7.20.0"
+cucumber = "7.20.1"
 apacheCommon = "1.12.0"
-jackson = "2.18.0"
+jackson = "2.18.1"
 
 [libraries]
 # Gradle Plugins
@@ -40,7 +40,7 @@ gradle-frontend = { module = "org.siouan:frontend-jdk17", version.ref = "fronten
 
 # Detekt
 gradle-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
-detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.4.15" }
+detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.4.19" }
 detekt-compose2 = { module = "ru.kode:detekt-rules-compose", version = "1.4.0" }
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 
@@ -74,11 +74,11 @@ jsoup = { module = "org.jsoup:jsoup", version = "1.18.1" }
 # Testing
 junit = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
-spring-security-test = { module = "org.springframework.security:spring-security-test", version="6.3.3" }
-reactor-test = { module = "io.projectreactor:reactor-test", version = "3.6.10" }
+spring-security-test = { module = "org.springframework.security:spring-security-test", version="6.4.0" }
+reactor-test = { module = "io.projectreactor:reactor-test", version = "3.7.0" }
 cucumber-java = { module = "io.cucumber:cucumber-java", version.ref = "cucumber" }
-mockk = { module = "io.mockk:mockk", version = "1.13.12" }
-faker = { module = "net.datafaker:datafaker", version = "2.4.0" }
+mockk = { module = "io.mockk:mockk", version = "1.13.13" }
+faker = { module = "net.datafaker:datafaker", version = "2.4.2" }
 assertj = { module ="org.assertj:assertj-core", version = "3.26.3" }
 kotest-assertions-core-jvm = { module = "io.kotest:kotest-assertions-core-jvm", version.ref = "kotest" }
 kotest-assertions-json = { module = "io.kotest:kotest-assertions-json", version.ref = "kotest" }

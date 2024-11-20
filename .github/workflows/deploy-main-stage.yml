@@ -36,6 +36,8 @@ jobs:
           fetch-depth: 0
       - name: Check Project Integrity
         uses: ./.github/actions/analysis/check
+        with:
+          tiptap-pro-token: ${{ secrets.TIPTAP_PRO_TOKEN }}
   build:
     name: Build and Test 🧪
     needs: [ validation ]
@@ -105,6 +107,7 @@ jobs:
       - name: Static Analysis Security
         uses: ./.github/actions/analysis/security
         with:
+          tiptap-pro-token: ${{ secrets.TIPTAP_PRO_TOKEN }}
           gradle-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
   functional:
@@ -174,7 +177,8 @@ jobs:
 
       - name: Install Tools & Dependencies
         uses: ./.github/actions/install/node
-
+        with:
+          tiptap-pro-token: ${{ secrets.TIPTAP_PRO_TOKEN }}
       - name: Run Semantic Release
         id: semantic_release
         run: |
@@ -224,9 +228,10 @@ jobs:
       - name: 🏗️ Build and Push Docker images for the frontend application ${{ matrix.target }}
         uses: ./.github/actions/docker/frontend
         with:
-          deliver: true
+          is_production: true
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
           version: ${{ steps.get_version.outputs.version }}
           ci_github_token: ${{ env.CI_GITHUB_TOKEN }}
           target: ${{ matrix.target }}
+          tiptap_pro_token: ${{ secrets.TIPTAP_PRO_TOKEN }}

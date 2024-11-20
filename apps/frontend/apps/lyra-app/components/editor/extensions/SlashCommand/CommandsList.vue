@@ -1,15 +1,10 @@
 <template>
-  <Card
-    class="w-full max-w-2xl sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto min-w-full"
-  >
-    <ScrollArea class="p-2 w-full">
-      <div class="space-y-2">
-        <div v-for="(group, groupIndex) in items" :key="groupIndex">
-          <h2 class="mb-1 px-1 text-base font-semibold tracking-tight">
+  <Card class="w-[32rem]">
+    <div v-for="(group, groupIndex) in items" :key="groupIndex" class="rounded-md grid flex-wrap gap-2 grid-cols-3 p-2">
+          <span class="text-xs col-span-full my-0.5 mx-2">
             {{ group.title }}
-          </h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-            <Button
+          </span>
+          <Button
               v-for="(command, commandIndex) in group.commands"
               :key="`${command.name}-${commandIndex}`"
               :variant="selectedIndex.group === groupIndex && selectedIndex.command === commandIndex ? 'default' : 'ghost'"
@@ -23,10 +18,7 @@
               </template>
               {{ command.label }}
             </Button>
-          </div>
         </div>
-      </div>
-    </ScrollArea>
   </Card>
 </template>
 
@@ -34,7 +26,6 @@
 import { ref, watch, defineProps, type Component, Suspense } from 'vue';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Icon } from '@/components/ui/icon';
 import type { Command, Group } from './types';
 

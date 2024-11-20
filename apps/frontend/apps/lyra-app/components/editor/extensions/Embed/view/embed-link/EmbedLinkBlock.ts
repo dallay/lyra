@@ -12,6 +12,7 @@ declare module '@tiptap/core' {
     embedLinkBlock: {
       setEmbedLinkBlock: (attributes: EmbedMetadata & { layout: LayoutOption }) => ReturnType,
       setEmbedLinkLayout: (layout: LayoutOption) => ReturnType,
+      updateEmbedLinkBlock: (attributes: EmbedMetadata & { layout: LayoutOption }) => ReturnType,
     }
   }
 }
@@ -79,6 +80,9 @@ export const EmbedLinkBlock = Node.create({
       setEmbedLinkLayout: layout =>
         ({ commands }) =>
           commands.updateAttributes('embedLink', { layout }),
+      updateEmbedLinkBlock: attrs =>
+        ({ commands }) =>
+          commands.updateAttributes('embedLink', attrs),
     };
   },
 

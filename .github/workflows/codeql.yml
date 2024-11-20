@@ -62,6 +62,8 @@ jobs:
 
     - name: Install Tools & Dependencies
       uses: ./.github/actions/install/node
+      with:
+        tiptap-pro-token: ${{ secrets.TIPTAP_PRO_TOKEN }}
 
     # Autobuild attempts to build any compiled languages (C/C++, C#, Go, Java, or Swift).
     # If this step fails, then you should remove it and run the build manually (see below)

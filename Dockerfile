@@ -1,4 +1,4 @@
-# Base image for Node.js applications with PNPM setup
+# syntax=docker/dockerfile:1
 FROM node:22-alpine AS base
 
 # Metadata for the image
@@ -18,13 +18,17 @@ FROM base AS build-frontend
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
-# Install dependencies and build frontend projects (Nuxt and Astro)
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+# Use Docker secrets and cache to handle sensitive data and pnpm cache
+RUN --mount=type=secret,id=tiptap_pro_token,env=TIPTAP_PRO_TOKEN \
+    --mount=type=cache,id=pnpm,target=/pnpm/store \
+    pnpm install --frozen-lockfile
 RUN pnpm run build
 
 # Deploy output to specific directories for lyra-app and lyra-landing-page
-RUN pnpm deploy --filter=lyra-app --prod /prod/lyra-app
-RUN pnpm deploy --filter=lyra-landing-page --prod /prod/lyra-landing-page
+RUN --mount=type=secret,id=tiptap_pro_token,env=TIPTAP_PRO_TOKEN \
+    pnpm deploy --filter=lyra-app --prod /prod/lyra-app
+RUN --mount=type=secret,id=tiptap_pro_token,env=TIPTAP_PRO_TOKEN \
+    pnpm deploy --filter=lyra-landing-page --prod /prod/lyra-landing-page
 
 # Application image for lyra-app-dev (Nuxt) - Development
 FROM base AS lyra-app-dev

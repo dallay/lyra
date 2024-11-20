@@ -3,7 +3,6 @@ import Suggestion, { type SuggestionOptions } from '@tiptap/suggestion';
 import { Editor } from '@tiptap/core';
 import { PluginKey } from '@tiptap/pm/state';
 import type { Command } from './types';
-import tippy from 'tippy.js';
 
 interface CommandProps {
   editor: Editor;

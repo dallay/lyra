@@ -19,7 +19,35 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/scripts',
     '@nuxt/test-utils/module',
+    '@nuxtjs/fontaine',
+    '@nuxt/fonts',
   ],
+  fonts: {
+    providers: {
+      custom: '~/providers/custom',
+    },
+    families: [
+      { name: 'Abel', provider: 'bunny' },
+      { name: 'Satoshi', provider: 'fontshare' },
+      { name: 'Kode Mono', provider: 'none' },
+      { name: 'MyCustom', src: '/custom-font.woff2' },
+      { name: 'CustomGlobal', global: true, src: '/fonts/custom-font.woff2' },
+      { name: 'Oswald', fallbacks: ['Times New Roman'] },
+      { name: 'Aleo', provider: 'adobe' },
+      { name: 'Barlow Semi Condensed', provider: 'adobe' },
+      { name: 'Barlow', preload: true },
+      { name: 'Roboto Mono', provider: 'fontsource' },
+      { name: 'Roboto Flex', provider: 'fontsource' },
+    ],
+    adobe: {
+      id: ['sij5ufr', 'grx7wdj'],
+    },
+    defaults: {
+      fallbacks: {
+        monospace: ['Tahoma'],
+      },
+    },
+  },
   icon: {
     clientBundle: {
       scan: true,

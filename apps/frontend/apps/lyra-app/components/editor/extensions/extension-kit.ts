@@ -5,14 +5,14 @@ import {
   CharacterCount,
   CodeBlock,
   Color,
-  // Details,
-  // DetailsContent,
-  // DetailsSummary,
+  Details,
+  DetailsContent,
+  DetailsSummary,
   Document,
   Dropcursor,
-  // Emoji,
+  Emoji,
   Figcaption,
-  // FileHandler,
+  FileHandler,
   Focus,
   FontFamily,
   FontSize,
@@ -32,7 +32,7 @@ import {
   Subscript,
   Superscript,
   Table,
-  // TableOfContents,
+  TableOfContents,
   TableCell,
   TableHeader,
   TableRow,
@@ -41,25 +41,27 @@ import {
   TrailingNode,
   Typography,
   Underline,
-  // emojiSuggestion,
+  emojiSuggestion,
   Columns,
   Column,
   TaskItem,
   TaskList,
-  // ImageUploader,
-  ImageUpload
-  // UniqueID,
+  ImageUpload,
+  UniqueID,
+  NodeRange,
+  Mathematics,
 } from '.'
 
 
-// import { ImageUploader } from './ImageUploader'
-// import { TableOfContentsNode } from './TableOfContentsNode'
+import { TableOfContentsNode } from './TableOfContentsNode'
 import { isChangeOrigin } from '@tiptap/extension-collaboration'
 import type { AnyExtension, Extension } from '@tiptap/core'
 
 interface ExtensionKitProps {
   provider?: HocuspocusProvider | null
 }
+
+const { $api } = useNuxtApp();
 
 export const ExtensionKit = ({ provider }: ExtensionKitProps): AnyExtension[] => [
   Document,
@@ -74,10 +76,10 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps): AnyExtension[] =>
     levels: [1, 2, 3, 4, 5, 6],
   }),
   HorizontalRule,
-  // UniqueID.configure({
-  //   types: ['paragraph', 'heading', 'blockquote', 'codeBlock', 'table'],
-  //   filterTransaction: transaction => !isChangeOrigin(transaction),
-  // }),
+  UniqueID.configure({
+    types: ['paragraph', 'heading', 'blockquote', 'codeBlock', 'table'],
+    filterTransaction: transaction => !isChangeOrigin(transaction),
+  }),
   StarterKit.configure({
     document: false,
     dropcursor: false,
@@ -87,14 +89,14 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps): AnyExtension[] =>
     history: false,
     codeBlock: false,
   }),
-  // Details.configure({
-  //   persist: true,
-  //   HTMLAttributes: {
-  //     class: 'details',
-  //   },
-  // }),
-  // DetailsContent,
-  // DetailsSummary,
+  Details.configure({
+    persist: true,
+    HTMLAttributes: {
+      class: 'details',
+    },
+  }),
+  DetailsContent,
+  DetailsSummary,
   CodeBlock,
   TextStyle,
   FontSize,
@@ -113,37 +115,37 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps): AnyExtension[] =>
   Highlight.configure({ multicolor: true }),
   Underline,
   CharacterCount.configure({ limit: 50000 }),
-  // TableOfContents,
-  // TableOfContentsNode,
+  TableOfContents,
+  TableOfContentsNode,
   ImageUpload.configure({
     clientId: provider?.document?.clientID,
   }),
   ImageBlock,
-  // FileHandler.configure({
-  //   allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
-  //   onDrop: (currentEditor, files, pos) => {
-  //     files.forEach(async file => {
-  //       const url = await API.uploadImage(file)
+  FileHandler.configure({
+    allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
+    onDrop: (currentEditor, files, pos) => {
+      files.forEach(async file => {
+        const url = await $api.bucket.uploadFile(file)
 
-  //       currentEditor.chain().setImageBlockAt({ pos, src: url }).focus().run()
-  //     })
-  //   },
-  //   onPaste: (currentEditor, files) => {
-  //     files.forEach(async file => {
-  //       const url = await API.uploadImage(file)
+        currentEditor.chain().setImageBlockAt({ pos, src: url }).focus().run()
+      })
+    },
+    onPaste: (currentEditor, files) => {
+      files.forEach(async file => {
+        const url = await $api.bucket.uploadFile(file)
 
-  //       return currentEditor
-  //         .chain()
-  //         .setImageBlockAt({ pos: currentEditor.state.selection.anchor, src: url })
-  //         .focus()
-  //         .run()
-  //     })
-  //   },
-  // }),
-  // Emoji.configure({
-  //   enableEmoticons: true,
-  //   suggestion: emojiSuggestion,
-  // }),
+        return currentEditor
+          .chain()
+          .setImageBlockAt({ pos: currentEditor.state.selection.anchor, src: url })
+          .focus()
+          .run()
+      })
+    },
+  }),
+  Emoji.configure({
+    enableEmoticons: true,
+    suggestion: emojiSuggestion,
+  }),
   TextAlign.extend({
     addKeyboardShortcuts() {
       return {}
@@ -173,6 +175,12 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps): AnyExtension[] =>
     width: 2,
     class: 'ProseMirror-dropcursor border-black',
   }),
+  NodeRange.configure({
+    // allow to select only on depth 0
+    // depth: 0,
+    key: null,
+  }),
+  Mathematics
 ]
 
 export default ExtensionKit

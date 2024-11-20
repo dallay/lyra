@@ -1,12 +1,11 @@
-import type { Ref } from 'vue'
-import { Editor as CoreEditor } from '@tiptap/core'
-import { Editor } from '@tiptap/vue-3'
-import { EditorState } from '@tiptap/pm/state'
-import { EditorView } from '@tiptap/pm/view'
+import type { Editor as CoreEditor } from '@tiptap/core'
+import type { Editor } from '@tiptap/vue-3'
+import type { EditorState } from '@tiptap/pm/state'
+import type { EditorView } from '@tiptap/pm/view'
 
 export interface MenuProps {
   editor: Editor
-  appendTo?: Ref<any>
+  appendTo?: HTMLElement
   shouldHide?: boolean
 }
 

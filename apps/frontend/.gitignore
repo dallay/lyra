@@ -2,7 +2,6 @@
 node_modules
 dist
 coverage
-docs/.vitepress/cache
 *.log
 **/build/**
 **/build/**/*

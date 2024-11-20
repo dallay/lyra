@@ -3,6 +3,11 @@ description: |
   This workflow checks the integrity of the project by running various checks
   such as Validate Gradle wrapper, Install Tools & Dependencies, and Run Check.
 
+inputs:
+  tiptap-pro-token:
+    description: 'The token to access the Tiptap Pro registry'
+    required: true
+
 runs:
   using: composite
   steps:
@@ -11,6 +16,8 @@ runs:
 
     - name: Install Tools & Dependencies
       uses: ./.github/actions/install/node
+      with:
+          tiptap-pro-token: ${{ inputs.tiptap-pro-token }}
 
     - name: Run Check
       run: pnpm run check

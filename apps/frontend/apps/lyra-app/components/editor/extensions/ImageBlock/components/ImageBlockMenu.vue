@@ -70,8 +70,8 @@
           </Tooltip>
         </TooltipProvider>
 
-        <div class="w-36">
-          <Separator orientation="vertical" class="h-full" />
+        <div class="flex w-36">
+          <Separator orientation="vertical" class="w-px h-6 mx-2"/>
           <ImageBlockWidth :onChange="onWidthChange" :value="width" />
         </div>
       </div>
@@ -80,8 +80,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineProps, watch } from "vue";
-import { BubbleMenu as BaseBubbleMenu, useEditor } from "@tiptap/vue-3";
+import { ref, computed, defineProps } from "vue";
+import { BubbleMenu as BaseBubbleMenu } from "@tiptap/vue-3";
 import { sticky, type Instance } from "tippy.js";
 import { Card } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";

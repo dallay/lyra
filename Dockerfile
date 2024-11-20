@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM node:22-alpine AS base
+FROM node:23-alpine AS base
 
 # Metadata for the image
 LABEL maintainer="05barkers.airbase@icloud.com"

@@ -118,7 +118,7 @@ class HealthcheckUtilTest {
 
 ### Frontend Testing
 
-Frontend tests use a JavaScript testing framework (likely Jest or Vitest) and are located in the `apps/frontend` directory.
+Frontend tests are written using the Vitest JavaScript testing framework and are located in the `apps/frontend` directory.
 
 #### Running Frontend Tests
 

@@ -1,5 +1,5 @@
 <div align="center">
-<img src="apps/frontend/apps/lyra-landing-page/public/favicon.svg" height="50px"/> 
+<img src="apps/frontend/apps/lyra-landing-page/public/favicon.svg" height="50px"/>
 <h1>
  Lyra
 </h1>
@@ -55,6 +55,14 @@
 - [**Tailwindcss**](https://tailwindcss.com/) - A utility-first CSS framework for rapidly building custom designs.
 - [**tailwindcss-animated**](https://github.com/new-data-services/tailwindcss-animated) - Extended animation utilities for Tailwind CSS.
 - [**fontsource**](https://fontsource.org/) - Self-host Open Source fonts in neatly bundled NPM packages.
+- [**Spring Boot**](https://spring.io/projects/spring-boot) - The web framework for the backend.
+- [**Kotlin**](https://kotlinlang.org/) - A modern programming language that makes developers happier.
+- [**Gradle**](https://gradle.org/) - A powerful build tool for Java and other languages.
+- [**PostgreSQL**](https://www.postgresql.org/) - The world's most advanced open source relational database.
+- [**Keycloak**](https://www.keycloak.org/) - Open Source Identity and Access Management for modern applications and services.
+- [**Docker**](https://www.docker.com/) - A platform for developing, shipping, and running applications in containers.
+- [**Docker Compose**](https://docs.docker.com/compose/) - A tool for defining and running multi-container Docker applications.
+
 
 # Astro Starter Kit: Basics
 
@@ -116,4 +124,4 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 ![Alt](https://repobeats.axiom.co/api/embed/fcbf097295ea4254db6b733582ac982db8fa4fe6.svg "Repobeats analytics image")
 
-![Alt](https://repobeats.axiom.co/api/embed/fcbf097295ea4254db6b733582ac982db8fa4fe6.svg "Repobeats analytics image")
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/dallay/lyra)

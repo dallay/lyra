@@ -5,14 +5,17 @@ This document provides essential information for developers working on the Lyra 
 ## Build and Configuration Instructions
 
 ### Prerequisites
+
 - Java (version specified in `.java-version`)
 - Node.js (version specified in `.nvmrc`)
 - PNPM (for frontend package management)
 - Docker and Docker Compose (for running dependencies)
+- GNU Make (for using the provided Makefile targets)
 
 ### Building the Project
 
 #### Backend (Kotlin/Spring Boot)
+
 The project uses Gradle as the build tool. The Gradle wrapper (`gradlew`) is included in the repository, so you don't need to install Gradle separately.
 
 ```bash
@@ -27,6 +30,7 @@ The project uses Gradle as the build tool. The Gradle wrapper (`gradlew`) is inc
 ```
 
 You can also use the Makefile for common operations:
+
 ```bash
 # Build the project
 make build
@@ -39,6 +43,7 @@ make test
 ```
 
 #### Frontend (Node.js)
+
 The frontend uses PNPM for package management:
 
 ```bash
@@ -52,6 +57,7 @@ pnpm run build
 ### Running the Application
 
 #### Using Docker Compose
+
 The project includes Docker Compose configuration for running the application and its dependencies:
 
 ```bash
@@ -60,14 +66,28 @@ docker compose up
 
 # Start specific services
 docker compose up postgresql keycloak
+
+# Run in detached mode
+docker compose up -d
+
+# Stop services
+docker compose down
 ```
 
 #### Environment Configuration
+
 The project uses `.env` files for environment configuration. Copy `.env.example` to `.env` and adjust the values as needed:
 
 ```bash
 cp .env.example .env
 ```
+
+Key environment variables include:
+
+- `DATABASE_URL`: PostgreSQL connection string
+- `KEYCLOAK_URL`: Keycloak server URL
+- `API_KEY`: For external service authentication
+- See `.env.example` for a complete list of required variables
 
 ## Testing Information
 
@@ -86,6 +106,13 @@ Tests follow a BDD style with Given/When/Then comments and are organized by doma
 # Run all tests
 ./gradlew test
 
+# Run only unit tests (filter by annotation)
+./gradlew test --includes-category "com.lyra.app.test.UnitTest"
+
+# Run integration tests (requires PostgreSQL & Keycloak)
+docker compose up -d postgresql keycloak
+./gradlew test --includes-category "com.lyra.app.test.IntegrationTest"
+
 # Run specific test
 ./gradlew test --tests "com.lyra.app.healthcheck.HealthcheckUtilTest"
 ```
@@ -98,6 +125,7 @@ Tests follow a BDD style with Given/When/Then comments and are organized by doma
 4. Follow the Given/When/Then pattern
 
 Example:
+
 ```kotlin
 @UnitTest
 class HealthcheckUtilTest {

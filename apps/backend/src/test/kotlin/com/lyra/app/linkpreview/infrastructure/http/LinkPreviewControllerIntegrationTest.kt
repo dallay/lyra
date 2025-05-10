@@ -30,7 +30,7 @@ internal class LinkPreviewControllerIntegrationTest : ControllerIntegrationTest(
                             "Typescript, Node.js, Java/Kotlin and Spring Boot.",
                         result?.description,
                     )
-                    assertEquals("/uploads/me.webp", result?.imageUrl)
+                    assertEquals("/images/me.webp", result?.imageUrl)
                     assertEquals("https://yunielacosta.com/", result?.url)
                 }
         }

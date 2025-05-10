@@ -112,7 +112,24 @@ Tests follow a BDD style with Given/When/Then comments and are organized by doma
 # Run integration tests (requires PostgreSQL & Keycloak)
 docker compose up -d postgresql keycloak
 ./gradlew test --includes-category "com.lyra.app.test.IntegrationTest"
+### Running Backend Tests By Type
 
+```bash
+# Run all tests
+./gradlew test
+
+# Run only unit tests (filter by test class name)
+./gradlew test --tests "*UnitTest"
+
+# Alternative: Run unit tests using JUnit tags
+./gradlew test -DincludeTags=unit
+
+# Run integration tests (requires PostgreSQL & Keycloak)
+docker compose up -d postgresql keycloak
+./gradlew test --tests "*IntegrationTest"
+
+# Alternative: Run integration tests using JUnit tags
+./gradlew test -DincludeTags=integration
 # Run specific test
 ./gradlew test --tests "com.lyra.app.healthcheck.HealthcheckUtilTest"
 ```

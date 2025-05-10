@@ -85,7 +85,7 @@ runs:
         password: ${{ inputs.ci_github_token }}
 
     - name: Cache Docker Layers
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: /tmp/.buildx-cache
         key: ${{ runner.os }}-buildx-${{ inputs.target }}-${{ steps.calculate-outputs.outputs.prod_tag }}
@@ -107,7 +107,7 @@ runs:
         cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 
     - name: 🪄 Scan Docker Images for Vulnerabilities
-      uses: aquasecurity/trivy-action@0.20.0
+      uses: aquasecurity/trivy-action@0.24.0
       with:
         image-ref: ${{ steps.calculate-outputs.outputs.repo_name }}:${{ steps.calculate-outputs.outputs.prod_tag }}
         format: sarif
@@ -117,7 +117,7 @@ runs:
         cache-dir: /tmp/trivy-cache-${{ inputs.target }}
 
     - name: ⇪ Upload Trivy Scan Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: trivy-${{ inputs.target }}-report-${{ steps.calculate-outputs.outputs.prod_tag }}
         path: trivy-${{ inputs.target }}-report-${{ steps.calculate-outputs.outputs.prod_tag }}.sarif

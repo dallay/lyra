@@ -34,7 +34,7 @@ runs:
         gradle-encription-key: ${{ inputs.gradle-encryption-key }}
 
     - name: Cache Gradle Dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           ~/.gradle/caches
@@ -51,7 +51,7 @@ runs:
       shell: bash
 
     - name: 🪄 Scan Docker images for vulnerabilities
-      uses: aquasecurity/trivy-action@0.20.0
+      uses: aquasecurity/trivy-action@0.24.0
       with:
         image-ref: ghcr.io/dallay/lyra:latest
         format: sarif
@@ -61,7 +61,7 @@ runs:
         cache-dir: /tmp/trivy-cache-lyra
 
     - name: ⇪ Upload Trivy Scan Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: trivy-lyra-report
         path: trivy-lyra-report.sarif

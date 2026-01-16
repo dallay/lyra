@@ -52,7 +52,7 @@
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.3",
+    "@biomejs/biome": "1.9.4",
     "@lyra/config": "workspace:*",
     "@lyra/scripts": "workspace:*",
     "@playwright/test": "^1.48.2",

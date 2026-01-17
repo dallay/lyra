@@ -67,7 +67,7 @@
     "sass": "^1.80.4",
     "stylelint": "^16.10.0",
     "stylelint-config-standard": "^36.0.1",
-    "syncpack": "13.0.0",
+    "syncpack": "13.0.4",
     "unocss": "^0.64.1",
     "vite": "^5.4.10",
     "vitest": "^2.1.5",
